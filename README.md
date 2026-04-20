@@ -1,36 +1,106 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# letkasni.rs — Phase 1 Next.js Foundation
 
-## Getting Started
+Ovaj app prati zaključani pravac iz `PLAN.autoplan.md`:
 
-First, run the development server:
+- Next.js App Router foundation
+- native claim intake
+- conservative triage
+- Supabase-ready claim persistence
+- minimal admin auth + internal queue
+
+## Trenutni status
+
+- `/` — public claims landing + native intake
+- `/claim/submit` — route handler za intake
+- `/admin/login` — minimal admin login
+- `/admin/claims` — protected internal queue
+- `/admin/claims/[id]` — detail view + operator workflow
+- `/blog` — editorial shell za kasniji content/SEO sloj
+- `/privacy` i `/terms` — minimalni legal/trust layer
+- `robots.txt` i `sitemap.xml` — SEO foundation
+- `opengraph-image` / `twitter-image` / `manifest.webmanifest` — share + install metadata
+
+## Setup
+
+1. Kopiraj `.env.example` u `.env.local`
+2. Za lokalni admin fallback podesi:
+   - `ADMIN_EMAIL`
+   - `ADMIN_PASSWORD`
+   - `ADMIN_SESSION_SECRET`
+3. Za Supabase mode podesi:
+   - `NEXT_PUBLIC_SUPABASE_URL`
+   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+   - `SUPABASE_SERVICE_ROLE_KEY`
+4. Za live AeroDataBox lookup podesi:
+   - `FLIGHT_PROVIDER_MODE=rapidapi`
+   - `AERODATABOX_API_KEY`
+   - opciono `AERODATABOX_API_HOST`
+
+## Commands
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run lint
+npm run build
+npm run start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Deployment
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Preporučeni platform choice za ovaj app: `Vercel`
+- Minimalni health endpoint za deploy proveru: `/api/health`
+- Basic production security headers su uključeni:
+  - `X-Frame-Options: DENY`
+  - `X-Content-Type-Options: nosniff`
+  - `Referrer-Policy: strict-origin-when-cross-origin`
+  - `Permissions-Policy: camera=(), microphone=(), geolocation=(), browsing-topics=()`
+- App može biti pušten live i bez live flight provider integracije:
+  - public intake radi
+  - admin queue radi
+  - claimovi bez provider-a idu na konzervativni manual review flow
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Production env minimum
 
-## Learn More
+- `NEXT_PUBLIC_SITE_URL=https://letkasni.rs`
+- `NEXT_PUBLIC_SUPPORT_EMAIL=podrska@letkasni.rs`
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+- `SUPABASE_SERVICE_ROLE_KEY`
+- `ADMIN_SESSION_SECRET`
 
-To learn more about Next.js, take a look at the following resources:
+### Production env optional
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `NEXT_PUBLIC_GA_MEASUREMENT_ID` kada bude spreman GA4
+- flight provider env kada budemo uvodili live lookup
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Persistence modes
 
-## Deploy on Vercel
+- Bez Supabase env-a: claims idu u lokalni `.data/claims.json`
+- Sa Supabase env-om: claims idu u `public.claims`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Phase 1 guardrails
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Honeypot polje blokira najosnovniji bot spam bez dodatnog servisa
+- Basic rate limit štiti submit endpoint od kratkih burst pokušaja
+- Provider odgovor razlikuje `live_match`, `no_match`, `timeout` i `unconfigured`
+- Queue sada ima osnovne filtere po statusu, provider ishodu i verdict-u
+- `normalized_input_snapshot` sada stvarno koristi provider normalizaciju kada postoji
+
+## Optional production wiring
+
+- Analytics je spreman za env-based uključivanje:
+  - `ANALYTICS_MODE=plausible` + `PLAUSIBLE_DOMAIN`
+  - ili `ANALYTICS_MODE=ga4` + `NEXT_PUBLIC_GA_MEASUREMENT_ID`
+- Kontakt email ide kroz `NEXT_PUBLIC_SUPPORT_EMAIL`
+
+## Auth policy
+
+- Preporučeno: `Supabase Auth` za produkciju
+- `ADMIN_EMAIL` / `ADMIN_PASSWORD` local fallback ostaje koristan za development i emergency pristup
+- Nakon Supabase URL konfiguracije, admin login ekran sada eksplicitno upućuje na recovery/link troubleshooting smer
+
+## Database
+
+SQL migration za `claims` tabelu je u:
+
+- `supabase/migrations/202604181905_phase1_claims.sql`
