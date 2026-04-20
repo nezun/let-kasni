@@ -16,15 +16,26 @@ type SubmitState =
     }
   | { status: "error"; message: string };
 
-const issueOptions: Array<{ value: IssueType; label: string }> = [
-  { value: "delay_3h_plus", label: "Kašnjenje 3h+" },
-  {
-    value: "missed_connection_same_booking",
-    label: "Propuštena konekcija na istoj rezervaciji",
-  },
-  { value: "denied_boarding", label: "Odbijen ukrcaj" },
-  { value: "other", label: "Drugi problem / ručna procena" },
-];
+const issueOptions = {
+  sr: [
+    { value: "delay_3h_plus", label: "Kašnjenje 3h+" },
+    {
+      value: "missed_connection_same_booking",
+      label: "Propuštena konekcija na istoj rezervaciji",
+    },
+    { value: "denied_boarding", label: "Odbijen ukrcaj" },
+    { value: "other", label: "Drugi problem / ručna procena" },
+  ],
+  en: [
+    { value: "delay_3h_plus", label: "Delay 3h+" },
+    {
+      value: "missed_connection_same_booking",
+      label: "Missed connection on the same booking",
+    },
+    { value: "denied_boarding", label: "Denied boarding" },
+    { value: "other", label: "Other problem / manual review" },
+  ],
+} as const satisfies Record<"sr" | "en", Array<{ value: IssueType; label: string }>>;
 
 const initialForm = {
   flightNumber: "",
@@ -36,19 +47,80 @@ const initialForm = {
   website: "",
 };
 
-export function ClaimIntakeForm() {
+const formCopy = {
+  sr: {
+    eyebrow: "Claim form",
+    title: "Proveri odštetu odmah",
+    body: "Unesite osnovne podatke o letu. Prva provera traje manje od 60 sekundi i služi da odmah razdvojimo slučajeve koji deluju obećavajuće.",
+    flightNumber: "Broj leta",
+    flightPlaceholder: "npr. JU101",
+    flightDate: "Datum leta",
+    route: "Ruta ili destinacija",
+    routePlaceholder: "npr. BEG → FRA ili Beograd - Frankfurt",
+    issueType: "Šta se desilo?",
+    email: "Email",
+    emailPlaceholder: "ime@domen.rs",
+    phone: "Telefon (opciono)",
+    phonePlaceholder: "+381...",
+    buttonIdle: "Proveri besplatno",
+    buttonBusy: "Proveravamo podatke...",
+    note: "Provera traje manje od 60 sekundi i potpuno je besplatna.",
+    helper: [
+      "Bez rizika. Plaćate samo ako uspemo.",
+      "Ako nemate broj leta, unesite rutu ili destinaciju u polje ispod.",
+    ],
+    legal:
+      "Slanjem prijave prihvatate osnovnu obradu podataka radi provere slučaja. Detalji su na stranicama privatnosti i uslova korišćenja.",
+    tooMany:
+      "Previše pokušaja u kratkom roku. Sačekajte nekoliko minuta pa pokušajte ponovo.",
+    genericError:
+      "Nešto nije prošlo kako treba. Pokušajte ponovo ili pošaljite podatke malo kasnije.",
+    fallbackError:
+      "Trenutno ne možemo da završimo proveru. Sačuvajte podatke i pokušajte ponovo za nekoliko minuta.",
+    reused: "Prijava je već primljena",
+    success: "Prijava uspešno primljena",
+  },
+  en: {
+    eyebrow: "Claim form",
+    title: "Check compensation now",
+    body: "Enter the basic flight details. The first pass takes less than 60 seconds and helps separate promising cases quickly.",
+    flightNumber: "Flight number",
+    flightPlaceholder: "e.g. JU101",
+    flightDate: "Flight date",
+    route: "Route or destination",
+    routePlaceholder: "e.g. BEG → FRA or Belgrade - Frankfurt",
+    issueType: "What happened?",
+    email: "Email",
+    emailPlaceholder: "name@domain.com",
+    phone: "Phone (optional)",
+    phonePlaceholder: "+381...",
+    buttonIdle: "Check for free",
+    buttonBusy: "Checking your data...",
+    note: "The first check takes less than 60 seconds and is completely free.",
+    helper: [
+      "No upfront risk. You only pay if the case succeeds.",
+      "If you do not have the flight number, enter the route or destination below.",
+    ],
+    legal:
+      "By sending the case, you accept basic data processing for case review. Details are on the privacy and terms pages.",
+    tooMany:
+      "Too many attempts in a short period. Wait a few minutes and try again.",
+    genericError:
+      "Something went wrong. Please try again or send the details a bit later.",
+    fallbackError:
+      "We cannot complete the check right now. Save the details and try again in a few minutes.",
+    reused: "This case was already received",
+    success: "Case received successfully",
+  },
+} as const;
+
+export function ClaimIntakeForm({ locale = "sr" }: { locale?: "sr" | "en" }) {
   const [form, setForm] = useState(initialForm);
   const [submitState, setSubmitState] = useState<SubmitState>({
     status: "idle",
   });
-
-  const helperCopy = useMemo(
-    () => [
-      "Bez rizika. Plaćate samo ako uspemo.",
-      "Ako nemate broj leta, unesite rutu ili destinaciju u polje ispod.",
-    ],
-    [],
-  );
+  const t = formCopy[locale];
+  const helperCopy = useMemo(() => t.helper, [t]);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -81,8 +153,8 @@ export function ClaimIntakeForm() {
           status: "error",
           message:
             response.status === 429
-              ? "Previše pokušaja u kratkom roku. Sačekajte nekoliko minuta pa pokušajte ponovo."
-              : "Nešto nije prošlo kako treba. Pokušajte ponovo ili pošaljite podatke malo kasnije.",
+              ? t.tooMany
+              : t.genericError,
         });
         return;
       }
@@ -100,8 +172,7 @@ export function ClaimIntakeForm() {
     } catch {
       setSubmitState({
         status: "error",
-        message:
-          "Trenutno ne možemo da završimo proveru. Sačuvajte podatke i pokušajte ponovo za nekoliko minuta.",
+        message: t.fallbackError,
       });
     }
   }
@@ -113,21 +184,20 @@ export function ClaimIntakeForm() {
     >
       <div className="mb-6">
         <p className="font-mono-ui mb-3 text-[11px] font-bold uppercase tracking-[0.22em] text-brand-muted">
-          Claim form
+          {t.eyebrow}
         </p>
         <h2 className="font-display text-2xl font-bold text-brand-text">
-          Proveri odštetu odmah
+          {t.title}
         </h2>
         <p className="mt-2 text-sm leading-6 text-brand-muted">
-          Unesite osnovne podatke o letu. Prva provera traje manje od 60 sekundi
-          i služi da odmah razdvojimo slučajeve koji deluju obećavajuće.
+          {t.body}
         </p>
       </div>
 
       <form className="space-y-4" onSubmit={handleSubmit}>
         <div className="grid gap-4 md:grid-cols-2">
           <label className="field">
-            <span>Broj leta</span>
+            <span>{t.flightNumber}</span>
             <input
               required
               value={form.flightNumber}
@@ -137,13 +207,13 @@ export function ClaimIntakeForm() {
                   flightNumber: event.target.value,
                 }))
               }
-              placeholder="npr. JU101"
+              placeholder={t.flightPlaceholder}
               name="flightNumber"
             />
           </label>
 
           <label className="field">
-            <span>Datum leta</span>
+            <span>{t.flightDate}</span>
             <input
               required
               type="date"
@@ -175,7 +245,7 @@ export function ClaimIntakeForm() {
         />
 
         <label className="field">
-          <span>Ruta ili destinacija</span>
+          <span>{t.route}</span>
           <input
             required
             value={form.route}
@@ -185,13 +255,13 @@ export function ClaimIntakeForm() {
                 route: event.target.value,
               }))
             }
-            placeholder="npr. BEG → FRA ili Beograd - Frankfurt"
+            placeholder={t.routePlaceholder}
             name="route"
           />
         </label>
 
         <label className="field">
-          <span>Šta se desilo?</span>
+          <span>{t.issueType}</span>
           <select
             value={form.issueType}
             onChange={(event) =>
@@ -202,7 +272,7 @@ export function ClaimIntakeForm() {
             }
             name="issueType"
           >
-            {issueOptions.map((option) => (
+            {issueOptions[locale].map((option) => (
               <option key={option.value} value={option.value}>
                 {option.label}
               </option>
@@ -212,7 +282,7 @@ export function ClaimIntakeForm() {
 
         <div className="grid gap-4 md:grid-cols-2">
           <label className="field">
-            <span>Email</span>
+            <span>{t.email}</span>
             <input
               required
               type="email"
@@ -223,13 +293,13 @@ export function ClaimIntakeForm() {
                   email: event.target.value,
                 }))
               }
-              placeholder="ime@domen.rs"
+              placeholder={t.emailPlaceholder}
               name="email"
             />
           </label>
 
           <label className="field">
-            <span>Telefon (opciono)</span>
+            <span>{t.phone}</span>
             <input
               value={form.phone}
               onChange={(event) =>
@@ -238,7 +308,7 @@ export function ClaimIntakeForm() {
                   phone: event.target.value,
                 }))
               }
-              placeholder="+381..."
+              placeholder={t.phonePlaceholder}
               name="phone"
             />
           </label>
@@ -249,14 +319,12 @@ export function ClaimIntakeForm() {
           className="mt-4 flex min-h-14 w-full items-center justify-center gap-2 rounded-2xl bg-brand-primary py-5 text-lg font-bold text-white shadow-xl shadow-brand-primary/20 transition-all hover:bg-brand-secondary disabled:cursor-not-allowed disabled:opacity-70"
           disabled={submitState.status === "submitting"}
         >
-          {submitState.status === "submitting"
-            ? "Proveravamo podatke..."
-            : "Proveri besplatno"}
+          {submitState.status === "submitting" ? t.buttonBusy : t.buttonIdle}
           <span className="text-brand-accent">→</span>
         </button>
 
         <p className="mt-4 text-center text-xs text-brand-muted">
-          Provera traje manje od 60 sekundi i potpuno je besplatna.
+          {t.note}
         </p>
 
         <div className="grid gap-3 pt-3 sm:grid-cols-2">
@@ -271,10 +339,7 @@ export function ClaimIntakeForm() {
         </div>
 
         <div className="text-sm leading-6 text-brand-muted">
-          <p>
-            Slanjem prijave prihvatate osnovnu obradu podataka radi provere
-            slučaja. Detalji su na stranicama privatnosti i uslova korišćenja.
-          </p>
+          <p>{t.legal}</p>
         </div>
       </form>
 
@@ -287,7 +352,7 @@ export function ClaimIntakeForm() {
       {submitState.status === "success" ? (
         <div className="mt-5 rounded-3xl border border-[var(--success-border)] bg-[var(--success-bg)] p-5">
           <p className="eyebrow text-[var(--success-text)]">
-            {submitState.reused ? "Prijava je već primljena" : "Prijava uspešno primljena"}
+            {submitState.reused ? t.reused : t.success}
           </p>
           <h3 className="font-display mt-2 text-xl font-bold text-[var(--ink)]">
             {submitState.title}
