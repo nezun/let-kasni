@@ -13,12 +13,12 @@ const plusJakarta = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   title: "letkasni.rs | Provera avio odštete",
   description:
-    "Claims handoff servis za putnike iz Srbije. Pošaljite podatke o letu i dobijte konzervativnu procenu sledećeg koraka.",
+    "Pošaljite podatke o letu i dobijte početnu procenu da li vaš slučaj vredi dalje proveravati po EU 261 / ECAA okviru.",
   metadataBase: new URL(getSiteUrl()),
   openGraph: {
     title: "letkasni.rs | Provera avio odštete",
     description:
-      "Pošaljite osnovne podatke o letu i dobijte konzervativnu procenu sledećeg koraka za EU 261 / ECAA claim.",
+      "Pošaljite osnovne podatke o letu i dobijte početnu procenu sledećeg koraka za moguću avio odštetu.",
     type: "website",
     locale: "sr_RS",
     images: [
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "letkasni.rs | Provera avio odštete",
     description:
-      "Claims handoff servis za putnike iz Srbije sa konzervativnom procenom i ručnim follow-up-om.",
+      "Početna procena moguće avio odštete za putnike iz Srbije, uz jasan sledeći korak i bez praznih obećanja.",
     images: ["/twitter-image"],
   },
 };

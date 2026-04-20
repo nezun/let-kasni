@@ -11,12 +11,12 @@ const steps = [
   },
   {
     title: "Mi proverimo osnov",
-    body: "U prvoj fazi dajemo konzervativnu procenu i obaramo sve nejasne slučajeve na ručnu proveru.",
+    body: "Poređujemo okolnosti leta sa pravilima EU 261 / ECAA i proveravamo da li slučaj deluje održivo za dalje korake.",
     meta: "u roku od 24h",
   },
   {
     title: "Dobijate sledeći korak",
-    body: "Ako slučaj deluje održivo, javljamo šta je potrebno za nastavak i preuzimamo dalje vođenje.",
+    body: "Ako slučaj deluje obećavajuće, javljamo šta dalje treba pripremiti i da li ima smisla nastaviti proceduru.",
     meta: "250–600 EUR potencijalno",
   },
 ];
@@ -49,7 +49,7 @@ export default function HomePage() {
         name: "letkasni.rs",
         url: "https://letkasni.rs",
         description:
-          "Claims handoff servis za proveru potencijalne avio odštete za putnike iz Srbije.",
+          "Početna provera moguće avio odštete za putnike iz Srbije.",
       },
       {
         "@type": "FAQPage",
@@ -74,15 +74,15 @@ export default function HomePage() {
       <section className="border-b border-[var(--border)]">
         <div className="mx-auto grid max-w-6xl gap-12 px-6 py-16 md:grid-cols-[1.05fr_0.95fr] md:py-24">
           <div className="pt-2">
-            <p className="eyebrow mb-5">Claims handoff service</p>
+            <p className="eyebrow mb-5">Početna provera prava putnika</p>
             <h1 className="max-w-3xl text-4xl font-bold leading-tight tracking-[-0.03em] text-[var(--ink)] md:text-6xl">
               Vaš let je kasnio? Možda imate pravo na 250–600 EUR.
             </h1>
             <p className="mt-5 max-w-2xl text-lg leading-8 text-[var(--muted)]">
               EU Regulativa 261/2004 može biti relevantna i za putnike iz Srbije
-              kroz ECAA okvir. Pošaljite osnovne podatke, dobijte konzervativnu
-              procenu i jasan sledeći korak bez beskrajnog dopisivanja sa
-              avio-kompanijom.
+              kroz ECAA okvir. Pošaljite osnovne podatke, dobijte početnu
+              procenu i jasan sledeći korak pre nego što trošite vreme na
+              dopisivanje sa avio-kompanijom.
             </p>
 
             <div className="mt-8 grid gap-4 sm:grid-cols-3">
@@ -99,7 +99,7 @@ export default function HomePage() {
                 </p>
               </div>
               <div className="surface-panel rounded-3xl p-5">
-                <p className="eyebrow mb-2">Phase 1 scope</p>
+                <p className="eyebrow mb-2">Najčešći slučajevi</p>
                 <p className="text-xl font-bold tracking-[-0.03em] text-[var(--ink)]">
                   3h+ kašnjenje i missed connection
                 </p>
@@ -123,7 +123,7 @@ export default function HomePage() {
         <div className="mb-10 max-w-2xl">
           <p className="eyebrow mb-3">Kako radi</p>
           <h2 className="text-3xl font-bold tracking-[-0.03em] text-[var(--ink)] md:text-4xl">
-            Kratak put od problema do handoff-a
+            Kratak put od problema do prve procene
           </h2>
         </div>
 
@@ -153,28 +153,29 @@ export default function HomePage() {
               EU 261 / ECAA
             </h3>
             <p className="mt-3 text-sm leading-7 text-[var(--muted)]">
-              Proof line ostaje faktička: regulativa, primenljivost, opseg
-              kompenzacije. Bez agresivnih marketinških obećanja.
+              Osnov procene je faktički: ruta, prevoznik, vrsta poremećaja i
+              okvir moguće naknade. Bez agresivnih obećanja unapred.
             </p>
           </div>
           <div className="rounded-[28px] border border-[var(--border)] p-6">
-            <p className="eyebrow mb-3">Guardrail</p>
+            <p className="eyebrow mb-3">Način rada</p>
             <h3 className="text-xl font-bold tracking-[-0.03em] text-[var(--ink)]">
-              Konzervativna procena
+              Razumna prva procena
             </h3>
             <p className="mt-3 text-sm leading-7 text-[var(--muted)]">
-              Ako signal nije dovoljno jak, claim ne pokušava da zvuči pametno:
-              ide direktno na manual review.
+              Ako okolnosti nisu dovoljno jasne, ne dajemo lažnu sigurnost.
+              Cilj je da brzo razdvojimo obećavajuće slučajeve od onih koji traže
+              dodatnu proveru.
             </p>
           </div>
           <div className="rounded-[28px] border border-[var(--border)] p-6">
-            <p className="eyebrow mb-3">Operator flow</p>
+            <p className="eyebrow mb-3">Šta dobijate</p>
             <h3 className="text-xl font-bold tracking-[-0.03em] text-[var(--ink)]">
-              Internal queue spreman za širenje
+              Jasan sledeći korak
             </h3>
             <p className="mt-3 text-sm leading-7 text-[var(--muted)]">
-              Postoji minimalni admin entry point na <code>/admin/claims</code>,
-              sledeći korak je realan provider signal i Supabase produkcioni wiring.
+              Umesto generičkog kalkulatora, dobijate odgovor da li slučaj deluje
+              vredno dalje provere i šta treba pripremiti za nastavak.
             </p>
           </div>
         </div>
@@ -208,8 +209,8 @@ export default function HomePage() {
       <footer className="border-t border-[var(--border)] bg-white">
         <div className="mx-auto flex max-w-6xl flex-col gap-4 px-6 py-8 text-sm text-[var(--muted)] md:flex-row md:items-center md:justify-between">
           <p>
-            letkasni.rs je claims handoff servis. Prva faza daje konzervativnu procenu,
-            ne garantovanu odštetu.
+            letkasni.rs pomaže da brzo proverite da li vaš slučaj deluje vredno
+            dalje procedure. Početna procena nije garancija odštete.
           </p>
           <div className="flex gap-4">
             <Link href="/privacy" className="font-medium text-[var(--ink)]">

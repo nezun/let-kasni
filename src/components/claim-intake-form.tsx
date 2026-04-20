@@ -94,7 +94,7 @@ export function ClaimIntakeForm() {
         body:
           data.claim.providerStatus === "live_match"
             ? data.claim.verdictBody
-            : `${data.claim.verdictBody} Trenutno računamo na ručni follow-up umesto automatske potvrde providerom.`,
+            : `${data.claim.verdictBody} Ako okolnosti nisu dovoljno jasne, javljamo vam sledeći korak nakon dodatne provere.`,
         reference: data.claim.id.slice(0, 8).toUpperCase(),
       });
     } catch {
@@ -109,13 +109,13 @@ export function ClaimIntakeForm() {
   return (
     <div className="surface-card rounded-[28px] p-6 shadow-[0_24px_70px_rgba(17,24,39,0.08)] md:p-8">
       <div className="mb-6">
-        <p className="eyebrow mb-3">Phase 1 native intake</p>
+        <p className="eyebrow mb-3">Pošaljite podatke o letu</p>
         <h2 className="text-2xl font-bold tracking-[-0.03em] text-[var(--ink)]">
           Proverite pravo na odštetu
         </h2>
         <p className="mt-2 text-sm leading-6 text-[var(--muted)]">
-          Unesite osnovne podatke o letu. U prvoj fazi dajemo samo konzervativnu
-          procenu i ručni follow-up kada je potreban.
+          Unesite osnovne podatke o letu. Dobijate početnu procenu i odgovor da
+          li slučaj vredi dalje proveravati.
         </p>
       </div>
 

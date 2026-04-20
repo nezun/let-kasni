@@ -6,7 +6,8 @@ const requiredSupabaseKeys = [
 
 export function getEnv(name: string) {
   const value = process.env[name];
-  return value && value.trim().length > 0 ? value : undefined;
+  const trimmed = value?.trim();
+  return trimmed && trimmed.length > 0 ? trimmed : undefined;
 }
 
 export function getFlightProviderMode() {
