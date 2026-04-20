@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="sr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>A3 — Guided Final</title>
+    <style>
+      :root {
+        --bg: #f2f7fc;
+        --surface: #ffffff;
+        --surface-soft: #edf4fb;
+        --text: #132133;
+        --muted: #617386;
+        --line: #d7e1eb;
+        --brand: #1f5eff;
+        --brand-dark: #123eaf;
+        --accent: #f88a2a;
+        --shadow: 0 18px 56px rgba(18, 35, 58, 0.08);
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(circle at top left, rgba(31,94,255,0.08), transparent 26%),
+          linear-gradient(180deg, #fbfdff, var(--bg));
+      }
+      a { color: inherit; text-decoration: none; }
+      .page { max-width: 1240px; margin: 0 auto; padding: 24px; }
+      .nav {
+        display: flex; justify-content: space-between; align-items: center;
+        padding-bottom: 24px;
+      }
+      .brand { font-weight: 800; font-size: 1.2rem; letter-spacing: -0.04em; }
+      .brand span { color: var(--brand); }
+      .nav-links { display: flex; gap: 24px; color: var(--muted); font-size: 0.95rem; }
+      .hero {
+        display: grid; grid-template-columns: 1.08fr 0.92fr; gap: 22px;
+      }
+      .panel {
+        background: rgba(255,255,255,0.84); border: 1px solid var(--line);
+        border-radius: 34px; box-shadow: var(--shadow); backdrop-filter: blur(12px);
+      }
+      .hero-copy { padding: 48px; }
+      .eyebrow {
+        display: inline-flex; padding: 8px 14px; border-radius: 999px;
+        background: rgba(31,94,255,0.10); color: var(--brand-dark); font-weight: 800; font-size: 0.82rem;
+      }
+      h1 {
+        margin: 18px 0 16px;
+        font-size: clamp(2.9rem, 5vw, 4.9rem);
+        line-height: 0.93; letter-spacing: -0.06em;
+        max-width: 10ch;
+      }
+      .lead { font-size: 1.1rem; line-height: 1.75; color: var(--muted); max-width: 56ch; }
+      .guide {
+        margin-top: 26px; display: grid; gap: 12px;
+      }
+      .guide-item {
+        display: grid; grid-template-columns: 42px 1fr; gap: 14px;
+        padding: 16px 18px; border-radius: 20px;
+        background: var(--surface); border: 1px solid var(--line);
+      }
+      .guide-num {
+        width: 42px; height: 42px; display: grid; place-items: center;
+        border-radius: 14px; background: rgba(31,94,255,0.10); color: var(--brand); font-weight: 800;
+      }
+      .guide-item strong { display: block; margin-bottom: 6px; }
+      .hero-form { padding: 24px; }
+      .form-top {
+        padding: 24px; border-radius: 24px;
+        background: linear-gradient(160deg, #164bd6, #1f5eff 54%, #7ca2ff);
+        color: white;
+      }
+      .form-top h2 { margin: 0 0 8px; font-size: 1.55rem; letter-spacing: -0.04em; }
+      .form-top p { margin: 0; line-height: 1.65; opacity: 0.94; }
+      .helper {
+        margin-top: 12px; padding: 12px 14px; border-radius: 16px;
+        background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.16);
+        font-size: 0.9rem; line-height: 1.6;
+      }
+      .form { margin-top: 18px; display: grid; gap: 14px; }
+      label { display: grid; gap: 8px; font-size: 0.92rem; font-weight: 700; }
+      input, select, textarea {
+        width: 100%; padding: 15px 16px; border-radius: 16px;
+        border: 1px solid var(--line); background: var(--surface); font: inherit; color: var(--text);
+      }
+      textarea { min-height: 100px; resize: vertical; }
+      .two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+      .submit {
+        border: 0; border-radius: 18px; padding: 16px 18px;
+        background: var(--accent); color: white; font: inherit; font-weight: 800;
+      }
+      .microcopy { margin-top: 12px; color: var(--muted); font-size: 0.86rem; line-height: 1.62; }
+      .section { margin-top: 24px; }
+      .section-grid {
+        display: grid; grid-template-columns: 1fr 1fr; gap: 22px;
+      }
+      .card {
+        padding: 28px; background: var(--surface); border: 1px solid var(--line);
+        border-radius: 28px; box-shadow: var(--shadow);
+      }
+      .card h3 { margin: 0 0 12px; font-size: 1.55rem; letter-spacing: -0.04em; }
+      .list, .faq, .pills, .steps { display: grid; gap: 14px; }
+      .item, .faq-item, .pill-card, .step {
+        padding: 18px 20px; border-radius: 20px;
+        background: var(--surface-soft); border: 1px solid var(--line);
+      }
+      .item strong, .faq-item strong, .pill-card strong, .step strong { display: block; margin-bottom: 8px; }
+      .supported {
+        display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+      }
+      .support-card {
+        padding: 20px; border-radius: 22px; background: var(--surface);
+        border: 1px solid var(--line); box-shadow: var(--shadow);
+      }
+      .support-card .tag {
+        display: inline-flex; margin-bottom: 10px; padding: 7px 10px; border-radius: 999px;
+        background: rgba(31,94,255,0.10); color: var(--brand-dark); font-size: 0.8rem; font-weight: 800;
+      }
+      .support-card h4 {
+        margin: 0 0 8px; font-size: 1.12rem; letter-spacing: -0.03em;
+      }
+      .support-card p { margin: 0; color: var(--muted); line-height: 1.7; }
+      .cta {
+        margin-top: 24px; padding: 32px; border-radius: 30px;
+        background: linear-gradient(140deg, #143eb2, #1f5eff 58%, #7ca2ff);
+        color: white; display: grid; grid-template-columns: 1.1fr auto; gap: 16px; align-items: center;
+        box-shadow: var(--shadow);
+      }
+      .cta h3 { margin: 0 0 8px; font-size: 2rem; letter-spacing: -0.04em; }
+      .cta p { margin: 0; opacity: 0.92; line-height: 1.7; }
+      .cta a {
+        padding: 16px 18px; border-radius: 18px; background: white; color: var(--brand-dark); font-weight: 800;
+      }
+      footer {
+        margin-top: 24px; padding: 24px 0 8px; color: var(--muted);
+        display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 0.9rem;
+      }
+      @media (max-width: 980px) {
+        .hero, .two, .section-grid, .supported, .cta { grid-template-columns: 1fr; }
+        .hero-copy, .hero-form, .card, .cta { padding: 24px; }
+        .nav { flex-wrap: wrap; gap: 14px; }
+        .nav-links { flex-wrap: wrap; gap: 14px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <nav class="nav">
+        <div class="brand">LET<span>KASNI</span></div>
+        <div class="nav-links">
+          <a href="#vodic">Kako počinje</a>
+          <a href="#slucajevi">Slučajevi</a>
+          <a href="#faq">FAQ</a>
+        </div>
+      </nav>
+
+      <section class="hero">
+        <div class="panel hero-copy">
+          <div class="eyebrow">Guided A varijanta</div>
+          <h1>Ne morate prvo da čitate propise. Dovoljno je da pošaljete šta vam se desilo sa letom.</h1>
+          <div class="lead">
+            Ova verzija vodi korisnika kroz odluku mnogo mirnije. Manje izgleda kao “kalkulator”, a više kao jasno vođen servis koji razume šta putnik pokušava da reši.
+          </div>
+          <div class="guide" id="vodic">
+            <div class="guide-item">
+              <div class="guide-num">1</div>
+              <div>
+                <strong>Vi opišete problem</strong>
+                Broj leta, datum, tip poremećaja i par reči o tome šta se dogodilo.
+              </div>
+            </div>
+            <div class="guide-item">
+              <div class="guide-num">2</div>
+              <div>
+                <strong>Sistem proverava da li slučaj ima smisla</strong>
+                Ako podaci daju čist signal, slučaj dobija preliminarni status.
+              </div>
+            </div>
+            <div class="guide-item">
+              <div class="guide-num">3</div>
+              <div>
+                <strong>Ako nije dovoljno jasno, ide ručna provera</strong>
+                Bolje to nego da dobijete previše samouveren odgovor bez osnova.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel hero-form">
+          <div class="form-top">
+            <h2>Pošaljite slučaj</h2>
+            <p>Prvi korak je jednostavan. Cilj nije da sada rešite ceo postupak, nego da brzo vidite da li slučaj vredi dalje pratiti.</p>
+            <div class="helper">Trenutno su najčistiji phase 1 slučajevi: kašnjenje 3h+ i propuštena konekcija na istoj rezervaciji.</div>
+          </div>
+          <div class="form">
+            <label>Broj leta <input placeholder="JU170" /></label>
+            <div class="two">
+              <label>Datum leta <input placeholder="16.04.2026" /></label>
+              <label>Vrsta problema
+                <select>
+                  <option>Kašnjenje preko 3 sata</option>
+                  <option>Propuštena konekcija</option>
+                </select>
+              </label>
+            </div>
+            <label>Ruta ili destinacija <input placeholder="BEG → Amsterdam → Hanoi" /></label>
+            <label>Email <input placeholder="ime@email.com" /></label>
+            <label>Telefon (opciono) <input placeholder="+381..." /></label>
+            <label>Šta se desilo?
+              <textarea placeholder="Kasnio je prvi segment puta, propustio sam nastavak i morao sam sam da rešavam dalje putovanje."></textarea>
+            </label>
+            <button class="submit" type="button">Pošalji na proveru</button>
+          </div>
+          <div class="microcopy">
+            Ako slučaj ne ulazi u jasan phase 1 okvir, nećete dobiti lažnu potvrdu. Takvi slučajevi idu u dodatni pregled.
+          </div>
+        </div>
+      </section>
+
+      <section class="section supported" id="slucajevi">
+        <div class="support-card">
+          <div class="tag">Podržano</div>
+          <h4>Kašnjenje 3h+</h4>
+          <p>Najjači phase 1 slučaj za preliminarnu proveru i dalju obradu.</p>
+        </div>
+        <div class="support-card">
+          <div class="tag">Podržano</div>
+          <h4>Propuštena konekcija</h4>
+          <p>Posebno kada je ceo put bio na istoj rezervaciji i prvi segment poremetio ostatak puta.</p>
+        </div>
+        <div class="support-card">
+          <div class="tag">Ručna provera</div>
+          <h4>Ostali slučajevi</h4>
+          <p>Denied boarding, baggage i slični edge case scenariji nisu fokus prve verzije toka.</p>
+        </div>
+      </section>
+
+      <section class="section section-grid">
+        <div class="card">
+          <h3>Zašto ovaj smer može da bude najbliži realnom korisniku</h3>
+          <div class="list">
+            <div class="item">
+              <strong>Najmanje deluje kao marketinški trik</strong>
+              Prvi utisak je da neko razume problem, ne da samo pokušava da izvuče lead.
+            </div>
+            <div class="item">
+              <strong>Najbolje radi za zbunjenog korisnika</strong>
+              Čovek kome je let napravio haos češće hoće vođenje nego “komercijalni kalkulator”.
+            </div>
+            <div class="item">
+              <strong>Dobro podnosi konzervativan trust model</strong>
+              Lako komunicira da postoji preliminarni signal, ali ne i prenagljena sigurnost.
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Šta sajt mora jasno da obeća</h3>
+          <div class="pills">
+            <div class="pill-card">
+              <strong>Brz početak</strong>
+              Korisnik može da pošalje slučaj bez pripreme dokumenata.
+            </div>
+            <div class="pill-card">
+              <strong>Jasne granice</strong>
+              Sajt otvoreno kaže koje situacije najbolje podržava u fazi 1.
+            </div>
+            <div class="pill-card">
+              <strong>Pošten sledeći korak</strong>
+              Ako slučaj nije jasan, to nije sakriveno iza generičkog success ekrana.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-grid">
+        <div class="card">
+          <h3>Šta se dešava posle slanja</h3>
+          <div class="steps">
+            <div class="step">
+              <strong>Slučaj dobija preliminarni status</strong>
+              Na osnovu unetih podataka i dostupnog signala.
+            </div>
+            <div class="step">
+              <strong>Ulazi u dalji tok</strong>
+              Prijava ima operativni nastavak, a ne ostaje samo forma.
+            </div>
+            <div class="step">
+              <strong>Nejasni slučajevi se ne gube</strong>
+              Oni dobijaju ručni pregled umesto automatskog odbacivanja.
+            </div>
+          </div>
+        </div>
+        <div class="card" id="faq">
+          <h3>FAQ</h3>
+          <div class="faq">
+            <div class="faq-item">
+              <strong>Da li je dovoljno da znam samo da je let kasnio?</strong>
+              Za prvi korak uglavnom jeste, ali opis šta se dalje dogodilo često menja procenu.
+            </div>
+            <div class="faq-item">
+              <strong>Da li mogu da pošaljem slučaj i ako nisam siguran da li je ista rezervacija?</strong>
+              Možete, ali takav slučaj može završiti u ručnoj proveri ako podaci nisu dovoljno jasni.
+            </div>
+            <div class="faq-item">
+              <strong>Zašto nema agresivnog obećanja naknade?</strong>
+              Zato što je kredibilitet proizvoda važniji od kratkoročnog marketinškog efekta.
+            </div>
+            <div class="faq-item">
+              <strong>Da li odmah kreće ceo postupak?</strong>
+              Prvi korak je procena i ulazak slučaja u dalji tok, ne automatsko finalno procesuiranje svake prijave.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="cta">
+        <div>
+          <h3>Ako vam je let već napravio štetu, nemojte prvo lutati po forumima i oglasima.</h3>
+          <p>Pošaljite slučaj dok su detalji sveži. Ako ima smisla, to će se videti. Ako nema, znaćete i to.</p>
+        </div>
+        <a href="#vodic">Krenite od provere</a>
+      </section>
+
+      <footer>
+        <div>LETKASNI</div>
+        <div>Sadržaj sajta služi za preliminarnu procenu slučaja i ne predstavlja konačan zaključak za svaki pojedinačni scenario.</div>
+      </footer>
+    </div>
+  </body>
+</html>

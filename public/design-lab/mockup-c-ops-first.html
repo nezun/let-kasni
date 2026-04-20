@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="sr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mockup C — Ops First</title>
+    <style>
+      :root {
+        --bg: #ebf1f6;
+        --ink: #112033;
+        --muted: #5f7083;
+        --surface: #ffffff;
+        --line: #d0d9e4;
+        --dark: #13253f;
+        --brand: #0f766e;
+        --brand-soft: rgba(15, 118, 110, 0.10);
+        --accent: #f5822a;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+        color: var(--ink);
+        background:
+          linear-gradient(180deg, rgba(15,118,110,0.08), transparent 25%),
+          var(--bg);
+      }
+      .wrap { max-width: 1220px; margin: 0 auto; padding: 22px; }
+      .topbar {
+        display: grid; grid-template-columns: 220px 1fr 280px; gap: 18px; align-items: center;
+        margin-bottom: 20px;
+      }
+      .brand, .mini, .statusbar {
+        background: rgba(255,255,255,0.84); border: 1px solid var(--line); border-radius: 22px;
+        padding: 16px 18px;
+      }
+      .brand { font-weight: 800; letter-spacing: -0.04em; }
+      .brand span { color: var(--brand); }
+      .statusbar {
+        display: flex; justify-content: space-between; gap: 16px; color: var(--muted); font-size: 0.92rem;
+      }
+      .hero {
+        display: grid; grid-template-columns: 1fr 360px; gap: 20px; align-items: start;
+      }
+      .hero-main {
+        background: linear-gradient(180deg, rgba(255,255,255,0.88), rgba(255,255,255,0.72));
+        border: 1px solid var(--line); border-radius: 30px; padding: 34px;
+      }
+      .hero-main h1 {
+        margin: 12px 0 14px; font-size: clamp(2.8rem, 5vw, 4.7rem);
+        line-height: 0.94; letter-spacing: -0.06em; max-width: 11ch;
+      }
+      .eyebrow {
+        display: inline-flex; gap: 8px; align-items: center; padding: 8px 12px;
+        border-radius: 999px; background: var(--brand-soft); color: var(--brand);
+        font-weight: 800; font-size: 0.82rem;
+      }
+      .lead { color: var(--muted); line-height: 1.75; max-width: 58ch; font-size: 1.06rem; }
+      .ops-grid {
+        display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 24px;
+      }
+      .ops-box {
+        background: var(--surface); border: 1px solid var(--line); border-radius: 22px; padding: 18px;
+      }
+      .ops-box .label { color: var(--muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; }
+      .ops-box .value { margin-top: 8px; font-size: 1.32rem; font-weight: 800; letter-spacing: -0.04em; }
+      .sidebar {
+        background: var(--dark); color: #ecf2f8; border-radius: 30px; padding: 22px;
+      }
+      .sidebar h2 { margin: 0 0 8px; font-size: 1.34rem; }
+      .sidebar p { color: rgba(236,242,248,0.76); line-height: 1.65; }
+      .metric {
+        display: flex; justify-content: space-between; gap: 14px;
+        padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1);
+      }
+      .metric:last-of-type { border-bottom: 0; }
+      .metric strong { color: white; }
+      .submit {
+        width: 100%; margin-top: 14px; border: 0; border-radius: 16px; padding: 15px 16px;
+        background: var(--accent); color: white; font: inherit; font-weight: 800;
+      }
+      .stack {
+        margin-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+      }
+      .panel {
+        background: var(--surface); border: 1px solid var(--line); border-radius: 26px; padding: 26px;
+      }
+      .panel h3 { margin: 0 0 12px; font-size: 1.55rem; letter-spacing: -0.04em; }
+      .queue {
+        display: grid; gap: 12px;
+      }
+      .queue-item {
+        display: grid; grid-template-columns: 1.4fr 0.9fr 0.9fr; gap: 12px;
+        padding: 14px 16px; border-radius: 16px; background: #f5f8fb; border: 1px solid var(--line);
+      }
+      .pill {
+        display: inline-flex; padding: 7px 10px; border-radius: 999px;
+        background: var(--brand-soft); color: var(--brand); font-size: 0.82rem; font-weight: 800;
+      }
+      .faq {
+        display: grid; gap: 10px;
+      }
+      .faq .item { padding: 16px 18px; border-radius: 16px; background: #f5f8fb; border: 1px solid var(--line); }
+      @media (max-width: 980px) {
+        .topbar, .hero, .stack, .ops-grid, .queue-item { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="topbar">
+        <div class="brand">LET<span>KASNI</span></div>
+        <div class="mini">Consumer utility smer sa jačim osećajem sistema, procesa i queue logike.</div>
+        <div class="statusbar"><span>Live lookup</span><span>Manual fallback</span><span>Supabase queue</span></div>
+      </div>
+
+      <section class="hero">
+        <div class="hero-main">
+          <div class="eyebrow">Ops-first visual language</div>
+          <h1>Ne samo “proveri pravo”. Predaj slučaj u sistem koji ga stvarno prati.</h1>
+          <div class="lead">
+            Ovaj pravac je najbliži proizvodu koji si zapravo planirao kroz autoplan. Više liči na claims operating system sa public-facing intake slojem nego na klasičan marketing landing.
+          </div>
+          <div class="ops-grid">
+            <div class="ops-box">
+              <div class="label">Intake</div>
+              <div class="value">Native flow</div>
+            </div>
+            <div class="ops-box">
+              <div class="label">Verdict</div>
+              <div class="value">Conservative</div>
+            </div>
+            <div class="ops-box">
+              <div class="label">Queue</div>
+              <div class="value">Operator-ready</div>
+            </div>
+          </div>
+        </div>
+
+        <aside class="sidebar">
+          <h2>Šta korisnik dobija odmah</h2>
+          <p>Nije obećanje od 600 EUR. Nije “javićemo vam se”. Nego kontrolisan prvi signal i osećaj da postoji pravi tok posle slanja.</p>
+          <div class="metric"><span>Podržani slučajevi</span><strong>Delay + same-booking missed connection</strong></div>
+          <div class="metric"><span>Nejasan signal</span><strong>Ručna provera</strong></div>
+          <div class="metric"><span>Dupli submit</span><strong>Idempotent</strong></div>
+          <button class="submit">Pošalji claim</button>
+        </aside>
+      </section>
+
+      <section class="stack">
+        <div class="panel">
+          <h3>Zašto ovaj smer može da bude pravi</h3>
+          <div class="queue">
+            <div class="queue-item">
+              <div><strong>Bolje mapira pravi proizvod</strong><br /><span>Vizuelni jezik prati queue, verdict i handoff logiku.</span></div>
+              <div><span class="pill">Trust</span></div>
+              <div><span class="pill">Clarity</span></div>
+            </div>
+            <div class="queue-item">
+              <div><strong>Manje liči na generičan claim sajt</strong><br /><span>Deluje kao sistem, ne samo kao ad landing.</span></div>
+              <div><span class="pill">Distinctive</span></div>
+              <div><span class="pill">Utility</span></div>
+            </div>
+            <div class="queue-item">
+              <div><strong>Može lako da pretera</strong><br /><span>Ako UI ode predaleko u ops smer, korisnik vidi previše unutrašnje logike.</span></div>
+              <div><span class="pill">Risk</span></div>
+              <div><span class="pill">Abstraction</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3>FAQ / objection handling</h3>
+          <div class="faq">
+            <div class="item"><strong>Da li odmah znate da imam pravo?</strong><br />Ne. Ako signal nije dovoljno čist, slučaj ide u ručnu proveru.</div>
+            <div class="item"><strong>Zašto tražite samo minimum?</strong><br />Zato što je cilj da se slučaj brzo preda, a ne da korisnik odmah upadne u papirologiju.</div>
+            <div class="item"><strong>Šta se dešava posle?</strong><br />Claim ulazi u interni queue i dobija sledeći korak, umesto da nestane u inboxu.</div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>

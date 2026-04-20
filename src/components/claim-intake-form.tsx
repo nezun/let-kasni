@@ -178,41 +178,33 @@ export function ClaimIntakeForm({ locale = "sr" }: { locale?: "sr" | "en" }) {
   }
 
   return (
-    <div
-      id="claim-form"
-      className="surface-card rounded-[2.5rem] p-8 md:p-10"
-    >
-      <div className="mb-6">
-        <p className="font-mono-ui mb-3 text-[11px] font-bold uppercase tracking-[0.22em] text-brand-muted">
-          {t.eyebrow}
-        </p>
-        <h2 className="font-display text-2xl font-bold text-brand-text">
-          {t.title}
-        </h2>
-        <p className="mt-2 text-sm leading-6 text-brand-muted">
-          {t.body}
-        </p>
+    <div id="claim-form" className="lk-form-shell">
+      <div className="lk-form-top">
+        <div className="lk-form-eyebrow">{t.eyebrow}</div>
+        <h2>{t.title}</h2>
+        <p>{t.body}</p>
       </div>
 
-      <form className="space-y-4" onSubmit={handleSubmit}>
-        <div className="grid gap-4 md:grid-cols-2">
-          <label className="field">
-            <span>{t.flightNumber}</span>
-            <input
-              required
-              value={form.flightNumber}
-              onChange={(event) =>
-                setForm((current) => ({
-                  ...current,
-                  flightNumber: event.target.value,
-                }))
-              }
-              placeholder={t.flightPlaceholder}
-              name="flightNumber"
-            />
-          </label>
+      <form className="lk-form-grid" onSubmit={handleSubmit}>
+        <label className="lk-form-label">
+          <span>{t.flightNumber}</span>
+          <input
+            required
+            value={form.flightNumber}
+            onChange={(event) =>
+              setForm((current) => ({
+                ...current,
+                flightNumber: event.target.value,
+              }))
+            }
+            placeholder={t.flightPlaceholder}
+            name="flightNumber"
+            className="lk-control"
+          />
+        </label>
 
-          <label className="field">
+        <div className="lk-two">
+          <label className="lk-form-label">
             <span>{t.flightDate}</span>
             <input
               required
@@ -225,7 +217,29 @@ export function ClaimIntakeForm({ locale = "sr" }: { locale?: "sr" | "en" }) {
                 }))
               }
               name="flightDate"
+              className="lk-control"
             />
+          </label>
+
+          <label className="lk-form-label">
+            <span>{t.issueType}</span>
+            <select
+              value={form.issueType}
+              onChange={(event) =>
+                setForm((current) => ({
+                  ...current,
+                  issueType: event.target.value as IssueType,
+                }))
+              }
+              name="issueType"
+              className="lk-control"
+            >
+              {issueOptions[locale].map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
           </label>
         </div>
 
@@ -244,7 +258,7 @@ export function ClaimIntakeForm({ locale = "sr" }: { locale?: "sr" | "en" }) {
           name="website"
         />
 
-        <label className="field">
+        <label className="lk-form-label">
           <span>{t.route}</span>
           <input
             required
@@ -257,31 +271,12 @@ export function ClaimIntakeForm({ locale = "sr" }: { locale?: "sr" | "en" }) {
             }
             placeholder={t.routePlaceholder}
             name="route"
+            className="lk-control"
           />
         </label>
 
-        <label className="field">
-          <span>{t.issueType}</span>
-          <select
-            value={form.issueType}
-            onChange={(event) =>
-              setForm((current) => ({
-                ...current,
-                issueType: event.target.value as IssueType,
-              }))
-            }
-            name="issueType"
-          >
-            {issueOptions[locale].map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
-        </label>
-
-        <div className="grid gap-4 md:grid-cols-2">
-          <label className="field">
+        <div className="lk-two">
+          <label className="lk-form-label">
             <span>{t.email}</span>
             <input
               required
@@ -295,10 +290,11 @@ export function ClaimIntakeForm({ locale = "sr" }: { locale?: "sr" | "en" }) {
               }
               placeholder={t.emailPlaceholder}
               name="email"
+              className="lk-control"
             />
           </label>
 
-          <label className="field">
+          <label className="lk-form-label">
             <span>{t.phone}</span>
             <input
               value={form.phone}
@@ -310,58 +306,48 @@ export function ClaimIntakeForm({ locale = "sr" }: { locale?: "sr" | "en" }) {
               }
               placeholder={t.phonePlaceholder}
               name="phone"
+              className="lk-control"
             />
           </label>
         </div>
 
         <button
           type="submit"
-          className="mt-4 flex min-h-14 w-full items-center justify-center gap-2 rounded-2xl bg-brand-primary py-5 text-lg font-bold text-white shadow-xl shadow-brand-primary/20 transition-all hover:bg-brand-secondary disabled:cursor-not-allowed disabled:opacity-70"
+          className="lk-submit"
           disabled={submitState.status === "submitting"}
         >
           {submitState.status === "submitting" ? t.buttonBusy : t.buttonIdle}
-          <span className="text-brand-accent">→</span>
+          <span>→</span>
         </button>
-
-        <p className="mt-4 text-center text-xs text-brand-muted">
-          {t.note}
-        </p>
-
-        <div className="grid gap-3 pt-3 sm:grid-cols-2">
-          {helperCopy.map((item) => (
-            <div
-              key={item}
-              className="rounded-2xl border border-brand-border bg-brand-surface-alt/80 px-4 py-3 text-sm font-medium text-brand-text"
-            >
-              {item}
-            </div>
-          ))}
-        </div>
-
-        <div className="text-sm leading-6 text-brand-muted">
-          <p>{t.legal}</p>
-        </div>
       </form>
 
+      <p className="lk-form-note">{t.note}</p>
+
+      <div className="lk-helper-grid">
+        {helperCopy.map((item) => (
+          <div key={item} className="lk-helper">
+            {item}
+          </div>
+        ))}
+      </div>
+
+      <div className="lk-legal">
+        <p>{t.legal}</p>
+      </div>
+
       {submitState.status === "error" ? (
-        <div className="mt-5 rounded-2xl border border-[var(--error-border)] bg-[var(--error-bg)] px-4 py-3 text-sm text-[var(--error-text)]">
-          {submitState.message}
-        </div>
+        <div className="lk-status-error">{submitState.message}</div>
       ) : null}
 
       {submitState.status === "success" ? (
-        <div className="mt-5 rounded-3xl border border-[var(--success-border)] bg-[var(--success-bg)] p-5">
-          <p className="eyebrow text-[var(--success-text)]">
+        <div className="lk-status-success">
+          <p className="lk-status-eyebrow">
             {submitState.reused ? t.reused : t.success}
           </p>
-          <h3 className="font-display mt-2 text-xl font-bold text-[var(--ink)]">
-            {submitState.title}
-          </h3>
-          <p className="mt-2 text-sm leading-6 text-[var(--muted)]">
-            {submitState.body}
-          </p>
-          <p className="mt-4 text-sm font-medium text-[var(--ink)]">
-            Referenca: <span className="font-mono">{submitState.reference}</span>
+          <h3>{submitState.title}</h3>
+          <p>{submitState.body}</p>
+          <p className="lk-status-reference">
+            Referenca: <span>{submitState.reference}</span>
           </p>
         </div>
       ) : null}

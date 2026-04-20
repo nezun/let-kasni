@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="sr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>A1 — Conversion Final</title>
+    <style>
+      :root {
+        --bg: #f4f7fb;
+        --surface: #ffffff;
+        --surface-soft: #eef4fb;
+        --text: #132234;
+        --muted: #5d6d81;
+        --line: #d7e0ea;
+        --brand: #1f5eff;
+        --brand-dark: #1447cc;
+        --accent: #f68b2c;
+        --success: #156b42;
+        --radius: 28px;
+        --shadow: 0 18px 56px rgba(15, 31, 57, 0.08);
+      }
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(circle at top right, rgba(31, 94, 255, 0.12), transparent 30%),
+          linear-gradient(180deg, #f8fbff, var(--bg));
+      }
+      a { color: inherit; text-decoration: none; }
+      .page { max-width: 1240px; margin: 0 auto; padding: 24px; }
+      .nav {
+        display: flex; justify-content: space-between; align-items: center;
+        padding: 8px 0 26px;
+      }
+      .brand { font-size: 1.2rem; font-weight: 800; letter-spacing: -0.04em; }
+      .brand span { color: var(--brand); }
+      .nav-links { display: flex; gap: 26px; color: var(--muted); font-size: 0.95rem; }
+      .nav-cta {
+        padding: 12px 16px; border-radius: 14px; background: var(--surface);
+        border: 1px solid var(--line); font-weight: 700;
+      }
+      .hero {
+        display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 24px; align-items: stretch;
+      }
+      .panel {
+        background: rgba(255, 255, 255, 0.82);
+        border: 1px solid rgba(215, 224, 234, 0.95);
+        border-radius: 34px;
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(12px);
+      }
+      .hero-copy { padding: 46px; }
+      .eyebrow {
+        display: inline-flex; gap: 8px; align-items: center;
+        padding: 8px 14px; border-radius: 999px;
+        background: rgba(31, 94, 255, 0.1); color: var(--brand-dark);
+        font-size: 0.82rem; font-weight: 800;
+      }
+      h1 {
+        margin: 20px 0 16px;
+        font-size: clamp(2.8rem, 5vw, 5rem);
+        line-height: 0.93;
+        letter-spacing: -0.06em;
+        max-width: 10ch;
+      }
+      .lead {
+        font-size: 1.12rem; line-height: 1.75; color: var(--muted); max-width: 56ch;
+      }
+      .proof-row, .signal-row {
+        display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px;
+      }
+      .chip, .signal {
+        padding: 11px 14px; border-radius: 16px;
+        border: 1px solid var(--line); background: var(--surface);
+        font-size: 0.9rem; font-weight: 700;
+      }
+      .signal {
+        background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(238,244,251,0.96));
+      }
+      .hero-actions {
+        display: flex; gap: 14px; flex-wrap: wrap; margin-top: 26px;
+      }
+      .primary, .secondary {
+        padding: 16px 18px; border-radius: 18px; font-weight: 800;
+      }
+      .primary { background: var(--accent); color: white; }
+      .secondary {
+        background: rgba(255,255,255,0.76); border: 1px solid var(--line);
+      }
+      .hero-form { padding: 24px; display: flex; flex-direction: column; }
+      .form-top {
+        padding: 24px; border-radius: 24px;
+        background: linear-gradient(160deg, #164bd6, #1f5eff 56%, #6992ff);
+        color: white;
+      }
+      .form-top h2 { margin: 0 0 8px; font-size: 1.6rem; letter-spacing: -0.04em; }
+      .form-top p { margin: 0; line-height: 1.65; opacity: 0.94; }
+      .form { margin-top: 18px; display: grid; gap: 14px; }
+      label { display: grid; gap: 8px; font-size: 0.92rem; font-weight: 700; }
+      input, select, textarea {
+        width: 100%; padding: 15px 16px; border-radius: 16px;
+        border: 1px solid var(--line); background: var(--surface);
+        font: inherit; color: var(--text);
+      }
+      textarea { min-height: 110px; resize: vertical; }
+      .two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+      .submit {
+        border: 0; border-radius: 18px; padding: 16px 18px;
+        background: var(--accent); color: white; font: inherit; font-weight: 800;
+      }
+      .microcopy { margin-top: 12px; color: var(--muted); font-size: 0.87rem; line-height: 1.65; }
+      .section { margin-top: 24px; }
+      .section-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+      .card {
+        padding: 28px; background: var(--surface); border: 1px solid var(--line);
+        border-radius: 28px; box-shadow: var(--shadow);
+      }
+      .card h3 {
+        margin: 0 0 12px; font-size: 1.55rem; letter-spacing: -0.04em;
+      }
+      .steps, .list, .faq, .outcomes { display: grid; gap: 14px; }
+      .step, .item, .faq-item, .outcome {
+        padding: 18px 20px; border-radius: 20px;
+        background: var(--surface-soft); border: 1px solid var(--line);
+      }
+      .step strong, .item strong, .faq-item strong, .outcome strong {
+        display: block; margin-bottom: 8px;
+      }
+      .stats {
+        display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
+      }
+      .stat {
+        padding: 18px; border-radius: 22px; background: var(--surface);
+        border: 1px solid var(--line); box-shadow: var(--shadow);
+      }
+      .stat .kicker {
+        font-size: 0.78rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em;
+      }
+      .stat .value {
+        margin-top: 8px; font-size: 1.28rem; font-weight: 800; letter-spacing: -0.04em;
+      }
+      .cta-band {
+        margin-top: 24px; padding: 32px; border-radius: 30px;
+        background: linear-gradient(140deg, #143fba, #1f5eff 60%, #7ca2ff);
+        color: white; display: grid; grid-template-columns: 1.1fr auto; gap: 16px; align-items: center;
+        box-shadow: var(--shadow);
+      }
+      .cta-band h3 { margin: 0 0 8px; font-size: 2rem; letter-spacing: -0.04em; }
+      .cta-band p { margin: 0; opacity: 0.92; line-height: 1.7; }
+      .cta-band a {
+        padding: 16px 18px; border-radius: 18px; background: white; color: var(--brand-dark); font-weight: 800;
+      }
+      footer {
+        margin-top: 24px; padding: 24px 0 8px; color: var(--muted);
+        display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 0.9rem;
+      }
+      @media (max-width: 980px) {
+        .hero, .section-grid, .two, .stats, .cta-band { grid-template-columns: 1fr; }
+        .hero-copy, .hero-form, .card, .cta-band { padding: 24px; }
+        .nav { flex-wrap: wrap; gap: 14px; }
+        .nav-links { flex-wrap: wrap; gap: 14px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <nav class="nav">
+        <div class="brand">LET<span>KASNI</span></div>
+        <div class="nav-links">
+          <a href="#kako-radi">Kako radi</a>
+          <a href="#slucajevi">Koji slučajevi</a>
+          <a href="#faq">FAQ</a>
+        </div>
+        <a class="nav-cta" href="#provera">Pošalji slučaj</a>
+      </nav>
+
+      <section class="hero">
+        <div class="panel hero-copy">
+          <div class="eyebrow">Lokalni claims handoff za putnike iz Srbije</div>
+          <h1>Vaš let je kasnio ili ste propustili konekciju? Proverite slučaj za manje od minut.</h1>
+          <div class="lead">
+            Unosite minimum podataka, dobijate konzervativan preliminarni signal, a slučaj ide dalje u pravi operativni tok. Bez generičnog stranog claim sajta i bez praznog “javićemo vam se”.
+          </div>
+          <div class="proof-row">
+            <div class="chip">Podržano: kašnjenje 3h+</div>
+            <div class="chip">Podržano: propuštena konekcija na istoj rezervaciji</div>
+            <div class="chip">Ako signal nije čist: ručna provera</div>
+          </div>
+          <div class="signal-row">
+            <div class="signal">Live lookup flight podataka</div>
+            <div class="signal">Nativan intake, ne embed forma</div>
+            <div class="signal">Interni claim queue za dalji rad</div>
+          </div>
+          <div class="hero-actions">
+            <a class="primary" href="#provera">Proverite pravo na naknadu</a>
+            <a class="secondary" href="#kako-radi">Pogledajte kako radi</a>
+          </div>
+        </div>
+
+        <div class="panel hero-form" id="provera">
+          <div class="form-top">
+            <h2>Pošaljite slučaj</h2>
+            <p>Tražimo samo ono što je potrebno za preliminarni signal i nastavak obrade.</p>
+          </div>
+          <form class="form">
+            <label>Broj leta <input placeholder="npr. JU170" /></label>
+            <div class="two">
+              <label>Datum leta <input placeholder="16.04.2026" /></label>
+              <label>Vrsta problema
+                <select>
+                  <option>Kašnjenje preko 3 sata</option>
+                  <option>Propuštena konekcija na istoj rezervaciji</option>
+                </select>
+              </label>
+            </div>
+            <label>Ruta ili destinacija <input placeholder="BEG → Ho Chi Minh City" /></label>
+            <label>Email <input placeholder="ime@email.com" /></label>
+            <label>Telefon (opciono) <input placeholder="+381..." /></label>
+            <label>Kratko opišite šta se desilo
+              <textarea placeholder="Prvi let je kasnio, propustio sam konekciju i morao sam da uzmem novu kartu."></textarea>
+            </label>
+            <button class="submit" type="button">Pošalji slučaj na proveru</button>
+          </form>
+          <div class="microcopy">
+            Na osnovu unetih podataka možemo da vratimo preliminarni signal ili da slučaj prebacimo u ručnu proveru. Ne obećavamo ishod pre nego što postoji dovoljno osnova.
+          </div>
+        </div>
+      </section>
+
+      <section class="section stats">
+        <div class="stat">
+          <div class="kicker">Tip proizvoda</div>
+          <div class="value">Claims handoff</div>
+        </div>
+        <div class="stat">
+          <div class="kicker">Prvi korak</div>
+          <div class="value">Konzervativan signal</div>
+        </div>
+        <div class="stat">
+          <div class="kicker">Ako nije jasno</div>
+          <div class="value">Ručna provera</div>
+        </div>
+        <div class="stat">
+          <div class="kicker">Posle submit-a</div>
+          <div class="value">Claim queue</div>
+        </div>
+      </section>
+
+      <section class="section section-grid" id="kako-radi">
+        <div class="card">
+          <h3>Kako radi</h3>
+          <div class="steps">
+            <div class="step">
+              <strong>1. Unosite minimum podataka</strong>
+              Broj leta, datum, tip problema i kontakt. Nema papirologije na startu.
+            </div>
+            <div class="step">
+              <strong>2. Sistem proverava osnovni signal</strong>
+              Ako live lookup vrati dovoljno čist signal, slučaj dobija preliminarni status.
+            </div>
+            <div class="step">
+              <strong>3. Nejasni slučajevi ne dobijaju lažnu sigurnost</strong>
+              Umesto agresivnog obećanja, takvi slučajevi idu u ručnu proveru.
+            </div>
+            <div class="step">
+              <strong>4. Slučaj ulazi u radni tok</strong>
+              Prijava ne nestaje u inboxu, već ulazi u claim queue sa sledećim korakom.
+            </div>
+          </div>
+        </div>
+        <div class="card" id="slucajevi">
+          <h3>Koji slučajevi trenutno imaju smisla</h3>
+          <div class="outcomes">
+            <div class="outcome">
+              <strong>Kašnjenje 3 sata ili više</strong>
+              Najjasniji phase 1 slučaj za preliminarnu proveru.
+            </div>
+            <div class="outcome">
+              <strong>Propuštena konekcija na istoj rezervaciji</strong>
+              Ako je prvi segment poremetio ostatak putovanja, slučaj ima smisla za proveru.
+            </div>
+            <div class="outcome">
+              <strong>Denied boarding, baggage i ostalo</strong>
+              Nisu fokus phase 1 toka. Takvi slučajevi mogu tražiti posebnu ručnu procenu.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-grid">
+        <div class="card">
+          <h3>Zašto ova verzija sajta može da konvertuje</h3>
+          <div class="list">
+            <div class="item">
+              <strong>Nije generičan affiliate claim template</strong>
+              Osećaj proizvoda dolazi iz intake toka, ne samo iz hero copy-ja.
+            </div>
+            <div class="item">
+              <strong>Ne traži previše prerano</strong>
+              Korisnik ne ulazi odmah u dokumentaciju i pravnu proceduru.
+            </div>
+            <div class="item">
+              <strong>Trust dolazi iz discipline</strong>
+              Kada signal nije čist, to se otvoreno kaže umesto da se preuveliča sigurnost.
+            </div>
+          </div>
+        </div>
+        <div class="card" id="faq">
+          <h3>Najčešća pitanja</h3>
+          <div class="faq">
+            <div class="faq-item">
+              <strong>Da li odmah znam da imam pravo na naknadu?</strong>
+              Ne uvek. Ako podaci nisu dovoljno jasni, slučaj ide u ručnu proveru.
+            </div>
+            <div class="faq-item">
+              <strong>Da li odmah tražite dokumenta?</strong>
+              Ne u prvom koraku. Prvo proveravamo da li postoji smislen osnov da se ide dalje.
+            </div>
+            <div class="faq-item">
+              <strong>Zašto tražite i opis problema ako imate broj leta?</strong>
+              Zato što korisnički kontekst često otkriva propuštenu konekciju, novu kartu ili druge detalje koji menjaju procenu.
+            </div>
+            <div class="faq-item">
+              <strong>Šta se dešava posle prijave?</strong>
+              Slučaj dobija preliminarni status i ulazi u dalji operativni tok umesto da ostane samo u email prepisci.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="cta-band">
+        <div>
+          <h3>Imate konkretan slučaj?</h3>
+          <p>Pošaljite ga sada dok su vam detalji i dalje sveži. Ako signal bude nejasan, to ćete odmah znati.</p>
+        </div>
+        <a href="#provera">Započnite proveru</a>
+      </section>
+
+      <footer>
+        <div>LETKASNI</div>
+        <div>Informacije na sajtu služe za preliminarnu procenu slučaja i ne predstavljaju konačan pravni savet za svaki pojedinačni slučaj.</div>
+      </footer>
+    </div>
+  </body>
+</html>
