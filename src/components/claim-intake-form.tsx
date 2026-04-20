@@ -107,15 +107,20 @@ export function ClaimIntakeForm() {
   }
 
   return (
-    <div className="surface-card rounded-[28px] p-6 shadow-[0_24px_70px_rgba(17,24,39,0.08)] md:p-8">
+    <div
+      id="claim-form"
+      className="surface-card rounded-[2.5rem] p-8 md:p-10"
+    >
       <div className="mb-6">
-        <p className="eyebrow mb-3">Pošaljite podatke o letu</p>
-        <h2 className="text-2xl font-bold tracking-[-0.03em] text-[var(--ink)]">
-          Proverite pravo na odštetu
+        <p className="font-mono-ui mb-3 text-[11px] font-bold uppercase tracking-[0.22em] text-brand-muted">
+          Claim form
+        </p>
+        <h2 className="font-display text-2xl font-bold text-brand-text">
+          Proveri odštetu odmah
         </h2>
-        <p className="mt-2 text-sm leading-6 text-[var(--muted)]">
-          Unesite osnovne podatke o letu. Dobijate početnu procenu i odgovor da
-          li slučaj vredi dalje proveravati.
+        <p className="mt-2 text-sm leading-6 text-brand-muted">
+          Unesite osnovne podatke o letu. Prva provera traje manje od 60 sekundi
+          i služi da odmah razdvojimo slučajeve koji deluju obećavajuće.
         </p>
       </div>
 
@@ -241,18 +246,31 @@ export function ClaimIntakeForm() {
 
         <button
           type="submit"
-          className="inline-flex min-h-12 w-full items-center justify-center rounded-2xl bg-[var(--accent)] px-5 py-4 text-base font-semibold text-white transition hover:bg-[var(--accent-hover)] disabled:cursor-not-allowed disabled:opacity-70"
+          className="mt-4 flex min-h-14 w-full items-center justify-center gap-2 rounded-2xl bg-brand-primary py-5 text-lg font-bold text-white shadow-xl shadow-brand-primary/20 transition-all hover:bg-brand-secondary disabled:cursor-not-allowed disabled:opacity-70"
           disabled={submitState.status === "submitting"}
         >
           {submitState.status === "submitting"
-            ? "Proveravamo podatke o letu..."
-            : "Pošalji prijavu za proveru →"}
+            ? "Proveravamo podatke..."
+            : "Proveri besplatno"}
+          <span className="text-brand-accent">→</span>
         </button>
 
-        <div className="space-y-2 text-sm leading-6 text-[var(--muted)]">
+        <p className="mt-4 text-center text-xs text-brand-muted">
+          Provera traje manje od 60 sekundi i potpuno je besplatna.
+        </p>
+
+        <div className="grid gap-3 pt-3 sm:grid-cols-2">
           {helperCopy.map((item) => (
-            <p key={item}>{item}</p>
+            <div
+              key={item}
+              className="rounded-2xl border border-brand-border bg-brand-surface-alt/80 px-4 py-3 text-sm font-medium text-brand-text"
+            >
+              {item}
+            </div>
           ))}
+        </div>
+
+        <div className="text-sm leading-6 text-brand-muted">
           <p>
             Slanjem prijave prihvatate osnovnu obradu podataka radi provere
             slučaja. Detalji su na stranicama privatnosti i uslova korišćenja.
@@ -271,7 +289,7 @@ export function ClaimIntakeForm() {
           <p className="eyebrow text-[var(--success-text)]">
             {submitState.reused ? "Prijava je već primljena" : "Prijava uspešno primljena"}
           </p>
-          <h3 className="mt-2 text-xl font-bold tracking-[-0.03em] text-[var(--ink)]">
+          <h3 className="font-display mt-2 text-xl font-bold text-[var(--ink)]">
             {submitState.title}
           </h3>
           <p className="mt-2 text-sm leading-6 text-[var(--muted)]">

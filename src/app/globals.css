@@ -1,15 +1,18 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #f9f7f4;
-  --panel: #f3f0ea;
+  --bg: #f4f6fb;
   --surface: #ffffff;
-  --ink: #1a1a1a;
+  --surface-alt: #eef2fb;
+  --ink: #1f2937;
   --muted: #6b7280;
-  --accent: #0d6b6b;
-  --accent-hover: #0a5555;
-  --border: #e5e2dc;
-  --warning: #92400e;
+  --border: #e3e8f2;
+  --accent: #2d4ecf;
+  --accent-hover: #2442b6;
+  --accent-warm: #f5822a;
+  --accent-success: #166534;
+  --shadow-soft: 0 24px 60px rgba(45, 78, 207, 0.08);
+  --shadow-card: 0 18px 40px rgba(31, 41, 55, 0.06);
   --success-bg: #edf8f0;
   --success-border: #b8ddc1;
   --success-text: #166534;
@@ -21,6 +24,15 @@
 @theme inline {
   --color-background: var(--bg);
   --color-foreground: var(--ink);
+  --color-brand-canvas: var(--bg);
+  --color-brand-surface: var(--surface);
+  --color-brand-surface-alt: var(--surface-alt);
+  --color-brand-text: var(--ink);
+  --color-brand-muted: var(--muted);
+  --color-brand-border: var(--border);
+  --color-brand-primary: var(--accent);
+  --color-brand-secondary: var(--accent-hover);
+  --color-brand-accent: var(--accent-warm);
   --font-sans: var(--font-plus-jakarta);
 }
 
@@ -47,22 +59,59 @@ summary::-webkit-details-marker {
   display: none;
 }
 
+.container {
+  max-width: 1280px;
+}
+
+.brand-chip {
+  border: 1px solid color-mix(in srgb, var(--accent-warm) 25%, transparent);
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--accent-warm) 18%, white) 0%,
+    color-mix(in srgb, var(--accent) 6%, white) 100%
+  );
+}
+
+.font-display {
+  letter-spacing: -0.03em;
+}
+
+.font-mono-ui {
+  font-family:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
+}
+
+.bg-mesh {
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(at 0% 0%, rgba(45, 78, 207, 0.06) 0px, transparent 46%),
+    radial-gradient(at 100% 0%, rgba(106, 99, 199, 0.05) 0px, transparent 42%),
+    radial-gradient(at 100% 100%, rgba(45, 78, 207, 0.04) 0px, transparent 46%),
+    radial-gradient(at 0% 100%, rgba(245, 130, 42, 0.05) 0px, transparent 38%);
+}
+
+.section-dark {
+  background: linear-gradient(180deg, #2b45b7 0%, #243a98 100%);
+}
+
+.surface-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-card);
+}
+
+.surface-panel {
+  background: var(--surface-alt);
+  border: 1px solid color-mix(in srgb, var(--border) 88%, white);
+}
+
 .eyebrow {
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--muted);
-}
-
-.surface-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-}
-
-.surface-panel {
-  background: var(--panel);
-  border: 1px solid var(--border);
 }
 
 .field {
@@ -78,21 +127,31 @@ summary::-webkit-details-marker {
 
 .field input,
 .field select {
-  min-height: 3rem;
+  min-height: 3.5rem;
   width: 100%;
   border-radius: 1rem;
   border: 1px solid var(--border);
-  background: #ffffff;
-  padding: 0.9rem 1rem;
+  background: var(--surface-alt);
+  padding: 0.95rem 1rem;
   color: var(--ink);
   outline: none;
   transition:
     border-color 0.15s ease,
-    box-shadow 0.15s ease;
+    box-shadow 0.15s ease,
+    background-color 0.15s ease;
 }
 
 .field input:focus,
 .field select:focus {
   border-color: var(--accent);
+  background: var(--surface);
   box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 14%, transparent);
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+.hover\:bg-brand-secondary:hover {
+  background: var(--accent-hover);
 }
