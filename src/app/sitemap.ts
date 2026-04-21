@@ -11,10 +11,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
-      url: `${siteUrl}/blog`,
-      priority: 0.7,
-    },
-    {
       url: `${siteUrl}/privacy`,
       priority: 0.4,
     },
