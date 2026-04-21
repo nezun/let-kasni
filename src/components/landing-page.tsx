@@ -94,6 +94,14 @@ const copy = {
         q: "Kada plaćam uslugu?",
         a: "Ne plaćate unapred. Naknada se obračunava tek ako slučaj uspe.",
       },
+      {
+        q: "Koliko traje naplata odštete?",
+        a: "Zavisi od avio-kompanije i toga da li slučaj ide na brzu isplatu ili dodatnu pravnu obradu. Jednostavniji predmeti mogu biti zatvoreni relativno brzo, dok sporiji zahtevi traže više vremena.",
+      },
+      {
+        q: "Da li mogu da tražim odštetu i ako je let bio pre nekoliko godina?",
+        a: "U mnogim slučajevima da. Rokovi zastarelosti zavise od države i vrste leta, pa ima smisla proveriti i starije letove umesto da unapred pretpostavite da je prekasno.",
+      },
     ],
     ctaTitle: "Ne dozvolite da vaš novac ostane avio-kompaniji.",
     ctaBody:
@@ -182,6 +190,14 @@ const copy = {
       {
         q: "When do I pay?",
         a: "There is no upfront payment. The fee is charged only if the case succeeds.",
+      },
+      {
+        q: "How long does a compensation claim take?",
+        a: "That depends on the airline and whether the case can be resolved quickly or needs additional legal follow-up. Straightforward claims can move faster, while contested ones take longer.",
+      },
+      {
+        q: "Can I still claim for an older flight?",
+        a: "Often yes. Limitation periods depend on the country and route, so older flights are still worth checking before assuming the window has closed.",
       },
     ],
     ctaTitle: "Do not leave your money with the airline.",
@@ -301,8 +317,8 @@ export function LandingPage({ locale = "sr" }: { locale?: Locale }) {
 
       <section className="relative overflow-hidden bg-slate-50 pb-20 pt-32 md:pb-40 md:pt-48">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(37,99,235,0.08),transparent_30%),radial-gradient(circle_at_top_right,rgba(249,115,22,0.08),transparent_30%)]" />
-        <div className="container relative z-10 mx-auto grid max-w-[1440px] gap-16 px-6 md:px-8 xl:grid-cols-[1.1fr_0.9fr] xl:items-center">
-          <div>
+        <div className="container relative z-10 mx-auto grid max-w-[1440px] gap-14 px-6 md:px-8 xl:grid-cols-[minmax(0,1.02fr)_minmax(440px,0.98fr)] xl:items-center">
+          <div className="max-w-[46rem] xl:max-w-[42rem]">
             <span className="mb-6 inline-flex items-center gap-2 rounded-full bg-blue-100 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-blue-700">
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-blue-400 opacity-75" />
@@ -310,7 +326,7 @@ export function LandingPage({ locale = "sr" }: { locale?: Locale }) {
               </span>
               {t.badge}
             </span>
-            <h1 className="mb-8 text-5xl font-black leading-none tracking-tighter text-slate-900 md:text-7xl lg:text-8xl">
+            <h1 className="mb-8 max-w-[11.5ch] text-5xl font-black leading-[0.94] tracking-tighter text-slate-900 md:text-[5.5rem] lg:text-[6.25rem]">
               {t.heroTitle1} <br />
               {t.heroTitle2} <br />
               <span className="text-blue-600">{t.heroTitle3}</span> {t.heroTitle4}
@@ -423,13 +439,12 @@ export function LandingPage({ locale = "sr" }: { locale?: Locale }) {
         <div className="absolute right-0 top-0 -z-10 h-[800px] w-[800px] translate-x-1/4 -translate-y-1/2 rounded-full bg-blue-50/60 blur-3xl" />
         <div className="absolute bottom-0 left-0 -z-10 h-[600px] w-[600px] -translate-x-1/4 translate-y-1/2 rounded-full bg-orange-50/70 blur-3xl" />
         <div className="container mx-auto max-w-[1440px] px-6 md:px-8">
-          <div className="mb-16 max-w-3xl">
+          <div className="mx-auto mb-16 max-w-[56rem] text-center">
             <span className="mb-4 block text-[10px] font-bold uppercase tracking-[0.2em] text-orange-500">
               {t.benefitsEyebrow}
             </span>
-            <h2 className="text-4xl font-black leading-[1.05] tracking-tight text-slate-900 md:text-6xl">
-              {t.benefitsTitle1} <br />
-              <span className="text-blue-600">{t.benefitsTitle2}</span>
+            <h2 className="text-4xl font-black leading-none tracking-tight text-slate-900 md:text-[4.4rem]">
+              {t.benefitsTitle1} <span className="text-blue-600">{t.benefitsTitle2}</span>
             </h2>
           </div>
 
@@ -440,7 +455,7 @@ export function LandingPage({ locale = "sr" }: { locale?: Locale }) {
                 <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-orange-500 px-4 py-1.5 text-[10px] font-black uppercase tracking-widest text-white shadow-lg shadow-orange-500/20">
                   Lokalna ekspertiza
                 </div>
-                <h3 className="max-w-none border-b border-orange-400/80 pb-3 text-[2.7rem] font-black leading-[1.02] tracking-tight text-white md:inline-block md:text-[3.35rem]">
+                <h3 className="max-w-none border-b-2 border-orange-400 pb-4 text-[2.7rem] font-black leading-[1.02] tracking-tight text-white md:inline-block md:text-[3.35rem]">
                   {t.localTitle}
                 </h3>
                 <p className="mt-8 max-w-[820px] text-lg font-medium leading-relaxed text-blue-50 md:text-[1.15rem]">
@@ -566,22 +581,19 @@ export function LandingPage({ locale = "sr" }: { locale?: Locale }) {
               <h4 className="mb-6 font-bold text-slate-900">{t.footerLinks}</h4>
               <ul className="space-y-4">
                 <li>
-                  <a href="#prednosti" className="transition-colors hover:text-blue-600">
-                    {t.about}
-                  </a>
-                </li>
-                <li>
                   <a href="#kako-radi" className="transition-colors hover:text-blue-600">
                     {t.navHow}
                   </a>
                 </li>
                 <li>
-                  <button
-                    onClick={() => setIsClaimModalOpen(true)}
-                    className="transition-colors hover:text-blue-600"
-                  >
-                    {t.pricing}
-                  </button>
+                  <a href="#faq" className="transition-colors hover:text-blue-600">
+                    {t.navFaq}
+                  </a>
+                </li>
+                <li>
+                  <a href={`mailto:${supportEmail}`} className="transition-colors hover:text-blue-600">
+                    {t.support}
+                  </a>
                 </li>
               </ul>
             </div>
@@ -600,8 +612,8 @@ export function LandingPage({ locale = "sr" }: { locale?: Locale }) {
                   </Link>
                 </li>
                 <li>
-                  <a href={`mailto:${supportEmail}`} className="transition-colors hover:text-blue-600">
-                    {t.support}
+                  <a href="#prednosti" className="transition-colors hover:text-blue-600">
+                    {t.navBenefits}
                   </a>
                 </li>
               </ul>
