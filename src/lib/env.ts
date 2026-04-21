@@ -49,6 +49,26 @@ export function getSupportEmail() {
   return getEnv("NEXT_PUBLIC_SUPPORT_EMAIL") ?? "podrska@letkasni.rs";
 }
 
+export function getOperatorName() {
+  return getEnv("NEXT_PUBLIC_OPERATOR_NAME") ?? "Operator letkasni.rs";
+}
+
+export function getOperatorAddress() {
+  return getEnv("NEXT_PUBLIC_OPERATOR_ADDRESS") ?? "Adresa operatera će biti dopunjena";
+}
+
+export function getOperatorRegistry() {
+  return getEnv("NEXT_PUBLIC_OPERATOR_REGISTRY");
+}
+
+export function getOperatorPib() {
+  return getEnv("NEXT_PUBLIC_OPERATOR_PIB");
+}
+
+export function getOperatorMb() {
+  return getEnv("NEXT_PUBLIC_OPERATOR_MB");
+}
+
 export function isSupabaseConfigured() {
   return requiredSupabaseKeys.every((key) => Boolean(getEnv(key)));
 }
