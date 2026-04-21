@@ -71,7 +71,7 @@ const copy = {
       "Proviziju uzimamo samo ako naplatimo. Mi preuzimamo operativni i pravni teret.",
     featureTimeTitle: "Ušteda vremena",
     featureTimeBody:
-      "Naš lokalni pravni tim koristi ekspertizu i automatizaciju radi što brže naplate Vaših potraživanja.",
+      "Naš lokalni tim koristi ekspertizu i automatizaciju radi brže naplate potraživanja.",
     featureFeeTitle: "Samo 10% provizija",
     featureFeeBody:
       "Najdirektniji model na tržištu: jasna provizija, bez skrivenih troškova i bez naplate unapred.",
@@ -168,7 +168,7 @@ const copy = {
       "We only earn if we collect. We take on the operational and legal burden.",
     featureTimeTitle: "Time saved",
     featureTimeBody:
-      "Our local legal team combines expertise and automation to recover claims as quickly as possible.",
+      "Our local team combines expertise and automation for faster claim recovery.",
     featureFeeTitle: "Only 10% fee",
     featureFeeBody:
       "A simpler fee model with no hidden charges and no upfront payment.",
@@ -317,25 +317,18 @@ export function LandingPage({ locale = "sr" }: { locale?: Locale }) {
 
       <section className="relative overflow-hidden bg-slate-50 pb-20 pt-32 md:pb-40 md:pt-48">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(37,99,235,0.08),transparent_30%),radial-gradient(circle_at_top_right,rgba(249,115,22,0.08),transparent_30%)]" />
-        <div className="container relative z-10 mx-auto grid max-w-[1440px] gap-14 px-6 md:px-8 xl:grid-cols-[minmax(0,1.02fr)_minmax(440px,0.98fr)] xl:items-center">
-          <div className="max-w-[46rem] xl:max-w-[42rem]">
-            <span className="mb-6 inline-flex items-center gap-2 rounded-full bg-blue-100 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-blue-700">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-blue-400 opacity-75" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-blue-500" />
-              </span>
-              {t.badge}
-            </span>
-            <h1 className="mb-8 max-w-[11.5ch] text-5xl font-black leading-[0.94] tracking-tighter text-slate-900 md:text-[5.5rem] lg:text-[6.25rem]">
+        <div className="container relative z-10 mx-auto grid max-w-[1440px] gap-14 px-6 md:px-8 xl:grid-cols-[minmax(0,0.98fr)_minmax(440px,1.02fr)] xl:items-center">
+          <div className="max-w-[42rem] xl:max-w-[38rem]">
+            <h1 className="mb-7 max-w-[11ch] text-[4.1rem] font-black leading-[0.94] tracking-tighter text-slate-900 md:text-[4.95rem] lg:text-[5.55rem]">
               {t.heroTitle1} <br />
               {t.heroTitle2} <br />
               <span className="text-blue-600">{t.heroTitle3}</span> {t.heroTitle4}
             </h1>
-            <p className="mb-8 max-w-2xl text-xl leading-relaxed text-slate-600">
+            <p className="mb-8 max-w-xl text-[1.28rem] leading-relaxed text-slate-600">
               {t.heroBody}
             </p>
 
-            <div className="flex flex-col gap-4 text-sm font-medium text-slate-600 sm:flex-row sm:items-center sm:gap-6">
+            <div className="flex flex-col gap-4 text-[0.95rem] font-medium text-slate-600 sm:flex-row sm:items-center sm:gap-6">
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="h-5 w-5 text-green-500" />
                 {t.proofA}
@@ -440,11 +433,8 @@ export function LandingPage({ locale = "sr" }: { locale?: Locale }) {
         <div className="absolute bottom-0 left-0 -z-10 h-[600px] w-[600px] -translate-x-1/4 translate-y-1/2 rounded-full bg-orange-50/70 blur-3xl" />
         <div className="container mx-auto max-w-[1440px] px-6 md:px-8">
           <div className="mx-auto mb-16 max-w-[56rem] text-center">
-            <span className="mb-4 block text-[10px] font-bold uppercase tracking-[0.2em] text-orange-500">
-              {t.benefitsEyebrow}
-            </span>
-            <h2 className="text-4xl font-black leading-none tracking-tight text-slate-900 md:text-[4.4rem]">
-              {t.benefitsTitle1} <span className="text-blue-600">{t.benefitsTitle2}</span>
+            <h2 className="text-4xl font-black leading-none tracking-tight text-slate-900 md:text-[4.25rem] md:whitespace-nowrap">
+              Zašto letkasni<span className="text-orange-500">.rs</span>?
             </h2>
           </div>
 
@@ -586,11 +576,6 @@ export function LandingPage({ locale = "sr" }: { locale?: Locale }) {
                   </a>
                 </li>
                 <li>
-                  <a href="#faq" className="transition-colors hover:text-blue-600">
-                    {t.navFaq}
-                  </a>
-                </li>
-                <li>
                   <a href={`mailto:${supportEmail}`} className="transition-colors hover:text-blue-600">
                     {t.support}
                   </a>
@@ -610,11 +595,6 @@ export function LandingPage({ locale = "sr" }: { locale?: Locale }) {
                   <Link href="/privacy" className="transition-colors hover:text-blue-600">
                     {t.privacy}
                   </Link>
-                </li>
-                <li>
-                  <a href="#prednosti" className="transition-colors hover:text-blue-600">
-                    {t.navBenefits}
-                  </a>
                 </li>
               </ul>
             </div>
