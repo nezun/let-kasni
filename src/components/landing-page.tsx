@@ -433,7 +433,7 @@ export function LandingPage({ locale = "sr" }: { locale?: Locale }) {
         <div className="absolute bottom-0 left-0 -z-10 h-[600px] w-[600px] -translate-x-1/4 translate-y-1/2 rounded-full bg-orange-50/70 blur-3xl" />
         <div className="container mx-auto max-w-[1440px] px-6 md:px-8">
           <div className="mx-auto mb-16 max-w-[56rem] text-center">
-            <h2 className="text-4xl font-black leading-none tracking-tight text-slate-900 md:text-[4.25rem] md:whitespace-nowrap">
+            <h2 className="text-4xl font-black tracking-tight text-slate-900 md:text-5xl">
               Zašto <span className="text-blue-900">letkasni<span className="text-orange-500">.rs</span></span>?
             </h2>
           </div>
