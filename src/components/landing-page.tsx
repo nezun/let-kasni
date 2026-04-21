@@ -20,6 +20,7 @@ import { ClaimModal } from "@/components/claim-modal";
 import { getSupportEmail } from "@/lib/env";
 
 type Locale = "sr" | "en";
+type LandingVariant = "default" | "hero-compact";
 
 const copy = {
   sr: {
@@ -28,11 +29,11 @@ const copy = {
     navBenefits: "Prednosti",
     navFaq: "Česta pitanja",
     navCta: "Proveri let",
-    badge: "Prvi srpski servis za zaštitu putnika",
-    heroTitle1: "Vaš let je",
-    heroTitle2: "kasnio?",
-    heroTitle3: "Naplatite do 600€",
-    heroTitle4: "odštete.",
+    heroLine1: "Vaš let je",
+    heroLine2: "kasnio?",
+    heroLine3: "Naplatite do",
+    heroLine4Emphasis: "600€",
+    heroLine4Tail: "odštete.",
     heroBody:
       "Kao prvi domaći servis, pomažemo putnicima u Srbiji da naplate ono što im zakonski pripada. Bez stresa, bez stranih sajtova i bez troškova unapred.",
     proofA: "Bez troškova unapred",
@@ -125,11 +126,11 @@ const copy = {
     navBenefits: "Benefits",
     navFaq: "FAQ",
     navCta: "Check flight",
-    badge: "Serbia-first passenger rights service",
-    heroTitle1: "Was your flight",
-    heroTitle2: "delayed?",
-    heroTitle3: "Claim up to €600",
-    heroTitle4: "in compensation.",
+    heroLine1: "Was your flight",
+    heroLine2: "delayed?",
+    heroLine3: "Claim up to",
+    heroLine4Emphasis: "€600",
+    heroLine4Tail: "compensation.",
     heroBody:
       "We help passengers connected to Serbia recover compensation they may be legally owed. No foreign claim maze, no upfront cost, and a clear next step.",
     proofA: "No upfront fee",
@@ -225,9 +226,16 @@ const airlines = [
   "TURKISH",
 ];
 
-export function LandingPage({ locale = "sr" }: { locale?: Locale }) {
+export function LandingPage({
+  locale = "sr",
+  variant = "default",
+}: {
+  locale?: Locale;
+  variant?: LandingVariant;
+}) {
   const t = copy[locale];
   const supportEmail = getSupportEmail();
+  const isHeroCompact = variant === "hero-compact";
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isClaimModalOpen, setIsClaimModalOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -317,14 +325,34 @@ export function LandingPage({ locale = "sr" }: { locale?: Locale }) {
 
       <section className="relative overflow-hidden bg-slate-50 pb-20 pt-32 md:pb-40 md:pt-48">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(37,99,235,0.08),transparent_30%),radial-gradient(circle_at_top_right,rgba(249,115,22,0.08),transparent_30%)]" />
-        <div className="container relative z-10 mx-auto grid max-w-[1440px] gap-14 px-6 md:px-8 xl:grid-cols-[minmax(0,0.98fr)_minmax(440px,1.02fr)] xl:items-center">
-          <div className="max-w-[42rem] xl:max-w-[38rem]">
-            <h1 className="mb-7 max-w-[11ch] text-[4.1rem] font-black leading-[0.94] tracking-tighter text-slate-900 md:text-[4.95rem] lg:text-[5.55rem]">
-              {t.heroTitle1} <br />
-              {t.heroTitle2} <br />
-              <span className="text-blue-600">{t.heroTitle3}</span> {t.heroTitle4}
+        <div
+          className={`container relative z-10 mx-auto grid max-w-[1440px] gap-12 px-6 md:px-8 xl:items-start ${
+            isHeroCompact
+              ? "xl:grid-cols-[minmax(0,1.14fr)_minmax(390px,0.74fr)]"
+              : "xl:grid-cols-[minmax(0,1.08fr)_minmax(420px,0.82fr)]"
+          }`}
+        >
+          <div className={isHeroCompact ? "max-w-[34rem] xl:max-w-[32rem]" : "max-w-[36rem] xl:max-w-[34rem]"}>
+            <h1
+              className={`mb-7 font-black leading-[0.92] tracking-tighter text-slate-900 ${
+                isHeroCompact
+                  ? "text-[3.7rem] md:text-[4.55rem] lg:text-[5rem]"
+                  : "text-[3.95rem] md:text-[4.8rem] lg:text-[5.3rem]"
+              }`}
+            >
+              <span className="block whitespace-nowrap">{t.heroLine1}</span>
+              <span className="ml-[0.12em] block whitespace-nowrap">{t.heroLine2}</span>
+              <span className="block whitespace-nowrap text-blue-600">{t.heroLine3}</span>
+              <span className="block whitespace-nowrap">
+                <span className="text-blue-600">{t.heroLine4Emphasis}</span>{" "}
+                {t.heroLine4Tail}
+              </span>
             </h1>
-            <p className="mb-8 max-w-xl text-[1.28rem] leading-relaxed text-slate-600">
+            <p
+              className={`mb-8 max-w-xl leading-relaxed text-slate-600 ${
+                isHeroCompact ? "text-[1.18rem]" : "text-[1.22rem]"
+              }`}
+            >
               {t.heroBody}
             </p>
 
@@ -340,7 +368,7 @@ export function LandingPage({ locale = "sr" }: { locale?: Locale }) {
             </div>
           </div>
 
-          <div className="relative">
+          <div className={`relative w-full justify-self-end ${isHeroCompact ? "max-w-[29.5rem]" : "max-w-[32rem]"}`}>
             <div className="absolute -inset-4 -z-10 rounded-[2.5rem] bg-blue-100/60 blur-3xl" />
             <div className="rounded-[2.5rem] border border-slate-100 bg-white p-8 shadow-2xl shadow-blue-900/5 md:p-10">
               <h2 className="mb-6 text-2xl font-bold text-slate-900">{t.cardTitle}</h2>
@@ -463,16 +491,16 @@ export function LandingPage({ locale = "sr" }: { locale?: Locale }) {
                 className: "bg-blue-600 shadow-blue-600/20",
               },
               {
-                title: t.featureTimeTitle,
-                body: t.featureTimeBody,
-                icon: Clock,
-                className: "bg-blue-600 shadow-blue-600/20",
-              },
-              {
                 title: t.featureFeeTitle,
                 body: t.featureFeeBody,
                 icon: Banknote,
                 className: "bg-orange-500 shadow-orange-500/20",
+              },
+              {
+                title: t.featureTimeTitle,
+                body: t.featureTimeBody,
+                icon: Clock,
+                className: "bg-blue-600 shadow-blue-600/20",
               },
             ].map((item) => (
               <div

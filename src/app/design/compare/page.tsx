@@ -29,6 +29,11 @@ const groups = [
           { href: "/design-lab/a3-final-guided.html", label: "Raw HTML" },
         ],
       },
+      {
+        title: "A4 — Compact Hero Review",
+        body: "Uži form card i strože zaključan hero na 4 reda za fullscreen i šire desktop rezolucije.",
+        links: [{ href: "/design/top-c", label: "Open A4" }],
+      },
     ],
   },
   {
