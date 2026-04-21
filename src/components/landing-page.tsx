@@ -25,6 +25,9 @@ type LandingVariant = "default" | "hero-compact";
 const copy = {
   sr: {
     brand: "letkasni.rs",
+    localeLabel: "SR",
+    localeSwitch: "EN",
+    localeHref: "/en",
     navHow: "Kako radi",
     navBenefits: "Prednosti",
     navFaq: "Česta pitanja",
@@ -64,6 +67,8 @@ const copy = {
     benefitsEyebrow: "Prednosti saradnje",
     benefitsTitle1: "Zašto putnici biraju",
     benefitsTitle2: "letkasni.rs?",
+    benefitsTitle: "Zašto nas biraju putnici?",
+    localBadge: "Lokalna ekspertiza",
     localTitle: "Prvi i jedini srpski provajder",
     localBody:
       '"Naš lokalni pravni tim vodi slučaj efikasno i razumljivo, tako da vi ne jurite avio-kompaniju po stranim formularima."',
@@ -119,9 +124,13 @@ const copy = {
     privacy: "Politika privatnosti",
     support: "Kontakt",
     routeHint: "Kompletnu rutu i kontakt tražimo u sledećem koraku.",
+    copyright: "© 2026 letkasni.rs. Sva prava zadržana.",
   },
   en: {
     brand: "letkasni.rs",
+    localeLabel: "EN",
+    localeSwitch: "SR",
+    localeHref: "/",
     navHow: "How it works",
     navBenefits: "Benefits",
     navFaq: "FAQ",
@@ -161,6 +170,8 @@ const copy = {
     benefitsEyebrow: "Why people choose us",
     benefitsTitle1: "Why passengers choose",
     benefitsTitle2: "letkasni.rs?",
+    benefitsTitle: "Why passengers choose us",
+    localBadge: "Local expertise",
     localTitle: "The first Serbian provider",
     localBody:
       '"Our local legal team handles the case efficiently and clearly, so you are not stuck chasing airlines through generic foreign forms."',
@@ -215,6 +226,7 @@ const copy = {
     privacy: "Privacy policy",
     support: "Contact",
     routeHint: "We collect the full route and contact details in the next step.",
+    copyright: "© 2026 letkasni.rs. All rights reserved.",
   },
 } as const;
 
@@ -250,7 +262,10 @@ export function LandingPage({
   }, []);
 
   return (
-    <main className="min-h-screen bg-slate-50 text-slate-900 selection:bg-blue-600/10 selection:text-blue-600">
+    <main
+      lang={locale === "en" ? "en" : "sr"}
+      className="min-h-screen bg-slate-50 text-slate-900 selection:bg-blue-600/10 selection:text-blue-600"
+    >
       <nav
         className={`fixed inset-x-0 top-0 z-50 border-b transition-all duration-300 ${
           scrolled
@@ -281,6 +296,14 @@ export function LandingPage({
             <a href="#faq" className="text-sm font-medium transition-colors hover:text-blue-600">
               {t.navFaq}
             </a>
+            <Link
+              href={t.localeHref}
+              className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/80 px-3 py-1.5 text-xs font-bold uppercase tracking-[0.16em] text-slate-500 transition-colors hover:border-blue-200 hover:text-blue-600"
+            >
+              <span className="text-slate-900">{t.localeLabel}</span>
+              <span>/</span>
+              <span>{t.localeSwitch}</span>
+            </Link>
             <button
               onClick={() => setIsClaimModalOpen(true)}
               className="rounded-full bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-blue-600/20 transition-all hover:bg-blue-700"
@@ -310,6 +333,15 @@ export function LandingPage({
             <a href="#faq" onClick={() => setIsMenuOpen(false)}>
               {t.navFaq}
             </a>
+            <Link
+              href={t.localeHref}
+              onClick={() => setIsMenuOpen(false)}
+              className="inline-flex items-center justify-center gap-2 rounded-2xl border border-slate-200 py-4 text-base font-bold uppercase tracking-[0.14em] text-slate-600"
+            >
+              <span className="text-slate-900">{t.localeLabel}</span>
+              <span>/</span>
+              <span>{t.localeSwitch}</span>
+            </Link>
             <button
               onClick={() => {
                 setIsMenuOpen(false);
@@ -462,7 +494,7 @@ export function LandingPage({
         <div className="container mx-auto max-w-[1440px] px-6 md:px-8">
           <div className="mx-auto mb-16 max-w-[56rem] text-center">
             <h2 className="text-4xl font-black tracking-tight text-slate-900 md:text-5xl">
-              Zašto nas biraju putnici?
+              {t.benefitsTitle}
             </h2>
           </div>
 
@@ -471,7 +503,7 @@ export function LandingPage({
               <div className="absolute right-0 top-0 h-full w-[700px] -mr-28 rounded-full bg-white/6 blur-3xl transition-all duration-700 group-hover:bg-white/10" />
               <div className="relative z-10">
                 <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-orange-500 px-4 py-1.5 text-[10px] font-black uppercase tracking-widest text-white shadow-lg shadow-orange-500/20">
-                  Lokalna ekspertiza
+                  {t.localBadge}
                 </div>
                 <h3 className="max-w-none border-b-2 border-orange-400 pb-4 text-[2.7rem] font-black leading-[1.02] tracking-tight text-white md:inline-block md:text-[3.35rem]">
                   {t.localTitle}
@@ -631,7 +663,7 @@ export function LandingPage({
           </div>
 
           <div className="flex flex-col items-center justify-center gap-4 border-t border-slate-200 pt-8 text-sm text-slate-500 md:flex-row">
-            <p>© 2026 letkasni.rs. Sva prava zadržana.</p>
+            <p>{t.copyright}</p>
           </div>
         </div>
       </footer>
