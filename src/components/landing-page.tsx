@@ -1,397 +1,644 @@
-import Link from "next/link";
-import { ArrowRight, CheckCircle2, ChevronRight } from "lucide-react";
+"use client";
 
-import { ClaimIntakeForm } from "@/components/claim-intake-form";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import {
+  ArrowRight,
+  Banknote,
+  CheckCircle2,
+  ChevronRight,
+  Clock,
+  Menu,
+  Plane,
+  Scale,
+  ShieldCheck,
+  X,
+  Zap,
+} from "lucide-react";
+
+import { ClaimModal } from "@/components/claim-modal";
 import { getSupportEmail } from "@/lib/env";
 
 type Locale = "sr" | "en";
 
 const copy = {
   sr: {
+    brand: "letkasni.rs",
     navHow: "Kako radi",
-    navCases: "Koji slučajevi",
-    navFaq: "FAQ",
-    navCompare: "Varijante",
-    navCta: "Pošalji slučaj",
-    badge: "Lokalni claims handoff za putnike iz Srbije",
-    title:
-      "Vaš let je kasnio ili ste propustili konekciju? Proverite slučaj za manje od minut.",
-    body:
-      "Unosite minimum podataka, dobijate konzervativan preliminarni signal, a slučaj ide dalje u pravi operativni tok. Bez generičnog stranog claim sajta i bez praznog “javićemo vam se”.",
-    chips: [
-      "Podržano: kašnjenje 3h+",
-      "Podržano: propuštena konekcija na istoj rezervaciji",
-      "Ako signal nije čist: ručna provera",
-    ],
-    evidence: [
-      { label: "Live lookup", value: "Flight podaci" },
-      { label: "Fallback", value: "Ručna provera" },
-      { label: "Ops", value: "Claim queue" },
-      { label: "Trošak", value: "Bez unapred" },
-    ],
-    primaryCta: "Proverite pravo na naknadu",
-    secondaryCta: "Pogledajte kako radi",
-    timelineTitle: "Kako ovo radi",
-    timeline: [
+    navBenefits: "Prednosti",
+    navFaq: "Česta pitanja",
+    navCta: "Proveri let",
+    badge: "Prvi srpski servis za zaštitu putnika",
+    heroTitle1: "Vaš let je",
+    heroTitle2: "kasnio?",
+    heroTitle3: "Naplatite do 600€",
+    heroTitle4: "odštete.",
+    heroBody:
+      "Kao prvi domaći servis, pomažemo putnicima u Srbiji da naplate ono što im zakonski pripada. Bez stresa, bez stranih sajtova i bez troškova unapred.",
+    proofA: "Zakon je na vašoj strani",
+    proofB: "Bez troškova unapred",
+    cardTitle: "Proveri odštetu odmah",
+    flightNumber: "Broj leta",
+    flightNumberPlaceholder: "npr. JU101 ili W6 4001",
+    flightDate: "Datum leta",
+    heroButton: "Proveri besplatno",
+    heroNote: "Provera traje manje od 60 sekundi i ne obavezuje vas ni na šta.",
+    airlinesTitle: "Radimo sa zahtevima protiv svih većih avio-kompanija",
+    howTitle: "Tri koraka do vaše odštete",
+    howBody: "Zaboravite na birokratiju. Mi smo proces doveli do jasnog i brzog toka.",
+    how: [
       {
-        title: "Unesete minimum",
-        body: "Broj leta, datum, tip problema i kontakt. Bez papirologije u prvom koraku.",
+        title: "Unesite podatke",
+        body: "Broj leta, datum i osnovni problem. Dovoljno za prvi signal.",
       },
       {
-        title: "Sistem proverava signal",
-        body: "Pokušavamo da vratimo dovoljno podataka za konzervativan preliminarni odgovor.",
+        title: "Pravna provera",
+        body: "Sistem i operativni tim proveravaju da li slučaj deluje naplativo.",
       },
       {
-        title: "Slučaj ulazi u queue",
-        body: "Interni pregled odvaja jasno pozitivne, ručne i slabe slučajeve bez gubljenja kroz inbox.",
+        title: "Isplata novca",
+        body: "Ako je slučaj dobar, vodimo proces naplate do isplate na vaš račun.",
       },
     ],
-    questionsTitle: "Pitanja koja stvarno odlučuju konverziju",
-    questions: [
-      {
-        title: "Šta ako ne može odmah da potvrdi?",
-        body: "Tada dobijaš ručnu proveru, ne lažnu sigurnost.",
-      },
-      {
-        title: "Da li odmah tražite dokumenta?",
-        body: "Ne u prvom koraku. Prvo proveravamo da li ima smisla ići dalje.",
-      },
-      {
-        title: "Zašto ovo deluje drugačije od AirHelp-a?",
-        body: "Zato što je više utility alat sa lokalnim handoff modelom, a manje marketinški claim template.",
-      },
-    ],
-    casesTitle: "Koji slučajevi su najčistiji za prvu verziju",
-    cases: [
-      {
-        label: "Podržano sada",
-        title: "Kašnjenje preko 3 sata",
-        body: "Najjači phase 1 slučaj za preliminarnu proveru i dalju obradu.",
-      },
-      {
-        label: "Podržano sada",
-        title: "Propuštena konekcija",
-        body: "Posebno kada je ceo put bio na istoj rezervaciji i prvi segment poremetio ostatak puta.",
-      },
-      {
-        label: "Ručna provera",
-        title: "Ostali edge slučajevi",
-        body: "Denied boarding, baggage i slični scenariji nisu fokus prve verzije toka.",
-      },
-    ],
+    benefitsEyebrow: "Prednosti saradnje",
+    benefitsTitle1: "Zašto putnici biraju",
+    benefitsTitle2: "letkasni.rs?",
+    localTitle: "Prvi i jedini pravi",
+    localAccent: "srpski provajder",
+    localBody:
+      '"Naš lokalni pravni tim vodi slučaj efikasno i razumljivo, tako da vi ne jurite avio-kompaniju po stranim formularima."',
+    localMetaA: "Beograd",
+    localMetaB: "Srbija",
+    featureRiskTitle: "Bez rizika.",
+    featureRiskBody:
+      "Proviziju uzimamo samo ako naplatimo. Mi preuzimamo operativni i pravni teret.",
+    featureTimeTitle: "Ušteda vremena",
+    featureTimeBody:
+      "Jasan intake, jedan tok i status koji ne nestaje u inboxu.",
+    featureFeeTitle: "Jasna provizija",
+    featureFeeBody:
+      "Model bez unapred plaćanja, sa jasnim sledećim koracima i domaćim kontaktom.",
     faqTitle: "Česta pitanja",
-    faq: [
+    faqBody: "Sve što treba da znate o procesu naplate.",
+    faqs: [
       {
-        title: "Da li odmah znate da imam pravo?",
-        body: "Ne. Ako signal nije dovoljno čist, slučaj ide u ručnu proveru.",
+        q: "Koliko novca mogu da dobijem?",
+        a: "Tipični EU 261 slučajevi su najčešće u rasponu od 250€ do 600€ po putniku, u zavisnosti od dužine leta i okolnosti.",
       },
       {
-        title: "Zašto tražite samo minimum?",
-        body: "Zato što je cilj da se slučaj brzo preda, a ne da korisnik odmah upadne u papirologiju.",
+        q: "Šta mi je potrebno od dokumenata?",
+        a: "Za prvi korak dovoljno je da unesete broj leta, datum i osnovni opis problema. Dodatna dokumenta tražimo tek kada slučaj ima smisla.",
       },
       {
-        title: "Šta se dešava posle?",
-        body: "Claim ulazi u interni queue i dobija sledeći korak, umesto da nestane u inboxu.",
+        q: "Šta ako je avio-kompanija rekla da nema osnova?",
+        a: "To nije konačan odgovor. Kompanije često odbijaju zahteve generički, pa radimo sopstvenu proveru pre konačne odluke.",
       },
       {
-        title: "Koliko ovo može da vredi?",
-        body: "U tipičnim EU 261 slučajevima signal je najčešće u opsegu 250–600 EUR po putniku, ali prvi korak nije konačno obećanje.",
+        q: "Kada plaćam uslugu?",
+        a: "Ne plaćate unapred. Naknada se obračunava tek ako slučaj uspe.",
       },
     ],
-    compareTitle: "Uporedite zaključane i šire dizajn pravce",
-    compareBody:
-      "Ako želiš da presečeš finalni smer brzo kad se vratiš, otvoren je poseban board sa A1/A2/A3 final varijantama i dodatnim širim eksploracijama.",
-    compareButton: "Otvori design board",
+    ctaTitle: "Ne dozvolite da vaš novac ostane avio-kompaniji.",
+    ctaBody:
+      "Započnite proveru odmah. Za prvi prolaz su vam potrebna samo dva minuta.",
+    ctaButton: "Proveri moj let besplatno",
     footerBody:
-      "Prvi srpski servis fokusiran na početnu proveru prava putnika u avio-saobraćaju i smislen sledeći korak.",
-    footerTerms: "Uslovi korišćenja",
-    footerPrivacy: "Politika privatnosti",
-    footerSupport: "Kontakt",
+      "Specijalizovani servis za zaštitu prava putnika u avio-saobraćaju i naplatu zakonom propisane odštete.",
+    footerLinks: "Linkovi",
+    footerLegal: "Pravne informacije",
+    about: "O nama",
+    pricing: "Cenovnik usluga",
+    rights: "Prava prema EU 261",
+    terms: "Uslovi korišćenja",
+    privacy: "Politika privatnosti",
+    support: "Kontakt",
+    routeHint: "Kompletnu rutu i kontakt tražimo u sledećem koraku.",
   },
   en: {
+    brand: "letkasni.rs",
     navHow: "How it works",
-    navCases: "Supported cases",
+    navBenefits: "Benefits",
     navFaq: "FAQ",
-    navCompare: "Variants",
-    navCta: "Send the case",
-    badge: "Local claims handoff for passengers flying to or from Serbia",
-    title:
-      "Was your flight delayed or did you miss a connection? Check the case in under a minute.",
-    body:
-      "You enter the minimum, get a conservative preliminary signal, and the case moves into a real operating flow. No generic foreign claim template and no empty “we will get back to you.”",
-    chips: [
-      "Supported: delay 3h+",
-      "Supported: missed connection on the same booking",
-      "If the signal is unclear: manual review",
-    ],
-    evidence: [
-      { label: "Live lookup", value: "Flight data" },
-      { label: "Fallback", value: "Manual review" },
-      { label: "Ops", value: "Claim queue" },
-      { label: "Cost", value: "No upfront fee" },
-    ],
-    primaryCta: "Check compensation eligibility",
-    secondaryCta: "See how it works",
-    timelineTitle: "How this works",
-    timeline: [
+    navCta: "Check flight",
+    badge: "Serbia-first passenger rights service",
+    heroTitle1: "Was your flight",
+    heroTitle2: "delayed?",
+    heroTitle3: "Claim up to €600",
+    heroTitle4: "in compensation.",
+    heroBody:
+      "We help passengers connected to Serbia recover compensation they may be legally owed. No foreign claim maze, no upfront cost, and a clear next step.",
+    proofA: "Passenger law is on your side",
+    proofB: "No upfront fee",
+    cardTitle: "Check compensation now",
+    flightNumber: "Flight number",
+    flightNumberPlaceholder: "e.g. JU101 or W6 4001",
+    flightDate: "Flight date",
+    heroButton: "Check for free",
+    heroNote: "The first check takes less than 60 seconds and does not commit you to anything.",
+    airlinesTitle: "We handle claims against all major airlines",
+    howTitle: "Three steps to compensation",
+    howBody: "No paperwork maze. Just a clear and fast path.",
+    how: [
       {
-        title: "You enter the minimum",
-        body: "Flight number, date, disruption type and contact details. No paperwork on step one.",
+        title: "Enter the details",
+        body: "Flight number, date and issue. Enough for the first signal.",
       },
       {
-        title: "The system checks the signal",
-        body: "We try to return enough data for a conservative preliminary answer.",
+        title: "Legal review",
+        body: "The system and operations team check whether the case looks viable.",
       },
       {
-        title: "The case enters a real queue",
-        body: "Internal review separates clearer cases, manual-review cases and weak cases without losing them in email.",
+        title: "Payout",
+        body: "If the case is good, we drive it forward until collection.",
       },
     ],
-    questionsTitle: "Questions that actually decide conversion",
-    questions: [
-      {
-        title: "What if the system cannot confirm it immediately?",
-        body: "Then you get manual review, not fake certainty.",
-      },
-      {
-        title: "Do you ask for documents right away?",
-        body: "Not on the first pass. We first check whether the case is worth taking further.",
-      },
-      {
-        title: "Why does this feel different from typical claim sites?",
-        body: "Because it behaves more like a utility with a local handoff model than a generic marketing template.",
-      },
-    ],
-    casesTitle: "Which cases are cleanest for phase one",
-    cases: [
-      {
-        label: "Supported now",
-        title: "Delay over 3 hours",
-        body: "The clearest phase one case for a preliminary check and further handling.",
-      },
-      {
-        label: "Supported now",
-        title: "Missed connection",
-        body: "Especially when the full trip was on the same booking and the first segment broke the rest of the trip.",
-      },
-      {
-        label: "Manual review",
-        title: "Other edge cases",
-        body: "Denied boarding, baggage issues and similar cases are not the focus of the first flow.",
-      },
-    ],
+    benefitsEyebrow: "Why people choose us",
+    benefitsTitle1: "Why passengers choose",
+    benefitsTitle2: "letkasni.rs?",
+    localTitle: "The first real",
+    localAccent: "Serbian provider",
+    localBody:
+      '"Our local legal team handles the case efficiently and clearly, so you are not stuck chasing airlines through generic foreign forms."',
+    localMetaA: "Belgrade",
+    localMetaB: "Serbia",
+    featureRiskTitle: "No upfront risk.",
+    featureRiskBody:
+      "We only earn if we collect. We take on the operational and legal burden.",
+    featureTimeTitle: "Time saved",
+    featureTimeBody:
+      "A clear intake, one flow and a case that does not disappear in email.",
+    featureFeeTitle: "Clear fee model",
+    featureFeeBody:
+      "No upfront payment, clear next steps and a local human contact.",
     faqTitle: "Frequently asked questions",
-    faq: [
+    faqBody: "What you should know before starting.",
+    faqs: [
       {
-        title: "Do you know immediately that I am eligible?",
-        body: "No. If the signal is not clear enough, the case goes to manual review.",
+        q: "How much could I recover?",
+        a: "Typical EU 261 cases most often fall in the €250 to €600 range per passenger depending on distance and disruption details.",
       },
       {
-        title: "Why do you only ask for the minimum?",
-        body: "Because the goal is to move the case quickly, not to push the passenger into paperwork immediately.",
+        q: "Which documents do I need?",
+        a: "For the first step, flight number, date and a short description are enough. We ask for extra documents only if the case is worth pushing.",
       },
       {
-        title: "What happens after I submit?",
-        body: "The claim enters an internal queue and receives a next step instead of disappearing into an inbox.",
+        q: "What if the airline already rejected me?",
+        a: "That is not final. Airlines often reject with generic answers, so we run our own review before deciding.",
       },
       {
-        title: "How much could it be worth?",
-        body: "In typical EU 261 scenarios the signal is most often in the €250–€600 range per passenger, but the first pass is not a final promise.",
+        q: "When do I pay?",
+        a: "There is no upfront payment. The fee is charged only if the case succeeds.",
       },
     ],
-    compareTitle: "Compare the locked and broader design directions",
-    compareBody:
-      "If you want to decide on the final direction quickly later, there is a dedicated board with the A1/A2/A3 final variants and the wider explorations.",
-    compareButton: "Open the design board",
+    ctaTitle: "Do not leave your money with the airline.",
+    ctaBody: "Start the check now. The first pass takes only two minutes.",
+    ctaButton: "Check my flight for free",
     footerBody:
-      "A Serbia-focused service for a clear first passenger-rights review and a sensible next step.",
-    footerTerms: "Terms of use",
-    footerPrivacy: "Privacy policy",
-    footerSupport: "Contact",
+      "A focused service for passenger-rights claims and compensation support connected to Serbia.",
+    footerLinks: "Links",
+    footerLegal: "Legal",
+    about: "About",
+    pricing: "Pricing",
+    rights: "EU 261 rights",
+    terms: "Terms of use",
+    privacy: "Privacy policy",
+    support: "Contact",
+    routeHint: "We collect the full route and contact details in the next step.",
   },
 } as const;
+
+const airlines = [
+  "AIRSERBIA",
+  "WIZZAIR",
+  "RYANAIR",
+  "LUFTHANSA",
+  "TURKISH",
+  "EMIRATES",
+  "AUSTRIAN",
+];
 
 export function LandingPage({ locale = "sr" }: { locale?: Locale }) {
   const t = copy[locale];
   const supportEmail = getSupportEmail();
-  const blogHref = locale === "en" ? "/blog" : "/blog";
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isClaimModalOpen, setIsClaimModalOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [heroFlight, setHeroFlight] = useState("");
+  const [heroDate, setHeroDate] = useState("");
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <main className="lk-page">
-      <div className="lk-shell">
-        <nav className="lk-nav">
-          <Link href={locale === "en" ? "/en" : "/"} className="lk-brand">
-            LET<span>KASNI</span>
+    <main className="min-h-screen bg-slate-50 text-slate-900 selection:bg-blue-600/10 selection:text-blue-600">
+      <nav
+        className={`fixed inset-x-0 top-0 z-50 border-b transition-all duration-300 ${
+          scrolled
+            ? "border-slate-200 bg-white/90 py-3 shadow-sm backdrop-blur-md"
+            : "border-transparent bg-transparent py-5"
+        }`}
+      >
+        <div className="container mx-auto flex max-w-7xl items-center justify-between px-4 md:px-6">
+          <Link
+            href={locale === "en" ? "/en" : "/"}
+            className="flex items-center gap-2"
+          >
+            <div className="rounded-lg bg-blue-600 p-1.5 text-white">
+              <Plane className="h-6 w-6 -rotate-12" />
+            </div>
+            <span className="text-2xl font-extrabold tracking-tight text-blue-900">
+              letkasni<span className="text-orange-500">.rs</span>
+            </span>
           </Link>
 
-          <div className="lk-nav-links">
-            <a href="#kako-radi">{t.navHow}</a>
-            <a href="#slucajevi">{t.navCases}</a>
-            <a href="#faq">{t.navFaq}</a>
-            <Link href="/design/compare">{t.navCompare}</Link>
-            <Link href={blogHref}>{locale === "en" ? "Blog" : "Blog"}</Link>
-          </div>
-
-          <a href="#provera" className="lk-nav-cta">
-            {t.navCta}
-          </a>
-        </nav>
-
-        <section className="lk-hero">
-          <div className="lk-panel lk-hero-copy">
-            <div className="lk-eyebrow">{t.badge}</div>
-            <h1 className="lk-title">{t.title}</h1>
-            <p className="lk-lead">{t.body}</p>
-
-            <div className="lk-proof-row">
-              {t.chips.map((chip) => (
-                <div key={chip} className="lk-chip">
-                  {chip}
-                </div>
-              ))}
-            </div>
-
-            <div className="lk-evidence-strip">
-              {t.evidence.map((item) => (
-                <div key={item.label} className="lk-evidence-box">
-                  <div className="lk-evidence-label">{item.label}</div>
-                  <div className="lk-evidence-value">{item.value}</div>
-                </div>
-              ))}
-            </div>
-
-            <div className="lk-hero-actions">
-              <a className="lk-primary" href="#provera">
-                {t.primaryCta}
-                <ArrowRight className="h-4 w-4" />
-              </a>
-              <a className="lk-secondary" href="#kako-radi">
-                {t.secondaryCta}
-                <ChevronRight className="h-4 w-4" />
-              </a>
-            </div>
-          </div>
-
-          <div className="lk-panel lk-form-panel" id="provera">
-            <ClaimIntakeForm locale={locale} />
-          </div>
-        </section>
-
-        <div className="lk-sections">
-          <section className="lk-section-grid" id="kako-radi">
-            <div className="lk-card">
-              <h2 className="lk-card-title">{t.timelineTitle}</h2>
-              <div className="lk-timeline">
-                {t.timeline.map((step, index) => (
-                  <div key={step.title} className="lk-timeline-item">
-                    <div className="lk-num">{index + 1}</div>
-                    <div>
-                      <strong>{step.title}</strong>
-                      <span>{step.body}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="lk-card">
-              <h2 className="lk-card-title">{t.questionsTitle}</h2>
-              <div className="lk-faq">
-                {t.questions.map((item) => (
-                  <div key={item.title} className="lk-faq-item">
-                    <strong>{item.title}</strong>
-                    <span>{item.body}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-
-          <section className="lk-cases" id="slucajevi">
-            <div className="lk-cases-head">
-              <h2 className="lk-card-title">{t.casesTitle}</h2>
-            </div>
-            <div className="lk-supported-grid">
-              {t.cases.map((item) => (
-                <div key={item.title} className="lk-support-card">
-                  <div className="lk-support-tag">{item.label}</div>
-                  <h3>{item.title}</h3>
-                  <p>{item.body}</p>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          <section className="lk-section-grid">
-            <div className="lk-card">
-              <h2 className="lk-card-title">{t.faqTitle}</h2>
-              <div className="lk-faq" id="faq">
-                {t.faq.map((item) => (
-                  <div key={item.title} className="lk-faq-item">
-                    <strong>{item.title}</strong>
-                    <span>{item.body}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="lk-card lk-compare-card">
-              <h2 className="lk-card-title">{t.compareTitle}</h2>
-              <p className="lk-muted-copy">{t.compareBody}</p>
-              <div className="lk-compare-points">
-                <div className="lk-compare-point">
-                  <CheckCircle2 className="h-5 w-5 text-brand-primary" />
-                  <span>A1 conversion final</span>
-                </div>
-                <div className="lk-compare-point">
-                  <CheckCircle2 className="h-5 w-5 text-brand-primary" />
-                  <span>A2 proof-first final</span>
-                </div>
-                <div className="lk-compare-point">
-                  <CheckCircle2 className="h-5 w-5 text-brand-primary" />
-                  <span>A3 guided-first final</span>
-                </div>
-                <div className="lk-compare-point">
-                  <CheckCircle2 className="h-5 w-5 text-brand-primary" />
-                  <span>Utility, editorial i ops-first explorations</span>
-                </div>
-              </div>
-              <Link href="/design/compare" className="lk-primary lk-primary-inline">
-                {t.compareButton}
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-            </div>
-          </section>
-
-          <section className="lk-cta-band">
-            <div>
-              <h2>{t.primaryCta}</h2>
-              <p>
-                {locale === "en"
-                  ? "The first pass is fast, conservative and built to move the case into a real next step."
-                  : "Prvi prolaz je brz, konzervativan i napravljen da slučaj prebaci u pravi sledeći korak."}
-              </p>
-            </div>
-            <a href="#provera">
-              {locale === "en" ? "Start now" : "Pošalji sada"}
+          <div className="hidden items-center gap-8 md:flex">
+            <a href="#kako-radi" className="text-sm font-medium transition-colors hover:text-blue-600">
+              {t.navHow}
             </a>
-          </section>
-        </div>
+            <a href="#prednosti" className="text-sm font-medium transition-colors hover:text-blue-600">
+              {t.navBenefits}
+            </a>
+            <a href="#faq" className="text-sm font-medium transition-colors hover:text-blue-600">
+              {t.navFaq}
+            </a>
+            <button
+              onClick={() => setIsClaimModalOpen(true)}
+              className="rounded-full bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-blue-600/20 transition-all hover:bg-blue-700"
+            >
+              {t.navCta}
+            </button>
+          </div>
 
-        <footer className="lk-footer">
+          <button
+            className="rounded-xl p-2 transition hover:bg-slate-100 md:hidden"
+            onClick={() => setIsMenuOpen((current) => !current)}
+          >
+            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
+        </div>
+      </nav>
+
+      {isMenuOpen ? (
+        <div className="fixed inset-0 z-40 bg-white px-6 pt-24 md:hidden">
+          <div className="flex flex-col gap-6 text-lg font-medium">
+            <a href="#kako-radi" onClick={() => setIsMenuOpen(false)}>
+              {t.navHow}
+            </a>
+            <a href="#prednosti" onClick={() => setIsMenuOpen(false)}>
+              {t.navBenefits}
+            </a>
+            <a href="#faq" onClick={() => setIsMenuOpen(false)}>
+              {t.navFaq}
+            </a>
+            <button
+              onClick={() => {
+                setIsMenuOpen(false);
+                setIsClaimModalOpen(true);
+              }}
+              className="rounded-2xl bg-blue-600 py-4 font-bold text-white"
+            >
+              {t.navCta}
+            </button>
+          </div>
+        </div>
+      ) : null}
+
+      <section className="relative overflow-hidden bg-slate-50 pb-20 pt-32 md:pb-40 md:pt-48">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(37,99,235,0.08),transparent_30%),radial-gradient(circle_at_top_right,rgba(249,115,22,0.08),transparent_30%)]" />
+        <div className="container relative z-10 mx-auto grid max-w-7xl gap-12 px-4 md:px-6 lg:grid-cols-2 lg:items-center">
           <div>
-            <div className="lk-brand lk-brand-footer">
-              LET<span>KASNI</span>
+            <span className="mb-6 inline-flex items-center gap-2 rounded-full bg-blue-100 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-blue-700">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-blue-400 opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-blue-500" />
+              </span>
+              {t.badge}
+            </span>
+            <h1 className="mb-8 text-5xl font-black leading-none tracking-tighter text-slate-900 md:text-7xl lg:text-8xl">
+              {t.heroTitle1} <br />
+              {t.heroTitle2} <br />
+              <span className="text-blue-600">{t.heroTitle3}</span> {t.heroTitle4}
+            </h1>
+            <p className="mb-8 max-w-xl text-xl leading-relaxed text-slate-600">
+              {t.heroBody}
+            </p>
+
+            <div className="flex flex-col gap-4 text-sm font-medium text-slate-600 sm:flex-row sm:items-center sm:gap-6">
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="h-5 w-5 text-green-500" />
+                {t.proofA}
+              </div>
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="h-5 w-5 text-green-500" />
+                {t.proofB}
+              </div>
             </div>
-            <p>{t.footerBody}</p>
           </div>
-          <div className="lk-footer-links">
-            <Link href="/terms">{t.footerTerms}</Link>
-            <Link href="/privacy">{t.footerPrivacy}</Link>
-            <a href={`mailto:${supportEmail}`}>{t.footerSupport}: {supportEmail}</a>
+
+          <div className="relative">
+            <div className="absolute -inset-4 -z-10 rounded-[2.5rem] bg-blue-100/60 blur-3xl" />
+            <div className="rounded-[2.5rem] border border-slate-100 bg-white p-8 shadow-2xl shadow-blue-900/5 md:p-10">
+              <h2 className="mb-6 text-2xl font-bold text-slate-900">{t.cardTitle}</h2>
+              <div className="space-y-4">
+                <label className="block space-y-2">
+                  <span className="text-sm font-semibold text-slate-700">{t.flightNumber}</span>
+                  <input
+                    type="text"
+                    value={heroFlight}
+                    onChange={(event) => setHeroFlight(event.target.value)}
+                    placeholder={t.flightNumberPlaceholder}
+                    className="w-full rounded-xl border border-slate-200 bg-slate-50/60 px-4 py-4 outline-none transition-all focus:border-blue-600 focus:bg-white focus:ring-4 focus:ring-blue-600/10"
+                  />
+                </label>
+
+                <label className="block space-y-2">
+                  <span className="text-sm font-semibold text-slate-700">{t.flightDate}</span>
+                  <input
+                    type="date"
+                    value={heroDate}
+                    onChange={(event) => setHeroDate(event.target.value)}
+                    className="w-full rounded-xl border border-slate-200 bg-slate-50/60 px-4 py-4 outline-none transition-all focus:border-blue-600 focus:bg-white focus:ring-4 focus:ring-blue-600/10"
+                  />
+                </label>
+
+                <button
+                  onClick={() => setIsClaimModalOpen(true)}
+                  className="mt-4 flex w-full items-center justify-center gap-2 rounded-2xl bg-blue-600 py-5 text-lg font-bold text-white shadow-xl shadow-blue-600/20 transition-all hover:bg-blue-700"
+                >
+                  {t.heroButton}
+                  <ArrowRight className="h-5 w-5 text-orange-500" />
+                </button>
+                <p className="text-center text-xs text-slate-500">{t.heroNote}</p>
+                <p className="text-center text-xs text-slate-400">{t.routeHint}</p>
+              </div>
+            </div>
           </div>
-        </footer>
-      </div>
+        </div>
+      </section>
+
+      <section className="border-y border-slate-200 bg-white py-12">
+        <div className="container mx-auto max-w-7xl px-4 md:px-6">
+          <p className="mb-8 text-center text-xs font-bold uppercase tracking-[0.2em] text-slate-400">
+            {t.airlinesTitle}
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-10 opacity-50 grayscale transition-all duration-500 hover:grayscale-0 md:gap-20">
+            {airlines.map((airline) => (
+              <span
+                key={airline}
+                className="text-2xl font-black italic tracking-tighter text-slate-800"
+              >
+                {airline}
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="kako-radi" className="relative overflow-hidden bg-slate-50 py-24">
+        <div className="container relative z-10 mx-auto max-w-7xl px-4 md:px-6">
+          <div className="mx-auto mb-20 max-w-2xl text-center">
+            <h2 className="mb-6 text-4xl font-black tracking-tight text-slate-900 md:text-5xl">
+              {t.howTitle}
+            </h2>
+            <p className="text-lg text-slate-600">{t.howBody}</p>
+          </div>
+
+          <div className="grid gap-8 md:grid-cols-3 md:gap-12">
+            {[Zap, Scale, Banknote].map((Icon, index) => (
+              <div
+                key={t.how[index].title}
+                className="group rounded-3xl border border-slate-100 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
+              >
+                <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl border border-slate-100 bg-slate-50">
+                  <Icon className={`h-8 w-8 ${index === 0 ? "text-orange-500" : index === 1 ? "text-blue-600" : "text-green-500"}`} />
+                </div>
+                <h3 className="mb-3 flex items-center gap-3 text-xl font-bold text-slate-900">
+                  <span className="text-3xl font-black text-blue-100">{`0${index + 1}`}</span>
+                  {t.how[index].title}
+                </h3>
+                <p className="leading-relaxed text-slate-600">{t.how[index].body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="prednosti" className="relative overflow-hidden bg-white py-24">
+        <div className="absolute right-0 top-0 -z-10 h-[800px] w-[800px] translate-x-1/4 -translate-y-1/2 rounded-full bg-blue-50/60 blur-3xl" />
+        <div className="absolute bottom-0 left-0 -z-10 h-[600px] w-[600px] -translate-x-1/4 translate-y-1/2 rounded-full bg-orange-50/70 blur-3xl" />
+        <div className="container mx-auto max-w-7xl px-4 md:px-6">
+          <div className="mb-16 max-w-3xl">
+            <span className="mb-4 block text-[10px] font-bold uppercase tracking-[0.2em] text-orange-500">
+              {t.benefitsEyebrow}
+            </span>
+            <h2 className="text-4xl font-black leading-[1.05] tracking-tight text-slate-900 md:text-6xl">
+              {t.benefitsTitle1} <br />
+              <span className="text-blue-600">{t.benefitsTitle2}</span>
+            </h2>
+          </div>
+
+          <div className="grid gap-5 md:grid-cols-12">
+            <div className="group relative overflow-hidden rounded-[2.5rem] bg-slate-900 p-8 text-white shadow-2xl shadow-slate-900/10 md:col-span-12 md:flex md:items-center md:justify-between md:gap-10 md:p-12">
+              <div className="absolute right-0 top-0 h-full w-[600px] -mr-32 rounded-full bg-orange-500/5 blur-3xl transition-all duration-700 group-hover:bg-orange-500/10" />
+              <div className="relative z-10 flex-1">
+                <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-orange-500 px-4 py-1.5 text-[10px] font-black uppercase tracking-widest text-white shadow-lg shadow-orange-500/20">
+                  Lokalna ekspertiza
+                </div>
+                <h3 className="text-3xl font-black leading-tight md:text-5xl">
+                  {t.localTitle} <br className="hidden md:block" />
+                  <span className="text-orange-500 underline decoration-white/20 underline-offset-8">
+                    {t.localAccent}
+                  </span>
+                </h3>
+              </div>
+              <div className="relative z-10 mt-8 max-w-sm md:mt-0 md:border-l md:border-white/10 md:pl-10">
+                <p className="mb-4 text-lg font-medium italic leading-relaxed text-slate-300">
+                  {t.localBody}
+                </p>
+                <div className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.2em] text-slate-500">
+                  <span>{t.localMetaA}</span>
+                  <span className="h-1 w-1 rounded-full bg-slate-700" />
+                  <span>{t.localMetaB}</span>
+                </div>
+              </div>
+            </div>
+
+            {[
+              {
+                title: t.featureRiskTitle,
+                body: t.featureRiskBody,
+                icon: ShieldCheck,
+              },
+              {
+                title: t.featureTimeTitle,
+                body: t.featureTimeBody,
+                icon: Clock,
+              },
+              {
+                title: t.featureFeeTitle,
+                body: t.featureFeeBody,
+                icon: Banknote,
+              },
+            ].map((item) => (
+              <div
+                key={item.title}
+                className="group relative flex min-h-[220px] flex-col justify-center overflow-hidden rounded-[2.5rem] bg-blue-600 p-10 text-white shadow-xl shadow-blue-600/20 md:col-span-4"
+              >
+                <item.icon className="absolute -right-10 -top-10 h-40 w-40 opacity-10 transition-transform duration-500 group-hover:scale-110" />
+                <div className="relative z-10">
+                  <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-white/20 backdrop-blur-md">
+                    <item.icon className="h-6 w-6 text-white" />
+                  </div>
+                  <h4 className="mb-2 text-xl font-bold leading-tight">{item.title}</h4>
+                  <p className="text-sm font-medium leading-relaxed text-blue-100/75">
+                    {item.body}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="faq" className="border-t border-slate-200 bg-slate-50 py-24">
+        <div className="container mx-auto max-w-3xl px-4 md:px-6">
+          <div className="mb-16 text-center">
+            <h2 className="mb-4 text-3xl font-black text-slate-900 md:text-4xl">
+              {t.faqTitle}
+            </h2>
+            <p className="text-slate-600">{t.faqBody}</p>
+          </div>
+
+          <div className="space-y-4">
+            {t.faqs.map((faq) => (
+              <details
+                key={faq.q}
+                className="group overflow-hidden rounded-2xl border border-slate-200 bg-white transition-colors hover:border-blue-200"
+              >
+                <summary className="flex cursor-pointer list-none items-center justify-between p-6 text-lg font-bold text-slate-800">
+                  {faq.q}
+                  <ChevronRight className="h-5 w-5 text-slate-400 transition-transform group-open:rotate-90" />
+                </summary>
+                <div className="mt-2 border-t border-slate-100 px-6 pb-6 pt-4 leading-relaxed text-slate-600">
+                  {faq.a}
+                </div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white py-24">
+        <div className="container mx-auto max-w-7xl px-4 md:px-6">
+          <div className="relative overflow-hidden rounded-[3rem] bg-gradient-to-br from-blue-600 to-blue-800 p-12 text-center text-white shadow-2xl shadow-blue-900/20 md:p-20">
+            <div className="absolute right-0 top-0 -mr-16 -mt-16 h-64 w-64 rounded-full bg-white/10 blur-3xl" />
+            <div className="absolute bottom-0 left-0 -mb-16 -ml-16 h-64 w-64 rounded-full bg-black/10 blur-3xl" />
+            <div className="relative z-10 mx-auto max-w-3xl">
+              <h2 className="mb-6 text-4xl font-black leading-tight md:text-5xl">
+                {t.ctaTitle}
+              </h2>
+              <p className="mb-10 text-xl font-medium text-blue-100/90">
+                {t.ctaBody}
+              </p>
+              <div className="flex justify-center">
+                <button
+                  onClick={() => setIsClaimModalOpen(true)}
+                  className="group flex items-center justify-center gap-3 rounded-2xl bg-white px-10 py-5 text-xl font-bold text-blue-600 shadow-xl shadow-black/10 transition-all hover:bg-blue-50"
+                >
+                  {t.ctaButton}
+                  <ArrowRight className="h-6 w-6 text-orange-500 transition-transform group-hover:translate-x-1" />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer className="border-t border-slate-200 bg-slate-50 py-20 text-slate-600">
+        <div className="container mx-auto max-w-7xl px-4 md:px-6">
+          <div className="mb-16 grid gap-12 md:grid-cols-4">
+            <div className="col-span-2">
+              <Link
+                href={locale === "en" ? "/en" : "/"}
+                className="mb-6 flex items-center gap-2"
+              >
+                <div className="rounded-lg bg-blue-600 p-1.5 text-white">
+                  <Plane className="h-5 w-5 -rotate-12" />
+                </div>
+                <span className="text-2xl font-black tracking-tight text-blue-900">
+                  letkasni<span className="text-orange-500">.rs</span>
+                </span>
+              </Link>
+              <p className="max-w-sm leading-relaxed">{t.footerBody}</p>
+            </div>
+
+            <div>
+              <h4 className="mb-6 font-bold text-slate-900">{t.footerLinks}</h4>
+              <ul className="space-y-4">
+                <li>
+                  <a href="#prednosti" className="transition-colors hover:text-blue-600">
+                    {t.about}
+                  </a>
+                </li>
+                <li>
+                  <a href="#kako-radi" className="transition-colors hover:text-blue-600">
+                    {t.navHow}
+                  </a>
+                </li>
+                <li>
+                  <button
+                    onClick={() => setIsClaimModalOpen(true)}
+                    className="transition-colors hover:text-blue-600"
+                  >
+                    {t.pricing}
+                  </button>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="mb-6 font-bold text-slate-900">{t.footerLegal}</h4>
+              <ul className="space-y-4">
+                <li>
+                  <Link href="/terms" className="transition-colors hover:text-blue-600">
+                    {t.terms}
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/privacy" className="transition-colors hover:text-blue-600">
+                    {t.privacy}
+                  </Link>
+                </li>
+                <li>
+                  <a href={`mailto:${supportEmail}`} className="transition-colors hover:text-blue-600">
+                    {t.support}
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="flex flex-col items-center justify-center gap-4 border-t border-slate-200 pt-8 text-sm text-slate-500 md:flex-row">
+            <p>© 2026 letkasni.rs. Sva prava zadržana.</p>
+          </div>
+        </div>
+      </footer>
+
+      {isClaimModalOpen ? (
+        <ClaimModal
+          isOpen={isClaimModalOpen}
+          locale={locale}
+          onClose={() => setIsClaimModalOpen(false)}
+          seed={{
+            flightNumber: heroFlight,
+            flightDate: heroDate,
+          }}
+        />
+      ) : null}
     </main>
   );
 }
