@@ -4,6 +4,10 @@ import { getAdminAuthMode } from "@/lib/auth";
 
 export const metadata: Metadata = {
   title: "Admin Login | letkasni.rs",
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 type SearchParams = Promise<Record<string, string | string[] | undefined>>;
