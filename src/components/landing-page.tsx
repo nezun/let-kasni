@@ -35,8 +35,8 @@ const copy = {
     heroTitle4: "odštete.",
     heroBody:
       "Kao prvi domaći servis, pomažemo putnicima u Srbiji da naplate ono što im zakonski pripada. Bez stresa, bez stranih sajtova i bez troškova unapred.",
-    proofA: "Zakon je na vašoj strani",
-    proofB: "Bez troškova unapred",
+    proofA: "Bez troškova unapred",
+    proofB: "Samo 10% provizije",
     cardTitle: "Proveri odštetu odmah",
     flightNumber: "Broj leta",
     flightNumberPlaceholder: "npr. JU101 ili W6 4001",
@@ -132,8 +132,8 @@ const copy = {
     heroTitle4: "in compensation.",
     heroBody:
       "We help passengers connected to Serbia recover compensation they may be legally owed. No foreign claim maze, no upfront cost, and a clear next step.",
-    proofA: "Passenger law is on your side",
-    proofB: "No upfront fee",
+    proofA: "No upfront fee",
+    proofB: "Only 10% fee",
     cardTitle: "Check compensation now",
     flightNumber: "Flight number",
     flightNumberPlaceholder: "e.g. JU101 or W6 4001",
