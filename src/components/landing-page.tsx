@@ -523,26 +523,28 @@ export function LandingPage({
         </div>
       </section>
 
-      <section id="faq" className="border-t border-slate-200 bg-slate-50 py-24">
-        <div className="container mx-auto max-w-3xl px-4 md:px-6">
-          <div className="mb-16 text-center">
-            <h2 className="mb-4 text-3xl font-black text-slate-900 md:text-4xl">
+      <section id="faq" className="border-t border-slate-200 bg-slate-50 py-24 md:py-28">
+        <div className="container mx-auto max-w-[76rem] px-6 md:px-8">
+          <div className="mb-14 text-center md:mb-16">
+            <h2 className="mb-4 text-4xl font-black tracking-tight text-slate-900 md:text-5xl">
               {t.faqTitle}
             </h2>
-            <p className="text-slate-600">{t.faqBody}</p>
+            <p className="mx-auto max-w-2xl text-lg text-slate-600 md:text-[1.15rem]">{t.faqBody}</p>
           </div>
 
-          <div className="space-y-4">
+          <div className="mx-auto max-w-5xl space-y-6">
             {t.faqs.map((faq) => (
               <details
                 key={faq.q}
-                className="group overflow-hidden rounded-2xl border border-slate-200 bg-white transition-colors hover:border-blue-200"
+                className="group overflow-hidden rounded-[1.9rem] border border-slate-200 bg-white shadow-[0_1px_0_rgba(15,23,42,0.02)] transition-all hover:border-slate-300"
               >
-                <summary className="flex cursor-pointer list-none items-center justify-between p-6 text-lg font-bold text-slate-800">
-                  {faq.q}
-                  <ChevronRight className="h-5 w-5 text-slate-400 transition-transform group-open:rotate-90" />
+                <summary className="flex min-h-[7.6rem] cursor-pointer list-none items-center justify-between gap-6 px-10 py-8 text-left text-[1.55rem] font-black tracking-tight text-slate-800 md:text-[1.65rem]">
+                  <span>{faq.q}</span>
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-slate-200 text-slate-400 transition-colors group-hover:border-slate-300 group-hover:text-slate-500">
+                    <ChevronRight className="h-6 w-6 transition-transform group-open:rotate-90" />
+                  </span>
                 </summary>
-                <div className="mt-2 border-t border-slate-100 px-6 pb-6 pt-4 leading-relaxed text-slate-600">
+                <div className="border-t border-slate-100 px-10 pb-8 pt-6 text-[1.02rem] leading-relaxed text-slate-600">
                   {faq.a}
                 </div>
               </details>
