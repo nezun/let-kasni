@@ -296,20 +296,20 @@ export function LandingPage({
             <a href="#faq" className="text-sm font-medium transition-colors hover:text-blue-600">
               {t.navFaq}
             </a>
-            <Link
-              href={t.localeHref}
-              className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/80 px-3 py-1.5 text-xs font-bold uppercase tracking-[0.16em] text-slate-500 transition-colors hover:border-blue-200 hover:text-blue-600"
-            >
-              <span className="text-slate-900">{t.localeLabel}</span>
-              <span>/</span>
-              <span>{t.localeSwitch}</span>
-            </Link>
             <button
               onClick={() => setIsClaimModalOpen(true)}
               className="rounded-full bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-blue-600/20 transition-all hover:bg-blue-700"
             >
               {t.navCta}
             </button>
+            <Link
+              href={t.localeHref}
+              className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white/75 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-slate-400 transition-colors hover:border-blue-200 hover:text-blue-600"
+            >
+              <span className="text-slate-900">{t.localeLabel}</span>
+              <span>/</span>
+              <span>{t.localeSwitch}</span>
+            </Link>
           </div>
 
           <button
@@ -333,15 +333,6 @@ export function LandingPage({
             <a href="#faq" onClick={() => setIsMenuOpen(false)}>
               {t.navFaq}
             </a>
-            <Link
-              href={t.localeHref}
-              onClick={() => setIsMenuOpen(false)}
-              className="inline-flex items-center justify-center gap-2 rounded-2xl border border-slate-200 py-4 text-base font-bold uppercase tracking-[0.14em] text-slate-600"
-            >
-              <span className="text-slate-900">{t.localeLabel}</span>
-              <span>/</span>
-              <span>{t.localeSwitch}</span>
-            </Link>
             <button
               onClick={() => {
                 setIsMenuOpen(false);
@@ -351,6 +342,15 @@ export function LandingPage({
             >
               {t.navCta}
             </button>
+            <Link
+              href={t.localeHref}
+              onClick={() => setIsMenuOpen(false)}
+              className="inline-flex items-center justify-center gap-1.5 rounded-full border border-slate-200 py-2.5 text-xs font-bold uppercase tracking-[0.14em] text-slate-500"
+            >
+              <span className="text-slate-900">{t.localeLabel}</span>
+              <span>/</span>
+              <span>{t.localeSwitch}</span>
+            </Link>
           </div>
         </div>
       ) : null}
