@@ -434,7 +434,7 @@ export function LandingPage({ locale = "sr" }: { locale?: Locale }) {
         <div className="container mx-auto max-w-[1440px] px-6 md:px-8">
           <div className="mx-auto mb-16 max-w-[56rem] text-center">
             <h2 className="text-4xl font-black tracking-tight text-slate-900 md:text-5xl">
-              Zašto <span className="text-blue-900">letkasni<span className="text-orange-500">.rs</span></span>?
+              Zašto nas biraju putnici?
             </h2>
           </div>
 
