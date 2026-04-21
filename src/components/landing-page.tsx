@@ -63,11 +63,9 @@ const copy = {
     benefitsEyebrow: "Prednosti saradnje",
     benefitsTitle1: "Zašto putnici biraju",
     benefitsTitle2: "letkasni.rs?",
-    localTitle: "Prvi i jedini pravi srpski provajder",
+    localTitle: "Prvi i jedini srpski provajder",
     localBody:
       '"Naš lokalni pravni tim vodi slučaj efikasno i razumljivo, tako da vi ne jurite avio-kompaniju po stranim formularima."',
-    localMetaA: "Beograd",
-    localMetaB: "Srbija",
     featureRiskTitle: "Bez ikakvih troškova",
     featureRiskBody:
       "Proviziju uzimamo samo ako naplatimo. Mi preuzimamo operativni i pravni teret.",
@@ -154,11 +152,9 @@ const copy = {
     benefitsEyebrow: "Why people choose us",
     benefitsTitle1: "Why passengers choose",
     benefitsTitle2: "letkasni.rs?",
-    localTitle: "The first real Serbian provider",
+    localTitle: "The first Serbian provider",
     localBody:
       '"Our local legal team handles the case efficiently and clearly, so you are not stuck chasing airlines through generic foreign forms."',
-    localMetaA: "Belgrade",
-    localMetaB: "Serbia",
     featureRiskTitle: "No upfront costs",
     featureRiskBody:
       "We only earn if we collect. We take on the operational and legal burden.",
@@ -211,8 +207,6 @@ const airlines = [
   "RYANAIR",
   "LUFTHANSA",
   "TURKISH",
-  "EMIRATES",
-  "AUSTRIAN",
 ];
 
 export function LandingPage({ locale = "sr" }: { locale?: Locale }) {
@@ -446,24 +440,14 @@ export function LandingPage({ locale = "sr" }: { locale?: Locale }) {
                 <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-orange-500 px-4 py-1.5 text-[10px] font-black uppercase tracking-widest text-white shadow-lg shadow-orange-500/20">
                   Lokalna ekspertiza
                 </div>
-                <h3 className="max-w-none text-[2.7rem] font-black leading-[1.02] tracking-tight text-white md:text-[3.35rem]">
+                <h3 className="max-w-none border-b border-orange-400/80 pb-3 text-[2.7rem] font-black leading-[1.02] tracking-tight text-white md:inline-block md:text-[3.35rem]">
                   {t.localTitle}
                 </h3>
-                <div className="mt-8 max-w-[760px] rounded-[2rem] border border-white/12 bg-white/10 p-6 shadow-lg shadow-blue-950/10 backdrop-blur-sm">
-                  <p className="text-base font-medium leading-relaxed text-blue-50 md:text-lg">
-                    {t.localBody}
-                  </p>
-                </div>
+                <p className="mt-8 max-w-[820px] text-lg font-medium leading-relaxed text-blue-50 md:text-[1.15rem]">
+                  {t.localBody}
+                </p>
               </div>
-              <div className="relative z-10 mt-8 flex items-end md:mt-0 md:justify-end">
-                <div className="w-full rounded-[2rem] border border-white/10 bg-white/6 p-6 backdrop-blur-sm md:max-w-sm">
-                  <div className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.2em] text-blue-100/70">
-                    <span>{t.localMetaA}</span>
-                    <span className="h-1 w-1 rounded-full bg-blue-100/50" />
-                    <span>{t.localMetaB}</span>
-                  </div>
-                </div>
-              </div>
+              <div className="hidden md:block" />
             </div>
 
             {[
