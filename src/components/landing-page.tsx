@@ -63,21 +63,20 @@ const copy = {
     benefitsEyebrow: "Prednosti saradnje",
     benefitsTitle1: "Zašto putnici biraju",
     benefitsTitle2: "letkasni.rs?",
-    localTitle: "Prvi i jedini pravi",
-    localAccent: "srpski provajder",
+    localTitle: "Prvi i jedini pravi srpski provajder",
     localBody:
       '"Naš lokalni pravni tim vodi slučaj efikasno i razumljivo, tako da vi ne jurite avio-kompaniju po stranim formularima."',
     localMetaA: "Beograd",
     localMetaB: "Srbija",
-    featureRiskTitle: "Bez rizika.",
+    featureRiskTitle: "Bez ikakvih troškova",
     featureRiskBody:
       "Proviziju uzimamo samo ako naplatimo. Mi preuzimamo operativni i pravni teret.",
     featureTimeTitle: "Ušteda vremena",
     featureTimeBody:
-      "Jasan intake, jedan tok i status koji ne nestaje u inboxu.",
-    featureFeeTitle: "Jasna provizija",
+      "Naš lokalni pravni tim koristi ekspertizu i automatizaciju radi što brže naplate Vaših potraživanja.",
+    featureFeeTitle: "Samo 10% provizija",
     featureFeeBody:
-      "Model bez unapred plaćanja, sa jasnim sledećim koracima i domaćim kontaktom.",
+      "Najdirektniji model na tržištu: jasna provizija, bez skrivenih troškova i bez naplate unapred.",
     faqTitle: "Česta pitanja",
     faqBody: "Sve što treba da znate o procesu naplate.",
     faqs: [
@@ -155,21 +154,20 @@ const copy = {
     benefitsEyebrow: "Why people choose us",
     benefitsTitle1: "Why passengers choose",
     benefitsTitle2: "letkasni.rs?",
-    localTitle: "The first real",
-    localAccent: "Serbian provider",
+    localTitle: "The first real Serbian provider",
     localBody:
       '"Our local legal team handles the case efficiently and clearly, so you are not stuck chasing airlines through generic foreign forms."',
     localMetaA: "Belgrade",
     localMetaB: "Serbia",
-    featureRiskTitle: "No upfront risk.",
+    featureRiskTitle: "No upfront costs",
     featureRiskBody:
       "We only earn if we collect. We take on the operational and legal burden.",
     featureTimeTitle: "Time saved",
     featureTimeBody:
-      "A clear intake, one flow and a case that does not disappear in email.",
-    featureFeeTitle: "Clear fee model",
+      "Our local legal team combines expertise and automation to recover claims as quickly as possible.",
+    featureFeeTitle: "Only 10% fee",
     featureFeeBody:
-      "No upfront payment, clear next steps and a local human contact.",
+      "A simpler fee model with no hidden charges and no upfront payment.",
     faqTitle: "Frequently asked questions",
     faqBody: "What you should know before starting.",
     faqs: [
@@ -242,7 +240,7 @@ export function LandingPage({ locale = "sr" }: { locale?: Locale }) {
             : "border-transparent bg-transparent py-5"
         }`}
       >
-        <div className="container mx-auto flex max-w-7xl items-center justify-between px-4 md:px-6">
+        <div className="container mx-auto flex max-w-[1440px] items-center justify-between px-6 md:px-8">
           <Link
             href={locale === "en" ? "/en" : "/"}
             className="flex items-center gap-2"
@@ -309,7 +307,7 @@ export function LandingPage({ locale = "sr" }: { locale?: Locale }) {
 
       <section className="relative overflow-hidden bg-slate-50 pb-20 pt-32 md:pb-40 md:pt-48">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(37,99,235,0.08),transparent_30%),radial-gradient(circle_at_top_right,rgba(249,115,22,0.08),transparent_30%)]" />
-        <div className="container relative z-10 mx-auto grid max-w-7xl gap-12 px-4 md:px-6 lg:grid-cols-2 lg:items-center">
+        <div className="container relative z-10 mx-auto grid max-w-[1440px] gap-16 px-6 md:px-8 xl:grid-cols-[1.1fr_0.9fr] xl:items-center">
           <div>
             <span className="mb-6 inline-flex items-center gap-2 rounded-full bg-blue-100 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-blue-700">
               <span className="relative flex h-2 w-2">
@@ -323,7 +321,7 @@ export function LandingPage({ locale = "sr" }: { locale?: Locale }) {
               {t.heroTitle2} <br />
               <span className="text-blue-600">{t.heroTitle3}</span> {t.heroTitle4}
             </h1>
-            <p className="mb-8 max-w-xl text-xl leading-relaxed text-slate-600">
+            <p className="mb-8 max-w-2xl text-xl leading-relaxed text-slate-600">
               {t.heroBody}
             </p>
 
@@ -381,15 +379,15 @@ export function LandingPage({ locale = "sr" }: { locale?: Locale }) {
       </section>
 
       <section className="border-y border-slate-200 bg-white py-12">
-        <div className="container mx-auto max-w-7xl px-4 md:px-6">
+        <div className="container mx-auto max-w-[1440px] px-6 md:px-8">
           <p className="mb-8 text-center text-xs font-bold uppercase tracking-[0.2em] text-slate-400">
             {t.airlinesTitle}
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-10 opacity-50 grayscale transition-all duration-500 hover:grayscale-0 md:gap-20">
+          <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6 opacity-50 grayscale transition-all duration-500 hover:grayscale-0 xl:flex-nowrap xl:gap-14">
             {airlines.map((airline) => (
               <span
                 key={airline}
-                className="text-2xl font-black italic tracking-tighter text-slate-800"
+                className="whitespace-nowrap text-[1.55rem] font-black italic tracking-tighter text-slate-800"
               >
                 {airline}
               </span>
@@ -399,7 +397,7 @@ export function LandingPage({ locale = "sr" }: { locale?: Locale }) {
       </section>
 
       <section id="kako-radi" className="relative overflow-hidden bg-slate-50 py-24">
-        <div className="container relative z-10 mx-auto max-w-7xl px-4 md:px-6">
+        <div className="container relative z-10 mx-auto max-w-[1440px] px-6 md:px-8">
           <div className="mx-auto mb-20 max-w-2xl text-center">
             <h2 className="mb-6 text-4xl font-black tracking-tight text-slate-900 md:text-5xl">
               {t.howTitle}
@@ -430,7 +428,7 @@ export function LandingPage({ locale = "sr" }: { locale?: Locale }) {
       <section id="prednosti" className="relative overflow-hidden bg-white py-24">
         <div className="absolute right-0 top-0 -z-10 h-[800px] w-[800px] translate-x-1/4 -translate-y-1/2 rounded-full bg-blue-50/60 blur-3xl" />
         <div className="absolute bottom-0 left-0 -z-10 h-[600px] w-[600px] -translate-x-1/4 translate-y-1/2 rounded-full bg-orange-50/70 blur-3xl" />
-        <div className="container mx-auto max-w-7xl px-4 md:px-6">
+        <div className="container mx-auto max-w-[1440px] px-6 md:px-8">
           <div className="mb-16 max-w-3xl">
             <span className="mb-4 block text-[10px] font-bold uppercase tracking-[0.2em] text-orange-500">
               {t.benefitsEyebrow}
@@ -442,27 +440,28 @@ export function LandingPage({ locale = "sr" }: { locale?: Locale }) {
           </div>
 
           <div className="grid gap-5 md:grid-cols-12">
-            <div className="group relative overflow-hidden rounded-[2.5rem] bg-slate-900 p-8 text-white shadow-2xl shadow-slate-900/10 md:col-span-12 md:flex md:items-center md:justify-between md:gap-10 md:p-12">
-              <div className="absolute right-0 top-0 h-full w-[600px] -mr-32 rounded-full bg-orange-500/5 blur-3xl transition-all duration-700 group-hover:bg-orange-500/10" />
-              <div className="relative z-10 flex-1">
+            <div className="group relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-blue-700 via-blue-700 to-blue-800 p-8 text-white shadow-2xl shadow-blue-900/15 md:col-span-12 md:grid md:grid-cols-[1.35fr_0.65fr] md:gap-8 md:p-12">
+              <div className="absolute right-0 top-0 h-full w-[700px] -mr-28 rounded-full bg-white/6 blur-3xl transition-all duration-700 group-hover:bg-white/10" />
+              <div className="relative z-10">
                 <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-orange-500 px-4 py-1.5 text-[10px] font-black uppercase tracking-widest text-white shadow-lg shadow-orange-500/20">
                   Lokalna ekspertiza
                 </div>
-                <h3 className="text-3xl font-black leading-tight md:text-5xl">
-                  {t.localTitle} <br className="hidden md:block" />
-                  <span className="text-orange-500 underline decoration-white/20 underline-offset-8">
-                    {t.localAccent}
-                  </span>
+                <h3 className="max-w-none text-[2.7rem] font-black leading-[1.02] tracking-tight text-white md:text-[3.35rem]">
+                  {t.localTitle}
                 </h3>
+                <div className="mt-8 max-w-[760px] rounded-[2rem] border border-white/12 bg-white/10 p-6 shadow-lg shadow-blue-950/10 backdrop-blur-sm">
+                  <p className="text-base font-medium leading-relaxed text-blue-50 md:text-lg">
+                    {t.localBody}
+                  </p>
+                </div>
               </div>
-              <div className="relative z-10 mt-8 max-w-sm md:mt-0 md:border-l md:border-white/10 md:pl-10">
-                <p className="mb-4 text-lg font-medium italic leading-relaxed text-slate-300">
-                  {t.localBody}
-                </p>
-                <div className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.2em] text-slate-500">
-                  <span>{t.localMetaA}</span>
-                  <span className="h-1 w-1 rounded-full bg-slate-700" />
-                  <span>{t.localMetaB}</span>
+              <div className="relative z-10 mt-8 flex items-end md:mt-0 md:justify-end">
+                <div className="w-full rounded-[2rem] border border-white/10 bg-white/6 p-6 backdrop-blur-sm md:max-w-sm">
+                  <div className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.2em] text-blue-100/70">
+                    <span>{t.localMetaA}</span>
+                    <span className="h-1 w-1 rounded-full bg-blue-100/50" />
+                    <span>{t.localMetaB}</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -472,21 +471,24 @@ export function LandingPage({ locale = "sr" }: { locale?: Locale }) {
                 title: t.featureRiskTitle,
                 body: t.featureRiskBody,
                 icon: ShieldCheck,
+                className: "bg-blue-600 shadow-blue-600/20",
               },
               {
                 title: t.featureTimeTitle,
                 body: t.featureTimeBody,
                 icon: Clock,
+                className: "bg-blue-600 shadow-blue-600/20",
               },
               {
                 title: t.featureFeeTitle,
                 body: t.featureFeeBody,
                 icon: Banknote,
+                className: "bg-orange-500 shadow-orange-500/20",
               },
             ].map((item) => (
               <div
                 key={item.title}
-                className="group relative flex min-h-[220px] flex-col justify-center overflow-hidden rounded-[2.5rem] bg-blue-600 p-10 text-white shadow-xl shadow-blue-600/20 md:col-span-4"
+                className={`group relative flex min-h-[220px] flex-col justify-center overflow-hidden rounded-[2.5rem] p-10 text-white shadow-xl md:col-span-4 ${item.className}`}
               >
                 <item.icon className="absolute -right-10 -top-10 h-40 w-40 opacity-10 transition-transform duration-500 group-hover:scale-110" />
                 <div className="relative z-10">
@@ -494,7 +496,7 @@ export function LandingPage({ locale = "sr" }: { locale?: Locale }) {
                     <item.icon className="h-6 w-6 text-white" />
                   </div>
                   <h4 className="mb-2 text-xl font-bold leading-tight">{item.title}</h4>
-                  <p className="text-sm font-medium leading-relaxed text-blue-100/75">
+                  <p className="text-sm font-medium leading-relaxed text-white/78">
                     {item.body}
                   </p>
                 </div>
@@ -533,7 +535,7 @@ export function LandingPage({ locale = "sr" }: { locale?: Locale }) {
       </section>
 
       <section className="bg-white py-24">
-        <div className="container mx-auto max-w-7xl px-4 md:px-6">
+        <div className="container mx-auto max-w-[1440px] px-6 md:px-8">
           <div className="relative overflow-hidden rounded-[3rem] bg-gradient-to-br from-blue-600 to-blue-800 p-12 text-center text-white shadow-2xl shadow-blue-900/20 md:p-20">
             <div className="absolute right-0 top-0 -mr-16 -mt-16 h-64 w-64 rounded-full bg-white/10 blur-3xl" />
             <div className="absolute bottom-0 left-0 -mb-16 -ml-16 h-64 w-64 rounded-full bg-black/10 blur-3xl" />
@@ -559,7 +561,7 @@ export function LandingPage({ locale = "sr" }: { locale?: Locale }) {
       </section>
 
       <footer className="border-t border-slate-200 bg-slate-50 py-20 text-slate-600">
-        <div className="container mx-auto max-w-7xl px-4 md:px-6">
+        <div className="container mx-auto max-w-[1440px] px-6 md:px-8">
           <div className="mb-16 grid gap-12 md:grid-cols-4">
             <div className="col-span-2">
               <Link
