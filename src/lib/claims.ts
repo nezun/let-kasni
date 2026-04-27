@@ -376,7 +376,11 @@ export function createIdempotencyKey(input: ClaimInput) {
 
 export async function createOrReuseClaim(input: ClaimInput) {
   if (isSupabaseConfigured()) {
-    return createOrReuseSupabaseClaim(input);
+    try {
+      return await createOrReuseSupabaseClaim(input);
+    } catch (error) {
+      console.error("Supabase claim write failed; using local fallback.", error);
+    }
   }
 
   return createOrReuseLocalClaim(input);

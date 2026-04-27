@@ -37,6 +37,14 @@ function validateInput(body: unknown): ClaimInput | null {
     route: data.route.trim(),
     email: data.email.trim(),
     issueType: data.issueType,
+    firstName:
+      typeof data.firstName === "string" && data.firstName.trim().length > 0
+        ? data.firstName.trim()
+        : undefined,
+    lastName:
+      typeof data.lastName === "string" && data.lastName.trim().length > 0
+        ? data.lastName.trim()
+        : undefined,
     phone:
       typeof data.phone === "string" && data.phone.trim().length > 0
         ? data.phone.trim()

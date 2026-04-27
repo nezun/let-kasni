@@ -14,6 +14,8 @@ export interface ClaimInput {
   flightDate: string;
   route: string;
   issueType: IssueType;
+  firstName?: string;
+  lastName?: string;
   email: string;
   phone?: string;
   website?: string;

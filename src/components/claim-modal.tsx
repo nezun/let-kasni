@@ -70,7 +70,7 @@ const copy = {
     detailsBody: "Unesite osnovne informacije o letu i problemu.",
     contactTitle: "Gde da pošaljemo rezultate?",
     contactBody:
-      "Ostavite kontakt kako bismo vam poslali preliminarnu procenu i sledeći korak.",
+      "Još samo kontakt podaci. Zahtev odmah šaljemo timu na ručnu proveru.",
     flightNumber: "Broj leta",
     flightDate: "Datum leta",
     route: "Ruta ili destinacija",
@@ -87,7 +87,7 @@ const copy = {
     close: "Zatvori",
     successTitle: "Zahtev uspešno primljen",
     successBody:
-      "Naš tim će proveriti podatke i poslati vam odgovor sa sledećim korakom.",
+      "Dobili smo vaš zahtev i prosledili ga timu na obradu. Javljamo vam se u roku od 24h sa sledećim korakom.",
     note: "Bez troškova unapred. Plaćate samo ako slučaj uspe.",
     invalid:
       "Popunite obavezna polja pre nastavka. Broj leta, datum i ruta su obavezni.",
@@ -105,7 +105,7 @@ const copy = {
     detailsBody: "Enter the basic information about the flight and disruption.",
     contactTitle: "Where should we send the results?",
     contactBody:
-      "Leave your contact details so we can send the preliminary assessment and next step.",
+      "Just leave your contact details. We will send the request to our team for manual review.",
     flightNumber: "Flight number",
     flightDate: "Flight date",
     route: "Route or destination",
@@ -122,7 +122,7 @@ const copy = {
     close: "Close",
     successTitle: "Claim received",
     successBody:
-      "Our team will review the data and send you the next step shortly.",
+      "We received your request and sent it to our team for review. We will contact you within 24 hours with the next step.",
     note: "No upfront fee. You only pay if the claim succeeds.",
     invalid:
       "Fill the required fields before continuing. Flight number, date and route are required.",
@@ -155,11 +155,21 @@ export function ClaimModal({
   onClose,
 }: ClaimModalProps) {
   const t = copy[locale];
-  const [step, setStep] = useState<Step>("details");
+  const hasSeededFlightDetails = Boolean(
+    seed?.flightNumber?.trim() && seed?.flightDate?.trim(),
+  );
+  const defaultSeedRoute =
+    locale === "en"
+      ? "Not provided in the first step"
+      : "Nije navedeno u prvom koraku";
+  const [step, setStep] = useState<Step>(
+    hasSeededFlightDetails ? "contact" : "details",
+  );
   const [form, setForm] = useState(() => ({
     ...initialState,
     flightNumber: seed?.flightNumber?.trim() || "",
     flightDate: seed?.flightDate?.trim() || "",
+    route: hasSeededFlightDetails ? defaultSeedRoute : "",
     issueType: seed?.issueType ?? initialState.issueType,
   }));
   const [submitState, setSubmitState] = useState<SubmitState>({ status: "idle" });
@@ -181,12 +191,13 @@ export function ClaimModal({
   }
 
   function handleClose() {
-    setStep("details");
+    setStep(hasSeededFlightDetails ? "contact" : "details");
     setSubmitState({ status: "idle" });
     setForm({
       ...initialState,
       flightNumber: seed?.flightNumber?.trim() || "",
       flightDate: seed?.flightDate?.trim() || "",
+      route: hasSeededFlightDetails ? defaultSeedRoute : "",
       issueType: seed?.issueType ?? initialState.issueType,
     });
     onClose();
@@ -231,6 +242,8 @@ export function ClaimModal({
           flightDate: form.flightDate,
           route: form.route,
           issueType: form.issueType,
+          firstName: form.firstName,
+          lastName: form.lastName,
           email: form.email,
           phone: form.phone,
           website: form.website,
@@ -261,8 +274,8 @@ export function ClaimModal({
       setSubmitState({
         status: "success",
         reused: data.reused,
-        title: data.claim.verdictTitle,
-        body: data.claim.verdictBody,
+        title: t.successTitle,
+        body: t.successBody,
         reference: data.claim.id.slice(0, 8).toUpperCase(),
       });
       trackEvent("generate_lead", {
@@ -307,7 +320,7 @@ export function ClaimModal({
           </button>
         </div>
 
-        {step !== "success" ? (
+        {step !== "success" && !hasSeededFlightDetails ? (
           <div className="h-1 w-full bg-slate-100">
             <div
               className="h-full bg-blue-600 transition-all duration-300"
@@ -326,8 +339,8 @@ export function ClaimModal({
                 <h2 className="text-2xl font-black tracking-tight text-slate-900">
                   {submitState.status === "success" ? submitState.reused ? t.successTitle : t.successTitle : t.successTitle}
                 </h2>
-                <p className="text-slate-600">
-                  {submitState.status === "success" ? submitState.title : t.successBody}
+                <p className="font-semibold text-slate-700">
+                  {submitState.status === "success" ? submitState.title : t.successTitle}
                 </p>
                 <p className="text-sm leading-6 text-slate-500">
                   {submitState.status === "success" ? submitState.body : t.successBody}
@@ -493,7 +506,7 @@ export function ClaimModal({
               ) : null}
 
               <div className="flex gap-3 pt-2">
-                {step === "contact" ? (
+                {step === "contact" && !hasSeededFlightDetails ? (
                   <button
                     type="button"
                     onClick={() => {
