@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 
+import { trackEvent } from "@/lib/analytics";
 import type { IssueType } from "@/lib/types";
 
 type SubmitState =
@@ -168,6 +169,14 @@ export function ClaimIntakeForm({ locale = "sr" }: { locale?: "sr" | "en" }) {
             ? data.claim.verdictBody
             : `${data.claim.verdictBody} Ako okolnosti nisu dovoljno jasne, javljamo vam sledeći korak nakon dodatne provere.`,
         reference: data.claim.id.slice(0, 8).toUpperCase(),
+      });
+
+      trackEvent("generate_lead", {
+        event_category: "claim",
+        event_label: "inline_form",
+        form_locale: locale,
+        reused: data.reused,
+        provider_status: data.claim.providerStatus,
       });
     } catch {
       setSubmitState({

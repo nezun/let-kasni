@@ -13,6 +13,8 @@ import {
   X,
 } from "lucide-react";
 
+import { trackEvent } from "@/lib/analytics";
+import { BrandLogo } from "@/components/brand-logo";
 import type { IssueType } from "@/lib/types";
 
 interface ClaimModalProps {
@@ -21,6 +23,7 @@ interface ClaimModalProps {
   seed?: {
     flightNumber?: string;
     flightDate?: string;
+    issueType?: IssueType;
   };
   onClose: () => void;
 }
@@ -157,6 +160,7 @@ export function ClaimModal({
     ...initialState,
     flightNumber: seed?.flightNumber?.trim() || "",
     flightDate: seed?.flightDate?.trim() || "",
+    issueType: seed?.issueType ?? initialState.issueType,
   }));
   const [submitState, setSubmitState] = useState<SubmitState>({ status: "idle" });
 
@@ -183,6 +187,7 @@ export function ClaimModal({
       ...initialState,
       flightNumber: seed?.flightNumber?.trim() || "",
       flightDate: seed?.flightDate?.trim() || "",
+      issueType: seed?.issueType ?? initialState.issueType,
     });
     onClose();
   }
@@ -260,6 +265,13 @@ export function ClaimModal({
         body: data.claim.verdictBody,
         reference: data.claim.id.slice(0, 8).toUpperCase(),
       });
+      trackEvent("generate_lead", {
+        event_category: "claim",
+        event_label: "modal_form",
+        form_locale: locale,
+        reused: data.reused,
+        provider_status: data.claim.providerStatus,
+      });
       setStep("success");
     } catch {
       setSubmitState({
@@ -280,11 +292,9 @@ export function ClaimModal({
       <div className="relative z-[101] w-full max-w-xl overflow-hidden rounded-[2rem] bg-white shadow-2xl ring-1 ring-slate-200">
         <div className="flex items-center justify-between border-b border-slate-100 bg-slate-50/80 px-6 py-4">
           <div className="flex items-center gap-3">
-            <div className="rounded-xl bg-blue-600 p-2 text-white">
-              <Plane className="h-4 w-4 -rotate-12" />
-            </div>
             <div>
-              <div className="text-sm font-bold text-slate-900">{t.title}</div>
+              <BrandLogo size="sm" />
+              <div className="mt-1 text-sm font-bold text-slate-900">{t.title}</div>
               <div className="text-xs text-slate-500">{t.note}</div>
             </div>
           </div>

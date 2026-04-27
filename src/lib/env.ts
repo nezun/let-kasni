@@ -50,23 +50,23 @@ export function getSupportEmail() {
 }
 
 export function getOperatorName() {
-  return getEnv("NEXT_PUBLIC_OPERATOR_NAME") ?? "Operator letkasni.rs";
+  return getEnv("NEXT_PUBLIC_OPERATOR_NAME") ?? "VGA EU CONSULTING DOO NIŠ";
 }
 
 export function getOperatorAddress() {
-  return getEnv("NEXT_PUBLIC_OPERATOR_ADDRESS") ?? "Adresa operatera će biti dopunjena";
+  return getEnv("NEXT_PUBLIC_OPERATOR_ADDRESS") ?? "Bulevar Nemanjića 1, 18000, Niš (Medijana), Srbija";
 }
 
 export function getOperatorRegistry() {
-  return getEnv("NEXT_PUBLIC_OPERATOR_REGISTRY");
+  return getEnv("NEXT_PUBLIC_OPERATOR_REGISTRY") ?? "APR / Registar privrednih subjekata";
 }
 
 export function getOperatorPib() {
-  return getEnv("NEXT_PUBLIC_OPERATOR_PIB");
+  return getEnv("NEXT_PUBLIC_OPERATOR_PIB") ?? "113473442";
 }
 
 export function getOperatorMb() {
-  return getEnv("NEXT_PUBLIC_OPERATOR_MB");
+  return getEnv("NEXT_PUBLIC_OPERATOR_MB") ?? "21873446";
 }
 
 export function isSupabaseConfigured() {

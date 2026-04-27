@@ -78,8 +78,7 @@ export default function TermsPage() {
           <p className="max-w-3xl text-sm leading-7 text-[var(--muted)]">
             Ovi Uslovi korišćenja uređuju pristup i upotrebu sajta letkasni.rs, kao i
             osnovnog online modela za prijem zahteva za početnu proveru prava na
-            avio-odštetu. Tekst je pripremljen za osnovni model sajta i treba ga
-            dopuniti tačnim identitetom operatora pre konačne produkcione objave.
+            avio-odštetu.
           </p>
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-[var(--muted)]/80">
             Poslednje ažuriranje: {lastUpdated}
@@ -88,9 +87,8 @@ export default function TermsPage() {
 
         <Section title="1. Operator sajta">
           <p>
-            Sajt letkasni.rs vodi operator naveden ispod. Ako neki identifikacioni podaci
-            još nisu dopunjeni, smatra se da je dokument u privremenoj verziji i da te
-            podatke treba uneti pre konačnog komercijalnog korišćenja.
+            Sajt letkasni.rs vodi operator naveden ispod, koji je odgovoran za
+            organizaciju i pružanje usluge kroz ovaj sajt.
           </p>
           <IdentityBlock />
         </Section>

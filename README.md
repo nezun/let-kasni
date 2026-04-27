@@ -70,6 +70,12 @@ npm run start
 
 ### Production env optional
 
+- Operator podaci su već podrazumevano podešeni na `VGA EU CONSULTING DOO NIŠ`, ali se po potrebi mogu override-ovati kroz:
+  - `NEXT_PUBLIC_OPERATOR_NAME`
+  - `NEXT_PUBLIC_OPERATOR_ADDRESS`
+  - `NEXT_PUBLIC_OPERATOR_REGISTRY`
+  - `NEXT_PUBLIC_OPERATOR_PIB`
+  - `NEXT_PUBLIC_OPERATOR_MB`
 - `NEXT_PUBLIC_GA_MEASUREMENT_ID` kada bude spreman GA4
 - flight provider env kada budemo uvodili live lookup
 

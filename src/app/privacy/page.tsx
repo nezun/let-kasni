@@ -62,9 +62,7 @@ export default function PrivacyPage() {
           <p className="max-w-3xl text-sm leading-7 text-[var(--muted)]">
             Ova Politika privatnosti objašnjava kako letkasni.rs obrađuje podatke o
             ličnosti u vezi sa korišćenjem sajta, podnošenjem prijave za proveru
-            prava na avio-odštetu i daljom komunikacijom sa korisnicima. Tekst je
-            pripremljen prema osnovnom modelu poslovanja sajta i treba ga dopuniti
-            tačnim podacima o operatoru pre konačnog produkcionog objavljivanja.
+            prava na avio-odštetu i daljom komunikacijom sa korisnicima.
           </p>
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-[var(--muted)]/80">
             Poslednje ažuriranje: {lastUpdated}
@@ -87,8 +85,8 @@ export default function PrivacyPage() {
             ]}
           />
           <p>
-            Ako podaci o rukovaocu još nisu dopunjeni, koristi se privremeni
-            kontakt email naveden iznad radi zahteva u vezi sa privatnošću.
+            Za sva pitanja u vezi sa obradom podataka i ostvarivanjem prava u vezi
+            sa privatnošću koristi se kontakt email naveden iznad.
           </p>
         </Section>
 
@@ -180,8 +178,8 @@ export default function PrivacyPage() {
             u kojoj je to propisano važećim pravom.
           </p>
           <p>
-            Ako budu uvedeni dodatni provajderi ili složeniji transferi, ova politika treba da
-            bude preciznije dopunjena spiskom konkretnih servisa i osnovom prenosa.
+            Ako budu uvedeni dodatni provajderi ili složeniji transferi, ova politika će biti
+            ažurirana konkretnijim spiskom servisa i osnovom prenosa.
           </p>
         </Section>
 
@@ -196,7 +194,7 @@ export default function PrivacyPage() {
             <li>tehnički logovi i bezbednosni zapisi čuvaju se ograničeno, u skladu sa svrhom zaštite sistema.</li>
           </ul>
           <p>
-            Pre konačnog produkcionog objavljivanja preporučeno je uneti tačne interne rokove čuvanja
+            Konkretni rokovi čuvanja mogu se dodatno precizirati kroz interne politike rukovaoca
             po kategorijama podataka.
           </p>
         </Section>

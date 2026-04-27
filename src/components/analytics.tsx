@@ -1,9 +1,26 @@
+"use client";
+
+import { useEffect } from "react";
+import { usePathname, useSearchParams } from "next/navigation";
 import Script from "next/script";
 
+import { trackPageView } from "@/lib/analytics";
 import { getAnalyticsMode, getGoogleAnalyticsId, getPlausibleDomain } from "@/lib/env";
 
 export function Analytics() {
   const mode = getAnalyticsMode();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    if (mode !== "ga4" || !pathname) {
+      return;
+    }
+
+    const query = searchParams?.toString();
+    const url = `${window.location.origin}${pathname}${query ? `?${query}` : ""}`;
+    trackPageView(url);
+  }, [mode, pathname, searchParams]);
 
   if (mode === "plausible") {
     const domain = getPlausibleDomain();
@@ -36,8 +53,9 @@ export function Analytics() {
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
+            window.gtag = gtag;
             gtag('js', new Date());
-            gtag('config', '${measurementId}');
+            gtag('config', '${measurementId}', { send_page_view: false });
           `}
         </Script>
       </>
