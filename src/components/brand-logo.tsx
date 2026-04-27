@@ -192,7 +192,7 @@ export function BrandLogo({
   href,
   tone = "dark",
   size = "md",
-  showDotRs = true,
+  showDotRs = false,
   variant = "badge-motion",
   className = "",
 }: BrandLogoProps) {
