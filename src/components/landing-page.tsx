@@ -267,7 +267,7 @@ const airlines = [
 export function LandingPage({
   locale = "sr",
   variant = "default",
-  logoBalance = "badge",
+  logoBalance = "compact",
 }: {
   locale?: Locale;
   variant?: LandingVariant;
