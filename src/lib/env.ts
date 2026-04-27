@@ -34,7 +34,7 @@ export function getAeroDataBoxApiHost() {
 }
 
 export function getAnalyticsMode() {
-  return getEnv("ANALYTICS_MODE");
+  return getEnv("NEXT_PUBLIC_ANALYTICS_MODE") ?? getEnv("ANALYTICS_MODE") ?? "ga4";
 }
 
 export function getPlausibleDomain() {
@@ -42,7 +42,7 @@ export function getPlausibleDomain() {
 }
 
 export function getGoogleAnalyticsId() {
-  return getEnv("NEXT_PUBLIC_GA_MEASUREMENT_ID");
+  return getEnv("NEXT_PUBLIC_GA_MEASUREMENT_ID") ?? "G-RVJ906DKVF";
 }
 
 export function getSupportEmail() {

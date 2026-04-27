@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import Script from "next/script";
 
@@ -11,9 +11,15 @@ export function Analytics() {
   const mode = getAnalyticsMode();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const skippedInitialPageView = useRef(false);
 
   useEffect(() => {
     if (mode !== "ga4" || !pathname) {
+      return;
+    }
+
+    if (!skippedInitialPageView.current) {
+      skippedInitialPageView.current = true;
       return;
     }
 
@@ -55,7 +61,7 @@ export function Analytics() {
             function gtag(){dataLayer.push(arguments);}
             window.gtag = gtag;
             gtag('js', new Date());
-            gtag('config', '${measurementId}', { send_page_view: false });
+            gtag('config', '${measurementId}');
           `}
         </Script>
       </>
