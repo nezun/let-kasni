@@ -15,6 +15,7 @@ type BrandLogoProps = {
   size?: "sm" | "md" | "lg";
   showDotRs?: boolean;
   variant?: BrandLogoVariant;
+  balance?: "default" | "optical" | "compact" | "badge";
   className?: string;
 };
 
@@ -194,18 +195,26 @@ export function BrandLogo({
   size = "md",
   showDotRs = false,
   variant = "badge-motion",
+  balance = "default",
   className = "",
 }: BrandLogoProps) {
   const isLight = tone === "light";
-  const wrapperClass = ["inline-flex items-center gap-3", className]
+  const gapClass = balance === "compact" ? "gap-2.5" : "gap-3";
+  const wrapperClass = ["inline-flex items-center", gapClass, className]
     .filter(Boolean)
     .join(" ");
   const textClass =
     size === "sm"
-      ? "text-[1.08rem] font-bold tracking-[-0.04em]"
+      ? balance === "compact"
+        ? "text-[1.04rem] font-bold tracking-[-0.04em]"
+        : "text-[1.08rem] font-bold tracking-[-0.04em]"
       : size === "lg"
-        ? "text-[1.55rem] font-bold tracking-[-0.055em]"
-        : "text-[1.32rem] font-bold tracking-[-0.05em]";
+        ? balance === "compact"
+          ? "text-[1.48rem] font-bold tracking-[-0.055em]"
+          : "text-[1.55rem] font-bold tracking-[-0.055em]"
+        : balance === "compact"
+          ? "text-[1.25rem] font-bold tracking-[-0.05em]"
+          : "text-[1.32rem] font-bold tracking-[-0.05em]";
   const subClass =
     size === "sm"
       ? "text-[0.7rem] font-medium"
@@ -215,12 +224,30 @@ export function BrandLogo({
   const primary = isLight ? "#FFFFFF" : "#0B2E6F";
   const action = "#2470EB";
   const suffix = isLight ? "rgba(248,250,252,0.34)" : "#8E9BB0";
+  const markClass =
+    balance === "optical"
+      ? "flex translate-y-[1px] items-center"
+      : balance === "compact"
+        ? "flex translate-y-[2px] scale-[0.94] items-center"
+        : balance === "badge"
+          ? "flex translate-y-[2.5px] scale-[1.04] items-center"
+          : "flex items-center";
+  const wordmarkClass =
+    balance === "optical"
+      ? "inline-flex translate-y-[0.5px] items-end gap-0.5"
+      : balance === "compact"
+        ? "inline-flex translate-y-[2px] items-end gap-0.5"
+        : balance === "badge"
+          ? "inline-flex translate-y-[2.5px] items-end gap-0.5"
+          : "inline-flex items-end gap-0.5";
 
   const content = (
     <span className={wrapperClass}>
-      <LogoMark tone={tone} size={size} variant={variant} />
+      <span className={markClass}>
+        <LogoMark tone={tone} size={size} variant={variant} />
+      </span>
 
-      <span className="inline-flex items-end gap-0.5">
+      <span className={wordmarkClass}>
         <span className={`font-display ${textClass}`} style={{ color: primary }}>
           let
           <span style={{ color: action }}>kasni</span>

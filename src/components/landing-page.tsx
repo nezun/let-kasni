@@ -21,6 +21,7 @@ import type { IssueType } from "@/lib/types";
 
 type Locale = "sr" | "en";
 type LandingVariant = "default" | "hero-compact";
+type LogoBalance = "default" | "optical" | "compact" | "badge";
 
 const copy = {
   sr: {
@@ -266,9 +267,11 @@ const airlines = [
 export function LandingPage({
   locale = "sr",
   variant = "default",
+  logoBalance = "badge",
 }: {
   locale?: Locale;
   variant?: LandingVariant;
+  logoBalance?: LogoBalance;
 }) {
   const t = copy[locale];
   const supportEmail = getSupportEmail();
@@ -309,7 +312,7 @@ export function LandingPage({
         }`}
       >
         <div className="mx-auto flex h-16 max-w-[1200px] items-center justify-between px-6">
-          <BrandLogo href={locale === "en" ? "/en" : "/"} />
+          <BrandLogo href={locale === "en" ? "/en" : "/"} balance={logoBalance} />
 
           <div className="hidden items-center gap-[2px] md:flex">
             <a
@@ -785,7 +788,11 @@ export function LandingPage({
         <div className="mx-auto max-w-[1200px]">
           <div className="mb-10 grid gap-10 md:grid-cols-[2fr_1fr_1fr]">
             <div>
-              <BrandLogo href={locale === "en" ? "/en" : "/"} tone="light" />
+              <BrandLogo
+                href={locale === "en" ? "/en" : "/"}
+                tone="light"
+                balance={logoBalance}
+              />
               <p className="mt-[14px] max-w-[300px] text-[13px] leading-[1.7] text-white/45">
                 {t.footerBody}
               </p>
