@@ -7,7 +7,10 @@ import { isSupabaseConfigured, createSupabaseAdminClient } from "@/lib/supabase"
 import { getConservativeVerdict } from "@/lib/verdict";
 import type { ClaimInput, ClaimRecord } from "@/lib/types";
 
-const dataDirectory = path.join(process.cwd(), ".data");
+const dataDirectory =
+  process.env.VERCEL === "1"
+    ? path.join("/tmp", "letkasni")
+    : path.join(process.cwd(), ".data");
 const claimsFile = path.join(dataDirectory, "claims.json");
 
 async function readClaimsStore() {
