@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { createOrReuseClaim } from "@/lib/claims";
-import { sendAdminClaimNotification } from "@/lib/notifications";
+import { sendAdminClaimNotification, sendUserClaimConfirmation } from "@/lib/notifications";
 import { isRateLimited } from "@/lib/rate-limit";
 import type { ClaimInput, IssueType } from "@/lib/types";
 
@@ -105,6 +105,9 @@ export async function POST(request: Request) {
   if (!reused) {
     sendAdminClaimNotification(claim).catch((error) => {
       console.error("Failed to send admin claim notification.", error);
+    });
+    sendUserClaimConfirmation(claim).catch((error) => {
+      console.error("Failed to send user claim confirmation.", error);
     });
   }
 

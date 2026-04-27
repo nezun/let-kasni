@@ -1,4 +1,4 @@
-import { getResendAdminToEmail, getResendApiKey, getResendFromEmail, getSiteUrl } from "@/lib/env";
+import { getResendAdminToEmail, getResendApiKey, getResendFromEmail, getSiteUrl, getSupportEmail } from "@/lib/env";
 import type { ClaimRecord } from "@/lib/types";
 
 function escapeHtml(value: string) {
@@ -44,11 +44,15 @@ function buildClaimNotificationHtml(claim: ClaimRecord) {
   `;
 }
 
-export async function sendAdminClaimNotification(claim: ClaimRecord) {
+async function sendResendEmail(payload: {
+  to: string[];
+  subject: string;
+  html: string;
+  text: string;
+}) {
   const apiKey = getResendApiKey();
-  const to = getResendAdminToEmail();
 
-  if (!apiKey || !to) {
+  if (!apiKey) {
     return { ok: false, skipped: true as const };
   }
 
@@ -60,22 +64,8 @@ export async function sendAdminClaimNotification(claim: ClaimRecord) {
     },
     body: JSON.stringify({
       from: getResendFromEmail(),
-      to: [to],
-      subject: `Novi claim: ${claim.flightNumber} / ${claim.flightDate}`,
-      html: buildClaimNotificationHtml(claim),
-      text: [
-        "Stigao je novi claim na letkasni.",
-        `Ref: ${claim.id.slice(0, 8).toUpperCase()}`,
-        `Putnik: ${[claim.firstName, claim.lastName].filter(Boolean).join(" ") || "Nije uneto"}`,
-        `Email: ${claim.email}`,
-        `Telefon: ${claim.phone?.trim() || "Nije uneto"}`,
-        `Let: ${claim.flightNumber}`,
-        `Datum: ${claim.flightDate}`,
-        `Ruta: ${claim.route}`,
-        `Problem: ${claim.issueType}`,
-        `Provider status: ${claim.providerSnapshot.status}`,
-        `Admin: ${getSiteUrl()}/admin/claims/${claim.id}`,
-      ].join("\n"),
+      reply_to: getSupportEmail(),
+      ...payload,
     }),
   });
 
@@ -85,4 +75,83 @@ export async function sendAdminClaimNotification(claim: ClaimRecord) {
   }
 
   return { ok: true as const, skipped: false as const };
+}
+
+function buildAdminClaimNotificationText(claim: ClaimRecord) {
+  return [
+    "Stigao je novi claim na letkasni.",
+    `Ref: ${claim.id.slice(0, 8).toUpperCase()}`,
+    `Putnik: ${[claim.firstName, claim.lastName].filter(Boolean).join(" ") || "Nije uneto"}`,
+    `Email: ${claim.email}`,
+    `Telefon: ${claim.phone?.trim() || "Nije uneto"}`,
+    `Let: ${claim.flightNumber}`,
+    `Datum: ${claim.flightDate}`,
+    `Ruta: ${claim.route}`,
+    `Problem: ${claim.issueType}`,
+    `Provider status: ${claim.providerSnapshot.status}`,
+    `Admin: ${getSiteUrl()}/admin/claims/${claim.id}`,
+  ].join("\n");
+}
+
+function buildUserConfirmationHtml(claim: ClaimRecord) {
+  const name = claim.firstName?.trim() || "Poštovani";
+  const reference = claim.id.slice(0, 8).toUpperCase();
+
+  return `
+    <div style="background:#f4f6fa;padding:32px 16px;font-family:Arial,sans-serif;color:#0A0F1E;">
+      <div style="max-width:640px;margin:0 auto;background:#ffffff;border:1px solid #e2e6ef;border-radius:20px;overflow:hidden;">
+        <div style="padding:24px 28px;background:#0B1326;color:#ffffff;">
+          <div style="font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.58);font-weight:700;">Potvrda prijema</div>
+          <h1 style="margin:10px 0 0;font-size:28px;line-height:1.15;">Vaš zahtev je uspešno primljen</h1>
+        </div>
+        <div style="padding:28px;font-size:15px;line-height:1.7;color:#334155;">
+          <p style="margin:0 0 14px;">${escapeHtml(name)},</p>
+          <p style="margin:0 0 14px;">hvala vam. Primili smo vaš zahtev za proveru avio-odštete i prosledili ga našem timu na obradu.</p>
+          <p style="margin:0 0 14px;">Javljamo vam se u roku od 24h sa sledećim korakom. Nema troškova unapred.</p>
+          <div style="margin:22px 0;padding:14px 16px;background:#EEF5FF;border-radius:14px;color:#0B2E6F;font-weight:700;">
+            Referenca zahteva: ${escapeHtml(reference)}
+          </div>
+          <p style="margin:0;">Ako budete imali dodatna pitanja, možete odgovoriti direktno na ovaj email.</p>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function buildUserConfirmationText(claim: ClaimRecord) {
+  return [
+    `${claim.firstName?.trim() || "Poštovani"},`,
+    "",
+    "Primili smo vaš zahtev za proveru avio-odštete i prosledili ga našem timu na obradu.",
+    "Javljamo vam se u roku od 24h sa sledećim korakom.",
+    "Nema troškova unapred.",
+    "",
+    `Referenca zahteva: ${claim.id.slice(0, 8).toUpperCase()}`,
+    "",
+    "Ako imate dodatna pitanja, možete odgovoriti direktno na ovaj email.",
+  ].join("\n");
+}
+
+export async function sendAdminClaimNotification(claim: ClaimRecord) {
+  const to = getResendAdminToEmail();
+
+  if (!to) {
+    return { ok: false, skipped: true as const };
+  }
+
+  return sendResendEmail({
+    to: [to],
+    subject: `Novi claim: ${claim.flightNumber} / ${claim.flightDate}`,
+    html: buildClaimNotificationHtml(claim),
+    text: buildAdminClaimNotificationText(claim),
+  });
+}
+
+export async function sendUserClaimConfirmation(claim: ClaimRecord) {
+  return sendResendEmail({
+    to: [claim.email],
+    subject: `Primili smo vaš zahtev - ${claim.id.slice(0, 8).toUpperCase()}`,
+    html: buildUserConfirmationHtml(claim),
+    text: buildUserConfirmationText(claim),
+  });
 }
