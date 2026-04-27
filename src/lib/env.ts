@@ -49,6 +49,10 @@ export function getSupportEmail() {
   return getEnv("NEXT_PUBLIC_SUPPORT_EMAIL") ?? "podrska@letkasni.rs";
 }
 
+export function getSiteUrl() {
+  return getEnv("NEXT_PUBLIC_SITE_URL") ?? "https://letkasni.rs";
+}
+
 export function getOperatorName() {
   return getEnv("NEXT_PUBLIC_OPERATOR_NAME") ?? "VGA EU CONSULTING DOO NIŠ";
 }
@@ -99,4 +103,16 @@ export function getSupabaseAnonKey() {
 
 export function getSupabaseServiceRoleKey() {
   return getEnv("SUPABASE_SERVICE_ROLE_KEY");
+}
+
+export function getResendApiKey() {
+  return getEnv("RESEND_API_KEY");
+}
+
+export function getResendFromEmail() {
+  return getEnv("RESEND_FROM_EMAIL") ?? "Letkasni <onboarding@resend.dev>";
+}
+
+export function getResendAdminToEmail() {
+  return getEnv("RESEND_ADMIN_TO_EMAIL");
 }
