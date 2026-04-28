@@ -1,0 +1,35 @@
+name: Fetch Aviation Edge BEG History
+
+on:
+  workflow_dispatch:
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: python -m pip install --upgrade pip && pip install -r requirements.txt
+
+      - name: Fetch and analyze BEG history
+        run: python scripts/fetch_beg_history.py
+        env:
+          AVIATION_EDGE_API_KEY: ${{ secrets.AVIATION_EDGE_API_KEY }}
+
+      - name: Upload results
+        uses: actions/upload-artifact@v4
+        with:
+          name: aviation-edge-beg-results
+          path: |
+            data/raw/
+            data/processed/
+            reports/
+          if-no-files-found: error

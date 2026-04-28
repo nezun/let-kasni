@@ -110,3 +110,52 @@ npm run start
 SQL migration za `claims` tabelu je u:
 
 - `supabase/migrations/202604181905_phase1_claims.sql`
+
+## Aviation Edge BEG history validation
+
+This repository includes an isolated Python utility for validating Aviation Edge historical schedule data for Belgrade Airport (`BEG`) for January, February, and March 2026. This is only a data validation workflow. It is not final legal eligibility analysis for passenger claims.
+
+### Add the GitHub secret
+
+1. Open the GitHub repository.
+2. Go to `Settings` -> `Secrets and variables` -> `Actions`.
+3. Click `New repository secret`.
+4. Set the name to `AVIATION_EDGE_API_KEY`.
+5. Paste the Aviation Edge API key as the value and save it.
+
+Do not commit API keys, `.env` files, or downloaded Aviation Edge data to the repository.
+
+### Run the workflow manually
+
+1. Open the repository on GitHub.
+2. Go to `Actions`.
+3. Select `Fetch Aviation Edge BEG History`.
+4. Click `Run workflow`.
+5. Choose the branch and confirm `Run workflow`.
+
+The workflow installs Python dependencies from `requirements.txt`, runs `scripts/fetch_beg_history.py`, and uploads the results as a workflow artifact. It does not commit fetched JSON or CSV files back to the repository.
+
+### Download the artifact
+
+After the workflow run finishes:
+
+1. Open the completed workflow run.
+2. Scroll to `Artifacts`.
+3. Download `aviation-edge-beg-results`.
+
+The artifact contains:
+
+- `data/raw/` - raw Aviation Edge JSON responses, including monthly attempts and any daily fallback responses.
+- `data/processed/beg_flights_normalized.csv` - normalized flight rows with cancellation, arrival delay, manual review, and deduplication helper columns.
+- `reports/monthly_summary.csv` - raw and deduped counts by month and direction.
+- `reports/airline_breakdown.csv` - raw and deduped counts by airline.
+- `reports/route_breakdown.csv` - raw and deduped counts by route.
+- `reports/top_candidate_events.csv` - conservative candidate rows for cancelled, 3h+ arrival delay, or manual review cases.
+
+### Known limitations
+
+- Aviation Edge data quality and field availability can vary by date, airline, and flight.
+- The script first tries monthly requests, then falls back to daily requests if the monthly response fails, is empty, or looks suspiciously small.
+- Codeshare handling is conservative: raw rows are preserved, and likely duplicate rows are marked with `dedup_group_id` and `is_dedup_primary`.
+- `needs_manual_review` means the row lacks enough normalized evidence for confident automated interpretation.
+- The reports are intended for data validation and triage only, not as final EC261/legal eligibility decisions.
