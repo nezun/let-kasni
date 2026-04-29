@@ -30,10 +30,11 @@ PERIOD_START = date(2025, 4, 1)
 PERIOD_END = date(2026, 3, 31)
 MAX_API_RANGE_DAYS = 30
 REQUEST_TIMEOUT_SECONDS = 45
-OPTIONAL_LOOKUP_TIMEOUT_SECONDS = 12
+OPTIONAL_LOOKUP_TIMEOUT_SECONDS = 8
 REQUEST_PAUSE_SECONDS = 0.25
 SUSPICIOUS_BEG_CHUNK_MIN_ROWS = 10
-DESTINATION_LOOKUP_MAX_REQUESTS_PER_MONTH = 40
+DESTINATION_LOOKUP_MAX_REQUESTS_PER_MONTH = 20
+DESTINATION_LOOKUP_MAX_TIMEOUTS_PER_MONTH = 3
 FETCH_ISSUES: list[dict[str, Any]] = []
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -699,11 +700,16 @@ def enrich_departures_with_destination_arrivals(
     destination_raw: dict[str, dict[str, list[dict[str, Any]]]] = {}
     skipped_lookup_count = 0
     lookup_request_count = 0
+    timeout_count = 0
     for airport, lookup_dates in sorted(lookup_dates_by_airport.items()):
         destination_raw[airport] = {}
         skip_remaining_airport_dates = False
         for lookup_date in sorted(lookup_dates):
-            if skip_remaining_airport_dates or lookup_request_count >= DESTINATION_LOOKUP_MAX_REQUESTS_PER_MONTH:
+            if (
+                skip_remaining_airport_dates
+                or lookup_request_count >= DESTINATION_LOOKUP_MAX_REQUESTS_PER_MONTH
+                or timeout_count >= DESTINATION_LOOKUP_MAX_TIMEOUTS_PER_MONTH
+            ):
                 skipped_lookup_count += 1
                 arrival_cache[(airport, lookup_date)] = []
                 destination_raw[airport][lookup_date.isoformat()] = []
@@ -732,6 +738,8 @@ def enrich_departures_with_destination_arrivals(
                 )
                 if payload_says_no_older_data(payload) or is_timeout_error(error):
                     skip_remaining_airport_dates = True
+                if is_timeout_error(error):
+                    timeout_count += 1
                 records = []
             arrival_cache[(airport, lookup_date)] = records
             destination_raw[airport][lookup_date.isoformat()] = records
@@ -744,7 +752,12 @@ def enrich_departures_with_destination_arrivals(
             scheduled_arrival_date(departure_records[0]) or date.fromisoformat(f"{month_label}-01"),
             scheduled_arrival_date(departure_records[-1]) or date.fromisoformat(f"{month_label}-01"),
             f"Skipped {skipped_lookup_count} destination-arrival lookups after API no-older-data/timeouts or monthly budget",
-            {"skipped_lookup_count": skipped_lookup_count, "monthly_budget": DESTINATION_LOOKUP_MAX_REQUESTS_PER_MONTH},
+            {
+                "skipped_lookup_count": skipped_lookup_count,
+                "monthly_budget": DESTINATION_LOOKUP_MAX_REQUESTS_PER_MONTH,
+                "monthly_timeout_limit": DESTINATION_LOOKUP_MAX_TIMEOUTS_PER_MONTH,
+                "timeout_count": timeout_count,
+            },
             False,
         )
 

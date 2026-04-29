@@ -177,7 +177,7 @@ The non-`12m_` report files are aliases of the main 12-month reports for conveni
 - Aviation Edge data quality and field availability can vary by date, airline, and flight.
 - Aviation Edge documents a 30-day maximum date range, so the script keeps monthly reporting but fetches each month in 30-day-or-smaller chunks.
 - BEG departure rows with weak final-arrival evidence are enriched from destination-side arrival lookups when a match can be found.
-- Destination-arrival enrichment increases runtime and API usage because it may query destination airports for weak BEG departure evidence. Optional destination lookups use shorter timeouts and a per-month safety budget so provider errors cannot keep the workflow running for hours.
+- Destination-arrival enrichment increases runtime and API usage because it may query destination airports for weak BEG departure evidence. Optional destination lookups use shorter timeouts, a per-month safety budget, and a timeout breaker so provider errors cannot keep the workflow running for hours.
 - Codeshare handling is conservative: raw rows are preserved, duplicate groups are marked with `dedup_group_id`, marketing carriers are preserved, and likely operating carrier is inferred from the non-codeshare row when present.
 - `needs_manual_review` means the row lacks enough normalized evidence for confident automated interpretation and is intentionally separated from confirmed operational candidates.
 - `likely_eu261_scope` is an informational triage label only. It does not remove candidates and is not a legal eligibility decision.
