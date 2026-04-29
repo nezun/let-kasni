@@ -30,8 +30,10 @@ PERIOD_START = date(2025, 4, 1)
 PERIOD_END = date(2026, 3, 31)
 MAX_API_RANGE_DAYS = 30
 REQUEST_TIMEOUT_SECONDS = 45
+OPTIONAL_LOOKUP_TIMEOUT_SECONDS = 12
 REQUEST_PAUSE_SECONDS = 0.25
 SUSPICIOUS_BEG_CHUNK_MIN_ROWS = 10
+DESTINATION_LOOKUP_MAX_REQUESTS_PER_MONTH = 40
 FETCH_ISSUES: list[dict[str, Any]] = []
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -418,12 +420,21 @@ def payload_has_error(payload: Any) -> bool:
     return False
 
 
+def payload_says_no_older_data(payload: Any) -> bool:
+    return "no older data" in summarize_payload(payload).lower() or "code#32" in summarize_payload(payload).lower()
+
+
+def is_timeout_error(error: str | None) -> bool:
+    return "timed out" in str(error or "").lower() or "timeout" in str(error or "").lower()
+
+
 def fetch_history(
     api_key: str,
     airport_code: str,
     direction: str,
     start: date,
     end: date | None = None,
+    timeout_seconds: int = REQUEST_TIMEOUT_SECONDS,
 ) -> tuple[Any, str | None]:
     params = {
         "key": api_key,
@@ -435,7 +446,7 @@ def fetch_history(
         params["date_to"] = end.isoformat()
 
     try:
-        response = requests.get(API_ENDPOINT, params=params, timeout=REQUEST_TIMEOUT_SECONDS)
+        response = requests.get(API_ENDPOINT, params=params, timeout=timeout_seconds)
     except requests.RequestException as exc:
         error = redact_secret(str(exc), api_key)
         return {"request_error": error}, error
@@ -464,10 +475,11 @@ def fetch_records_for_period(
     end: date,
     fallback_on_small: bool,
     fail_on_api_error: bool = True,
+    timeout_seconds: int = REQUEST_TIMEOUT_SECONDS,
 ) -> list[dict[str, Any]]:
     records: list[dict[str, Any]] = []
     for chunk_start, chunk_end in chunk_range(start, end):
-        payload, error = fetch_history(api_key, airport_code, direction, chunk_start, chunk_end)
+        payload, error = fetch_history(api_key, airport_code, direction, chunk_start, chunk_end, timeout_seconds)
         chunk_records = extract_records(payload)
 
         if error is not None:
@@ -490,7 +502,7 @@ def fetch_records_for_period(
             print(f"Recording fetch issue and continuing: {message}", file=sys.stderr)
             continue
 
-        should_fallback = len(chunk_records) == 0
+        should_fallback = len(chunk_records) == 0 and chunk_start != chunk_end
         if fallback_on_small and (chunk_end - chunk_start).days >= 6 and len(chunk_records) < SUSPICIOUS_BEG_CHUNK_MIN_ROWS:
             should_fallback = True
 
@@ -511,7 +523,7 @@ def fetch_records_for_period(
                 f"{chunk_start.isoformat()} to {chunk_end.isoformat()}: {reason}"
             )
             for day in date_range(chunk_start, chunk_end):
-                daily_payload, daily_error = fetch_history(api_key, airport_code, direction, day, day)
+                daily_payload, daily_error = fetch_history(api_key, airport_code, direction, day, day, timeout_seconds)
                 if daily_error:
                     message = (
                         f"{airport_code.upper()} {direction} {day.isoformat()} failed: "
@@ -685,20 +697,56 @@ def enrich_departures_with_destination_arrivals(
 
     arrival_cache: dict[tuple[str, date], list[dict[str, Any]]] = {}
     destination_raw: dict[str, dict[str, list[dict[str, Any]]]] = {}
+    skipped_lookup_count = 0
+    lookup_request_count = 0
     for airport, lookup_dates in sorted(lookup_dates_by_airport.items()):
         destination_raw[airport] = {}
+        skip_remaining_airport_dates = False
         for lookup_date in sorted(lookup_dates):
-            records = fetch_records_for_period(
+            if skip_remaining_airport_dates or lookup_request_count >= DESTINATION_LOOKUP_MAX_REQUESTS_PER_MONTH:
+                skipped_lookup_count += 1
+                arrival_cache[(airport, lookup_date)] = []
+                destination_raw[airport][lookup_date.isoformat()] = []
+                continue
+
+            lookup_request_count += 1
+            payload, error = fetch_history(
                 api_key,
                 airport,
                 "arrival",
                 lookup_date,
                 lookup_date,
-                fallback_on_small=False,
-                fail_on_api_error=False,
+                OPTIONAL_LOOKUP_TIMEOUT_SECONDS,
             )
+            records = extract_records(payload)
+            if error is not None:
+                record_fetch_issue(
+                    "destination_arrival_lookup",
+                    airport,
+                    "arrival",
+                    lookup_date,
+                    lookup_date,
+                    error,
+                    payload,
+                    False,
+                )
+                if payload_says_no_older_data(payload) or is_timeout_error(error):
+                    skip_remaining_airport_dates = True
+                records = []
             arrival_cache[(airport, lookup_date)] = records
             destination_raw[airport][lookup_date.isoformat()] = records
+
+    if skipped_lookup_count:
+        record_fetch_issue(
+            "destination_arrival_lookup_skipped",
+            AIRPORT_CODE,
+            "departure",
+            scheduled_arrival_date(departure_records[0]) or date.fromisoformat(f"{month_label}-01"),
+            scheduled_arrival_date(departure_records[-1]) or date.fromisoformat(f"{month_label}-01"),
+            f"Skipped {skipped_lookup_count} destination-arrival lookups after API no-older-data/timeouts or monthly budget",
+            {"skipped_lookup_count": skipped_lookup_count, "monthly_budget": DESTINATION_LOOKUP_MAX_REQUESTS_PER_MONTH},
+            False,
+        )
 
     if destination_raw:
         safe_json_dump(RAW_DIR / f"{month_label}-destination-arrival-lookups.json", destination_raw)
