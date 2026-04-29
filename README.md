@@ -113,7 +113,9 @@ SQL migration za `claims` tabelu je u:
 
 ## Aviation Edge BEG history validation
 
-This repository includes an isolated Python utility for validating Aviation Edge historical schedule data for Belgrade Airport (`BEG`) for January, February, and March 2026. This is only a data validation workflow. It is not final legal eligibility analysis for passenger claims.
+This repository includes an isolated Python utility for validating Aviation Edge historical schedule data for Belgrade Airport (`BEG`) for the last 12 full calendar months: `2025-04-01` through `2026-03-31`.
+
+The business question is whether BEG-only has enough EU261-relevant disruption volume to support `letkasni.rs` as a standalone flight compensation claim acquisition business. This workflow separates operational disruption volume from likely EU261-relevant volume. It is not final legal eligibility analysis.
 
 ### Add the GitHub secret
 
@@ -145,17 +147,35 @@ After the workflow run finishes:
 
 The artifact contains:
 
-- `data/raw/` - raw Aviation Edge JSON responses, including monthly attempts and any daily fallback responses.
-- `data/processed/beg_flights_normalized.csv` - normalized flight rows with cancellation, arrival delay, manual review, and deduplication helper columns.
-- `reports/monthly_summary.csv` - raw and deduped counts by month and direction.
-- `reports/airline_breakdown.csv` - raw and deduped counts by airline.
-- `reports/route_breakdown.csv` - raw and deduped counts by route.
-- `reports/top_candidate_events.csv` - conservative candidate rows for cancelled, 3h+ arrival delay, or manual review cases.
+- `data/raw/` - monthly raw Aviation Edge JSON responses, including `YYYY-MM-arrivals.json`, `YYYY-MM-departures.json`, and destination-arrival lookup evidence where needed.
+- `data/processed/beg_flights_normalized.csv` - normalized flight rows with disruption, carrier, enrichment, EU261 precheck, manual-review, and deduplication helper columns.
+- `reports/analysis_summary.csv` - top-level business summary and warning that legal precheck is not final eligibility analysis.
+- `reports/12m_monthly_eu261_precheck_summary.csv` - most important monthly business view for likely in-scope vs operator-sensitive vs likely out-of-scope candidate volume.
+- `reports/12m_confirmed_operational_candidates.csv` - deduped cancelled or reliable 3h+ arrival-delay operational candidates.
+- `reports/fr24_validation_sample.csv` - top 30 events for manual FR24/FlightAware validation.
+- `reports/12m_manual_review_events.csv` - uncertain rows kept separate from confirmed operational candidates.
+- `reports/12m_route_breakdown.csv` and `reports/12m_airline_breakdown.csv` - candidate distribution by route and likely operating carrier.
+- `reports/12m_data_quality_summary.csv` - data completeness, destination-arrival enrichment, and remaining evidence gaps.
+- `reports/12m_seasonality_summary.csv` - monthly seasonality view for whether Q1 is representative.
+
+The non-`12m_` report files are aliases of the main 12-month reports for convenience.
+
+### How to read the output
+
+- Operational disruption event: a flight with cancellation or arrival-delay evidence in Aviation Edge data.
+- Confirmed operational candidate: a deduped flight where `is_cancelled = true` or reliable `is_arrival_delay_3h_plus = true`.
+- Likely EU261-relevant event: a confirmed operational candidate whose route/operator precheck is `likely_in_scope`.
+- Operator-sensitive event: a confirmed operational candidate where the route may matter for EU261, but operating carrier status needs manual validation.
+- Likely out-of-scope event: a confirmed operational candidate that appears outside EU261 scope, for example non-EU airport pairs such as BEG-DXB/DOH/TLV/JFK unless another legal basis exists.
+- Manual review event: a row with weak final-arrival evidence, unclear status/operator/scope, low-confidence destination match, or conflicting data.
 
 ### Known limitations
 
 - Aviation Edge data quality and field availability can vary by date, airline, and flight.
-- The script first tries monthly requests, then falls back to daily requests if the monthly response fails, is empty, or looks suspiciously small.
-- Codeshare handling is conservative: raw rows are preserved, and likely duplicate rows are marked with `dedup_group_id` and `is_dedup_primary`.
-- `needs_manual_review` means the row lacks enough normalized evidence for confident automated interpretation.
+- Aviation Edge documents a 30-day maximum date range, so the script keeps monthly reporting but fetches each month in 30-day-or-smaller chunks.
+- BEG departure rows with weak final-arrival evidence are enriched from destination-side arrival lookups when a match can be found.
+- Destination-arrival enrichment increases runtime and API usage because it may query destination airports for weak BEG departure evidence.
+- Codeshare handling is conservative: raw rows are preserved, duplicate groups are marked with `dedup_group_id`, marketing carriers are preserved, and likely operating carrier is inferred from the non-codeshare row when present.
+- `needs_manual_review` means the row lacks enough normalized evidence for confident automated interpretation and is intentionally separated from confirmed operational candidates.
+- `likely_eu261_scope` is an informational triage label only. It does not remove candidates and is not a legal eligibility decision.
 - The reports are intended for data validation and triage only, not as final EC261/legal eligibility decisions.
