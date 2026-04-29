@@ -32,6 +32,7 @@ MAX_API_RANGE_DAYS = 30
 REQUEST_TIMEOUT_SECONDS = 45
 REQUEST_PAUSE_SECONDS = 0.25
 SUSPICIOUS_BEG_CHUNK_MIN_ROWS = 10
+FETCH_ISSUES: list[dict[str, Any]] = []
 
 ROOT = Path(__file__).resolve().parents[1]
 RAW_DIR = ROOT / "data" / "raw"
@@ -137,10 +138,45 @@ NORMALIZED_COLUMNS = [
     "raw_source_file",
 ]
 
+INTERNAL_COLUMNS = [
+    "source_index",
+    "arrival_delay_source",
+    "raw_has_codeshare",
+    "codeshare_airline_iata",
+    "codeshare_airline_name",
+    "dedup_rank",
+    "is_dedup_primary",
+    "raw_json",
+]
+
 
 def fail(message: str) -> None:
     print(f"ERROR: {message}", file=sys.stderr)
     sys.exit(1)
+
+
+def record_fetch_issue(
+    stage: str,
+    airport_code: str,
+    direction: str,
+    start: date,
+    end: date,
+    error: str,
+    payload: Any,
+    hard_fail_enabled: bool,
+) -> None:
+    FETCH_ISSUES.append(
+        {
+            "stage": stage,
+            "airport": airport_code.upper(),
+            "direction": direction,
+            "date_from": start.isoformat(),
+            "date_to": end.isoformat(),
+            "hard_fail_enabled": hard_fail_enabled,
+            "error": error,
+            "payload_summary": summarize_payload(payload),
+        }
+    )
 
 
 def ensure_dirs() -> None:
@@ -349,9 +385,19 @@ def fetch_records_for_period(
                 f"{airport_code.upper()} {direction} {chunk_start.isoformat()} to {chunk_end.isoformat()} "
                 f"failed: {error}. Payload: {summarize_payload(payload)}"
             )
+            record_fetch_issue(
+                "chunk",
+                airport_code,
+                direction,
+                chunk_start,
+                chunk_end,
+                error,
+                payload,
+                fail_on_api_error,
+            )
             if fail_on_api_error:
                 fail(message)
-            print(f"Skipping optional lookup: {message}", file=sys.stderr)
+            print(f"Recording fetch issue and continuing: {message}", file=sys.stderr)
             continue
 
         should_fallback = len(chunk_records) == 0
@@ -371,9 +417,19 @@ def fetch_records_for_period(
                         f"{airport_code.upper()} {direction} {day.isoformat()} failed: "
                         f"{daily_error}. Payload: {summarize_payload(daily_payload)}"
                     )
+                    record_fetch_issue(
+                        "daily_fallback",
+                        airport_code,
+                        direction,
+                        day,
+                        day,
+                        daily_error,
+                        daily_payload,
+                        fail_on_api_error,
+                    )
                     if fail_on_api_error:
                         fail(message)
-                    print(f"Skipping optional lookup: {message}", file=sys.stderr)
+                    print(f"Recording fetch issue and continuing: {message}", file=sys.stderr)
                 else:
                     records.extend(extract_records(daily_payload))
                 time.sleep(REQUEST_PAUSE_SECONDS)
@@ -402,9 +458,24 @@ def raw_filename(month_label: str, direction: str) -> str:
     return f"{month_label}-{plural}.json"
 
 
-def fetch_beg_month(api_key: str, month_label: str, direction: str, start: date, end: date) -> list[dict[str, Any]]:
+def fetch_beg_month(
+    api_key: str,
+    month_label: str,
+    direction: str,
+    start: date,
+    end: date,
+    strict_fetch: bool,
+) -> list[dict[str, Any]]:
     print(f"Fetching BEG {direction} {month_label} in API-safe chunks")
-    records = fetch_records_for_period(api_key, AIRPORT_CODE, direction, start, end, fallback_on_small=True)
+    records = fetch_records_for_period(
+        api_key,
+        AIRPORT_CODE,
+        direction,
+        start,
+        end,
+        fallback_on_small=True,
+        fail_on_api_error=strict_fetch,
+    )
     source_file = raw_filename(month_label, direction)
     safe_json_dump(RAW_DIR / source_file, records)
     return add_fetch_metadata(records, month_label, direction, source_file)
@@ -957,10 +1028,26 @@ def write_reports(df: pd.DataFrame) -> None:
     copy_report("12m_route_breakdown.csv", "route_breakdown.csv")
     copy_report("12m_airline_breakdown.csv", "airline_breakdown.csv")
     copy_report("12m_data_quality_summary.csv", "data_quality_summary.csv")
+    write_fetch_issue_reports()
 
 
 def copy_report(source: str, destination: str) -> None:
     (REPORTS_DIR / destination).write_text((REPORTS_DIR / source).read_text(encoding="utf-8"), encoding="utf-8")
+
+
+def write_fetch_issue_reports() -> None:
+    safe_json_dump(RAW_DIR / "fetch_issues.json", FETCH_ISSUES)
+    columns = [
+        "stage",
+        "airport",
+        "direction",
+        "date_from",
+        "date_to",
+        "hard_fail_enabled",
+        "error",
+        "payload_summary",
+    ]
+    pd.DataFrame(FETCH_ISSUES, columns=columns).to_csv(REPORTS_DIR / "fetch_issues.csv", index=False)
 
 
 def write_12m_monthly_summary(raw: pd.DataFrame, primary: pd.DataFrame) -> None:
@@ -1170,8 +1257,14 @@ def write_analysis_summary(raw: pd.DataFrame, primary: pd.DataFrame) -> None:
             "key": "operator-sensitive candidates",
             "value": len(confirmed[confirmed["likely_eu261_scope"] == "operator_sensitive"]),
         },
-        {"section": "totals", "key": "monthly average confirmed candidates", "value": round(monthly_confirmed.mean() or 0, 2)},
-        {"section": "totals", "key": "monthly average likely in-scope candidates", "value": round(monthly_scope.mean() or 0, 2)},
+        {"section": "totals", "key": "monthly average confirmed candidates", "value": mean_or_zero(monthly_confirmed)},
+        {"section": "totals", "key": "monthly average likely in-scope candidates", "value": mean_or_zero(monthly_scope)},
+        {"section": "data access", "key": "fetch issues recorded", "value": len(FETCH_ISSUES)},
+        {
+            "section": "data access",
+            "key": "months with fetch issues",
+            "value": len({str(issue.get("date_from", ""))[:7] for issue in FETCH_ISSUES if issue.get("date_from")}),
+        },
         {
             "section": "warning",
             "key": "legal precheck",
@@ -1183,6 +1276,15 @@ def write_analysis_summary(raw: pd.DataFrame, primary: pd.DataFrame) -> None:
     for carrier, count in confirmed["likely_operating_airline_iata"].value_counts().head(20).items():
         rows.append({"section": "top candidate likely operating carriers", "key": carrier or "unknown", "value": int(count)})
     pd.DataFrame(rows).to_csv(REPORTS_DIR / "analysis_summary.csv", index=False)
+
+
+def mean_or_zero(series: pd.Series) -> float:
+    if series.empty:
+        return 0.0
+    value = series.mean()
+    if pd.isna(value):
+        return 0.0
+    return round(float(value), 2)
 
 
 def safe_rate(numerator: int | float, denominator: int | float) -> float:
@@ -1198,11 +1300,12 @@ def main() -> None:
     api_key = os.getenv("AVIATION_EDGE_API_KEY")
     if not api_key:
         fail("AVIATION_EDGE_API_KEY is missing. Add it as a GitHub repository secret before running the workflow.")
+    strict_fetch = os.getenv("AVIATION_EDGE_STRICT_FETCH") == "1"
 
     all_records: list[dict[str, Any]] = []
     for month_label, start, end in analysis_months():
-        arrivals = fetch_beg_month(api_key, month_label, "arrival", start, end)
-        departures = fetch_beg_month(api_key, month_label, "departure", start, end)
+        arrivals = fetch_beg_month(api_key, month_label, "arrival", start, end, strict_fetch)
+        departures = fetch_beg_month(api_key, month_label, "departure", start, end, strict_fetch)
         departures = enrich_departures_with_destination_arrivals(api_key, month_label, departures)
         all_records.extend(arrivals)
         all_records.extend(departures)
@@ -1210,7 +1313,7 @@ def main() -> None:
     normalized_rows = [normalize_record(record, index) for index, record in enumerate(all_records, start=1)]
     df = pd.DataFrame(normalized_rows)
     if df.empty:
-        df = pd.DataFrame(columns=NORMALIZED_COLUMNS + ["source_index", "raw_json"])
+        df = pd.DataFrame(columns=NORMALIZED_COLUMNS + INTERNAL_COLUMNS)
     df = add_dedup_columns(df)
     df = add_operating_carrier_columns(df)
     df = add_candidate_and_scope_columns(df)
@@ -1219,7 +1322,8 @@ def main() -> None:
         if column not in df.columns:
             df[column] = None
 
-    df[NORMALIZED_COLUMNS + ["source_index", "raw_json"]].to_csv(
+    export_columns = NORMALIZED_COLUMNS + [column for column in INTERNAL_COLUMNS if column in df.columns]
+    df[export_columns].to_csv(
         PROCESSED_DIR / "beg_flights_normalized.csv",
         index=False,
     )

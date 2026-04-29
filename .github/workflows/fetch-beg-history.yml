@@ -25,6 +25,7 @@ jobs:
           AVIATION_EDGE_API_KEY: ${{ secrets.AVIATION_EDGE_API_KEY }}
 
       - name: Upload results
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: aviation-edge-beg-results

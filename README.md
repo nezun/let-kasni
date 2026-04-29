@@ -137,6 +137,8 @@ Do not commit API keys, `.env` files, or downloaded Aviation Edge data to the re
 
 The workflow installs Python dependencies from `requirements.txt`, runs `scripts/fetch_beg_history.py`, and uploads the results as a workflow artifact. It does not commit fetched JSON or CSV files back to the repository.
 
+If Aviation Edge rejects part of the requested 12-month period, the workflow records that data-access issue and continues with any months that are available. Set `AVIATION_EDGE_STRICT_FETCH=1` only if you want the script to fail immediately on the first Aviation Edge fetch error.
+
 ### Download the artifact
 
 After the workflow run finishes:
@@ -148,6 +150,7 @@ After the workflow run finishes:
 The artifact contains:
 
 - `data/raw/` - monthly raw Aviation Edge JSON responses, including `YYYY-MM-arrivals.json`, `YYYY-MM-departures.json`, and destination-arrival lookup evidence where needed.
+- `data/raw/fetch_issues.json` and `reports/fetch_issues.csv` - Aviation Edge data-access or fetch issues recorded during the run.
 - `data/processed/beg_flights_normalized.csv` - normalized flight rows with disruption, carrier, enrichment, EU261 precheck, manual-review, and deduplication helper columns.
 - `reports/analysis_summary.csv` - top-level business summary and warning that legal precheck is not final eligibility analysis.
 - `reports/12m_monthly_eu261_precheck_summary.csv` - most important monthly business view for likely in-scope vs operator-sensitive vs likely out-of-scope candidate volume.
