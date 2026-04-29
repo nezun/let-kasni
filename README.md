@@ -156,7 +156,7 @@ The artifact contains:
 - `reports/12m_monthly_eu261_precheck_summary.csv` - most important monthly business view for likely in-scope vs operator-sensitive vs likely out-of-scope candidate volume.
 - `reports/12m_confirmed_operational_candidates.csv` - deduped cancelled or reliable 3h+ arrival-delay operational candidates.
 - `reports/fr24_validation_sample.csv` - top 30 events for manual FR24/FlightAware validation.
-- `reports/12m_manual_review_events.csv` - uncertain rows kept separate from confirmed operational candidates.
+- `reports/12m_manual_review_events.csv` - rows that still need manual review. This can overlap with confirmed operational candidates when operator, scope, codeshare, or arrival evidence remains uncertain.
 - `reports/12m_route_breakdown.csv` and `reports/12m_airline_breakdown.csv` - candidate distribution by route and likely operating carrier.
 - `reports/12m_data_quality_summary.csv` - data completeness, destination-arrival enrichment, and remaining evidence gaps.
 - `reports/12m_seasonality_summary.csv` - monthly seasonality view for whether Q1 is representative.
@@ -170,7 +170,7 @@ The non-`12m_` report files are aliases of the main 12-month reports for conveni
 - Likely EU261-relevant event: a confirmed operational candidate whose route/operator precheck is `likely_in_scope`.
 - Operator-sensitive event: a confirmed operational candidate where the route may matter for EU261, but operating carrier status needs manual validation.
 - Likely out-of-scope event: a confirmed operational candidate that appears outside EU261 scope, for example non-EU airport pairs such as BEG-DXB/DOH/TLV/JFK unless another legal basis exists.
-- Manual review event: a row with weak final-arrival evidence, unclear status/operator/scope, low-confidence destination match, or conflicting data.
+- Manual review event: a row with weak final-arrival evidence, unclear status/operator/scope, low-confidence destination match, or conflicting data. Manual review is not mutually exclusive with confirmed operational candidate status.
 
 ### Known limitations
 

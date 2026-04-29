@@ -40,35 +40,103 @@ PROCESSED_DIR = ROOT / "data" / "processed"
 REPORTS_DIR = ROOT / "reports"
 
 EU_EEA_UK_CH_AIRPORTS = {
+    "agp",
     "alc",
     "ams",
     "arn",
     "ath",
     "bcn",
+    "bds",
     "ber",
+    "bgy",
+    "bhx",
+    "bll",
+    "blq",
+    "boj",
+    "bri",
+    "brs",
+    "bru",
+    "bsl",
+    "bts",
     "bud",
+    "bva",
+    "cag",
     "cdg",
+    "cgn",
+    "cia",
+    "clj",
     "cph",
+    "crl",
+    "cta",
+    "dbv",
+    "dtm",
+    "dub",
     "dus",
+    "edi",
+    "ein",
     "fco",
+    "fkb",
+    "flr",
+    "fmm",
     "fra",
+    "gdn",
+    "got",
     "gva",
+    "haj",
+    "ham",
     "hel",
+    "hhn",
+    "ibz",
+    "inn",
+    "krk",
+    "ktw",
     "lca",
+    "lgw",
     "lhr",
+    "lin",
     "lju",
+    "ltn",
+    "lux",
+    "lys",
     "mad",
+    "man",
+    "mla",
     "muc",
     "mxp",
+    "nap",
+    "nce",
+    "nue",
+    "nyo",
     "osl",
+    "osi",
+    "ory",
     "otp",
+    "pmi",
     "prg",
+    "psa",
+    "puy",
+    "rix",
+    "rjk",
+    "rtm",
     "skg",
     "sof",
+    "spu",
+    "stn",
     "str",
+    "szg",
+    "tll",
+    "trf",
+    "trn",
+    "tsf",
+    "tsr",
+    "var",
     "vce",
     "vie",
+    "vlc",
+    "vno",
     "waw",
+    "wmi",
+    "wro",
     "zag",
     "zrh",
 }
@@ -87,16 +155,37 @@ NON_EU_AIRPORTS = {
 EU_EEA_UK_CH_AIRLINES = {
     "a3",
     "af",
+    "ay",
     "az",
+    "ba",
     "bt",
+    "d8",
+    "de",
+    "dy",
+    "ei",
+    "en",
+    "ew",
     "fb",
+    "fr",
+    "hv",
+    "ib",
     "kl",
+    "lg",
     "lh",
+    "lo",
     "lx",
     "os",
     "ou",
+    "ro",
+    "sk",
+    "sn",
+    "to",
     "tp",
+    "u2",
+    "v7",
+    "vy",
     "w6",
+    "x3",
 }
 
 NORMALIZED_COLUMNS = [
@@ -144,6 +233,7 @@ INTERNAL_COLUMNS = [
     "raw_has_codeshare",
     "codeshare_airline_iata",
     "codeshare_airline_name",
+    "arrival_data_conflict",
     "dedup_rank",
     "is_dedup_primary",
     "raw_json",
@@ -406,6 +496,16 @@ def fetch_records_for_period(
 
         if should_fallback:
             reason = f"chunk returned {len(chunk_records)} rows"
+            record_fetch_issue(
+                "chunk_daily_fallback",
+                airport_code,
+                direction,
+                chunk_start,
+                chunk_end,
+                reason,
+                payload,
+                fail_on_api_error,
+            )
             print(
                 f"Falling back to daily requests for {airport_code.upper()} {direction} "
                 f"{chunk_start.isoformat()} to {chunk_end.isoformat()}: {reason}"
@@ -640,6 +740,32 @@ def enriched_status(record: dict[str, Any]) -> str:
     return str(record.get("status") or "")
 
 
+def has_destination_arrival_conflict(record: dict[str, Any]) -> bool:
+    match = record.get("_destination_arrival_match")
+    if not isinstance(match, dict):
+        return False
+
+    original_status = normalized_string(record.get("status"))
+    matched_status = normalized_string(match.get("status"))
+    if original_status and matched_status and original_status != matched_status:
+        return True
+
+    original_delay = parse_delay(nested(record, "arrival", "delay"))
+    matched_delay = parse_delay(nested(match, "arrival", "delay"))
+    if original_delay is not None and matched_delay is not None and abs(original_delay - matched_delay) > 15:
+        return True
+
+    time_pairs = [
+        (nested(record, "arrival", "scheduledTime"), nested(match, "arrival", "scheduledTime"), 30),
+        (nested(record, "arrival", "actualTime"), nested(match, "arrival", "actualTime"), 30),
+    ]
+    return any(
+        diff is not None and diff > max_minutes
+        for first, second, max_minutes in time_pairs
+        for diff in [minutes_apart(first, second)]
+    )
+
+
 def normalize_record(record: dict[str, Any], source_index: int) -> dict[str, Any]:
     direction = normalized_string(record.get("_fetch_direction") or record.get("type"))
     dep_airport = normalized_string(nested(record, "departure", "iataCode"))
@@ -681,6 +807,7 @@ def normalize_record(record: dict[str, Any], source_index: int) -> dict[str, Any
 
     arrival_data_source = record.get("_arrival_data_source") or "original_beg_departure"
     arrival_match_confidence = record.get("_arrival_match_confidence") or "no_match"
+    arrival_data_conflict = has_destination_arrival_conflict(record)
     manual_reasons = manual_review_reasons(
         record,
         status,
@@ -688,6 +815,7 @@ def normalize_record(record: dict[str, Any], source_index: int) -> dict[str, Any
         arrival_delay_source,
         arrival_data_source,
         arrival_match_confidence,
+        arrival_data_conflict,
     )
 
     return {
@@ -709,6 +837,7 @@ def normalize_record(record: dict[str, Any], source_index: int) -> dict[str, Any
         "departure_delay_minutes": departure_delay,
         "arrival_delay_minutes": arrival_delay,
         "arrival_delay_source": arrival_delay_source,
+        "arrival_data_conflict": arrival_data_conflict,
         "status": status or None,
         "is_cancelled": is_cancelled,
         "is_arrival_delay_3h_plus": is_arrival_delay_3h_plus,
@@ -733,6 +862,7 @@ def manual_review_reasons(
     arrival_delay_source: str,
     arrival_data_source: str,
     arrival_match_confidence: str,
+    arrival_data_conflict: bool,
 ) -> list[str]:
     reasons = []
     if not status:
@@ -745,6 +875,8 @@ def manual_review_reasons(
         reasons.append("weak_beg_departure_endpoint_evidence")
     if arrival_match_confidence == "low":
         reasons.append("low_confidence_destination_arrival_match")
+    if arrival_data_conflict:
+        reasons.append("destination_arrival_lookup_conflict")
     return reasons
 
 
@@ -882,11 +1014,15 @@ def candidate_reason(row: pd.Series) -> str | None:
 def candidate_confidence(row: pd.Series) -> str | None:
     if not row.get("is_cancelled") and not row.get("is_arrival_delay_3h_plus"):
         return "low" if row.get("needs_manual_review") else None
+    if row.get("arrival_data_conflict"):
+        return "low"
     if row.get("arrival_match_confidence") == "low":
         return "low"
     if row.get("operating_carrier_confidence") == "low":
         return "low"
     if row.get("is_cancelled"):
+        if row.get("raw_has_codeshare") and row.get("operating_carrier_confidence") != "high":
+            return "low"
         if (
             row.get("date")
             and row.get("dep_airport")
@@ -929,17 +1065,23 @@ def eu261_scope(row: pd.Series) -> tuple[str, str]:
 def final_needs_manual_review(row: pd.Series) -> bool:
     if row.get("needs_manual_review"):
         return True
+    if row.get("is_cancelled") and row.get("raw_has_codeshare") and row.get("operating_carrier_confidence") != "high":
+        return True
     if row.get("operating_carrier_confidence") == "low":
         return True
     if row.get("likely_eu261_scope") in {"manual_review", "operator_sensitive"}:
         return True
     if row.get("arrival_match_confidence") == "low":
         return True
+    if row.get("arrival_data_conflict"):
+        return True
     return False
 
 
 def final_manual_review_reason(row: pd.Series) -> str | None:
     reasons = [part for part in str(row.get("manual_review_reason") or "").split("; ") if part]
+    if row.get("is_cancelled") and row.get("raw_has_codeshare") and row.get("operating_carrier_confidence") != "high":
+        reasons.append("cancellation_only_weak_codeshare_row")
     if row.get("operating_carrier_confidence") == "low":
         reasons.append("unclear_operating_carrier")
     if row.get("likely_eu261_scope") == "manual_review":
@@ -947,6 +1089,8 @@ def final_manual_review_reason(row: pd.Series) -> str | None:
     if row.get("likely_eu261_scope") == "operator_sensitive":
         reasons.append("operator_sensitive_legal_scope")
     if row.get("arrival_match_confidence") == "low":
+        reasons.append("data_conflict_or_low_confidence_destination_match")
+    if row.get("arrival_data_conflict"):
         reasons.append("data_conflict_or_low_confidence_destination_match")
     deduped = []
     for reason in reasons:
@@ -966,11 +1110,15 @@ def count_true(series: pd.Series) -> int:
 
 
 def confirmed_candidates(df: pd.DataFrame) -> pd.DataFrame:
+    if df.empty:
+        return df.copy()
     return df[df["is_cancelled"] | df["is_arrival_delay_3h_plus"]].copy()
 
 
 def manual_review_events(df: pd.DataFrame) -> pd.DataFrame:
-    return df[df["needs_manual_review"] & ~(df["is_cancelled"] | df["is_arrival_delay_3h_plus"])].copy()
+    if df.empty:
+        return df.copy()
+    return df[df["needs_manual_review"]].copy()
 
 
 def report_columns() -> list[str]:
@@ -1216,7 +1364,24 @@ def write_validation_sample(primary: pd.DataFrame) -> None:
         return
 
     confirmed["sample_score"] = confirmed.apply(validation_sample_score, axis=1)
-    sample = confirmed.sort_values(["sample_score", "candidate_confidence"], ascending=[False, True]).head(30).copy()
+    high_value_cancellations = confirmed[
+        confirmed["is_cancelled"] & (confirmed["likely_eu261_scope"] == "likely_in_scope")
+    ]
+    arrival_delay_candidates = confirmed[confirmed["is_arrival_delay_3h_plus"]]
+    suspicious = confirmed[
+        confirmed["candidate_confidence"].isin(["medium", "low"])
+        | confirmed["operating_carrier_confidence"].isin(["medium", "low"])
+        | confirmed["arrival_match_confidence"].isin(["medium", "low"])
+        | confirmed["arrival_data_conflict"].fillna(False).astype(bool)
+        | (confirmed["marketing_airlines"].fillna("").str.count(";") >= 2)
+    ]
+    sample = (
+        pd.concat([high_value_cancellations, arrival_delay_candidates, suspicious, confirmed])
+        .drop_duplicates(subset=["dedup_group_id"])
+        .sort_values(["sample_score", "candidate_confidence"], ascending=[False, True])
+        .head(30)
+        .copy()
+    )
     sample["manual_validation_notes"] = ""
     sample[columns].to_csv(REPORTS_DIR / "fr24_validation_sample.csv", index=False)
 
