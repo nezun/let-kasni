@@ -337,17 +337,29 @@ def fetch_records_for_period(
     start: date,
     end: date,
     fallback_on_small: bool,
+    fail_on_api_error: bool = True,
 ) -> list[dict[str, Any]]:
     records: list[dict[str, Any]] = []
     for chunk_start, chunk_end in chunk_range(start, end):
         payload, error = fetch_history(api_key, airport_code, direction, chunk_start, chunk_end)
         chunk_records = extract_records(payload)
-        should_fallback = error is not None or len(chunk_records) == 0
+
+        if error is not None:
+            message = (
+                f"{airport_code.upper()} {direction} {chunk_start.isoformat()} to {chunk_end.isoformat()} "
+                f"failed: {error}. Payload: {summarize_payload(payload)}"
+            )
+            if fail_on_api_error:
+                fail(message)
+            print(f"Skipping optional lookup: {message}", file=sys.stderr)
+            continue
+
+        should_fallback = len(chunk_records) == 0
         if fallback_on_small and (chunk_end - chunk_start).days >= 6 and len(chunk_records) < SUSPICIOUS_BEG_CHUNK_MIN_ROWS:
             should_fallback = True
 
         if should_fallback:
-            reason = error or f"chunk returned {len(chunk_records)} rows"
+            reason = f"chunk returned {len(chunk_records)} rows"
             print(
                 f"Falling back to daily requests for {airport_code.upper()} {direction} "
                 f"{chunk_start.isoformat()} to {chunk_end.isoformat()}: {reason}"
@@ -355,17 +367,34 @@ def fetch_records_for_period(
             for day in date_range(chunk_start, chunk_end):
                 daily_payload, daily_error = fetch_history(api_key, airport_code, direction, day, day)
                 if daily_error:
-                    print(
-                        f"Daily request failed for {airport_code.upper()} {direction} {day.isoformat()}: {daily_error}",
-                        file=sys.stderr,
+                    message = (
+                        f"{airport_code.upper()} {direction} {day.isoformat()} failed: "
+                        f"{daily_error}. Payload: {summarize_payload(daily_payload)}"
                     )
-                records.extend(extract_records(daily_payload))
+                    if fail_on_api_error:
+                        fail(message)
+                    print(f"Skipping optional lookup: {message}", file=sys.stderr)
+                else:
+                    records.extend(extract_records(daily_payload))
                 time.sleep(REQUEST_PAUSE_SECONDS)
         else:
             records.extend(chunk_records)
 
         time.sleep(REQUEST_PAUSE_SECONDS)
     return records
+
+
+def summarize_payload(payload: Any) -> str:
+    if isinstance(payload, dict):
+        summary = {
+            key: payload.get(key)
+            for key in ("error", "errors", "message", "success", "http_status", "request_error")
+            if key in payload
+        }
+        return json.dumps(summary or payload, ensure_ascii=False)[:500]
+    if isinstance(payload, list):
+        return f"list[{len(payload)}]"
+    return str(payload)[:500]
 
 
 def raw_filename(month_label: str, direction: str) -> str:
@@ -488,7 +517,15 @@ def enrich_departures_with_destination_arrivals(
     for airport, lookup_dates in sorted(lookup_dates_by_airport.items()):
         destination_raw[airport] = {}
         for lookup_date in sorted(lookup_dates):
-            records = fetch_records_for_period(api_key, airport, "arrival", lookup_date, lookup_date, fallback_on_small=False)
+            records = fetch_records_for_period(
+                api_key,
+                airport,
+                "arrival",
+                lookup_date,
+                lookup_date,
+                fallback_on_small=False,
+                fail_on_api_error=False,
+            )
             arrival_cache[(airport, lookup_date)] = records
             destination_raw[airport][lookup_date.isoformat()] = records
 
