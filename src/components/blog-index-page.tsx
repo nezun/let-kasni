@@ -92,20 +92,20 @@ function BlogHeader({ locale }: { locale: BlogLocale }) {
             {t.navBlog}
           </Link>
           <div className="mx-[6px] h-[18px] w-px bg-[#E2E6EF]" />
-          <Link href={t.altHref} className="rounded-lg px-[10px] py-2 text-[13px] font-semibold text-[#6B7585] transition hover:bg-[#F4F6FA] hover:text-[#0A0F1E]">
-            {t.altLabel}
-          </Link>
           <Link href={t.checkHref} className="ml-[6px] rounded-lg bg-[#2470EB] px-5 py-[9px] text-sm font-semibold !text-white transition hover:bg-[#1A52C8]">
             {t.checkLabel}
+          </Link>
+          <Link href={t.altHref} className="rounded-lg px-[10px] py-2 text-[13px] font-semibold text-[#6B7585] transition hover:bg-[#F4F6FA] hover:text-[#0A0F1E]">
+            {t.altLabel}
           </Link>
         </div>
 
         <div className="flex items-center gap-2 md:hidden">
-          <Link href={t.altHref} className="rounded-lg px-2 py-2 text-[13px] font-semibold text-[#6B7585]">
-            {locale === "sr" ? "EN" : "SR"}
-          </Link>
           <Link href={t.checkHref} className="whitespace-nowrap rounded-lg bg-[#2470EB] px-3 py-2 text-sm font-semibold text-white">
             {locale === "sr" ? "Proveri" : "Check"}
+          </Link>
+          <Link href={t.altHref} className="rounded-lg px-2 py-2 text-[13px] font-semibold text-[#6B7585]">
+            {locale === "sr" ? "EN" : "SR"}
           </Link>
         </div>
       </div>

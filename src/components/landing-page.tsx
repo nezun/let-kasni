@@ -342,18 +342,18 @@ export function LandingPage({
               {t.navBlog}
             </Link>
             <div className="mx-[6px] h-[18px] w-px bg-[#E2E6EF]" />
-            <Link
-              href={t.localeHref}
-              className="rounded-lg px-[10px] py-2 text-[13px] font-semibold text-[#6B7585] transition hover:bg-[#F4F6FA] hover:text-[#0A0F1E]"
-            >
-              {t.localeLabel} / {t.localeSwitch}
-            </Link>
             <button
               onClick={() => openClaimModal("nav_cta")}
               className="ml-[6px] rounded-lg bg-[#2470EB] px-5 py-[9px] text-sm font-semibold text-white transition hover:bg-[#1A52C8]"
             >
               {t.navCta}
             </button>
+            <Link
+              href={t.localeHref}
+              className="rounded-lg px-[10px] py-2 text-[13px] font-semibold text-[#6B7585] transition hover:bg-[#F4F6FA] hover:text-[#0A0F1E]"
+            >
+              {t.localeLabel} / {t.localeSwitch}
+            </Link>
           </div>
 
           <button
@@ -397,13 +397,6 @@ export function LandingPage({
             >
               {t.navBlog}
             </Link>
-            <Link
-              href={t.localeHref}
-              onClick={() => setIsMenuOpen(false)}
-              className="rounded-2xl border border-[#E2E6EF] px-5 py-4 text-base font-medium text-[#6B7585]"
-            >
-              {t.localeLabel} / {t.localeSwitch}
-            </Link>
             <button
               onClick={() => {
                 setIsMenuOpen(false);
@@ -413,6 +406,13 @@ export function LandingPage({
             >
               {t.navCta}
             </button>
+            <Link
+              href={t.localeHref}
+              onClick={() => setIsMenuOpen(false)}
+              className="rounded-2xl border border-[#E2E6EF] px-5 py-4 text-base font-medium text-[#6B7585]"
+            >
+              {t.localeLabel} / {t.localeSwitch}
+            </Link>
           </div>
         </div>
       ) : null}
