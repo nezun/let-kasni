@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { BrandLogo } from "@/components/brand-logo";
 
 type HeaderLocale = "sr" | "en";
+type LogoBalance = "default" | "optical" | "compact" | "badge";
 
 const headerCopy = {
   sr: {
@@ -42,9 +43,13 @@ const headerCopy = {
 export function SiteHeader({
   locale,
   alternateHref,
+  logoBalance = "compact",
+  onCtaClick,
 }: {
   locale: HeaderLocale;
   alternateHref?: string;
+  logoBalance?: LogoBalance;
+  onCtaClick?: (source: "nav_cta" | "mobile_nav_cta") => void;
 }) {
   const t = headerCopy[locale];
   const localeHref = alternateHref ?? t.localeHref;
@@ -58,6 +63,11 @@ export function SiteHeader({
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const ctaClass =
+    "ml-[6px] rounded-lg bg-[#2470EB] px-5 py-[9px] text-sm font-semibold !text-white transition hover:bg-[#1A52C8]";
+  const mobileCtaClass =
+    "rounded-2xl bg-[#2470EB] px-5 py-4 text-base font-semibold !text-white";
+
   return (
     <>
       <nav
@@ -68,7 +78,7 @@ export function SiteHeader({
         }`}
       >
         <div className="mx-auto flex h-16 max-w-[1200px] items-center justify-between px-6">
-          <BrandLogo href={t.homeHref} balance="compact" />
+          <BrandLogo href={t.homeHref} balance={logoBalance} />
 
           <div className="hidden items-center gap-[2px] md:flex">
             <Link
@@ -106,12 +116,18 @@ export function SiteHeader({
               </span>
               <span>{t.localeSwitchLabel}</span>
             </Link>
-            <Link
-              href={t.claimHref}
-              className="ml-[6px] rounded-lg bg-[#2470EB] px-5 py-[9px] text-sm font-semibold text-white transition hover:bg-[#1A52C8]"
-            >
-              {t.navCta}
-            </Link>
+            {onCtaClick ? (
+              <button
+                onClick={() => onCtaClick("nav_cta")}
+                className={ctaClass}
+              >
+                {t.navCta}
+              </button>
+            ) : (
+              <Link href={t.claimHref} className={ctaClass}>
+                {t.navCta}
+              </Link>
+            )}
           </div>
 
           <button
@@ -155,13 +171,25 @@ export function SiteHeader({
             >
               {t.navBlog}
             </Link>
-            <Link
-              href={t.claimHref}
-              onClick={() => setIsMenuOpen(false)}
-              className="rounded-2xl bg-[#2470EB] px-5 py-4 text-base font-semibold text-white"
-            >
-              {t.navCta}
-            </Link>
+            {onCtaClick ? (
+              <button
+                onClick={() => {
+                  setIsMenuOpen(false);
+                  onCtaClick("mobile_nav_cta");
+                }}
+                className={mobileCtaClass}
+              >
+                {t.navCta}
+              </button>
+            ) : (
+              <Link
+                href={t.claimHref}
+                onClick={() => setIsMenuOpen(false)}
+                className={mobileCtaClass}
+              >
+                {t.navCta}
+              </Link>
+            )}
             <Link
               href={localeHref}
               onClick={() => setIsMenuOpen(false)}

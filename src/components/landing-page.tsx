@@ -1,21 +1,19 @@
 "use client";
 
-import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   ArrowRight,
   Banknote,
   CheckCircle2,
   ChevronRight,
   MessageSquareQuote,
-  Menu,
   Scale,
   ShieldCheck,
-  X,
 } from "lucide-react";
 
 import { ClaimModal } from "@/components/claim-modal";
-import { BrandLogo } from "@/components/brand-logo";
+import { SiteFooter } from "@/components/site-footer";
+import { SiteHeader } from "@/components/site-header";
 import { trackEvent } from "@/lib/analytics";
 import { getSupportEmail } from "@/lib/env";
 import type { IssueType } from "@/lib/types";
@@ -23,7 +21,6 @@ import type { IssueType } from "@/lib/types";
 type Locale = "sr" | "en";
 type LandingVariant = "default" | "hero-compact";
 type LogoBalance = "default" | "optical" | "compact" | "badge";
-type HeaderLayout = "live-flags" | "split-flags";
 type TestimonialsVariant = "none" | "a" | "b" | "c";
 type FormFieldTone = "default" | "soft" | "muted" | "quiet";
 type VerticalSpacing = "default" | "compact";
@@ -515,7 +512,6 @@ export function LandingPage({
   locale = "sr",
   variant = "default",
   logoBalance = "compact",
-  headerLayout = "live-flags",
   testimonialsVariant = "none",
   formFieldTone = "default",
   verticalSpacing = "default",
@@ -523,7 +519,6 @@ export function LandingPage({
   locale?: Locale;
   variant?: LandingVariant;
   logoBalance?: LogoBalance;
-  headerLayout?: HeaderLayout;
   testimonialsVariant?: TestimonialsVariant;
   formFieldTone?: FormFieldTone;
   verticalSpacing?: VerticalSpacing;
@@ -533,19 +528,10 @@ export function LandingPage({
   const compactSpacing = verticalSpacing === "compact";
   const supportEmail = getSupportEmail();
   const compactHero = variant === "hero-compact";
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isClaimModalOpen, setIsClaimModalOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const [heroFlight, setHeroFlight] = useState("");
   const [heroDate, setHeroDate] = useState("");
   const [heroIssueType, setHeroIssueType] = useState<IssueType>("delay_3h_plus");
-
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 10);
-    handleScroll();
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   function openClaimModal(source: string) {
     trackEvent("begin_checkout", {
@@ -561,173 +547,11 @@ export function LandingPage({
       lang={locale === "en" ? "en" : "sr"}
       className="min-h-screen bg-white text-[#0A0F1E] selection:bg-[#2470EB]/10 selection:text-[#2470EB]"
     >
-      <nav
-        className={`fixed inset-x-0 top-0 z-50 transition-all duration-200 ${
-          scrolled
-            ? "border-b border-[#E2E6EF] bg-white/95 backdrop-blur-[12px]"
-            : "bg-white"
-        }`}
-      >
-        <div className="mx-auto flex h-16 max-w-[1200px] items-center justify-between px-6">
-          <BrandLogo href={locale === "en" ? "/en" : "/"} balance={logoBalance} />
-
-          {headerLayout === "live-flags" ? (
-            <div className="hidden items-center gap-[2px] md:flex">
-              <a
-                href="#kako-radi"
-                className="rounded-lg px-[14px] py-2 text-sm font-medium text-[#4F5B75] transition hover:bg-[#EEF5FF] hover:text-[#0B2E6F]"
-              >
-                {t.navHow}
-              </a>
-              <a
-                href="#prednosti"
-                className="rounded-lg px-[14px] py-2 text-sm font-medium text-[#4F5B75] transition hover:bg-[#EEF5FF] hover:text-[#0B2E6F]"
-              >
-                {t.navBenefits}
-              </a>
-              <a
-                href="#faq"
-                className="rounded-lg px-[14px] py-2 text-sm font-medium text-[#4F5B75] transition hover:bg-[#EEF5FF] hover:text-[#0B2E6F]"
-              >
-                {t.navFaq}
-              </a>
-              <Link
-                href={locale === "en" ? "/en/blog" : "/blog"}
-                className="rounded-lg px-[14px] py-2 text-sm font-medium text-[#4F5B75] transition hover:bg-[#EEF5FF] hover:text-[#0B2E6F]"
-              >
-                {t.navBlog}
-              </Link>
-              <div className="mx-[6px] h-[18px] w-px bg-[#E2E6EF]" />
-              <Link
-                href={t.localeHref}
-                aria-label={t.localeSwitchAria}
-                className="inline-flex items-center gap-1.5 rounded-lg px-[10px] py-2 text-[13px] font-semibold text-[#6B7585] transition hover:bg-[#F4F6FA] hover:text-[#0A0F1E]"
-              >
-                <span aria-hidden="true" className="text-base leading-none">
-                  {t.localeSwitchFlag}
-                </span>
-                <span>{t.localeSwitchLabel}</span>
-              </Link>
-              <button
-                onClick={() => openClaimModal("nav_cta")}
-                className="ml-[6px] rounded-lg bg-[#2470EB] px-5 py-[9px] text-sm font-semibold text-white transition hover:bg-[#1A52C8]"
-              >
-                {t.navCta}
-              </button>
-            </div>
-          ) : (
-            <div className="ml-8 hidden min-w-0 flex-1 items-center justify-between gap-6 md:flex">
-              <div className="flex items-center gap-[2px]">
-                <a
-                  href="#kako-radi"
-                  className="rounded-lg px-[14px] py-2 text-sm font-medium text-[#4F5B75] transition hover:bg-[#EEF5FF] hover:text-[#0B2E6F]"
-                >
-                  {t.navHow}
-                </a>
-                <a
-                  href="#prednosti"
-                  className="rounded-lg px-[14px] py-2 text-sm font-medium text-[#4F5B75] transition hover:bg-[#EEF5FF] hover:text-[#0B2E6F]"
-                >
-                  {t.navBenefits}
-                </a>
-                <a
-                  href="#faq"
-                  className="rounded-lg px-[14px] py-2 text-sm font-medium text-[#4F5B75] transition hover:bg-[#EEF5FF] hover:text-[#0B2E6F]"
-                >
-                  {t.navFaq}
-                </a>
-                <Link
-                  href={locale === "en" ? "/en/blog" : "/blog"}
-                  className="rounded-lg px-[14px] py-2 text-sm font-medium text-[#4F5B75] transition hover:bg-[#EEF5FF] hover:text-[#0B2E6F]"
-                >
-                  {t.navBlog}
-                </Link>
-              </div>
-              <div className="flex shrink-0 items-center gap-2">
-                <button
-                  onClick={() => openClaimModal("nav_cta")}
-                  className="rounded-lg bg-[#2470EB] px-5 py-[9px] text-sm font-semibold text-white transition hover:bg-[#1A52C8]"
-                >
-                  {t.navCta}
-                </button>
-                <Link
-                  href={t.localeHref}
-                  aria-label={t.localeSwitchAria}
-                  className="inline-flex items-center gap-1.5 rounded-lg px-[10px] py-2 text-[13px] font-semibold text-[#6B7585] transition hover:bg-[#F4F6FA] hover:text-[#0A0F1E]"
-                >
-                  <span aria-hidden="true" className="text-base leading-none">
-                    {t.localeSwitchFlag}
-                  </span>
-                  <span>{t.localeSwitchLabel}</span>
-                </Link>
-              </div>
-            </div>
-          )}
-
-          <button
-            className="rounded-xl p-2 transition hover:bg-[#F4F6FA] md:hidden"
-            onClick={() => setIsMenuOpen((current) => !current)}
-            aria-label="Toggle menu"
-          >
-            {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </button>
-        </div>
-      </nav>
-
-      {isMenuOpen ? (
-        <div className="fixed inset-0 z-40 bg-white px-6 pb-8 pt-24 md:hidden">
-          <div className="flex flex-col gap-3">
-            <a
-              href="#kako-radi"
-              onClick={() => setIsMenuOpen(false)}
-              className="rounded-2xl border border-[#E2E6EF] px-5 py-4 text-base font-medium"
-            >
-              {t.navHow}
-            </a>
-            <a
-              href="#prednosti"
-              onClick={() => setIsMenuOpen(false)}
-              className="rounded-2xl border border-[#E2E6EF] px-5 py-4 text-base font-medium"
-            >
-              {t.navBenefits}
-            </a>
-            <a
-              href="#faq"
-              onClick={() => setIsMenuOpen(false)}
-              className="rounded-2xl border border-[#E2E6EF] px-5 py-4 text-base font-medium"
-            >
-              {t.navFaq}
-            </a>
-            <Link
-              href={locale === "en" ? "/en/blog" : "/blog"}
-              onClick={() => setIsMenuOpen(false)}
-              className="rounded-2xl border border-[#E2E6EF] px-5 py-4 text-base font-medium"
-            >
-              {t.navBlog}
-            </Link>
-            <button
-              onClick={() => {
-                setIsMenuOpen(false);
-                openClaimModal("mobile_nav_cta");
-              }}
-              className="rounded-2xl bg-[#2470EB] px-5 py-4 text-base font-semibold text-white"
-            >
-              {t.navCta}
-            </button>
-            <Link
-              href={t.localeHref}
-              onClick={() => setIsMenuOpen(false)}
-              aria-label={t.localeSwitchAria}
-              className="inline-flex items-center gap-2 rounded-2xl border border-[#E2E6EF] px-5 py-4 text-base font-medium text-[#6B7585]"
-            >
-              <span aria-hidden="true" className="text-lg leading-none">
-                {t.localeSwitchFlag}
-              </span>
-              <span>{t.localeSwitchLabel}</span>
-            </Link>
-          </div>
-        </div>
-      ) : null}
+      <SiteHeader
+        locale={locale}
+        logoBalance={logoBalance}
+        onCtaClick={openClaimModal}
+      />
 
       <section
         id="proveri-let"
@@ -1124,66 +948,11 @@ export function LandingPage({
         </div>
       </section>
 
-      <footer className="bg-[#0A0F1E] px-6 pb-8 pt-12 text-white">
-        <div className="mx-auto max-w-[1200px]">
-          <div className="mb-10 grid gap-10 md:grid-cols-[2fr_1fr_1fr]">
-            <div>
-              <BrandLogo
-                href={locale === "en" ? "/en" : "/"}
-                tone="light"
-                balance={logoBalance}
-              />
-              <p className="mt-[14px] max-w-[300px] text-[13px] leading-[1.7] text-white/45">
-                {t.footerBody}
-              </p>
-            </div>
-
-            <div>
-              <div className="mb-[14px] text-[11px] font-bold uppercase tracking-[0.08em] text-white/35">
-                {t.footerLinks}
-              </div>
-              <div className="flex flex-col gap-[10px]">
-                <a
-                  href="#kako-radi"
-                  className="text-sm text-white/60 transition hover:text-white"
-                >
-                  {t.navHow}
-                </a>
-                <a
-                  href={`mailto:${supportEmail}`}
-                  className="text-sm text-white/60 transition hover:text-white"
-                >
-                  {t.support}
-                </a>
-              </div>
-            </div>
-
-            <div>
-              <div className="mb-[14px] text-[11px] font-bold uppercase tracking-[0.08em] text-white/35">
-                {t.footerLegal}
-              </div>
-              <div className="flex flex-col gap-[10px]">
-                <Link
-                  href="/terms"
-                  className="text-sm text-white/60 transition hover:text-white"
-                >
-                  {t.terms}
-                </Link>
-                <Link
-                  href="/privacy"
-                  className="text-sm text-white/60 transition hover:text-white"
-                >
-                  {t.privacy}
-                </Link>
-              </div>
-            </div>
-          </div>
-
-          <div className="border-t border-white/8 pt-5 text-xs text-white/30">
-            {t.copyright}
-          </div>
-        </div>
-      </footer>
+      <SiteFooter
+        locale={locale}
+        supportEmail={supportEmail}
+        logoBalance={logoBalance}
+      />
 
       {isClaimModalOpen ? (
         <ClaimModal
