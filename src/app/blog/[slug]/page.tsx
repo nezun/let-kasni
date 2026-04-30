@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { BrandLogo } from "@/components/brand-logo";
+import { SiteHeader } from "@/components/site-header";
 import {
   blogArticles,
   getAlternateArticleHref,
@@ -86,24 +86,12 @@ export default async function BlogArticlePage({ params }: Props) {
   };
 
   return (
-    <main className="min-h-screen bg-white text-[#0A0F1E]">
+    <main className="min-h-screen bg-white pt-16 text-[#0A0F1E]">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <header className="border-b border-[#E2E6EF] bg-white">
-        <div className="mx-auto flex h-16 max-w-[1120px] items-center justify-between gap-4 px-4 sm:px-6">
-          <BrandLogo href="/" balance="compact" />
-          <div className="ml-auto flex items-center gap-3 text-sm font-semibold">
-            <Link href={alternateHref} className="text-[#6B7585] transition hover:text-[#0A0F1E]">
-              EN
-            </Link>
-            <Link href="/blog" className="text-[#2470EB] transition hover:text-[#1A52C8]">
-              Blog
-            </Link>
-          </div>
-        </div>
-      </header>
+      <SiteHeader locale="sr" alternateHref={alternateHref} />
 
       <article>
         <section className="border-b border-[#E2E6EF] bg-[#F4F6FA] px-6 py-14">

@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { SiteHeader } from "@/components/site-header";
 import {
   getOperatorAddress,
   getOperatorMb,
@@ -68,7 +69,8 @@ export default function TermsPage() {
   const supportEmail = getSupportEmail();
 
   return (
-    <main className="min-h-screen bg-[var(--bg)] px-6 py-16">
+    <main className="min-h-screen bg-[var(--bg)] px-6 pb-16 pt-32">
+      <SiteHeader locale="sr" />
       <div className="mx-auto max-w-5xl space-y-8">
         <div className="space-y-4">
           <p className="eyebrow">Legal</p>

@@ -1,7 +1,7 @@
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
-import { BrandLogo } from "@/components/brand-logo";
+import { SiteHeader } from "@/components/site-header";
 import { getBlogArticleImage, getBlogArticles, type BlogLocale } from "@/lib/blog";
 
 type BlogVariant = "a" | "b" | "c";
@@ -13,16 +13,9 @@ type Props = {
 
 const copy = {
   sr: {
-    homeHref: "/",
     blogHref: "/blog",
-    altHref: "/en/blog",
-    altLabel: "SR / EN",
     checkHref: "/#proveri-let",
     checkLabel: "Proveri let",
-    navHow: "Kako radi",
-    navBenefits: "Prednosti",
-    navFaq: "Česta pitanja",
-    navBlog: "Blog",
     title: "Blog",
     subtitle:
       "Vodiči o kašnjenjima, otkazivanjima, konekcijama i pravima putnika. Bez pravnog žargona, sa jasnim sledećim korakom.",
@@ -41,16 +34,9 @@ const copy = {
       "Tri vodiča koja najčešće odlučuju da li slučaj vredi dalje proveravati: kašnjenje, otkazivanje i propuštena konekcija.",
   },
   en: {
-    homeHref: "/en",
     blogHref: "/en/blog",
-    altHref: "/blog",
-    altLabel: "EN / SR",
     checkHref: "/en#proveri-let",
     checkLabel: "Check flight",
-    navHow: "How it works",
-    navBenefits: "Benefits",
-    navFaq: "FAQ",
-    navBlog: "Blog",
     title: "Blog",
     subtitle:
       "Guides on delays, cancellations, missed connections, and passenger rights. Clear next steps without legal fog.",
@@ -69,49 +55,6 @@ const copy = {
       "Three guides that most often decide whether a case is worth checking further: delay, cancellation, and missed connection.",
   },
 };
-
-function BlogHeader({ locale }: { locale: BlogLocale }) {
-  const t = copy[locale];
-
-  return (
-    <nav className="sticky inset-x-0 top-0 z-50 border-b border-[#E2E6EF] bg-white/95 backdrop-blur-[12px]">
-      <div className="mx-auto flex h-16 max-w-[1200px] items-center justify-between px-6">
-        <BrandLogo href={t.homeHref} balance="compact" />
-
-        <div className="hidden items-center gap-[2px] md:flex">
-          <Link href={`${t.homeHref}#kako-radi`} className="rounded-lg px-[14px] py-2 text-sm font-medium text-[#4F5B75] transition hover:bg-[#EEF5FF] hover:text-[#0B2E6F]">
-            {t.navHow}
-          </Link>
-          <Link href={`${t.homeHref}#prednosti`} className="rounded-lg px-[14px] py-2 text-sm font-medium text-[#4F5B75] transition hover:bg-[#EEF5FF] hover:text-[#0B2E6F]">
-            {t.navBenefits}
-          </Link>
-          <Link href={`${t.homeHref}#faq`} className="rounded-lg px-[14px] py-2 text-sm font-medium text-[#4F5B75] transition hover:bg-[#EEF5FF] hover:text-[#0B2E6F]">
-            {t.navFaq}
-          </Link>
-          <Link href={t.blogHref} className="rounded-lg px-[14px] py-2 text-sm font-medium text-[#4F5B75] transition hover:bg-[#EEF5FF] hover:text-[#0B2E6F]">
-            {t.navBlog}
-          </Link>
-          <div className="mx-[6px] h-[18px] w-px bg-[#E2E6EF]" />
-          <Link href={t.checkHref} className="ml-[6px] rounded-lg bg-[#2470EB] px-5 py-[9px] text-sm font-semibold !text-white transition hover:bg-[#1A52C8]">
-            {t.checkLabel}
-          </Link>
-          <Link href={t.altHref} className="rounded-lg px-[10px] py-2 text-[13px] font-semibold text-[#6B7585] transition hover:bg-[#F4F6FA] hover:text-[#0A0F1E]">
-            {t.altLabel}
-          </Link>
-        </div>
-
-        <div className="flex items-center gap-2 md:hidden">
-          <Link href={t.checkHref} className="whitespace-nowrap rounded-lg bg-[#2470EB] px-3 py-2 text-sm font-semibold text-white">
-            {locale === "sr" ? "Proveri" : "Check"}
-          </Link>
-          <Link href={t.altHref} className="rounded-lg px-2 py-2 text-[13px] font-semibold text-[#6B7585]">
-            {locale === "sr" ? "EN" : "SR"}
-          </Link>
-        </div>
-      </div>
-    </nav>
-  );
-}
 
 function hrefFor(locale: BlogLocale, slug: string) {
   return locale === "sr" ? `/blog/${slug}` : `/en/blog/${slug}`;
@@ -349,8 +292,8 @@ function BlogIndexVariantA({ locale }: { locale: BlogLocale }) {
   const visibleArticles = articles.slice(0, 10);
 
   return (
-    <main className="min-h-screen bg-white text-[#0A0F1E]">
-      <BlogHeader locale={locale} />
+    <main className="min-h-screen bg-white pt-16 text-[#0A0F1E]">
+      <SiteHeader locale={locale} alternateHref={locale === "sr" ? "/en/blog" : "/blog"} />
       <section className="px-6 pb-10 pt-10 md:pb-16">
         <div className="mx-auto max-w-[1220px]">
           <h1 className="text-[44px] font-black leading-none tracking-[-0.04em] text-[#161D2A] md:text-[68px]">
@@ -392,8 +335,8 @@ function BlogIndexVariantB({ locale }: { locale: BlogLocale }) {
   const topThree = [articles[1], articles[0], articles[2]].filter(Boolean);
 
   return (
-    <main className="min-h-screen bg-[#F6F8FC] text-[#0A0F1E]">
-      <BlogHeader locale={locale} />
+    <main className="min-h-screen bg-[#F6F8FC] pt-16 text-[#0A0F1E]">
+      <SiteHeader locale={locale} alternateHref={locale === "sr" ? "/en/blog" : "/blog"} />
       <section className="px-6 py-12 md:py-16">
         <div className="mx-auto grid max-w-[1220px] gap-10 lg:grid-cols-[360px_minmax(0,1fr)] lg:items-start">
           <div className="lg:sticky lg:top-28">
@@ -434,8 +377,8 @@ function BlogIndexVariantC({ locale }: { locale: BlogLocale }) {
   const topThree = articles.slice(0, 3);
 
   return (
-    <main className="min-h-screen bg-white text-[#0A0F1E]">
-      <BlogHeader locale={locale} />
+    <main className="min-h-screen bg-white pt-16 text-[#0A0F1E]">
+      <SiteHeader locale={locale} alternateHref={locale === "sr" ? "/en/blog" : "/blog"} />
       <section className="px-6 py-12 md:py-16">
         <div className="mx-auto max-w-[1220px]">
           <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_390px] lg:items-end">
