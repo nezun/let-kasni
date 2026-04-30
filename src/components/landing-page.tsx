@@ -7,6 +7,7 @@ import {
   Banknote,
   CheckCircle2,
   ChevronRight,
+  MessageSquareQuote,
   Menu,
   Scale,
   ShieldCheck,
@@ -22,11 +23,16 @@ import type { IssueType } from "@/lib/types";
 type Locale = "sr" | "en";
 type LandingVariant = "default" | "hero-compact";
 type LogoBalance = "default" | "optical" | "compact" | "badge";
+type HeaderLayout = "live-flags" | "split-flags";
+type TestimonialsVariant = "none" | "a" | "b" | "c";
+type FormFieldTone = "default" | "soft" | "muted" | "quiet";
+type VerticalSpacing = "default" | "compact";
 
 const copy = {
   sr: {
-    localeLabel: "SR",
-    localeSwitch: "EN",
+    localeSwitchFlag: "🇬🇧",
+    localeSwitchLabel: "EN",
+    localeSwitchAria: "English version",
     localeHref: "/en",
     navHow: "Kako radi",
     navBenefits: "Prednosti",
@@ -43,7 +49,7 @@ const copy = {
     proofB: "Samo 10% provizije",
     proofC: "94% uspešnost",
     cardEyebrow: "Proveri odštetu odmah",
-    cardTitle: "Koliko ti duguje provider?",
+    cardTitle: "Koliko ti duguje avio-prevoznik?",
     flightNumber: "Broj leta",
     flightNumberPlaceholder: "npr. JU 221",
     flightDate: "Datum leta",
@@ -81,7 +87,7 @@ const copy = {
     featureRiskTitle: "Bez troškova unapred",
     featureRiskBody:
       "Proviziju uzimamo samo ako naplatimo. Mi preuzimamo operativni i pravni teret.",
-    featureFeeTitle: "Samo 10% provizija",
+    featureFeeTitle: "Samo 10% provizije",
     featureFeeBody:
       "Najdirektniji model na tržištu: jasna provizija, bez skrivenih troškova.",
     featureLocalTitle: "Lokalni pravni tim",
@@ -134,8 +140,9 @@ const copy = {
     copyright: "© 2026 letkasni.rs. Sva prava zadržana.",
   },
   en: {
-    localeLabel: "EN",
-    localeSwitch: "SR",
+    localeSwitchFlag: "🇷🇸",
+    localeSwitchLabel: "SR",
+    localeSwitchAria: "Srpska verzija",
     localeHref: "/",
     navHow: "How it works",
     navBenefits: "Benefits",
@@ -152,7 +159,7 @@ const copy = {
     proofB: "Only 10% fee",
     proofC: "94% success rate",
     cardEyebrow: "Check compensation now",
-    cardTitle: "How much could your carrier owe you?",
+    cardTitle: "How much could your airline owe you?",
     flightNumber: "Flight number",
     flightNumberPlaceholder: "e.g. JU 221",
     flightDate: "Flight date",
@@ -266,16 +273,264 @@ const airlines = [
   { code: "TK", name: "Turkish" },
 ];
 
+const formFieldClasses = {
+  default: {
+    flight:
+      "font-mono-ui w-full rounded-[10px] border border-[#DCE4EF] bg-[#FBFDFF] px-[14px] py-3 text-[17px] tracking-[0.04em] text-[#334155] placeholder:text-[#9CA8BA] outline-none transition focus:border-[#9EC5FE] focus:bg-white focus:shadow-[0_0_0_3px_rgba(36,112,235,0.08)]",
+    date:
+      "w-full rounded-[10px] border border-[#DCE4EF] bg-[#FBFDFF] px-[14px] py-3 text-base text-[#334155] outline-none transition focus:border-[#9EC5FE] focus:bg-white focus:shadow-[0_0_0_3px_rgba(36,112,235,0.08)]",
+  },
+  soft: {
+    flight:
+      "font-mono-ui w-full rounded-[10px] border border-[#E1E7F0] bg-[#FCFDFF] px-[14px] py-[11px] text-[15px] tracking-[0.02em] text-[#667085] placeholder:text-[#B9C2D0] outline-none transition focus:border-[#B8D5FF] focus:bg-white focus:shadow-[0_0_0_3px_rgba(36,112,235,0.06)]",
+    date:
+      "w-full rounded-[10px] border border-[#E1E7F0] bg-[#FCFDFF] px-[14px] py-[11px] text-[15px] text-[#667085] outline-none transition focus:border-[#B8D5FF] focus:bg-white focus:shadow-[0_0_0_3px_rgba(36,112,235,0.06)]",
+  },
+  muted: {
+    flight:
+      "font-mono-ui w-full rounded-[10px] border border-[#E5EAF2] bg-white px-[13px] py-[10px] text-[14px] tracking-[0.01em] text-[#7A8494] placeholder:text-[#C3CAD5] outline-none transition focus:border-[#C9DDFA] focus:bg-white focus:shadow-[0_0_0_3px_rgba(36,112,235,0.05)]",
+    date:
+      "w-full rounded-[10px] border border-[#E5EAF2] bg-white px-[13px] py-[10px] text-[14px] text-[#7A8494] outline-none transition focus:border-[#C9DDFA] focus:bg-white focus:shadow-[0_0_0_3px_rgba(36,112,235,0.05)]",
+  },
+  quiet: {
+    flight:
+      "font-mono-ui w-full rounded-[10px] border border-[#E8EDF4] bg-[#FEFEFF] px-3 py-[9px] text-[13px] tracking-normal text-[#8B94A3] placeholder:text-[#CED4DE] outline-none transition focus:border-[#D3E1F7] focus:bg-white focus:shadow-[0_0_0_2px_rgba(36,112,235,0.045)]",
+    date:
+      "w-full rounded-[10px] border border-[#E8EDF4] bg-[#FEFEFF] px-3 py-[9px] text-[13px] text-[#8B94A3] outline-none transition focus:border-[#D3E1F7] focus:bg-white focus:shadow-[0_0_0_2px_rgba(36,112,235,0.045)]",
+  },
+} as const;
+
+const testimonialsCopy = {
+  sr: {
+    eyebrow: "Iskustva putnika",
+    titleA: "Ljudi koji su proverili slučaj na vreme",
+    titleB: "Kada je slučaj jasan, proces ne mora da bude težak",
+    titleC: "Kratko, konkretno i bez praznih obećanja",
+    caseExamples: "Primeri slučajeva",
+    caseRange: "250-600 EUR",
+    items: [
+      {
+        name: "Milos Nikolić",
+        route: "Niš - Beč",
+        amount: "250 EUR",
+        quote:
+          "Posle otkazanog leta nisam znao kome da pišem ni šta da tražim. Dobio sam jasan smer, predao dokumenta i nisam morao da jurim avio-kompaniju svaki drugi dan.",
+      },
+      {
+        name: "Lazar Miučin",
+        route: "Beograd - London",
+        amount: "400 EUR",
+        quote:
+          "Najviše mi je značilo što su prvo realno proverili slučaj. Bez velikih obećanja, samo konkretno šta fali od dokaza i koji je sledeći korak.",
+      },
+      {
+        name: "Nikola Marinković",
+        route: "Beograd - Njujork",
+        amount: "600 EUR",
+        quote:
+          "Konekcija mi je propala zbog kašnjenja prvog leta. Sve je bilo mnogo preglednije kada su mi objasnili da se gleda dolazak na krajnju destinaciju.",
+      },
+    ],
+  },
+  en: {
+    eyebrow: "Passenger stories",
+    titleA: "People who checked their case in time",
+    titleB: "When the case is clear, the process does not have to be hard",
+    titleC: "Short, specific and without empty promises",
+    caseExamples: "Case examples",
+    caseRange: "EUR 250-600",
+    items: [
+      {
+        name: "Milos Nikolic",
+        route: "Nis - Vienna",
+        amount: "EUR 250",
+        quote:
+          "After my flight was cancelled, I did not know who to write to or what to ask for. I got clear direction, submitted the documents, and did not have to chase the airline every other day.",
+      },
+      {
+        name: "Lazar Miucin",
+        route: "Belgrade - London",
+        amount: "EUR 400",
+        quote:
+          "What mattered most was that they checked the case realistically first. No big promises, just a concrete list of missing proof and the next step.",
+      },
+      {
+        name: "Nikola Marinkovic",
+        route: "Belgrade - New York",
+        amount: "EUR 600",
+        quote:
+          "My connection failed because the first flight was delayed. It became much clearer once they explained that the arrival at the final destination is what matters.",
+      },
+    ],
+  },
+} as const;
+
+function TestimonialsSection({
+  locale,
+  variant,
+}: {
+  locale: Locale;
+  variant: Exclude<TestimonialsVariant, "none">;
+}) {
+  const testimonials = testimonialsCopy[locale];
+
+  if (variant === "b") {
+    return (
+      <section className="border-y border-[#E2E6EF] bg-[#F8FAFC] px-6 py-[86px]">
+        <div className="mx-auto max-w-[1200px]">
+          <div className="grid gap-10 lg:grid-cols-[320px_minmax(0,1fr)] lg:items-start">
+            <div className="lg:sticky lg:top-24">
+              <div className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-xl bg-[#2470EB] text-white">
+                <MessageSquareQuote className="h-5 w-5" />
+              </div>
+              <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-[#2470EB]">
+                {testimonials.eyebrow}
+              </p>
+              <h2 className="font-display mt-3 text-[38px] font-bold leading-[1.08] tracking-[-0.03em] text-[#0A0F1E]">
+                {testimonials.titleB}
+              </h2>
+            </div>
+            <div className="space-y-4">
+              {testimonials.items.map((testimonial) => (
+                <article
+                  key={testimonial.name}
+                  className="grid gap-5 rounded-2xl border border-[#E2E6EF] bg-white p-6 shadow-[0_18px_50px_rgba(15,23,42,0.05)] md:grid-cols-[190px_minmax(0,1fr)]"
+                >
+                  <div>
+                    <h3 className="font-display text-[20px] font-bold tracking-[-0.02em] text-[#0A0F1E]">
+                      {testimonial.name}
+                    </h3>
+                    <p className="mt-2 text-sm font-semibold text-[#2470EB]">
+                      {testimonial.route}
+                    </p>
+                    <p className="mt-3 inline-flex rounded-full bg-[#EEF5FF] px-3 py-1 text-xs font-bold text-[#0B2E6F]">
+                      {testimonial.amount}
+                    </p>
+                  </div>
+                  <p className="text-[16px] leading-[1.75] text-[#4F5B75]">
+                    “{testimonial.quote}”
+                  </p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (variant === "c") {
+    return (
+      <section className="bg-white px-6 py-[92px]">
+        <div className="mx-auto max-w-[1200px]">
+          <div className="mb-10 flex flex-col justify-between gap-5 md:flex-row md:items-end">
+            <div>
+              <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-[#2470EB]">
+                {testimonials.eyebrow}
+              </p>
+              <h2 className="font-display mt-3 max-w-[680px] text-[40px] font-bold leading-[1.1] tracking-[-0.03em] text-[#0A0F1E]">
+                {testimonials.titleC}
+              </h2>
+            </div>
+            <div className="rounded-2xl bg-[#0B1326] px-5 py-4 text-white">
+              <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-white/45">
+                {testimonials.caseExamples}
+              </p>
+              <p className="font-display mt-1 text-[26px] font-bold leading-none">
+                {testimonials.caseRange}
+              </p>
+            </div>
+          </div>
+          <div className="grid gap-5 lg:grid-cols-3">
+            {testimonials.items.map((testimonial, index) => (
+              <article
+                key={testimonial.name}
+                className={`rounded-2xl border p-7 ${
+                  index === 1
+                    ? "border-[#2470EB] bg-[#0B1326] text-white shadow-[0_26px_70px_rgba(15,23,42,0.18)]"
+                    : "border-[#E2E6EF] bg-[#F8FAFC] text-[#0A0F1E]"
+                }`}
+              >
+                <p className={`text-[13px] leading-[1.75] ${index === 1 ? "text-white/72" : "text-[#4F5B75]"}`}>
+                  “{testimonial.quote}”
+                </p>
+                <div className="mt-8 border-t border-current/10 pt-5">
+                  <h3 className="font-display text-[19px] font-bold tracking-[-0.02em]">
+                    {testimonial.name}
+                  </h3>
+                  <p className={`mt-2 text-sm font-semibold ${index === 1 ? "text-[#8BB8FF]" : "text-[#2470EB]"}`}>
+                    {testimonial.route}
+                  </p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  return (
+    <section className="bg-white px-6 pb-[84px] pt-[156px]">
+      <div className="mx-auto max-w-[1200px]">
+        <div className="mb-11 text-center">
+          <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.12em] text-[#2470EB]">
+            {testimonials.eyebrow}
+          </p>
+          <h2 className="font-display text-[40px] font-bold leading-[1.1] tracking-[-0.03em] text-[#0A0F1E]">
+            {testimonials.titleA}
+          </h2>
+        </div>
+        <div className="grid gap-5 lg:grid-cols-3">
+          {testimonials.items.map((testimonial) => (
+            <article
+              key={testimonial.name}
+              className="rounded-2xl border border-[#E2E6EF] bg-white p-7 shadow-[0_18px_48px_rgba(15,23,42,0.06)]"
+            >
+              <div className="mb-7 flex items-start justify-between gap-4">
+                <div>
+                  <h3 className="font-display text-[20px] font-bold tracking-[-0.02em] text-[#0A0F1E]">
+                    {testimonial.name}
+                  </h3>
+                  <p className="mt-2 text-sm font-semibold text-[#2470EB]">
+                    {testimonial.route}
+                  </p>
+                </div>
+                <span className="shrink-0 rounded-full bg-[#EEF5FF] px-3 py-1 text-xs font-bold text-[#0B2E6F]">
+                  {testimonial.amount}
+                </span>
+              </div>
+              <p className="text-[15px] leading-[1.75] text-[#4F5B75]">
+                “{testimonial.quote}”
+              </p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export function LandingPage({
   locale = "sr",
   variant = "default",
   logoBalance = "compact",
+  headerLayout = "live-flags",
+  testimonialsVariant = "none",
+  formFieldTone = "default",
+  verticalSpacing = "default",
 }: {
   locale?: Locale;
   variant?: LandingVariant;
   logoBalance?: LogoBalance;
+  headerLayout?: HeaderLayout;
+  testimonialsVariant?: TestimonialsVariant;
+  formFieldTone?: FormFieldTone;
+  verticalSpacing?: VerticalSpacing;
 }) {
   const t = copy[locale];
+  const fieldClasses = formFieldClasses[formFieldTone];
+  const compactSpacing = verticalSpacing === "compact";
   const supportEmail = getSupportEmail();
   const compactHero = variant === "hero-compact";
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -316,45 +571,98 @@ export function LandingPage({
         <div className="mx-auto flex h-16 max-w-[1200px] items-center justify-between px-6">
           <BrandLogo href={locale === "en" ? "/en" : "/"} balance={logoBalance} />
 
-          <div className="hidden items-center gap-[2px] md:flex">
-            <a
-              href="#kako-radi"
-              className="rounded-lg px-[14px] py-2 text-sm font-medium text-[#4F5B75] transition hover:bg-[#EEF5FF] hover:text-[#0B2E6F]"
-            >
-              {t.navHow}
-            </a>
-            <a
-              href="#prednosti"
-              className="rounded-lg px-[14px] py-2 text-sm font-medium text-[#4F5B75] transition hover:bg-[#EEF5FF] hover:text-[#0B2E6F]"
-            >
-              {t.navBenefits}
-            </a>
-            <a
-              href="#faq"
-              className="rounded-lg px-[14px] py-2 text-sm font-medium text-[#4F5B75] transition hover:bg-[#EEF5FF] hover:text-[#0B2E6F]"
-            >
-              {t.navFaq}
-            </a>
-            <Link
-              href={locale === "en" ? "/en/blog" : "/blog"}
-              className="rounded-lg px-[14px] py-2 text-sm font-medium text-[#4F5B75] transition hover:bg-[#EEF5FF] hover:text-[#0B2E6F]"
-            >
-              {t.navBlog}
-            </Link>
-            <div className="mx-[6px] h-[18px] w-px bg-[#E2E6EF]" />
-            <button
-              onClick={() => openClaimModal("nav_cta")}
-              className="ml-[6px] rounded-lg bg-[#2470EB] px-5 py-[9px] text-sm font-semibold text-white transition hover:bg-[#1A52C8]"
-            >
-              {t.navCta}
-            </button>
-            <Link
-              href={t.localeHref}
-              className="rounded-lg px-[10px] py-2 text-[13px] font-semibold text-[#6B7585] transition hover:bg-[#F4F6FA] hover:text-[#0A0F1E]"
-            >
-              {t.localeLabel} / {t.localeSwitch}
-            </Link>
-          </div>
+          {headerLayout === "live-flags" ? (
+            <div className="hidden items-center gap-[2px] md:flex">
+              <a
+                href="#kako-radi"
+                className="rounded-lg px-[14px] py-2 text-sm font-medium text-[#4F5B75] transition hover:bg-[#EEF5FF] hover:text-[#0B2E6F]"
+              >
+                {t.navHow}
+              </a>
+              <a
+                href="#prednosti"
+                className="rounded-lg px-[14px] py-2 text-sm font-medium text-[#4F5B75] transition hover:bg-[#EEF5FF] hover:text-[#0B2E6F]"
+              >
+                {t.navBenefits}
+              </a>
+              <a
+                href="#faq"
+                className="rounded-lg px-[14px] py-2 text-sm font-medium text-[#4F5B75] transition hover:bg-[#EEF5FF] hover:text-[#0B2E6F]"
+              >
+                {t.navFaq}
+              </a>
+              <Link
+                href={locale === "en" ? "/en/blog" : "/blog"}
+                className="rounded-lg px-[14px] py-2 text-sm font-medium text-[#4F5B75] transition hover:bg-[#EEF5FF] hover:text-[#0B2E6F]"
+              >
+                {t.navBlog}
+              </Link>
+              <div className="mx-[6px] h-[18px] w-px bg-[#E2E6EF]" />
+              <Link
+                href={t.localeHref}
+                aria-label={t.localeSwitchAria}
+                className="inline-flex items-center gap-1.5 rounded-lg px-[10px] py-2 text-[13px] font-semibold text-[#6B7585] transition hover:bg-[#F4F6FA] hover:text-[#0A0F1E]"
+              >
+                <span aria-hidden="true" className="text-base leading-none">
+                  {t.localeSwitchFlag}
+                </span>
+                <span>{t.localeSwitchLabel}</span>
+              </Link>
+              <button
+                onClick={() => openClaimModal("nav_cta")}
+                className="ml-[6px] rounded-lg bg-[#2470EB] px-5 py-[9px] text-sm font-semibold text-white transition hover:bg-[#1A52C8]"
+              >
+                {t.navCta}
+              </button>
+            </div>
+          ) : (
+            <div className="ml-8 hidden min-w-0 flex-1 items-center justify-between gap-6 md:flex">
+              <div className="flex items-center gap-[2px]">
+                <a
+                  href="#kako-radi"
+                  className="rounded-lg px-[14px] py-2 text-sm font-medium text-[#4F5B75] transition hover:bg-[#EEF5FF] hover:text-[#0B2E6F]"
+                >
+                  {t.navHow}
+                </a>
+                <a
+                  href="#prednosti"
+                  className="rounded-lg px-[14px] py-2 text-sm font-medium text-[#4F5B75] transition hover:bg-[#EEF5FF] hover:text-[#0B2E6F]"
+                >
+                  {t.navBenefits}
+                </a>
+                <a
+                  href="#faq"
+                  className="rounded-lg px-[14px] py-2 text-sm font-medium text-[#4F5B75] transition hover:bg-[#EEF5FF] hover:text-[#0B2E6F]"
+                >
+                  {t.navFaq}
+                </a>
+                <Link
+                  href={locale === "en" ? "/en/blog" : "/blog"}
+                  className="rounded-lg px-[14px] py-2 text-sm font-medium text-[#4F5B75] transition hover:bg-[#EEF5FF] hover:text-[#0B2E6F]"
+                >
+                  {t.navBlog}
+                </Link>
+              </div>
+              <div className="flex shrink-0 items-center gap-2">
+                <button
+                  onClick={() => openClaimModal("nav_cta")}
+                  className="rounded-lg bg-[#2470EB] px-5 py-[9px] text-sm font-semibold text-white transition hover:bg-[#1A52C8]"
+                >
+                  {t.navCta}
+                </button>
+                <Link
+                  href={t.localeHref}
+                  aria-label={t.localeSwitchAria}
+                  className="inline-flex items-center gap-1.5 rounded-lg px-[10px] py-2 text-[13px] font-semibold text-[#6B7585] transition hover:bg-[#F4F6FA] hover:text-[#0A0F1E]"
+                >
+                  <span aria-hidden="true" className="text-base leading-none">
+                    {t.localeSwitchFlag}
+                  </span>
+                  <span>{t.localeSwitchLabel}</span>
+                </Link>
+              </div>
+            </div>
+          )}
 
           <button
             className="rounded-xl p-2 transition hover:bg-[#F4F6FA] md:hidden"
@@ -409,9 +717,13 @@ export function LandingPage({
             <Link
               href={t.localeHref}
               onClick={() => setIsMenuOpen(false)}
-              className="rounded-2xl border border-[#E2E6EF] px-5 py-4 text-base font-medium text-[#6B7585]"
+              aria-label={t.localeSwitchAria}
+              className="inline-flex items-center gap-2 rounded-2xl border border-[#E2E6EF] px-5 py-4 text-base font-medium text-[#6B7585]"
             >
-              {t.localeLabel} / {t.localeSwitch}
+              <span aria-hidden="true" className="text-lg leading-none">
+                {t.localeSwitchFlag}
+              </span>
+              <span>{t.localeSwitchLabel}</span>
             </Link>
           </div>
         </div>
@@ -472,7 +784,7 @@ export function LandingPage({
                 <div className="mb-[6px] text-[11px] font-bold uppercase tracking-[0.08em] text-[#8E9BB0]">
                   {t.cardEyebrow}
                 </div>
-                <div className="font-display text-[23px] font-bold leading-[1.2] text-[#0A0F1E]">
+                <div className="font-display text-[20px] font-bold leading-[1.2] text-[#0A0F1E] sm:text-[21px]">
                   {t.cardTitle}
                 </div>
               </div>
@@ -487,7 +799,7 @@ export function LandingPage({
                     value={heroFlight}
                     onChange={(event) => setHeroFlight(event.target.value)}
                     placeholder={t.flightNumberPlaceholder}
-                    className="font-mono-ui w-full rounded-[10px] border border-[#DCE4EF] bg-[#FBFDFF] px-[14px] py-3 text-[17px] tracking-[0.04em] text-[#334155] placeholder:text-[#9CA8BA] outline-none transition focus:border-[#9EC5FE] focus:bg-white focus:shadow-[0_0_0_3px_rgba(36,112,235,0.08)]"
+                    className={fieldClasses.flight}
                   />
                 </div>
                 <div>
@@ -498,7 +810,7 @@ export function LandingPage({
                     type="date"
                     value={heroDate}
                     onChange={(event) => setHeroDate(event.target.value)}
-                    className="w-full rounded-[10px] border border-[#DCE4EF] bg-[#FBFDFF] px-[14px] py-3 text-base text-[#334155] outline-none transition focus:border-[#9EC5FE] focus:bg-white focus:shadow-[0_0_0_3px_rgba(36,112,235,0.08)]"
+                    className={fieldClasses.date}
                   />
                 </div>
                 <div>
@@ -619,9 +931,12 @@ export function LandingPage({
         </div>
       </section>
 
-      <section id="prednosti" className="bg-[#F4F6FA] px-6 pt-[100px]">
+      <section
+        id="prednosti"
+        className={`bg-[#F4F6FA] px-6 ${compactSpacing ? "pt-[76px]" : "pt-[72px]"}`}
+      >
         <div className="mx-auto max-w-[1200px]">
-          <div className="mx-auto mb-14 max-w-[680px] text-center">
+          <div className={`mx-auto max-w-[680px] text-center ${compactSpacing ? "mb-10" : "mb-14"}`}>
             <div className="mb-[14px] text-[11px] font-bold uppercase tracking-[0.12em] text-[#2470EB]">
               {t.benefitsEyebrow}
             </div>
@@ -633,7 +948,7 @@ export function LandingPage({
             </p>
           </div>
 
-          <div className="mb-16 grid gap-5 lg:grid-cols-3">
+          <div className={`grid gap-5 lg:grid-cols-3 ${compactSpacing ? "mb-12" : "mb-16"}`}>
             {[
               {
                 number: "01",
@@ -747,9 +1062,16 @@ export function LandingPage({
         </div>
       </section>
 
-      <section id="faq" className="bg-white px-6 py-[100px]">
+      {testimonialsVariant !== "none" ? (
+        <TestimonialsSection locale={locale} variant={testimonialsVariant} />
+      ) : null}
+
+      <section
+        id="faq"
+        className={`bg-white px-6 ${compactSpacing ? "py-[76px]" : "py-[100px]"}`}
+      >
         <div className="mx-auto max-w-[720px]">
-          <div className="mb-14 text-center">
+          <div className={`text-center ${compactSpacing ? "mb-10" : "mb-14"}`}>
             <div className="mb-3 text-[11px] font-bold uppercase tracking-[0.1em] text-[#2470EB]">
               {t.faqEyebrow}
             </div>

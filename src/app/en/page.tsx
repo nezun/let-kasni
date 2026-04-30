@@ -38,5 +38,12 @@ export const metadata: Metadata = {
 };
 
 export default function EnglishPage() {
-  return <LandingPage locale="en" variant="hero-compact" />;
+  return (
+    <LandingPage
+      locale="en"
+      variant="hero-compact"
+      testimonialsVariant="a"
+      formFieldTone="muted"
+    />
+  );
 }
