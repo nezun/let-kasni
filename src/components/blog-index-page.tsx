@@ -192,7 +192,7 @@ function CategoryRail({
   }
 
   return (
-    <div className="mt-10 flex max-w-[980px] flex-wrap gap-3">
+    <div className="mt-10 flex max-w-[1220px] flex-wrap gap-3">
       {categories.map((category, index) => (
         <Link
           key={category.label}
