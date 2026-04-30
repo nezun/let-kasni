@@ -116,8 +116,8 @@ export const articleImages: Record<string, BlogArticleImage> = {
 export const blogArticles: BlogArticle[] = [
   {
     id: "flight-delay-compensation",
-    publishedAt: "2026-04-28",
-    updatedAt: "2026-04-28",
+    publishedAt: "2026-04-15",
+    updatedAt: "2026-04-15",
     sr: {
       slug: "kasnjenje-leta-odsteta",
       title: "Kada kašnjenje leta daje pravo na odštetu",
@@ -126,7 +126,7 @@ export const blogArticles: BlogArticle[] = [
       excerpt:
         "Kašnjenje samo po sebi nije uvek dovoljno. Ključni su trajanje kašnjenja na krajnjoj destinaciji, razlog poremećaja i ruta leta.",
       category: "Kašnjenje leta",
-      readTime: "5 min čitanja",
+      readTime: "2 min čitanja",
       sections: [
         {
           heading: "Prag od tri sata je početna tačka",
@@ -171,7 +171,7 @@ export const blogArticles: BlogArticle[] = [
       excerpt:
         "A delay is not enough by itself. The real questions are arrival delay, route coverage, airline responsibility, and evidence.",
       category: "Flight delay",
-      readTime: "5 min read",
+      readTime: "2 min read",
       sections: [
         {
           heading: "The three-hour threshold matters",
@@ -211,8 +211,8 @@ export const blogArticles: BlogArticle[] = [
   },
   {
     id: "cancelled-flight-rights",
-    publishedAt: "2026-04-28",
-    updatedAt: "2026-04-28",
+    publishedAt: "2026-04-16",
+    updatedAt: "2026-04-16",
     sr: {
       slug: "otkazan-let-prava-putnika",
       title: "Otkazan let: kada imate pravo na refundaciju i odštetu",
@@ -221,7 +221,7 @@ export const blogArticles: BlogArticle[] = [
       excerpt:
         "Kod otkazanog leta postoje dva odvojena pitanja: šta se dešava sa kartom i da li postoji dodatna novčana odšteta.",
       category: "Otkazan let",
-      readTime: "6 min čitanja",
+      readTime: "2 min čitanja",
       sections: [
         {
           heading: "Refundacija nije isto što i odšteta",
@@ -261,7 +261,7 @@ export const blogArticles: BlogArticle[] = [
       excerpt:
         "A cancelled flight creates two separate questions: what happens to your ticket, and whether you may also claim fixed compensation.",
       category: "Cancelled flight",
-      readTime: "6 min read",
+      readTime: "2 min read",
       sections: [
         {
           heading: "Refund and compensation are different rights",
@@ -296,8 +296,8 @@ export const blogArticles: BlogArticle[] = [
   },
   {
     id: "missed-connection",
-    publishedAt: "2026-04-28",
-    updatedAt: "2026-04-28",
+    publishedAt: "2026-04-17",
+    updatedAt: "2026-04-17",
     sr: {
       slug: "propustena-konekcija-ista-rezervacija",
       title: "Propuštena konekcija: kada se računa kao jedan slučaj",
@@ -306,7 +306,7 @@ export const blogArticles: BlogArticle[] = [
       excerpt:
         "Kod konekcija se ne gleda samo let koji kasni, već ceo put i dolazak na krajnju destinaciju.",
       category: "Konekcije",
-      readTime: "6 min čitanja",
+      readTime: "2 min čitanja",
       sections: [
         {
           heading: "Ista rezervacija je prvo pitanje",
@@ -346,7 +346,7 @@ export const blogArticles: BlogArticle[] = [
       excerpt:
         "Missed connection claims are usually about the full itinerary, not just the delayed first leg.",
       category: "Connections",
-      readTime: "6 min read",
+      readTime: "2 min read",
       sections: [
         {
           heading: "The same booking is the starting point",
@@ -381,8 +381,8 @@ export const blogArticles: BlogArticle[] = [
   },
   {
     id: "denied-boarding-overbooking",
-    publishedAt: "2026-04-28",
-    updatedAt: "2026-04-28",
+    publishedAt: "2026-04-18",
+    updatedAt: "2026-04-18",
     sr: {
       slug: "uskraceno-ukrcavanje-overbooking",
       title: "Uskraćeno ukrcavanje i overbooking: šta putnik može da traži",
@@ -391,7 +391,7 @@ export const blogArticles: BlogArticle[] = [
       excerpt:
         "Ako ste imali kartu, stigli na vreme i aviokompanija vas ipak nije pustila u avion, slučaj treba proveriti odmah.",
       category: "Denied boarding",
-      readTime: "5 min čitanja",
+      readTime: "2 min čitanja",
       sections: [
         {
           heading: "Denied boarding nije isto što i zakasneli putnik",
@@ -431,7 +431,7 @@ export const blogArticles: BlogArticle[] = [
       excerpt:
         "If you had a ticket, arrived on time, and were still refused boarding, the case should be reviewed carefully.",
       category: "Denied boarding",
-      readTime: "5 min read",
+      readTime: "2 min read",
       sections: [
         {
           heading: "Denied boarding is not the same as arriving late",
@@ -466,8 +466,8 @@ export const blogArticles: BlogArticle[] = [
   },
   {
     id: "extraordinary-circumstances",
-    publishedAt: "2026-04-28",
-    updatedAt: "2026-04-28",
+    publishedAt: "2026-04-19",
+    updatedAt: "2026-04-19",
     sr: {
       slug: "vanredne-okolnosti-let",
       title: "Vanredne okolnosti: kada aviokompanija ne mora da plati",
@@ -476,7 +476,7 @@ export const blogArticles: BlogArticle[] = [
       excerpt:
         "Aviokompanije često pominju vanredne okolnosti, ali nije svako objašnjenje automatski dovoljno.",
       category: "Pravna provera",
-      readTime: "6 min čitanja",
+      readTime: "2 min čitanja",
       sections: [
         {
           heading: "Šta su vanredne okolnosti",
@@ -516,7 +516,7 @@ export const blogArticles: BlogArticle[] = [
       excerpt:
         "Airlines often mention extraordinary circumstances, but the explanation should still be checked against the facts.",
       category: "Legal review",
-      readTime: "6 min read",
+      readTime: "2 min read",
       sections: [
         {
           heading: "What extraordinary circumstances mean",
@@ -551,8 +551,8 @@ export const blogArticles: BlogArticle[] = [
   },
   {
     id: "eu261-ecaa-serbia",
-    publishedAt: "2026-04-28",
-    updatedAt: "2026-04-28",
+    publishedAt: "2026-04-20",
+    updatedAt: "2026-04-20",
     sr: {
       slug: "eu261-ecaa-srbija-prava-putnika",
       title: "EU 261, ECAA i Srbija: šta znači za putnike",
@@ -561,7 +561,7 @@ export const blogArticles: BlogArticle[] = [
       excerpt:
         "Putnici iz Srbije često nisu sigurni da li evropska pravila važe za njih. Odgovor zavisi od rute, aviokompanije i konkretnog leta.",
       category: "Prava putnika",
-      readTime: "7 min čitanja",
+      readTime: "2 min čitanja",
       sections: [
         {
           heading: "Zašto se stalno pominje EU 261",
@@ -606,7 +606,7 @@ export const blogArticles: BlogArticle[] = [
       excerpt:
         "Passengers connected with Serbia often need a route-based review, not a simple yes-or-no answer.",
       category: "Passenger rights",
-      readTime: "7 min read",
+      readTime: "2 min read",
       sections: [
         {
           heading: "Why EU 261 is the reference point",
@@ -646,8 +646,8 @@ export const blogArticles: BlogArticle[] = [
   },
   {
     id: "documents-for-claim",
-    publishedAt: "2026-04-28",
-    updatedAt: "2026-04-28",
+    publishedAt: "2026-04-21",
+    updatedAt: "2026-04-21",
     sr: {
       slug: "dokumenti-za-avio-odstetu",
       title: "Koji dokumenti su potrebni za zahtev za avio-odštetu",
@@ -656,7 +656,7 @@ export const blogArticles: BlogArticle[] = [
       excerpt:
         "Za prvi korak često je dovoljno nekoliko osnovnih podataka, ali dobar dokazni trag kasnije ubrzava slučaj.",
       category: "Dokumenta",
-      readTime: "5 min čitanja",
+      readTime: "2 min čitanja",
       sections: [
         {
           heading: "Osnovni podaci su dovoljni za prvu proveru",
@@ -702,7 +702,7 @@ export const blogArticles: BlogArticle[] = [
       excerpt:
         "A first check can start with basic details, but strong evidence makes the later claim process easier.",
       category: "Documents",
-      readTime: "5 min read",
+      readTime: "2 min read",
       sections: [
         {
           heading: "Basic details are enough to start",
@@ -743,8 +743,8 @@ export const blogArticles: BlogArticle[] = [
   },
   {
     id: "refund-vs-compensation",
-    publishedAt: "2026-04-28",
-    updatedAt: "2026-04-28",
+    publishedAt: "2026-04-22",
+    updatedAt: "2026-04-22",
     sr: {
       slug: "refundacija-karte-ili-odsteta",
       title: "Refundacija karte ili odšteta: u čemu je razlika",
@@ -753,7 +753,7 @@ export const blogArticles: BlogArticle[] = [
       excerpt:
         "Refundacija vraća vrednost karte. Odšteta nadoknađuje poremećaj putovanja kada su ispunjeni uslovi.",
       category: "Prava putnika",
-      readTime: "5 min čitanja",
+      readTime: "2 min čitanja",
       sections: [
         {
           heading: "Refundacija rešava kartu",
@@ -793,7 +793,7 @@ export const blogArticles: BlogArticle[] = [
       excerpt:
         "A refund concerns the ticket. Compensation concerns the disruption and airline responsibility.",
       category: "Passenger rights",
-      readTime: "5 min read",
+      readTime: "2 min read",
       sections: [
         {
           heading: "Refunds deal with the ticket",
@@ -828,8 +828,8 @@ export const blogArticles: BlogArticle[] = [
   },
   {
     id: "claim-deadlines",
-    publishedAt: "2026-04-28",
-    updatedAt: "2026-04-28",
+    publishedAt: "2026-04-23",
+    updatedAt: "2026-04-23",
     sr: {
       slug: "rokovi-za-avio-odstetu",
       title: "Koliko dugo posle leta možete tražiti odštetu",
@@ -838,7 +838,7 @@ export const blogArticles: BlogArticle[] = [
       excerpt:
         "Stariji let ne znači automatski da je kasno, ali prvi korak ne treba odlagati: kod reklamacije avio-kompaniji lokalni rok može biti znatno kraći.",
       category: "Rokovi",
-      readTime: "5 min čitanja",
+      readTime: "2 min čitanja",
       sections: [
         {
           heading: "Ne postoji jedan univerzalni rok",
@@ -878,7 +878,7 @@ export const blogArticles: BlogArticle[] = [
       excerpt:
         "An older flight is not automatically too late, but the first airline complaint step can be much shorter than broad limitation-period summaries suggest.",
       category: "Deadlines",
-      readTime: "5 min read",
+      readTime: "2 min read",
       sections: [
         {
           heading: "There is no single global deadline",
@@ -913,8 +913,8 @@ export const blogArticles: BlogArticle[] = [
   },
   {
     id: "airport-action-plan",
-    publishedAt: "2026-04-28",
-    updatedAt: "2026-04-28",
+    publishedAt: "2026-04-24",
+    updatedAt: "2026-04-24",
     sr: {
       slug: "sta-uraditi-kada-let-kasni",
       title: "Šta da uradite na aerodromu kada let kasni ili je otkazan",
@@ -923,7 +923,7 @@ export const blogArticles: BlogArticle[] = [
       excerpt:
         "Najbolji dokazni trag nastaje dok ste još na aerodromu. Nekoliko minuta organizacije može kasnije mnogo pomoći.",
       category: "Praktični saveti",
-      readTime: "4 min čitanja",
+      readTime: "2 min čitanja",
       sections: [
         {
           heading: "Prvo obezbedite putovanje",
@@ -963,7 +963,7 @@ export const blogArticles: BlogArticle[] = [
       excerpt:
         "The strongest evidence is often collected while you are still at the airport.",
       category: "Practical tips",
-      readTime: "4 min read",
+      readTime: "2 min read",
       sections: [
         {
           heading: "Solve the travel problem first",
@@ -998,8 +998,8 @@ export const blogArticles: BlogArticle[] = [
   },
   {
     id: "how-to-file-airline-claim",
-    publishedAt: "2026-04-28",
-    updatedAt: "2026-04-28",
+    publishedAt: "2026-04-25",
+    updatedAt: "2026-04-25",
     sr: {
       slug: "kako-podneti-reklamaciju-avio-kompaniji",
       title: "Kako podneti reklamaciju avio-kompaniji posle kašnjenja ili otkazivanja",
@@ -1008,7 +1008,7 @@ export const blogArticles: BlogArticle[] = [
       excerpt:
         "Dobar zahtev nije dugačak. Dobar zahtev je precizan: let, datum, ruta, šta se desilo, šta tražite i dokaz koji to podržava.",
       category: "Procedura",
-      readTime: "6 min čitanja",
+      readTime: "2 min čitanja",
       sections: [
         {
           heading: "Prvo skupite osnovne podatke",
@@ -1054,7 +1054,7 @@ export const blogArticles: BlogArticle[] = [
       excerpt:
         "A strong claim is not long. It is precise: flight, date, route, what happened, what you request, and the evidence.",
       category: "Claim process",
-      readTime: "6 min read",
+      readTime: "2 min read",
       sections: [
         {
           heading: "Start with the core flight facts",
@@ -1095,8 +1095,8 @@ export const blogArticles: BlogArticle[] = [
   },
   {
     id: "airline-rejected-claim",
-    publishedAt: "2026-04-28",
-    updatedAt: "2026-04-28",
+    publishedAt: "2026-04-26",
+    updatedAt: "2026-04-26",
     sr: {
       slug: "avio-kompanija-odbila-zahtev",
       title: "Aviokompanija je odbila zahtev: da li je to kraj",
@@ -1105,7 +1105,7 @@ export const blogArticles: BlogArticle[] = [
       excerpt:
         "Generičko odbijanje nije isto što i pravno utemeljen odgovor. Vredi proveriti šta je stvarno navedeno.",
       category: "Posle odbijanja",
-      readTime: "5 min čitanja",
+      readTime: "2 min čitanja",
       sections: [
         {
           heading: "Prvi odgovor često nije kraj",
@@ -1145,7 +1145,7 @@ export const blogArticles: BlogArticle[] = [
       excerpt:
         "A generic rejection is not the same as a well-supported legal answer.",
       category: "After rejection",
-      readTime: "5 min read",
+      readTime: "2 min read",
       sections: [
         {
           heading: "The first answer is not always final",
@@ -1180,8 +1180,8 @@ export const blogArticles: BlogArticle[] = [
   },
   {
     id: "voucher-or-cash-compensation",
-    publishedAt: "2026-04-28",
-    updatedAt: "2026-04-28",
+    publishedAt: "2026-04-27",
+    updatedAt: "2026-04-27",
     sr: {
       slug: "vaucer-ili-novac-avio-kompanija",
       title: "Vaučer ili novac: šta proveriti pre nego što prihvatite ponudu",
@@ -1190,7 +1190,7 @@ export const blogArticles: BlogArticle[] = [
       excerpt:
         "Vaučer može biti koristan, ali problem nastaje ako prihvatate nešto nejasno i time zatvarate veći zahtev.",
       category: "Nagodba",
-      readTime: "5 min čitanja",
+      readTime: "2 min čitanja",
       sections: [
         {
           heading: "Vaučer nije automatski loš",
@@ -1230,7 +1230,7 @@ export const blogArticles: BlogArticle[] = [
       excerpt:
         "A voucher can be useful. The risk is accepting unclear terms that close a better cash claim.",
       category: "Settlement",
-      readTime: "5 min read",
+      readTime: "2 min read",
       sections: [
         {
           heading: "A voucher is not automatically bad",
@@ -1275,7 +1275,7 @@ export const blogArticles: BlogArticle[] = [
       excerpt:
         "Tišina nije odgovor. Ali sledeći korak je lakši ako imate dokaz kada ste poslali reklamaciju i šta ste tačno poslali.",
       category: "Procedura",
-      readTime: "5 min čitanja",
+      readTime: "2 min čitanja",
       sections: [
         {
           heading: "Prvo proverite da li je zahtev kompletan",
@@ -1315,7 +1315,7 @@ export const blogArticles: BlogArticle[] = [
       excerpt:
         "Silence is not an answer. The next step is easier when you can prove what you submitted and when.",
       category: "Claim process",
-      readTime: "5 min read",
+      readTime: "2 min read",
       sections: [
         {
           heading: "Check whether the claim is complete",
@@ -1350,8 +1350,8 @@ export const blogArticles: BlogArticle[] = [
   },
   {
     id: "use-claim-service-or-diy",
-    publishedAt: "2026-04-28",
-    updatedAt: "2026-04-28",
+    publishedAt: "2026-04-29",
+    updatedAt: "2026-04-29",
     sr: {
       slug: "servis-za-avio-odstetu-ili-samostalno",
       title: "Da li zahtev slati sami ili preko servisa za avio-odštetu",
@@ -1360,7 +1360,7 @@ export const blogArticles: BlogArticle[] = [
       excerpt:
         "Jednostavan slučaj možete probati sami. Sporan slučaj traži više discipline: dokaze, rokove, komunikaciju i spremnost na odbijanje.",
       category: "Izbor puta",
-      readTime: "6 min čitanja",
+      readTime: "2 min čitanja",
       sections: [
         {
           heading: "Kada ima smisla probati samostalno",
@@ -1400,7 +1400,7 @@ export const blogArticles: BlogArticle[] = [
       excerpt:
         "A simple case can be handled yourself. A disputed case needs more discipline: evidence, deadlines, communication, and persistence.",
       category: "Claim options",
-      readTime: "6 min read",
+      readTime: "2 min read",
       sections: [
         {
           heading: "When DIY can make sense",
@@ -1435,8 +1435,8 @@ export const blogArticles: BlogArticle[] = [
   },
   {
     id: "claim-template-email",
-    publishedAt: "2026-04-28",
-    updatedAt: "2026-04-28",
+    publishedAt: "2026-04-30",
+    updatedAt: "2026-04-30",
     sr: {
       slug: "primer-emaila-za-reklamaciju-leta",
       title: "Primer emaila za reklamaciju zbog kašnjenja ili otkazivanja leta",
@@ -1445,7 +1445,7 @@ export const blogArticles: BlogArticle[] = [
       excerpt:
         "Najbolji email za reklamaciju je kratak, formalan i pun konkretnih podataka. Bez pretnji, bez viška emocija.",
       category: "Obrasci",
-      readTime: "4 min čitanja",
+      readTime: "2 min čitanja",
       sections: [
         {
           heading: "Šta email mora da sadrži",
@@ -1485,7 +1485,7 @@ export const blogArticles: BlogArticle[] = [
       excerpt:
         "The best claim email is short, formal, and specific. No threats, no extra drama.",
       category: "Templates",
-      readTime: "4 min read",
+      readTime: "2 min read",
       sections: [
         {
           heading: "What the email should include",
