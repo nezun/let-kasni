@@ -158,18 +158,15 @@ export function ClaimModal({
   const hasSeededFlightDetails = Boolean(
     seed?.flightNumber?.trim() && seed?.flightDate?.trim(),
   );
-  const defaultSeedRoute =
-    locale === "en"
-      ? "Not provided in the first step"
-      : "Nije navedeno u prvom koraku";
   const [step, setStep] = useState<Step>(
     hasSeededFlightDetails ? "contact" : "details",
   );
+  const [formStartedAt, setFormStartedAt] = useState(() => Date.now());
   const [form, setForm] = useState(() => ({
     ...initialState,
     flightNumber: seed?.flightNumber?.trim() || "",
     flightDate: seed?.flightDate?.trim() || "",
-    route: hasSeededFlightDetails ? defaultSeedRoute : "",
+    route: "",
     issueType: seed?.issueType ?? initialState.issueType,
   }));
   const [submitState, setSubmitState] = useState<SubmitState>({ status: "idle" });
@@ -193,11 +190,12 @@ export function ClaimModal({
   function handleClose() {
     setStep(hasSeededFlightDetails ? "contact" : "details");
     setSubmitState({ status: "idle" });
+    setFormStartedAt(Date.now());
     setForm({
       ...initialState,
       flightNumber: seed?.flightNumber?.trim() || "",
       flightDate: seed?.flightDate?.trim() || "",
-      route: hasSeededFlightDetails ? defaultSeedRoute : "",
+      route: "",
       issueType: seed?.issueType ?? initialState.issueType,
     });
     onClose();
@@ -229,6 +227,11 @@ export function ClaimModal({
       return;
     }
 
+    if (hasSeededFlightDetails && form.route.trim().length === 0) {
+      setSubmitState({ status: "error", message: t.invalid });
+      return;
+    }
+
     setSubmitState({ status: "submitting" });
 
     try {
@@ -247,6 +250,7 @@ export function ClaimModal({
           email: form.email,
           phone: form.phone,
           website: form.website,
+          formStartedAt: String(formStartedAt),
         }),
       });
 
@@ -433,6 +437,21 @@ export function ClaimModal({
                 </div>
               ) : (
                 <div className="space-y-4">
+                  {hasSeededFlightDetails ? (
+                    <label className="block space-y-2">
+                      <span className="flex items-center gap-2 text-sm font-semibold text-slate-700">
+                        <Plane className="h-4 w-4" /> {t.route}
+                      </span>
+                      <input
+                        required
+                        value={form.route}
+                        onChange={(event) => updateField("route", event.target.value)}
+                        placeholder={t.routePlaceholder}
+                        className="w-full rounded-xl border border-slate-200 px-4 py-3.5 outline-none transition focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10"
+                      />
+                    </label>
+                  ) : null}
+
                   <div className="grid gap-4 sm:grid-cols-2">
                     <label className="block space-y-2">
                       <span className="flex items-center gap-2 text-sm font-semibold text-slate-700">

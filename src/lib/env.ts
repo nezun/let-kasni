@@ -25,6 +25,21 @@ export function getFlightLookupTimeoutMs() {
   return parsed;
 }
 
+export function getFlightProviderDailyLimit() {
+  const raw = getEnv("FLIGHT_PROVIDER_DAILY_LIMIT");
+  const parsed = raw ? Number(raw) : NaN;
+
+  if (!Number.isFinite(parsed) || parsed < 0) {
+    return 50;
+  }
+
+  return Math.floor(parsed);
+}
+
+export function getAviationEdgeApiKey() {
+  return getEnv("AVIATION_EDGE_API_KEY");
+}
+
 export function getAeroDataBoxApiKey() {
   return getEnv("AERODATABOX_API_KEY");
 }

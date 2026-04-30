@@ -5,6 +5,14 @@ import { sendAdminClaimNotification, sendUserClaimConfirmation } from "@/lib/not
 import { isRateLimited } from "@/lib/rate-limit";
 import type { ClaimInput, IssueType } from "@/lib/types";
 
+const minimumHumanSubmitMs = 2500;
+
+interface ValidatedSubmission {
+  input: ClaimInput;
+  skipProvider?: boolean;
+  providerSkipReason?: string;
+}
+
 function isIssueType(value: string): value is IssueType {
   return [
     "delay_3h_plus",
@@ -14,7 +22,7 @@ function isIssueType(value: string): value is IssueType {
   ].includes(value);
 }
 
-function validateInput(body: unknown): ClaimInput | null {
+function validateInput(body: unknown): ValidatedSubmission | null {
   if (!body || typeof body !== "object") {
     return null;
   }
@@ -60,20 +68,39 @@ function validateInput(body: unknown): ClaimInput | null {
     !normalized.flightNumber ||
     !normalized.flightDate ||
     !normalized.route ||
-    !normalized.email ||
-    normalized.website
+    !normalized.email
   ) {
     return null;
   }
 
-  return normalized;
+  if (normalized.website) {
+    return {
+      input: normalized,
+      skipProvider: true,
+      providerSkipReason: "Honeypot polje je popunjeno; provider lookup je preskočen.",
+    };
+  }
+
+  const formStartedAt =
+    typeof data.formStartedAt === "string" ? Number(data.formStartedAt) : NaN;
+  const formCompletedTooFast =
+    Number.isFinite(formStartedAt) &&
+    Date.now() - formStartedAt < minimumHumanSubmitMs;
+
+  return {
+    input: normalized,
+    skipProvider: formCompletedTooFast,
+    providerSkipReason: formCompletedTooFast
+      ? "Forma je poslata prebrzo; provider lookup je preskočen."
+      : undefined,
+  };
 }
 
 export async function POST(request: Request) {
   const body = await request.json().catch(() => null);
-  const input = validateInput(body);
+  const submission = validateInput(body);
 
-  if (!input) {
+  if (!submission) {
     return NextResponse.json(
       {
         ok: false,
@@ -83,13 +110,15 @@ export async function POST(request: Request) {
     );
   }
 
+  const { input } = submission;
+
   const forwardedFor = request.headers.get("x-forwarded-for") ?? "unknown";
   const ip = forwardedFor.split(",")[0]?.trim() || "unknown";
   const emailKey = input.email.trim().toLowerCase();
 
   if (
-    isRateLimited(`claim-ip:${ip}`, { windowMs: 60_000, maxHits: 6 }) ||
-    isRateLimited(`claim-email:${emailKey}`, { windowMs: 10 * 60_000, maxHits: 3 })
+    isRateLimited(`claim-ip:${ip}`, { windowMs: 60_000, maxHits: 4 }) ||
+    isRateLimited(`claim-email:${emailKey}`, { windowMs: 10 * 60_000, maxHits: 2 })
   ) {
     return NextResponse.json(
       {
@@ -100,7 +129,10 @@ export async function POST(request: Request) {
     );
   }
 
-  const { claim, reused } = await createOrReuseClaim(input);
+  const { claim, reused } = await createOrReuseClaim(input, {
+    skipProvider: submission.skipProvider,
+    providerSkipReason: submission.providerSkipReason,
+  });
 
   if (!reused) {
     sendAdminClaimNotification(claim).catch((error) => {

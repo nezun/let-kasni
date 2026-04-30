@@ -31,10 +31,11 @@ Ovaj app prati zaključani pravac iz `PLAN.autoplan.md`:
    - `NEXT_PUBLIC_SUPABASE_URL`
    - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
    - `SUPABASE_SERVICE_ROLE_KEY`
-4. Za live AeroDataBox lookup podesi:
-   - `FLIGHT_PROVIDER_MODE=rapidapi`
-   - `AERODATABOX_API_KEY`
-   - opciono `AERODATABOX_API_HOST`
+4. Za Aviation Edge soft check podesi:
+   - `FLIGHT_PROVIDER_MODE=aviation_edge`
+   - `AVIATION_EDGE_API_KEY`
+   - opciono `FLIGHT_LOOKUP_TIMEOUT_MS=2500`
+   - opciono `FLIGHT_PROVIDER_DAILY_LIMIT=50`
 
 ## Commands
 
@@ -77,7 +78,10 @@ npm run start
   - `NEXT_PUBLIC_OPERATOR_PIB`
   - `NEXT_PUBLIC_OPERATOR_MB`
 - `NEXT_PUBLIC_GA_MEASUREMENT_ID` kada bude spreman GA4
-- flight provider env kada budemo uvodili live lookup
+- Aviation Edge soft-check env ako želiš server-side provider proveru:
+  - `FLIGHT_PROVIDER_MODE=aviation_edge`
+  - `AVIATION_EDGE_API_KEY`
+  - `FLIGHT_PROVIDER_DAILY_LIMIT=50`
 
 ## Persistence modes
 
@@ -88,7 +92,11 @@ npm run start
 
 - Honeypot polje blokira najosnovniji bot spam bez dodatnog servisa
 - Basic rate limit štiti submit endpoint od kratkih burst pokušaja
-- Provider odgovor razlikuje `live_match`, `no_match`, `timeout` i `unconfigured`
+- Aviation Edge API key se koristi samo server-side; browser nikad ne dobija ključ
+- Provider lookup se zove samo na final submit-u, ne dok korisnik kuca
+- Provider cache/dedupe sprečava ponovljene Aviation Edge pozive za isti let, datum i rutu
+- `FLIGHT_PROVIDER_DAILY_LIMIT` ograničava dnevnu potrošnju provider poziva po server instanci
+- Provider odgovor razlikuje `live_match`, `no_match`, `timeout`, `provider_skipped_budget`, `outside_provider_window` i `unconfigured`
 - Queue sada ima osnovne filtere po statusu, provider ishodu i verdict-u
 - `normalized_input_snapshot` sada stvarno koristi provider normalizaciju kada postoji
 

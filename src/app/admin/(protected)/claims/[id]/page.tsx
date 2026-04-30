@@ -27,8 +27,10 @@ const providerLabel: Record<ClaimRecord["providerSnapshot"]["status"], string> =
   live_match: "Live match",
   no_match: "Nema podudaranja",
   provider_unconfigured: "Provider nije podešen",
+  provider_skipped_budget: "Provider preskočen",
   timeout: "Timeout",
   error: "Provider greška",
+  outside_provider_window: "Van provider prozora",
 };
 
 type Params = Promise<{ id: string }>;

@@ -117,6 +117,7 @@ const formCopy = {
 
 export function ClaimIntakeForm({ locale = "sr" }: { locale?: "sr" | "en" }) {
   const [form, setForm] = useState(initialForm);
+  const [formStartedAt] = useState(() => Date.now());
   const [submitState, setSubmitState] = useState<SubmitState>({
     status: "idle",
   });
@@ -133,7 +134,10 @@ export function ClaimIntakeForm({ locale = "sr" }: { locale?: "sr" | "en" }) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(form),
+        body: JSON.stringify({
+          ...form,
+          formStartedAt: String(formStartedAt),
+        }),
       });
 
       const data = (await response.json()) as

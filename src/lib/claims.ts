@@ -32,8 +32,20 @@ async function writeClaimsStore(claims: Map<string, ClaimRecord>) {
   );
 }
 
-async function buildClaimRecord(input: ClaimInput, idempotencyKey: string) {
-  const providerSnapshot = await lookupFlight(input);
+interface ClaimCreationOptions {
+  skipProvider?: boolean;
+  providerSkipReason?: string;
+}
+
+async function buildClaimRecord(
+  input: ClaimInput,
+  idempotencyKey: string,
+  options?: ClaimCreationOptions,
+) {
+  const providerSnapshot = await lookupFlight(input, {
+    skipProvider: options?.skipProvider,
+    skipReason: options?.providerSkipReason,
+  });
   const verdict = getConservativeVerdict(input, providerSnapshot);
   const now = new Date().toISOString();
   const normalizedInputSnapshot = {
@@ -138,7 +150,10 @@ function mapSupabaseRow(row: Record<string, unknown>): ClaimRecord {
   });
 }
 
-async function createOrReuseSupabaseClaim(input: ClaimInput) {
+async function createOrReuseSupabaseClaim(
+  input: ClaimInput,
+  options?: ClaimCreationOptions,
+) {
   const supabase = createSupabaseAdminClient();
   const idempotencyKey = createIdempotencyKey(input);
 
@@ -156,7 +171,7 @@ async function createOrReuseSupabaseClaim(input: ClaimInput) {
     return { claim: mapSupabaseRow(existing), reused: true };
   }
 
-  const { claim } = await buildClaimRecord(input, idempotencyKey);
+  const { claim } = await buildClaimRecord(input, idempotencyKey, options);
   const baseInsertPayload = {
     id: claim.id,
     idempotency_key: claim.idempotencyKey,
@@ -220,7 +235,10 @@ async function createOrReuseSupabaseClaim(input: ClaimInput) {
   return { claim: mapSupabaseRow(inserted), reused: false };
 }
 
-async function createOrReuseLocalClaim(input: ClaimInput) {
+async function createOrReuseLocalClaim(
+  input: ClaimInput,
+  options?: ClaimCreationOptions,
+) {
   const claimsStore = await readClaimsStore();
   const idempotencyKey = createIdempotencyKey(input);
   const existing = claimsStore.get(idempotencyKey);
@@ -229,7 +247,7 @@ async function createOrReuseLocalClaim(input: ClaimInput) {
     return { claim: existing, reused: true };
   }
 
-  const { claim } = await buildClaimRecord(input, idempotencyKey);
+  const { claim } = await buildClaimRecord(input, idempotencyKey, options);
 
   claimsStore.set(idempotencyKey, claim);
   await writeClaimsStore(claimsStore);
@@ -377,16 +395,19 @@ export function createIdempotencyKey(input: ClaimInput) {
     .digest("hex");
 }
 
-export async function createOrReuseClaim(input: ClaimInput) {
+export async function createOrReuseClaim(
+  input: ClaimInput,
+  options?: ClaimCreationOptions,
+) {
   if (isSupabaseConfigured()) {
     try {
-      return await createOrReuseSupabaseClaim(input);
+      return await createOrReuseSupabaseClaim(input, options);
     } catch (error) {
       console.error("Supabase claim write failed; using local fallback.", error);
     }
   }
 
-  return createOrReuseLocalClaim(input);
+  return createOrReuseLocalClaim(input, options);
 }
 
 export async function listClaims() {
