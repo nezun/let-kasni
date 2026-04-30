@@ -40,6 +40,21 @@ function getMessage(value: string | string[] | undefined) {
   return typeof value === "string" ? value : undefined;
 }
 
+function formatMissing(value: string | number | undefined | null) {
+  return value === undefined || value === null || value === "" ? "Nije dostupno" : String(value);
+}
+
+function formatProviderRoute(claim: ClaimRecord) {
+  const departure = claim.providerSnapshot.departure?.iataCode;
+  const arrival = claim.providerSnapshot.arrival?.iataCode;
+
+  if (departure && arrival) {
+    return `${departure} -> ${arrival}`;
+  }
+
+  return claim.providerSnapshot.normalized?.route ?? claim.route;
+}
+
 export default async function AdminClaimDetailPage(props: {
   params: Params;
   searchParams: SearchParams;
@@ -54,6 +69,11 @@ export default async function AdminClaimDetailPage(props: {
   if (!claim) {
     notFound();
   }
+
+  const rawProviderStatus =
+    typeof claim.providerSnapshot.rawSummary?.status === "string"
+      ? claim.providerSnapshot.rawSummary.status
+      : undefined;
 
   return (
     <main className="min-h-screen bg-[var(--bg)] px-6 py-12">
@@ -131,12 +151,86 @@ export default async function AdminClaimDetailPage(props: {
                   label="Normalizovan let"
                   value={claim.providerSnapshot.normalized?.flightNumber ?? "Nema live match-a"}
                 />
+                <SummaryItem
+                  label="Match confidence"
+                  value={formatMissing(claim.providerSnapshot.matchConfidence)}
+                />
+                <SummaryItem
+                  label="Provider"
+                  value={claim.providerSnapshot.provider}
+                />
               </dl>
               {claim.providerSnapshot.message ? (
                 <p className="mt-4 text-sm leading-7 text-[var(--muted)]">
                   {claim.providerSnapshot.message}
                 </p>
               ) : null}
+            </div>
+
+            <div className="surface-card rounded-[28px] p-6">
+              <h2 className="text-xl font-bold tracking-[-0.03em] text-[var(--ink)]">
+                Provider evidence
+              </h2>
+              <p className="mt-2 text-sm leading-6 text-[var(--muted)]">
+                Operativni podaci iz provider snapshot-a. Ovo je pomoć za ručnu
+                proveru, ne finalna pravna odluka.
+              </p>
+              <dl className="mt-5 grid gap-4 sm:grid-cols-2">
+                <SummaryItem
+                  label="Provider flight"
+                  value={formatMissing(
+                    claim.providerSnapshot.flight?.iataNumber ??
+                      claim.providerSnapshot.normalized?.flightNumber,
+                  )}
+                />
+                <SummaryItem
+                  label="Provider route"
+                  value={formatProviderRoute(claim)}
+                />
+                <SummaryItem
+                  label="Airline"
+                  value={formatMissing(
+                    [
+                      claim.providerSnapshot.airline?.iataCode,
+                      claim.providerSnapshot.airline?.name,
+                    ]
+                      .filter(Boolean)
+                      .join(" - "),
+                  )}
+                />
+                <SummaryItem
+                  label="Flight status"
+                  value={formatMissing(rawProviderStatus)}
+                />
+                <SummaryItem
+                  label="Scheduled departure"
+                  value={formatMissing(claim.providerSnapshot.departure?.scheduledTime)}
+                />
+                <SummaryItem
+                  label="Actual departure"
+                  value={formatMissing(claim.providerSnapshot.departure?.actualTime)}
+                />
+                <SummaryItem
+                  label="Departure delay"
+                  value={formatMissing(claim.providerSnapshot.departure?.delayMinutes)}
+                />
+                <SummaryItem
+                  label="Scheduled arrival"
+                  value={formatMissing(claim.providerSnapshot.arrival?.scheduledTime)}
+                />
+                <SummaryItem
+                  label="Actual arrival"
+                  value={formatMissing(claim.providerSnapshot.arrival?.actualTime)}
+                />
+                <SummaryItem
+                  label="Estimated arrival"
+                  value={formatMissing(claim.providerSnapshot.arrival?.estimatedTime)}
+                />
+                <SummaryItem
+                  label="Arrival delay"
+                  value={formatMissing(claim.providerSnapshot.arrival?.delayMinutes)}
+                />
+              </dl>
             </div>
 
             <div className="surface-card rounded-[28px] p-6">

@@ -10,6 +10,72 @@ function escapeHtml(value: string) {
     .replaceAll("'", "&#39;");
 }
 
+function formatMissing(value: string | number | undefined | null) {
+  return value === undefined || value === null || value === "" ? "Nije dostupno" : String(value);
+}
+
+function formatProviderRoute(claim: ClaimRecord) {
+  const departure = claim.providerSnapshot.departure?.iataCode;
+  const arrival = claim.providerSnapshot.arrival?.iataCode;
+  const normalizedRoute = claim.providerSnapshot.normalized?.route;
+
+  if (departure && arrival) {
+    return `${departure} -> ${arrival}`;
+  }
+
+  return normalizedRoute ?? claim.route;
+}
+
+function formatProviderEvidenceRows(claim: ClaimRecord) {
+  const snapshot = claim.providerSnapshot;
+  const rawStatus =
+    typeof snapshot.rawSummary?.status === "string"
+      ? snapshot.rawSummary.status
+      : undefined;
+
+  return [
+    ["Provider", snapshot.provider],
+    ["Provider status", snapshot.status],
+    ["Match confidence", snapshot.matchConfidence],
+    ["Provider flight", snapshot.flight?.iataNumber ?? snapshot.normalized?.flightNumber],
+    ["Provider route", formatProviderRoute(claim)],
+    ["Airline", [snapshot.airline?.iataCode, snapshot.airline?.name].filter(Boolean).join(" - ")],
+    ["Flight status", rawStatus],
+    ["Scheduled departure", snapshot.departure?.scheduledTime],
+    ["Actual departure", snapshot.departure?.actualTime],
+    ["Departure delay", snapshot.departure?.delayMinutes],
+    ["Scheduled arrival", snapshot.arrival?.scheduledTime],
+    ["Actual arrival", snapshot.arrival?.actualTime],
+    ["Estimated arrival", snapshot.arrival?.estimatedTime],
+    ["Arrival delay", snapshot.arrival?.delayMinutes],
+    ["Provider message", snapshot.message],
+  ] as const;
+}
+
+function buildProviderEvidenceHtml(claim: ClaimRecord) {
+  const rows = formatProviderEvidenceRows(claim)
+    .map(
+      ([label, value]) =>
+        `<tr><td style="padding:7px 0;color:#6B7585;">${escapeHtml(label)}</td><td style="padding:7px 0;font-weight:700;text-align:right;">${escapeHtml(formatMissing(value))}</td></tr>`,
+    )
+    .join("");
+
+  return `
+    <div style="margin-top:24px;padding-top:22px;border-top:1px solid #e2e6ef;">
+      <div style="font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:#6B7585;font-weight:700;margin-bottom:10px;">Provider evidence</div>
+      <table style="width:100%;border-collapse:collapse;font-size:14px;line-height:1.5;">
+        ${rows}
+      </table>
+    </div>
+  `;
+}
+
+function buildProviderEvidenceText(claim: ClaimRecord) {
+  return formatProviderEvidenceRows(claim)
+    .map(([label, value]) => `${label}: ${formatMissing(value)}`)
+    .join("\n");
+}
+
 function buildClaimNotificationHtml(claim: ClaimRecord) {
   const name = [claim.firstName, claim.lastName].filter(Boolean).join(" ").trim() || "Nije uneto";
   const phone = claim.phone?.trim() || "Nije uneto";
@@ -35,6 +101,7 @@ function buildClaimNotificationHtml(claim: ClaimRecord) {
             <tr><td style="padding:8px 0;color:#6B7585;">Status providera</td><td style="padding:8px 0;font-weight:700;text-align:right;">${escapeHtml(claim.providerSnapshot.status)}</td></tr>
             <tr><td style="padding:8px 0;color:#6B7585;">Operator status</td><td style="padding:8px 0;font-weight:700;text-align:right;">${escapeHtml(claim.operatorStatus)}</td></tr>
           </table>
+          ${buildProviderEvidenceHtml(claim)}
           <div style="margin-top:28px;">
             <a href="${adminUrl}" style="display:inline-block;background:#2470EB;color:#ffffff;text-decoration:none;font-weight:700;padding:14px 18px;border-radius:12px;">Otvori claim u adminu</a>
           </div>
@@ -89,6 +156,9 @@ function buildAdminClaimNotificationText(claim: ClaimRecord) {
     `Ruta: ${claim.route}`,
     `Problem: ${claim.issueType}`,
     `Provider status: ${claim.providerSnapshot.status}`,
+    "",
+    "Provider evidence:",
+    buildProviderEvidenceText(claim),
     `Admin: ${getSiteUrl()}/admin/claims/${claim.id}`,
   ].join("\n");
 }
