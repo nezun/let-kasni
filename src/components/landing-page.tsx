@@ -640,14 +640,14 @@ export function LandingPage({
                 title: t.featureRiskTitle,
                 body: t.featureRiskBody,
                 icon: ShieldCheck,
-                dark: true,
+                dark: false,
               },
               {
                 number: "02",
                 title: t.featureFeeTitle,
                 body: t.featureFeeBody,
                 icon: Banknote,
-                dark: false,
+                dark: true,
               },
               {
                 number: "03",
