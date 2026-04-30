@@ -31,6 +31,7 @@ const copy = {
     navHow: "Kako radi",
     navBenefits: "Prednosti",
     navFaq: "Česta pitanja",
+    navBlog: "Blog",
     navCta: "Proveri let",
     heroLine1: "Vaš let je",
     heroLine2: "kasnio?",
@@ -139,6 +140,7 @@ const copy = {
     navHow: "How it works",
     navBenefits: "Benefits",
     navFaq: "FAQ",
+    navBlog: "Blog",
     navCta: "Check flight",
     heroLine1: "Was your flight",
     heroLine2: "delayed?",
@@ -333,6 +335,12 @@ export function LandingPage({
             >
               {t.navFaq}
             </a>
+            <Link
+              href={locale === "en" ? "/en/blog" : "/blog"}
+              className="rounded-lg px-[14px] py-2 text-sm font-medium text-[#4F5B75] transition hover:bg-[#EEF5FF] hover:text-[#0B2E6F]"
+            >
+              {t.navBlog}
+            </Link>
             <div className="mx-[6px] h-[18px] w-px bg-[#E2E6EF]" />
             <Link
               href={t.localeHref}
@@ -383,6 +391,13 @@ export function LandingPage({
               {t.navFaq}
             </a>
             <Link
+              href={locale === "en" ? "/en/blog" : "/blog"}
+              onClick={() => setIsMenuOpen(false)}
+              className="rounded-2xl border border-[#E2E6EF] px-5 py-4 text-base font-medium"
+            >
+              {t.navBlog}
+            </Link>
+            <Link
               href={t.localeHref}
               onClick={() => setIsMenuOpen(false)}
               className="rounded-2xl border border-[#E2E6EF] px-5 py-4 text-base font-medium text-[#6B7585]"
@@ -402,7 +417,10 @@ export function LandingPage({
         </div>
       ) : null}
 
-      <section className="relative flex min-h-screen flex-col overflow-hidden bg-[#0B1326] pt-16 text-white">
+      <section
+        id="proveri-let"
+        className="relative flex min-h-screen flex-col overflow-hidden bg-[#0B1326] pt-16 text-white"
+      >
         <div
           className="pointer-events-none absolute -bottom-[260px] -left-[180px] h-[820px] w-[820px] rounded-full blur-[10px]"
           style={{
