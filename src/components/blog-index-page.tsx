@@ -289,7 +289,6 @@ function BlogIndexVariantA({ locale }: { locale: BlogLocale }) {
   const t = copy[locale];
   const articles = getBlogArticles(locale);
   const hero = articles[0];
-  const visibleArticles = articles.slice(0, 10);
 
   return (
     <main className="min-h-screen bg-white pt-16 text-[#0A0F1E]">
@@ -318,7 +317,7 @@ function BlogIndexVariantA({ locale }: { locale: BlogLocale }) {
             </Link>
           </div>
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {visibleArticles.map((article) => (
+            {articles.map((article) => (
               <BlogCard key={article.id} article={article} locale={locale} />
             ))}
           </div>
