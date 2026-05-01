@@ -14,3 +14,8 @@ This version has breaking changes — APIs, conventions, and file structure may 
   - admin login works
   - admin queue works
   - claims safely fall back to manual review instead of overclaiming automation
+
+## Blog localization
+
+- Blog articles must be bilingual mirrors: Serbian and English versions should keep the same structure, section order, and substance.
+- Small wording changes are allowed only when the target language requires it, but the two language versions should remain about 95% equivalent in meaning and coverage.
