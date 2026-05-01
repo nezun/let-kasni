@@ -10,7 +10,7 @@ import {
   getSupportEmail,
 } from "@/lib/env";
 
-const lastUpdated = "21. april 2026.";
+const lastUpdated = "1. maj 2026.";
 
 function Section({
   title,
@@ -79,8 +79,8 @@ export default function TermsPage() {
           </h1>
           <p className="max-w-3xl text-sm leading-7 text-[var(--muted)]">
             Ovi Uslovi korišćenja uređuju pristup i upotrebu sajta letkasni.rs, kao i
-            osnovnog online modela za prijem zahteva za početnu proveru prava na
-            avio-odštetu.
+            osnovnog online modela za prijem i administrativnu obradu zahteva u vezi sa
+            avio-naknadom.
           </p>
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-[var(--muted)]/80">
             Poslednje ažuriranje: {lastUpdated}
@@ -97,9 +97,10 @@ export default function TermsPage() {
 
         <Section title="2. Predmet usluge">
           <p>
-            letkasni.rs je informativni i operativni sajt namenjen prijemu zahteva za
-            početnu procenu mogućeg prava putnika na avio-odštetu i za dalju komunikaciju
-            u vezi sa takvim zahtevom.
+            letkasni.rs je informativni i operativni sajt namenjen prijemu zahteva
+            korisnika u vezi sa avio-naknadom, organizaciji dostavljenih podataka i
+            dokumentacije i daljoj administrativnoj komunikaciji u vezi sa takvim
+            zahtevom.
           </p>
           <p>
             Korišćenje sajta, popunjavanje forme ili prijem početnog odgovora ne znači samo
@@ -112,7 +113,36 @@ export default function TermsPage() {
           </p>
         </Section>
 
-        <Section title="3. Ko može da koristi sajt">
+        <Section title="3. Priroda usluge i ograničenje pravnih usluga">
+          <p>
+            letkasni.rs nije advokatska kancelarija i ne pruža pravne savete, pravno
+            zastupanje niti druge pravne usluge. Informacije prikazane na sajtu, u formi,
+            email komunikaciji ili tokom obrade zahteva imaju isključivo informativnu,
+            tehničku i administrativnu svrhu i ne predstavljaju pravni savet.
+          </p>
+          <p>
+            Usluga letkasni.rs obuhvata tehničku i administrativnu podršku korisnicima u
+            vezi sa zahtevima za avio-naknadu, uključujući prijem i organizaciju podataka
+            o letu, organizaciju dokumentacije, tehničko evidentiranje zahteva i
+            komunikaciju u vezi sa statusom zahteva.
+          </p>
+          <p>
+            letkasni.rs ne garantuje da korisnik ima pravo na naknadu, da će zahtev biti
+            prihvaćen, niti da će avio-prevoznik ili drugi nadležni subjekt izvršiti
+            isplatu. Ishod zavisi od konkretnih činjenica, rute, prevoznika, razloga
+            poremećaja, dostupnih dokaza i primenljivih pravila.
+          </p>
+          <p>
+            Ako konkretna situacija zahteva pravni savet, pravno mišljenje, zastupanje ili
+            pokretanje postupka pred sudom ili drugim organom, korisnik treba da se obrati
+            kvalifikovanom advokatu ili drugom ovlašćenom stručnjaku. Eventualno
+            uključivanje eksternog pravnog stručnjaka moguće je samo kao poseban korak, uz
+            odgovarajuće obaveštenje i saglasnost korisnika, i ne znači da letkasni.rs sam
+            pruža pravne usluge.
+          </p>
+        </Section>
+
+        <Section title="4. Ko može da koristi sajt">
           <p>
             Sajt je namenjen punoletnim fizičkim licima, kao i licima koja postupaju u ime
             drugih putnika ili pravnih lica ako za to imaju odgovarajuće ovlašćenje.
@@ -123,11 +153,11 @@ export default function TermsPage() {
           </p>
         </Section>
 
-        <Section title="4. Priroda informacija i ograničenje odgovornosti">
+        <Section title="5. Priroda informacija i ograničenje odgovornosti">
           <p>
-            Sadržaj sajta i početna procena slučaja služe kao opšta informacija i operativni
-            korak u obradi zahteva. Oni ne predstavljaju individualni pravni savet, konačno
-            pravno mišljenje niti garanciju uspeha.
+            Sadržaj sajta i komunikacija tokom administrativne obrade zahteva služe kao
+            opšta informacija i operativni korak u obradi zahteva. Oni ne predstavljaju
+            individualni pravni savet, konačno pravno mišljenje niti garanciju uspeha.
           </p>
           <p>
             Operator nastoji da informacije na sajtu budu tačne i ažurne, ali ne garantuje da
@@ -141,9 +171,9 @@ export default function TermsPage() {
           </p>
         </Section>
 
-        <Section title="5. Podnošenje zahteva i elektronska komunikacija">
+        <Section title="6. Podnošenje zahteva i elektronska komunikacija">
           <p>
-            Kroz sajt je moguće elektronski dostaviti podatke potrebne za početnu obradu zahteva.
+            Kroz sajt je moguće elektronski dostaviti podatke potrebne za administrativnu obradu zahteva.
             Elektronska komunikacija, potvrde prijema i dalja razmena poruka mogu se obavljati putem
             email-a ili drugih kontakt kanala koje korisnik navede.
           </p>
@@ -157,7 +187,7 @@ export default function TermsPage() {
           </p>
         </Section>
 
-        <Section title="6. Naknada i model saradnje">
+        <Section title="7. Naknada i model saradnje">
           <p>
             Informacije o modelu naplate prikazane na sajtu imaju informativni karakter i odnose se
             na osnovni poslovni model u trenutku objave.
@@ -173,7 +203,7 @@ export default function TermsPage() {
           </p>
         </Section>
 
-        <Section title="7. Zabranjena upotreba">
+        <Section title="8. Zabranjena upotreba">
           <p>Korisniku nije dozvoljeno da:</p>
           <ul className="list-disc space-y-2 pl-5">
             <li>dostavlja netačne, tuđe ili neovlašćeno pribavljene podatke;</li>
@@ -187,7 +217,7 @@ export default function TermsPage() {
           </p>
         </Section>
 
-        <Section title="8. Intelektualna svojina">
+        <Section title="9. Intelektualna svojina">
           <p>
             Dizajn sajta, tekstovi, logotipi, grafički elementi, baze podataka i druga autorska ili
             srodna prava na sadržaju sajta pripadaju operatoru ili trećim licima koja su operatoru
@@ -200,7 +230,7 @@ export default function TermsPage() {
           </p>
         </Section>
 
-        <Section title="9. Linkovi ka trećim licima i spoljne usluge">
+        <Section title="10. Linkovi ka trećim licima i spoljne usluge">
           <p>
             Sajt može sadržati linkove ka spoljnim servisima ili koristiti infrastrukturu trećih
             provajdera. Operator ne odgovara za sadržaj, pravila privatnosti, dostupnost niti postupanje
@@ -211,7 +241,7 @@ export default function TermsPage() {
           </p>
         </Section>
 
-        <Section title="10. Privatnost i obrada podataka">
+        <Section title="11. Privatnost i obrada podataka">
           <p>
             Obrada podataka o ličnosti uređena je posebnom Politikom privatnosti, koja čini sastavni
             deo informacija dostupnih korisniku prilikom korišćenja sajta.
@@ -222,7 +252,7 @@ export default function TermsPage() {
           </p>
         </Section>
 
-        <Section title="11. Merodavno pravo i rešavanje sporova">
+        <Section title="12. Merodavno pravo i rešavanje sporova">
           <p>
             Na ove Uslove korišćenja primenjuje se pravo Republike Srbije.
           </p>
@@ -233,7 +263,7 @@ export default function TermsPage() {
           </p>
         </Section>
 
-        <Section title="12. Izmene uslova">
+        <Section title="13. Izmene uslova">
           <p>
             Operator može povremeno menjati ove Uslove korišćenja radi usklađivanja sa promenama poslovnog
             modela, tehnologije ili propisa. Važeća verzija objavljena je na ovoj stranici sa datumom

@@ -10,7 +10,7 @@ import {
   getSupportEmail,
 } from "@/lib/env";
 
-const lastUpdated = "21. april 2026.";
+const lastUpdated = "1. maj 2026.";
 
 function DetailList({
   items,
@@ -63,8 +63,8 @@ export default function PrivacyPage() {
           </h1>
           <p className="max-w-3xl text-sm leading-7 text-[var(--muted)]">
             Ova Politika privatnosti objašnjava kako letkasni.rs obrađuje podatke o
-            ličnosti u vezi sa korišćenjem sajta, podnošenjem prijave za proveru
-            prava na avio-odštetu i daljom komunikacijom sa korisnicima.
+            ličnosti u vezi sa korišćenjem sajta, podnošenjem zahteva za avio-naknadu
+            i daljom komunikacijom sa korisnicima.
           </p>
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-[var(--muted)]/80">
             Poslednje ažuriranje: {lastUpdated}
@@ -111,9 +111,10 @@ export default function PrivacyPage() {
           <ul className="list-disc space-y-2 pl-5">
             <li>
               <span className="font-semibold text-[var(--ink)]">Predugovorne radnje i izvršenje usluge:</span>{" "}
-              kada tražite proveru slučaja, podatke obrađujemo da bismo pregledali
-              zahtev, odgovorili na upit i po potrebi preduzeli radnje pre eventualnog
-              zaključenja posebnog ugovora ili punomoćja.
+              kada dostavite zahtev, podatke obrađujemo radi prijema zahteva,
+              organizacije podataka i dokumentacije, odgovora na upit i preduzimanja
+              administrativnih koraka pre eventualnog zaključenja posebnog ugovora ili
+              punomoćja.
             </li>
             <li>
               <span className="font-semibold text-[var(--ink)]">Legitimni interes:</span>{" "}
@@ -135,19 +136,25 @@ export default function PrivacyPage() {
           </ul>
           <p>
             Podaci se ne koriste za donošenje isključivo automatizovanih odluka koje
-            proizvode pravne posledice po korisnika. Početna procena slučaja predstavlja
-            operativni signal i može biti predmet ručne provere.
+            proizvode pravne posledice po korisnika. letkasni.rs ne obrađuje podatke u
+            svrhu pružanja pravnih saveta, pravnog zastupanja ili drugih pravnih usluga.
+          </p>
+          <p>
+            Ako korisnik naknadno zatraži ili odobri uključivanje eksternog pravnog
+            stručnjaka, određeni podaci mogu biti podeljeni sa tim stručnjakom samo u
+            meri u kojoj je to potrebno za dalji postupak i u skladu sa odgovarajućim
+            pravnim osnovom.
           </p>
         </Section>
 
         <Section title="4. Obaveznost davanja podataka">
           <p>
             Davanje osnovnih podataka o letu i kontakt podataka nije zakonska obaveza,
-            ali je praktično neophodno ako želite da obavimo početnu proveru slučaja ili
+            ali je praktično neophodno ako želite da administrativno obradimo zahtev ili
             da vas kontaktiramo povodom prijave.
           </p>
           <p>
-            Ako ne dostavite minimum potrebnih podataka, možda nećemo moći da procenimo
+            Ako ne dostavite minimum potrebnih podataka, možda nećemo moći da obradimo
             zahtev ili da vam odgovorimo na upit.
           </p>
         </Section>
