@@ -631,14 +631,14 @@ export function LandingPage({
                 <div className="font-display text-[15px] font-bold tracking-[-0.01em] text-[#0A0F1E]">
                   {airline.name}
                 </div>
-                <div className="inline-flex items-center gap-[5px] text-[10px] font-bold uppercase tracking-[0.08em] text-[#2DB87A]">
-                  <span className="h-[5px] w-[5px] rounded-full bg-[#2DB87A]" />
+                <div className="inline-flex items-center gap-[5px] text-[10px] font-bold uppercase tracking-[0.08em] text-[#047857]">
+                  <span className="h-[5px] w-[5px] rounded-full bg-[#047857]" />
                   {t.active}
                 </div>
               </div>
             ))}
           </div>
-          <div className="mt-5 text-center text-[13px] text-[#8E9BB0]">
+          <div className="mt-5 text-center text-[13px] text-[#64748B]">
             {t.airlineMore}
           </div>
         </div>
@@ -692,13 +692,13 @@ export function LandingPage({
       >
         <div className="mx-auto max-w-[1200px]">
           <div className={`mx-auto max-w-[680px] text-center ${compactSpacing ? "mb-10" : "mb-14"}`}>
-            <div className="mb-[14px] text-[11px] font-bold uppercase tracking-[0.12em] text-[#2470EB]">
+            <div className="mb-[14px] text-[11px] font-bold uppercase tracking-[0.12em] text-[#1A52C8]">
               {t.benefitsEyebrow}
             </div>
             <h2 className="font-display mb-[18px] text-[44px] font-bold leading-[1.1] tracking-[-0.03em] text-[#0A0F1E]">
               {t.benefitsTitle}
             </h2>
-            <p className="text-[17px] leading-[1.7] text-[#6B7585]">
+            <p className="text-[17px] leading-[1.7] text-[#4F5B75]">
               {t.benefitsBody}
             </p>
           </div>
@@ -758,7 +758,7 @@ export function LandingPage({
                   </div>
                   <div
                     className={`font-display text-[13px] font-bold tracking-[0.08em] ${
-                      item.dark ? "text-white/40" : "text-[#B4BECF]"
+                      item.dark ? "text-white/40" : "text-[#64748B]"
                     }`}
                   >
                     {item.number}

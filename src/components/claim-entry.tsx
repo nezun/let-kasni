@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useId, useState } from "react";
 import dynamic from "next/dynamic";
 import { ArrowRight } from "lucide-react";
 
@@ -90,6 +90,9 @@ export function HeroClaimCard({
   const [heroDate, setHeroDate] = useState("");
   const [heroIssueType, setHeroIssueType] =
     useState<IssueType>("delay_3h_plus");
+  const flightInputId = useId();
+  const dateInputId = useId();
+  const issueSelectId = useId();
 
   function openClaimModal() {
     trackEvent("begin_checkout", {
@@ -104,7 +107,7 @@ export function HeroClaimCard({
     <>
       <div className="rounded-[20px] bg-white p-7 text-[#0A0F1E] shadow-[0_26px_88px_rgba(0,0,0,0.26)] sm:p-8">
         <div className="mb-5">
-          <div className="mb-[6px] text-[11px] font-bold uppercase tracking-[0.08em] text-[#8E9BB0]">
+          <div className="mb-[6px] text-[11px] font-bold uppercase tracking-[0.08em] text-[#64748B]">
             {eyebrow}
           </div>
           <div className="font-display text-[20px] font-bold leading-[1.2] text-[#0A0F1E] sm:text-[21px]">
@@ -114,10 +117,14 @@ export function HeroClaimCard({
 
         <div className="mb-4 flex flex-col gap-3">
           <div>
-            <label className="mb-[5px] block text-[10px] font-bold uppercase tracking-[0.08em] text-[#8E9BB0]">
+            <label
+              htmlFor={flightInputId}
+              className="mb-[5px] block text-[10px] font-bold uppercase tracking-[0.08em] text-[#64748B]"
+            >
               {flightNumberLabel}
             </label>
             <input
+              id={flightInputId}
               type="text"
               value={heroFlight}
               onChange={(event) => setHeroFlight(event.target.value)}
@@ -126,10 +133,14 @@ export function HeroClaimCard({
             />
           </div>
           <div>
-            <label className="mb-[5px] block text-[10px] font-bold uppercase tracking-[0.08em] text-[#8E9BB0]">
+            <label
+              htmlFor={dateInputId}
+              className="mb-[5px] block text-[10px] font-bold uppercase tracking-[0.08em] text-[#64748B]"
+            >
               {flightDateLabel}
             </label>
             <input
+              id={dateInputId}
               type="date"
               value={heroDate}
               onChange={(event) => setHeroDate(event.target.value)}
@@ -137,13 +148,17 @@ export function HeroClaimCard({
             />
           </div>
           <div>
-            <label className="mb-[5px] block text-[10px] font-bold uppercase tracking-[0.08em] text-[#8E9BB0]">
+            <label
+              htmlFor={issueSelectId}
+              className="mb-[5px] block text-[10px] font-bold uppercase tracking-[0.08em] text-[#64748B]"
+            >
               {issueTypeLabel}
             </label>
             <select
+              id={issueSelectId}
               value={heroIssueType}
               onChange={(event) => setHeroIssueType(event.target.value as IssueType)}
-              className="w-full appearance-none rounded-[10px] border border-[#DCE4EF] bg-[#FBFDFF] bg-[linear-gradient(45deg,transparent_50%,#8E9BB0_50%),linear-gradient(135deg,#8E9BB0_50%,transparent_50%)] bg-[position:calc(100%-18px)_52%,calc(100%-13px)_52%] bg-[size:5px_5px,5px_5px] bg-no-repeat px-[14px] py-3 pr-10 text-base text-[#334155] outline-none transition focus:border-[#9EC5FE] focus:bg-white focus:shadow-[0_0_0_3px_rgba(36,112,235,0.08)]"
+              className="w-full appearance-none rounded-[10px] border border-[#DCE4EF] bg-[#FBFDFF] bg-[linear-gradient(45deg,transparent_50%,#64748B_50%),linear-gradient(135deg,#64748B_50%,transparent_50%)] bg-[position:calc(100%-18px)_52%,calc(100%-13px)_52%] bg-[size:5px_5px,5px_5px] bg-no-repeat px-[14px] py-3 pr-10 text-base text-[#334155] outline-none transition focus:border-[#9EC5FE] focus:bg-white focus:shadow-[0_0_0_3px_rgba(36,112,235,0.08)]"
             >
               {issueOptions.map((option) => (
                 <option key={option.value} value={option.value}>
@@ -162,7 +177,7 @@ export function HeroClaimCard({
           <ArrowRight className="h-4 w-4" />
         </button>
 
-        <div className="mt-[14px] text-center text-xs leading-[1.5] text-[#B4BECF]">
+        <div className="mt-[14px] text-center text-xs leading-[1.5] text-[#64748B]">
           <p>{note}</p>
           <p>{routeHint}</p>
         </div>

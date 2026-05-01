@@ -49,13 +49,13 @@ export function SiteFooter({
         <div className="mb-10 grid gap-10 md:grid-cols-[2fr_1fr_1fr]">
           <div>
             <BrandLogo href={t.homeHref} tone="light" balance={logoBalance} />
-            <p className="mt-[14px] max-w-[300px] text-[13px] leading-[1.7] text-white/45">
+            <p className="mt-[14px] max-w-[300px] text-[13px] leading-[1.7] text-white/65">
               {t.footerBody}
             </p>
           </div>
 
           <div>
-            <div className="mb-[14px] text-[11px] font-bold uppercase tracking-[0.08em] text-white/35">
+            <div className="mb-[14px] text-[11px] font-bold uppercase tracking-[0.08em] text-white/60">
               {t.footerLinks}
             </div>
             <div className="flex flex-col gap-[10px]">
@@ -72,7 +72,7 @@ export function SiteFooter({
           </div>
 
           <div>
-            <div className="mb-[14px] text-[11px] font-bold uppercase tracking-[0.08em] text-white/35">
+            <div className="mb-[14px] text-[11px] font-bold uppercase tracking-[0.08em] text-white/60">
               {t.footerLegal}
             </div>
             <div className="flex flex-col gap-[10px]">
@@ -86,7 +86,7 @@ export function SiteFooter({
           </div>
         </div>
 
-        <div className="border-t border-white/8 pt-5 text-xs text-white/30">
+        <div className="border-t border-white/8 pt-5 text-xs text-white/60">
           {t.copyright}
         </div>
       </div>
