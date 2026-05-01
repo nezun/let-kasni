@@ -1,8 +1,4 @@
-"use client";
-
-import { useState } from "react";
 import {
-  ArrowRight,
   Banknote,
   CheckCircle2,
   ChevronRight,
@@ -11,10 +7,12 @@ import {
   ShieldCheck,
 } from "lucide-react";
 
-import { ClaimModal } from "@/components/claim-modal";
+import {
+  ClaimCtaButton,
+  HeaderWithClaimCta,
+  HeroClaimCard,
+} from "@/components/claim-entry";
 import { SiteFooter } from "@/components/site-footer";
-import { SiteHeader } from "@/components/site-header";
-import { trackEvent } from "@/lib/analytics";
 import { getSupportEmail } from "@/lib/env";
 import type { IssueType } from "@/lib/types";
 
@@ -528,29 +526,15 @@ export function LandingPage({
   const compactSpacing = verticalSpacing === "compact";
   const supportEmail = getSupportEmail();
   const compactHero = variant === "hero-compact";
-  const [isClaimModalOpen, setIsClaimModalOpen] = useState(false);
-  const [heroFlight, setHeroFlight] = useState("");
-  const [heroDate, setHeroDate] = useState("");
-  const [heroIssueType, setHeroIssueType] = useState<IssueType>("delay_3h_plus");
-
-  function openClaimModal(source: string) {
-    trackEvent("begin_checkout", {
-      event_category: "claim",
-      event_label: source,
-      form_locale: locale,
-    });
-    setIsClaimModalOpen(true);
-  }
 
   return (
     <main
       lang={locale === "en" ? "en" : "sr"}
       className="min-h-screen bg-white text-[#0A0F1E] selection:bg-[#2470EB]/10 selection:text-[#2470EB]"
     >
-      <SiteHeader
+      <HeaderWithClaimCta
         locale={locale}
         logoBalance={logoBalance}
-        onCtaClick={openClaimModal}
       />
 
       <section
@@ -603,73 +587,20 @@ export function LandingPage({
               </div>
             </div>
 
-            <div className="rounded-[20px] bg-white p-7 text-[#0A0F1E] shadow-[0_26px_88px_rgba(0,0,0,0.26)] sm:p-8">
-              <div className="mb-5">
-                <div className="mb-[6px] text-[11px] font-bold uppercase tracking-[0.08em] text-[#8E9BB0]">
-                  {t.cardEyebrow}
-                </div>
-                <div className="font-display text-[20px] font-bold leading-[1.2] text-[#0A0F1E] sm:text-[21px]">
-                  {t.cardTitle}
-                </div>
-              </div>
-
-              <div className="mb-4 flex flex-col gap-3">
-                <div>
-                  <label className="mb-[5px] block text-[10px] font-bold uppercase tracking-[0.08em] text-[#8E9BB0]">
-                    {t.flightNumber}
-                  </label>
-                  <input
-                    type="text"
-                    value={heroFlight}
-                    onChange={(event) => setHeroFlight(event.target.value)}
-                    placeholder={t.flightNumberPlaceholder}
-                    className={fieldClasses.flight}
-                  />
-                </div>
-                <div>
-                  <label className="mb-[5px] block text-[10px] font-bold uppercase tracking-[0.08em] text-[#8E9BB0]">
-                    {t.flightDate}
-                  </label>
-                  <input
-                    type="date"
-                    value={heroDate}
-                    onChange={(event) => setHeroDate(event.target.value)}
-                    className={fieldClasses.date}
-                  />
-                </div>
-                <div>
-                  <label className="mb-[5px] block text-[10px] font-bold uppercase tracking-[0.08em] text-[#8E9BB0]">
-                    {t.issueType}
-                  </label>
-                  <select
-                    value={heroIssueType}
-                    onChange={(event) =>
-                      setHeroIssueType(event.target.value as IssueType)
-                    }
-                    className="w-full appearance-none rounded-[10px] border border-[#DCE4EF] bg-[#FBFDFF] bg-[linear-gradient(45deg,transparent_50%,#8E9BB0_50%),linear-gradient(135deg,#8E9BB0_50%,transparent_50%)] bg-[position:calc(100%-18px)_52%,calc(100%-13px)_52%] bg-[size:5px_5px,5px_5px] bg-no-repeat px-[14px] py-3 pr-10 text-base text-[#334155] outline-none transition focus:border-[#9EC5FE] focus:bg-white focus:shadow-[0_0_0_3px_rgba(36,112,235,0.08)]"
-                  >
-                    {heroIssueOptions[locale].map((option) => (
-                      <option key={option.value} value={option.value}>
-                        {option.label}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-
-              <button
-                onClick={() => openClaimModal("hero_card_cta")}
-                className="flex w-full items-center justify-center gap-2 rounded-[10px] bg-[#2470EB] px-4 py-[15px] text-base font-bold text-white transition hover:brightness-95"
-              >
-                {t.heroButton}
-                <ArrowRight className="h-4 w-4" />
-              </button>
-
-              <div className="mt-[14px] text-center text-xs leading-[1.5] text-[#B4BECF]">
-                <p>{t.heroNote}</p>
-                <p>{t.routeHint}</p>
-              </div>
-            </div>
+            <HeroClaimCard
+              locale={locale}
+              eyebrow={t.cardEyebrow}
+              title={t.cardTitle}
+              flightNumberLabel={t.flightNumber}
+              flightNumberPlaceholder={t.flightNumberPlaceholder}
+              flightDateLabel={t.flightDate}
+              issueTypeLabel={t.issueType}
+              buttonLabel={t.heroButton}
+              note={t.heroNote}
+              routeHint={t.routeHint}
+              fieldClasses={fieldClasses}
+              issueOptions={heroIssueOptions[locale]}
+            />
           </div>
         </div>
 
@@ -939,12 +870,9 @@ export function LandingPage({
           <p className="mb-9 text-[17px] leading-[1.65] text-white/55">
             {t.ctaBody}
           </p>
-          <button
-            onClick={() => openClaimModal("cta_section")}
-            className="rounded-xl bg-[#2470EB] px-11 py-[17px] text-[17px] font-bold text-white transition hover:brightness-95"
-          >
+          <ClaimCtaButton locale={locale}>
             {t.ctaButton}
-          </button>
+          </ClaimCtaButton>
         </div>
       </section>
 
@@ -953,19 +881,6 @@ export function LandingPage({
         supportEmail={supportEmail}
         logoBalance={logoBalance}
       />
-
-      {isClaimModalOpen ? (
-        <ClaimModal
-          isOpen={isClaimModalOpen}
-          locale={locale}
-          onClose={() => setIsClaimModalOpen(false)}
-          seed={{
-            flightNumber: heroFlight,
-            flightDate: heroDate,
-            issueType: heroIssueType,
-          }}
-        />
-      ) : null}
     </main>
   );
 }
