@@ -44,7 +44,7 @@ const copy = {
     proofB: "Samo 10% provizije",
     proofC: "94% uspešnost",
     cardEyebrow: "Proveri odštetu odmah",
-    cardTitle: "Koliko ti duguje avio-prevoznik?",
+    cardTitle: "Koliko ti duguje avio-kompanija?",
     flightNumber: "Broj leta",
     flightNumberPlaceholder: "npr. JU 221",
     flightDate: "Datum leta",
