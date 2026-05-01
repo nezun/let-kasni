@@ -206,6 +206,13 @@ function HeroStory({
   const t = copy[locale];
   const isCompact = variant === "c";
 
+  const frameClass =
+    variant === "a"
+      ? "h-[320px] sm:h-[340px] lg:h-[360px]"
+      : isCompact
+        ? "h-[340px] sm:h-[400px] lg:h-[440px]"
+        : "h-[360px] sm:h-[420px] lg:h-[460px]";
+
   return (
     <Link
       href={hrefFor(locale, article.localized.slug)}
@@ -213,15 +220,15 @@ function HeroStory({
         variant === "b" ? "rounded-[28px]" : "rounded-[20px]"
       }`}
     >
-      <div className={isCompact ? "aspect-[16/8]" : "aspect-[16/7.6]"}>
+      <div className={frameClass}>
         <ImageTag
           articleId={article.id}
           className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.03]"
         />
       </div>
-      <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/82 via-black/45 to-transparent px-6 pb-7 pt-32 md:px-12 md:pb-10">
+      <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/88 via-black/48 to-transparent px-6 pb-7 pt-24 md:px-12 md:pb-9 md:pt-32">
         <CategoryPill onDark>{t.categoryMain}</CategoryPill>
-        <h2 className="mt-5 max-w-[760px] text-[30px] font-black leading-[1.12] tracking-[-0.03em] text-white md:text-[48px]">
+        <h2 className="mt-5 max-w-[760px] text-[30px] font-black leading-[1.12] tracking-[-0.03em] text-white md:text-[44px]">
           {article.localized.title}
         </h2>
         <div className="mt-6">
@@ -288,7 +295,7 @@ function BlogCard({
 function BlogIndexVariantA({ locale }: { locale: BlogLocale }) {
   const t = copy[locale];
   const articles = getBlogArticles(locale);
-  const hero = articles[0];
+  const hero = articles.find((article) => article.id === "flight-delay-compensation") ?? articles[0];
 
   return (
     <main className="min-h-screen bg-white pt-16 text-[#0A0F1E]">
