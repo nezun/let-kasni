@@ -20,6 +20,7 @@ import { article as voucherOrCashCompensationArticle, image as voucherOrCashComp
 import { article as airlineResponseNoAnswerArticle, image as airlineResponseNoAnswerImage } from "./airline-response-no-answer";
 import { article as useClaimServiceOrDiyArticle, image as useClaimServiceOrDiyImage } from "./use-claim-service-or-diy";
 import { article as claimTemplateEmailArticle, image as claimTemplateEmailImage } from "./claim-template-email";
+import { articles as daily20260502Articles, images as daily20260502Images } from "./daily-2026-05-02";
 
 import type { BlogArticle, BlogArticleImage } from "@/lib/blog";
 
@@ -46,6 +47,7 @@ export const blogArticles: BlogArticle[] = [
   airlineResponseNoAnswerArticle,
   useClaimServiceOrDiyArticle,
   claimTemplateEmailArticle,
+  ...daily20260502Articles,
 ];
 
 export const articleImages: Record<string, BlogArticleImage> = {
@@ -71,4 +73,5 @@ export const articleImages: Record<string, BlogArticleImage> = {
   "airline-response-no-answer": airlineResponseNoAnswerImage,
   "use-claim-service-or-diy": useClaimServiceOrDiyImage,
   "claim-template-email": claimTemplateEmailImage,
+  ...daily20260502Images,
 };
