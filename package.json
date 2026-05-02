@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "seo:oauth-login": "node scripts/google-search-console.mjs oauth-login",
     "seo:submit-sitemap": "node scripts/google-search-console.mjs submit-sitemap",
     "seo:index-status": "node scripts/google-search-console.mjs index-status --blog-only",
     "seo:index-status:all": "node scripts/google-search-console.mjs index-status"

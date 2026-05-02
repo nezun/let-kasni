@@ -114,7 +114,9 @@ Blog indexing should be automated through sitemap submission and monitoring, not
 1. Create a Google Cloud service account.
 2. Add that service account email to the `https://letkasni.rs/` property in Google Search Console.
 3. Set either `GOOGLE_APPLICATION_CREDENTIALS` to the service account JSON file path, or set `GOOGLE_SERVICE_ACCOUNT_EMAIL` and `GOOGLE_PRIVATE_KEY`.
-4. Run:
+4. If Search Console will not accept a service account email, create a Desktop OAuth client, set `GOOGLE_OAUTH_CLIENT_CREDENTIALS`, run `npm run seo:oauth-login`, and save the printed `GOOGLE_OAUTH_REFRESH_TOKEN` in `.env.local`.
+5. Run:
+   - `npm run seo:oauth-login` to connect your own Google account when using OAuth
    - `npm run seo:submit-sitemap` to submit `https://letkasni.rs/sitemap.xml`
    - `npm run seo:index-status` to inspect `/blog` and `/en/blog` URLs
    - `npm run seo:index-status:all` to inspect every URL in the sitemap

@@ -1,10 +1,16 @@
 #!/usr/bin/env node
 
 import { createSign } from "node:crypto";
+import { execFile } from "node:child_process";
 import { existsSync, readFileSync } from "node:fs";
+import { createServer } from "node:http";
 
 const TOKEN_URL = "https://oauth2.googleapis.com/token";
+const AUTH_URL = "https://accounts.google.com/o/oauth2/v2/auth";
 const WEBMASTERS_SCOPE = "https://www.googleapis.com/auth/webmasters";
+const LOOPBACK_HOST = "127.0.0.1";
+const LOOPBACK_PORT = 53682;
+const LOOPBACK_REDIRECT_URI = `http://${LOOPBACK_HOST}:${LOOPBACK_PORT}/oauth2callback`;
 
 function loadEnvFile(file) {
   if (!existsSync(file)) {
@@ -94,6 +100,41 @@ function getCredential() {
   };
 }
 
+function getOAuthClient() {
+  const credentialsPath = process.env.GOOGLE_OAUTH_CLIENT_CREDENTIALS;
+
+  if (credentialsPath) {
+    const credentials = JSON.parse(readFileSync(credentialsPath, "utf8"));
+    const client = credentials.installed ?? credentials.web ?? credentials;
+
+    return {
+      clientId: client.client_id,
+      clientSecret: client.client_secret,
+    };
+  }
+
+  return {
+    clientId: process.env.GOOGLE_OAUTH_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_OAUTH_CLIENT_SECRET,
+  };
+}
+
+function requireOAuthClient() {
+  const client = getOAuthClient();
+
+  if (!client.clientId || !client.clientSecret) {
+    throw new Error(
+      [
+        "Missing Google OAuth client credentials.",
+        "Set GOOGLE_OAUTH_CLIENT_CREDENTIALS to a Desktop OAuth client JSON file,",
+        "or set GOOGLE_OAUTH_CLIENT_ID and GOOGLE_OAUTH_CLIENT_SECRET.",
+      ].join(" ")
+    );
+  }
+
+  return client;
+}
+
 function requireCredential() {
   const credential = getCredential();
 
@@ -132,7 +173,7 @@ function createJwt({ clientEmail, privateKey }) {
   return `${unsigned}.${signer.sign(privateKey, "base64url")}`;
 }
 
-async function getAccessToken() {
+async function getServiceAccountAccessToken() {
   const assertion = createJwt(requireCredential());
   const response = await fetch(TOKEN_URL, {
     method: "POST",
@@ -151,6 +192,45 @@ async function getAccessToken() {
   }
 
   return data.access_token;
+}
+
+async function getOAuthAccessToken() {
+  const refreshToken = process.env.GOOGLE_OAUTH_REFRESH_TOKEN;
+
+  if (!refreshToken) {
+    throw new Error(
+      "Missing GOOGLE_OAUTH_REFRESH_TOKEN. Run `npm run seo:oauth-login` first."
+    );
+  }
+
+  const client = requireOAuthClient();
+  const response = await fetch(TOKEN_URL, {
+    method: "POST",
+    headers: {
+      "content-type": "application/x-www-form-urlencoded",
+    },
+    body: new URLSearchParams({
+      client_id: client.clientId,
+      client_secret: client.clientSecret,
+      refresh_token: refreshToken,
+      grant_type: "refresh_token",
+    }),
+  });
+  const data = await response.json().catch(() => ({}));
+
+  if (!response.ok) {
+    throw new Error(`Google OAuth refresh failed (${response.status}): ${JSON.stringify(data)}`);
+  }
+
+  return data.access_token;
+}
+
+async function getAccessToken() {
+  if (process.env.GOOGLE_OAUTH_REFRESH_TOKEN) {
+    return getOAuthAccessToken();
+  }
+
+  return getServiceAccountAccessToken();
 }
 
 async function googleRequest(url, options = {}) {
@@ -176,6 +256,101 @@ async function googleRequest(url, options = {}) {
   }
 
   return data;
+}
+
+function openBrowser(url) {
+  const command = process.platform === "darwin" ? "open" : process.platform === "win32" ? "cmd" : "xdg-open";
+  const args = process.platform === "win32" ? ["/c", "start", "", url] : [url];
+
+  execFile(command, args, () => {});
+}
+
+function waitForOAuthCode() {
+  return new Promise((resolve, reject) => {
+    const server = createServer((request, response) => {
+      const url = new URL(request.url ?? "/", LOOPBACK_REDIRECT_URI);
+
+      if (url.pathname !== "/oauth2callback") {
+        response.writeHead(404);
+        response.end("Not found");
+        return;
+      }
+
+      const error = url.searchParams.get("error");
+      const code = url.searchParams.get("code");
+
+      if (error) {
+        response.writeHead(400, { "content-type": "text/plain; charset=utf-8" });
+        response.end(`Google OAuth failed: ${error}`);
+        server.close();
+        reject(new Error(`Google OAuth failed: ${error}`));
+        return;
+      }
+
+      if (!code) {
+        response.writeHead(400, { "content-type": "text/plain; charset=utf-8" });
+        response.end("Missing OAuth code.");
+        return;
+      }
+
+      response.writeHead(200, { "content-type": "text/plain; charset=utf-8" });
+      response.end("OAuth connected. You can close this tab and return to Codex.");
+      server.close();
+      resolve(code);
+    });
+
+    server.once("error", reject);
+    server.listen(LOOPBACK_PORT, LOOPBACK_HOST);
+  });
+}
+
+async function oauthLogin(flags) {
+  const client = requireOAuthClient();
+  const authUrl = new URL(AUTH_URL);
+
+  authUrl.searchParams.set("client_id", client.clientId);
+  authUrl.searchParams.set("redirect_uri", LOOPBACK_REDIRECT_URI);
+  authUrl.searchParams.set("response_type", "code");
+  authUrl.searchParams.set("scope", WEBMASTERS_SCOPE);
+  authUrl.searchParams.set("access_type", "offline");
+  authUrl.searchParams.set("prompt", "consent");
+
+  console.log("Opening Google OAuth login.");
+  console.log(String(authUrl));
+
+  const codePromise = waitForOAuthCode();
+
+  if (!flags.has("no-open")) {
+    openBrowser(String(authUrl));
+  }
+
+  const code = await codePromise;
+  const response = await fetch(TOKEN_URL, {
+    method: "POST",
+    headers: {
+      "content-type": "application/x-www-form-urlencoded",
+    },
+    body: new URLSearchParams({
+      client_id: client.clientId,
+      client_secret: client.clientSecret,
+      code,
+      grant_type: "authorization_code",
+      redirect_uri: LOOPBACK_REDIRECT_URI,
+    }),
+  });
+  const data = await response.json().catch(() => ({}));
+
+  if (!response.ok) {
+    throw new Error(`Google OAuth token exchange failed (${response.status}): ${JSON.stringify(data)}`);
+  }
+
+  if (!data.refresh_token) {
+    throw new Error("Google did not return a refresh token. Re-run with consent prompt or create a new OAuth client.");
+  }
+
+  console.log("");
+  console.log("OAuth connected. Add this to .env.local:");
+  console.log(`GOOGLE_OAUTH_REFRESH_TOKEN=${data.refresh_token}`);
 }
 
 function normalizeBaseUrl(url) {
@@ -393,8 +568,10 @@ function printUsage() {
   console.log(`Usage:
   npm run seo:submit-sitemap
   npm run seo:index-status
+  npm run seo:oauth-login
 
 Commands:
+  oauth-login                 Connect your own Google account and print a refresh token.
   submit-sitemap              Fetch and submit the production sitemap to Google Search Console.
   index-status                Inspect sitemap URLs through the URL Inspection API.
 
@@ -407,6 +584,7 @@ Useful flags:
   --fail-on-unindexed         Exit with code 2 if any inspected URL is not PASS.
   --site=https://letkasni.rs  Override public site URL.
   --property=https://letkasni.rs/ or --property=sc-domain:letkasni.rs
+  --no-open                   Print OAuth URL without opening the browser.
 `);
 }
 
@@ -423,6 +601,11 @@ async function main() {
 
   if (command === "submit-sitemap") {
     await submitSitemap(flags);
+    return;
+  }
+
+  if (command === "oauth-login") {
+    await oauthLogin(flags);
     return;
   }
 
