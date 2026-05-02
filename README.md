@@ -112,7 +112,7 @@ npm run start
 Blog indexing should be automated through sitemap submission and monitoring, not through the Google Indexing API. The Indexing API is not intended for normal blog articles.
 
 1. Create a Google Cloud service account.
-2. Add that service account email to the `https://letkasni.rs/` property in Google Search Console.
+2. Add that service account email to the `sc-domain:letkasni.rs` property in Google Search Console.
 3. Set either `GOOGLE_APPLICATION_CREDENTIALS` to the service account JSON file path, or set `GOOGLE_SERVICE_ACCOUNT_EMAIL` and `GOOGLE_PRIVATE_KEY`.
 4. If Search Console will not accept a service account email, create a Desktop OAuth client, set `GOOGLE_OAUTH_CLIENT_CREDENTIALS`, run `npm run seo:oauth-login`, and save the printed `GOOGLE_OAUTH_REFRESH_TOKEN` in `.env.local`.
 5. Run:
