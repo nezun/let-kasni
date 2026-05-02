@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "seo:submit-sitemap": "node scripts/google-search-console.mjs submit-sitemap",
+    "seo:index-status": "node scripts/google-search-console.mjs index-status --blog-only",
+    "seo:index-status:all": "node scripts/google-search-console.mjs index-status"
   },
   "dependencies": {
     "@supabase/ssr": "^0.10.2",

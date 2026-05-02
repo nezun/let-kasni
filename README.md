@@ -107,6 +107,26 @@ npm run start
   - ili `ANALYTICS_MODE=ga4` + `NEXT_PUBLIC_GA_MEASUREMENT_ID`
 - Kontakt email ide kroz `NEXT_PUBLIC_SUPPORT_EMAIL`
 
+## Google Search Console automation
+
+Blog indexing should be automated through sitemap submission and monitoring, not through the Google Indexing API. The Indexing API is not intended for normal blog articles.
+
+1. Create a Google Cloud service account.
+2. Add that service account email to the `https://letkasni.rs/` property in Google Search Console.
+3. Set either `GOOGLE_APPLICATION_CREDENTIALS` to the service account JSON file path, or set `GOOGLE_SERVICE_ACCOUNT_EMAIL` and `GOOGLE_PRIVATE_KEY`.
+4. Run:
+   - `npm run seo:submit-sitemap` to submit `https://letkasni.rs/sitemap.xml`
+   - `npm run seo:index-status` to inspect `/blog` and `/en/blog` URLs
+   - `npm run seo:index-status:all` to inspect every URL in the sitemap
+
+Useful one-off checks:
+
+```bash
+npm run seo:submit-sitemap -- --dry-run
+npm run seo:index-status -- --limit=10
+npm run seo:index-status -- --json
+```
+
 ## Auth policy
 
 - Preporučeno: `Supabase Auth` za produkciju
