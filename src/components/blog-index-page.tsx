@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { SiteHeader } from "@/components/site-header";
 import { getBlogArticleImage, getBlogArticles, type BlogLocale } from "@/lib/blog";
+import { cornerstonePages, getCornerstoneHref } from "@/lib/cornerstones";
 
 type BlogVariant = "a" | "b" | "c";
 
@@ -32,6 +33,9 @@ const copy = {
     featureTitle: "Najvažniji vodiči za putnike iz Srbije",
     featureBody:
       "Tri vodiča koja najčešće odlučuju da li slučaj vredi dalje proveravati: kašnjenje, otkazivanje i propuštena konekcija.",
+    cornerstoneTitle: "Glavni vodiči",
+    cornerstoneIntro:
+      "Cornerstone strane su direktno ispod domena i pokrivaju glavne teme. Blogovi ispod njih ulaze u detaljne scenarije.",
   },
   en: {
     blogHref: "/en/blog",
@@ -53,6 +57,9 @@ const copy = {
     featureTitle: "Key guides for Serbia-based passengers",
     featureBody:
       "Three guides that most often decide whether a case is worth checking further: delay, cancellation, and missed connection.",
+    cornerstoneTitle: "Main guides",
+    cornerstoneIntro:
+      "Cornerstone pages sit directly below the domain and cover the main topics. Blog articles below them go into detailed scenarios.",
   },
 };
 
@@ -64,16 +71,13 @@ function categoryList(locale: BlogLocale) {
   const t = copy[locale];
 
   return [
-    t.categoryMain,
-    t.categoryDelay,
-    t.categoryCancel,
-    t.categoryConnections,
-    t.categoryDocuments,
-    t.categoryProcedure,
-  ].map((label) => ({
-    label,
-    href: "#compensation-rights",
-  }));
+    { label: t.categoryMain, href: getCornerstoneHref(cornerstonePages[0], locale) },
+    { label: t.categoryDelay, href: getCornerstoneHref(cornerstonePages[1], locale) },
+    { label: t.categoryCancel, href: getCornerstoneHref(cornerstonePages[2], locale) },
+    { label: t.categoryConnections, href: getCornerstoneHref(cornerstonePages[3], locale) },
+    { label: t.categoryDocuments, href: "#compensation-rights" },
+    { label: t.categoryProcedure, href: "#compensation-rights" },
+  ];
 }
 
 function CategoryRail({
@@ -296,6 +300,11 @@ function BlogIndexVariantA({ locale }: { locale: BlogLocale }) {
   const t = copy[locale];
   const articles = getBlogArticles(locale);
   const hero = articles.find((article) => article.id === "flight-delay-compensation") ?? articles[0];
+  const guides = cornerstonePages.map((page) => ({
+    ...page,
+    localized: page[locale],
+    href: getCornerstoneHref(page, locale),
+  }));
 
   return (
     <main className="min-h-screen bg-white pt-16 text-[#0A0F1E]">
@@ -309,6 +318,37 @@ function BlogIndexVariantA({ locale }: { locale: BlogLocale }) {
 
           <div className="mt-8">
             <HeroStory article={hero} locale={locale} variant="a" />
+          </div>
+        </div>
+      </section>
+
+      <section className="px-6 pb-14">
+        <div className="mx-auto max-w-[1220px]">
+          <div className="mb-6 flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+            <div>
+              <h2 className="text-[30px] font-black tracking-[-0.035em] text-[#161D2A] md:text-[38px]">
+                {t.cornerstoneTitle}
+              </h2>
+              <p className="mt-2 max-w-[720px] text-[15px] leading-[1.7] text-[#66758B]">
+                {t.cornerstoneIntro}
+              </p>
+            </div>
+          </div>
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {guides.map((guide) => (
+              <Link
+                key={guide.id}
+                href={guide.href}
+                className="rounded-[12px] border border-[#DDE4EF] bg-[#F8FAFC] p-4 transition hover:-translate-y-0.5 hover:border-[#2470EB] hover:bg-white hover:shadow-[0_18px_46px_rgba(15,23,42,0.08)]"
+              >
+                <p className="text-[10px] font-black uppercase tracking-[0.12em] text-[#2470EB]">
+                  {guide.localized.eyebrow}
+                </p>
+                <h3 className="mt-2 text-[17px] font-black leading-[1.22] tracking-[-0.015em] text-[#0A0F1E]">
+                  {guide.localized.title}
+                </h3>
+              </Link>
+            ))}
           </div>
         </div>
       </section>

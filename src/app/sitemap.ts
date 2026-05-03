@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 
 import { blogArticles } from "@/lib/blog";
+import { cornerstonePages, getCornerstoneHref } from "@/lib/cornerstones";
 import { getSiteUrl } from "@/lib/site-url";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -15,6 +16,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${siteUrl}/en/blog/${article.en.slug}`,
       lastModified: article.updatedAt,
       priority: 0.7,
+    },
+  ]);
+  const cornerstoneUrls = cornerstonePages.flatMap((page) => [
+    {
+      url: `${siteUrl}${getCornerstoneHref(page, "sr")}`,
+      lastModified: page.updatedAt,
+      priority: 0.9,
+    },
+    {
+      url: `${siteUrl}${getCornerstoneHref(page, "en")}`,
+      lastModified: page.updatedAt,
+      priority: 0.9,
     },
   ]);
 
@@ -35,6 +48,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${siteUrl}/en/blog`,
       priority: 0.8,
     },
+    ...cornerstoneUrls,
     ...blogUrls,
     {
       url: `${siteUrl}/privacy`,

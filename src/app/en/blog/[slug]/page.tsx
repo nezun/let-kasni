@@ -9,6 +9,7 @@ import {
   getBlogArticleBySlug,
   getRelatedBlogArticles,
 } from "@/lib/blog";
+import { getCornerstoneForArticle, getCornerstoneHref } from "@/lib/cornerstones";
 
 type Props = {
   params: Promise<{
@@ -66,6 +67,7 @@ export default async function EnglishBlogArticlePage({ params }: Props) {
 
   const alternateHref = getAlternateArticleHref(article, "en");
   const relatedArticles = getRelatedBlogArticles(article, "en");
+  const mainGuide = getCornerstoneForArticle(article);
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
@@ -121,6 +123,23 @@ export default async function EnglishBlogArticlePage({ params }: Props) {
         <section className="px-6 py-12">
           <div className="mx-auto grid max-w-[1120px] gap-10 lg:grid-cols-[minmax(0,720px)_280px]">
             <div className="space-y-10">
+              <Link
+                href={getCornerstoneHref(mainGuide, "en")}
+                className="block rounded-xl border border-[#BFD7FF] bg-[#EEF5FF] p-5 transition hover:border-[#2470EB]"
+              >
+                <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-[#2470EB]">
+                  Main guide for this topic
+                </p>
+                <h2 className="mt-2 font-display text-[24px] font-bold leading-[1.18] text-[#0B2E6F]">
+                  {mainGuide.en.title}
+                </h2>
+                <p className="mt-3 text-sm leading-[1.7] text-[#41516B]">
+                  This article is a detailed subtopic. Start with the main guide
+                  if you want the full picture on eligibility, amounts, exceptions
+                  and next steps.
+                </p>
+              </Link>
+
               {article.en.sections.map((section) => (
                 <section key={section.heading}>
                   <h2 className="font-display text-[30px] font-bold leading-[1.18] text-[#0A0F1E]">
