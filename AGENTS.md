@@ -1,3 +1,24 @@
+## Project Instructions
+
+Priority: These project instructions are repository-level guidance and should be applied before lower-priority workflow preferences. They are intended to align with the user's global instructions.
+
+This project follows the user's Automation-First Paramount Principle.
+
+Always consider how each feature, script, workflow, content process, data pipeline, and admin task can become more automated, repeatable, measurable, and agent-friendly.
+
+For this repository, prioritize:
+- reusable scripts over manual steps;
+- automated data pipelines over copy-paste;
+- tests/checks over manual QA;
+- admin dashboards over database hand-editing;
+- clear README/runbook instructions for future Codex/agent runs.
+
+Before finishing, explain:
+1. what was automated or made more repeatable;
+2. what still requires manual work;
+3. what the next automation improvement should be;
+4. how to test or verify the change.
+
 <!-- BEGIN:nextjs-agent-rules -->
 # This is NOT the Next.js you know
 
