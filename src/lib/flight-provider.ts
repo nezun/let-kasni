@@ -591,8 +591,8 @@ function validateHistoricalDate(flightDate: string) {
     parsed.getUTCDate(),
   );
 
-  if (flightUtc >= todayUtc) {
-    return "Aviation Edge historical lookup je namenjen završenim letovima; ovaj let ide na ručnu proveru.";
+  if (flightUtc > todayUtc) {
+    return "Aviation Edge lookup ne proverava buduće letove; ovaj let ide na ručnu proveru.";
   }
 
   if (todayUtc - flightUtc > 365 * oneDayMs) {
