@@ -202,13 +202,11 @@ function CategoryPill({ children, onDark = false }: { children: React.ReactNode;
 }
 
 function MetaLine({
-  date,
   updatedAt,
   locale,
   byline,
   light = false,
 }: {
-  date: string;
   updatedAt: string;
   locale: BlogLocale;
   byline: string;
@@ -219,7 +217,6 @@ function MetaLine({
   return (
     <div className={`flex flex-wrap gap-x-5 gap-y-1 text-[11px] font-black uppercase ${light ? "text-white/76" : "text-[#76849A]"}`}>
       <span>{byline}</span>
-      <span>{formatBlogDate(date, locale)}</span>
       <span>
         {t.updatedLabel}: {formatBlogDate(updatedAt, locale)}
       </span>
@@ -266,7 +263,6 @@ function HeroStory({
         </h2>
         <div className="mt-6">
           <MetaLine
-            date={article.publishedAt}
             updatedAt={article.updatedAt}
             locale={locale}
             byline={t.byline}
@@ -300,7 +296,6 @@ function BlogCard({
         </div>
         <div className="flex flex-col justify-center p-7">
           <MetaLine
-            date={article.publishedAt}
             updatedAt={article.updatedAt}
             locale={locale}
             byline={t.byline}
@@ -328,7 +323,6 @@ function BlogCard({
       </div>
       <div className="pt-6">
         <MetaLine
-          date={article.publishedAt}
           updatedAt={article.updatedAt}
           locale={locale}
           byline={t.byline}

@@ -96,7 +96,6 @@ export function BlogArticlePageView({
                 {localized.category}
               </span>
               <span>{localized.readTime}</span>
-              <span>{formatArticleDate(article.publishedAt, locale)}</span>
               <span>
                 {t.updatedLabel}: {formatArticleDate(article.updatedAt, locale)}
               </span>
