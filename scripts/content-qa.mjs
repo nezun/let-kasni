@@ -106,6 +106,7 @@ const publicShellChecks = [
 ];
 
 const wordPattern = /[\p{L}\p{N}]+/gu;
+const cyrillicPattern = /[\u0400-\u04FF]/u;
 const failures = [];
 const issues = [];
 
@@ -196,6 +197,7 @@ function loadRuntimeContent() {
   return {
     blogArticles: require(path.join(root, "src/lib/blog.ts")).blogArticles,
     cornerstonePages: require(path.join(root, "src/lib/cornerstones.ts")).cornerstonePages,
+    formatDisplayDate: require(path.join(root, "src/lib/date-format.ts")).formatDisplayDate,
   };
 }
 
@@ -243,6 +245,24 @@ function checkForbiddenPublicCopy() {
             suggestedFix: suggestionForForbiddenPhrase(phrase),
           });
         }
+      }
+    }
+  }
+}
+
+function checkNoCyrillicPublicCopy() {
+  for (const file of publicCopyFiles) {
+    const source = read(file);
+    for (const literal of extractStringLiterals(source)) {
+      if (cyrillicPattern.test(literal.value)) {
+        addIssue({
+          type: "cyrillic_public_copy",
+          file,
+          line: literal.line,
+          message: "public copy contains Cyrillic characters; Serbian site copy must stay Latin-only",
+          suggestedFix:
+            "Rewrite the affected Serbian text in Latin script and avoid locale formatters that output Cyrillic.",
+        });
       }
     }
   }
@@ -396,6 +416,83 @@ function checkRuntimeContentDepth() {
   }
 }
 
+function runtimeArticleText(article, locale) {
+  const localized = article[locale];
+  return [
+    localized.title,
+    localized.description,
+    localized.excerpt,
+    localized.category,
+    localized.readTime,
+    ...localized.sections.flatMap((section) => [
+      section.heading,
+      ...section.body,
+      ...(section.bullets ?? []),
+    ]),
+  ].join(" ");
+}
+
+function runtimeCornerstoneText(page, locale) {
+  const localized = page[locale];
+  return [
+    localized.title,
+    localized.description,
+    localized.excerpt,
+    localized.eyebrow,
+    localized.ctaLabel,
+    localized.languageLabel,
+    ...localized.sections.flatMap((section) => [
+      section.heading,
+      ...section.body,
+      ...(section.bullets ?? []),
+    ]),
+    ...localized.faqs.flatMap((faq) => [faq.question, faq.answer]),
+  ].join(" ");
+}
+
+function checkRuntimeSerbianLatinScript() {
+  const { blogArticles, cornerstonePages, formatDisplayDate } = loadRuntimeContent();
+
+  for (const article of blogArticles) {
+    const text = [
+      runtimeArticleText(article, "sr"),
+      formatDisplayDate(article.publishedAt, "sr"),
+      formatDisplayDate(article.updatedAt, "sr"),
+    ].join(" ");
+
+    if (cyrillicPattern.test(text)) {
+      addIssue({
+        type: "runtime_serbian_cyrillic",
+        file: "src/lib/blog.ts",
+        article: article.id,
+        locale: "sr",
+        message: "Serbian blog article renders Cyrillic characters; blog content must stay Latin-only",
+        suggestedFix:
+          "Convert Serbian content and formatted date output to Latin script before publishing.",
+      });
+    }
+  }
+
+  for (const page of cornerstonePages) {
+    const text = [
+      runtimeCornerstoneText(page, "sr"),
+      formatDisplayDate(page.updatedAt, "sr"),
+    ].join(" ");
+
+    if (cyrillicPattern.test(text)) {
+      addIssue({
+        type: "runtime_serbian_cyrillic",
+        file: "src/lib/cornerstones.ts",
+        article: page.id,
+        locale: "sr",
+        message: "Serbian main guide renders Cyrillic characters; guide content must stay Latin-only",
+        suggestedFix:
+          "Convert Serbian content and formatted date output to Latin script before publishing.",
+      });
+    }
+  }
+}
+
 function checkDuplicateIdsAndSlugs() {
   const contentDir = path.join(root, "src/content/blog");
   const files = fs
@@ -476,11 +573,13 @@ function checkPublicShell() {
 }
 
 checkForbiddenPublicCopy();
+checkNoCyrillicPublicCopy();
 checkDailyArticleShape();
 checkDuplicateIdsAndSlugs();
 checkInterlinkingAntiPatterns();
 checkPublicShell();
 checkRuntimeContentDepth();
+checkRuntimeSerbianLatinScript();
 
 const report = {
   generatedAt: new Date().toISOString(),

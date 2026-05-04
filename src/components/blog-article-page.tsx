@@ -13,6 +13,7 @@ import {
   getCornerstoneForArticle,
   getCornerstoneHref,
 } from "@/lib/cornerstones";
+import { formatDisplayDate } from "@/lib/date-format";
 
 const copy = {
   sr: {
@@ -40,14 +41,6 @@ const copy = {
     mainGuidePrefix: "Main guide for this topic",
   },
 };
-
-function formatArticleDate(date: string, locale: BlogLocale) {
-  return new Date(date).toLocaleDateString(locale === "sr" ? "sr-RS" : "en-US", {
-    month: "long",
-    day: locale === "en" ? "numeric" : "2-digit",
-    year: "numeric",
-  });
-}
 
 export function BlogArticlePageView({
   article,
@@ -97,7 +90,7 @@ export function BlogArticlePageView({
               </span>
               <span>{localized.readTime}</span>
               <span>
-                {t.updatedLabel}: {formatArticleDate(article.updatedAt, locale)}
+                {t.updatedLabel}: {formatDisplayDate(article.updatedAt, locale)}
               </span>
             </div>
             <h1 className="font-display text-[36px] font-bold leading-[1.08] text-[#0A0F1E] md:text-[60px]">

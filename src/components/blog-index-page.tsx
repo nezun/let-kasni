@@ -9,6 +9,7 @@ import {
   getArticleCornerstoneHref,
   getCornerstoneHref,
 } from "@/lib/cornerstones";
+import { formatDisplayDate } from "@/lib/date-format";
 import { getSupportEmail } from "@/lib/env";
 
 type BlogVariant = "a" | "b" | "c";
@@ -70,14 +71,6 @@ const copy = {
       "Main guides cover the key topics, while related blog articles go deeper into specific scenarios and evidence.",
   },
 };
-
-function formatBlogDate(date: string, locale: BlogLocale) {
-  return new Date(date).toLocaleDateString(locale === "sr" ? "sr-RS" : "en-US", {
-    day: locale === "sr" ? "2-digit" : "numeric",
-    month: "long",
-    year: "numeric",
-  });
-}
 
 function categoryList(locale: BlogLocale) {
   const t = copy[locale];
@@ -218,7 +211,7 @@ function MetaLine({
     <div className={`flex flex-wrap gap-x-5 gap-y-1 text-[11px] font-black uppercase ${light ? "text-white/76" : "text-[#76849A]"}`}>
       <span>{byline}</span>
       <span>
-        {t.updatedLabel}: {formatBlogDate(updatedAt, locale)}
+        {t.updatedLabel}: {formatDisplayDate(updatedAt, locale)}
       </span>
     </div>
   );
