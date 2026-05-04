@@ -10,6 +10,7 @@ import type { ClaimInput, FlightProviderSnapshot } from "@/lib/types";
 
 const defaultTimeoutMs = getFlightLookupTimeoutMs();
 const aviationEdgeBaseUrl = "https://aviation-edge.com/v2/public/flightsHistory";
+const aviationEdgeTimetableBaseUrl = "https://aviation-edge.com/v2/public/timetable";
 const oneDayMs = 24 * 60 * 60 * 1000;
 const providerCache = new Map<string, FlightProviderSnapshot>();
 
@@ -401,14 +402,24 @@ async function fetchAviationEdgeRows(
   signal: AbortSignal,
   request: { code: string; type: "departure" | "arrival" },
 ) {
-  const url = new URL(aviationEdgeBaseUrl);
+  const isToday = isCurrentUtcDate(input.flightDate);
+  const url = new URL(isToday ? aviationEdgeTimetableBaseUrl : aviationEdgeBaseUrl);
   url.searchParams.set("key", apiKey);
-  url.searchParams.set("code", request.code);
   url.searchParams.set("type", request.type);
-  url.searchParams.set("date_from", input.flightDate);
-  url.searchParams.set("date_to", input.flightDate);
 
-  if (input.flightDigits) {
+  if (isToday) {
+    url.searchParams.set("iataCode", request.code);
+
+    if (input.flightNumber) {
+      url.searchParams.set("flight_iata", input.flightNumber);
+    }
+  } else {
+    url.searchParams.set("code", request.code);
+    url.searchParams.set("date_from", input.flightDate);
+    url.searchParams.set("date_to", input.flightDate);
+  }
+
+  if (!isToday && input.flightDigits) {
     url.searchParams.set("flight_number", input.flightDigits);
   }
 
@@ -423,12 +434,19 @@ async function fetchAviationEdgeRows(
     throw new Error(`Aviation Edge vratio HTTP ${response.status}.`);
   }
 
-  if (isAviationEdgeError(payload)) {
-    throw new Error("Aviation Edge je vratio error payload.");
+  const apiError = getAviationEdgeErrorMessage(payload);
+
+  if (apiError) {
+    throw new Error(`Aviation Edge je vratio grešku: ${apiError}`);
   }
 
   return Array.isArray(payload)
-    ? payload.filter((item): item is Record<string, unknown> => Boolean(asObject(item)))
+    ? payload
+        .filter((item): item is Record<string, unknown> => Boolean(asObject(item)))
+        .map((item) => ({
+          ...item,
+          __sourceEndpoint: isToday ? "timetable" : "flightsHistory",
+        }))
     : [];
 }
 
@@ -536,6 +554,7 @@ function mapAviationEdgeMatch(
     rawSummary: {
       status: asString(item.status),
       type: asString(item.type),
+      sourceEndpoint: asString(item.__sourceEndpoint),
       score,
       hasCodeshare: Boolean(asObject(item.codeshared)),
     },
@@ -602,6 +621,22 @@ function validateHistoricalDate(flightDate: string) {
   return null;
 }
 
+function isCurrentUtcDate(flightDate: string) {
+  const parsed = new Date(`${flightDate}T00:00:00.000Z`);
+
+  if (Number.isNaN(parsed.getTime())) {
+    return false;
+  }
+
+  const today = new Date();
+
+  return (
+    parsed.getUTCFullYear() === today.getUTCFullYear() &&
+    parsed.getUTCMonth() === today.getUTCMonth() &&
+    parsed.getUTCDate() === today.getUTCDate()
+  );
+}
+
 function reserveAviationEdgeCalls(callCount: number) {
   const currentWindow = currentUtcDateKey();
 
@@ -638,9 +673,26 @@ function currentUtcDateKey() {
   return new Date().toISOString().slice(0, 10);
 }
 
-function isAviationEdgeError(payload: unknown) {
+function getAviationEdgeErrorMessage(payload: unknown) {
   const object = asObject(payload);
-  return Boolean(object && typeof object.error === "string");
+
+  if (!object) {
+    return null;
+  }
+
+  if (typeof object.error === "string") {
+    return object.error;
+  }
+
+  if (object.success === false && typeof object.message === "string") {
+    return object.message;
+  }
+
+  if (object.success === false) {
+    return "Provider nije vratio uspešan odgovor.";
+  }
+
+  return null;
 }
 
 function asObject(value: unknown) {
