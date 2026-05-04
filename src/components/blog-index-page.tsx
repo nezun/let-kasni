@@ -35,6 +35,7 @@ const copy = {
     sectionTitle: "Odšteta i prava putnika",
     viewAll: "Pogledaj sve",
     byline: "Autor: letkasni",
+    updatedLabel: "Ažurirano",
     readGuide: "Pročitaj vodič",
     featureTitle: "Najvažniji vodiči za putnike iz Srbije",
     featureBody:
@@ -59,6 +60,7 @@ const copy = {
     sectionTitle: "Compensation & Passenger Rights",
     viewAll: "View all",
     byline: "By letkasni",
+    updatedLabel: "Updated",
     readGuide: "Read guide",
     featureTitle: "Key guides for Serbia-based passengers",
     featureBody:
@@ -68,6 +70,14 @@ const copy = {
       "Main guides cover the key topics, while related blog articles go deeper into specific scenarios and evidence.",
   },
 };
+
+function formatBlogDate(date: string, locale: BlogLocale) {
+  return new Date(date).toLocaleDateString(locale === "sr" ? "sr-RS" : "en-US", {
+    day: locale === "sr" ? "2-digit" : "numeric",
+    month: "long",
+    year: "numeric",
+  });
+}
 
 function categoryList(locale: BlogLocale) {
   const t = copy[locale];
@@ -191,11 +201,28 @@ function CategoryPill({ children, onDark = false }: { children: React.ReactNode;
   );
 }
 
-function MetaLine({ date, byline, light = false }: { date: string; byline: string; light?: boolean }) {
+function MetaLine({
+  date,
+  updatedAt,
+  locale,
+  byline,
+  light = false,
+}: {
+  date: string;
+  updatedAt: string;
+  locale: BlogLocale;
+  byline: string;
+  light?: boolean;
+}) {
+  const t = copy[locale];
+
   return (
     <div className={`flex flex-wrap gap-x-5 gap-y-1 text-[11px] font-black uppercase ${light ? "text-white/76" : "text-[#76849A]"}`}>
       <span>{byline}</span>
-      <span>{new Date(date).toLocaleDateString("sr-RS", { day: "2-digit", month: "long", year: "numeric" })}</span>
+      <span>{formatBlogDate(date, locale)}</span>
+      <span>
+        {t.updatedLabel}: {formatBlogDate(updatedAt, locale)}
+      </span>
     </div>
   );
 }
@@ -238,7 +265,13 @@ function HeroStory({
           {article.localized.title}
         </h2>
         <div className="mt-6">
-          <MetaLine date={article.publishedAt} byline={t.byline} light />
+          <MetaLine
+            date={article.publishedAt}
+            updatedAt={article.updatedAt}
+            locale={locale}
+            byline={t.byline}
+            light
+          />
         </div>
       </div>
     </Link>
@@ -266,7 +299,12 @@ function BlogCard({
           </div>
         </div>
         <div className="flex flex-col justify-center p-7">
-          <MetaLine date={article.publishedAt} byline={t.byline} />
+          <MetaLine
+            date={article.publishedAt}
+            updatedAt={article.updatedAt}
+            locale={locale}
+            byline={t.byline}
+          />
           <h3 className="mt-4 text-[27px] font-black leading-[1.12] tracking-[-0.03em] text-[#0A0F1E]">
             {article.localized.title}
           </h3>
@@ -289,7 +327,12 @@ function BlogCard({
         </div>
       </div>
       <div className="pt-6">
-        <MetaLine date={article.publishedAt} byline={t.byline} />
+        <MetaLine
+          date={article.publishedAt}
+          updatedAt={article.updatedAt}
+          locale={locale}
+          byline={t.byline}
+        />
         <h3 className={`mt-4 font-black leading-[1.16] tracking-[-0.03em] text-[#161D2A] ${size === "large" ? "text-[28px]" : "text-[22px]"}`}>
           {article.localized.title}
         </h3>

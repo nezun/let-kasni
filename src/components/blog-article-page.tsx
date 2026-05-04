@@ -22,7 +22,7 @@ const copy = {
     checkHref: "/#proveri-let",
     note:
       "Vodič je informativan. Ishod zavisi od rute, prevoznika, razloga poremećaja i dokaza u konkretnom slučaju.",
-    dateLocale: "sr-RS",
+    updatedLabel: "Ažurirano",
   },
   en: {
     nextStep: "Next step",
@@ -33,9 +33,17 @@ const copy = {
     checkHref: "/en#proveri-let",
     note:
       "This guide is informational. Outcome depends on route, carrier, disruption cause, and evidence in the specific case.",
-    dateLocale: "en",
+    updatedLabel: "Updated",
   },
 };
+
+function formatArticleDate(date: string, locale: BlogLocale) {
+  return new Date(date).toLocaleDateString(locale === "sr" ? "sr-RS" : "en-US", {
+    month: "long",
+    day: locale === "en" ? "numeric" : "2-digit",
+    year: "numeric",
+  });
+}
 
 export function BlogArticlePageView({
   article,
@@ -83,12 +91,9 @@ export function BlogArticlePageView({
                 {localized.category}
               </span>
               <span>{localized.readTime}</span>
+              <span>{formatArticleDate(article.publishedAt, locale)}</span>
               <span>
-                {new Date(article.publishedAt).toLocaleDateString(t.dateLocale, {
-                  month: locale === "en" ? "short" : undefined,
-                  day: locale === "en" ? "numeric" : undefined,
-                  year: locale === "en" ? "numeric" : undefined,
-                })}
+                {t.updatedLabel}: {formatArticleDate(article.updatedAt, locale)}
               </span>
             </div>
             <h1 className="font-display text-[36px] font-bold leading-[1.08] text-[#0A0F1E] md:text-[60px]">
