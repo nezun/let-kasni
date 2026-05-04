@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 
-import { BlogArticlePageView } from "@/components/blog-article-page";
 import { blogArticles, getBlogArticleBySlug } from "@/lib/blog";
 import {
   getAlternateArticleCornerstoneHref,
@@ -62,5 +61,5 @@ export default async function EnglishBlogArticlePage({ params }: Props) {
     notFound();
   }
 
-  return <BlogArticlePageView article={article} locale="en" />;
+  permanentRedirect(getArticleCornerstoneHref(article, "en"));
 }
