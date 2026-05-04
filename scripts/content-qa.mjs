@@ -1,7 +1,11 @@
 import fs from "node:fs";
+import Module from "node:module";
+import { createRequire } from "node:module";
 import path from "node:path";
+import ts from "typescript";
 
 const root = process.cwd();
+const require = createRequire(import.meta.url);
 const args = process.argv.slice(2);
 const reportFlagIndex = args.findIndex((arg) => arg === "--report");
 const reportPath =
@@ -51,9 +55,9 @@ const interlinkingAntiPatterns = [
     patterns: [
       {
         pattern:
-          /DelayCompensationCalculator|<table|delayAmountRows|section\.links|childArticles\.map|supportArticles\.map|childTitle|supportTitle|getCornerstoneChildren|getCornerstoneSupportArticles/,
+          /section\.links|supportArticles\.map|supportTitle|getCornerstoneSupportArticles/,
         message:
-          "cornerstone pages must not render calculator/table blocks or child/support link card lists inside article content",
+          "cornerstone pages must use body copy plus the approved detailed-guides module, not ad hoc support link dumps",
       },
     ],
   },
@@ -146,6 +150,53 @@ function suggestionForForbiddenPhrase(phrase) {
 
 function wordCount(text) {
   return (text.match(wordPattern) ?? []).length;
+}
+
+function installTsRuntime() {
+  const originalResolve = Module._resolveFilename;
+
+  if (!Module._extensions[".ts"]?.__letkasniContentQa) {
+    Module._extensions[".ts"] = (module, filename) => {
+      const source = fs.readFileSync(filename, "utf8");
+      const output = ts.transpileModule(source, {
+        compilerOptions: {
+          module: ts.ModuleKind.CommonJS,
+          jsx: ts.JsxEmit.React,
+          esModuleInterop: true,
+        },
+      }).outputText;
+
+      module._compile(output, filename);
+    };
+    Module._extensions[".ts"].__letkasniContentQa = true;
+  }
+
+  Module._resolveFilename = function resolveAlias(request, parent, isMain, options) {
+    if (request.startsWith("@/")) {
+      let resolved = path.join(root, "src", request.slice(2));
+
+      if (fs.existsSync(`${resolved}.ts`)) {
+        resolved = `${resolved}.ts`;
+      } else if (fs.existsSync(`${resolved}.tsx`)) {
+        resolved = `${resolved}.tsx`;
+      } else if (fs.existsSync(path.join(resolved, "index.ts"))) {
+        resolved = path.join(resolved, "index.ts");
+      }
+
+      return resolved;
+    }
+
+    return originalResolve.call(this, request, parent, isMain, options);
+  };
+}
+
+function loadRuntimeContent() {
+  installTsRuntime();
+
+  return {
+    blogArticles: require(path.join(root, "src/lib/blog.ts")).blogArticles,
+    cornerstonePages: require(path.join(root, "src/lib/cornerstones.ts")).cornerstonePages,
+  };
 }
 
 function extractStringLiterals(source) {
@@ -246,38 +297,8 @@ function checkDailyArticleShape() {
       const id = block.match(/id: "([^"]+)"/)?.[1] ?? "unknown";
       const sr = getLocalizedBlock(block, "sr");
       const en = getLocalizedBlock(block, "en");
-      const srWords = wordCount(sr);
-      const enWords = wordCount(en);
       const srSections = (sr.match(/heading:/g) ?? []).length;
       const enSections = (en.match(/heading:/g) ?? []).length;
-
-      if (srWords < 700 || srWords > 1500) {
-        addIssue({
-          type: "word_count",
-          file,
-          article: id,
-          locale: "sr",
-          min: 700,
-          max: 1500,
-          actual: srWords,
-          message: `Serbian word count ${srWords} is outside 700-1500`,
-          suggestedFix: "Expand or tighten the Serbian localized article while preserving the same structure.",
-        });
-      }
-
-      if (enWords < 700 || enWords > 1500) {
-        addIssue({
-          type: "word_count",
-          file,
-          article: id,
-          locale: "en",
-          min: 700,
-          max: 1500,
-          actual: enWords,
-          message: `English word count ${enWords} is outside 700-1500`,
-          suggestedFix: "Expand or tighten the English localized article while preserving the same structure.",
-        });
-      }
 
       if (srSections !== enSections) {
         addIssue({
@@ -288,6 +309,87 @@ function checkDailyArticleShape() {
           actual: enSections,
           message: `SR/EN section count mismatch ${srSections}/${enSections}`,
           suggestedFix: "Align Serbian and English section counts before publishing.",
+        });
+      }
+    }
+  }
+}
+
+function localizedArticleWords(article, locale) {
+  const localized = article[locale];
+  return wordCount(
+    [
+      localized.title,
+      localized.description,
+      localized.excerpt,
+      ...localized.sections.flatMap((section) => [
+        section.heading,
+        ...section.body,
+        ...(section.bullets ?? []),
+      ]),
+    ].join(" "),
+  );
+}
+
+function localizedCornerstoneWords(page, locale) {
+  const localized = page[locale];
+  return wordCount(
+    [
+      localized.title,
+      localized.description,
+      localized.excerpt,
+      ...localized.sections.flatMap((section) => [
+        section.heading,
+        ...section.body,
+        ...(section.bullets ?? []),
+      ]),
+      ...localized.faqs.flatMap((faq) => [faq.question, faq.answer]),
+    ].join(" "),
+  );
+}
+
+function checkRuntimeContentDepth() {
+  const { blogArticles, cornerstonePages } = loadRuntimeContent();
+
+  for (const article of blogArticles) {
+    for (const locale of ["sr", "en"]) {
+      const words = localizedArticleWords(article, locale);
+
+      if (words < 1000 || words > 1800) {
+        addIssue({
+          type: "runtime_article_word_count",
+          file: "src/lib/blog.ts",
+          article: article.id,
+          locale,
+          min: 1000,
+          max: 1800,
+          actual: words,
+          message: `${locale.toUpperCase()} article word count ${words} is outside 1000-1800 after runtime enhancements`,
+          suggestedFix:
+            "Adjust source or runtime enhancement sections so detailed articles stay within the target range.",
+        });
+      }
+    }
+  }
+
+  for (const page of cornerstonePages) {
+    for (const locale of ["sr", "en"]) {
+      const words = localizedCornerstoneWords(page, locale);
+      const min = page.id === "flight-delay-compensation" ? 3500 : 2500;
+      const max = page.id === "flight-delay-compensation" ? 4500 : 3800;
+
+      if (words < min || words > max) {
+        addIssue({
+          type: "runtime_cornerstone_word_count",
+          file: "src/lib/cornerstones.ts",
+          article: page.id,
+          locale,
+          min,
+          max,
+          actual: words,
+          message: `${locale.toUpperCase()} main guide word count ${words} is outside ${min}-${max}`,
+          suggestedFix:
+            "Expand the main guide to medium depth or tighten it so it stays inside the approved SEO content depth.",
         });
       }
     }
@@ -378,6 +480,7 @@ checkDailyArticleShape();
 checkDuplicateIdsAndSlugs();
 checkInterlinkingAntiPatterns();
 checkPublicShell();
+checkRuntimeContentDepth();
 
 const report = {
   generatedAt: new Date().toISOString(),

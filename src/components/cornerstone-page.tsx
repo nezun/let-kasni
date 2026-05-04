@@ -1,14 +1,17 @@
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 
+import { DelayCompensationCalculator } from "@/components/delay-compensation-calculator";
 import { InlineRichText } from "@/components/inline-rich-text";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { getSupportEmail } from "@/lib/env";
-import { type BlogLocale } from "@/lib/blog";
+import { getBlogArticleImage, type BlogLocale } from "@/lib/blog";
 import {
   cornerstonePages,
+  getArticleCornerstoneHref,
   getAlternateCornerstoneHref,
+  getCornerstoneChildren,
   getCornerstoneHref,
   type CornerstonePage,
 } from "@/lib/cornerstones";
@@ -16,20 +19,49 @@ import {
 const copy = {
   sr: {
     allGuides: "Glavni vodiči",
+    childTitle: "Detaljni vodiči",
+    childIntro:
+      "Otvorite konkretan scenario kada znate razlog kašnjenja, vrstu poremećaja ili dokaz koji treba da prikupite.",
     faqTitle: "Česta pitanja",
     nextStep: "Sledeći korak",
     checkText:
       "Unesite let i datum da se slučaj prvo konzervativno proveri prema ruti, razlogu i dostupnim dokazima.",
     blogLabel: "Blog",
+    readMore: "Pročitaj detaljno",
+    amountTitle: "Iznosi po dužini rute",
+    amountIntro:
+      "Tabela je orijentaciona. Konačna procena zavisi od pokrivenosti rute, stvarnog dolaska, razloga i dokaza.",
   },
   en: {
     allGuides: "Main guides",
+    childTitle: "Detailed guides",
+    childIntro:
+      "Open the concrete scenario once you know the disruption reason, claim type, or evidence you need to collect.",
     faqTitle: "FAQ",
     nextStep: "Next step",
     checkText:
       "Enter the flight and date so the case can first be checked conservatively by route, reason and available evidence.",
     blogLabel: "Blog",
+    readMore: "Read more",
+    amountTitle: "Amounts by route distance",
+    amountIntro:
+      "This table is an orientation. Final assessment depends on route coverage, actual arrival, reason and evidence.",
   },
+};
+
+const delayAmountRows = {
+  sr: [
+    ["do 1.500 km", "3+ sata na dolasku", "250 EUR"],
+    ["1.500-3.500 km", "3+ sata na dolasku", "400 EUR"],
+    ["preko 3.500 km", "3-4 sata na dolasku", "300-600 EUR"],
+    ["preko 3.500 km", "4+ sata na dolasku", "600 EUR"],
+  ],
+  en: [
+    ["up to 1,500 km", "3+ hours at arrival", "250 EUR"],
+    ["1,500-3,500 km", "3+ hours at arrival", "400 EUR"],
+    ["over 3,500 km", "3-4 hours at arrival", "300-600 EUR"],
+    ["over 3,500 km", "4+ hours at arrival", "600 EUR"],
+  ],
 };
 
 export function CornerstonePageView({
@@ -42,6 +74,7 @@ export function CornerstonePageView({
   const t = copy[locale];
   const localized = page[locale];
   const alternateHref = getAlternateCornerstoneHref(page, locale);
+  const childArticles = getCornerstoneChildren(page, locale);
   const checkHref = locale === "sr" ? "/#proveri-let" : "/en#proveri-let";
   const supportEmail = getSupportEmail();
 
@@ -138,6 +171,83 @@ export function CornerstonePageView({
                   ) : null}
                 </section>
               ))}
+
+              {page.id === "flight-delay-compensation" ? (
+                <section className="grid gap-5 rounded-[16px] border border-[#DDE4EF] bg-white p-5 shadow-[0_18px_50px_rgba(15,23,42,0.07)] md:grid-cols-[minmax(0,1fr)_320px]">
+                  <div>
+                    <h2 className="font-display text-[30px] font-black leading-[1.15] tracking-[-0.025em] text-[#0A0F1E] md:text-[36px]">
+                      {t.amountTitle}
+                    </h2>
+                    <p className="mt-3 text-[16px] leading-[1.72] text-[#66758B]">
+                      {t.amountIntro}
+                    </p>
+                    <div className="mt-6 overflow-hidden rounded-xl border border-[#DDE4EF]">
+                      <table className="w-full border-collapse text-left text-sm">
+                        <tbody>
+                          {delayAmountRows[locale].map((row) => (
+                            <tr key={row.join("-")} className="border-b border-[#E8EDF5] last:border-b-0">
+                              <th className="bg-[#F8FAFC] px-4 py-3 font-black text-[#0A0F1E]">
+                                {row[0]}
+                              </th>
+                              <td className="px-4 py-3 font-bold text-[#526173]">{row[1]}</td>
+                              <td className="px-4 py-3 font-black text-[#2470EB]">{row[2]}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <DelayCompensationCalculator locale={locale} />
+                </section>
+              ) : null}
+
+              {childArticles.length > 0 ? (
+                <section className="border-t border-[#E2E6EF] pt-10">
+                  <h2 className="font-display text-[32px] font-black leading-[1.15] tracking-[-0.025em]">
+                    {t.childTitle}
+                  </h2>
+                  <p className="mt-3 max-w-[720px] text-[16px] leading-[1.72] text-[#66758B]">
+                    {t.childIntro}
+                  </p>
+                  <div className="mt-7 grid gap-5 md:grid-cols-2">
+                    {childArticles.map((article) => {
+                      const image = getBlogArticleImage(article.id);
+
+                      return (
+                        <Link
+                          key={article.id}
+                          href={getArticleCornerstoneHref(article, locale)}
+                          className="group overflow-hidden rounded-[14px] border border-[#E2E6EF] bg-white shadow-[0_16px_42px_rgba(15,23,42,0.06)] transition hover:-translate-y-0.5 hover:shadow-[0_24px_58px_rgba(15,23,42,0.12)]"
+                        >
+                          <div className="aspect-[16/8.8] overflow-hidden bg-[#E7EEF8]">
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img
+                              src={image.src}
+                              alt={image.alt}
+                              className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.04]"
+                              style={{ objectPosition: image.position ?? "center" }}
+                            />
+                          </div>
+                          <div className="p-5">
+                            <p className="text-[11px] font-black uppercase tracking-[0.1em] text-[#2470EB]">
+                              {article.localized.category}
+                            </p>
+                            <h3 className="mt-2 text-[18px] font-black leading-[1.25] tracking-[-0.015em] text-[#0A0F1E]">
+                              {article.localized.title}
+                            </h3>
+                            <p className="mt-3 text-sm leading-[1.65] text-[#66758B]">
+                              {article.localized.excerpt}
+                            </p>
+                            <span className="mt-4 inline-flex text-sm font-black text-[#2470EB]">
+                              {t.readMore}
+                            </span>
+                          </div>
+                        </Link>
+                      );
+                    })}
+                  </div>
+                </section>
+              ) : null}
 
               <section className="border-t border-[#E2E6EF] pt-10">
                 <h2 className="font-display text-[32px] font-black leading-[1.15] tracking-[-0.025em]">

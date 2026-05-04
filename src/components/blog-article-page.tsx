@@ -10,6 +10,8 @@ import {
 } from "@/lib/blog";
 import {
   getAlternateArticleCornerstoneHref,
+  getCornerstoneForArticle,
+  getCornerstoneHref,
 } from "@/lib/cornerstones";
 
 const copy = {
@@ -23,6 +25,7 @@ const copy = {
     note:
       "Vodič je informativan. Ishod zavisi od rute, prevoznika, razloga poremećaja i dokaza u konkretnom slučaju.",
     updatedLabel: "Ažurirano",
+    mainGuidePrefix: "Širi vodič za ovu temu",
   },
   en: {
     nextStep: "Next step",
@@ -34,6 +37,7 @@ const copy = {
     note:
       "This guide is informational. Outcome depends on route, carrier, disruption cause, and evidence in the specific case.",
     updatedLabel: "Updated",
+    mainGuidePrefix: "Main guide for this topic",
   },
 };
 
@@ -54,6 +58,7 @@ export function BlogArticlePageView({
 }) {
   const t = copy[locale];
   const localized = article[locale];
+  const mainGuide = getCornerstoneForArticle(article);
   const alternateHref = getAlternateArticleCornerstoneHref(article, locale);
   const supportEmail = getSupportEmail();
   const jsonLd = {
@@ -101,6 +106,15 @@ export function BlogArticlePageView({
             </h1>
             <p className="mt-6 text-[19px] leading-[1.72] text-[#4F5B75]">
               {localized.excerpt}
+            </p>
+            <p className="mt-5 text-[15px] font-bold leading-[1.65] text-[#66758B]">
+              {t.mainGuidePrefix}:{" "}
+              <Link
+                href={getCornerstoneHref(mainGuide, locale)}
+                className="text-[#2470EB] transition hover:text-[#1A52C8] hover:underline"
+              >
+                {mainGuide[locale].title}
+              </Link>
             </p>
           </div>
         </section>

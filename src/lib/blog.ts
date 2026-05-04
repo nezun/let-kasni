@@ -1,4 +1,5 @@
-import { articleImages, blogArticles } from "@/content/blog";
+import { articleImages, blogArticles as rawBlogArticles } from "@/content/blog";
+import { enhanceBlogArticle } from "@/lib/blog-content-enhancements";
 
 export type BlogLocale = "sr" | "en";
 
@@ -32,7 +33,8 @@ export type BlogArticleImage = {
   position?: string;
 };
 
-export { articleImages, blogArticles };
+export const blogArticles = rawBlogArticles.map(enhanceBlogArticle);
+export { articleImages };
 
 export function getBlogArticles(locale: BlogLocale) {
   return blogArticles.map((article) => ({
