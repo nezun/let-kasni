@@ -133,6 +133,30 @@ export async function POST(request: Request) {
     skipProvider: submission.skipProvider,
     providerSkipReason: submission.providerSkipReason,
   });
+  const providerSnapshot = claim.providerSnapshot;
+
+  console.info(
+    "Flight provider lookup completed.",
+    JSON.stringify({
+      claimId: claim.id,
+      reused,
+      flightNumber: claim.flightNumber,
+      flightDate: claim.flightDate,
+      route: claim.route,
+      provider: providerSnapshot.provider,
+      providerStatus: providerSnapshot.status,
+      providerMessage: providerSnapshot.message,
+      matchConfidence: providerSnapshot.matchConfidence,
+      sourceEndpoint: providerSnapshot.rawSummary?.sourceEndpoint,
+      flightStatus: providerSnapshot.rawSummary?.status,
+      departureDelayMinutes: providerSnapshot.departure?.delayMinutes,
+      arrivalDelayMinutes: providerSnapshot.arrival?.delayMinutes,
+      scheduledArrival: providerSnapshot.arrival?.scheduledTime,
+      actualArrival: providerSnapshot.arrival?.actualTime,
+      estimatedArrival: providerSnapshot.arrival?.estimatedTime,
+      verdict: claim.verdict,
+    }),
+  );
 
   if (!reused) {
     sendAdminClaimNotification(claim).catch((error) => {
