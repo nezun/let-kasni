@@ -1,6 +1,7 @@
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
+import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { getBlogArticleImage, getBlogArticles, type BlogLocale } from "@/lib/blog";
 import {
@@ -8,6 +9,7 @@ import {
   getArticleCornerstoneHref,
   getCornerstoneHref,
 } from "@/lib/cornerstones";
+import { getSupportEmail } from "@/lib/env";
 
 type BlogVariant = "a" | "b" | "c";
 
@@ -298,6 +300,7 @@ function BlogCard({
 
 function BlogIndexVariantA({ locale }: { locale: BlogLocale }) {
   const t = copy[locale];
+  const supportEmail = getSupportEmail();
   const articles = getBlogArticles(locale);
   const hero = articles.find((article) => article.id === "flight-delay-compensation") ?? articles[0];
   const guides = cornerstonePages.map((page) => ({
@@ -370,12 +373,14 @@ function BlogIndexVariantA({ locale }: { locale: BlogLocale }) {
           </div>
         </div>
       </section>
+      <SiteFooter locale={locale} supportEmail={supportEmail} />
     </main>
   );
 }
 
 function BlogIndexVariantB({ locale }: { locale: BlogLocale }) {
   const t = copy[locale];
+  const supportEmail = getSupportEmail();
   const articles = getBlogArticles(locale);
   const hero = articles[1] ?? articles[0];
   const topThree = [articles[1], articles[0], articles[2]].filter(Boolean);
@@ -412,12 +417,14 @@ function BlogIndexVariantB({ locale }: { locale: BlogLocale }) {
           </div>
         </div>
       </section>
+      <SiteFooter locale={locale} supportEmail={supportEmail} />
     </main>
   );
 }
 
 function BlogIndexVariantC({ locale }: { locale: BlogLocale }) {
   const t = copy[locale];
+  const supportEmail = getSupportEmail();
   const articles = getBlogArticles(locale);
   const hero = articles[2] ?? articles[0];
   const topThree = articles.slice(0, 3);
@@ -470,6 +477,7 @@ function BlogIndexVariantC({ locale }: { locale: BlogLocale }) {
           </div>
         </div>
       </section>
+      <SiteFooter locale={locale} supportEmail={supportEmail} />
     </main>
   );
 }

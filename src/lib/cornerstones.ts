@@ -14,10 +14,6 @@ type CornerstoneSection = {
   heading: string;
   body: string[];
   bullets?: string[];
-  links?: Array<{
-    label: string;
-    href: string;
-  }>;
 };
 
 type CornerstoneFaq = {
@@ -259,8 +255,8 @@ export const cornerstonePages: CornerstonePage[] = [
           heading: "Kada kašnjenje leta daje pravo na naknadu",
           body: [
             "Osnovno pravilo je jednostavno: ne gleda se samo koliko je let kasnio pri poletanju, već koliko ste kasno stigli na krajnju destinaciju. Ako je dolazak tri sata ili više kasnije od plana, slučaj vredi proveriti. Ako je polazak kasnio tri sata, ali je avion nadoknadio vreme i stigao ranije, zahtev može biti slabiji.",
-            "Drugi uslov je ruta. Letovi iz EU, letovi ka EU evropskim prevoznikom i putovanja pod jednom rezervacijom preko evropskih čvorišta često su najvažniji za putnike iz Srbije. Državljanstvo putnika obično nije presudno.",
-            "Treći uslov je razlog kašnjenja. Tehnički kvar, kasna rotacija aviona, operativni problemi ili nedostatak posade često mogu biti u sferi aviokompanije. Loše vreme, zatvaranje aerodroma, kontrola letenja ili bezbednosni događaji mogu biti jači argument protiv fiksne naknade, ali i tada treba proveriti šta je kompanija uradila da smanji posledice."
+            "Drugi uslov je ruta. Letovi iz EU, letovi ka EU evropskim prevoznikom i [putovanja pod jednom rezervacijom preko evropskih čvorišta](/naknada-za-propustenu-konekciju/let-iz-srbije-preko-eu-prava-putnika) često su najvažniji za putnike iz Srbije. Državljanstvo putnika obično nije presudno.",
+            "Treći uslov je razlog kašnjenja. [Tehnički kvar](/naknada-za-kasnjenje-leta/tehnicki-kvar-aviona-odsteta), kasna rotacija aviona, operativni problemi ili nedostatak posade često mogu biti u sferi aviokompanije. [Loše vreme](/naknada-za-kasnjenje-leta/kasnjenje-leta-zbog-loseg-vremena), zatvaranje aerodroma, kontrola letenja ili bezbednosni događaji mogu biti jači argument protiv fiksne naknade, ali i tada treba proveriti šta je kompanija uradila da smanji posledice."
           ],
           bullets: [
             "Prag za proveru je dolazak tri sata ili više kasnije.",
@@ -330,8 +326,8 @@ export const cornerstonePages: CornerstonePage[] = [
           heading: "When a flight delay gives a right to compensation",
           body: [
             "The basic rule is simple: do not look only at how late the flight departed, but at how late you arrived at the final destination. If arrival was three hours or more late, the case is worth checking. If departure was three hours late but the aircraft recovered time and arrived earlier, the claim may be weaker.",
-            "The second condition is the route. Flights from the EU, flights to the EU on a European carrier and journeys under one booking through European hubs are often the most important for travelers from Serbia. Passenger nationality is usually not decisive.",
-            "The third condition is the reason for delay. A technical fault, late aircraft rotation, operational problems or crew shortage may often sit within the airline's responsibility. Bad weather, airport closure, air traffic control or safety events may be stronger arguments against fixed compensation, but even then you should check what the airline did to reduce the consequences."
+            "The second condition is the route. Flights from the EU, flights to the EU on a European carrier and [journeys under one booking through European hubs](/en/missed-connection-compensation/flight-from-serbia-via-eu-passenger-rights) are often the most important for travelers from Serbia. Passenger nationality is usually not decisive.",
+            "The third condition is the reason for delay. A [technical fault](/en/flight-delay-compensation/technical-fault-flight-compensation), late aircraft rotation, operational problems or crew shortage may often sit within the airline's responsibility. [Bad weather](/en/flight-delay-compensation/flight-delay-bad-weather-compensation), airport closure, air traffic control or safety events may be stronger arguments against fixed compensation, but even then you should check what the airline did to reduce the consequences."
           ],
           bullets: [
             "The check threshold is arrival three hours or more late.",
@@ -704,13 +700,9 @@ if (delayGuide) {
     {
       heading: "Ruta, Srbija, EU i ECAA okvir",
       body: [
-        "Za putnika iz Srbije najlakše je pogrešiti na pitanju pokrivenosti. Pravilo se ne primenjuje zato što je putnik državljanin Srbije ili zato što je karta kupljena u Srbiji. Presudni su aerodrom polaska, aerodrom dolaska, operativni prevoznik i to da li se putovanje posmatra kao jedna rezervacija. Let iz EU ka Beogradu je obično najčistiji slučaj. Let iz Beograda ka EU može biti jak kada ga obavlja evropski prevoznik. Putovanje iz Srbije preko Beča, Frankfurta, Pariza, Rima ili Amsterdama može se gledati kao celina ako su segmenti u jednoj rezervaciji.",
-        "ECAA okvir i lokalna praksa su važni jer putnici iz Srbije često lete kombinacijom domaćih, evropskih i vanevropskih prevoznika. Kod takvih ruta nije dovoljno pitati da li je prvi avion kasnio. Treba proveriti ceo itinerer, ko je obavljao problematični segment, gde je nastalo kašnjenje i kada ste stvarno stigli na krajnju destinaciju. Ako imate jednu booking referencu za sve segmente, taj podatak treba staviti odmah na početak zahteva.",
+        "Za putnika iz Srbije najlakše je pogrešiti na pitanju pokrivenosti. Pravilo se ne primenjuje zato što je putnik državljanin Srbije ili zato što je karta kupljena u Srbiji. Presudni su aerodrom polaska, aerodrom dolaska, operativni prevoznik i to da li se putovanje posmatra kao jedna rezervacija. Let iz EU ka Beogradu je obično najčistiji slučaj. Let iz Beograda ka EU može biti jak kada ga obavlja evropski prevoznik. [Putovanje iz Srbije preko Beča, Frankfurta, Pariza, Rima ili Amsterdama](/naknada-za-propustenu-konekciju/let-iz-srbije-preko-eu-prava-putnika) može se gledati kao celina ako su segmenti u jednoj rezervaciji.",
+        "[ECAA okvir](/prava-putnika-u-aviosaobracaju/eu261-ecaa-srbija-prava-putnika) i lokalna praksa su važni jer putnici iz Srbije često lete kombinacijom domaćih, evropskih i vanevropskih prevoznika. Kod takvih ruta nije dovoljno pitati da li je prvi avion kasnio. Treba proveriti ceo itinerer, ko je obavljao problematični segment, gde je nastalo kašnjenje i kada ste stvarno stigli na krajnju destinaciju. Ako imate jednu booking referencu za sve segmente, taj podatak treba staviti odmah na početak zahteva.",
         "Kod codeshare letova gledajte operativnog prevoznika, ne samo logo koji je prodao kartu. Na karti može pisati jedna kompanija, a let može obavljati druga. To menja procenu, posebno kod dolazaka u EU iz trećih zemalja. Ako niste sigurni, sačuvajte e-ticket, boarding pass i detalje leta iz aplikacije, jer se iz tih dokumenata najčešće vidi ko je zaista obavljao let."
-      ],
-      links: [
-        { label: "Rute iz Srbije preko EU", href: "/naknada-za-propustenu-konekciju/let-iz-srbije-preko-eu-prava-putnika" },
-        { label: "EU261 i ECAA za putnike iz Srbije", href: "/prava-putnika-u-aviosaobracaju/eu261-ecaa-srbija-prava-putnika" },
       ],
     },
     {
@@ -718,11 +710,7 @@ if (delayGuide) {
       body: [
         "Najvažniji prag je kašnjenje pri dolasku na krajnju destinaciju. Putnik često pamti vreme kada je avion poleteo, ali za fiksnu naknadu je presudno koliko je kasno završeno putovanje. Ako je polazak kasnio četiri sata, a dolazak kasnio dva sata i pedeset minuta, zahtev za fiksnu naknadu može pasti. Ako je polazak kasnio manje, ali ste zbog konekcije stigli pet sati kasnije, slučaj može biti znatno jači.",
         "U praksi treba sačuvati više tragova vremena: planirano vreme dolaska iz karte, stvarno vreme sletanja, vreme otvaranja vrata ako ga imate, screenshot aplikacije i poruke aviokompanije. Nije uvek lako dokazati minut po minut, ali se dobar slučaj gradi oko jasnog poređenja: planirani dolazak protiv stvarnog dolaska na destinaciju iz rezervacije.",
-        "Ako ste preusmereni na drugi aerodrom, ne gledajte samo vreme kada ste sleteli na alternativni aerodrom. Bitno je kada ste stigli do aerodroma ili destinacije koja je bila dogovorena u rezervaciji, odnosno ko je snosio transfer i koliko je to produžilo putovanje. To je razlog zašto preusmeren let pripada ovoj temi, jer je za putnika najčešće posledica produženo kašnjenje."
-      ],
-      links: [
-        { label: "Preusmeren let na drugi aerodrom", href: "/naknada-za-kasnjenje-leta/preusmeren-let-drugi-aerodrom-prava-putnika" },
-        { label: "Propuštena konekcija pod jednom rezervacijom", href: "/naknada-za-propustenu-konekciju/propustena-konekcija-prava-putnika" },
+        "Ako ste [preusmereni na drugi aerodrom](/naknada-za-kasnjenje-leta/preusmeren-let-drugi-aerodrom-prava-putnika), ne gledajte samo vreme kada ste sleteli na alternativni aerodrom. Bitno je kada ste stigli do aerodroma ili destinacije koja je bila dogovorena u rezervaciji, odnosno ko je snosio transfer i koliko je to produžilo putovanje. To je razlog zašto preusmeren let pripada ovoj temi, jer je za putnika najčešće posledica produženo kašnjenje."
       ],
     },
     {
@@ -732,49 +720,29 @@ if (delayGuide) {
         "Na dugim rutama postoje situacije u kojima se naknada smanjuje ako je kašnjenje pri dolasku između tri i četiri sata. Zato je važno da u zahtevu ne pišete samo da let kasni, već da navedete tačnu rutu, krajnju destinaciju i stvarno vreme dolaska. Kod jedne rezervacije udaljenost se ne posmatra uvek kao izolovani segment na kome je nastao problem, već kao putovanje do krajnje destinacije.",
         "Za većinu letova iz Srbije prema evropskim gradovima najčešće se praktično vrte iznosi od 250 ili 400 evra. Interkontinentalne rute preko evropskih čvorišta su druga kategorija. Tu je naročito važno dokazati da je sve bilo u jednoj rezervaciji, jer od toga zavisi da li se procenjuje samo jedan segment ili ceo put."
       ],
-      links: [
-        { label: "Dokumenta za zahtev", href: "/prava-putnika-u-aviosaobracaju/dokumenti-za-avio-odstetu" },
-        { label: "Rokovi za zahtev", href: "/prava-putnika-u-aviosaobracaju/rokovi-za-avio-odstetu" },
-      ],
     },
     {
       heading: "Tehnički kvar, rotacija aviona i posada",
       body: [
-        "Tehnički kvar je jedan od najčešćih razloga zbog kojih putnik ne treba automatski da odustane. Redovni tehnički problemi su deo operativnog rizika aviokompanije. To ne znači da je svaki kvar automatski plaćen slučaj, ali znači da opšta rečenica o tehničkom razlogu nije dovoljna. Tražite šta se dogodilo, kada je kvar otkriven, da li je avion mogao biti zamenjen i zašto je posledica bila baš toliko kašnjenje.",
-        "Kasna rotacija prethodnog leta je posebno česta kod aviona koji tokom dana rade više segmenata. Ako je vaš avion zakasnio jer je prethodni let kasnio, pitanje je zašto je prethodni let kasnio. Ako je uzrok bio u odgovornosti aviokompanije, zahtev može ostati jak. Ako je prethodni segment pogodilo zatvaranje aerodroma ili ozbiljno vreme, analiza je teža, ali opet treba proveriti da li je kompanija imala razumnu rezervu i alternativu.",
-        "Nedostatak posade, prekoračenje radnog vremena posade ili loše planiranje smene često deluju kao interni operativni problem. Ako aviokompanija navodi posadu, tražite pisani razlog. Nije isto kada posada kasni zbog zatvaranja aerodroma i kada kompanija nije imala raspoloživ tim za let koji je već bio planiran."
-      ],
-      links: [
-        { label: "Tehnički kvar aviona", href: "/naknada-za-kasnjenje-leta/tehnicki-kvar-aviona-odsteta" },
-        { label: "Kasna rotacija prethodnog leta", href: "/naknada-za-kasnjenje-leta/kasnjenje-prethodnog-leta-rotacija-aviona" },
-        { label: "Nedostatak posade", href: "/naknada-za-kasnjenje-leta/nedostatak-posade-kasnjenje-leta-odsteta" },
+        "[Tehnički kvar](/naknada-za-kasnjenje-leta/tehnicki-kvar-aviona-odsteta) je jedan od najčešćih razloga zbog kojih putnik ne treba automatski da odustane. Redovni tehnički problemi su deo operativnog rizika aviokompanije. To ne znači da je svaki kvar automatski plaćen slučaj, ali znači da opšta rečenica o tehničkom razlogu nije dovoljna. Tražite šta se dogodilo, kada je kvar otkriven, da li je avion mogao biti zamenjen i zašto je posledica bila baš toliko kašnjenje.",
+        "[Kasna rotacija prethodnog leta](/naknada-za-kasnjenje-leta/kasnjenje-prethodnog-leta-rotacija-aviona) je posebno česta kod aviona koji tokom dana rade više segmenata. Ako je vaš avion zakasnio jer je prethodni let kasnio, pitanje je zašto je prethodni let kasnio. Ako je uzrok bio u odgovornosti aviokompanije, zahtev može ostati jak. Ako je prethodni segment pogodilo zatvaranje aerodroma ili ozbiljno vreme, analiza je teža, ali opet treba proveriti da li je kompanija imala razumnu rezervu i alternativu.",
+        "[Nedostatak posade](/naknada-za-kasnjenje-leta/nedostatak-posade-kasnjenje-leta-odsteta), prekoračenje radnog vremena posade ili loše planiranje smene često deluju kao interni operativni problem. Ako aviokompanija navodi posadu, tražite pisani razlog. Nije isto kada posada kasni zbog zatvaranja aerodroma i kada kompanija nije imala raspoloživ tim za let koji je već bio planiran."
       ],
     },
     {
       heading: "Loše vreme, slotovi kontrole letenja i bezbednosni događaji",
       body: [
-        "Loše vreme može biti vanredna okolnost, ali ne svaka kiša, vetar ili magla. Bitno je gde je vreme bilo problem, koliko je trajalo, da li su drugi letovi normalno poletali i da li je vaš let zaista bio direktno pogođen. Ako je avion kasnio iz drugog grada zbog vremena tamo, treba proveriti da li je to direktno objašnjenje ili samo zgodan izgovor za kasnu rotaciju.",
-        "Slotovi kontrole letenja su često jači argument aviokompanije jer prevoznik ne kontroliše raspored letenja u vazdušnom prostoru. Ipak, ni tu ne treba stati na prvoj rečenici. Slot može objasniti deo kašnjenja, ali ne mora objasniti ceo dan čekanja. Dobar zahtev pita kada je ograničenje počelo, kada se završilo i šta je kompanija uradila posle toga.",
-        "Udar ptice, udar groma, zatvaranje piste, medicinski hitan slučaj i bezbednosne odluke zahtevaju odvojenu procenu. Neki događaji su zaista van kontrole aviokompanije. Drugi samo započnu problem, dok kasnije kašnjenje nastane zato što kompanija nema avion, posadu ili plan oporavka. Zato se u zahtevu uvek traži vremenska linija, ne samo naziv razloga."
-      ],
-      links: [
-        { label: "Loše vreme i kašnjenje leta", href: "/naknada-za-kasnjenje-leta/kasnjenje-leta-zbog-loseg-vremena" },
-        { label: "Slotovi kontrole letenja", href: "/naknada-za-kasnjenje-leta/kasnjenje-leta-zbog-slotova-kontrole-letenja" },
-        { label: "Udar ptice", href: "/naknada-za-kasnjenje-leta/udar-ptice-kasnjenje-leta-odsteta" },
-        { label: "Udar groma", href: "/naknada-za-kasnjenje-leta/udar-groma-u-avion-kasnjenje-prava" },
+        "[Loše vreme](/naknada-za-kasnjenje-leta/kasnjenje-leta-zbog-loseg-vremena) može biti vanredna okolnost, ali ne svaka kiša, vetar ili magla. Bitno je gde je vreme bilo problem, koliko je trajalo, da li su drugi letovi normalno poletali i da li je vaš let zaista bio direktno pogođen. Ako je avion kasnio iz drugog grada zbog vremena tamo, treba proveriti da li je to direktno objašnjenje ili samo zgodan izgovor za kasnu rotaciju.",
+        "[Slotovi kontrole letenja](/naknada-za-kasnjenje-leta/kasnjenje-leta-zbog-slotova-kontrole-letenja) su često jači argument aviokompanije jer prevoznik ne kontroliše raspored letenja u vazdušnom prostoru. Ipak, ni tu ne treba stati na prvoj rečenici. Slot može objasniti deo kašnjenja, ali ne mora objasniti ceo dan čekanja. Dobar zahtev pita kada je ograničenje počelo, kada se završilo i šta je kompanija uradila posle toga.",
+        "[Udar ptice](/naknada-za-kasnjenje-leta/udar-ptice-kasnjenje-leta-odsteta), [udar groma](/naknada-za-kasnjenje-leta/udar-groma-u-avion-kasnjenje-prava), zatvaranje piste, [medicinski hitan slučaj](/naknada-za-kasnjenje-leta/medicinski-hitan-slucaj-kasnjenje-leta) i bezbednosne odluke zahtevaju odvojenu procenu. Neki događaji su zaista van kontrole aviokompanije. Drugi samo započnu problem, dok kasnije kašnjenje nastane zato što kompanija nema avion, posadu ili plan oporavka. Zato se u zahtevu uvek traži vremenska linija, ne samo naziv razloga."
       ],
     },
     {
       heading: "Pravo na brigu: hrana, hotel, transfer i refundacija troškova",
       body: [
         "Pravo na brigu postoji odvojeno od fiksne naknade. To je jedna od najvažnijih stvari za putnika koji je zaglavljen na aerodromu. Čak i kada aviokompanija kasnije uspešno dokaže vanredne okolnosti, putnik može imati pravo na obroke, osveženje, komunikaciju, hotel i transfer ako čekanje traje dovoljno dugo i ako je pomoć bila potrebna.",
-        "Ako let ide tek sutradan, pitajte za hotel i prevoz između aerodroma i hotela. Ako kompanija ne organizuje ništa, kupujte razumno i čuvajte račune. Razumno znači ono što vam je potrebno da nastavite putovanje, ne luksuz. U zahtevu jasno odvojite fiksnu naknadu od refundacije troškova, jer ta dva pitanja imaju različitu logiku.",
-        "Ako ste zbog kašnjenja sami kupili novu kartu, slučaj postaje osetljiviji. Potrebno je pokazati da ste prvo tražili pomoć od aviokompanije, da ponuđena alternativa nije bila razumna ili da pomoći nije bilo, i da je nova karta bila realan način da smanjite štetu. Bez tog traga aviokompanija lakše tvrdi da je trošak bio vaš izbor."
-      ],
-      links: [
-        { label: "Noćno kašnjenje i hotel", href: "/naknada-za-kasnjenje-leta/nocno-kasnjenje-leta-hotel-prava" },
-        { label: "Samostalno kupljen novi let", href: "/naknada-za-kasnjenje-leta/samostalno-kupljen-novi-let-refundacija" },
-        { label: "Šta uraditi na aerodromu", href: "/prava-putnika-u-aviosaobracaju/sta-uraditi-kada-let-kasni" },
+        "Ako let ide tek sutradan, pitajte za [hotel i prevoz između aerodroma i hotela](/naknada-za-kasnjenje-leta/nocno-kasnjenje-leta-hotel-prava). Ako kompanija ne organizuje ništa, kupujte razumno i čuvajte račune. Razumno znači ono što vam je potrebno da nastavite putovanje, ne luksuz. U zahtevu jasno odvojite fiksnu naknadu od refundacije troškova, jer ta dva pitanja imaju različitu logiku.",
+        "Ako ste zbog kašnjenja [sami kupili novu kartu](/naknada-za-kasnjenje-leta/samostalno-kupljen-novi-let-refundacija), slučaj postaje osetljiviji. Potrebno je pokazati da ste prvo tražili pomoć od aviokompanije, da ponuđena alternativa nije bila razumna ili da pomoći nije bilo, i da je nova karta bila realan način da smanjite štetu. Bez tog traga aviokompanija lakše tvrdi da je trošak bio vaš izbor."
       ],
     },
     {
@@ -784,11 +752,6 @@ if (delayGuide) {
         "Zahtev ne mora biti dugačak, ali mora biti precizan. U prvoj poruci navedite broj leta, datum, rutu, planirano i stvarno vreme dolaska, booking referencu, krajnju destinaciju i šta tražite. Ako tražite i fiksnu naknadu i refundaciju troškova, razdvojite ta dva dela. Ako aviokompanija tvrdi da su postojale vanredne okolnosti, tražite konkretan opis događaja, vremenski period i vezu sa vašim letom.",
         "Rokovi zavise od pravila koja se primenjuju i od toga gde se zahtev vodi, zato ne treba čekati. Što se ranije pošalje zahtev, lakše je sačuvati dokaze i uhvatiti kontradikcije u objašnjenju. Ako kompanija ne odgovori ili pošalje opšte odbijanje, sledeći korak nije nova emotivna poruka, već dopuna sa dokazima i jasnim pitanjima."
       ],
-      links: [
-        { label: "Kako podneti zahtev aviokompaniji", href: "/prava-putnika-u-aviosaobracaju/kako-podneti-reklamaciju-avio-kompaniji" },
-        { label: "Šta ako aviokompanija odbije zahtev", href: "/prava-putnika-u-aviosaobracaju/avio-kompanija-odbila-zahtev" },
-        { label: "Ako aviokompanija ne odgovara", href: "/naknada-za-otkazan-let/avio-kompanija-ne-odgovara-na-reklamaciju" },
-      ],
     },
     {
       heading: "Kada slučaj treba proveriti čak i ako deluje slabije",
@@ -796,11 +759,6 @@ if (delayGuide) {
         "Vredi proveriti slučaj kada ste stigli tri sata kasnije, kada je objašnjenje nejasno, kada se razlog menjao, kada je u pitanju konekcija pod jednom rezervacijom, kada je avion kasnio zbog prethodne rotacije ili kada ste imali značajne troškove hrane, hotela, transfera ili nove karte. Slabiji utisak na aerodromu ne znači da je slučaj pravno slab.",
         "Ne treba forsirati slučaj ako je dolazak bio ispod tri sata, ako ste kasnili na gate, ako ste imali odvojene karte i sami propustili drugi let, ili ako je ceo aerodrom bio zatvoren zbog ozbiljnog bezbednosnog događaja. Ipak, i tada može postojati pitanje brige, refundacije karte ili troškova koji nisu isto što i fiksna naknada.",
         "Najpraktičniji pristup je konzervativna provera: prvo ruta i rezervacija, zatim vreme dolaska, zatim razlog, zatim dokazi, zatim troškovi. Ako tih pet stvari stoje dobro, zahtev se šalje. Ako jedna tačka nedostaje, pokušava se dopuniti dokazima pre nego što se odustane."
-      ],
-      links: [
-        { label: "Vanredne okolnosti", href: "/prava-putnika-u-aviosaobracaju/vanredne-okolnosti-let" },
-        { label: "Medicinski hitan slučaj", href: "/naknada-za-kasnjenje-leta/medicinski-hitan-slucaj-kasnjenje-leta" },
-        { label: "Noćna zabrana letova", href: "/naknada-za-kasnjenje-leta/nocna-zabrana-letova-curfew-prava-putnika" },
       ],
     },
   ];
@@ -810,13 +768,9 @@ if (delayGuide) {
     {
       heading: "Route coverage, Serbia, EU and the ECAA context",
       body: [
-        "For travelers from Serbia, coverage is the easiest place to make a wrong assumption. The rule does not apply because the passenger is Serbian or because the ticket was bought in Serbia. The decisive facts are departure airport, arrival airport, operating carrier and whether the journey is treated as one booking. A flight from the EU to Belgrade is usually the cleanest case. A flight from Belgrade to the EU can be strong when operated by a European carrier. Travel from Serbia through Vienna, Frankfurt, Paris, Rome or Amsterdam can be assessed as one journey if the segments are under one booking.",
-        "The ECAA context and local travel patterns matter because Serbia-based passengers often fly with a mix of Serbian, European and non-European airlines. On those routes it is not enough to ask whether the first aircraft was late. You need the whole itinerary, the operating carrier for the disrupted segment, where the delay started and when you actually reached the final destination. If all segments share one booking reference, put that fact at the start of the claim.",
+        "For travelers from Serbia, coverage is the easiest place to make a wrong assumption. The rule does not apply because the passenger is Serbian or because the ticket was bought in Serbia. The decisive facts are departure airport, arrival airport, operating carrier and whether the journey is treated as one booking. A flight from the EU to Belgrade is usually the cleanest case. A flight from Belgrade to the EU can be strong when operated by a European carrier. [Travel from Serbia through Vienna, Frankfurt, Paris, Rome or Amsterdam](/en/missed-connection-compensation/flight-from-serbia-via-eu-passenger-rights) can be assessed as one journey if the segments are under one booking.",
+        "The [ECAA context](/en/air-passenger-rights/eu261-ecaa-serbia-passenger-rights) and local travel patterns matter because Serbia-based passengers often fly with a mix of Serbian, European and non-European airlines. On those routes it is not enough to ask whether the first aircraft was late. You need the whole itinerary, the operating carrier for the disrupted segment, where the delay started and when you actually reached the final destination. If all segments share one booking reference, put that fact at the start of the claim.",
         "For codeshare flights, check the operating carrier, not only the logo that sold the ticket. The ticket may show one airline while another airline operates the aircraft. That can change the assessment, especially for arrivals into the EU from third countries. Keep the e-ticket, boarding pass and app details because those documents usually show who operated the flight."
-      ],
-      links: [
-        { label: "Routes from Serbia through the EU", href: "/en/missed-connection-compensation/flight-from-serbia-via-eu-passenger-rights" },
-        { label: "EU261 and ECAA for Serbia-based travelers", href: "/en/air-passenger-rights/eu261-ecaa-serbia-passenger-rights" },
       ],
     },
     {
@@ -824,11 +778,7 @@ if (delayGuide) {
       body: [
         "The most important threshold is delay at arrival at the final destination. Passengers often remember when the aircraft departed, but fixed compensation depends on how late the journey ended. If departure was four hours late but arrival was two hours and fifty minutes late, the fixed-compensation claim may fail. If departure was shorter but a missed connection caused a five-hour late arrival, the case can be much stronger.",
         "In practice, save several time records: scheduled arrival from the ticket, actual landing time, door-opening time if available, an app screenshot and airline messages. It is not always possible to prove every minute, but a strong case is built around a clear comparison: scheduled arrival versus actual arrival at the destination in the booking.",
-        "If you were diverted to another airport, do not look only at the time you landed at the alternative airport. The important question is when you reached the airport or destination agreed in the booking, who covered the transfer and how much the diversion extended the journey. That is why diverted flights belong under delay: for the passenger, the main consequence is usually a longer arrival delay."
-      ],
-      links: [
-        { label: "Flight diverted to another airport", href: "/en/flight-delay-compensation/flight-diverted-different-airport-passenger-rights" },
-        { label: "Missed connection under one booking", href: "/en/missed-connection-compensation/missed-connection-same-booking" },
+        "If you were [diverted to another airport](/en/flight-delay-compensation/flight-diverted-different-airport-passenger-rights), do not look only at the time you landed at the alternative airport. The important question is when you reached the airport or destination agreed in the booking, who covered the transfer and how much the diversion extended the journey. That is why diverted flights belong under delay: for the passenger, the main consequence is usually a longer arrival delay."
       ],
     },
     {
@@ -838,49 +788,29 @@ if (delayGuide) {
         "On long-haul routes, the amount can be reduced in some situations if arrival delay is between three and four hours. That is why the claim should not merely say that the flight was delayed. It should state the exact route, final destination and actual arrival time. Under one booking, distance is not always assessed only by the disrupted segment, but by the journey to the final destination.",
         "For most Serbia-to-Europe flights, the practical amounts are usually 250 or 400 euros. Intercontinental journeys through European hubs are a different category. For those, proof of one booking is especially important because it can decide whether the assessment covers only one segment or the whole journey."
       ],
-      links: [
-        { label: "Documents for a claim", href: "/en/air-passenger-rights/documents-for-flight-compensation-claim" },
-        { label: "Claim deadlines", href: "/en/air-passenger-rights/flight-compensation-deadlines" },
-      ],
     },
     {
       heading: "Technical faults, aircraft rotation and crew",
       body: [
-        "A technical fault is one of the common reasons why passengers should not automatically give up. Ordinary technical issues are part of the airline's operating risk. That does not mean every fault automatically leads to payment, but it does mean that a broad sentence about a technical reason is not enough. Ask what happened, when the fault was found, whether the aircraft could be replaced and why the final delay was so long.",
-        "Late aircraft rotation is common when the same aircraft flies several sectors during the day. If your aircraft was late because the previous flight was late, the next question is why that previous flight was late. If the cause was within the airline's responsibility, your claim can remain strong. If the previous segment was hit by airport closure or serious weather, the analysis is harder, but it is still worth checking whether the airline had a reasonable buffer or alternative.",
-        "Crew shortage, crew duty-time limits and poor crew planning often look like internal operational problems. If the airline cites crew, ask for the reason in writing. It is not the same if crew was delayed by an airport closure or if the airline simply did not have an available team for a scheduled flight."
-      ],
-      links: [
-        { label: "Technical aircraft fault", href: "/en/flight-delay-compensation/technical-fault-flight-compensation" },
-        { label: "Late previous aircraft rotation", href: "/en/flight-delay-compensation/previous-flight-rotation-delay-compensation" },
-        { label: "Crew shortage", href: "/en/flight-delay-compensation/crew-shortage-flight-delay-compensation" },
+        "A [technical fault](/en/flight-delay-compensation/technical-fault-flight-compensation) is one of the common reasons why passengers should not automatically give up. Ordinary technical issues are part of the airline's operating risk. That does not mean every fault automatically leads to payment, but it does mean that a broad sentence about a technical reason is not enough. Ask what happened, when the fault was found, whether the aircraft could be replaced and why the final delay was so long.",
+        "[Late aircraft rotation](/en/flight-delay-compensation/previous-flight-rotation-delay-compensation) is common when the same aircraft flies several sectors during the day. If your aircraft was late because the previous flight was late, the next question is why that previous flight was late. If the cause was within the airline's responsibility, your claim can remain strong. If the previous segment was hit by airport closure or serious weather, the analysis is harder, but it is still worth checking whether the airline had a reasonable buffer or alternative.",
+        "[Crew shortage](/en/flight-delay-compensation/crew-shortage-flight-delay-compensation), crew duty-time limits and poor crew planning often look like internal operational problems. If the airline cites crew, ask for the reason in writing. It is not the same if crew was delayed by an airport closure or if the airline simply did not have an available team for a scheduled flight."
       ],
     },
     {
       heading: "Bad weather, air traffic control slots and safety events",
       body: [
-        "Bad weather can be an extraordinary circumstance, but not every rain, wind or fog event is enough. The important questions are where the weather problem occurred, how long it lasted, whether other flights were operating and whether your flight was directly affected. If the aircraft was late from another city because of weather there, check whether that really explains your delay or merely hides a late-rotation problem.",
-        "Air traffic control slots are often a stronger airline argument because the carrier does not control airspace flow management. Still, you should not stop at the first sentence. A slot may explain part of the delay without explaining a full day of waiting. A good claim asks when the restriction started, when it ended and what the airline did afterwards.",
-        "Bird strike, lightning strike, runway closure, medical emergency and security decisions require separate assessment. Some events are genuinely outside the airline's control. Others only start the problem, while the later delay happens because the airline lacks an aircraft, crew or recovery plan. That is why the claim should always ask for a timeline, not just a label."
-      ],
-      links: [
-        { label: "Bad weather and flight delay", href: "/en/flight-delay-compensation/flight-delay-bad-weather-compensation" },
-        { label: "Air traffic control slots", href: "/en/flight-delay-compensation/air-traffic-control-slot-delay-compensation" },
-        { label: "Bird strike", href: "/en/flight-delay-compensation/bird-strike-flight-delay-compensation" },
-        { label: "Lightning strike", href: "/en/flight-delay-compensation/lightning-strike-aircraft-delay-rights" },
+        "[Bad weather](/en/flight-delay-compensation/flight-delay-bad-weather-compensation) can be an extraordinary circumstance, but not every rain, wind or fog event is enough. The important questions are where the weather problem occurred, how long it lasted, whether other flights were operating and whether your flight was directly affected. If the aircraft was late from another city because of weather there, check whether that really explains your delay or merely hides a late-rotation problem.",
+        "[Air traffic control slots](/en/flight-delay-compensation/air-traffic-control-slot-delay-compensation) are often a stronger airline argument because the carrier does not control airspace flow management. Still, you should not stop at the first sentence. A slot may explain part of the delay without explaining a full day of waiting. A good claim asks when the restriction started, when it ended and what the airline did afterwards.",
+        "[Bird strike](/en/flight-delay-compensation/bird-strike-flight-delay-compensation), [lightning strike](/en/flight-delay-compensation/lightning-strike-aircraft-delay-rights), runway closure, [medical emergency](/en/flight-delay-compensation/medical-emergency-flight-delay-rights) and security decisions require separate assessment. Some events are genuinely outside the airline's control. Others only start the problem, while the later delay happens because the airline lacks an aircraft, crew or recovery plan. That is why the claim should always ask for a timeline, not just a label."
       ],
     },
     {
       heading: "Care rights: food, hotel, transfer and reimbursement",
       body: [
         "The right to care is separate from fixed compensation. This is one of the most important points for a passenger stuck at the airport. Even when the airline later proves extraordinary circumstances, passengers may still have a right to meals, refreshments, communication, hotel and transfer if the wait is long enough and assistance is needed.",
-        "If the flight leaves the next day, ask for hotel accommodation and transport between the airport and hotel. If the airline organizes nothing, spend reasonably and keep receipts. Reasonable means what you need to continue the journey, not luxury. In the claim, separate fixed compensation from reimbursement of expenses because those issues follow different logic.",
-        "If you bought a new ticket because of the delay, the case becomes more sensitive. You need to show that you first asked the airline for help, that the offered alternative was not reasonable or that no help was available, and that the new ticket was a real way to reduce the damage. Without that trail, the airline can more easily say the expense was your choice."
-      ],
-      links: [
-        { label: "Overnight delay and hotel", href: "/en/flight-delay-compensation/overnight-flight-delay-hotel-rights" },
-        { label: "Bought a new flight yourself", href: "/en/flight-delay-compensation/bought-new-flight-yourself-reimbursement" },
-        { label: "What to do at the airport", href: "/en/air-passenger-rights/what-to-do-when-flight-is-delayed-or-cancelled" },
+        "If the flight leaves the next day, ask for [hotel accommodation and transport between the airport and hotel](/en/flight-delay-compensation/overnight-flight-delay-hotel-rights). If the airline organizes nothing, spend reasonably and keep receipts. Reasonable means what you need to continue the journey, not luxury. In the claim, separate fixed compensation from reimbursement of expenses because those issues follow different logic.",
+        "If you [bought a new ticket because of the delay](/en/flight-delay-compensation/bought-new-flight-yourself-reimbursement), the case becomes more sensitive. You need to show that you first asked the airline for help, that the offered alternative was not reasonable or that no help was available, and that the new ticket was a real way to reduce the damage. Without that trail, the airline can more easily say the expense was your choice."
       ],
     },
     {
@@ -890,11 +820,6 @@ if (delayGuide) {
         "The claim does not need to be long, but it needs to be precise. In the first message, include flight number, date, route, scheduled and actual arrival time, booking reference, final destination and what you are requesting. If you request both fixed compensation and expense reimbursement, separate those two parts. If the airline says extraordinary circumstances applied, ask for a specific description of the event, time period and connection to your flight.",
         "Deadlines depend on the rules that apply and where the claim is pursued, so do not wait. The earlier the claim is sent, the easier it is to preserve evidence and catch contradictions in the explanation. If the airline does not respond or sends a broad rejection, the next step is not a more emotional message, but a follow-up with evidence and clear questions."
       ],
-      links: [
-        { label: "How to file an airline claim", href: "/en/air-passenger-rights/how-to-file-airline-compensation-claim" },
-        { label: "If the airline rejects the claim", href: "/en/air-passenger-rights/airline-rejected-compensation-claim" },
-        { label: "If the airline does not answer", href: "/en/flight-cancellation-compensation/airline-not-responding-to-compensation-claim" },
-      ],
     },
     {
       heading: "When to check the case even if it looks weaker",
@@ -902,11 +827,6 @@ if (delayGuide) {
         "It is worth checking a case when you arrived three hours late, when the explanation is unclear, when the reason changed, when the journey involved a connection under one booking, when the aircraft was delayed by previous rotation or when you had meaningful food, hotel, transfer or new-ticket costs. A weak airport impression does not necessarily mean a legally weak case.",
         "You should not force a case if arrival delay was under three hours, if you were late to the gate, if you held separate tickets and missed the second flight yourself, or if the entire airport was closed because of a serious safety event. Even then, care, ticket refund or expense reimbursement may still matter separately from fixed compensation.",
         "The practical method is a conservative check: route and booking first, then arrival time, then reason, then evidence, then expenses. If those five points are strong, the claim is sent. If one point is missing, try to support it with evidence before giving up."
-      ],
-      links: [
-        { label: "Extraordinary circumstances", href: "/en/air-passenger-rights/extraordinary-circumstances-flight" },
-        { label: "Medical emergency", href: "/en/flight-delay-compensation/medical-emergency-flight-delay-rights" },
-        { label: "Night flight ban", href: "/en/flight-delay-compensation/night-flight-ban-curfew-passenger-rights" },
       ],
     },
   ];

@@ -1,24 +1,19 @@
 import Link from "next/link";
 
+import { InlineRichText } from "@/components/inline-rich-text";
+import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { getSupportEmail } from "@/lib/env";
 import {
-  getRelatedBlogArticles,
   type BlogArticle,
   type BlogLocale,
 } from "@/lib/blog";
 import {
-  getArticleCornerstoneHref,
   getAlternateArticleCornerstoneHref,
-  getCornerstoneForArticle,
-  getCornerstoneHref,
 } from "@/lib/cornerstones";
 
 const copy = {
   sr: {
-    mainGuideLabel: "Glavni vodič za ovu temu",
-    mainGuideBody:
-      "Ovaj članak je detaljna podtema. Krenite od glavnog vodiča ako želite kompletnu sliku uslova, iznosa, izuzetaka i sledećeg koraka.",
-    relatedTitle: "Još vodiča za ovaj slučaj",
     nextStep: "Sledeći korak",
     checkTitle: "Proverite svoj let",
     checkBody:
@@ -30,10 +25,6 @@ const copy = {
     dateLocale: "sr-RS",
   },
   en: {
-    mainGuideLabel: "Main guide for this topic",
-    mainGuideBody:
-      "This article is a detailed subtopic. Start with the main guide if you want the full picture on eligibility, amounts, exceptions and next steps.",
-    relatedTitle: "More guides for this case",
     nextStep: "Next step",
     checkTitle: "Check your flight",
     checkBody:
@@ -55,9 +46,8 @@ export function BlogArticlePageView({
 }) {
   const t = copy[locale];
   const localized = article[locale];
-  const mainGuide = getCornerstoneForArticle(article);
-  const relatedArticles = getRelatedBlogArticles(article, locale);
   const alternateHref = getAlternateArticleCornerstoneHref(article, locale);
+  const supportEmail = getSupportEmail();
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
@@ -113,21 +103,6 @@ export function BlogArticlePageView({
         <section className="px-6 py-12">
           <div className="mx-auto grid max-w-[1120px] gap-10 lg:grid-cols-[minmax(0,720px)_280px]">
             <div className="space-y-10">
-              <Link
-                href={getCornerstoneHref(mainGuide, locale)}
-                className="block rounded-xl border border-[#BFD7FF] bg-[#EEF5FF] p-5 transition hover:border-[#2470EB]"
-              >
-                <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-[#2470EB]">
-                  {t.mainGuideLabel}
-                </p>
-                <h2 className="mt-2 font-display text-[24px] font-bold leading-[1.18] text-[#0B2E6F]">
-                  {mainGuide[locale].title}
-                </h2>
-                <p className="mt-3 text-sm leading-[1.7] text-[#41516B]">
-                  {t.mainGuideBody}
-                </p>
-              </Link>
-
               {localized.sections.map((section) => (
                 <section key={section.heading}>
                   <h2 className="font-display text-[30px] font-bold leading-[1.18] text-[#0A0F1E]">
@@ -135,7 +110,9 @@ export function BlogArticlePageView({
                   </h2>
                   <div className="mt-4 space-y-4 text-[17px] leading-[1.82] text-[#4F5B75]">
                     {section.body.map((paragraph) => (
-                      <p key={paragraph}>{paragraph}</p>
+                      <p key={paragraph}>
+                        <InlineRichText text={paragraph} locale={locale} />
+                      </p>
                     ))}
                   </div>
                   {section.bullets ? (
@@ -150,31 +127,9 @@ export function BlogArticlePageView({
                   ) : null}
                 </section>
               ))}
-
-              <section className="border-t border-[#E2E6EF] pt-10">
-                <h2 className="font-display text-[28px] font-bold leading-[1.18] text-[#0A0F1E]">
-                  {t.relatedTitle}
-                </h2>
-                <div className="mt-5 grid gap-4 md:grid-cols-3">
-                  {relatedArticles.map((related) => (
-                    <Link
-                      key={related.id}
-                      href={getArticleCornerstoneHref(related, locale)}
-                      className="rounded-lg border border-[#E2E6EF] bg-[#F8FAFC] p-4 transition hover:border-[#B4BECF]"
-                    >
-                      <p className="text-[11px] font-bold uppercase tracking-[0.1em] text-[#2470EB]">
-                        {related.localized.category}
-                      </p>
-                      <h3 className="mt-2 text-sm font-bold leading-[1.35] text-[#0A0F1E]">
-                        {related.localized.title}
-                      </h3>
-                    </Link>
-                  ))}
-                </div>
-              </section>
             </div>
 
-            <aside className="lg:sticky lg:top-24 lg:self-start">
+            <aside className="space-y-4 lg:sticky lg:top-24 lg:self-start">
               <div className="rounded-lg border border-[#E2E6EF] bg-[#F8FAFC] p-5">
                 <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-[#8E9BB0]">
                   {t.nextStep}
@@ -199,6 +154,7 @@ export function BlogArticlePageView({
           </div>
         </section>
       </article>
+      <SiteFooter locale={locale} supportEmail={supportEmail} />
     </main>
   );
 }

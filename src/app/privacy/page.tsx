@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import {
   getOperatorAddress,
@@ -53,9 +54,9 @@ export default function PrivacyPage() {
   const operatorMb = getOperatorMb();
 
   return (
-    <main className="min-h-screen bg-[var(--bg)] px-6 pb-16 pt-32">
+    <main className="min-h-screen bg-[var(--bg)] pt-32">
       <SiteHeader locale="sr" />
-      <div className="mx-auto max-w-5xl space-y-8">
+      <div className="mx-auto max-w-5xl space-y-8 px-6 pb-16">
         <div className="space-y-4">
           <p className="eyebrow">Legal</p>
           <h1 className="text-4xl font-bold tracking-[-0.03em] text-[var(--ink)]">
@@ -273,6 +274,7 @@ export default function PrivacyPage() {
           </Link>
         </div>
       </div>
+      <SiteFooter locale="sr" supportEmail={supportEmail} />
     </main>
   );
 }

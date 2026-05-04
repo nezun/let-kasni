@@ -49,6 +49,10 @@ This version has breaking changes — APIs, conventions, and file structure may 
 - Public copy must not expose internal production language, SEO scaffolding, or competitor-analysis process. Keep terms such as `cornerstone`, `child guides`, `link authority`, `competitor guides`, `copy inspiration`, `reference point`, `keyword`, `SEO tekst`, `review agent`, and `SF.com` out of rendered copy.
 - Internal architecture can still use `cornerstone` in code identifiers and routing helpers; reader-facing labels should say `glavni vodič`, `glavna strana`, `main guide`, or another natural phrase.
 - Daily blog runs must keep every localized article in the 700-1500 word range, keep SR/EN section counts aligned, avoid duplicate IDs/slugs, and pass `npm run content:qa` before deploy.
+- Blog and guide interlinking must be editorial, not mechanical. Do not add end-of-article related-card blocks, title lists, tag/pill link dumps, or generic "more guides" sections. Link from a natural word or phrase inside the relevant paragraph using inline markdown syntax: `[anchor text](/target-url)`.
+- Child-to-main-guide, main-guide-to-child, and child-to-child links must all follow the same rule: choose a sentence where the linked concept is already being discussed and link that phrase in the body copy.
+- Do not place compensation calculators or amount tables near the top of editorial guide pages unless the whole page is a purpose-built tool. If a calculator/table is needed later, design it as a dedicated tool page or a restrained in-flow module after the explanatory context.
+- Every public page, existing or new, must use the shared Let Kasni header and footer. Landing pages may use `HeaderWithClaimCta`; blog index pages, blog articles, cornerstone guides, and legal pages must render `SiteHeader` plus `SiteFooter`. Do not ship a public page without the footer.
 
 ## Blog SEO Architecture
 

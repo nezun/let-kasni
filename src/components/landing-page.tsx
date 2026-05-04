@@ -835,21 +835,29 @@ export function LandingPage({
             </h2>
           </div>
 
-          {t.faqs.map((faq) => (
-            <details key={faq.q} className="border-b border-[#E2E6EF]">
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-5 text-left">
-                <span className="font-display text-base font-semibold text-[#0A0F1E]">
-                  {faq.q}
-                </span>
-                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#F4F6FA] text-[#6B7585] transition group-open:bg-[#0B1326] group-open:text-white">
-                  <ChevronRight className="h-4 w-4 transition-transform group-open:rotate-90" />
-                </span>
-              </summary>
-              <div className="pb-5 text-[15px] leading-[1.7] text-[#6B7585]">
-                {faq.a}
-              </div>
-            </details>
-          ))}
+          <div className="space-y-3">
+            {t.faqs.map((faq) => (
+              <details
+                key={faq.q}
+                name={`landing-faq-${locale}`}
+                className="group rounded-[10px] border border-[#DDE4EF] bg-white shadow-[0_10px_32px_rgba(15,23,42,0.05)] transition open:border-[#BFD7FF] open:bg-[#F8FBFF] open:shadow-[0_18px_46px_rgba(15,23,42,0.08)]"
+              >
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-5 px-5 py-5 text-left marker:hidden transition hover:bg-[#F8FAFC] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2470EB] focus-visible:ring-offset-2 [&::-webkit-details-marker]:hidden">
+                  <span className="font-display text-[17px] font-bold leading-[1.35] text-[#0A0F1E]">
+                    {faq.q}
+                  </span>
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[#DDE4EF] bg-[#F4F8FF] text-[#2470EB] transition group-open:border-[#2470EB] group-open:bg-[#2470EB] group-open:text-white">
+                    <ChevronRight className="h-4 w-4 transition-transform duration-200 group-open:rotate-90" />
+                  </span>
+                </summary>
+                <div className="px-5 pb-5 pt-0">
+                  <div className="border-t border-[#E2EAF5] pt-4 text-[15px] leading-[1.75] text-[#4F5B75]">
+                    {faq.a}
+                  </div>
+                </div>
+              </details>
+            ))}
+          </div>
         </div>
       </section>
 

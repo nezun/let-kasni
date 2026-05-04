@@ -36,6 +36,71 @@ const forbiddenPublicPhrases = [
   "sf.com",
 ];
 
+const interlinkingAntiPatterns = [
+  {
+    file: "src/components/blog-article-page.tsx",
+    patterns: [
+      {
+        pattern: /getRelatedBlogArticles|relatedArticles\.map|relatedTitle/,
+        message: "blog articles must not render automatic related-link cards or endcap lists",
+      },
+    ],
+  },
+  {
+    file: "src/components/cornerstone-page.tsx",
+    patterns: [
+      {
+        pattern:
+          /DelayCompensationCalculator|<table|delayAmountRows|section\.links|childArticles\.map|supportArticles\.map|childTitle|supportTitle|getCornerstoneChildren|getCornerstoneSupportArticles/,
+        message:
+          "cornerstone pages must not render calculator/table blocks or child/support link card lists inside article content",
+      },
+    ],
+  },
+  {
+    file: "src/lib/cornerstones.ts",
+    patterns: [
+      {
+        pattern: /\blinks:\s*\[/,
+        message: "cornerstone content must use inline markdown links in paragraphs, not section link/tag arrays",
+      },
+    ],
+  },
+];
+
+const publicShellChecks = [
+  {
+    file: "src/components/landing-page.tsx",
+    headerPattern: /HeaderWithClaimCta/,
+    footerPattern: /SiteFooter/,
+  },
+  {
+    file: "src/components/blog-index-page.tsx",
+    headerPattern: /SiteHeader/,
+    footerPattern: /SiteFooter/,
+  },
+  {
+    file: "src/components/blog-article-page.tsx",
+    headerPattern: /SiteHeader/,
+    footerPattern: /SiteFooter/,
+  },
+  {
+    file: "src/components/cornerstone-page.tsx",
+    headerPattern: /SiteHeader/,
+    footerPattern: /SiteFooter/,
+  },
+  {
+    file: "src/app/terms/page.tsx",
+    headerPattern: /SiteHeader/,
+    footerPattern: /SiteFooter/,
+  },
+  {
+    file: "src/app/privacy/page.tsx",
+    headerPattern: /SiteHeader/,
+    footerPattern: /SiteFooter/,
+  },
+];
+
 const wordPattern = /[\p{L}\p{N}]+/gu;
 const failures = [];
 const issues = [];
@@ -263,9 +328,56 @@ function checkDuplicateIdsAndSlugs() {
   }
 }
 
+function checkInterlinkingAntiPatterns() {
+  for (const fileCheck of interlinkingAntiPatterns) {
+    const source = read(fileCheck.file);
+
+    for (const check of fileCheck.patterns) {
+      const match = check.pattern.exec(source);
+
+      if (match) {
+        addIssue({
+          type: "interlinking_antipattern",
+          file: fileCheck.file,
+          line: source.slice(0, match.index).split("\n").length,
+          message: check.message,
+          suggestedFix:
+            "Put internal links on natural words or phrases inside section paragraphs using [anchor text](/target-url).",
+        });
+      }
+    }
+  }
+}
+
+function checkPublicShell() {
+  for (const shellCheck of publicShellChecks) {
+    const source = read(shellCheck.file);
+
+    if (!shellCheck.headerPattern.test(source)) {
+      addIssue({
+        type: "public_shell_missing_header",
+        file: shellCheck.file,
+        message: "public page/component must render the shared site header",
+        suggestedFix: "Use SiteHeader or the approved HeaderWithClaimCta wrapper for public pages.",
+      });
+    }
+
+    if (!shellCheck.footerPattern.test(source)) {
+      addIssue({
+        type: "public_shell_missing_footer",
+        file: shellCheck.file,
+        message: "public page/component must render the shared site footer",
+        suggestedFix: "Add SiteFooter with the correct locale and support email before closing the public page shell.",
+      });
+    }
+  }
+}
+
 checkForbiddenPublicCopy();
 checkDailyArticleShape();
 checkDuplicateIdsAndSlugs();
+checkInterlinkingAntiPatterns();
+checkPublicShell();
 
 const report = {
   generatedAt: new Date().toISOString(),
