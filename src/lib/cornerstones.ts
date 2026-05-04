@@ -69,7 +69,7 @@ export const cornerstonePages: CornerstonePage[] = [
     ],
     sr: {
       slug: "prava-putnika-u-aviosaobracaju",
-      title: "Prava putnika u aviosaobraćaju",
+      title: "Prava putnika u avio-saobraćaju",
       description:
         "Glavni vodič kroz prava putnika kod kašnjenja, otkazivanja, propuštene konekcije, uskraćenog ukrcavanja, prtljaga i štrajka.",
       eyebrow: "Glavni vodič",
