@@ -338,75 +338,98 @@ async function fetchAviationEdgeCandidates(
   apiKey: string,
   signal: AbortSignal,
 ) {
-  const requests: Array<{ code: string; type: "departure" | "arrival" }> = [];
+  const requests = buildAviationEdgeRequests(input);
+  const allRows: Array<Record<string, unknown>> = [];
+  const failures: Error[] = [];
 
-  if (input.departureCode) {
-    requests.push({ code: input.departureCode, type: "departure" });
-  }
+  for (const request of requests) {
+    try {
+      const rows = await fetchAviationEdgeRows(input, apiKey, signal, request);
 
-  if (input.arrivalCode && input.arrivalCode !== input.departureCode) {
-    requests.push({ code: input.arrivalCode, type: "arrival" });
-  }
-
-  const results = await Promise.allSettled(
-    requests.map(async (request) => {
-      const url = new URL(aviationEdgeBaseUrl);
-      url.searchParams.set("key", apiKey);
-      url.searchParams.set("code", request.code);
-      url.searchParams.set("type", request.type);
-      url.searchParams.set("date_from", input.flightDate);
-      url.searchParams.set("date_to", input.flightDate);
-
-      if (input.flightDigits) {
-        url.searchParams.set("flight_number", input.flightDigits);
+      if (rows.length === 0) {
+        continue;
       }
 
-      const response = await fetch(url, {
-        method: "GET",
-        signal,
-        cache: "no-store",
-      });
-      const payload = (await response.json().catch(() => null)) as unknown;
+      allRows.push(...rows);
 
-      if (!response.ok) {
-        throw new Error(`Aviation Edge vratio HTTP ${response.status}.`);
+      if (pickBestAviationEdgeMatch(rows, input)) {
+        return rows;
       }
-
-      if (isAviationEdgeError(payload)) {
-        throw new Error("Aviation Edge je vratio error payload.");
-      }
-
-      const rows = Array.isArray(payload)
-        ? payload.filter((item): item is Record<string, unknown> => Boolean(asObject(item)))
-        : [];
-
-      return rows;
-    }),
-  );
-
-  const batches = results
-    .filter(
-      (result): result is PromiseFulfilledResult<Array<Record<string, unknown>>> =>
-        result.status === "fulfilled",
-    )
-    .map((result) => result.value);
-  const rows = batches.flat();
-
-  if (rows.length > 0) {
-    return rows;
+    } catch (error) {
+      failures.push(
+        error instanceof Error
+          ? error
+          : new Error("Aviation Edge lookup nije uspeo."),
+      );
+    }
   }
 
-  const firstFailure = results.find(
-    (result): result is PromiseRejectedResult => result.status === "rejected",
-  );
-
-  if (firstFailure) {
-    throw firstFailure.reason instanceof Error
-      ? firstFailure.reason
-      : new Error("Aviation Edge lookup nije uspeo.");
+  if (allRows.length > 0) {
+    return allRows;
   }
 
-  return rows;
+  if (failures[0]) {
+    throw failures[0];
+  }
+
+  return allRows;
+}
+
+function buildAviationEdgeRequests(input: NormalizedProviderInput) {
+  const departureRequest = input.departureCode
+    ? [{ code: input.departureCode, type: "departure" as const }]
+    : [];
+  const arrivalRequest =
+    input.arrivalCode && input.arrivalCode !== input.departureCode
+      ? [{ code: input.arrivalCode, type: "arrival" as const }]
+      : [];
+
+  if (input.departureCode === "BEG") {
+    return [...departureRequest, ...arrivalRequest];
+  }
+
+  if (input.arrivalCode === "BEG") {
+    return [...arrivalRequest, ...departureRequest];
+  }
+
+  return [...departureRequest, ...arrivalRequest];
+}
+
+async function fetchAviationEdgeRows(
+  input: NormalizedProviderInput,
+  apiKey: string,
+  signal: AbortSignal,
+  request: { code: string; type: "departure" | "arrival" },
+) {
+  const url = new URL(aviationEdgeBaseUrl);
+  url.searchParams.set("key", apiKey);
+  url.searchParams.set("code", request.code);
+  url.searchParams.set("type", request.type);
+  url.searchParams.set("date_from", input.flightDate);
+  url.searchParams.set("date_to", input.flightDate);
+
+  if (input.flightDigits) {
+    url.searchParams.set("flight_number", input.flightDigits);
+  }
+
+  const response = await fetch(url, {
+    method: "GET",
+    signal,
+    cache: "no-store",
+  });
+  const payload = (await response.json().catch(() => null)) as unknown;
+
+  if (!response.ok) {
+    throw new Error(`Aviation Edge vratio HTTP ${response.status}.`);
+  }
+
+  if (isAviationEdgeError(payload)) {
+    throw new Error("Aviation Edge je vratio error payload.");
+  }
+
+  return Array.isArray(payload)
+    ? payload.filter((item): item is Record<string, unknown> => Boolean(asObject(item)))
+    : [];
 }
 
 function pickBestAviationEdgeMatch(
