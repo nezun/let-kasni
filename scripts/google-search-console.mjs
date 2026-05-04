@@ -429,6 +429,21 @@ async function loadSitemapEntries(sitemapUrl) {
     .filter((entry) => Boolean(entry.loc));
 }
 
+function isNestedArticlePath(path) {
+  const parts = path.split("/").filter(Boolean);
+  const localizedParts = parts[0] === "en" ? parts.slice(1) : parts;
+
+  return localizedParts.length === 2;
+}
+
+function isBlogIndexPath(path) {
+  return path === "/blog" || path === "/en/blog";
+}
+
+function isBlogArticlePath(path) {
+  return path.startsWith("/blog/") || path.startsWith("/en/blog/") || isNestedArticlePath(path);
+}
+
 function filterEntries(entries, flags) {
   if (!flags.has("blog-only")) {
     return entries;
@@ -437,7 +452,7 @@ function filterEntries(entries, flags) {
   return entries.filter((entry) => {
     const path = new URL(entry.loc).pathname;
 
-    return path === "/blog" || path === "/en/blog" || path.startsWith("/blog/") || path.startsWith("/en/blog/");
+    return isBlogIndexPath(path) || isBlogArticlePath(path);
   });
 }
 
@@ -445,7 +460,7 @@ function summarizeSitemap(entries) {
   const blogCount = entries.filter((entry) => {
     const path = new URL(entry.loc).pathname;
 
-    return path.startsWith("/blog/") || path.startsWith("/en/blog/");
+    return isBlogArticlePath(path);
   }).length;
 
   return {
@@ -577,7 +592,7 @@ Commands:
 
 Useful flags:
   --dry-run                   Fetch and validate sitemap without submitting it.
-  --blog-only                 Monitor only /blog and /en/blog URLs.
+  --blog-only                 Monitor blog indexes and canonical article URLs.
   --limit=10                  Inspect only the first N URLs.
   --delay-ms=250              Delay between inspection calls.
   --json                      Print full compact JSON result.
