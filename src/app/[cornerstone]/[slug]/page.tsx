@@ -2,27 +2,31 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { BlogArticlePageView } from "@/components/blog-article-page";
-import { blogArticles, getBlogArticleBySlug } from "@/lib/blog";
+import { blogArticles } from "@/lib/blog";
 import {
   getAlternateArticleCornerstoneHref,
   getArticleCornerstoneHref,
+  getBlogArticleByCornerstoneSlug,
+  getCornerstoneForArticle,
 } from "@/lib/cornerstones";
 
 type Props = {
   params: Promise<{
+    cornerstone: string;
     slug: string;
   }>;
 };
 
 export function generateStaticParams() {
   return blogArticles.map((article) => ({
+    cornerstone: getCornerstoneForArticle(article).sr.slug,
     slug: article.sr.slug,
   }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
-  const article = getBlogArticleBySlug("sr", slug);
+  const { cornerstone, slug } = await params;
+  const article = getBlogArticleByCornerstoneSlug("sr", cornerstone, slug);
 
   if (!article) {
     return {};
@@ -54,9 +58,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function BlogArticlePage({ params }: Props) {
-  const { slug } = await params;
-  const article = getBlogArticleBySlug("sr", slug);
+export default async function NestedSerbianBlogArticlePage({ params }: Props) {
+  const { cornerstone, slug } = await params;
+  const article = getBlogArticleByCornerstoneSlug("sr", cornerstone, slug);
 
   if (!article) {
     notFound();

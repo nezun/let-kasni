@@ -1,19 +1,23 @@
 import type { MetadataRoute } from "next";
 
 import { blogArticles } from "@/lib/blog";
-import { cornerstonePages, getCornerstoneHref } from "@/lib/cornerstones";
+import {
+  cornerstonePages,
+  getArticleCornerstoneHref,
+  getCornerstoneHref,
+} from "@/lib/cornerstones";
 import { getSiteUrl } from "@/lib/site-url";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const siteUrl = getSiteUrl();
   const blogUrls = blogArticles.flatMap((article) => [
     {
-      url: `${siteUrl}/blog/${article.sr.slug}`,
+      url: `${siteUrl}${getArticleCornerstoneHref(article, "sr")}`,
       lastModified: article.updatedAt,
       priority: 0.7,
     },
     {
-      url: `${siteUrl}/en/blog/${article.en.slug}`,
+      url: `${siteUrl}${getArticleCornerstoneHref(article, "en")}`,
       lastModified: article.updatedAt,
       priority: 0.7,
     },

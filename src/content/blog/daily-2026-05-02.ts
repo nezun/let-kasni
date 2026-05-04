@@ -51,7 +51,7 @@ export const articles = [
           body: [
             "Aviokompanije često navode weather, bad weather ili meteorological conditions kao razlog za kašnjenje ili otkazivanje. To može biti potpuno opravdano: gusta magla, oluja, sneg, zaleđena pista ili opasni vetrovi mogu učiniti let nebezbednim. Ali sama reč vreme nije dovoljna da se zahtev automatski odbije.",
             "Kod evropskih pravila, uključujući okvire koji su važni za putnike iz Srbije kada ruta ulazi u evropsku zaštitu, proverava se da li je okolnost bila van kontrole aviokompanije i da li se nije mogla izbeći razumnim merama. Zato je važna konkretna slika, ne samo opšta formulacija iz aplikacije.",
-            "Konkurentski vodiči uglavnom navode loše vreme kao primer vanredne okolnosti. Korisniji pristup je da se odmah pita: na kom aerodromu je vreme bilo problem, u kom periodu, da li su drugi letovi poleteli, i zašto je baš vaš put završen mnogo kasnije."
+            "U praksi se loše vreme često navodi kao primer vanredne okolnosti. Korisniji pristup je da se odmah pita: na kom aerodromu je vreme bilo problem, u kom periodu, da li su drugi letovi poleteli, i zašto je baš vaš put završen mnogo kasnije."
           ]
         },
         {
@@ -109,7 +109,7 @@ export const articles = [
           body: [
             "Airlines often cite weather, bad weather or meteorological conditions as the reason for a delay or cancellation. Sometimes that is entirely justified: dense fog, storms, snow, an icy runway or dangerous winds can make a flight unsafe. But the word weather alone is not enough to automatically reject a claim.",
             "Under European passenger-rights rules, including frameworks that matter for travelers from Serbia when a route falls within European protection, the question is whether the event was outside the airline's control and could not have been avoided with reasonable measures. The specific facts matter more than a broad app notification.",
-            "Competitor guides usually list bad weather as an example of extraordinary circumstances. A more useful approach is to ask immediately: which airport had the weather issue, during which period, whether other flights operated, and why your journey ended much later."
+            "Passenger-rights guidance usually lists bad weather as an example of extraordinary circumstances. A more useful approach is to ask immediately: which airport had the weather issue, during which period, whether other flights operated, and why your journey ended much later."
           ]
         },
         {
@@ -414,7 +414,7 @@ export const articles = [
           body: [
             "Kada se kašnjenje ili otkazivanje protegne preko noći, problem više nije samo dolazak kasnije. Putnik mora negde da spava, jede, stigne do smeštaja i vrati se na aerodrom. Evropska pravila zato razlikuju fiksnu naknadu od prava na brigu.",
             "Pravo na brigu može postojati i kada fiksna naknada nije sigurna. Na primer, ako je let otkazan zbog ozbiljnog nevremena, aviokompanija može osporavati 250, 400 ili 600 evra, ali i dalje mora razumno brinuti o putnicima dok čekaju nastavak puta.",
-            "Konkurentski vodiči često pomenu meals and hotel accommodation, ali putnicima nedostaje praktičan deo: šta uraditi kada šalter ne radi, vaučera nema, a poslednji autobus do grada je već otišao."
+            "Uobičajeni vodiči često pomenu meals and hotel accommodation, ali putnicima nedostaje praktičan deo: šta uraditi kada šalter ne radi, vaučera nema, a poslednji autobus do grada je već otišao."
           ]
         },
         {
@@ -472,7 +472,7 @@ export const articles = [
           body: [
             "When a delay or cancellation stretches overnight, the problem is no longer only arriving late. The passenger needs somewhere to sleep, food, transport to accommodation and a return to the airport. European rules therefore separate fixed compensation from the right to care.",
             "The right to care may exist even when fixed compensation is uncertain. For example, if a flight is cancelled because of severe weather, the airline may dispute 250, 400 or 600 euros, but it still has to reasonably care for passengers while they wait for onward travel.",
-            "Competitor guides often mention meals and hotel accommodation, but passengers need the practical part: what to do when the desk is closed, no voucher is offered and the last bus to the city has already left."
+            "Passenger-rights guides often mention meals and hotel accommodation, but passengers need the practical part: what to do when the desk is closed, no voucher is offered and the last bus to the city has already left."
           ]
         },
         {
@@ -656,7 +656,7 @@ export const articles = [
           body: [
             "Putnici iz Srbije često misle da evropska prava važe samo za državljane EU. U praksi je mnogo važnije gde let polazi, gde dolazi, koja aviokompanija upravlja letom i kako je putovanje kupljeno. Putnik može biti iz Srbije, ali ruta može biti u evropskom režimu zaštite.",
             "Zato se svaki slučaj proverava kroz mapu puta. Let iz Beograda ka Parizu evropskim prevoznikom, let iz Beča ka Beogradu, ili putovanje Beograd-Frankfurt-New York u jednoj rezervaciji ne daju isti odgovor kao odvojene karte ili dolazni let neevropske kompanije.",
-            "Konkurentski vodiči često daju jednostavne tabele EU to EU, EU to non-EU i non-EU to EU. To je dobar početak, ali putniku iz Srbije treba objašnjenje šta se dešava kada je Srbija deo šire konekcije, a ne samo početna ili završna tačka."
+            "Uobičajena objašnjenja često daju jednostavne tabele EU to EU, EU to non-EU i non-EU to EU. To je dobar početak, ali putniku iz Srbije treba objašnjenje šta se dešava kada je Srbija deo šire konekcije, a ne samo početna ili završna tačka."
           ]
         },
         {
@@ -714,7 +714,7 @@ export const articles = [
           body: [
             "Travelers from Serbia often think European rights apply only to EU citizens. In practice, it matters much more where the flight departs, where it arrives, which airline operates it and how the trip was purchased. The passenger may be Serbian while the route falls within a European protection framework.",
             "That is why each case is checked through the route map. A flight from Belgrade to Paris on a European carrier, a flight from Vienna to Belgrade, or Belgrade-Frankfurt-New York under one booking do not produce the same answer as separate tickets or an inbound flight operated by a non-European airline.",
-            "Competitor guides often show simple tables: EU to EU, EU to non-EU and non-EU to EU. That is a useful start, but travelers from Serbia need to understand what happens when Serbia is part of a wider connection, not only the start or end point."
+            "Passenger-rights guides often show simple tables: EU to EU, EU to non-EU and non-EU to EU. That is a useful start, but travelers from Serbia need to understand what happens when Serbia is part of a wider connection, not only the start or end point."
           ]
         },
         {

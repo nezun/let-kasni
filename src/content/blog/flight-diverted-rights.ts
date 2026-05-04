@@ -23,7 +23,7 @@ export const article = {
           body: [
             "Kada avion ne sleti na aerodrom koji je naveden u karti, već bude preusmeren na drugi grad ili drugi aerodrom u istoj regiji, prvo pitanje nije samo da li je let tehnički završen. Za putnika je važno kada je stvarno stigao do odredišta koje je kupio. Ako ste kupili let do Beča, a završili u Bratislavi pa autobusom stigli do Beča mnogo kasnije, računa se cela posledica po putovanje.",
             "Ovo je posebno važno za putnike iz Srbije, jer rute često uključuju konekcije preko EU aerodroma. Ako je preusmerenje dovelo do propuštene veze, noćenja, novog leta ili dolaska tri sata kasnije na krajnju destinaciju iz iste rezervacije, slučaj treba proveriti kao celinu. Nije dovoljno da aviokompanija kaže da je avion bezbedno sleteo negde drugde.",
-            "Konkurentski vodiči često naglašavaju samo prag od tri sata ili pitanje vanrednih okolnosti. Praktičniji pristup je da odmah napravite vremensku liniju: planirani dolazak, stvarno sletanje na alternativni aerodrom, ponuđeni transfer, polazak transfera i stvarni dolazak do mesta na karti."
+            "U praksi se često naglašava samo prag od tri sata ili pitanje vanrednih okolnosti. Praktičniji pristup je da odmah napravite vremensku liniju: planirani dolazak, stvarno sletanje na alternativni aerodrom, ponuđeni transfer, polazak transfera i stvarni dolazak do mesta na karti."
           ]
         },
         {
@@ -81,7 +81,7 @@ export const article = {
           body: [
             "When an aircraft does not land at the airport shown on your ticket and is diverted to another city or another airport in the same region, the first question is not simply whether the flight technically ended. For the passenger, the practical question is when they actually reached the destination they bought. If you booked Vienna, landed in Bratislava and reached Vienna by bus much later, the whole travel consequence matters.",
             "This is especially important for travelers from Serbia because many routes include connections through EU airports. If the diversion caused a missed connection, an overnight stay, a replacement flight or arrival at the final destination three hours or more late under the same booking, the case should be checked as one timeline. It is not enough for the airline to say that the aircraft landed safely somewhere else.",
-            "Many competitor guides focus only on the three-hour threshold or extraordinary circumstances. The more useful approach is to record the full timeline immediately: scheduled arrival, actual landing at the alternate airport, transport offered, transport departure and actual arrival at the airport or city on your booking."
+            "Many passenger-rights guides focus only on the three-hour threshold or extraordinary circumstances. The more useful approach is to record the full timeline immediately: scheduled arrival, actual landing at the alternate airport, transport offered, transport departure and actual arrival at the airport or city on your booking."
           ]
         },
         {

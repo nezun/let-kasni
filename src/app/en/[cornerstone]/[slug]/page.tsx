@@ -2,27 +2,31 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { BlogArticlePageView } from "@/components/blog-article-page";
-import { blogArticles, getBlogArticleBySlug } from "@/lib/blog";
+import { blogArticles } from "@/lib/blog";
 import {
   getAlternateArticleCornerstoneHref,
   getArticleCornerstoneHref,
+  getBlogArticleByCornerstoneSlug,
+  getCornerstoneForArticle,
 } from "@/lib/cornerstones";
 
 type Props = {
   params: Promise<{
+    cornerstone: string;
     slug: string;
   }>;
 };
 
 export function generateStaticParams() {
   return blogArticles.map((article) => ({
+    cornerstone: getCornerstoneForArticle(article).en.slug,
     slug: article.en.slug,
   }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
-  const article = getBlogArticleBySlug("en", slug);
+  const { cornerstone, slug } = await params;
+  const article = getBlogArticleByCornerstoneSlug("en", cornerstone, slug);
 
   if (!article) {
     return {};
@@ -54,9 +58,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function EnglishBlogArticlePage({ params }: Props) {
-  const { slug } = await params;
-  const article = getBlogArticleBySlug("en", slug);
+export default async function NestedEnglishBlogArticlePage({ params }: Props) {
+  const { cornerstone, slug } = await params;
+  const article = getBlogArticleByCornerstoneSlug("en", cornerstone, slug);
 
   if (!article) {
     notFound();

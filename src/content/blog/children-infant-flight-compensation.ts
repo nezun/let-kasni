@@ -22,7 +22,7 @@ export const article = {
           heading: "Naknada se ne računa samo po rezervaciji",
           body: [
             "Kod kašnjenja, otkazivanja i uskraćenog ukrcavanja putnici često pitaju da li se naknada računa jednom po porodici ili za svakog putnika. U tipičnim evropskim slučajevima fiksna naknada se gleda po putniku, ne po rezervaciji. To znači da porodica od četiri člana potencijalno ima četiri odvojena zahteva ako su svi putnici pokriveni pravilima.",
-            "Međutim, kod dece i posebno beba treba proveriti detalje karte. Nije isto ako dete ima sopstveno sedište i plaćenu kartu, ako beba putuje u krilu uz malu taksu ili ako je karta izdata bez stvarne cene. Neki konkurentski vodiči ovo objašnjavaju previše kratko, a upravo tu porodice najčešće greše.",
+            "Međutim, kod dece i posebno beba treba proveriti detalje karte. Nije isto ako dete ima sopstveno sedište i plaćenu kartu, ako beba putuje u krilu uz malu taksu ili ako je karta izdata bez stvarne cene. U praksi se ovo često objašnjava previše kratko, a upravo tu porodice najčešće greše.",
             "Za putnike iz Srbije najvažnije je da ne pretpostave automatski ni jedno ni drugo. Ne treba odustati zato što je putnik dete, ali ne treba ni računati maksimalan iznos za bebu bez provere kako je karta izdata."
           ]
         },
@@ -80,7 +80,7 @@ export const article = {
           heading: "Compensation is not counted only per booking",
           body: [
             "For delays, cancellations and denied boarding, passengers often ask whether compensation is paid once per family or for each passenger. In typical European cases, fixed compensation is assessed per passenger, not per booking. That means a family of four may potentially have four separate claims if all passengers are covered.",
-            "However, for children and especially babies, ticket details matter. It is not the same if a child has their own seat and paid ticket, if an infant travels on an adult's lap for a small fee, or if a ticket was issued without a real fare. Many competitor guides explain this too briefly, and families often make mistakes here.",
+            "However, for children and especially babies, ticket details matter. It is not the same if a child has their own seat and paid ticket, if an infant travels on an adult's lap for a small fee, or if a ticket was issued without a real fare. In practice, this is often explained too briefly, and families often make mistakes here.",
             "For travelers from Serbia, the key is not to assume either answer automatically. Do not give up just because the passenger is a child, but do not calculate the maximum amount for an infant without checking how the ticket was issued."
           ]
         },

@@ -1,12 +1,15 @@
 import Link from "next/link";
 
+import { DelayCompensationCalculator } from "@/components/delay-compensation-calculator";
 import { SiteHeader } from "@/components/site-header";
 import { getBlogArticleImage, type BlogLocale } from "@/lib/blog";
 import {
   cornerstonePages,
+  getArticleCornerstoneHref,
   getAlternateCornerstoneHref,
   getCornerstoneChildren,
   getCornerstoneHref,
+  getCornerstoneSupportArticles,
   type CornerstonePage,
 } from "@/lib/cornerstones";
 
@@ -15,31 +18,54 @@ const copy = {
     allGuides: "Glavni vodiči",
     childTitle: "Detaljni vodiči u ovoj temi",
     childIntro:
-      "Ovi tekstovi su child vodiči. Ulaze u konkretne izgovore, dokaze i procedure, a vraćaju autoritet na glavni vodič.",
+      "Ovi tekstovi ulaze u konkretne izgovore, dokaze i procedure povezane sa glavnim vodičem.",
     faqTitle: "Česta pitanja",
     nextStep: "Sledeći korak",
     checkText:
       "Unesite let i datum da se slučaj prvo konzervativno proveri prema ruti, razlogu i dostupnim dokazima.",
     blogLabel: "Blog",
     readMore: "Pročitaj detaljno",
+    amountTitle: "Iznosi po dužini rute",
+    amountIntro:
+      "Tabela je brza orijentacija. Konačna procena zavisi od rute, stvarnog dolaska, razloga kašnjenja i dokaza.",
+    supportTitle: "Povezani vodiči koji pomažu kod zahteva",
+    supportIntro:
+      "Ovi tekstovi nisu primarni deo teme kašnjenja, ali često pomažu da zahtev bude potpuniji.",
   },
   en: {
     allGuides: "Main guides",
     childTitle: "Detailed guides in this topic",
     childIntro:
-      "These are child guides. They go deeper into specific excuses, evidence and procedures, and link authority back to the main guide.",
+      "These guides go deeper into specific excuses, evidence and procedures connected to the main guide.",
     faqTitle: "FAQ",
     nextStep: "Next step",
     checkText:
       "Enter the flight and date so the case can first be checked conservatively by route, reason and available evidence.",
     blogLabel: "Blog",
     readMore: "Read more",
+    amountTitle: "Amounts by route distance",
+    amountIntro:
+      "This table is a quick orientation. The final assessment depends on route, actual arrival, delay reason and evidence.",
+    supportTitle: "Related guides that help with the claim",
+    supportIntro:
+      "These articles are not the primary delay topic, but they often help make the claim more complete.",
   },
 };
 
-function localizedBlogHref(locale: BlogLocale, slug: string) {
-  return locale === "sr" ? `/blog/${slug}` : `/en/blog/${slug}`;
-}
+const delayAmountRows = {
+  sr: [
+    ["do 1.500 km", "3+ sata", "250 EUR"],
+    ["1.500-3.500 km", "3+ sata", "400 EUR"],
+    ["preko 3.500 km", "3-4 sata", "300-600 EUR"],
+    ["preko 3.500 km", "4+ sata", "600 EUR"],
+  ],
+  en: [
+    ["up to 1,500 km", "3+ hours", "250 EUR"],
+    ["1,500-3,500 km", "3+ hours", "400 EUR"],
+    ["over 3,500 km", "3-4 hours", "300-600 EUR"],
+    ["over 3,500 km", "4+ hours", "600 EUR"],
+  ],
+};
 
 export function CornerstonePageView({
   page,
@@ -52,6 +78,7 @@ export function CornerstonePageView({
   const localized = page[locale];
   const alternateHref = getAlternateCornerstoneHref(page, locale);
   const childArticles = getCornerstoneChildren(page, locale);
+  const supportArticles = getCornerstoneSupportArticles(page, locale);
   const checkHref = locale === "sr" ? "/#proveri-let" : "/en#proveri-let";
 
   return (
@@ -129,6 +156,35 @@ export function CornerstonePageView({
         <section className="px-6 py-14">
           <div className="mx-auto grid max-w-[1180px] gap-12 lg:grid-cols-[minmax(0,760px)_300px]">
             <div className="space-y-11">
+              {page.id === "flight-delay-compensation" ? (
+                <section className="grid gap-5 rounded-[18px] border border-[#DDE4EF] bg-white p-5 shadow-[0_18px_50px_rgba(15,23,42,0.07)] md:grid-cols-[minmax(0,1fr)_320px]">
+                  <div>
+                    <h2 className="font-display text-[30px] font-black leading-[1.15] tracking-[-0.025em] text-[#0A0F1E] md:text-[36px]">
+                      {t.amountTitle}
+                    </h2>
+                    <p className="mt-3 text-[16px] leading-[1.72] text-[#66758B]">
+                      {t.amountIntro}
+                    </p>
+                    <div className="mt-6 overflow-hidden rounded-xl border border-[#DDE4EF]">
+                      <table className="w-full border-collapse text-left text-sm">
+                        <tbody>
+                          {delayAmountRows[locale].map((row) => (
+                            <tr key={row.join("-")} className="border-b border-[#E8EDF5] last:border-b-0">
+                              <th className="bg-[#F8FAFC] px-4 py-3 font-black text-[#0A0F1E]">
+                                {row[0]}
+                              </th>
+                              <td className="px-4 py-3 font-bold text-[#526173]">{row[1]}</td>
+                              <td className="px-4 py-3 font-black text-[#2470EB]">{row[2]}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <DelayCompensationCalculator locale={locale} />
+                </section>
+              ) : null}
+
               {localized.sections.map((section) => (
                 <section key={section.heading}>
                   <h2 className="font-display text-[30px] font-black leading-[1.15] tracking-[-0.025em] text-[#0A0F1E] md:text-[38px]">
@@ -149,6 +205,19 @@ export function CornerstonePageView({
                       ))}
                     </ul>
                   ) : null}
+                  {section.links ? (
+                    <div className="mt-5 flex flex-wrap gap-2">
+                      {section.links.map((link) => (
+                        <Link
+                          key={link.href}
+                          href={link.href}
+                          className="rounded-full border border-[#DDE4EF] bg-white px-4 py-2 text-sm font-black text-[#2470EB] transition hover:border-[#2470EB] hover:bg-[#EEF5FF]"
+                        >
+                          {link.label}
+                        </Link>
+                      ))}
+                    </div>
+                  ) : null}
                 </section>
               ))}
 
@@ -166,7 +235,7 @@ export function CornerstonePageView({
                     return (
                       <Link
                         key={article.id}
-                        href={localizedBlogHref(locale, article.localized.slug)}
+                        href={getArticleCornerstoneHref(article, locale)}
                         className="group overflow-hidden rounded-[14px] border border-[#E2E6EF] bg-white shadow-[0_16px_42px_rgba(15,23,42,0.06)] transition hover:-translate-y-0.5 hover:shadow-[0_24px_58px_rgba(15,23,42,0.12)]"
                       >
                         <div className="aspect-[16/8.8] overflow-hidden bg-[#E7EEF8]">
@@ -197,6 +266,33 @@ export function CornerstonePageView({
                   })}
                 </div>
               </section>
+
+              {supportArticles.length > 0 ? (
+                <section className="border-t border-[#E2E6EF] pt-10">
+                  <h2 className="font-display text-[32px] font-black leading-[1.15] tracking-[-0.025em]">
+                    {t.supportTitle}
+                  </h2>
+                  <p className="mt-3 max-w-[720px] text-[16px] leading-[1.72] text-[#66758B]">
+                    {t.supportIntro}
+                  </p>
+                  <div className="mt-7 grid gap-3 md:grid-cols-2">
+                    {supportArticles.map((article) => (
+                      <Link
+                        key={article.id}
+                        href={getArticleCornerstoneHref(article, locale)}
+                        className="rounded-xl border border-[#E2E6EF] bg-[#F8FAFC] p-4 transition hover:border-[#BFD7FF] hover:bg-[#EEF5FF]"
+                      >
+                        <p className="text-[11px] font-black uppercase tracking-[0.1em] text-[#2470EB]">
+                          {article.localized.category}
+                        </p>
+                        <h3 className="mt-2 text-[17px] font-black leading-[1.28] tracking-[-0.01em] text-[#0A0F1E]">
+                          {article.localized.title}
+                        </h3>
+                      </Link>
+                    ))}
+                  </div>
+                </section>
+              ) : null}
 
               <section className="border-t border-[#E2E6EF] pt-10">
                 <h2 className="font-display text-[32px] font-black leading-[1.15] tracking-[-0.025em]">

@@ -51,7 +51,7 @@ export const articles = [
           body: [
             "Putnici često čuju samo da je let pomeren zbog štrajka. To nije dovoljno za dobru procenu zahteva. Najvažnije je da li štrajkuju zaposleni aviokompanije, zaposleni aerodroma, obezbeđenje, kontrola letenja, osoblje za prtljag ili neka treća služba. Isti dan na aerodromu može izgledati haotično, ali pravno i praktično nije sve isto.",
             "Ako je uzrok štrajk zaposlenih same aviokompanije, argument putnika je obično jači jer se problem nalazi unutar organizacije prevoznika. Ako je uzrok štrajk kontrole letenja, aerodromskog obezbeđenja ili opšte zatvaranje terminala, aviokompanija će se najčešće pozvati na okolnost van svoje kontrole.",
-            "Konkurentski vodiči često ovu razliku svode na jednu rečenicu. Za putnike iz Srbije korisnije je odmah napraviti mapu događaja: ko je štrajkovao, na kom aerodromu, koliko dugo, šta je tačno aviokompanija ponudila i kada ste realno stigli na odredište."
+            "Ova razlika se često svede na jednu rečenicu. Za putnike iz Srbije korisnije je odmah napraviti mapu događaja: ko je štrajkovao, na kom aerodromu, koliko dugo, šta je tačno aviokompanija ponudila i kada ste realno stigli na odredište."
           ]
         },
         {
@@ -102,7 +102,7 @@ export const articles = [
           body: [
             "Passengers often hear only that the flight was disrupted because of a strike. That is not enough for a proper claim assessment. The key question is whether the strike involves the airline's own staff, airport employees, security, air traffic control, baggage handlers or another external service. The airport may look chaotic, but not every strike is treated the same way.",
             "If the cause is a strike by the airline's own employees, the passenger's argument is usually stronger because the problem sits inside the carrier's organization. If the cause is air traffic control, airport security or a terminal-wide restriction, the airline will usually argue that the event was outside its control.",
-            "Competitor guides often reduce this distinction to one sentence. For travelers from Serbia, it is more useful to map the event: who was striking, at which airport, for how long, what the airline actually offered and when you reached your final destination."
+            "This distinction is often reduced to one sentence. For travelers from Serbia, it is more useful to map the event: who was striking, at which airport, for how long, what the airline actually offered and when you reached your final destination."
           ]
         },
         {
@@ -163,7 +163,7 @@ export const articles = [
         {
           heading: "Zašto je ovo često van kontrole aviokompanije",
           body: [
-            "Kontrola letenja nije deo aviokompanije. Ako eksterni organ smanji broj poletanja ili pomeri let zbog bezbednosti i kapaciteta, prevoznik može imati jak argument da fiksna odšteta nije dugovana. Mnogi konkurentski vodiči zato ATC restrictions stavljaju među vanredne okolnosti.",
+            "Kontrola letenja nije deo aviokompanije. Ako eksterni organ smanji broj poletanja ili pomeri let zbog bezbednosti i kapaciteta, prevoznik može imati jak argument da fiksna odšteta nije dugovana. Zato se ATC restrictions često stavljaju među vanredne okolnosti.",
             "To je tačno kao početna smernica, ali nije kraj provere. Aviokompanija i dalje treba da pokaže da je ograničenje stvarno uticalo na let i da je preduzela razumne mere. Ako je slot izazvao početno kašnjenje od 40 minuta, a zatim je kompanija izgubila još četiri sata zbog sopstvene organizacije, slučaj više nije jednostavan.",
             "Zato ne prihvatajte odgovor bez vremenske linije. Pitajte kada je slot dodeljen, koliko je trajalo ograničenje i zašto nije ponuđena ranija alternativa ako je postalo jasno da ćete propustiti konekciju."
           ]
@@ -214,7 +214,7 @@ export const articles = [
         {
           heading: "Why this is often outside the airline's control",
           body: [
-            "Air traffic control is not part of the airline. If an external authority reduces departures or moves a flight for safety and capacity reasons, the carrier may have a strong argument that fixed compensation is not owed. Many competitor guides therefore list ATC restrictions as extraordinary circumstances.",
+            "Air traffic control is not part of the airline. If an external authority reduces departures or moves a flight for safety and capacity reasons, the carrier may have a strong argument that fixed compensation is not owed. Passenger-rights practice therefore often lists ATC restrictions as extraordinary circumstances.",
             "That is true as a starting point, but it is not the end of the check. The airline should still show that the restriction actually affected the flight and that it took reasonable measures. If the slot caused an initial 40-minute delay and the airline then lost another four hours through its own organization, the case is no longer simple.",
             "Do not accept the answer without a timeline. Ask when the slot was assigned, how long the restriction lasted and why an earlier alternative was not offered once it became clear that you would miss your connection."
           ]
@@ -369,7 +369,7 @@ export const articles = [
           body: [
             "Putnik može u glavi imati jedno putovanje: Beograd-Beč-Njujork, Niš-Istanbul-Dubai ili Beograd-Rim-Madrid. Ali ako su segmenti kupljeni odvojeno, aviokompanije ih često tretiraju kao posebne ugovore. To je najveća razlika kod propuštenih konekcija.",
             "Kod jedne rezervacije, ako prvi let kasni i zato propustite drugi, procena se obično pomera na dolazak na krajnju destinaciju. Kod odvojenih karata, prva aviokompanija može reći da je njen ugovor završen dolaskom na prvi aerodrom, čak i ako ste zbog toga izgubili skuplji drugi let.",
-            "Konkurentski vodiči često naglase single booking uslov, ali putnici iz Srbije često kupuju kombinacije low-cost i long-haul karata jer su jeftinije. Zato je ova tema praktično važna pre kupovine, ne tek kada nastane problem."
+            "Uobičajeni vodiči često naglase single booking uslov, ali putnici iz Srbije često kupuju kombinacije low-cost i long-haul karata jer su jeftinije. Zato je ova tema praktično važna pre kupovine, ne tek kada nastane problem."
           ]
         },
         {
@@ -421,7 +421,7 @@ export const articles = [
           body: [
             "A passenger may think of one journey: Belgrade-Vienna-New York, Nis-Istanbul-Dubai or Belgrade-Rome-Madrid. But if the segments were bought separately, airlines often treat them as separate contracts. That is the biggest difference in missed connection cases.",
             "Under one booking, if the first flight is delayed and you miss the second, the assessment usually moves to arrival at the final destination. With separate tickets, the first airline may say its contract ended at the first airport, even if you lost a more expensive second flight as a result.",
-            "Competitor guides often mention the single booking condition, but travelers from Serbia frequently combine low-cost and long-haul tickets because it is cheaper. This topic is therefore important before purchase, not only after a problem happens."
+            "Passenger-rights guides often mention the single booking condition, but travelers from Serbia frequently combine low-cost and long-haul tickets because it is cheaper. This topic is therefore important before purchase, not only after a problem happens."
           ]
         },
         {
@@ -476,7 +476,7 @@ export const articles = [
           body: [
             "Ako je let otkazan manje od 14 dana pre polaska, slučaj vredi proveriti. Evropska pravila ne gledaju samo činjenicu otkazivanja, već i kada je putnik obavešten i kakva alternativa je ponuđena. Zato email, SMS ili notifikacija iz aplikacije postaju ključni dokaz.",
             "Ako ste obavešteni više od 14 dana ranije, fiksna odšteta je obično teža, ali i dalje možete imati pravo na refundaciju karte ili preusmeravanje. Ako ste obavešteni u poslednjoj nedelji, posebno na dan leta, provera odštete je mnogo važnija.",
-            "Konkurentski vodiči često navode pravilo 14 dana, ali putnici iz Srbije treba da dodaju još dva pitanja: da li ruta spada u evropsku zaštitu i da li je zamenski let realno omogućio putovanje bez velikog gubitka vremena."
+            "U praksi se često navodi pravilo 14 dana, ali putnici iz Srbije treba da dodaju još dva pitanja: da li ruta spada u evropsku zaštitu i da li je zamenski let realno omogućio putovanje bez velikog gubitka vremena."
           ]
         },
         {
@@ -528,7 +528,7 @@ export const articles = [
           body: [
             "If the flight was cancelled less than 14 days before departure, the case is worth checking. European rules look not only at the cancellation itself, but also at when the passenger was informed and what alternative was offered. That makes the email, SMS or app notification key evidence.",
             "If you were informed more than 14 days earlier, fixed compensation is usually harder, but you may still have the right to ticket refund or rerouting. If you were informed in the final week, especially on the day of travel, a compensation check becomes much more important.",
-            "Competitor guides often state the 14-day rule, but travelers from Serbia should add two more questions: whether the route falls under European protection and whether the replacement flight allowed travel without a major loss of time."
+            "Passenger-rights guides often state the 14-day rule, but travelers from Serbia should add two more questions: whether the route falls under European protection and whether the replacement flight allowed travel without a major loss of time."
           ]
         },
         {
@@ -583,7 +583,7 @@ export const articles = [
           body: [
             "Kada je let overbooked, aviokompanija najpre može tražiti volontere koji će odustati od mesta u zamenu za novac, vaučer, milje, hotel ili kasniji let. Ako se dobrovoljno javite i prihvatite dogovor, vaša situacija nije ista kao kod putnika kome je ukrcavanje prisilno uskraćeno.",
             "Kod prisilnog uskraćivanja ukrcavanja, evropska pravila mogu dati pravo na fiksnu naknadu, izbor između refundacije i preusmeravanja, kao i brigu. Kod dobrovoljnog odustajanja, centralno je šta ste dogovorili sa aviokompanijom. Zato uslovi moraju biti jasni pre nego što prihvatite.",
-            "Konkurentski vodiči često objašnjavaju overbooking kroz iznos od 250, 400 ili 600 evra. Za realan aerodromski trenutak korisnije je znati šta pitati dok ste još na gejtu, pre nego što vaučer izgleda kao brza pobeda."
+            "Uobičajeni vodiči često objašnjavaju overbooking kroz iznos od 250, 400 ili 600 evra. Za realan aerodromski trenutak korisnije je znati šta pitati dok ste još na gejtu, pre nego što vaučer izgleda kao brza pobeda."
           ]
         },
         {
@@ -635,7 +635,7 @@ export const articles = [
           body: [
             "When a flight is overbooked, the airline may first ask for volunteers to give up their seat in exchange for money, a voucher, miles, hotel or a later flight. If you volunteer and accept the deal, your situation is not the same as a passenger who is involuntarily denied boarding.",
             "For involuntary denied boarding, European rules may provide fixed compensation, a choice between refund and rerouting, and care. For voluntary surrender, the central question is what you agreed with the airline. The terms must therefore be clear before you accept.",
-            "Competitor guides often explain overbooking through the 250, 400 or 600 euro amounts. In the real airport moment, it is more useful to know what to ask at the gate before the voucher starts looking like an easy win."
+            "Passenger-rights guides often explain overbooking through the 250, 400 or 600 euro amounts. In the real airport moment, it is more useful to know what to ask at the gate before the voucher starts looking like an easy win."
           ]
         },
         {

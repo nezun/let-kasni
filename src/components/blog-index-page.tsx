@@ -3,7 +3,11 @@ import Link from "next/link";
 
 import { SiteHeader } from "@/components/site-header";
 import { getBlogArticleImage, getBlogArticles, type BlogLocale } from "@/lib/blog";
-import { cornerstonePages, getCornerstoneHref } from "@/lib/cornerstones";
+import {
+  cornerstonePages,
+  getArticleCornerstoneHref,
+  getCornerstoneHref,
+} from "@/lib/cornerstones";
 
 type BlogVariant = "a" | "b" | "c";
 
@@ -35,7 +39,7 @@ const copy = {
       "Tri vodiča koja najčešće odlučuju da li slučaj vredi dalje proveravati: kašnjenje, otkazivanje i propuštena konekcija.",
     cornerstoneTitle: "Glavni vodiči",
     cornerstoneIntro:
-      "Cornerstone strane su direktno ispod domena i pokrivaju glavne teme. Blogovi ispod njih ulaze u detaljne scenarije.",
+      "Glavne strane pokrivaju najvažnije teme, a blogovi ispod njih ulaze u konkretne scenarije i dokaze.",
   },
   en: {
     blogHref: "/en/blog",
@@ -59,13 +63,9 @@ const copy = {
       "Three guides that most often decide whether a case is worth checking further: delay, cancellation, and missed connection.",
     cornerstoneTitle: "Main guides",
     cornerstoneIntro:
-      "Cornerstone pages sit directly below the domain and cover the main topics. Blog articles below them go into detailed scenarios.",
+      "Main guides cover the key topics, while related blog articles go deeper into specific scenarios and evidence.",
   },
 };
-
-function hrefFor(locale: BlogLocale, slug: string) {
-  return locale === "sr" ? `/blog/${slug}` : `/en/blog/${slug}`;
-}
 
 function categoryList(locale: BlogLocale) {
   const t = copy[locale];
@@ -219,7 +219,7 @@ function HeroStory({
 
   return (
     <Link
-      href={hrefFor(locale, article.localized.slug)}
+      href={getArticleCornerstoneHref(article, locale)}
       className={`group relative block overflow-hidden bg-[#0B1326] text-white shadow-[0_30px_80px_rgba(15,23,42,0.16)] ${
         variant === "b" ? "rounded-[28px]" : "rounded-[20px]"
       }`}
@@ -256,7 +256,7 @@ function BlogCard({
 
   if (size === "horizontal") {
     return (
-      <Link href={hrefFor(locale, article.localized.slug)} className="group grid overflow-hidden rounded-[18px] border border-[#E2E6EF] bg-white shadow-[0_18px_50px_rgba(15,23,42,0.06)] transition hover:-translate-y-0.5 hover:shadow-[0_28px_70px_rgba(15,23,42,0.12)] md:grid-cols-[280px_minmax(0,1fr)]">
+      <Link href={getArticleCornerstoneHref(article, locale)} className="group grid overflow-hidden rounded-[18px] border border-[#E2E6EF] bg-white shadow-[0_18px_50px_rgba(15,23,42,0.06)] transition hover:-translate-y-0.5 hover:shadow-[0_28px_70px_rgba(15,23,42,0.12)] md:grid-cols-[280px_minmax(0,1fr)]">
         <div className="relative min-h-[220px] overflow-hidden">
           <ImageTag articleId={article.id} className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.04]" />
           <div className="absolute bottom-4 left-4">
@@ -279,7 +279,7 @@ function BlogCard({
   }
 
   return (
-    <Link href={hrefFor(locale, article.localized.slug)} className="group block">
+    <Link href={getArticleCornerstoneHref(article, locale)} className="group block">
       <div className={`relative overflow-hidden rounded-[12px] bg-[#E7EEF8] ${size === "large" ? "aspect-[16/10]" : "aspect-[16/11.2]"}`}>
         <ImageTag articleId={article.id} className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.04]" />
         <div className="absolute bottom-4 left-4">
