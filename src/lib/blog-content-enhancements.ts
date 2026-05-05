@@ -59,6 +59,30 @@ const parentGuideByArticle: Record<
     sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
     en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
   },
+  "wizz-air-flight-delay-compensation": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
+  "air-serbia-flight-delay-compensation": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
+  "lufthansa-flight-delay-compensation": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
+  "austrian-airlines-flight-delay-compensation": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
+  "turkish-airlines-flight-delay-compensation": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
+  "ryanair-flight-delay-compensation": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
   "cancelled-flight-rights": {
     sr: { title: "Naknada za otkazan let", href: "/naknada-za-otkazan-let" },
     en: { title: "Flight cancellation compensation", href: "/en/flight-cancellation-compensation" },
@@ -122,8 +146,51 @@ const defaultParentGuide = {
   en: { title: "Air passenger rights", href: "/en/air-passenger-rights" },
 };
 
+const airlineDelayArticleIds = new Set([
+  "wizz-air-flight-delay-compensation",
+  "air-serbia-flight-delay-compensation",
+  "lufthansa-flight-delay-compensation",
+  "austrian-airlines-flight-delay-compensation",
+  "turkish-airlines-flight-delay-compensation",
+  "ryanair-flight-delay-compensation",
+]);
+
 function parentFor(articleId: string, locale: BlogLocale) {
   return (parentGuideByArticle[articleId] ?? defaultParentGuide)[locale];
+}
+
+function srAirlineDelaySections(article: BlogArticle): BlogSection[] {
+  if (!airlineDelayArticleIds.has(article.id)) {
+    return [];
+  }
+
+  return [
+    {
+      heading: "Kako brzo sortirati slučaj pre slanja",
+      body: [
+        `Za ${article.sr.title.toLowerCase()} najkorisnije je da slučaj odmah pretvorite u mali skup podataka, a ne u dugu žalbu. Unesite broj leta, datum, aerodrom polaska, krajnju destinaciju, planirano vreme dolaska, stvarno vreme dolaska, razlog koji je aviokompanija navela i troškove koje ste imali. Kada su ti podaci na jednom mestu, mnogo je lakše videti da li je slučaj za fiksnu naknadu, refundaciju troškova ili samo za dodatno objašnjenje.`,
+        "Ovakav redosled smanjuje ručni rad i greške. Ako se kasnije šalje dopuna, ne piše se sve iz početka: dodaje se samo novi dokaz, odgovor aviokompanije ili račun. To je posebno važno kod aviokompanija koje koriste kratke generičke odgovore, jer uredan fajl odmah pokazuje šta nije odgovoreno.",
+        "Za ponovljive provere najbolje je čuvati isti format za svaki let: osnovni podaci, razlog kašnjenja, vremenska linija, troškovi i status odgovora. Tako se više putnika ili više letova mogu uporediti bez kopiranja haotičnih beleški iz emaila, aplikacije i fotografija.",
+      ],
+    },
+  ];
+}
+
+function enAirlineDelaySections(article: BlogArticle): BlogSection[] {
+  if (!airlineDelayArticleIds.has(article.id)) {
+    return [];
+  }
+
+  return [
+    {
+      heading: "How to sort the case before sending it",
+      body: [
+        `For ${article.en.title.toLowerCase()}, the most useful step is to turn the case into a small data set instead of a long complaint. Record the flight number, date, departure airport, final destination, scheduled arrival, actual arrival, reason given by the airline and costs incurred. Once those facts are in one place, it is much easier to see whether the case is about fixed compensation, expense reimbursement or only a request for a better explanation.`,
+        "This order reduces manual work and mistakes. If a follow-up is needed later, you do not write everything again: you add only the new proof, airline reply or receipt. That matters with airlines that use short generic answers, because a structured file shows immediately what was not answered.",
+        "For repeatable checks, keep the same format for every flight: core details, delay reason, timeline, costs and response status. That allows several passengers or several flights to be compared without copying scattered notes from email, apps and photos.",
+      ],
+    },
+  ];
 }
 
 function srEnhancementSections(article: BlogArticle): BlogSection[] {
@@ -193,12 +260,20 @@ export function enhanceBlogArticle(article: BlogArticle): BlogArticle {
     ...article,
     sr: {
       ...article.sr,
-      sections: [...article.sr.sections, ...srEnhancementSections(article)],
+      sections: [
+        ...article.sr.sections,
+        ...srAirlineDelaySections(article),
+        ...srEnhancementSections(article),
+      ],
       readTime: "8 min čitanja",
     },
     en: {
       ...article.en,
-      sections: [...article.en.sections, ...enEnhancementSections(article)],
+      sections: [
+        ...article.en.sections,
+        ...enAirlineDelaySections(article),
+        ...enEnhancementSections(article),
+      ],
       readTime: "8 min read",
     },
   };

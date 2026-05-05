@@ -229,6 +229,12 @@ export const cornerstonePages: CornerstonePage[] = [
       "medical-emergency-flight-delay",
       "crew-shortage-flight-delay",
       "night-flight-ban-curfew",
+      "wizz-air-flight-delay-compensation",
+      "air-serbia-flight-delay-compensation",
+      "lufthansa-flight-delay-compensation",
+      "austrian-airlines-flight-delay-compensation",
+      "turkish-airlines-flight-delay-compensation",
+      "ryanair-flight-delay-compensation",
       "flight-diverted-rights",
     ],
     supportArticleIds: [
@@ -689,10 +695,62 @@ const generatedGuides: CornerstonePage[] = guideSummaries.map((guide) => {
   };
 });
 
+function getCornerstoneForArticleId(articleId: string): CornerstoneId {
+  switch (articleId) {
+    case "flight-delay-compensation":
+    case "bad-weather-flight-delay":
+    case "technical-fault-flight-compensation":
+    case "previous-flight-rotation-delay":
+    case "overnight-delay-hotel-rights":
+    case "self-rerouting-new-ticket":
+    case "air-traffic-control-slot-delay":
+    case "bird-strike-flight-delay":
+    case "lightning-strike-aircraft-delay":
+    case "medical-emergency-flight-delay":
+    case "crew-shortage-flight-delay":
+    case "night-flight-ban-curfew":
+    case "wizz-air-flight-delay-compensation":
+    case "air-serbia-flight-delay-compensation":
+    case "lufthansa-flight-delay-compensation":
+    case "austrian-airlines-flight-delay-compensation":
+    case "turkish-airlines-flight-delay-compensation":
+    case "ryanair-flight-delay-compensation":
+    case "flight-diverted-rights":
+      return "flight-delay-compensation";
+    case "cancelled-flight-rights":
+    case "cancellation-under-14-days":
+    case "airline-bankruptcy-passenger-rights":
+    case "refund-vs-compensation":
+    case "airline-response-no-answer":
+    case "flight-moved-earlier-rights":
+      return "flight-cancellation-compensation";
+    case "missed-connection":
+    case "separate-tickets-missed-connection":
+    case "serbia-eu-transit-routes":
+      return "missed-connection-compensation";
+    case "denied-boarding-overbooking":
+    case "voluntary-denied-boarding-voucher":
+    case "voucher-or-cash-compensation":
+      return "overbooking-compensation";
+    case "missed-flight-security-queue":
+      return "denied-boarding-compensation";
+    case "delayed-baggage-after-flight":
+      return "delayed-baggage-compensation";
+    case "airline-strike-compensation":
+    case "airport-strike-flight-rights":
+      return "airline-strike-compensation";
+    default:
+      return "air-passenger-rights";
+  }
+}
+
 function childLinkList(page: CornerstonePage, locale: BlogLocale, limit = 7) {
   return page.childArticleIds
     .map((id) => blogArticles.find((article) => article.id === id))
-    .filter((article): article is BlogArticle => Boolean(article))
+    .filter(
+      (article): article is BlogArticle =>
+        article !== undefined && getCornerstoneForArticleId(article.id) === page.id,
+    )
     .slice(0, limit)
     .map((article) => `[${article[locale].title}](${getCornerstoneHref(page, locale)}/${article[locale].slug})`)
     .join(", ");
@@ -703,6 +761,16 @@ function addDepthToGeneratedGuide(page: CornerstonePage) {
   const enTopic = page.en.title.toLowerCase();
   const srChildren = childLinkList(page, "sr");
   const enChildren = childLinkList(page, "en");
+  const srDepthBridge = new Set<CornerstoneId>([
+    "overbooking-compensation",
+    "denied-boarding-compensation",
+    "delayed-baggage-compensation",
+    "airline-strike-compensation",
+  ]).has(page.id)
+    ? [
+        "Zbog toga je korisno da se ovaj vodič koristi kao kontrolna lista: prvo se utvrdi osnovni događaj, zatim se provere dokazi, a tek onda se odlučuje da li se šalje zahtev za novac, troškove, refundaciju ili dodatno objašnjenje.",
+      ]
+    : [];
 
   page.sr.sections = [
     ...page.sr.sections,
@@ -711,7 +779,8 @@ function addDepthToGeneratedGuide(page: CornerstonePage) {
       body: [
         `Kod teme ${srTopic} prvo se odvaja glavni problem od posledice. Putnik često vidi samo krajnji rezultat: nije poleteo, stigao je kasno, izgubio je konekciju ili je morao da kupi nešto sam. Za dobru procenu treba utvrditi šta je bio prvi uzrok, ko ga je kontrolisao, koliko je putovanje stvarno promenjeno i da li je aviokompanija ponudila razumno rešenje.`,
         "Zato se uvek kreće od četiri činjenice: ruta, rezervacija, vreme i razlog. Ruta govori koja pravila mogu da se primene. Rezervacija govori da li se segmenti posmatraju zajedno ili odvojeno. Vreme pokazuje da li je prag za naknadu pređen. Razlog odlučuje da li aviokompanija može da se osloni na vanredne okolnosti.",
-        "Ako bilo koja od tih činjenica nedostaje, zahtev ne treba automatski odbaciti. Treba ga dopuniti dokazima: potvrdom rezervacije, boarding pass dokumentima, porukama aviokompanije, screenshotovima aplikacije, računima i kratkom hronologijom događaja."
+        "Ako bilo koja od tih činjenica nedostaje, zahtev ne treba automatski odbaciti. Treba ga dopuniti dokazima: potvrdom rezervacije, boarding pass dokumentima, porukama aviokompanije, screenshotovima aplikacije, računima i kratkom hronologijom događaja.",
+        ...srDepthBridge,
       ],
     },
     {
@@ -1461,6 +1530,12 @@ export const articleCornerstoneMap: Record<string, CornerstoneId> = {
   "medical-emergency-flight-delay": "flight-delay-compensation",
   "crew-shortage-flight-delay": "flight-delay-compensation",
   "night-flight-ban-curfew": "flight-delay-compensation",
+  "wizz-air-flight-delay-compensation": "flight-delay-compensation",
+  "air-serbia-flight-delay-compensation": "flight-delay-compensation",
+  "lufthansa-flight-delay-compensation": "flight-delay-compensation",
+  "austrian-airlines-flight-delay-compensation": "flight-delay-compensation",
+  "turkish-airlines-flight-delay-compensation": "flight-delay-compensation",
+  "ryanair-flight-delay-compensation": "flight-delay-compensation",
   "cancelled-flight-rights": "flight-cancellation-compensation",
   "cancellation-under-14-days": "flight-cancellation-compensation",
   "airline-bankruptcy-passenger-rights": "flight-cancellation-compensation",
