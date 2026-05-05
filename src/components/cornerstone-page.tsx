@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 
-import { DelayCompensationCalculator } from "@/components/delay-compensation-calculator";
+import { CornerstoneTypographyPreview } from "@/components/cornerstone-typography-preview";
 import { InlineRichText } from "@/components/inline-rich-text";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
@@ -28,9 +28,6 @@ const copy = {
       "Unesite let i datum da se slučaj prvo konzervativno proveri prema ruti, razlogu i dostupnim dokazima.",
     blogLabel: "Blog",
     readMore: "Pročitaj detaljno",
-    amountTitle: "Iznosi po dužini rute",
-    amountIntro:
-      "Tabela je orijentaciona. Konačna procena zavisi od pokrivenosti rute, stvarnog dolaska, razloga i dokaza.",
   },
   en: {
     allGuides: "Main guides",
@@ -43,25 +40,7 @@ const copy = {
       "Enter the flight and date so the case can first be checked conservatively by route, reason and available evidence.",
     blogLabel: "Blog",
     readMore: "Read more",
-    amountTitle: "Amounts by route distance",
-    amountIntro:
-      "This table is an orientation. Final assessment depends on route coverage, actual arrival, reason and evidence.",
   },
-};
-
-const delayAmountRows = {
-  sr: [
-    ["do 1.500 km", "3+ sata na dolasku", "250 EUR"],
-    ["1.500-3.500 km", "3+ sata na dolasku", "400 EUR"],
-    ["preko 3.500 km", "3-4 sata na dolasku", "300-600 EUR"],
-    ["preko 3.500 km", "4+ sata na dolasku", "600 EUR"],
-  ],
-  en: [
-    ["up to 1,500 km", "3+ hours at arrival", "250 EUR"],
-    ["1,500-3,500 km", "3+ hours at arrival", "400 EUR"],
-    ["over 3,500 km", "3-4 hours at arrival", "300-600 EUR"],
-    ["over 3,500 km", "4+ hours at arrival", "600 EUR"],
-  ],
 };
 
 export function CornerstonePageView({
@@ -73,6 +52,11 @@ export function CornerstonePageView({
 }) {
   const t = copy[locale];
   const localized = page[locale];
+
+  if (page.id === "flight-delay-compensation") {
+    return <CornerstoneTypographyPreview page={page} locale={locale} />;
+  }
+
   const alternateHref = getAlternateCornerstoneHref(page, locale);
   const childArticles = getCornerstoneChildren(page, locale);
   const checkHref = locale === "sr" ? "/#proveri-let" : "/en#proveri-let";
@@ -171,35 +155,6 @@ export function CornerstonePageView({
                   ) : null}
                 </section>
               ))}
-
-              {page.id === "flight-delay-compensation" ? (
-                <section className="grid gap-5 rounded-[16px] border border-[#DDE4EF] bg-white p-5 shadow-[0_18px_50px_rgba(15,23,42,0.07)] md:grid-cols-[minmax(0,1fr)_320px]">
-                  <div>
-                    <h2 className="font-display text-[30px] font-black leading-[1.15] tracking-[-0.025em] text-[#0A0F1E] md:text-[36px]">
-                      {t.amountTitle}
-                    </h2>
-                    <p className="mt-3 text-[16px] leading-[1.72] text-[#66758B]">
-                      {t.amountIntro}
-                    </p>
-                    <div className="mt-6 overflow-hidden rounded-xl border border-[#DDE4EF]">
-                      <table className="w-full border-collapse text-left text-sm">
-                        <tbody>
-                          {delayAmountRows[locale].map((row) => (
-                            <tr key={row.join("-")} className="border-b border-[#E8EDF5] last:border-b-0">
-                              <th className="bg-[#F8FAFC] px-4 py-3 font-black text-[#0A0F1E]">
-                                {row[0]}
-                              </th>
-                              <td className="px-4 py-3 font-bold text-[#526173]">{row[1]}</td>
-                              <td className="px-4 py-3 font-black text-[#2470EB]">{row[2]}</td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                  <DelayCompensationCalculator locale={locale} />
-                </section>
-              ) : null}
 
               {childArticles.length > 0 ? (
                 <section className="border-t border-[#E2E6EF] pt-10">
