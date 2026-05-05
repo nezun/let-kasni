@@ -545,6 +545,7 @@ function checkInterlinkingGuardrails() {
   const instructionSource = read("AGENTS.md");
   const inlineRichTextSource = read("src/components/inline-rich-text.tsx");
   const blogIndexSource = read("src/components/blog-index-page.tsx");
+  const proxySource = read("src/proxy.ts");
   const bodyRenderSources = [
     "src/components/blog-article-page.tsx",
     "src/components/cornerstone-page.tsx",
@@ -610,6 +611,20 @@ function checkInterlinkingGuardrails() {
       message: "blog category pills must not link to cornerstone pages or page anchors",
       suggestedFix:
         "Use query-string filters for blog index categories and reserve cornerstone URLs for article cards and guide links.",
+    });
+  }
+
+  if (
+    fs.existsSync(path.join(root, "src/app/blog/[slug]/page.tsx")) ||
+    fs.existsSync(path.join(root, "src/app/en/blog/[slug]/page.tsx")) ||
+    /["']\/(?:en\/)?blog\/[^"']+["']/.test(proxySource)
+  ) {
+    addIssue({
+      type: "legacy_blog_article_url_surface",
+      file: "src/app",
+      message: "legacy /blog/[slug] and /en/blog/[slug] article URLs must not be served or redirected",
+      suggestedFix:
+        "Keep only /blog and /en/blog as index pages; article URLs must live under their cornerstone parent paths.",
     });
   }
 }

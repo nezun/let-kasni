@@ -43,16 +43,6 @@ export function getBlogArticles(locale: BlogLocale) {
   }));
 }
 
-export function getBlogArticleBySlug(locale: BlogLocale, slug: string) {
-  return blogArticles.find((article) => article[locale].slug === slug) ?? null;
-}
-
-export function getAlternateArticleHref(article: BlogArticle, locale: BlogLocale) {
-  return locale === "sr"
-    ? `/en/blog/${article.en.slug}`
-    : `/blog/${article.sr.slug}`;
-}
-
 export function getBlogArticleImage(articleId: string) {
   return articleImages[articleId] ?? articleImages["flight-delay-compensation"];
 }

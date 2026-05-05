@@ -441,7 +441,7 @@ function isBlogIndexPath(path) {
 }
 
 function isBlogArticlePath(path) {
-  return path.startsWith("/blog/") || path.startsWith("/en/blog/") || isNestedArticlePath(path);
+  return isNestedArticlePath(path);
 }
 
 function filterEntries(entries, flags) {
