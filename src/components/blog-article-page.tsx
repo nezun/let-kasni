@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { InlineRichText } from "@/components/inline-rich-text";
+import { InlineRichText, InterlinkingScope } from "@/components/inline-rich-text";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { getSupportEmail } from "@/lib/env";
@@ -10,6 +10,7 @@ import {
 } from "@/lib/blog";
 import {
   getAlternateArticleCornerstoneHref,
+  getArticleCornerstoneHref,
   getCornerstoneForArticle,
   getCornerstoneHref,
 } from "@/lib/cornerstones";
@@ -53,6 +54,7 @@ export function BlogArticlePageView({
   const localized = article[locale];
   const mainGuide = getCornerstoneForArticle(article);
   const alternateHref = getAlternateArticleCornerstoneHref(article, locale);
+  const currentHref = getArticleCornerstoneHref(article, locale);
   const supportEmail = getSupportEmail();
   const jsonLd = {
     "@context": "https://schema.org",
@@ -113,32 +115,34 @@ export function BlogArticlePageView({
 
         <section className="px-6 py-12">
           <div className="mx-auto grid max-w-[1120px] gap-10 lg:grid-cols-[minmax(0,720px)_280px]">
-            <div className="space-y-10">
-              {localized.sections.map((section) => (
-                <section key={section.heading}>
-                  <h2 className="font-display text-[30px] font-bold leading-[1.18] text-[#0A0F1E]">
-                    {section.heading}
-                  </h2>
-                  <div className="mt-4 space-y-4 text-[17px] leading-[1.82] text-[#4F5B75]">
-                    {section.body.map((paragraph) => (
-                      <p key={paragraph}>
-                        <InlineRichText text={paragraph} locale={locale} />
-                      </p>
-                    ))}
-                  </div>
-                  {section.bullets ? (
-                    <ul className="mt-5 space-y-3 rounded-lg border border-[#E2E6EF] bg-[#F8FAFC] p-5 text-[15px] leading-[1.7] text-[#334155]">
-                      {section.bullets.map((bullet) => (
-                        <li key={bullet} className="flex gap-3">
-                          <span className="mt-[10px] h-1.5 w-1.5 shrink-0 rounded-full bg-[#2470EB]" />
-                          <span>{bullet}</span>
-                        </li>
+            <InterlinkingScope currentHref={currentHref}>
+              <div className="space-y-10">
+                {localized.sections.map((section) => (
+                  <section key={section.heading}>
+                    <h2 className="font-display text-[30px] font-bold leading-[1.18] text-[#0A0F1E]">
+                      {section.heading}
+                    </h2>
+                    <div className="mt-4 space-y-4 text-[17px] leading-[1.82] text-[#4F5B75]">
+                      {section.body.map((paragraph) => (
+                        <p key={paragraph}>
+                          <InlineRichText text={paragraph} locale={locale} />
+                        </p>
                       ))}
-                    </ul>
-                  ) : null}
-                </section>
-              ))}
-            </div>
+                    </div>
+                    {section.bullets ? (
+                      <ul className="mt-5 space-y-3 rounded-lg border border-[#E2E6EF] bg-[#F8FAFC] p-5 text-[15px] leading-[1.7] text-[#334155]">
+                        {section.bullets.map((bullet) => (
+                          <li key={bullet} className="flex gap-3">
+                            <span className="mt-[10px] h-1.5 w-1.5 shrink-0 rounded-full bg-[#2470EB]" />
+                            <span>{bullet}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : null}
+                  </section>
+                ))}
+              </div>
+            </InterlinkingScope>
 
             <aside className="space-y-4 lg:sticky lg:top-24 lg:self-start">
               <div className="rounded-lg border border-[#E2E6EF] bg-[#F8FAFC] p-5">

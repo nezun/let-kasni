@@ -450,6 +450,143 @@ function runtimeCornerstoneText(page, locale) {
   ].join(" ");
 }
 
+function normalizeInternalLinkHref(href) {
+  return href.trim().replace(/#.*$/, "").replace(/\/$/, "") || "/";
+}
+
+function normalizeInternalLinkAnchor(anchor) {
+  return anchor.trim().replace(/\s+/g, " ").toLocaleLowerCase();
+}
+
+function markdownLinksFromText(text) {
+  return [...text.matchAll(/\[([^\]]+)\]\(([^)]+)\)/g)].map((match) => ({
+    anchor: match[1],
+    href: match[2],
+  }));
+}
+
+function checkInternalLinkDensityForBlock({ file, article, locale, paragraphs }) {
+  const seenHrefs = new Map();
+  const seenAnchors = new Map();
+
+  for (const paragraph of paragraphs) {
+    for (const link of markdownLinksFromText(paragraph)) {
+      if (
+        !link.href.startsWith("/") ||
+        link.href.startsWith("//") ||
+        link.href.startsWith("/#")
+      ) {
+        continue;
+      }
+
+      const href = normalizeInternalLinkHref(link.href);
+      const anchor = normalizeInternalLinkAnchor(link.anchor);
+
+      if (seenHrefs.has(href)) {
+        addIssue({
+          type: "duplicate_internal_link_target",
+          file,
+          article,
+          locale,
+          target: href,
+          message: `${locale.toUpperCase()} body links to ${href} more than once`,
+          suggestedFix:
+            "Keep only the first contextual link to this target in the article/guide body; render later mentions as plain text.",
+        });
+      } else {
+        seenHrefs.set(href, true);
+      }
+
+      if (seenAnchors.has(anchor)) {
+        addIssue({
+          type: "duplicate_internal_link_anchor",
+          file,
+          article,
+          locale,
+          anchor: link.anchor,
+          message: `${locale.toUpperCase()} body uses linked anchor "${link.anchor}" more than once`,
+          suggestedFix:
+            "Use each anchor word or phrase as a link only once in the article/guide body; render later mentions as plain text.",
+        });
+      } else {
+        seenAnchors.set(anchor, true);
+      }
+    }
+  }
+}
+
+function checkRuntimeInternalLinkDensity() {
+  const { blogArticles, cornerstonePages } = loadRuntimeContent();
+
+  for (const article of blogArticles) {
+    for (const locale of ["sr", "en"]) {
+      checkInternalLinkDensityForBlock({
+        file: "src/lib/blog.ts",
+        article: article.id,
+        locale,
+        paragraphs: article[locale].sections.flatMap((section) => section.body),
+      });
+    }
+  }
+
+  for (const page of cornerstonePages) {
+    for (const locale of ["sr", "en"]) {
+      checkInternalLinkDensityForBlock({
+        file: "src/lib/cornerstones.ts",
+        article: page.id,
+        locale,
+        paragraphs: page[locale].sections.flatMap((section) => section.body),
+      });
+    }
+  }
+}
+
+function checkInterlinkingGuardrails() {
+  const instructionSource = read("AGENTS.md");
+  const inlineRichTextSource = read("src/components/inline-rich-text.tsx");
+  const bodyRenderSources = [
+    "src/components/blog-article-page.tsx",
+    "src/components/cornerstone-page.tsx",
+    "src/components/cornerstone-typography-preview.tsx",
+  ];
+
+  if (!/same target URL at most once/.test(instructionSource)) {
+    addIssue({
+      type: "missing_interlinking_density_instruction",
+      file: "AGENTS.md",
+      message: "project instructions must include the approved internal-link density rule",
+      suggestedFix:
+        "Document that each rendered article/guide body may link to a target URL at most once and may use an anchor phrase as a link at most once.",
+    });
+  }
+
+  for (const requiredToken of ["usedHrefs", "usedAnchors", "currentHref", "InterlinkingScope"]) {
+    if (!inlineRichTextSource.includes(requiredToken)) {
+      addIssue({
+        type: "missing_interlinking_runtime_guard",
+        file: "src/components/inline-rich-text.tsx",
+        message: `inline rich text renderer is missing ${requiredToken}`,
+        suggestedFix:
+          "Keep the runtime guard that tracks used link targets, used anchors and the current page URL across the rendered body.",
+      });
+    }
+  }
+
+  for (const file of bodyRenderSources) {
+    const source = read(file);
+
+    if (!source.includes("InterlinkingScope")) {
+      addIssue({
+        type: "missing_interlinking_scope",
+        file,
+        message: "article/guide body must render InlineRichText inside InterlinkingScope",
+        suggestedFix:
+          "Wrap the body sections that render InlineRichText with InterlinkingScope so link target and anchor usage is tracked across the full text.",
+      });
+    }
+  }
+}
+
 function checkRuntimeSerbianLatinScript() {
   const { blogArticles, cornerstonePages, formatDisplayDate } = loadRuntimeContent();
 
@@ -577,9 +714,11 @@ checkNoCyrillicPublicCopy();
 checkDailyArticleShape();
 checkDuplicateIdsAndSlugs();
 checkInterlinkingAntiPatterns();
+checkInterlinkingGuardrails();
 checkPublicShell();
 checkRuntimeContentDepth();
 checkRuntimeSerbianLatinScript();
+checkRuntimeInternalLinkDensity();
 
 const report = {
   generatedAt: new Date().toISOString(),

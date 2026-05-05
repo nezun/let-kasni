@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Check, ChevronRight, Clock } from "lucide-react";
 
 import { DelayCompensationCalculator } from "@/components/delay-compensation-calculator";
-import { InlineRichText } from "@/components/inline-rich-text";
+import { InlineRichText, InterlinkingScope } from "@/components/inline-rich-text";
 import { ScrollProgressToc } from "@/components/scroll-progress-toc";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
@@ -10,6 +10,7 @@ import { getBlogArticleImage, type BlogLocale } from "@/lib/blog";
 import {
   getArticleCornerstoneHref,
   getCornerstoneChildren,
+  getCornerstoneHref,
   type CornerstonePage,
 } from "@/lib/cornerstones";
 import { formatDisplayDate } from "@/lib/date-format";
@@ -87,6 +88,7 @@ export function CornerstoneTypographyPreview({
     label: section.heading,
   }));
   const takeaways = localized.sections[0]?.bullets?.slice(0, 3) ?? [];
+  const currentHref = getCornerstoneHref(page, locale);
   const alternateHref = locale === "sr" ? "/en/flight-delay-compensation" : "/naknada-za-kasnjenje-leta";
 
   return (
@@ -158,32 +160,34 @@ export function CornerstoneTypographyPreview({
                 </section>
               ) : null}
 
-              <div className="space-y-14">
-                {localized.sections.map((section, index) => (
-                  <section key={section.heading} id={sectionId(index)} className="scroll-mt-36">
-                    <h2 className="font-display text-[34px] font-black leading-[1.16] tracking-[-0.025em] text-[#101828] md:text-[42px]">
-                      {section.heading}
-                    </h2>
-                    <div className="mt-6 space-y-6 text-[19px] leading-[1.78] text-[#344054]">
-                      {section.body.map((paragraph) => (
-                        <p key={paragraph}>
-                          <InlineRichText text={paragraph} locale={locale} />
-                        </p>
-                      ))}
-                    </div>
-                    {section.bullets ? (
-                      <ul className="mt-7 space-y-3 border-l-4 border-[#2470EB] bg-white py-2 pl-5 text-[17px] leading-[1.68] text-[#344054]">
-                        {section.bullets.map((bullet) => (
-                          <li key={bullet} className="flex gap-3">
-                            <span className="mt-[11px] h-1.5 w-1.5 shrink-0 rounded-full bg-[#2470EB]" />
-                            <span>{bullet}</span>
-                          </li>
+              <InterlinkingScope currentHref={currentHref}>
+                <div className="space-y-14">
+                  {localized.sections.map((section, index) => (
+                    <section key={section.heading} id={sectionId(index)} className="scroll-mt-36">
+                      <h2 className="font-display text-[34px] font-black leading-[1.16] tracking-[-0.025em] text-[#101828] md:text-[42px]">
+                        {section.heading}
+                      </h2>
+                      <div className="mt-6 space-y-6 text-[19px] leading-[1.78] text-[#344054]">
+                        {section.body.map((paragraph) => (
+                          <p key={paragraph}>
+                            <InlineRichText text={paragraph} locale={locale} />
+                          </p>
                         ))}
-                      </ul>
-                    ) : null}
-                  </section>
-                ))}
-              </div>
+                      </div>
+                      {section.bullets ? (
+                        <ul className="mt-7 space-y-3 border-l-4 border-[#2470EB] bg-white py-2 pl-5 text-[17px] leading-[1.68] text-[#344054]">
+                          {section.bullets.map((bullet) => (
+                            <li key={bullet} className="flex gap-3">
+                              <span className="mt-[11px] h-1.5 w-1.5 shrink-0 rounded-full bg-[#2470EB]" />
+                              <span>{bullet}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      ) : null}
+                    </section>
+                  ))}
+                </div>
+              </InterlinkingScope>
 
               <section className="mt-16 rounded-[18px] border border-[#E4E7EC] bg-white p-6 shadow-[0_18px_46px_rgba(16,24,40,0.06)] md:p-8">
                 <h2 className="font-display text-[34px] font-black leading-[1.16] tracking-[-0.025em] text-[#101828] md:text-[42px]">

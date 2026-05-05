@@ -30,6 +30,7 @@ This version has breaking changes — APIs, conventions, and file structure may 
 - Recommended deploy target for this app: `Vercel`
 - Health check endpoint: `/api/health`
 - Production URL: `https://letkasni.rs`
+- Default execution rule: deploy completed changes immediately unless the user explicitly says to keep the work local first.
 - App is allowed to ship before live flight-provider wiring is connected, as long as:
   - claim intake works
   - admin login works
@@ -51,6 +52,7 @@ This version has breaking changes — APIs, conventions, and file structure may 
 - Serbian public blog/guide copy must stay in Latin script only. Do not use locale/browser date formatting that can output Cyrillic month names; use the shared Latin formatter and make `npm run content:qa` fail on any Cyrillic characters in Serbian public content or rendered Serbian dates.
 - Daily blog runs must keep every localized article in the 1000-1800 word range after runtime enhancements, keep SR/EN section counts aligned, avoid duplicate IDs/slugs, and pass `npm run content:qa` before deploy. Very specific articles may be 800-1200 only when the content QA rules explicitly allow that narrower class.
 - Blog and guide interlinking must be editorial, not mechanical. Do not add generic end-of-article related-card dumps, tag/pill link dumps, or unrelated title lists. Link from a natural word or phrase inside the relevant paragraph using inline markdown syntax: `[anchor text](/target-url)`.
+- Interlinking density rule: within one rendered article or guide body, link to the same target URL at most once, and use the same anchor word or anchor phrase as a link at most once. If the same word appears again, leave it as plain text. Never create repeated links such as several linked `slot`, `dokaz`, `dokaze`, `delay`, or similar terms in the same text.
 - Child-to-main-guide, main-guide-to-child, and child-to-child links must all follow the same rule: choose a sentence where the linked concept is already being discussed and link that phrase in the body copy.
 - Main guides may use a restrained reader-facing "Detaljni vodiči" / "Detailed guides" module that links to all primary child articles. The flight-delay main guide should also include a restrained in-flow amount table and calculator after explanatory context.
 - Every public page, existing or new, must use the shared Let Kasni header and footer. Landing pages may use `HeaderWithClaimCta`; blog index pages, blog articles, cornerstone guides, and legal pages must render `SiteHeader` plus `SiteFooter`. Do not ship a public page without the footer.

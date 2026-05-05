@@ -261,8 +261,8 @@ export const cornerstonePages: CornerstonePage[] = [
           heading: "Kada kašnjenje leta daje pravo na naknadu",
           body: [
             "Osnovno pravilo je jednostavno: ne gleda se samo koliko je let kasnio pri poletanju, već koliko ste kasno stigli na krajnju destinaciju. Ako je dolazak tri sata ili više kasnije od plana, slučaj vredi proveriti. Ako je polazak kasnio tri sata, ali je avion nadoknadio vreme i stigao ranije, zahtev može biti slabiji.",
-            "Drugi uslov je ruta. Letovi iz EU, letovi ka EU evropskim prevoznikom i [putovanja pod jednom rezervacijom preko evropskih čvorišta](/naknada-za-propustenu-konekciju/let-iz-srbije-preko-eu-prava-putnika) često su najvažniji za putnike iz Srbije. Državljanstvo putnika obično nije presudno.",
-            "Treći uslov je razlog kašnjenja. [Tehnički kvar](/naknada-za-kasnjenje-leta/tehnicki-kvar-aviona-odsteta), kasna rotacija aviona, operativni problemi ili nedostatak posade često mogu biti u sferi aviokompanije. [Loše vreme](/naknada-za-kasnjenje-leta/kasnjenje-leta-zbog-loseg-vremena), zatvaranje aerodroma, kontrola letenja ili bezbednosni događaji mogu biti jači argument protiv fiksne naknade, ali i tada treba proveriti šta je kompanija uradila da smanji posledice."
+            "Drugi uslov je ruta. Letovi iz EU, letovi ka EU evropskim prevoznikom i putovanja pod jednom rezervacijom preko evropskih čvorišta često su najvažniji za putnike iz Srbije. Državljanstvo putnika obično nije presudno.",
+            "Treći uslov je razlog kašnjenja. Tehnički kvar, kasna rotacija aviona, operativni problemi ili nedostatak posade često mogu biti u sferi aviokompanije. Loše vreme, zatvaranje aerodroma, kontrola letenja ili bezbednosni događaji mogu biti jači argument protiv fiksne naknade, ali i tada treba proveriti šta je kompanija uradila da smanji posledice. Zato se dobra procena ne završava na jednoj rečenici iz aplikacije ili na usmenom objašnjenju na gejtu. Potrebna je kratka vremenska linija, konkretan razlog i dokaz da je taj razlog zaista pogodio baš vaš let. Bez toga putnik ne zna da li šalje zahtev za naknadu, troškove ili dopunu objašnjenja, posebno kod dužih čekanja."
           ],
           bullets: [
             "Prag za proveru je dolazak tri sata ili više kasnije.",
@@ -332,8 +332,8 @@ export const cornerstonePages: CornerstonePage[] = [
           heading: "When a flight delay gives a right to compensation",
           body: [
             "The basic rule is simple: do not look only at how late the flight departed, but at how late you arrived at the final destination. If arrival was three hours or more late, the case is worth checking. If departure was three hours late but the aircraft recovered time and arrived earlier, the claim may be weaker.",
-            "The second condition is the route. Flights from the EU, flights to the EU on a European carrier and [journeys under one booking through European hubs](/en/missed-connection-compensation/flight-from-serbia-via-eu-passenger-rights) are often the most important for travelers from Serbia. Passenger nationality is usually not decisive.",
-            "The third condition is the reason for delay. A [technical fault](/en/flight-delay-compensation/technical-fault-flight-compensation), late aircraft rotation, operational problems or crew shortage may often sit within the airline's responsibility. [Bad weather](/en/flight-delay-compensation/flight-delay-bad-weather-compensation), airport closure, air traffic control or safety events may be stronger arguments against fixed compensation, but even then you should check what the airline did to reduce the consequences."
+            "The second condition is the route. Flights from the EU, flights to the EU on a European carrier and journeys under one booking through European hubs are often the most important for travelers from Serbia. Passenger nationality is usually not decisive.",
+            "The third condition is the reason for delay. A technical fault, late aircraft rotation, operational problems or crew shortage may often sit within the airline's responsibility. Bad weather, airport closure, air traffic control or safety events may be stronger arguments against fixed compensation, but even then you should check what the airline did to reduce the consequences."
           ],
           bullets: [
             "The check threshold is arrival three hours or more late.",
@@ -1309,7 +1309,7 @@ if (delayGuide) {
     {
       heading: "Detaljni vodiči koje treba otvoriti za konkretan razlog",
       body: [
-        "Ako aviokompanija navede tehnički razlog, otvorite vodič za [tehnički kvar aviona](/naknada-za-kasnjenje-leta/tehnicki-kvar-aviona-odsteta). Ako navede vreme, proverite [kašnjenje zbog lošeg vremena](/naknada-za-kasnjenje-leta/kasnjenje-leta-zbog-loseg-vremena). Ako pominje slot ili kontrolu letenja, relevantan je vodič za [slotove kontrole letenja](/naknada-za-kasnjenje-leta/kasnjenje-leta-zbog-slotova-kontrole-letenja).",
+        "Ako aviokompanija navede tehnički razlog, otvorite detaljni vodič za taj scenario. Ako navede vreme, proverite objašnjenje o lošem vremenu. Ako pominje slot ili kontrolu letenja, relevantan je vodič za slotove kontrole letenja.",
         "Ako je problem došao iz prethodne rotacije, posade, noćnog čekanja ili novog leta koji ste sami kupili, otvorite detaljan tekst za taj scenario. Ti vodiči idu dublje od ove glavne strane: objašnjavaju šta treba pitati, koji dokaz menja ishod i kada je argument aviokompanije zaista jak.",
         "Ako niste sigurni koji detaljni vodič odgovara slučaju, krenite od objašnjenja koje je aviokompanija dala. Ako objašnjenja nema ili se menja, to je samo po sebi signal da treba sačuvati sve poruke i tražiti preciznu vremensku liniju."
       ],
@@ -1428,7 +1428,7 @@ if (delayGuide) {
     {
       heading: "Detailed guides to open for the specific reason",
       body: [
-        "If the airline cites a technical reason, open the guide to [technical aircraft faults](/en/flight-delay-compensation/technical-fault-flight-compensation). If it cites weather, check [flight delay caused by bad weather](/en/flight-delay-compensation/flight-delay-bad-weather-compensation). If it mentions a slot or air traffic control, the relevant guide is [air traffic control slot delays](/en/flight-delay-compensation/air-traffic-control-slot-delay-compensation).",
+        "If the airline cites a technical reason, open the detailed guide for that scenario. If it cites weather, check the bad-weather explanation. If it mentions a slot or air traffic control, the relevant guide is the air traffic control slot delay guide.",
         "If the problem came from previous aircraft rotation, crew, overnight waiting or a new flight you bought yourself, open the detailed article for that scenario. Those guides go deeper than this main page: they explain what to ask, which evidence changes the outcome and when the airline's argument is genuinely strong.",
         "If you are not sure which detailed guide fits, start from the explanation given by the airline. If there is no explanation or it changes, that is itself a signal to save every message and ask for a precise timeline."
       ],

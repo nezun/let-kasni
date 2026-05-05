@@ -1,5 +1,7 @@
+"use client";
+
 import Link from "next/link";
-import type { ReactNode } from "react";
+import { createContext, useContext, useMemo, type ReactNode } from "react";
 
 type BlogTextLocale = "sr" | "en";
 type AutoLinkRule = {
@@ -10,6 +12,12 @@ type AutoLinkCandidate = {
   rule: AutoLinkRule;
   match: RegExpExecArray;
   index: number;
+  anchor: string;
+};
+type InterlinkingState = {
+  usedHrefs: Set<string>;
+  usedAnchors: Set<string>;
+  currentHref?: string;
 };
 
 type Props = {
@@ -19,6 +27,7 @@ type Props = {
 };
 
 const inlineLinkPattern = /\[([^\]]+)\]\(([^)]+)\)/g;
+const InterlinkingContext = createContext<InterlinkingState | null>(null);
 
 const autoLinkRules = {
   sr: [
@@ -55,7 +64,58 @@ const autoLinkRules = {
   ],
 } as const;
 
-function findBestAutoLink(text: string, locale: BlogTextLocale): AutoLinkCandidate | null {
+function createInterlinkingState(currentHref?: string): InterlinkingState {
+  return {
+    usedHrefs: new Set<string>(),
+    usedAnchors: new Set<string>(),
+    currentHref: currentHref ? normalizeHref(currentHref) : undefined,
+  };
+}
+
+function normalizeHref(href: string) {
+  return href.trim().replace(/#.*$/, "").replace(/\/$/, "") || "/";
+}
+
+function normalizeAnchor(anchor: string) {
+  return anchor.trim().replace(/\s+/g, " ").toLocaleLowerCase();
+}
+
+function canUseLink(scope: InterlinkingState, href: string, anchor: string) {
+  const normalizedHref = normalizeHref(href);
+
+  return (
+    normalizedHref !== scope.currentHref &&
+    !scope.usedHrefs.has(normalizedHref) &&
+    !scope.usedAnchors.has(normalizeAnchor(anchor))
+  );
+}
+
+function markLinkUsed(scope: InterlinkingState, href: string, anchor: string) {
+  scope.usedHrefs.add(normalizeHref(href));
+  scope.usedAnchors.add(normalizeAnchor(anchor));
+}
+
+export function InterlinkingScope({
+  children,
+  currentHref,
+}: {
+  children: ReactNode;
+  currentHref?: string;
+}) {
+  const state = useMemo(() => createInterlinkingState(currentHref), [currentHref]);
+
+  return (
+    <InterlinkingContext.Provider value={state}>
+      {children}
+    </InterlinkingContext.Provider>
+  );
+}
+
+function findBestAutoLink(
+  text: string,
+  locale: BlogTextLocale,
+  scope: InterlinkingState,
+): AutoLinkCandidate | null {
   const candidates: AutoLinkCandidate[] = [];
 
   for (const rule of autoLinkRules[locale]) {
@@ -65,7 +125,11 @@ function findBestAutoLink(text: string, locale: BlogTextLocale): AutoLinkCandida
     ).exec(text);
 
     if (match) {
-      candidates.push({ rule, match, index: match.index });
+      const anchor = match[2];
+
+      if (canUseLink(scope, rule.href, anchor)) {
+        candidates.push({ rule, match, index: match.index, anchor });
+      }
     }
   }
 
@@ -78,6 +142,7 @@ function linkedText(
   locale: BlogTextLocale,
   maxAutoLinks: number,
   keyPrefix: string,
+  scope: InterlinkingState,
 ): { nodes: ReactNode[]; used: number } {
   const nodes: ReactNode[] = [];
   let remaining = text;
@@ -85,7 +150,7 @@ function linkedText(
   let cursor = 0;
 
   while (remaining && linkCount < maxAutoLinks) {
-    const best = findBestAutoLink(remaining, locale);
+    const best = findBestAutoLink(remaining, locale, scope);
 
     if (!best) {
       nodes.push(remaining);
@@ -108,6 +173,7 @@ function linkedText(
         {label}
       </Link>,
     );
+    markLinkUsed(scope, best.rule.href, label);
 
     const consumed = best.index + raw.length;
     remaining = remaining.slice(consumed);
@@ -123,6 +189,8 @@ function linkedText(
 }
 
 export function InlineRichText({ text, locale = "sr", maxAutoLinks = 2 }: Props) {
+  const contextScope = useContext(InterlinkingContext);
+  const localScope = contextScope ?? createInterlinkingState();
   const parts: ReactNode[] = [];
   let lastIndex = 0;
   let match: RegExpExecArray | null;
@@ -134,6 +202,7 @@ export function InlineRichText({ text, locale = "sr", maxAutoLinks = 2 }: Props)
       locale,
       Math.max(maxAutoLinks - autoLinksUsed, 0),
       keyPrefix,
+      localScope,
     );
 
     parts.push(...nodes);
@@ -147,15 +216,20 @@ export function InlineRichText({ text, locale = "sr", maxAutoLinks = 2 }: Props)
       pushPlainText(text.slice(lastIndex, match.index), `manual-${match.index}`);
     }
 
-    parts.push(
-      <Link
-        key={`${href}-${match.index}`}
-        href={href}
-        className="lk-inline-link"
-      >
-        {label}
-      </Link>,
-    );
+    if (canUseLink(localScope, href, label)) {
+      parts.push(
+        <Link
+          key={`${href}-${match.index}`}
+          href={href}
+          className="lk-inline-link"
+        >
+          {label}
+        </Link>,
+      );
+      markLinkUsed(localScope, href, label);
+    } else {
+      parts.push(label);
+    }
 
     lastIndex = match.index + raw.length;
   }

@@ -170,7 +170,7 @@ function srAirlineDelaySections(article: BlogArticle): BlogSection[] {
       body: [
         `Za ${article.sr.title.toLowerCase()} najkorisnije je da slučaj odmah pretvorite u mali skup podataka, a ne u dugu žalbu. Unesite broj leta, datum, aerodrom polaska, krajnju destinaciju, planirano vreme dolaska, stvarno vreme dolaska, razlog koji je aviokompanija navela i troškove koje ste imali. Kada su ti podaci na jednom mestu, mnogo je lakše videti da li je slučaj za fiksnu naknadu, refundaciju troškova ili samo za dodatno objašnjenje.`,
         "Ovakav redosled smanjuje ručni rad i greške. Ako se kasnije šalje dopuna, ne piše se sve iz početka: dodaje se samo novi dokaz, odgovor aviokompanije ili račun. To je posebno važno kod aviokompanija koje koriste kratke generičke odgovore, jer uredan fajl odmah pokazuje šta nije odgovoreno.",
-        "Za ponovljive provere najbolje je čuvati isti format za svaki let: osnovni podaci, razlog kašnjenja, vremenska linija, troškovi i status odgovora. Tako se više putnika ili više letova mogu uporediti bez kopiranja haotičnih beleški iz emaila, aplikacije i fotografija.",
+        "Za ponovljive provere najbolje je čuvati isti format za svaki let: osnovni podaci, razlog kašnjenja, vremenska linija, troškovi i status odgovora. Tako se više putnika ili više letova mogu uporediti bez kopiranja haotičnih beleški iz emaila, aplikacije i fotografija, bez naknadnog nagađanja.",
       ],
     },
   ];
@@ -201,9 +201,9 @@ function srEnhancementSections(article: BlogArticle): BlogSection[] {
     {
       heading: "Kako ovaj slučaj uklopiti u širu procenu",
       body: [
-        `Ovaj tekst je detaljan deo šire teme [${parent.title}](${parent.href}). To je važno zato što se ${topic} ne procenjuje izolovano: prvo se proverava da li ruta ulazi u zaštitu, zatim šta se stvarno dogodilo, pa tek onda koji zahtev ima smisla. Ako preskočite taj redosled, lako možete tražiti pogrešno pravo ili poslati zahtev koji aviokompanija odbije jednom generičkom rečenicom.`,
+        `Ovaj tekst je detaljan deo šire teme ${parent.title}. To je važno zato što se ${topic} ne procenjuje izolovano: prvo se proverava da li ruta ulazi u zaštitu, zatim šta se stvarno dogodilo, pa tek onda koji zahtev ima smisla. Ako preskočite taj redosled, lako možete tražiti pogrešno pravo ili poslati zahtev koji aviokompanija odbije jednom generičkom rečenicom.`,
         "Najbolji pristup je da napravite kratku hronologiju. Zapišite planirano vreme, stvarno vreme, gde ste bili kada je problem nastao, šta je aviokompanija ponudila, šta ste prihvatili i šta ste sami platili. Ta hronologija kasnije odlučuje da li je reč o fiksnoj naknadi, refundaciji karte, refundaciji troškova ili samo pravu na brigu.",
-        "Ako se u slučaju pojavljuje kašnjenje dolaska, propuštena konekcija, preusmeravanje ili čekanje preko noći, uvek dodatno proverite i [naknadu za kašnjenje leta](/naknada-za-kasnjenje-leta). Većina praktičnih pitanja putnika na kraju zavisi od toga koliko je kasno završeno celo putovanje i da li je razlog bio u kontroli aviokompanije."
+        "Ako se u slučaju pojavljuje kašnjenje dolaska, propuštena konekcija, preusmeravanje ili čekanje preko noći, uvek dodatno proverite i naknadu za kašnjenje leta. Većina praktičnih pitanja putnika na kraju zavisi od toga koliko je kasno završeno celo putovanje i da li je razlog bio u kontroli aviokompanije."
       ],
     },
     {
@@ -232,9 +232,9 @@ function enEnhancementSections(article: BlogArticle): BlogSection[] {
     {
       heading: "How this case fits into the wider assessment",
       body: [
-        `This article is a detailed part of the wider [${parent.title}](${parent.href}) topic. That matters because ${topic} should not be assessed in isolation: first check whether the route is protected, then what actually happened, and only then which claim makes sense. If you skip that order, it is easy to ask for the wrong right or send a claim the airline can reject with one broad sentence.`,
+        `This article is a detailed part of the wider ${parent.title} topic. That matters because ${topic} should not be assessed in isolation: first check whether the route is protected, then what actually happened, and only then which claim makes sense. If you skip that order, it is easy to ask for the wrong right or send a claim the airline can reject with one broad sentence.`,
         "The best approach is to build a short timeline. Write down the scheduled time, actual time, where you were when the problem happened, what the airline offered, what you accepted and what you paid yourself. That timeline later decides whether the case is about fixed compensation, ticket refund, expense reimbursement or only care rights.",
-        "If the case involves arrival delay, a missed connection, rerouting or an overnight wait, also check [flight delay compensation](/en/flight-delay-compensation). Most practical passenger questions eventually depend on how late the whole journey ended and whether the reason was within the airline's control."
+        "If the case involves arrival delay, a missed connection, rerouting or an overnight wait, also check flight delay compensation. Most practical passenger questions eventually depend on how late the whole journey ended and whether the reason was within the airline's control."
       ],
     },
     {

@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 
 import { CornerstoneTypographyPreview } from "@/components/cornerstone-typography-preview";
-import { InlineRichText } from "@/components/inline-rich-text";
+import { InlineRichText, InterlinkingScope } from "@/components/inline-rich-text";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { getSupportEmail } from "@/lib/env";
@@ -58,6 +58,7 @@ export function CornerstonePageView({
   }
 
   const alternateHref = getAlternateCornerstoneHref(page, locale);
+  const currentHref = getCornerstoneHref(page, locale);
   const childArticles = getCornerstoneChildren(page, locale);
   const checkHref = locale === "sr" ? "/#proveri-let" : "/en#proveri-let";
   const supportEmail = getSupportEmail();
@@ -131,30 +132,32 @@ export function CornerstonePageView({
         <section className="px-6 py-14">
           <div className="mx-auto grid max-w-[1180px] gap-12 lg:grid-cols-[minmax(0,760px)_300px]">
             <div className="space-y-11">
-              {localized.sections.map((section) => (
-                <section key={section.heading}>
-                  <h2 className="font-display text-[30px] font-black leading-[1.15] tracking-[-0.025em] text-[#0A0F1E] md:text-[38px]">
-                    {section.heading}
-                  </h2>
-                  <div className="mt-5 space-y-4 text-[17px] leading-[1.82] text-[#4F5B75]">
-                    {section.body.map((paragraph) => (
-                      <p key={paragraph}>
-                        <InlineRichText text={paragraph} locale={locale} />
-                      </p>
-                    ))}
-                  </div>
-                  {section.bullets ? (
-                    <ul className="mt-6 grid gap-3 rounded-xl border border-[#DDE4EF] bg-[#F8FAFC] p-5 text-[15px] leading-[1.7] text-[#334155] md:grid-cols-2">
-                      {section.bullets.map((bullet) => (
-                        <li key={bullet} className="flex gap-3">
-                          <span className="mt-[10px] h-1.5 w-1.5 shrink-0 rounded-full bg-[#2470EB]" />
-                          <span>{bullet}</span>
-                        </li>
+              <InterlinkingScope currentHref={currentHref}>
+                {localized.sections.map((section) => (
+                  <section key={section.heading}>
+                    <h2 className="font-display text-[30px] font-black leading-[1.15] tracking-[-0.025em] text-[#0A0F1E] md:text-[38px]">
+                      {section.heading}
+                    </h2>
+                    <div className="mt-5 space-y-4 text-[17px] leading-[1.82] text-[#4F5B75]">
+                      {section.body.map((paragraph) => (
+                        <p key={paragraph}>
+                          <InlineRichText text={paragraph} locale={locale} />
+                        </p>
                       ))}
-                    </ul>
-                  ) : null}
-                </section>
-              ))}
+                    </div>
+                    {section.bullets ? (
+                      <ul className="mt-6 grid gap-3 rounded-xl border border-[#DDE4EF] bg-[#F8FAFC] p-5 text-[15px] leading-[1.7] text-[#334155] md:grid-cols-2">
+                        {section.bullets.map((bullet) => (
+                          <li key={bullet} className="flex gap-3">
+                            <span className="mt-[10px] h-1.5 w-1.5 shrink-0 rounded-full bg-[#2470EB]" />
+                            <span>{bullet}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : null}
+                  </section>
+                ))}
+              </InterlinkingScope>
 
               {childArticles.length > 0 ? (
                 <section className="border-t border-[#E2E6EF] pt-10">
