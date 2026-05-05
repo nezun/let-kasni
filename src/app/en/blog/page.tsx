@@ -28,6 +28,14 @@ export const metadata: Metadata = {
   },
 };
 
-export default function EnglishBlogPage() {
-  return <BlogIndexPage locale="en" variant="a" />;
+type EnglishBlogPageProps = {
+  searchParams?: Promise<{
+    tema?: string;
+  }>;
+};
+
+export default async function EnglishBlogPage({ searchParams }: EnglishBlogPageProps) {
+  const params = await searchParams;
+
+  return <BlogIndexPage locale="en" variant="a" category={params?.tema} />;
 }

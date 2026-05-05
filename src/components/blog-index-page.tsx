@@ -5,6 +5,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { getBlogArticleImage, getBlogArticles, type BlogLocale } from "@/lib/blog";
 import {
+  articleCornerstoneMap,
   cornerstonePages,
   getArticleCornerstoneHref,
   getCornerstoneHref,
@@ -13,10 +14,18 @@ import { formatDisplayDate } from "@/lib/date-format";
 import { getSupportEmail } from "@/lib/env";
 
 type BlogVariant = "a" | "b" | "c";
+export type BlogCategoryFilter =
+  | "all"
+  | "delays"
+  | "cancellations"
+  | "connections"
+  | "documents"
+  | "procedure";
 
 type Props = {
   locale: BlogLocale;
   variant?: BlogVariant;
+  category?: string;
 };
 
 const copy = {
@@ -34,6 +43,8 @@ const copy = {
     categoryDocuments: "Dokumenta",
     categoryProcedure: "Procedura zahteva",
     sectionTitle: "Odšteta i prava putnika",
+    emptyTitle: "Nema tekstova u ovoj temi",
+    emptyBody: "Promenite filter ili otvorite sve blogove.",
     viewAll: "Pogledaj sve",
     byline: "Autor: letkasni",
     updatedLabel: "Ažurirano",
@@ -59,6 +70,8 @@ const copy = {
     categoryDocuments: "Documents",
     categoryProcedure: "Claim procedure",
     sectionTitle: "Compensation & Passenger Rights",
+    emptyTitle: "No articles in this topic",
+    emptyBody: "Change the filter or open all blog posts.",
     viewAll: "View all",
     byline: "By letkasni",
     updatedLabel: "Updated",
@@ -72,25 +85,142 @@ const copy = {
   },
 };
 
-function categoryList(locale: BlogLocale) {
+const filterIds: BlogCategoryFilter[] = [
+  "all",
+  "delays",
+  "cancellations",
+  "connections",
+  "documents",
+  "procedure",
+];
+
+const documentArticleIds = new Set(["documents-for-claim", "airport-action-plan"]);
+
+const procedureArticleIds = new Set([
+  "claim-deadlines",
+  "how-to-file-airline-claim",
+  "airline-rejected-claim",
+  "airline-response-no-answer",
+  "use-claim-service-or-diy",
+  "claim-template-email",
+  "refund-vs-compensation",
+]);
+
+function normalizeCategoryFilter(value?: string): BlogCategoryFilter {
+  return filterIds.includes(value as BlogCategoryFilter)
+    ? (value as BlogCategoryFilter)
+    : "all";
+}
+
+function getBlogCategoryHref(locale: BlogLocale, filter: BlogCategoryFilter) {
+  const baseHref = copy[locale].blogHref;
+  return filter === "all" ? baseHref : `${baseHref}?tema=${filter}`;
+}
+
+function articleMatchesFilter(articleId: string, filter: BlogCategoryFilter) {
+  if (filter === "all") {
+    return true;
+  }
+
+  const cornerstoneId = articleCornerstoneMap[articleId] ?? "air-passenger-rights";
+
+  if (filter === "delays") {
+    return cornerstoneId === "flight-delay-compensation";
+  }
+
+  if (filter === "cancellations") {
+    return cornerstoneId === "flight-cancellation-compensation";
+  }
+
+  if (filter === "connections") {
+    return cornerstoneId === "missed-connection-compensation";
+  }
+
+  if (filter === "documents") {
+    return documentArticleIds.has(articleId);
+  }
+
+  return procedureArticleIds.has(articleId);
+}
+
+function filterArticles<T extends { id: string }>(articles: T[], filter: BlogCategoryFilter) {
+  return articles.filter((article) => articleMatchesFilter(article.id, filter));
+}
+
+function categoryLabel(locale: BlogLocale, filter: BlogCategoryFilter) {
   const t = copy[locale];
 
-  return [
-    { label: t.categoryMain, href: getCornerstoneHref(cornerstonePages[0], locale) },
-    { label: t.categoryDelay, href: getCornerstoneHref(cornerstonePages[1], locale) },
-    { label: t.categoryCancel, href: getCornerstoneHref(cornerstonePages[2], locale) },
-    { label: t.categoryConnections, href: getCornerstoneHref(cornerstonePages[3], locale) },
-    { label: t.categoryDocuments, href: "#compensation-rights" },
-    { label: t.categoryProcedure, href: "#compensation-rights" },
-  ];
+  const labels: Record<BlogCategoryFilter, string> = {
+    all: t.categoryMain,
+    delays: t.categoryDelay,
+    cancellations: t.categoryCancel,
+    connections: t.categoryConnections,
+    documents: t.categoryDocuments,
+    procedure: t.categoryProcedure,
+  };
+
+  return labels[filter];
+}
+
+function categoryList(locale: BlogLocale) {
+  return filterIds.map((filter) => ({
+    id: filter,
+    label: categoryLabel(locale, filter),
+    href: getBlogCategoryHref(locale, filter),
+  }));
+}
+
+function categorySectionTitle(locale: BlogLocale, filter: BlogCategoryFilter) {
+  return filter === "all" ? copy[locale].sectionTitle : categoryLabel(locale, filter);
+}
+
+function categoryDescription(locale: BlogLocale, filter: BlogCategoryFilter, count: number) {
+  if (filter === "all") {
+    return locale === "sr"
+      ? "Svi praktični vodiči raspoređeni po glavnim temama."
+      : "All practical guides grouped around the main passenger-rights topics.";
+  }
+
+  return locale === "sr"
+    ? `${count} tekstova u temi: ${categoryLabel(locale, filter)}.`
+    : `${count} articles in: ${categoryLabel(locale, filter)}.`;
+}
+
+function activeCategoryClass(isActive: boolean) {
+  return isActive
+    ? "border-[#2470EB] bg-[#2470EB] !text-white shadow-[0_14px_32px_rgba(36,112,235,0.22)]"
+    : "border-[#DDE4EF] bg-white text-[#0B2E6F] hover:border-[#2470EB] hover:bg-[#EEF5FF]";
+}
+
+function EmptyState({ locale }: { locale: BlogLocale }) {
+  const t = copy[locale];
+
+  return (
+    <div
+      className="rounded-[18px] border border-dashed border-[#C8D3E3] bg-[#F8FAFC] p-8 text-center sm:col-span-2 lg:col-span-3"
+    >
+      <h3 className="text-[22px] font-black tracking-[-0.02em] text-[#161D2A]">
+        {t.emptyTitle}
+      </h3>
+      <p className="mt-3 text-[15px] leading-[1.7] text-[#66758B]">{t.emptyBody}</p>
+      <Link
+        href={t.blogHref}
+        className="mt-5 inline-flex rounded-full bg-[#2470EB] px-5 py-3 text-sm font-black text-white"
+      >
+        {t.viewAll}
+      </Link>
+    </div>
+  );
 }
 
 function CategoryRail({
   locale,
   variant,
+  activeFilter,
 }: {
   locale: BlogLocale;
   variant: BlogVariant;
+  activeFilter: BlogCategoryFilter;
 }) {
   const categories = categoryList(locale);
 
@@ -101,6 +231,7 @@ function CategoryRail({
           <Link
             key={category.label}
             href={category.href}
+            aria-current={category.id === activeFilter ? "page" : undefined}
             className="group flex min-h-[76px] items-center justify-between rounded-[18px] border border-[#DDE4EF] bg-white px-5 py-4 shadow-[0_14px_34px_rgba(15,23,42,0.05)] transition hover:-translate-y-0.5 hover:border-[#2470EB] hover:shadow-[0_20px_46px_rgba(36,112,235,0.12)]"
           >
             <span>
@@ -128,6 +259,7 @@ function CategoryRail({
             <Link
               key={category.label}
               href={category.href}
+              aria-current={category.id === activeFilter ? "page" : undefined}
               className="group rounded-[22px] px-4 py-4 text-white/76 transition hover:bg-white hover:text-[#0B2E6F]"
             >
               <span className="block text-[10px] font-black uppercase tracking-[0.14em] text-[#69A1FF] transition group-hover:text-[#2470EB]">
@@ -145,15 +277,14 @@ function CategoryRail({
 
   return (
     <div className="mt-10 flex max-w-[1220px] flex-wrap gap-3">
-      {categories.map((category, index) => (
+      {categories.map((category) => (
         <Link
           key={category.label}
           href={category.href}
-          className={`whitespace-nowrap rounded-full border px-5 py-3 text-[12px] font-black uppercase tracking-[0.02em] transition ${
-            index === 0
-              ? "border-[#2470EB] bg-[#2470EB] !text-white shadow-[0_14px_32px_rgba(36,112,235,0.22)]"
-              : "border-[#DDE4EF] bg-white text-[#0B2E6F] hover:border-[#2470EB] hover:bg-[#EEF5FF]"
-          }`}
+          aria-current={category.id === activeFilter ? "page" : undefined}
+          className={`whitespace-nowrap rounded-full border px-5 py-3 text-[12px] font-black uppercase tracking-[0.02em] transition ${activeCategoryClass(
+            category.id === activeFilter,
+          )}`}
         >
           {category.label}
         </Link>
@@ -328,11 +459,22 @@ function BlogCard({
   );
 }
 
-function BlogIndexVariantA({ locale }: { locale: BlogLocale }) {
+function BlogIndexVariantA({
+  locale,
+  category,
+}: {
+  locale: BlogLocale;
+  category?: string;
+}) {
   const t = copy[locale];
   const supportEmail = getSupportEmail();
-  const articles = getBlogArticles(locale);
-  const hero = articles.find((article) => article.id === "flight-delay-compensation") ?? articles[0];
+  const activeFilter = normalizeCategoryFilter(category);
+  const allArticles = getBlogArticles(locale);
+  const articles = filterArticles(allArticles, activeFilter);
+  const defaultHero =
+    allArticles.find((article) => article.id === "flight-delay-compensation") ??
+    allArticles[0];
+  const hero = articles[0] ?? defaultHero;
   const guides = cornerstonePages.map((page) => ({
     ...page,
     localized: page[locale],
@@ -347,7 +489,7 @@ function BlogIndexVariantA({ locale }: { locale: BlogLocale }) {
           <h1 className="text-[44px] font-black leading-none tracking-[-0.04em] text-[#161D2A] md:text-[68px]">
             {t.title}
           </h1>
-          <CategoryRail locale={locale} variant="a" />
+          <CategoryRail locale={locale} variant="a" activeFilter={activeFilter} />
 
           <div className="mt-8">
             <HeroStory article={hero} locale={locale} variant="a" />
@@ -389,17 +531,26 @@ function BlogIndexVariantA({ locale }: { locale: BlogLocale }) {
       <section id="compensation-rights" className="scroll-mt-24 px-6 pb-20 pt-4">
         <div className="mx-auto max-w-[1220px]">
           <div className="mb-9 flex items-end justify-between gap-6">
-            <h2 className="text-[34px] font-black tracking-[-0.035em] text-[#161D2A] md:text-[42px]">
-              {t.sectionTitle}
-            </h2>
-            <Link href={t.blogHref} className="text-sm font-black text-[#2470EB]">
+            <div>
+              <h2 className="text-[34px] font-black tracking-[-0.035em] text-[#161D2A] md:text-[42px]">
+                {categorySectionTitle(locale, activeFilter)}
+              </h2>
+              <p className="mt-2 text-[15px] leading-[1.7] text-[#66758B]">
+                {categoryDescription(locale, activeFilter, articles.length)}
+              </p>
+            </div>
+            <Link href={t.blogHref} className="shrink-0 text-sm font-black text-[#2470EB]">
               {t.viewAll}
             </Link>
           </div>
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {articles.map((article) => (
-              <BlogCard key={article.id} article={article} locale={locale} />
-            ))}
+            {articles.length > 0 ? (
+              articles.map((article) => (
+                <BlogCard key={article.id} article={article} locale={locale} />
+              ))
+            ) : (
+              <EmptyState locale={locale} />
+            )}
           </div>
         </div>
       </section>
@@ -408,11 +559,19 @@ function BlogIndexVariantA({ locale }: { locale: BlogLocale }) {
   );
 }
 
-function BlogIndexVariantB({ locale }: { locale: BlogLocale }) {
+function BlogIndexVariantB({
+  locale,
+  category,
+}: {
+  locale: BlogLocale;
+  category?: string;
+}) {
   const t = copy[locale];
   const supportEmail = getSupportEmail();
-  const articles = getBlogArticles(locale);
-  const hero = articles[1] ?? articles[0];
+  const activeFilter = normalizeCategoryFilter(category);
+  const allArticles = getBlogArticles(locale);
+  const articles = filterArticles(allArticles, activeFilter);
+  const hero = articles[1] ?? articles[0] ?? allArticles[1] ?? allArticles[0];
   const topThree = [articles[1], articles[0], articles[2]].filter(Boolean);
 
   return (
@@ -428,7 +587,7 @@ function BlogIndexVariantB({ locale }: { locale: BlogLocale }) {
               {t.title}
             </h1>
             <p className="mt-6 text-[17px] leading-[1.75] text-[#66758B]">{t.subtitle}</p>
-            <CategoryRail locale={locale} variant="b" />
+            <CategoryRail locale={locale} variant="b" activeFilter={activeFilter} />
           </div>
 
           <div>
@@ -452,11 +611,19 @@ function BlogIndexVariantB({ locale }: { locale: BlogLocale }) {
   );
 }
 
-function BlogIndexVariantC({ locale }: { locale: BlogLocale }) {
+function BlogIndexVariantC({
+  locale,
+  category,
+}: {
+  locale: BlogLocale;
+  category?: string;
+}) {
   const t = copy[locale];
   const supportEmail = getSupportEmail();
-  const articles = getBlogArticles(locale);
-  const hero = articles[2] ?? articles[0];
+  const activeFilter = normalizeCategoryFilter(category);
+  const allArticles = getBlogArticles(locale);
+  const articles = filterArticles(allArticles, activeFilter);
+  const hero = articles[2] ?? articles[0] ?? allArticles[2] ?? allArticles[0];
   const topThree = articles.slice(0, 3);
 
   return (
@@ -476,7 +643,7 @@ function BlogIndexVariantC({ locale }: { locale: BlogLocale }) {
             <p className="text-[17px] leading-[1.75] text-[#66758B]">{t.subtitle}</p>
           </div>
 
-          <CategoryRail locale={locale} variant="c" />
+          <CategoryRail locale={locale} variant="c" activeFilter={activeFilter} />
 
           <div className="mt-10">
             <HeroStory article={hero} locale={locale} variant="c" />
@@ -512,14 +679,14 @@ function BlogIndexVariantC({ locale }: { locale: BlogLocale }) {
   );
 }
 
-export function BlogIndexPage({ locale, variant = "a" }: Props) {
+export function BlogIndexPage({ locale, variant = "a", category }: Props) {
   if (variant === "b") {
-    return <BlogIndexVariantB locale={locale} />;
+    return <BlogIndexVariantB locale={locale} category={category} />;
   }
 
   if (variant === "c") {
-    return <BlogIndexVariantC locale={locale} />;
+    return <BlogIndexVariantC locale={locale} category={category} />;
   }
 
-  return <BlogIndexVariantA locale={locale} />;
+  return <BlogIndexVariantA locale={locale} category={category} />;
 }

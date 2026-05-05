@@ -544,6 +544,7 @@ function checkRuntimeInternalLinkDensity() {
 function checkInterlinkingGuardrails() {
   const instructionSource = read("AGENTS.md");
   const inlineRichTextSource = read("src/components/inline-rich-text.tsx");
+  const blogIndexSource = read("src/components/blog-index-page.tsx");
   const bodyRenderSources = [
     "src/components/blog-article-page.tsx",
     "src/components/cornerstone-page.tsx",
@@ -584,6 +585,32 @@ function checkInterlinkingGuardrails() {
           "Wrap the body sections that render InlineRichText with InterlinkingScope so link target and anchor usage is tracked across the full text.",
       });
     }
+  }
+
+  if (
+    !blogIndexSource.includes("articleMatchesFilter") ||
+    !blogIndexSource.includes("?tema=")
+  ) {
+    addIssue({
+      type: "missing_blog_category_filtering",
+      file: "src/components/blog-index-page.tsx",
+      message: "blog category pills must filter the blog index by topic, not navigate away to a guide",
+      suggestedFix:
+        "Keep category pills wired to /blog?tema=... and filter the displayed article list by topic.",
+    });
+  }
+
+  if (
+    /categoryList[\s\S]*getCornerstoneHref\(cornerstonePages/.test(blogIndexSource) ||
+    /categoryList[\s\S]*href:\s*"#compensation-rights"/.test(blogIndexSource)
+  ) {
+    addIssue({
+      type: "blog_category_links_are_not_filters",
+      file: "src/components/blog-index-page.tsx",
+      message: "blog category pills must not link to cornerstone pages or page anchors",
+      suggestedFix:
+        "Use query-string filters for blog index categories and reserve cornerstone URLs for article cards and guide links.",
+    });
   }
 }
 
