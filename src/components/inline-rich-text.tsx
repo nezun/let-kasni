@@ -44,7 +44,7 @@ const autoLinkRules = {
     { pattern: "dokumenta|dokaze|dokaz|boarding pass", href: "/prava-putnika-u-aviosaobracaju/dokumenti-za-avio-odstetu" },
     { pattern: "rokovi|rok", href: "/prava-putnika-u-aviosaobracaju/rokovi-za-avio-odstetu" },
     { pattern: "odbijen zahtev|odbije zahtev|odbijanje", href: "/prava-putnika-u-aviosaobracaju/avio-kompanija-odbila-zahtev" },
-    { pattern: "vaučer|vaučera", href: "/overbooking-naknada/vaucer-ili-novac-avio-odsteta" },
+    { pattern: "vaučer|vaučera", href: "/overbooking-naknada/vaucer-ili-novac-avio-kompanija" },
   ],
   en: [
     { pattern: "technical fault|technical issue|technical problem", href: "/en/flight-delay-compensation/technical-fault-flight-compensation" },
@@ -60,7 +60,7 @@ const autoLinkRules = {
     { pattern: "documents|evidence|boarding pass", href: "/en/air-passenger-rights/documents-for-flight-compensation-claim" },
     { pattern: "deadline|deadlines", href: "/en/air-passenger-rights/flight-compensation-deadlines" },
     { pattern: "rejected claim|rejects the claim|rejection", href: "/en/air-passenger-rights/airline-rejected-compensation-claim" },
-    { pattern: "voucher", href: "/en/overbooking-compensation/voucher-or-cash-compensation" },
+    { pattern: "voucher", href: "/en/overbooking-compensation/airline-voucher-or-cash-compensation" },
   ],
 } as const;
 
