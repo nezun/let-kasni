@@ -24,6 +24,7 @@ import { articles as daily20260502Articles, images as daily20260502Images } from
 import { articles as daily20260503Articles, images as daily20260503Images } from "./daily-2026-05-03";
 import { articles as daily20260504Articles, images as daily20260504Images } from "./daily-2026-05-04";
 import { articles as daily20260505Articles, images as daily20260505Images } from "./daily-2026-05-05";
+import { articles as daily20260507Articles, images as daily20260507Images } from "./daily-2026-05-07";
 
 import type { BlogArticle, BlogArticleImage } from "@/lib/blog";
 
@@ -50,6 +51,7 @@ export const blogArticles: BlogArticle[] = [
   airlineResponseNoAnswerArticle,
   useClaimServiceOrDiyArticle,
   claimTemplateEmailArticle,
+  ...daily20260507Articles,
   ...daily20260505Articles,
   ...daily20260504Articles,
   ...daily20260503Articles,
@@ -79,6 +81,7 @@ export const articleImages: Record<string, BlogArticleImage> = {
   "airline-response-no-answer": airlineResponseNoAnswerImage,
   "use-claim-service-or-diy": useClaimServiceOrDiyImage,
   "claim-template-email": claimTemplateEmailImage,
+  ...daily20260507Images,
   ...daily20260505Images,
   ...daily20260504Images,
   ...daily20260503Images,

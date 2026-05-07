@@ -235,6 +235,12 @@ export const cornerstonePages: CornerstonePage[] = [
       "austrian-airlines-flight-delay-compensation",
       "turkish-airlines-flight-delay-compensation",
       "ryanair-flight-delay-compensation",
+      "easyjet-flight-delay-compensation",
+      "klm-flight-delay-compensation",
+      "air-france-flight-delay-compensation",
+      "swiss-flight-delay-compensation",
+      "two-hour-flight-delay-rights",
+      "three-hour-flight-delay-compensation",
       "flight-diverted-rights",
     ],
     supportArticleIds: [
@@ -715,6 +721,12 @@ function getCornerstoneForArticleId(articleId: string): CornerstoneId {
     case "austrian-airlines-flight-delay-compensation":
     case "turkish-airlines-flight-delay-compensation":
     case "ryanair-flight-delay-compensation":
+    case "easyjet-flight-delay-compensation":
+    case "klm-flight-delay-compensation":
+    case "air-france-flight-delay-compensation":
+    case "swiss-flight-delay-compensation":
+    case "two-hour-flight-delay-rights":
+    case "three-hour-flight-delay-compensation":
     case "flight-diverted-rights":
       return "flight-delay-compensation";
     case "cancelled-flight-rights":

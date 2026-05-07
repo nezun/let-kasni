@@ -83,6 +83,30 @@ const parentGuideByArticle: Record<
     sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
     en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
   },
+  "easyjet-flight-delay-compensation": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
+  "klm-flight-delay-compensation": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
+  "air-france-flight-delay-compensation": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
+  "swiss-flight-delay-compensation": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
+  "two-hour-flight-delay-rights": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
+  "three-hour-flight-delay-compensation": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
   "cancelled-flight-rights": {
     sr: { title: "Naknada za otkazan let", href: "/naknada-za-otkazan-let" },
     en: { title: "Flight cancellation compensation", href: "/en/flight-cancellation-compensation" },
@@ -153,6 +177,10 @@ const airlineDelayArticleIds = new Set([
   "austrian-airlines-flight-delay-compensation",
   "turkish-airlines-flight-delay-compensation",
   "ryanair-flight-delay-compensation",
+  "easyjet-flight-delay-compensation",
+  "klm-flight-delay-compensation",
+  "air-france-flight-delay-compensation",
+  "swiss-flight-delay-compensation",
 ]);
 
 function parentFor(articleId: string, locale: BlogLocale) {
