@@ -144,6 +144,19 @@ const publicShellChecks = [
   },
 ];
 
+const requiredBlogContentSkeleton = {
+  sr: [
+    "Kako ovaj slučaj uklopiti u širu procenu",
+    "Dokazi koji menjaju ishod zahteva",
+    "Kada ne treba stati na prvom odgovoru aviokompanije",
+  ],
+  en: [
+    "How this case fits into the wider assessment",
+    "Evidence that can change the outcome",
+    "When not to stop at the airline's first answer",
+  ],
+};
+
 const wordPattern = /[\p{L}\p{N}]+/gu;
 const cyrillicPattern = /[\u0400-\u04FF]/u;
 const failures = [];
@@ -493,6 +506,71 @@ function checkRuntimeHeadingQuality() {
           });
         }
       }
+    }
+  }
+}
+
+function checkRuntimeBlogContentSkeleton() {
+  const { blogArticles } = loadRuntimeContent();
+
+  for (const article of blogArticles) {
+    for (const locale of ["sr", "en"]) {
+      const headings = new Set(article[locale].sections.map((section) => section.heading));
+      const missingHeadings = requiredBlogContentSkeleton[locale].filter(
+        (heading) => !headings.has(heading),
+      );
+
+      if (missingHeadings.length > 0) {
+        addIssue({
+          type: "missing_blog_content_skeleton",
+          file: "src/lib/blog-content-enhancements.ts",
+          article: article.id,
+          locale,
+          missingHeadings,
+          message: `${locale.toUpperCase()} blog article ${article.id} is missing the required reusable content skeleton`,
+          suggestedFix:
+            "Keep all blog articles routed through enhanceBlogArticle and preserve the wider-assessment, evidence, and airline-response sections in both languages.",
+        });
+      }
+    }
+  }
+
+  const blogSource = read("src/lib/blog.ts");
+  if (!/blogArticles\s*=\s*rawBlogArticles\.map\(enhanceBlogArticle\)/.test(blogSource)) {
+    addIssue({
+      type: "blog_enhancement_pipeline_bypassed",
+      file: "src/lib/blog.ts",
+      message: "blogArticles must route every source article through enhanceBlogArticle",
+      suggestedFix:
+        "Export blogArticles as rawBlogArticles.map(enhanceBlogArticle) so the reusable content skeleton applies to every blog.",
+    });
+  }
+
+  const enhancementSource = read("src/lib/blog-content-enhancements.ts");
+  for (const headings of Object.values(requiredBlogContentSkeleton)) {
+    for (const heading of headings) {
+      if (!enhancementSource.includes(heading)) {
+        addIssue({
+          type: "blog_content_skeleton_source_missing",
+          file: "src/lib/blog-content-enhancements.ts",
+          message: `required blog content skeleton heading is missing from the enhancement source: ${heading}`,
+          suggestedFix:
+            "Restore the approved reusable blog content skeleton in blog-content-enhancements.ts.",
+        });
+      }
+    }
+  }
+
+  const articlePageSource = read("src/components/blog-article-page.tsx");
+  for (const visualName of ["ArticleEvidenceVisual", "ArticleProcessVisual"]) {
+    if (!articlePageSource.includes(visualName)) {
+      addIssue({
+        type: "blog_visual_skeleton_missing",
+        file: "src/components/blog-article-page.tsx",
+        message: `blog article page must keep the reusable visual module ${visualName}`,
+        suggestedFix:
+          "Keep reusable article visuals distributed through BlogArticlePageView so every blog has useful visual support.",
+      });
     }
   }
 }
@@ -851,6 +929,7 @@ checkInterlinkingGuardrails();
 checkPublicShell();
 checkRuntimeContentDepth();
 checkRuntimeHeadingQuality();
+checkRuntimeBlogContentSkeleton();
 checkRuntimeSerbianLatinScript();
 checkRuntimeInternalLinkDensity();
 
