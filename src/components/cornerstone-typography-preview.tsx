@@ -9,6 +9,7 @@ import { SiteHeader } from "@/components/site-header";
 import { getBlogArticleImage, type BlogLocale } from "@/lib/blog";
 import {
   getArticleCornerstoneHref,
+  getAlternateCornerstoneHref,
   getCornerstoneChildren,
   getCornerstoneHref,
   type CornerstonePage,
@@ -376,7 +377,7 @@ export function CornerstoneTypographyPreview({
       : [],
   );
   const currentHref = getCornerstoneHref(page, locale);
-  const alternateHref = locale === "sr" ? "/en/flight-delay-compensation" : "/naknada-za-kasnjenje-leta";
+  const alternateHref = getAlternateCornerstoneHref(page, locale);
 
   return (
     <main className="min-h-screen bg-[#F7F8FB] text-[#172033]">

@@ -117,7 +117,7 @@ export function CornerstonePageView({
   const t = copy[locale];
   const localized = page[locale];
 
-  if (page.id === "flight-delay-compensation") {
+  if (cornerstonePages.some((guide) => guide.id === page.id)) {
     return <CornerstoneTypographyPreview page={page} locale={locale} />;
   }
 

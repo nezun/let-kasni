@@ -622,10 +622,10 @@ const generatedGuides: CornerstonePage[] = guideSummaries.map((guide) => {
           ],
         },
         {
-          heading: "Kako se ova stranica povezuje sa detaljnim vodičima",
+          heading: "Kada razlog poremećaja menja zahtev",
           body: [
-            "Ovaj glavni vodič pokriva temu dovoljno široko da odlučite da li slučaj ima smisla. Detaljni vodiči ispod ulaze u posebne scenarije: dokumenta, rokove, odbijene zahteve, vaučere, odvojene karte, tehnički kvar, slotove, štrajkove i troškove čekanja.",
-            "Najbolji korisnički tok je jednostavan: glavni vodič objašnjava pravilo, a detaljni tekst objašnjava izuzetak ili dokaz. Zato se svaki relevantan tekst vraća na ovaj vodič, a ovaj vodič šalje putnika na dublju temu kada je to stvarno korisno."
+            "Isti poremećaj može imati drugačiji ishod u zavisnosti od razloga koji aviokompanija navodi. Tehnički kvar, loše vreme, štrajk, odluka aerodroma, kontrola letenja, odvojene karte i troškovi čekanja ne traže isti dokaz i ne nose istu težinu.",
+            "Zato se slučaj ne procenjuje po nazivu problema, već po lancu događaja: šta je prvo pošlo po zlu, ko je taj deo kontrolisao, koliko je putovanje stvarno promenjeno i da li je aviokompanija ponudila razumnu alternativu."
           ],
         },
       ],
@@ -684,10 +684,10 @@ const generatedGuides: CornerstonePage[] = guideSummaries.map((guide) => {
           ],
         },
         {
-          heading: "How this page connects to detailed guides",
+          heading: "When the disruption reason changes the claim",
           body: [
-            "This main guide covers the topic broadly enough to decide whether the case makes sense. The detailed guides below go into specific scenarios: documents, deadlines, rejected claims, vouchers, separate tickets, technical faults, slots, strikes and waiting costs.",
-            "The best reader flow is simple: the main guide explains the rule, while a detailed article explains the exception or proof. That is why every relevant article links back to this guide, and this guide sends the passenger deeper only where it is genuinely useful."
+            "The same disruption can lead to a different outcome depending on the reason the airline gives. Technical faults, bad weather, strikes, airport decisions, air traffic control, separate tickets and waiting expenses do not require the same proof and do not carry the same weight.",
+            "That is why the case is not assessed by the label alone, but by the chain of events: what went wrong first, who controlled that part, how much the journey changed and whether the airline offered a reasonable alternative."
           ],
         },
       ],
@@ -793,7 +793,7 @@ function addDepthToGeneratedGuide(page: CornerstonePage) {
   page.sr.sections = [
     ...page.sr.sections,
     {
-      heading: "Kako se odlučuje da li slučaj pripada ovoj temi",
+      heading: "Prvi uzrok i posledica po putovanje",
       body: [
         `Kod teme ${srTopic} prvo se odvaja glavni problem od posledice. Putnik često vidi samo krajnji rezultat: nije poleteo, stigao je kasno, izgubio je konekciju ili je morao da kupi nešto sam. Za dobru procenu treba utvrditi šta je bio prvi uzrok, ko ga je kontrolisao, koliko je putovanje stvarno promenjeno i da li je aviokompanija ponudila razumno rešenje.`,
         "Zato se uvek kreće od četiri činjenice: ruta, rezervacija, vreme i razlog. Ruta govori koja pravila mogu da se primene. Rezervacija govori da li se segmenti posmatraju zajedno ili odvojeno. Vreme pokazuje da li je prag za naknadu pređen. Razlog odlučuje da li aviokompanija može da se osloni na vanredne okolnosti.",
@@ -905,7 +905,7 @@ function addDepthToGeneratedGuide(page: CornerstonePage) {
   page.en.sections = [
     ...page.en.sections,
     {
-      heading: "How to decide whether the case belongs here",
+      heading: "First cause and impact on the journey",
       body: [
         `For ${enTopic}, separate the main problem from the consequence first. Passengers often see only the result: they did not depart, arrived late, missed a connection or had to pay for something themselves. A good assessment asks what started the problem, who controlled it, how much the journey changed and whether the airline offered a reasonable solution.`,
         "Always start with four facts: route, booking, time and reason. Route shows which rules may apply. Booking shows whether segments are assessed together or separately. Time shows whether a compensation threshold was crossed. Reason decides whether the airline can rely on extraordinary circumstances.",
@@ -1044,11 +1044,11 @@ function addDepthToAirPassengerRightsGuide(page: CornerstonePage) {
       ],
     },
     {
-      heading: "Kada koristiti detaljne vodiče",
+      heading: "Posebni scenariji koji menjaju dokaz",
       body: [
-        "Ova stranica je mapa. Kada utvrdite glavnu temu, detaljni vodiči služe za konkretno pitanje: dokumenta, rokovi, odbijen zahtev, vaučer, loše vreme, tehnički kvar, štrajk aerodroma, odvojene karte ili samostalno kupljen novi let.",
+        "Kada utvrdite glavnu temu, sledeći korak je konkretan dokaz: dokumenta, rokovi, odbijen zahtev, vaučer, loše vreme, tehnički kvar, štrajk aerodroma, odvojene karte ili samostalno kupljen novi let ne rešavaju se istom argumentacijom.",
         "Ako aviokompanija pošalje opšte odbijanje, ne vraćajte se na početak. Otvorite vodič o odbijenom zahtevu i proverite šta treba pitati dalje. Ako niste sigurni koja dokumenta treba priložiti, otvorite vodič za dokumenta. Ako je problem konekcija, proverite da li je bila jedna rezervacija ili odvojene karte.",
-        "Na taj način glavna strana ostaje pregled, a detaljni tekstovi rešavaju uska pitanja. To je brže za putnika i daje bolju osnovu za zahtev."
+        "Zato profesionalna obrada prvo razdvaja vrstu prava, zatim razlog poremećaja, pa tek onda bira dokaz i ton komunikacije sa aviokompanijom. To daje bolju osnovu za zahtev od jedne opšte žalbe."
       ],
     },
     {
@@ -1155,11 +1155,11 @@ function addDepthToAirPassengerRightsGuide(page: CornerstonePage) {
       ],
     },
     {
-      heading: "When to use detailed guides",
+      heading: "Specific scenarios that change the evidence",
       body: [
-        "This page is a map. Once you identify the main topic, detailed guides answer the concrete question: documents, deadlines, rejected claim, voucher, bad weather, technical fault, airport strike, separate tickets or a new flight bought by the passenger.",
+        "Once the main topic is identified, the next step is the specific evidence: documents, deadlines, rejected claim, voucher, bad weather, technical fault, airport strike, separate tickets or a new flight bought by the passenger are not handled with the same argument.",
         "If the airline sends a broad rejection, do not restart from the beginning. Open the rejected-claim guide and check what to ask next. If you are unsure which documents to attach, open the documents guide. If the issue is a connection, check whether it was one booking or separate tickets.",
-        "That keeps the main page as a clear overview while detailed articles solve narrow questions. It is faster for passengers and creates a better claim basis."
+        "Professional handling therefore separates the type of right, the disruption reason and the evidence before choosing the communication strategy with the airline. That creates a stronger basis than a broad complaint."
       ],
     },
     {
@@ -1322,7 +1322,7 @@ if (delayGuide) {
       ],
     },
     {
-      heading: "Kako koristiti kalkulator i tabelu iznosa",
+      heading: "Kako se iznos proverava kroz rutu i dolazak",
       body: [
         "Tabela iznosa i brza procena nisu zamena za punu proveru, ali su korisni filter. Prvo unesite okvirnu dužinu rute, zatim kašnjenje na dolasku, pa tek onda proverite pokrivenost rute i razlog kašnjenja. Ako bilo koji od tih elemenata nije jasan, slučaj ne treba odmah odbaciti; treba prikupiti dodatne dokaze.",
         "Najčešća greška je da se iznos bira po tome koliko je karta koštala ili koliko je putnik bio nervozan na aerodromu. Fiksna naknada se ne računa tako. Ona se vezuje za razdaljinu, dolazak, rutu i odgovornost aviokompanije. Zato isti putnik može imati jak zahtev za jeftinu kartu i slab zahtev za skupu kartu ako pravni uslovi nisu ispunjeni.",
@@ -1330,11 +1330,11 @@ if (delayGuide) {
       ],
     },
     {
-      heading: "Detaljni vodiči koje treba otvoriti za konkretan razlog",
+      heading: "Konkretan razlog kašnjenja i dokaz koji pravi razliku",
       body: [
-        "Ako aviokompanija navede tehnički razlog, otvorite detaljni vodič za taj scenario. Ako navede vreme, proverite objašnjenje o lošem vremenu. Ako pominje slot ili kontrolu letenja, relevantan je vodič za slotove kontrole letenja.",
-        "Ako je problem došao iz prethodne rotacije, posade, noćnog čekanja ili novog leta koji ste sami kupili, otvorite detaljan tekst za taj scenario. Ti vodiči idu dublje od ove glavne strane: objašnjavaju šta treba pitati, koji dokaz menja ishod i kada je argument aviokompanije zaista jak.",
-        "Ako niste sigurni koji detaljni vodič odgovara slučaju, krenite od objašnjenja koje je aviokompanija dala. Ako objašnjenja nema ili se menja, to je samo po sebi signal da treba sačuvati sve poruke i tražiti preciznu vremensku liniju."
+        "Ako aviokompanija navede tehnički razlog, vremenske uslove, slot ili kontrolu letenja, presudno je da se proveri koliko je taj razlog trajao, koji segment je pogodio i da li objašnjava baš konačno kašnjenje na dolasku.",
+        "Prethodna rotacija, posada, noćno čekanje ili nova karta koju ste sami kupili traže drugačiji dokaz. Nije dovoljno znati naziv razloga; potrebno je složiti vremensku liniju i videti da li je aviokompanija imala realnu alternativu.",
+        "Ako objašnjenja nema ili se menja kroz više poruka, to je signal da slučaj treba voditi pažljivo i profesionalno, sa svim porukama, screenshotovima i jasnim zahtevom da kompanija navede proverljive činjenice."
       ],
     },
     {
@@ -1346,17 +1346,17 @@ if (delayGuide) {
       ],
     },
     {
-      heading: "Zašto većina drugih stranica linkuje ka ovom vodiču",
+      heading: "Kada drugi poremećaji završavaju kao kašnjenje",
       body: [
         "Kašnjenje leta je centralna tema zato što se pojavljuje i kada problem na prvi pogled nije samo kašnjenje. Otkazan let može završiti kao kasniji dolazak alternativnim letom. Propuštena konekcija se meri po dolasku na krajnju destinaciju. Preusmeren let se često svodi na pitanje kada ste stigli do dogovorene destinacije. Čak i štrajk ili prtljag mogu otvoriti pitanje brige i troškova tokom čekanja.",
-        "Zato mnogi detaljni tekstovi prirodno vraćaju putnika na ovu stranu. To nije zato što svaki slučaj treba nasilno pretvoriti u kašnjenje, već zato što je pravilo o dolasku, ruti, razlogu i dokazima osnova za veliki broj praktičnih situacija. Kada je ta osnova jasna, lakše je proceniti i otkazivanje, konekciju, overbooking ili troškove.",
+        "To ne znači da svaki slučaj treba nasilno pretvoriti u kašnjenje. Znači da je pravilo o dolasku, ruti, razlogu i dokazima osnova za veliki broj praktičnih situacija. Kada je ta osnova jasna, lakše je proceniti i otkazivanje, konekciju, overbooking ili troškove.",
         "Ako vaš slučaj ima više elemenata, prvo identifikujte glavni događaj, zatim proverite da li je završio kašnjenjem na krajnjoj destinaciji. Ako jeste, ova strana ostaje glavni orijentir, a detaljni vodič rešava specifičan izuzetak."
       ],
     },
     {
-      heading: "Kada se ne treba oslanjati samo na automatsku procenu",
+      heading: "Kada je potrebna ručna stručna provera",
       body: [
-        "Automatska procena je korisna za brzu orijentaciju, ali nije dovoljna kada postoji više segmenata, codeshare let, kombinovani razlog, preusmeravanje, drugi aerodrom, samostalno kupljen novi let ili račun za hotel. U tim situacijama jedan odgovor da ili ne može propustiti važan detalj.",
+        "Brza procena je korisna za orijentaciju, ali nije dovoljna kada postoji više segmenata, codeshare let, kombinovani razlog, preusmeravanje, drugi aerodrom, samostalno kupljen novi let ili račun za hotel. U tim situacijama jedan odgovor da ili ne može propustiti važan detalj.",
         "Ručna provera je naročito važna kada ste stigli blizu granice od tri sata, kada aviokompanija ne navodi razlog, kada razlog menja kroz više poruka ili kada prvi problem nije bio njen, ali je kasnije čekanje produženo zbog organizacije aviona ili posade.",
         "Cilj je konzervativna procena. Ako slučaj nema osnov, ne treba ga forsirati. Ako ima osnov, treba ga složiti tako da se jasno vidi ruta, vreme, razlog i dokaz. To je razlika između poruke koju je lako odbiti i zahteva na koji kompanija mora konkretno da odgovori."
       ],
@@ -1441,7 +1441,7 @@ if (delayGuide) {
       ],
     },
     {
-      heading: "How to use the calculator and amount table",
+      heading: "How the amount is checked through route and arrival",
       body: [
         "The amount table and quick estimate are not a substitute for full review, but they are useful filters. First enter the approximate route distance, then arrival delay, then check route coverage and delay reason. If any of those elements is unclear, do not discard the case immediately; collect more evidence.",
         "The most common mistake is choosing the amount by ticket price or by how stressful the airport wait felt. Fixed compensation is not calculated that way. It depends on distance, arrival, route and airline responsibility. A passenger can have a strong claim on a cheap ticket and a weak claim on an expensive ticket if the legal conditions are not met.",
@@ -1449,11 +1449,11 @@ if (delayGuide) {
       ],
     },
     {
-      heading: "Detailed guides to open for the specific reason",
+      heading: "The concrete delay reason and the evidence that matters",
       body: [
-        "If the airline cites a technical reason, open the detailed guide for that scenario. If it cites weather, check the bad-weather explanation. If it mentions a slot or air traffic control, the relevant guide is the air traffic control slot delay guide.",
-        "If the problem came from previous aircraft rotation, crew, overnight waiting or a new flight you bought yourself, open the detailed article for that scenario. Those guides go deeper than this main page: they explain what to ask, which evidence changes the outcome and when the airline's argument is genuinely strong.",
-        "If you are not sure which detailed guide fits, start from the explanation given by the airline. If there is no explanation or it changes, that is itself a signal to save every message and ask for a precise timeline."
+        "If the airline cites a technical reason, weather, a slot or air traffic control, the key point is how long that reason lasted, which segment it affected and whether it really explains the final arrival delay.",
+        "Previous aircraft rotation, crew, overnight waiting or a new ticket bought by the passenger require different evidence. The label alone is not enough; the case needs a timeline and a review of whether the airline had a realistic alternative.",
+        "If there is no explanation or the explanation changes across messages, the case should be handled carefully and professionally, with all messages, screenshots and a clear request for checkable facts."
       ],
     },
     {
@@ -1465,17 +1465,17 @@ if (delayGuide) {
       ],
     },
     {
-      heading: "Why many other pages link back to this guide",
+      heading: "When other disruptions end as a delay case",
       body: [
         "Flight delay is the central topic because it appears even when the problem does not initially look like a delay. A cancellation can end with a later arrival on a replacement flight. A missed connection is measured by arrival at the final destination. A diverted flight often becomes a question of when you reached the agreed destination. Even strike or baggage cases can raise care and waiting-cost questions.",
-        "That is why many detailed articles naturally bring the reader back to this page. It does not mean every case should be forced into delay. It means the rule about arrival, route, reason and evidence is the basis for many practical situations. Once that basis is clear, cancellation, connection, overbooking and expense questions are easier to assess.",
+        "This does not mean every case should be forced into delay. It means the rule about arrival, route, reason and evidence is the basis for many practical situations. Once that basis is clear, cancellation, connection, overbooking and expense questions are easier to assess.",
         "If your case has several elements, identify the main event first, then check whether it ended with a late arrival at the final destination. If it did, this page remains the main orientation point while the detailed guide handles the specific exception."
       ],
     },
     {
-      heading: "When not to rely only on an automatic estimate",
+      heading: "When manual expert review is needed",
       body: [
-        "An automatic estimate is useful for quick orientation, but it is not enough when there are several segments, a codeshare flight, a mixed reason, diversion, another airport, a new flight bought by the passenger or a hotel receipt. In those situations, one yes-or-no answer can miss an important detail.",
+        "A quick estimate is useful for orientation, but it is not enough when there are several segments, a codeshare flight, a mixed reason, diversion, another airport, a new flight bought by the passenger or a hotel receipt. In those situations, one yes-or-no answer can miss an important detail.",
         "Manual review is especially important when you arrived close to the three-hour threshold, when the airline gives no reason, when the reason changes across messages or when the first problem was outside its control but the later wait was extended by aircraft or crew organization.",
         "The goal is conservative assessment. If the case has no basis, it should not be forced. If it has a basis, it should be structured so route, time, reason and evidence are clear. That is the difference between a message that is easy to reject and a claim the airline must answer specifically."
       ],

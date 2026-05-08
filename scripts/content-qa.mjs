@@ -54,7 +54,15 @@ const forbiddenRuntimeHeadingPatterns = [
     message: "main-body H2s must not be detailed-guide navigation",
   },
   {
+    pattern: /(?:kako|kada).*detaljn.*vodič/i,
+    message: "main-body H2s must not be detailed-guide navigation",
+  },
+  {
     pattern: /detailed guides.*(?:open|specific|scenario)/i,
+    message: "main-body H2s must not be detailed-guide navigation",
+  },
+  {
+    pattern: /(?:how|when).*detailed guides?/i,
     message: "main-body H2s must not be detailed-guide navigation",
   },
   {
@@ -62,8 +70,16 @@ const forbiddenRuntimeHeadingPatterns = [
     message: "main-body H2s must not expose internal linking logic",
   },
   {
+    pattern: /kako se .*stranic.*povez/i,
+    message: "main-body H2s must not expose internal page-structure logic",
+  },
+  {
     pattern: /why .*pages?.*link back/i,
     message: "main-body H2s must not expose internal linking logic",
+  },
+  {
+    pattern: /how this page connects/i,
+    message: "main-body H2s must not expose internal page-structure logic",
   },
   {
     pattern: /(?:glavne strane|main pages).*autoritet|authority/i,
@@ -76,6 +92,14 @@ const forbiddenRuntimeHeadingPatterns = [
   {
     pattern: /(?:automatsku procenu|automatic estimate)/i,
     message: "main-body H2s must not be about internal automatic estimates",
+  },
+  {
+    pattern: /kako se odlučuje da li slučaj pripada/i,
+    message: "main-body H2s must not expose content-taxonomy logic",
+  },
+  {
+    pattern: /how to decide whether the case belongs/i,
+    message: "main-body H2s must not expose content-taxonomy logic",
   },
 ];
 
@@ -586,6 +610,29 @@ function checkRuntimeBlogContentSkeleton() {
       message: "blog article pages must not render the old sticky sidebar form",
       suggestedFix:
         "Keep article pages as a wide reading layout and use the in-body quick-check banner after the early H2 sections.",
+    });
+  }
+
+  const cornerstonePageSource = read("src/components/cornerstone-page.tsx");
+  const cornerstoneTypographySource = read("src/components/cornerstone-typography-preview.tsx");
+
+  if (!/cornerstonePages\.some\(\(guide\) => guide\.id === page\.id\)/.test(cornerstonePageSource)) {
+    addIssue({
+      type: "cornerstone_typography_template_not_global",
+      file: "src/components/cornerstone-page.tsx",
+      message: "all main guide pages must route through the wide typography template",
+      suggestedFix:
+        "Render CornerstoneTypographyPreview for every cornerstone page so the sticky moving TOC, wide article body and in-body visuals apply globally.",
+    });
+  }
+
+  if (!cornerstoneTypographySource.includes("ScrollProgressToc")) {
+    addIssue({
+      type: "cornerstone_scroll_toc_missing",
+      file: "src/components/cornerstone-typography-preview.tsx",
+      message: "main guide pages must keep the sticky moving subheading navigation",
+      suggestedFix:
+        "Keep ScrollProgressToc in the global cornerstone typography template.",
     });
   }
 }
