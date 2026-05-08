@@ -46,7 +46,6 @@ const copy = {
     emptyTitle: "Nema tekstova u ovoj temi",
     emptyBody: "Promenite filter ili otvorite sve blogove.",
     viewAll: "Pogledaj sve",
-    byline: "Autor: letkasni",
     updatedLabel: "Ažurirano",
     readGuide: "Pročitaj vodič",
     featureTitle: "Najvažniji vodiči za putnike iz Srbije",
@@ -73,7 +72,6 @@ const copy = {
     emptyTitle: "No articles in this topic",
     emptyBody: "Change the filter or open all blog posts.",
     viewAll: "View all",
-    byline: "By letkasni",
     updatedLabel: "Updated",
     readGuide: "Read guide",
     featureTitle: "Key guides for Serbia-based passengers",
@@ -313,34 +311,19 @@ function ImageTag({
   );
 }
 
-function CategoryPill({ children, onDark = false }: { children: React.ReactNode; onDark?: boolean }) {
-  return (
-    <span
-      className={`inline-flex max-w-full rounded-full px-3 py-1 text-[10px] font-black uppercase leading-none tracking-[0.02em] ${
-        onDark ? "bg-white/22 text-white" : "bg-white/80 text-[#4F5B75] shadow-sm"
-      }`}
-    >
-      {children}
-    </span>
-  );
-}
-
 function MetaLine({
   updatedAt,
   locale,
-  byline,
   light = false,
 }: {
   updatedAt: string;
   locale: BlogLocale;
-  byline: string;
   light?: boolean;
 }) {
   const t = copy[locale];
 
   return (
     <div className={`flex flex-wrap gap-x-5 gap-y-1 text-[11px] font-black uppercase ${light ? "text-white/76" : "text-[#76849A]"}`}>
-      <span>{byline}</span>
       <span>
         {t.updatedLabel}: {formatDisplayDate(updatedAt, locale)}
       </span>
@@ -357,7 +340,6 @@ function HeroStory({
   locale: BlogLocale;
   variant: BlogVariant;
 }) {
-  const t = copy[locale];
   const isCompact = variant === "c";
 
   const frameClass =
@@ -381,15 +363,13 @@ function HeroStory({
         />
       </div>
       <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/88 via-black/48 to-transparent px-6 pb-7 pt-24 md:px-12 md:pb-9 md:pt-32">
-        <CategoryPill onDark>{t.categoryMain}</CategoryPill>
-        <h2 className="mt-5 max-w-[760px] text-[30px] font-black leading-[1.12] tracking-[-0.03em] text-white md:text-[44px]">
+        <h2 className="max-w-[760px] text-[30px] font-black leading-[1.12] tracking-[-0.03em] text-white md:text-[44px]">
           {article.localized.title}
         </h2>
         <div className="mt-6">
           <MetaLine
             updatedAt={article.updatedAt}
             locale={locale}
-            byline={t.byline}
             light
           />
         </div>
@@ -414,15 +394,11 @@ function BlogCard({
       <Link href={getArticleCornerstoneHref(article, locale)} className="group grid overflow-hidden rounded-[18px] border border-[#E2E6EF] bg-white shadow-[0_18px_50px_rgba(15,23,42,0.06)] transition hover:-translate-y-0.5 hover:shadow-[0_28px_70px_rgba(15,23,42,0.12)] md:grid-cols-[280px_minmax(0,1fr)]">
         <div className="relative min-h-[220px] overflow-hidden">
           <ImageTag articleId={article.id} className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.04]" />
-          <div className="absolute bottom-4 left-4">
-            <CategoryPill>{article.localized.category}</CategoryPill>
-          </div>
         </div>
         <div className="flex flex-col justify-center p-7">
           <MetaLine
             updatedAt={article.updatedAt}
             locale={locale}
-            byline={t.byline}
           />
           <h3 className="mt-4 text-[27px] font-black leading-[1.12] tracking-[-0.03em] text-[#0A0F1E]">
             {article.localized.title}
@@ -441,15 +417,11 @@ function BlogCard({
     <Link href={getArticleCornerstoneHref(article, locale)} className="group block">
       <div className={`relative overflow-hidden rounded-[12px] bg-[#E7EEF8] ${size === "large" ? "aspect-[16/10]" : "aspect-[16/11.2]"}`}>
         <ImageTag articleId={article.id} className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.04]" />
-        <div className="absolute bottom-4 left-4">
-          <CategoryPill>{article.localized.category}</CategoryPill>
-        </div>
       </div>
       <div className="pt-6">
         <MetaLine
           updatedAt={article.updatedAt}
           locale={locale}
-          byline={t.byline}
         />
         <h3 className={`mt-4 font-black leading-[1.16] tracking-[-0.03em] text-[#161D2A] ${size === "large" ? "text-[28px]" : "text-[22px]"}`}>
           {article.localized.title}
