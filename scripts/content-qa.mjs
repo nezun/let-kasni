@@ -42,6 +42,12 @@ const forbiddenPublicPhrases = [
   "internal links point",
   "struktura sajta",
   "site structure",
+  "arhive vodiča",
+  "guide archive",
+  "detaljan deo šire teme",
+  "detailed part of the wider",
+  "ne procenjuje izolovano",
+  "should not be assessed in isolation",
 ];
 
 const forbiddenRuntimeHeadingPatterns = [
@@ -82,6 +88,14 @@ const forbiddenRuntimeHeadingPatterns = [
     message: "main-body H2s must not expose internal content-taxonomy logic",
   },
   {
+    pattern: /kako povezati opšti problem/i,
+    message: "main-body H2s must not expose content-taxonomy framing",
+  },
+  {
+    pattern: /kako odabrati .*vodič/i,
+    message: "main-body H2s must not describe guide navigation",
+  },
+  {
     pattern: /why .*pages?.*link back/i,
     message: "main-body H2s must not expose internal linking logic",
   },
@@ -92,6 +106,18 @@ const forbiddenRuntimeHeadingPatterns = [
   {
     pattern: /how this topic connects/i,
     message: "main-body H2s must not expose internal content-taxonomy logic",
+  },
+  {
+    pattern: /how to connect a broad disruption/i,
+    message: "main-body H2s must not expose content-taxonomy framing",
+  },
+  {
+    pattern: /how to choose .*guide/i,
+    message: "main-body H2s must not describe guide navigation",
+  },
+  {
+    pattern: /how this topic affects/i,
+    message: "main-body H2s must name the concrete passenger/legal issue, not refer to this topic",
   },
   {
     pattern: /(?:glavne strane|main pages).*autoritet|authority/i,
@@ -214,14 +240,14 @@ const publicShellChecks = [
 
 const requiredBlogContentSkeleton = {
   sr: [
-    ": ruta, vreme i odgovornost aviokompanije",
-    ": dokumenti koje Let Kasni proverava",
-    ": odgovor na odbijanje aviokompanije",
+    "Ruta, vreme i odgovornost aviokompanije",
+    "Dokumenti koje treba sačuvati za proveru",
+    "Šta ako aviokompanija odbije zahtev",
   ],
   en: [
-    ": route, timing and airline responsibility",
-    ": documents Let Kasni reviews",
-    ": response to airline rejection",
+    "Route, timing and airline responsibility",
+    "Documents to save for review",
+    "What if the airline rejects the claim",
   ],
 };
 
@@ -545,6 +571,7 @@ function checkRuntimeHeadingQuality() {
         file: "src/lib/blog.ts",
         article: article.id,
         locale,
+        title: article[locale].title,
         sections: article[locale].sections,
       })),
     ),
@@ -553,6 +580,7 @@ function checkRuntimeHeadingQuality() {
         file: "src/lib/cornerstones.ts",
         article: page.id,
         locale,
+        title: page[locale].title,
         sections: page[locale].sections,
       })),
     ),
@@ -560,6 +588,19 @@ function checkRuntimeHeadingQuality() {
 
   for (const block of blocks) {
     for (const section of block.sections) {
+      if (section.heading.startsWith(`${block.title}:`)) {
+        addIssue({
+          type: "title_prefixed_reusable_heading",
+          file: block.file,
+          article: block.article,
+          locale: block.locale,
+          heading: section.heading,
+          message: `${block.locale.toUpperCase()} heading "${section.heading}" starts with the full page/article title and reads like a reusable template`,
+          suggestedFix:
+            "Use a natural reader-task heading without prefixing the full title, for example route/timing, evidence, expenses, or airline response.",
+        });
+      }
+
       for (const check of forbiddenRuntimeHeadingPatterns) {
         if (check.pattern.test(section.heading)) {
           addIssue({

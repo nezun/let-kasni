@@ -46,6 +46,12 @@ const internalOrCompetitorLeakPatterns = [
   /internal links point/i,
   /struktura sajta/i,
   /site structure/i,
+  /arhive vodiča/i,
+  /guide archive/i,
+  /detaljan deo šire teme/i,
+  /detailed part of the wider/i,
+  /ne procenjuje izolovano/i,
+  /should not be assessed in isolation/i,
 ];
 const forbiddenHeadingPatterns = [
   /kako koristiti (?:naš |nas )?(?:kalkulator|ovu strukturu|strukturu)/i,
@@ -56,6 +62,11 @@ const forbiddenHeadingPatterns = [
   /why .*pages?.*link back/i,
   /kako povezati ovu temu/i,
   /how this topic connects/i,
+  /kako povezati opšti problem/i,
+  /how to connect a broad disruption/i,
+  /kako odabrati .*vodič/i,
+  /how to choose .*guide/i,
+  /how this topic affects/i,
   /(?:glavne strane|main pages).*autoritet|authority/i,
   /(?:budućim tekstovima|future articles)/i,
   /(?:automatsku procenu|automatic estimate)/i,
@@ -472,7 +483,11 @@ function scoreRecord(record) {
 
   const badHeadings = sections
     .map((section) => section.heading)
-    .filter((heading) => forbiddenHeadingPatterns.some((pattern) => pattern.test(heading)));
+    .filter(
+      (heading) =>
+        forbiddenHeadingPatterns.some((pattern) => pattern.test(heading)) ||
+        heading.startsWith(`${item[locale].title}:`),
+    );
 
   if (badHeadings.length === 0) {
     criteria.push(criterion("approved_outline_heading_quality", 15, 15, "pass", "No meta/process H2 headings detected"));

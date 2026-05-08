@@ -117,10 +117,10 @@ export const cornerstonePages: CornerstonePage[] = [
           ],
         },
         {
-          heading: "Kako odabrati pravi vodič za svoj slučaj",
+          heading: "Kako prepoznati da li je problem kašnjenje, otkazivanje ili konekcija",
           body: [
-            "Ako znate šta se dogodilo, krenite od najbliže glavne teme: kašnjenje, otkazivanje, propuštena konekcija, overbooking, uskraćeno ukrcavanje, prtljag ili štrajk. Ako niste sigurni, prvo utvrdite posledicu po putovanje: da li ste stigli kasno, da li let nije obavljen, da li ste izgubili sledeći segment ili ste imali troškove čekanja.",
-            "Kada se osnovna tema prepozna, sledeće pitanje su dokazi. Loše vreme, tehnički kvar, rokovi, dokumenta, vaučer ili odbijen zahtev ne rešavaju se istim argumentima. Zato je najbolje prvo odvojiti glavni problem, a zatim proveriti konkretan razlog koji aviokompanija navodi."
+            "Ako znate šta se dogodilo, krenite od posledice po putovanje: da li ste stigli kasno, da li let nije obavljen, da li ste izgubili sledeći segment ili ste imali troškove čekanja. Kašnjenje, otkazivanje, propuštena konekcija, overbooking, uskraćeno ukrcavanje, prtljag i štrajk ne traže isti dokaz.",
+            "Kada se osnovni problem prepozna, sledeće pitanje su dokazi. Loše vreme, tehnički kvar, rokovi, dokumenta, vaučer ili odbijen zahtev ne rešavaju se istim argumentima. Zato je najbolje prvo odvojiti šta se dogodilo, a zatim proveriti konkretan razlog koji aviokompanija navodi."
           ],
         },
       ],
@@ -187,10 +187,10 @@ export const cornerstonePages: CornerstonePage[] = [
           ],
         },
         {
-          heading: "How to choose the right guide for your case",
+          heading: "How to tell whether the problem is delay, cancellation or connection",
           body: [
-            "If you know what happened, start with the closest main topic: delay, cancellation, missed connection, overbooking, denied boarding, baggage or strike. If you are not sure, identify the consequence first: late arrival, flight not operated, lost onward segment or waiting costs.",
-            "Once the main topic is clear, the next question is evidence. Bad weather, technical fault, deadlines, documents, voucher or rejection are not handled with the same argument. The better path is to identify the main disruption first, then check the specific reason the airline gives."
+            "If you know what happened, start with the consequence for the journey: late arrival, flight not operated, lost onward segment or waiting costs. Delay, cancellation, missed connection, overbooking, denied boarding, baggage and strike cases do not need the same evidence.",
+            "Once the basic problem is clear, the next question is evidence. Bad weather, technical fault, deadlines, documents, voucher or rejection are not handled with the same argument. The better path is to identify what happened first, then check the specific reason the airline gives."
           ],
         },
       ],
@@ -761,8 +761,8 @@ function addDepthToGeneratedGuide(page: CornerstonePage) {
       heading: "Kada je slučaj složeniji od osnovnog pravila",
       body: [
         `Kod teme ${srTopic}, osnovno pravilo često nije dovoljno kada aviokompanija navede poseban razlog ili kada postoji više posledica po putnika. Tada se ne otvara lista tekstova, nego se prvo određuje pitanje koje menja ishod: rok, ponuđena alternativa, razlog, refundacija, vaučer, odvojene karte ili trošak iz džepa.`,
-        "To nije pitanje arhive vodiča, već pitanje dokaza. Loše vreme, tehnički kvar, odbijen zahtev, vaučer, odvojene karte i troškovi iz džepa ne traže isti odgovor. Svaki scenario ima drugačiji dokaz koji može promeniti ishod.",
-        "Ako se slučaj dodiruje više tema, prvo se određuje glavni događaj, a zatim sekundarne posledice. Tako se ne pokušava sve ugurati u jednu kategoriju, već se za svaku vrstu prava traži najjači osnov."
+        "To je pitanje dokaza, ne naziva problema. Loše vreme, tehnički kvar, odbijen zahtev, vaučer, odvojene karte i troškovi iz džepa ne traže isti odgovor. Svaki scenario ima drugačiji dokaz koji može promeniti ishod.",
+        "Ako se slučaj dodiruje više prava, prvo se određuje događaj koji je pokrenuo problem, a zatim posledice za putnika. Tako se za svaku stavku traži najjači dokaz, umesto da se sve pošalje kao jedna nejasna žalba sa slabijim dokazima."
       ],
     },
     {
@@ -790,10 +790,10 @@ function addDepthToGeneratedGuide(page: CornerstonePage) {
       ],
     },
     {
-      heading: "Kako ova tema utiče na porodice i više putnika",
+      heading: "Porodice, deca i više putnika u istoj rezervaciji",
       body: [
         "Kada u rezervaciji ima više putnika, procena se radi po putniku, ali dokazi se često nalaze u istoj rezervaciji. Sačuvajte listu svih putnika, booking referencu, karte i boarding pass dokumente za svakog člana grupe. Ako je dete imalo svoje mesto ili kartu, ne preskačite ga u proceni.",
-        `Kod teme ${srTopic}, porodice često imaju i dodatne troškove: hranu, transfer, smeštaj, nove karte ili propuštene aranžmane. Te troškove treba dokumentovati odvojeno od fiksne naknade. Račun, vreme kupovine i razlog kupovine često su važniji od dugog objašnjenja.`,
+        `Kod ovakvog poremećaja porodice često imaju i dodatne troškove: hranu, transfer, smeštaj, nove karte ili propuštene aranžmane. Te troškove treba dokumentovati odvojeno od fiksne naknade. Račun, vreme kupovine i razlog kupovine često su važniji od dugog objašnjenja.`,
         "Ako jedna osoba iz grupe komunicira sa aviokompanijom, neka sačuva dokaz da govori za celu rezervaciju ili za putnike koji su joj dali saglasnost. To smanjuje rizik da kompanija kasnije tvrdi da zahtev nije potpun."
       ],
     },
@@ -873,7 +873,7 @@ function addDepthToGeneratedGuide(page: CornerstonePage) {
       heading: "When the case is more complex than the basic rule",
       body: [
         `For ${enTopic}, the basic rule is often not enough when the airline cites a specific reason or when the passenger has several consequences. The next step is not a list of articles, but the question that changes the outcome: timing, alternative transport, cause, refund, voucher, separate tickets or out-of-pocket expense.`,
-        "This is not about browsing a guide archive. It is about evidence. Bad weather, technical fault, rejected claim, voucher, separate tickets and out-of-pocket costs do not need the same response. Each scenario has a different proof point that can change the result.",
+        "This is an evidence question, not a label question. Bad weather, technical fault, rejected claim, voucher, separate tickets and out-of-pocket costs do not need the same response. Each scenario has a different proof point that can change the result.",
         "If the case touches several topics, identify the main event first and then the secondary consequences. That avoids forcing everything into one category and lets each right be checked on its strongest basis."
       ],
     },
@@ -902,10 +902,10 @@ function addDepthToGeneratedGuide(page: CornerstonePage) {
       ],
     },
     {
-      heading: "How this topic affects families and groups",
+      heading: "Families, children and several passengers in one booking",
       body: [
         "When several passengers are in one booking, assessment is usually per passenger, but the evidence often sits in the same reservation. Keep the list of passengers, booking reference, tickets and boarding passes for every person in the group. If a child had a seat or ticket, do not skip them in the assessment.",
-        `In ${enTopic}, families often also have extra costs: food, transfer, accommodation, new tickets or missed arrangements. Those costs should be documented separately from fixed compensation. Receipt, purchase time and reason for purchase are often more important than a long explanation.`,
+        "With this kind of disruption, families often also have extra costs: food, transfer, accommodation, new tickets or missed arrangements. Those costs should be documented separately from fixed compensation. Receipt, purchase time and reason for purchase are often more important than a long explanation.",
         "If one person in the group communicates with the airline, keep proof that they are speaking for the whole booking or for passengers who gave consent. That reduces the risk of the airline later saying the claim is incomplete."
       ],
     },
@@ -949,9 +949,9 @@ function addDepthToAirPassengerRightsGuide(page: CornerstonePage) {
   page.sr.sections = [
     ...page.sr.sections,
     {
-      heading: "Kako odabrati pravu glavnu temu",
+      heading: "Kašnjenje, otkazivanje ili konekcija: šta je prvi problem",
       body: [
-        "Ako niste sigurni gde vaš slučaj pripada, krenite od posledice po putovanje. Ako ste stigli tri sata ili više kasnije, najbliža tema je [naknada za kašnjenje leta](/naknada-za-kasnjenje-leta). Ako let nije obavljen, krenite od [naknade za otkazan let](/naknada-za-otkazan-let).",
+        "Ako niste sigurni šta je prvi problem, krenite od posledice po putovanje. Ako ste stigli tri sata ili više kasnije, proverava se [naknada za kašnjenje leta](/naknada-za-kasnjenje-leta). Ako let nije obavljen, proverava se [naknada za otkazan let](/naknada-za-otkazan-let).",
         "Ako ste zbog prvog segmenta izgubili drugi let, proverite naknadu za propuštenu konekciju i da li je sve bilo u jednoj rezervaciji.",
         "Overbooking i uskraćeno ukrcavanje se često preklapaju, ali nisu uvek isti problem. Ako je kompanija prodala više mesta nego što ima sedišta, osnovna tema je [overbooking naknada](/overbooking-naknada). Ako je ukrcavanje odbijeno zbog dokumenata, gate pravila ili bezbednosne procene, bliža je [naknada za uskraćeno ukrcavanje](/naknada-za-uskraceno-ukrcavanje).",
         "Prtljag i štrajk imaju svoju logiku. [Kašnjenje prtljaga](/naknada-za-kasnjenje-prtljaga) se uglavnom dokazuje PIR prijavom, rokovima i računima, dok [štrajk aviokompanije](/naknada-za-strajk-aviokompanije) zavisi od toga ko štrajkuje i da li je događaj u sferi aviokompanije."
@@ -1000,10 +1000,10 @@ function addDepthToAirPassengerRightsGuide(page: CornerstonePage) {
       ],
     },
     {
-      heading: "Kako povezati opšti problem sa konkretnim zahtevom",
+      heading: "Kada jedan poremećaj otvara više zahteva",
       body: [
         "Putnik često ne zna da li ima jedan zahtev ili više različitih prava. Kašnjenje može otvoriti fiksnu naknadu, ali i troškove hotela. Otkazivanje može otvoriti refundaciju, ali i kasniji dolazak alternativnim letom. Propuštena konekcija može zavisiti od toga da li je sve bilo u jednoj rezervaciji.",
-        "Zato je korisno prvo imenovati glavni problem, a zatim sporedne posledice. Glavni problem određuje osnov zahteva, dok sporedne posledice pokazuju koja dokumenta, računi i dodatna objašnjenja treba priložiti.",
+        "Zato je korisno prvo imenovati događaj koji je pokrenuo problem, a zatim posledice za putnika. Prvi događaj određuje osnov zahteva, dok posledice pokazuju koja dokumenta, računi i dodatna objašnjenja treba priložiti.",
         "Ako se slučaj dodiruje više oblasti, to nije mana. To samo znači da zahtev treba razdvojiti po vrstama prava, umesto da se sve pošalje kao jedna nejasna žalba."
       ],
     },
@@ -1062,9 +1062,9 @@ function addDepthToAirPassengerRightsGuide(page: CornerstonePage) {
   page.en.sections = [
     ...page.en.sections,
     {
-      heading: "How to choose the right main topic",
+      heading: "Delay, cancellation or connection: what happened first",
       body: [
-        "If you are not sure where your case belongs, start with the consequence for the journey. If you arrived three hours or more late, the closest topic is [flight delay compensation](/en/flight-delay-compensation). If the flight was not operated, start with [flight cancellation compensation](/en/flight-cancellation-compensation).",
+        "If you are not sure what happened first, start with the consequence for the journey. If you arrived three hours or more late, check [flight delay compensation](/en/flight-delay-compensation). If the flight was not operated, check [flight cancellation compensation](/en/flight-cancellation-compensation).",
         "If the first segment made you miss the second flight, check missed connection compensation and whether the journey was under one booking.",
         "Overbooking and denied boarding often overlap, but they are not always the same problem. If the airline sold more seats than it had available, the primary topic is [overbooking compensation](/en/overbooking-compensation). If boarding was refused because of documents, gate rules or safety assessment, [denied boarding compensation](/en/denied-boarding-compensation) is closer.",
         "Baggage and strikes follow their own logic. [Delayed baggage compensation](/en/delayed-baggage-compensation) is mostly proven through PIR report, deadlines and receipts, while [airline strike compensation](/en/airline-strike-compensation) depends on who is striking and whether the event sits within the airline's responsibility."
@@ -1112,10 +1112,10 @@ function addDepthToAirPassengerRightsGuide(page: CornerstonePage) {
       ],
     },
     {
-      heading: "How to connect a broad disruption with the actual claim",
+      heading: "When one disruption creates several requests",
       body: [
         "Passengers often do not know whether they have one claim or several separate rights. A delay can create fixed compensation, but also hotel costs. A cancellation can create a refund, but also late arrival on a replacement flight. A missed connection can depend on whether all flights were under one booking.",
-        "That is why the main problem should be named first, then the secondary consequences. The main problem decides the claim basis, while secondary consequences show which documents, receipts and explanations should be attached.",
+        "That is why the event that started the problem should be named first, then the consequences for the passenger. The first event defines the claim basis, while the consequences show which documents, receipts and explanations should be attached.",
         "If a case touches several areas, that is not a defect. It means the claim should be separated by type of right instead of sent as one unclear complaint."
       ],
     },
