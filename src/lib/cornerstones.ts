@@ -1078,7 +1078,7 @@ function addDepthToAirPassengerRightsGuide(page: CornerstonePage) {
     {
       heading: "Šta uraditi dok ste još na aerodromu",
       body: [
-        "Ako se poremećaj desi dok ste na aerodromu, najvažnije je da ne napustite situaciju bez dokaza. Pitajte osoblje za razlog, tražite da se informacija pošalje pisano ako je moguće, fotografišite tablu polazaka i sačuvajte svaki SMS, email ili push notifikaciju aviokompanije.",
+        "Ako se poremećaj desi dok ste na aerodromu, najvažnije je da ne napustite situaciju bez dokaza. Praktičan redosled je objašnjen u vodiču [šta uraditi kada let kasni](/prava-putnika-u-aviosaobracaju/sta-uraditi-kada-let-kasni): pitajte osoblje za razlog, tražite pisani trag ako je moguće, fotografišite tablu polazaka i sačuvajte svaki SMS, email ili push notifikaciju aviokompanije.",
         "Ako čekanje traje duže, pitajte za obrok, vodu, komunikaciju, hotel i transfer. Ako pomoć ne dobijete, kupujte razumno i čuvajte račune. Ne morate znati sve pravne detalje na licu mesta, ali morate sačuvati trag koji će kasnije pokazati šta se dogodilo.",
         "Ako vam se nudi vaučer, refundacija ili preusmeravanje, tražite uslove pre prihvatanja. Posebno pazite na formulacije kojima se odričete daljih potraživanja. Ako niste sigurni, bolje je sačuvati ponudu i proveriti je nego potpisati nešto što ne razumete."
       ],
@@ -1189,7 +1189,7 @@ function addDepthToAirPassengerRightsGuide(page: CornerstonePage) {
     {
       heading: "What to do while you are still at the airport",
       body: [
-        "If disruption happens while you are at the airport, the most important thing is not to leave without evidence. Ask staff for the reason, request written information if possible, photograph the departure board and save every SMS, email or app notification from the airline.",
+        "If disruption happens while you are at the airport, the most important thing is not to leave without evidence. The practical order is covered in the guide on [what to do when a flight is delayed or cancelled](/en/air-passenger-rights/what-to-do-when-flight-is-delayed-or-cancelled): ask staff for the reason, request written information if possible, photograph the departure board and save every SMS, email or app notification from the airline.",
         "If the wait is longer, ask for food, water, communication, hotel and transfer. If help is not provided, spend reasonably and keep receipts. You do not need to know every legal detail on the spot, but you need a record that later shows what happened.",
         "If you are offered a voucher, refund or rerouting, ask for the terms before accepting. Pay special attention to wording that waives further claims. If you are unsure, it is better to save the offer and check it than sign something you do not understand."
       ],

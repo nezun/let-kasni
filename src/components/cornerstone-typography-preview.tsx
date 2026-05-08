@@ -150,6 +150,29 @@ const professionalHandling = {
   },
 };
 
+const guideCaseFile = {
+  sr: {
+    eyebrow: "Dokazni okvir",
+    title: "Šta se slaže pre kontakta sa aviokompanijom",
+    items: [
+      "ruta, rezervacija i operativni prevoznik",
+      "tačna vremenska linija poremećaja",
+      "dokaz razloga koji aviokompanija navodi",
+      "troškovi koji se vode odvojeno od fiksne naknade",
+    ],
+  },
+  en: {
+    eyebrow: "Evidence frame",
+    title: "What is organized before contacting the airline",
+    items: [
+      "route, booking and operating carrier",
+      "exact disruption timeline",
+      "proof behind the airline's stated reason",
+      "expenses handled separately from fixed compensation",
+    ],
+  },
+};
+
 function slugifyHeading(value: string) {
   return value
     .trim()
@@ -307,6 +330,32 @@ function ProfessionalHandlingVisual({
   );
 }
 
+function GuideCaseFileVisual({
+  locale,
+}: {
+  locale: BlogLocale;
+}) {
+  const visual = guideCaseFile[locale];
+
+  return (
+    <div className="mt-8 rounded-[18px] border border-[#D6E4FF] bg-[#F3F7FF] p-5 md:p-6">
+      <p className="text-[11px] font-black uppercase tracking-[0.14em] text-[#2470EB]">
+        {visual.eyebrow}
+      </p>
+      <h3 className="mt-2 font-display text-[24px] font-black leading-[1.18] tracking-[-0.02em] text-[#101828] md:text-[28px]">
+        {visual.title}
+      </h3>
+      <div className="mt-6 grid gap-3 md:grid-cols-2">
+        {visual.items.map((item) => (
+          <div key={item} className="rounded-[14px] border border-white bg-white p-4 text-[15px] font-bold leading-[1.55] text-[#344054] shadow-[0_10px_28px_rgba(16,24,40,0.04)]">
+            {item}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export function CornerstoneTypographyPreview({
   page,
   locale,
@@ -382,7 +431,7 @@ export function CornerstoneTypographyPreview({
             <div className="mx-auto max-w-[980px]">
               <InterlinkingScope currentHref={currentHref}>
                 <div className="space-y-14">
-                  {localized.sections.map((section) => (
+                  {localized.sections.map((section, index) => (
                     <section key={section.heading} id={sectionId(section.heading)} className="scroll-mt-36">
                       <h2 className="font-display text-[34px] font-black leading-[1.16] tracking-[-0.025em] text-[#101828] md:text-[42px]">
                         {section.heading}
@@ -410,8 +459,14 @@ export function CornerstoneTypographyPreview({
                       {isProfessionalHandlingSection(section.heading, locale) ? (
                         <ProfessionalHandlingVisual locale={locale} />
                       ) : null}
+                      {page.id !== "flight-delay-compensation" && (index === 3 || index === 11) ? (
+                        <ProfessionalHandlingVisual locale={locale} />
+                      ) : null}
                       {isArrivalSection(section.heading, locale) ? (
                         <ArrivalTimeline locale={locale} />
+                      ) : null}
+                      {page.id !== "flight-delay-compensation" && (index === 7 || index === 15) ? (
+                        <GuideCaseFileVisual locale={locale} />
                       ) : null}
                       {isDocumentsSection(section.heading, locale) ? (
                         <div className="mt-8 scroll-mt-36">

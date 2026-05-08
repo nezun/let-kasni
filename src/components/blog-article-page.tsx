@@ -28,6 +28,18 @@ const copy = {
       "Vodič je informativan. Ishod zavisi od rute, prevoznika, razloga poremećaja i dokaza u konkretnom slučaju.",
     updatedLabel: "Ažurirano",
     mainGuidePrefix: "Širi vodič za ovu temu",
+    evidenceVisualEyebrow: "Dokazni fajl",
+    evidenceVisualTitle: "Šta Let Kasni prvo slaže u slučaju",
+    evidenceVisualItems: [
+      "tačan let, datum, ruta i booking referenca",
+      "planirano i stvarno vreme dolaska",
+      "razlog koji aviokompanija navodi i dokaz koji ga prati",
+      "računi za hranu, hotel, transfer ili novu kartu",
+    ],
+    processVisualEyebrow: "Profesionalna provera",
+    processVisualTitle: "Zašto ne stajemo na generičkoj odbijenici",
+    processVisualBody:
+      "Aviokompanije često računaju da će fizičko lice odustati posle prvog kratkog odgovora. Uredan dosije, poznavanje pravila i proceduralni ton menjaju brzinu i kvalitet odgovora.",
   },
   en: {
     nextStep: "Next step",
@@ -40,8 +52,60 @@ const copy = {
       "This guide is informational. Outcome depends on route, carrier, disruption cause, and evidence in the specific case.",
     updatedLabel: "Updated",
     mainGuidePrefix: "Main guide for this topic",
+    evidenceVisualEyebrow: "Case file",
+    evidenceVisualTitle: "What Let Kasni organizes first",
+    evidenceVisualItems: [
+      "exact flight, date, route and booking reference",
+      "scheduled and actual arrival time",
+      "airline's stated reason and the evidence behind it",
+      "receipts for meals, hotel, transfer or a new ticket",
+    ],
+    processVisualEyebrow: "Professional review",
+    processVisualTitle: "Why we do not stop at a generic rejection",
+    processVisualBody:
+      "Airlines often expect individual passengers to give up after the first short answer. A structured file, knowledge of the rules and procedural pressure change the speed and quality of the response.",
   },
 };
+
+function ArticleEvidenceVisual({ locale }: { locale: BlogLocale }) {
+  const t = copy[locale];
+
+  return (
+    <div className="rounded-[16px] border border-[#D6E4FF] bg-[#F3F7FF] p-5 md:p-6">
+      <p className="text-[11px] font-black uppercase tracking-[0.14em] text-[#2470EB]">
+        {t.evidenceVisualEyebrow}
+      </p>
+      <h3 className="mt-2 font-display text-[23px] font-black leading-[1.18] text-[#101828]">
+        {t.evidenceVisualTitle}
+      </h3>
+      <ul className="mt-5 grid gap-3 text-[15px] leading-[1.6] text-[#344054] md:grid-cols-2">
+        {t.evidenceVisualItems.map((item) => (
+          <li key={item} className="rounded-[12px] border border-white bg-white p-4 font-bold shadow-[0_10px_28px_rgba(16,24,40,0.04)]">
+            {item}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function ArticleProcessVisual({ locale }: { locale: BlogLocale }) {
+  const t = copy[locale];
+
+  return (
+    <div className="rounded-[16px] border border-[#D8E4FF] bg-[#0B1220] p-5 text-white shadow-[0_18px_48px_rgba(16,24,40,0.14)] md:p-6">
+      <p className="text-[11px] font-black uppercase tracking-[0.14em] text-white/70">
+        {t.processVisualEyebrow}
+      </p>
+      <h3 className="mt-2 font-display text-[24px] font-black leading-[1.18]">
+        {t.processVisualTitle}
+      </h3>
+      <p className="mt-4 max-w-[620px] text-[16px] leading-[1.7] text-white/82">
+        {t.processVisualBody}
+      </p>
+    </div>
+  );
+}
 
 export function BlogArticlePageView({
   article,
@@ -117,7 +181,7 @@ export function BlogArticlePageView({
           <div className="mx-auto grid max-w-[1120px] gap-10 lg:grid-cols-[minmax(0,720px)_280px]">
             <InterlinkingScope currentHref={currentHref}>
               <div className="space-y-10">
-                {localized.sections.map((section) => (
+                {localized.sections.map((section, index) => (
                   <section key={section.heading}>
                     <h2 className="font-display text-[30px] font-bold leading-[1.18] text-[#0A0F1E]">
                       {section.heading}
@@ -138,6 +202,16 @@ export function BlogArticlePageView({
                           </li>
                         ))}
                       </ul>
+                    ) : null}
+                    {index === 1 ? (
+                      <div className="mt-7">
+                        <ArticleEvidenceVisual locale={locale} />
+                      </div>
+                    ) : null}
+                    {index === 4 ? (
+                      <div className="mt-7">
+                        <ArticleProcessVisual locale={locale} />
+                      </div>
                     ) : null}
                   </section>
                 ))}
