@@ -19,6 +19,13 @@ Before finishing, explain:
 3. what the next automation improvement should be;
 4. how to test or verify the change.
 
+## Autonomous Handoff
+
+- `CHECKPOINT.md` is the canonical handoff file for future local and Codex Cloud sessions.
+- At the start of a resumed task, read `AGENTS.md`, read `CHECKPOINT.md`, inspect `git status --short`, and run `npm run checkpoint`.
+- Before ending substantial work, run `npm run checkpoint` and update the manual sections of `CHECKPOINT.md`: current state, next work, locked decisions, manual work, and verification log.
+- If the task cannot finish without user input, record the blocker and the safest next autonomous step in `CHECKPOINT.md` instead of relying on chat memory.
+
 <!-- BEGIN:nextjs-agent-rules -->
 # This is NOT the Next.js you know
 

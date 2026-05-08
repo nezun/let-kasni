@@ -10,6 +10,7 @@
     "content:qa": "node scripts/content-qa.mjs",
     "content:links": "node scripts/content-link-graph.mjs",
     "content:benchmark": "node scripts/content-benchmark-review.mjs",
+    "checkpoint": "node scripts/update-checkpoint.mjs",
     "links:audit": "node scripts/public-link-audit.mjs",
     "content:qa:report": "node scripts/content-qa.mjs --report reports/content-qa-report.json",
     "verify": "npm run content:qa && npm run content:links && npm run content:benchmark && npm run lint && npm run build",
