@@ -822,13 +822,14 @@ function addDepthToGeneratedGuide(page: CornerstonePage) {
       ],
     },
     {
-      heading: "Kako povezati ovu temu sa drugim pravima putnika",
+      heading: "Kada isti događaj otvara više od jednog prava",
       body: [
-        `Iako je ${srTopic} glavna tema ove stranice, stvarni slučaj često dodiruje i druga prava. Kašnjenje može nastati posle otkazivanja, propuštena konekcija može biti posledica prvog segmenta, a overbooking ili štrajk mogu otvoriti pitanje hrane, hotela i preusmeravanja. Zbog toga se ne zaključuje samo po nazivu problema, već po posledici za putnika.`,
-        "Ako se u slučaju pojavljuje dolazak tri sata ili više kasnije, uvek proverite i [naknadu za kašnjenje leta](/naknada-za-kasnjenje-leta). Ako je let uopšte prestao da postoji u rasporedu, proverite otkazivanje. Ako je putnik ostao bez sledećeg segmenta, proverite konekciju i da li je sve bilo u jednoj rezervaciji.",
-        "Ovakvo povezivanje ne znači da se svaki tekst seli pod kašnjenje. Glavna tema ostaje ona koja najbolje objašnjava prvi problem, a interni linkovi vode ka srodnim pravilima kada ona mogu promeniti ishod. To je najčistiji način da se putnik ne izgubi, a da se ne razbije struktura sajta.",
-        "U praksi je korisno zapisati primarni problem i sekundarne posledice. Primarni problem određuje gde zahtev pripada, a sekundarne posledice određuju koje dodatne vodiče treba otvoriti pre slanja. Ako je primarni problem otkazivanje, ali je alternativa dovela do kasnog dolaska, oba pravila mogu biti važna.",
-        "Ako niste sigurni šta je primarno, krenite od dokumenta koji je kompanija poslala: obaveštenje o otkazivanju, razlog kašnjenja, potvrda sa gejta ili PIR zapisnik. Taj dokument obično pokazuje gde slučaj pripada i koje sledeće pitanje treba postaviti."
+        `Kod teme ${srTopic} jedan događaj može otvoriti više zahteva odjednom. Putnik može imati pitanje fiksne naknade, refundacije karte, preusmeravanja, hotela, obroka ili dodatnih troškova, a svaki deo traži svoj dokaz.`,
+        "Zato se u obradi prvo zapisuje šta se stvarno dogodilo, a zatim šta je putnik morao da prihvati posle toga. Ako je alternativa stigla mnogo kasnije, vreme dolaska može biti bitno. Ako je putnik morao sam da plati hotel ili novu kartu, računi i pokušaj kontakta sa aviokompanijom postaju centralni dokaz.",
+        "Najčešća greška je da se sve traži jednom opštom rečenicom. Bolji zahtev odvojeno navodi novčanu naknadu, refundaciju, brigu i troškove, pa aviokompanija teže može da odgovori samo na jedan deo i prećuti ostalo.",
+        "Kod kombinovanih slučajeva redosled je presudan. Prvo se zaključava događaj koji je pokrenuo problem, zatim krajnja posledica po putovanje, pa tek onda iznos ili trošak koji se traži. Tako se ne propušta pravo na brigu samo zato što je fiksna naknada sporna, niti se refundacija meša sa naknadom za izgubljeno vreme.",
+        "Ako postoji više putnika ili više segmenata, isti princip se primenjuje po stavkama. Jedan putnik može imati trošak hotela, drugi samo kašnjenje dolaska, a cela rezervacija može imati isti osnovni dokaz.",
+        "Ako niste sigurni šta je najjači deo slučaja, krenite od dokumenta koji je kompanija poslala: obaveštenje o otkazivanju, razlog kašnjenja, potvrda sa gejta ili PIR zapisnik. Taj dokument obično pokazuje koje činjenice treba prvo proveriti."
       ],
     },
   ];
@@ -933,13 +934,12 @@ function addDepthToGeneratedGuide(page: CornerstonePage) {
       ],
     },
     {
-      heading: "How this topic connects with other passenger rights",
+      heading: "When one disruption creates several rights",
       body: [
-        `Although ${enTopic} is the main topic of this page, real cases often touch other rights too. A delay can follow a cancellation, a missed connection can come from the first segment, and overbooking or a strike can raise food, hotel and rerouting issues. The case should therefore be assessed by the consequence for the passenger, not only by the label used at the airport.`,
-        "If the case includes arrival three hours or more late, also check [flight delay compensation](/en/flight-delay-compensation). If the flight disappeared from the schedule, check cancellation. If the passenger lost the next segment, check missed connections and whether all flights were under one booking.",
-        "This linking does not mean every article should be moved under delay. The main topic remains the one that best explains the first problem, while internal links point to related rules when they can change the outcome. That keeps the site structure clear without leaving the passenger in an isolated article.",
-        "In practice, write down the primary problem and the secondary consequences. The primary problem decides where the claim belongs, while secondary consequences decide which additional guides should be opened before filing. If the primary problem is cancellation but the replacement caused late arrival, both rules may matter.",
-        "If you are not sure what is primary, start from the document the airline provided: cancellation notice, delay reason, gate confirmation or PIR report. That document usually shows where the case belongs."
+        `For ${enTopic}, one disruption can create several requests at once. The passenger may need fixed compensation, ticket refund, rerouting, hotel, meals or extra expenses, and each part needs its own proof.`,
+        "Good handling starts by recording what actually happened and what the passenger had to accept afterwards. If the alternative arrived much later, arrival time can matter. If the passenger paid for a hotel or new ticket, receipts and proof of contact with the airline become central evidence.",
+        "The common mistake is asking for everything in one broad sentence. A stronger claim separates compensation, refund, care and expenses, so the airline cannot easily answer only one part and ignore the rest.",
+        "If you are not sure which part is strongest, start from the document the airline provided: cancellation notice, delay reason, gate confirmation or PIR report. That document usually shows which facts should be checked first."
       ],
     },
   ];
@@ -1197,7 +1197,22 @@ if (cancellationGuide) {
     srComplex.body = [
       "Kod otkazanog leta osnovno pravilo nije dovoljno kada je sporan rok obaveštenja, kada je ponuđena loša alternativa ili kada aviokompanija navodi poseban razlog. Prvo se proverava da li je obaveštenje stiglo na vreme, zatim koliko je zamenski let promenio putovanje, pa tek onda da li razlog može da isključi fiksnu naknadu.",
       "Ako je obaveštenje stiglo neposredno pred put, posebno proverite pravilo za [let otkazan manje od 14 dana ranije](/naknada-za-otkazan-let/otkazan-let-manje-od-14-dana-prava). Ako je kompanija umesto otkazivanja značajno pomerila polazak, uporedite i pravila za [let pomeren ranije](/naknada-za-otkazan-let/let-pomeren-ranije-prava-putnika).",
-      "Ako se slučaj dodiruje više tema, prvo se određuje glavni događaj, a zatim sekundarne posledice. Tako se ne pokušava sve ugurati u jednu kategoriju, već se za svaku vrstu prava traži najjači osnov.",
+      "Ako je zamenski let stigao značajno kasnije od originalnog plana, u proceni se ne gleda samo činjenica da je let otkazan. Bitno je i kada je putnik zaista stigao na odredište, da li je alternativa bila razumna i da li su nastali troškovi čekanja.",
+    ];
+  }
+
+  const srMultiRight = cancellationGuide.sr.sections.find(
+    (section) => section.heading === "Kada isti događaj otvara više od jednog prava",
+  );
+  if (srMultiRight) {
+    srMultiRight.heading = "Zamenski let, refundacija i troškovi posle otkazivanja";
+    srMultiRight.body = [
+      "Otkazivanje leta ne završava se samo pitanjem da li postoji fiksna naknada. Aviokompanija mora ponuditi izbor između refundacije i preusmeravanja, a ako putnik čeka duže, odvojeno se proveravaju hrana, hotel, transfer i komunikacija.",
+      "Ako prihvatite zamenski let, sačuvajte vreme kada je ponuđen, vreme polaska, vreme dolaska i eventualni drugi aerodrom. Ti detalji pokazuju da li je alternativa zaista smanjila posledice otkazivanja ili je samo prebacila problem na kasnije čekanje.",
+      "Ako birate refundaciju, proverava se šta se vraća: cela karta, neiskorišćen deo puta ili povratak na polaznu tačku kada nastavak putovanja više nema smisla. To je odvojeno od pitanja da li fiksna naknada i dalje može da postoji.",
+      "Ako ste sami platili hotel, transfer, obrok ili novu kartu, račun nije sporedan dodatak. On pokazuje da kompanija nije pokrila praktične posledice otkazivanja i da zahtev ne sme ostati samo na jednoj stavci.",
+      "Kod više putnika u istoj rezervaciji proverava se i da li svako ima isto pravo ili se troškovi razlikuju po osobi. To je važno kada porodica ili grupa prihvati različita rešenja posle otkazivanja.",
+      "Zato se posle otkazivanja ne šalje nejasna žalba, već zahtev koji redom pokriva izbor putnika, ponuđenu alternativu, stvarni dolazak i troškove koje kompanija nije rešila.",
     ];
   }
 
@@ -1224,7 +1239,20 @@ if (cancellationGuide) {
     enComplex.body = [
       "For a cancelled flight, the basic rule is not enough when notice timing is disputed, when the replacement flight was poor or when the airline cites a special cause. Check when notice arrived first, then how much the alternative changed the journey, and only then whether the cause can defeat fixed compensation.",
       "If notice came close to departure, check the rule for a [flight cancelled less than 14 days before departure](/en/flight-cancellation-compensation/flight-cancelled-less-than-14-days-rights). If the airline changed the schedule instead of simply cancelling, compare the rules for a [flight moved earlier](/en/flight-cancellation-compensation/flight-moved-earlier-passenger-rights).",
-      "If the case touches several topics, identify the main event first and then the secondary consequences. That avoids forcing everything into one category and lets each right be checked on its strongest basis.",
+      "If the replacement arrived much later than the original plan, the assessment is not only about the cancellation label. Actual arrival, whether the alternative was reasonable and any waiting expenses all matter.",
+    ];
+  }
+
+  const enMultiRight = cancellationGuide.en.sections.find(
+    (section) => section.heading === "When one disruption creates several rights",
+  );
+  if (enMultiRight) {
+    enMultiRight.heading = "Replacement flight, refund and expenses after cancellation";
+    enMultiRight.body = [
+      "A cancelled flight is not only a fixed-compensation question. The airline must offer a choice between refund and rerouting, and if the passenger has to wait, food, hotel, transfer and communication are checked separately.",
+      "If you accept a replacement flight, keep the time it was offered, the departure time, arrival time and any alternate airport. Those details show whether the alternative really reduced the impact of cancellation or only moved the problem into a later wait.",
+      "If you choose refund, check what is being refunded: the whole ticket, the unused part of the journey or a return to the first departure point when continuing no longer makes sense. That is separate from whether fixed compensation may still apply.",
+      "If you paid for hotel, transfer, meals or a new ticket yourself, the receipt is not a side detail. It shows the airline did not cover the practical consequences of cancellation and that the claim should not stay limited to one item.",
     ];
   }
 

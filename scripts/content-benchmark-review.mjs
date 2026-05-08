@@ -42,6 +42,10 @@ const internalOrCompetitorLeakPatterns = [
   /competitor/i,
   /let kasni (?:u ovoj fazi )?treba da preuzme/i,
   /let kasni should take over/i,
+  /interni linkovi/i,
+  /internal links point/i,
+  /struktura sajta/i,
+  /site structure/i,
 ];
 const forbiddenHeadingPatterns = [
   /kako koristiti (?:naš |nas )?(?:kalkulator|ovu strukturu|strukturu)/i,
@@ -50,6 +54,8 @@ const forbiddenHeadingPatterns = [
   /detailed guides.*(?:open|specific|scenario)/i,
   /zašto .*stranic.*linkuj/i,
   /why .*pages?.*link back/i,
+  /kako povezati ovu temu/i,
+  /how this topic connects/i,
   /(?:glavne strane|main pages).*autoritet|authority/i,
   /(?:budućim tekstovima|future articles)/i,
   /(?:automatsku procenu|automatic estimate)/i,
@@ -514,7 +520,7 @@ function scoreRecord(record) {
   const duplicateTargets = duplicateValues(links.map((link) => link.href));
   const duplicateAnchors = duplicateValues(links.map((link) => link.anchor));
   const linkClusterFailures = paragraphLinkClusterFailures(paragraphs);
-  const minimumLinks = 1;
+  const minimumLinks = guide ? 0 : 1;
 
   if (duplicateTargets.length || duplicateAnchors.length || linkClusterFailures.length) {
     criteria.push(

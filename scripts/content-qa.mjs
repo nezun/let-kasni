@@ -38,6 +38,10 @@ const forbiddenPublicPhrases = [
   "keyword",
   "review agent",
   "sf.com",
+  "interni linkovi",
+  "internal links point",
+  "struktura sajta",
+  "site structure",
 ];
 
 const forbiddenRuntimeHeadingPatterns = [
@@ -74,12 +78,20 @@ const forbiddenRuntimeHeadingPatterns = [
     message: "main-body H2s must not expose internal page-structure logic",
   },
   {
+    pattern: /kako povezati ovu temu/i,
+    message: "main-body H2s must not expose internal content-taxonomy logic",
+  },
+  {
     pattern: /why .*pages?.*link back/i,
     message: "main-body H2s must not expose internal linking logic",
   },
   {
     pattern: /how this page connects/i,
     message: "main-body H2s must not expose internal page-structure logic",
+  },
+  {
+    pattern: /how this topic connects/i,
+    message: "main-body H2s must not expose internal content-taxonomy logic",
   },
   {
     pattern: /(?:glavne strane|main pages).*autoritet|authority/i,
