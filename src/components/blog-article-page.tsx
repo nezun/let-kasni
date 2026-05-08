@@ -142,7 +142,7 @@ function ArticleQuickCheckBanner({ locale }: { locale: BlogLocale }) {
           <ClaimInlineCtaButton
             locale={locale}
             eventLabel="blog_quick_check_cta"
-            className="mt-6 inline-flex items-center justify-center rounded-[12px] bg-[#0B1220] px-6 py-3.5 text-[14px] font-black text-white shadow-[0_14px_34px_rgba(2,8,23,0.28)] ring-1 ring-white/35 transition hover:bg-[#111827] focus:outline-none focus:ring-4 focus:ring-white/35"
+            className="mt-6 inline-flex items-center justify-center rounded-[12px] border-2 border-white bg-white px-6 py-3.5 text-[14px] font-black text-[#1F5FD2] shadow-[0_14px_34px_rgba(2,8,23,0.22)] transition hover:bg-[#F3F7FF] focus:outline-none focus:ring-4 focus:ring-white/35"
           >
             {t.quickCheckButton}
           </ClaimInlineCtaButton>
