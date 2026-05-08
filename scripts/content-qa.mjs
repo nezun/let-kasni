@@ -562,7 +562,12 @@ function checkRuntimeBlogContentSkeleton() {
   }
 
   const articlePageSource = read("src/components/blog-article-page.tsx");
-  for (const visualName of ["ArticleEvidenceVisual", "ArticleProcessVisual"]) {
+  for (const visualName of [
+    "ArticleEvidenceVisual",
+    "ArticleProcessVisual",
+    "ArticleQuickCheckBanner",
+    "ArticleContextImage",
+  ]) {
     if (!articlePageSource.includes(visualName)) {
       addIssue({
         type: "blog_visual_skeleton_missing",
@@ -572,6 +577,16 @@ function checkRuntimeBlogContentSkeleton() {
           "Keep reusable article visuals distributed through BlogArticlePageView so every blog has useful visual support.",
       });
     }
+  }
+
+  if (/<aside\b/.test(articlePageSource)) {
+    addIssue({
+      type: "blog_sidebar_form_present",
+      file: "src/components/blog-article-page.tsx",
+      message: "blog article pages must not render the old sticky sidebar form",
+      suggestedFix:
+        "Keep article pages as a wide reading layout and use the in-body quick-check banner after the early H2 sections.",
+    });
   }
 }
 

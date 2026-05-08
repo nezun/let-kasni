@@ -337,11 +337,17 @@ function countVisualSignals(item, kind) {
   return {
     count:
       kind === "article"
-        ? Math.min(5, bulletModules + tableMentions + processMentions + 2)
+        ? Math.min(5, bulletModules + tableMentions + processMentions + 4)
         : Math.min(5, bulletModules + tableMentions + processMentions),
     evidence:
       kind === "article"
-        ? [...signals, "global case-file visual after early context", "global professional-review visual after mid-article context"]
+        ? [
+            ...signals,
+            "global case-file visual after early context",
+            "global quick-check banner after early H2 sections",
+            "global professional-review visual after mid-article context",
+            "global contextual image after later article context",
+          ]
         : signals,
     distributed: true,
   };

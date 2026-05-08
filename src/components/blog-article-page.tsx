@@ -7,6 +7,7 @@ import { getSupportEmail } from "@/lib/env";
 import {
   type BlogArticle,
   type BlogLocale,
+  getBlogArticleImage,
 } from "@/lib/blog";
 import {
   getAlternateArticleCornerstoneHref,
@@ -40,6 +41,15 @@ const copy = {
     processVisualTitle: "Zašto ne stajemo na generičkoj odbijenici",
     processVisualBody:
       "Aviokompanije često računaju da će fizičko lice odustati posle prvog kratkog odgovora. Uredan dosije, poznavanje pravila i proceduralni ton menjaju brzinu i kvalitet odgovora.",
+    quickCheckTitle: "Saznajte da li vam pripada naknada za poremećen let",
+    quickCheckBody:
+      "Brza provera spaja podatke o letu, dužinu rute i osnovne dokaze pre nego što slučaj preuzme stručna obrada.",
+    quickCheckButton: "Proveri naknadu",
+    quickCheckFlight: "Poremećaj leta",
+    quickCheckStatus: "ZA STRUČNU PROVERU",
+    quickCheckRoute: "Beograd",
+    quickCheckDelay: "3h+ kašnjenje",
+    imageEyebrow: "Kontekst slučaja",
   },
   en: {
     nextStep: "Next step",
@@ -64,6 +74,15 @@ const copy = {
     processVisualTitle: "Why we do not stop at a generic rejection",
     processVisualBody:
       "Airlines often expect individual passengers to give up after the first short answer. A structured file, knowledge of the rules and procedural pressure change the speed and quality of the response.",
+    quickCheckTitle: "Find out if you are owed compensation for a disrupted flight",
+    quickCheckBody:
+      "The quick check combines flight details, route distance and initial evidence before the case moves into expert handling.",
+    quickCheckButton: "Check compensation",
+    quickCheckFlight: "Flight disruption",
+    quickCheckStatus: "FOR EXPERT REVIEW",
+    quickCheckRoute: "Belgrade",
+    quickCheckDelay: "3h+ delay",
+    imageEyebrow: "Case context",
   },
 };
 
@@ -104,6 +123,105 @@ function ArticleProcessVisual({ locale }: { locale: BlogLocale }) {
         {t.processVisualBody}
       </p>
     </div>
+  );
+}
+
+function ArticleQuickCheckBanner({ locale }: { locale: BlogLocale }) {
+  const t = copy[locale];
+
+  return (
+    <div className="relative overflow-hidden rounded-[18px] bg-[radial-gradient(circle_at_72%_20%,#61A5FF_0,#226CF0_30%,#14378E_56%,#B53771_100%)] p-6 text-white shadow-[0_22px_60px_rgba(36,112,235,0.22)] md:p-8">
+      <div className="relative z-10 grid gap-7 md:grid-cols-[minmax(0,0.9fr)_1.1fr] md:items-center">
+        <div>
+          <p className="text-[11px] font-black uppercase tracking-[0.16em] text-white/72">
+            {copy[locale].nextStep}
+          </p>
+          <h3 className="mt-3 max-w-[390px] font-display text-[27px] font-black leading-[1.14] md:text-[32px]">
+            {t.quickCheckTitle}
+          </h3>
+          <p className="mt-4 max-w-[420px] text-[15px] font-semibold leading-[1.65] text-white/78">
+            {t.quickCheckBody}
+          </p>
+          <Link
+            href={t.checkHref}
+            className="mt-6 inline-flex rounded-[10px] border-2 border-white bg-white px-5 py-3 text-[14px] font-black text-[#0F5BEA] shadow-[0_10px_28px_rgba(0,0,0,0.18)] transition hover:bg-[#F3F7FF]"
+          >
+            {t.quickCheckButton}
+          </Link>
+        </div>
+        <div className="relative min-h-[190px] md:min-h-[240px]" aria-hidden="true">
+          <div className="absolute right-[6%] top-0 w-[58%] rotate-[5deg] rounded-[18px] bg-white p-4 text-[#172033] shadow-[0_24px_56px_rgba(2,8,23,0.28)]">
+            <div className="flex items-center justify-between border-b border-[#E3E8F4] pb-3">
+              <span className="rounded-full bg-[#EAF2FF] px-3 py-1 text-[10px] font-black text-[#2470EB]">
+                LK 261
+              </span>
+              <span className="text-[10px] font-black uppercase text-[#98A2B3]">
+                {t.quickCheckStatus}
+              </span>
+            </div>
+            <div className="mt-5 grid grid-cols-[1fr_auto_1fr] items-center gap-3">
+              <div>
+                <p className="text-[11px] font-black uppercase text-[#98A2B3]">
+                  {t.quickCheckRoute}
+                </p>
+                <p className="mt-1 text-[24px] font-black text-[#111827]">BEG</p>
+              </div>
+              <div className="h-[2px] w-12 bg-[#D7E2F2]" />
+              <div className="text-right">
+                <p className="text-[11px] font-black uppercase text-[#98A2B3]">
+                  EU
+                </p>
+                <p className="mt-1 text-[24px] font-black text-[#111827]">€600</p>
+              </div>
+            </div>
+            <p className="mt-5 rounded-[12px] bg-[#FFF4E5] px-4 py-3 text-[14px] font-black text-[#C45700]">
+              {t.quickCheckDelay}
+            </p>
+          </div>
+          <div className="absolute bottom-2 left-[4%] w-[50%] -rotate-[8deg] rounded-[16px] bg-[#FF5B72] p-4 text-white shadow-[0_20px_48px_rgba(2,8,23,0.24)]">
+            <p className="text-[10px] font-black uppercase tracking-[0.12em] text-white/72">
+              {t.quickCheckFlight}
+            </p>
+            <div className="mt-7 h-2 w-24 rounded-full bg-white/80" />
+            <div className="mt-3 h-2 w-32 rounded-full bg-white/45" />
+            <div className="mt-6 inline-flex rounded-full bg-white/18 px-3 py-1 text-[12px] font-black">
+              Let Kasni
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ArticleContextImage({
+  article,
+  locale,
+}: {
+  article: BlogArticle;
+  locale: BlogLocale;
+}) {
+  const image = getBlogArticleImage(article.id);
+  const t = copy[locale];
+
+  return (
+    <figure className="overflow-hidden rounded-[20px] border border-[#DDE7F5] bg-[#F8FAFC] shadow-[0_18px_55px_rgba(16,24,40,0.08)]">
+      <div className="relative aspect-[16/8]">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={image.src}
+          alt={image.alt}
+          className="h-full w-full object-cover"
+          style={{ objectPosition: image.position ?? "center" }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#07101F]/60 via-transparent to-transparent" />
+        <figcaption className="absolute bottom-5 left-5 right-5">
+          <span className="inline-flex rounded-full bg-white/92 px-3 py-1 text-[11px] font-black uppercase tracking-[0.12em] text-[#2470EB] shadow-sm">
+            {t.imageEyebrow}
+          </span>
+        </figcaption>
+      </div>
+    </figure>
   );
 }
 
@@ -178,7 +296,7 @@ export function BlogArticlePageView({
         </section>
 
         <section className="px-6 py-12">
-          <div className="mx-auto grid max-w-[1120px] gap-10 lg:grid-cols-[minmax(0,720px)_280px]">
+          <div className="mx-auto max-w-[940px]">
             <InterlinkingScope currentHref={currentHref}>
               <div className="space-y-10">
                 {localized.sections.map((section, index) => (
@@ -208,38 +326,25 @@ export function BlogArticlePageView({
                         <ArticleEvidenceVisual locale={locale} />
                       </div>
                     ) : null}
+                    {index === 2 ? (
+                      <div className="mt-8">
+                        <ArticleQuickCheckBanner locale={locale} />
+                      </div>
+                    ) : null}
                     {index === 4 ? (
                       <div className="mt-7">
                         <ArticleProcessVisual locale={locale} />
+                      </div>
+                    ) : null}
+                    {index === 6 ? (
+                      <div className="mt-8">
+                        <ArticleContextImage article={article} locale={locale} />
                       </div>
                     ) : null}
                   </section>
                 ))}
               </div>
             </InterlinkingScope>
-
-            <aside className="space-y-4 lg:sticky lg:top-24 lg:self-start">
-              <div className="rounded-lg border border-[#E2E6EF] bg-[#F8FAFC] p-5">
-                <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-[#8E9BB0]">
-                  {t.nextStep}
-                </p>
-                <h2 className="mt-3 font-display text-[22px] font-bold leading-[1.2]">
-                  {t.checkTitle}
-                </h2>
-                <p className="mt-3 text-sm leading-[1.7] text-[#6B7585]">
-                  {t.checkBody}
-                </p>
-                <Link
-                  href={t.checkHref}
-                  className="mt-5 inline-flex rounded-lg bg-[#2470EB] px-4 py-3 text-sm font-bold text-white transition hover:bg-[#1A52C8]"
-                >
-                  {t.checkLabel}
-                </Link>
-                <p className="mt-4 border-t border-[#E2E6EF] pt-4 text-xs leading-[1.6] text-[#8E9BB0]">
-                  {t.note}
-                </p>
-              </div>
-            </aside>
           </div>
         </section>
       </article>
