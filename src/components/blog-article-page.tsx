@@ -49,7 +49,6 @@ const copy = {
     quickCheckStatus: "ZA STRUČNU PROVERU",
     quickCheckRoute: "Beograd",
     quickCheckDelay: "3h+ kašnjenje",
-    imageEyebrow: "Kontekst slučaja",
   },
   en: {
     nextStep: "Next step",
@@ -82,7 +81,6 @@ const copy = {
     quickCheckStatus: "FOR EXPERT REVIEW",
     quickCheckRoute: "Belgrade",
     quickCheckDelay: "3h+ delay",
-    imageEyebrow: "Case context",
   },
 };
 
@@ -196,13 +194,10 @@ function ArticleQuickCheckBanner({ locale }: { locale: BlogLocale }) {
 
 function ArticleContextImage({
   article,
-  locale,
 }: {
   article: BlogArticle;
-  locale: BlogLocale;
 }) {
   const image = getBlogArticleImage(article.id);
-  const t = copy[locale];
 
   return (
     <figure className="overflow-hidden rounded-[20px] border border-[#DDE7F5] bg-[#F8FAFC] shadow-[0_18px_55px_rgba(16,24,40,0.08)]">
@@ -215,11 +210,6 @@ function ArticleContextImage({
           style={{ objectPosition: image.position ?? "center" }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#07101F]/60 via-transparent to-transparent" />
-        <figcaption className="absolute bottom-5 left-5 right-5">
-          <span className="inline-flex rounded-full bg-white/92 px-3 py-1 text-[11px] font-black uppercase tracking-[0.12em] text-[#2470EB] shadow-sm">
-            {t.imageEyebrow}
-          </span>
-        </figcaption>
       </div>
     </figure>
   );
@@ -338,7 +328,7 @@ export function BlogArticlePageView({
                     ) : null}
                     {index === 6 ? (
                       <div className="mt-8">
-                        <ArticleContextImage article={article} locale={locale} />
+                        <ArticleContextImage article={article} />
                       </div>
                     ) : null}
                   </section>
