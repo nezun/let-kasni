@@ -59,7 +59,7 @@ export const article = {
           ]
         },
         {
-          heading: "Kako izbeći najčešće greške",
+          heading: "Tip karte, infant taksa i odvojeni troškovi porodice",
           body: [
             "Prva greška je da porodica traži samo jednu naknadu za celu rezervaciju. Druga je da automatski uključi bebu bez provere karte. Treća je da pomeša fiksnu naknadu, refundaciju karte i troškove hrane ili hotela u jedan neobjašnjen iznos.",
             "Bolje je napraviti jednostavnu tabelu: ime putnika, tip karte, da li je imao sedište, planirani dolazak, stvarni dolazak i dokumenti. Zatim odvojeno navedite troškove koje tražite nazad. Takav zahtev je jasan i aviokompaniji i bilo kome ko kasnije ručno proverava slučaj.",
@@ -117,7 +117,7 @@ export const article = {
           ]
         },
         {
-          heading: "How to avoid common mistakes",
+          heading: "Ticket type, infant fee and separate family expenses",
           body: [
             "The first mistake is requesting only one compensation payment for the whole booking. The second is automatically including an infant without checking the ticket. The third is mixing fixed compensation, ticket refund and food or hotel costs into one unexplained amount.",
             "It is better to make a simple table: passenger name, ticket type, whether they had a seat, scheduled arrival, actual arrival and documents. Then list reimbursable expenses separately. Such a claim is clear both to the airline and to anyone later reviewing the case manually.",

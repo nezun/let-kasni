@@ -53,6 +53,14 @@ const forbiddenHeadingPatterns = [
   /(?:glavne strane|main pages).*autoritet|authority/i,
   /(?:budućim tekstovima|future articles)/i,
   /(?:automatsku procenu|automatic estimate)/i,
+  /kako ovaj slučaj uklopiti u širu procenu/i,
+  /dokazi koji menjaju ishod zahteva/i,
+  /kada ne treba stati na prvom odgovoru aviokompanije/i,
+  /how this case fits into the wider assessment/i,
+  /evidence that can change the outcome/i,
+  /when not to stop at the airline's first answer/i,
+  /kako izbeći najčešće greške/i,
+  /how to avoid common mistakes/i,
 ];
 const professionalSignals = {
   sr: [
@@ -337,14 +345,13 @@ function countVisualSignals(item, kind) {
   return {
     count:
       kind === "article"
-        ? Math.min(5, bulletModules + tableMentions + processMentions + 4)
+        ? Math.min(5, bulletModules + tableMentions + processMentions + 3)
         : Math.min(5, bulletModules + tableMentions + processMentions),
     evidence:
       kind === "article"
         ? [
             ...signals,
             "global case-file visual after early context",
-            "global quick-check banner after early H2 sections",
             "global professional-review visual after mid-article context",
             "global contextual image after later article context",
           ]

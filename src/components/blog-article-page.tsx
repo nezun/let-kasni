@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { ClaimInlineCtaButton } from "@/components/claim-inline-cta-button";
 import { InlineRichText, InterlinkingScope } from "@/components/inline-rich-text";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
@@ -24,7 +25,6 @@ const copy = {
     checkBody:
       "Unesite broj leta i datum, a slučaj ide na konzervativnu proveru pre bilo kakvog obećanja.",
     checkLabel: "Proveri let",
-    checkHref: "/#proveri-let",
     note:
       "Vodič je informativan. Ishod zavisi od rute, prevoznika, razloga poremećaja i dokaza u konkretnom slučaju.",
     updatedLabel: "Ažurirano",
@@ -41,10 +41,10 @@ const copy = {
     processVisualTitle: "Zašto ne stajemo na generičkoj odbijenici",
     processVisualBody:
       "Aviokompanije često računaju da će fizičko lice odustati posle prvog kratkog odgovora. Uredan dosije, poznavanje pravila i proceduralni ton menjaju brzinu i kvalitet odgovora.",
-    quickCheckTitle: "Saznajte da li vam pripada naknada za poremećen let",
+    quickCheckTitle: "Saznajte da li vam pripada naknada i do 600 EUR.",
     quickCheckBody:
-      "Brza provera spaja podatke o letu, dužinu rute i osnovne dokaze pre nego što slučaj preuzme stručna obrada.",
-    quickCheckButton: "Proveri naknadu",
+      "Brza provera spaja podatke o letu, dužinu rute i osnovne dokaze radi utvrđivanja Vašeg prava.",
+    quickCheckButton: "Proveri let",
     quickCheckFlight: "Poremećaj leta",
     quickCheckStatus: "ZA STRUČNU PROVERU",
     quickCheckRoute: "Beograd",
@@ -56,7 +56,6 @@ const copy = {
     checkBody:
       "Enter your flight number and date for a conservative first review before any promise is made.",
     checkLabel: "Check flight",
-    checkHref: "/en#proveri-let",
     note:
       "This guide is informational. Outcome depends on route, carrier, disruption cause, and evidence in the specific case.",
     updatedLabel: "Updated",
@@ -73,10 +72,10 @@ const copy = {
     processVisualTitle: "Why we do not stop at a generic rejection",
     processVisualBody:
       "Airlines often expect individual passengers to give up after the first short answer. A structured file, knowledge of the rules and procedural pressure change the speed and quality of the response.",
-    quickCheckTitle: "Find out if you are owed compensation for a disrupted flight",
+    quickCheckTitle: "Find out if you are owed up to EUR 600 in compensation.",
     quickCheckBody:
-      "The quick check combines flight details, route distance and initial evidence before the case moves into expert handling.",
-    quickCheckButton: "Check compensation",
+      "The quick check combines flight details, route distance and basic evidence to assess your right.",
+    quickCheckButton: "Check flight",
     quickCheckFlight: "Flight disruption",
     quickCheckStatus: "FOR EXPERT REVIEW",
     quickCheckRoute: "Belgrade",
@@ -140,12 +139,13 @@ function ArticleQuickCheckBanner({ locale }: { locale: BlogLocale }) {
           <p className="mt-4 max-w-[420px] text-[15px] font-semibold leading-[1.65] text-white/78">
             {t.quickCheckBody}
           </p>
-          <Link
-            href={t.checkHref}
-            className="mt-6 inline-flex rounded-[10px] border-2 border-white bg-white px-5 py-3 text-[14px] font-black text-[#0F5BEA] shadow-[0_10px_28px_rgba(0,0,0,0.18)] transition hover:bg-[#F3F7FF]"
+          <ClaimInlineCtaButton
+            locale={locale}
+            eventLabel="blog_quick_check_cta"
+            className="mt-6 inline-flex items-center justify-center rounded-[12px] bg-[#0B1220] px-6 py-3.5 text-[14px] font-black text-white shadow-[0_14px_34px_rgba(2,8,23,0.28)] ring-1 ring-white/35 transition hover:bg-[#111827] focus:outline-none focus:ring-4 focus:ring-white/35"
           >
             {t.quickCheckButton}
-          </Link>
+          </ClaimInlineCtaButton>
         </div>
         <div className="relative min-h-[190px] md:min-h-[240px]" aria-hidden="true">
           <div className="absolute right-[6%] top-0 w-[58%] rotate-[5deg] rounded-[18px] bg-white p-4 text-[#172033] shadow-[0_24px_56px_rgba(2,8,23,0.28)]">
@@ -311,22 +311,22 @@ export function BlogArticlePageView({
                         ))}
                       </ul>
                     ) : null}
-                    {index === 1 ? (
-                      <div className="mt-7">
-                        <ArticleEvidenceVisual locale={locale} />
-                      </div>
-                    ) : null}
-                    {index === 2 ? (
+                    {index === 0 ? (
                       <div className="mt-8">
                         <ArticleQuickCheckBanner locale={locale} />
                       </div>
                     ) : null}
-                    {index === 4 ? (
+                    {index === 2 ? (
+                      <div className="mt-7">
+                        <ArticleEvidenceVisual locale={locale} />
+                      </div>
+                    ) : null}
+                    {index === 5 ? (
                       <div className="mt-7">
                         <ArticleProcessVisual locale={locale} />
                       </div>
                     ) : null}
-                    {index === 6 ? (
+                    {index === 7 ? (
                       <div className="mt-8">
                         <ArticleContextImage article={article} />
                       </div>

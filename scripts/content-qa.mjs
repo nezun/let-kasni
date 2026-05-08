@@ -101,6 +101,38 @@ const forbiddenRuntimeHeadingPatterns = [
     pattern: /how to decide whether the case belongs/i,
     message: "main-body H2s must not expose content-taxonomy logic",
   },
+  {
+    pattern: /kako ovaj slučaj uklopiti u širu procenu/i,
+    message: "generic reusable H2s must be replaced with topic-specific headings",
+  },
+  {
+    pattern: /dokazi koji menjaju ishod zahteva/i,
+    message: "generic reusable H2s must be replaced with topic-specific headings",
+  },
+  {
+    pattern: /kada ne treba stati na prvom odgovoru aviokompanije/i,
+    message: "generic reusable H2s must be replaced with topic-specific headings",
+  },
+  {
+    pattern: /how this case fits into the wider assessment/i,
+    message: "generic reusable H2s must be replaced with topic-specific headings",
+  },
+  {
+    pattern: /evidence that can change the outcome/i,
+    message: "generic reusable H2s must be replaced with topic-specific headings",
+  },
+  {
+    pattern: /when not to stop at the airline's first answer/i,
+    message: "generic reusable H2s must be replaced with topic-specific headings",
+  },
+  {
+    pattern: /kako izbeći najčešće greške/i,
+    message: "overbroad generic H2s need a concrete passenger-rights or legal-condition angle",
+  },
+  {
+    pattern: /how to avoid common mistakes/i,
+    message: "overbroad generic H2s need a concrete passenger-rights or legal-condition angle",
+  },
 ];
 
 const interlinkingAntiPatterns = [
@@ -170,14 +202,14 @@ const publicShellChecks = [
 
 const requiredBlogContentSkeleton = {
   sr: [
-    "Kako ovaj slučaj uklopiti u širu procenu",
-    "Dokazi koji menjaju ishod zahteva",
-    "Kada ne treba stati na prvom odgovoru aviokompanije",
+    ": ruta, vreme i odgovornost aviokompanije",
+    ": dokumenti koje Let Kasni proverava",
+    ": odgovor na odbijanje aviokompanije",
   ],
   en: [
-    "How this case fits into the wider assessment",
-    "Evidence that can change the outcome",
-    "When not to stop at the airline's first answer",
+    ": route, timing and airline responsibility",
+    ": documents Let Kasni reviews",
+    ": response to airline rejection",
   ],
 };
 
@@ -539,9 +571,9 @@ function checkRuntimeBlogContentSkeleton() {
 
   for (const article of blogArticles) {
     for (const locale of ["sr", "en"]) {
-      const headings = new Set(article[locale].sections.map((section) => section.heading));
+      const headings = article[locale].sections.map((section) => section.heading);
       const missingHeadings = requiredBlogContentSkeleton[locale].filter(
-        (heading) => !headings.has(heading),
+        (headingSuffix) => !headings.some((heading) => heading.endsWith(headingSuffix)),
       );
 
       if (missingHeadings.length > 0) {
@@ -572,12 +604,12 @@ function checkRuntimeBlogContentSkeleton() {
 
   const enhancementSource = read("src/lib/blog-content-enhancements.ts");
   for (const headings of Object.values(requiredBlogContentSkeleton)) {
-    for (const heading of headings) {
-      if (!enhancementSource.includes(heading)) {
+    for (const headingSuffix of headings) {
+      if (!enhancementSource.includes(headingSuffix)) {
         addIssue({
           type: "blog_content_skeleton_source_missing",
           file: "src/lib/blog-content-enhancements.ts",
-          message: `required blog content skeleton heading is missing from the enhancement source: ${heading}`,
+          message: `required topic-specific blog content skeleton suffix is missing from the enhancement source: ${headingSuffix}`,
           suggestedFix:
             "Restore the approved reusable blog content skeleton in blog-content-enhancements.ts.",
         });
@@ -613,6 +645,26 @@ function checkRuntimeBlogContentSkeleton() {
     });
   }
 
+  if (!/index\s*===\s*0[\s\S]{0,140}<ArticleQuickCheckBanner/.test(articlePageSource)) {
+    addIssue({
+      type: "blog_quick_check_wrong_position",
+      file: "src/components/blog-article-page.tsx",
+      message: "standard blog quick-check CTA must render immediately after the first H2 section",
+      suggestedFix:
+        "Render ArticleQuickCheckBanner when index === 0 and keep other visuals distributed later in the article.",
+    });
+  }
+
+  if (!articlePageSource.includes("ClaimInlineCtaButton")) {
+    addIssue({
+      type: "blog_quick_check_uses_landing_anchor",
+      file: "src/components/blog-article-page.tsx",
+      message: "blog quick-check CTA must open the claim flow directly instead of linking to the landing-page form",
+      suggestedFix:
+        "Use ClaimInlineCtaButton inside ArticleQuickCheckBanner.",
+    });
+  }
+
   const cornerstonePageSource = read("src/components/cornerstone-page.tsx");
   const cornerstoneTypographySource = read("src/components/cornerstone-typography-preview.tsx");
 
@@ -643,6 +695,26 @@ function checkRuntimeBlogContentSkeleton() {
       message: "main guide pages must keep the in-body quick-check CTA module",
       suggestedFix:
         "Keep GuideQuickCheckBanner in the global cornerstone typography template after the early H2 sections.",
+    });
+  }
+
+  if (!/index\s*===\s*0[\s\S]{0,140}<GuideQuickCheckBanner/.test(cornerstoneTypographySource)) {
+    addIssue({
+      type: "cornerstone_quick_check_wrong_position",
+      file: "src/components/cornerstone-typography-preview.tsx",
+      message: "main guide quick-check CTA must render immediately after the first H2 section",
+      suggestedFix:
+        "Render GuideQuickCheckBanner when index === 0 and distribute the remaining visuals later in the guide.",
+    });
+  }
+
+  if (!cornerstoneTypographySource.includes("ClaimInlineCtaButton")) {
+    addIssue({
+      type: "cornerstone_quick_check_uses_landing_anchor",
+      file: "src/components/cornerstone-typography-preview.tsx",
+      message: "main guide quick-check CTA must open the claim flow directly instead of linking to the landing-page form",
+      suggestedFix:
+        "Use ClaimInlineCtaButton inside GuideQuickCheckBanner.",
     });
   }
 }

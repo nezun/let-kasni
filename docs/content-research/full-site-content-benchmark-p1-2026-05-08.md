@@ -98,11 +98,15 @@ benchmark gate:
 - no public competitor or internal-production language;
 - at least one editorial inline internal link without duplicate target/anchor use;
 - professional Let Kasni framing rather than a pure DIY manual;
-- useful in-body visual modules, with hero images and guide cards excluded;
+- useful in-body visual modules, with hero images, the mandatory quick-check CTA,
+  and guide cards excluded;
 - documented research source coverage.
 
-The article renderer now supplies two standard in-body visual modules to every blog
-article: an evidence-file module and a professional-review module. The main-guide
-renderer supplies distributed professional/evidence visuals for guide pages that do
-not have topic-specific components. This makes the rule repeatable for future posts
-instead of relying on one-off manual visual placement.
+The article renderer now supplies three qualifying standard in-body visuals to
+every blog article: an evidence-file module, a professional-review module and a
+context image. A separate quick-check CTA is mandatory immediately after the first
+H2 section body, opens the claim flow directly, and is intentionally excluded from
+the visual minimum. The main-guide renderer supplies distributed
+professional/evidence visuals for guide pages that do not have topic-specific
+components. This makes the rule repeatable for future posts instead of relying on
+one-off manual visual placement.

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ChevronRight, Clock } from "lucide-react";
 
+import { ClaimInlineCtaButton } from "@/components/claim-inline-cta-button";
 import { DelayCompensationCalculator } from "@/components/delay-compensation-calculator";
 import { InlineRichText, InterlinkingScope } from "@/components/inline-rich-text";
 import { ScrollProgressToc } from "@/components/scroll-progress-toc";
@@ -31,7 +32,7 @@ const copy = {
     readMore: "Pročitaj vodič",
     nextStep: "Proverite let",
     nextStepBody:
-      "Ako imate broj leta i datum, možete odmah uraditi konzervativnu proveru pre slanja zahteva aviokompaniji.",
+      "Brza provera spaja podatke o letu, dužinu rute i osnovne dokaze radi utvrđivanja Vašeg prava.",
     checkFlight: "Proveri let",
   },
   en: {
@@ -47,7 +48,7 @@ const copy = {
     readMore: "Read guide",
     nextStep: "Check your flight",
     nextStepBody:
-      "If you have the flight number and date, you can run a conservative first check before filing with the airline.",
+      "The quick check combines flight details, route distance and basic evidence to assess your right.",
     checkFlight: "Check flight",
   },
 };
@@ -359,13 +360,10 @@ function GuideCaseFileVisual({
 
 function GuideQuickCheckBanner({
   locale,
-  ctaLabel,
 }: {
   locale: BlogLocale;
-  ctaLabel: string;
 }) {
   const t = copy[locale];
-  const checkHref = locale === "sr" ? "/#proveri-let" : "/en#proveri-let";
 
   return (
     <div className="mt-8 relative overflow-hidden rounded-[18px] bg-[radial-gradient(circle_at_72%_20%,#61A5FF_0,#226CF0_30%,#14378E_56%,#B53771_100%)] p-6 text-white shadow-[0_22px_60px_rgba(36,112,235,0.22)] md:p-8">
@@ -376,18 +374,19 @@ function GuideQuickCheckBanner({
           </p>
           <h3 className="mt-3 max-w-[430px] font-display text-[27px] font-black leading-[1.14] md:text-[32px]">
             {locale === "sr"
-              ? "Saznajte da li vam pripada naknada za poremećen let"
-              : "Find out if you are owed compensation for a disrupted flight"}
+              ? "Saznajte da li vam pripada naknada i do 600 EUR."
+              : "Find out if you are owed up to EUR 600 in compensation."}
           </h3>
           <p className="mt-4 max-w-[440px] text-[15px] font-semibold leading-[1.65] text-white/78">
             {t.nextStepBody}
           </p>
-          <Link
-            href={checkHref}
-            className="mt-6 inline-flex rounded-[10px] border-2 border-white bg-white px-5 py-3 text-[14px] font-black text-[#0F5BEA] shadow-[0_10px_28px_rgba(0,0,0,0.18)] transition hover:bg-[#F3F7FF]"
+          <ClaimInlineCtaButton
+            locale={locale}
+            eventLabel="guide_quick_check_cta"
+            className="mt-6 inline-flex items-center justify-center rounded-[12px] bg-[#0B1220] px-6 py-3.5 text-[14px] font-black text-white shadow-[0_14px_34px_rgba(2,8,23,0.28)] ring-1 ring-white/35 transition hover:bg-[#111827] focus:outline-none focus:ring-4 focus:ring-white/35"
           >
-            {ctaLabel}
-          </Link>
+            {t.checkFlight}
+          </ClaimInlineCtaButton>
         </div>
         <div className="relative min-h-[190px] md:min-h-[230px]" aria-hidden="true">
           <div className="absolute right-[5%] top-0 w-[58%] rotate-[5deg] rounded-[18px] bg-white p-4 text-[#172033] shadow-[0_24px_56px_rgba(2,8,23,0.28)]">
@@ -531,8 +530,8 @@ export function CornerstoneTypographyPreview({
                         ))}
                       </ul>
                       ) : null}
-                      {index === 2 ? (
-                        <GuideQuickCheckBanner locale={locale} ctaLabel={localized.ctaLabel} />
+                      {index === 0 ? (
+                        <GuideQuickCheckBanner locale={locale} />
                       ) : null}
                       {isAmountSection(section.heading, locale) ? (
                         <AmountTable locale={locale} />

@@ -36,6 +36,8 @@ No H2 is about our internal SEO structure, calculator usage, or link architectur
 ## Visual/checklist modules
 
 Each article has at least one structured checklist module and at least one process,
-step, evidence, table-intent, or care-rights section. Hero images and related-guide
-cards do not count. These modules are used as compact in-body visuals for standard
-articles until article-specific interactive components are added.
+step, evidence, table-intent, or care-rights section. Hero images, the mandatory
+quick-check CTA and related-guide cards do not count. The quick-check CTA belongs
+immediately after the first H2 section body and opens the claim flow directly.
+These modules are used as compact in-body visuals for standard articles until
+article-specific interactive components are added.
