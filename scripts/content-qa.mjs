@@ -773,7 +773,39 @@ function checkInternalLinkDensityForBlock({ file, article, locale, paragraphs })
   const seenAnchors = new Map();
 
   for (const paragraph of paragraphs) {
-    for (const link of markdownLinksFromText(paragraph)) {
+    const links = markdownLinksFromText(paragraph);
+    const internalLinks = links.filter(
+      (link) =>
+        link.href.startsWith("/") &&
+        !link.href.startsWith("//") &&
+        !link.href.startsWith("/#"),
+    );
+
+    if (internalLinks.length > 2) {
+      addIssue({
+        type: "inline_link_cluster",
+        file,
+        article,
+        locale,
+        message: `${locale.toUpperCase()} paragraph contains ${internalLinks.length} internal links; public copy must not read like a link dump`,
+        suggestedFix:
+          "Keep at most two contextual inline links in a paragraph and distribute remaining links into relevant H2 sections or the approved detailed-guides module.",
+      });
+    }
+
+    if (internalLinks.length > 1 && /\]\([^)]+\)\s*(?:,|;|\bi\b|\band\b)\s*\[/.test(paragraph)) {
+      addIssue({
+        type: "inline_link_dump",
+        file,
+        article,
+        locale,
+        message: `${locale.toUpperCase()} paragraph lists internal markdown links back-to-back`,
+        suggestedFix:
+          "Rewrite the paragraph so each link is part of a normal explanatory sentence, not a comma-separated title list.",
+      });
+    }
+
+    for (const link of links) {
       if (
         !link.href.startsWith("/") ||
         link.href.startsWith("//") ||
@@ -865,6 +897,30 @@ function checkInterlinkingGuardrails() {
     });
   }
 
+  for (const instructionCheck of [
+    {
+      pattern: /at most two inline links/,
+      type: "missing_inline_link_cluster_instruction",
+      message: "project instructions must forbid link-dump paragraphs",
+      suggestedFix:
+        "Document that paragraphs may contain at most two inline links and must not list full article titles as comma-separated links.",
+    },
+    {
+      pattern: /same reusable in-body visual module twice/,
+      type: "missing_duplicate_visual_instruction",
+      message: "project instructions must forbid duplicate reusable visuals on one public page",
+      suggestedFix:
+        "Document that a reusable visual module must not be rendered twice on the same article or guide page.",
+    },
+  ]) {
+    if (!instructionCheck.pattern.test(instructionSource)) {
+      addIssue({
+        file: "AGENTS.md",
+        ...instructionCheck,
+      });
+    }
+  }
+
   for (const requiredToken of ["InterlinkingScope", "maxAutoLinks = 0"]) {
     if (!inlineRichTextSource.includes(requiredToken)) {
       addIssue({
@@ -899,6 +955,19 @@ function checkInterlinkingGuardrails() {
           "Wrap the body sections that render InlineRichText with InterlinkingScope so link target and anchor usage is tracked across the full text.",
       });
     }
+  }
+
+  const typographySource = read("src/components/cornerstone-typography-preview.tsx");
+  if (
+    /index\s*===\s*\d+[\s\S]{0,60}\|\|[\s\S]{0,60}index\s*===\s*\d+[\s\S]{0,160}<GuideCaseFileVisual/.test(typographySource)
+  ) {
+    addIssue({
+      type: "duplicate_generic_cornerstone_visual",
+      file: "src/components/cornerstone-typography-preview.tsx",
+      message: "a generic guide visual must not be rendered more than once on a main guide page",
+      suggestedFix:
+        "Render the generic guide visual at a single point only, or replace repeated instances with section-specific visual modules.",
+    });
   }
 
   if (

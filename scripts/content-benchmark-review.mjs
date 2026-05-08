@@ -243,6 +243,26 @@ function markdownLinksFromParagraphs(paragraphs) {
   return links;
 }
 
+function paragraphLinkClusterFailures(paragraphs) {
+  const failures = [];
+
+  for (const paragraph of paragraphs) {
+    const internalLinks = [...paragraph.matchAll(/\[([^\]]+)\]\(([^)]+)\)/g)]
+      .map((match) => normalizeInternalHref(match[2]))
+      .filter(Boolean);
+
+    if (internalLinks.length > 2) {
+      failures.push(`${internalLinks.length} links in one paragraph`);
+    }
+
+    if (internalLinks.length > 1 && /\]\([^)]+\)\s*(?:,|;|\bi\b|\band\b)\s*\[/.test(paragraph)) {
+      failures.push("back-to-back linked title list");
+    }
+  }
+
+  return failures;
+}
+
 function normalizeInternalHref(href) {
   if (!href || href.startsWith("#") || href.startsWith("mailto:") || href.startsWith("tel:")) {
     return null;
@@ -385,7 +405,6 @@ function scoreRecord(record) {
     legacy,
     siblingSectionCount,
     visualSignals,
-    childCount,
   } = record;
   const criteria = [];
   const guide = kind === "guide";
@@ -494,9 +513,10 @@ function scoreRecord(record) {
   const links = markdownLinksFromParagraphs(paragraphs);
   const duplicateTargets = duplicateValues(links.map((link) => link.href));
   const duplicateAnchors = duplicateValues(links.map((link) => link.anchor));
-  const minimumLinks = guide ? Math.min(8, Math.max(1, childCount)) : 1;
+  const linkClusterFailures = paragraphLinkClusterFailures(paragraphs);
+  const minimumLinks = 1;
 
-  if (duplicateTargets.length || duplicateAnchors.length) {
+  if (duplicateTargets.length || duplicateAnchors.length || linkClusterFailures.length) {
     criteria.push(
       criterion(
         "internal_linking_discipline",
@@ -507,8 +527,9 @@ function scoreRecord(record) {
           linkCount: links.length,
           duplicateTargets,
           duplicateAnchors,
+          linkClusterFailures,
         },
-        "Keep at most one link to each target URL and one linked use of each anchor phrase per text.",
+        "Keep at most one link to each target URL, one linked use of each anchor phrase, and at most two natural inline links per paragraph.",
       ),
     );
   } else if (links.length >= minimumLinks) {

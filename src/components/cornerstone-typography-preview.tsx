@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ChevronRight, Clock } from "lucide-react";
+import { ChevronRight, Clock, FileCheck2, Route, TimerReset } from "lucide-react";
 
 import { ClaimInlineCtaButton } from "@/components/claim-inline-cta-button";
 import { DelayCompensationCalculator } from "@/components/delay-compensation-calculator";
@@ -175,6 +175,88 @@ const guideCaseFile = {
   },
 };
 
+const cancellationDecision = {
+  sr: {
+    eyebrow: "Otkazan let",
+    title: "Redosled koji menja ishod zahteva",
+    intro:
+      "Kod otkazivanja se ne kreće od jedne opšte rečenice. Prvo se zatvara rok obaveštenja, zatim alternativa, pa tek onda razlog koji aviokompanija navodi.",
+    rows: [
+      {
+        label: "Rok",
+        title: "Kada ste obavešteni",
+        body: "14+ dana, 7-14 dana ili manje od 7 dana ne vode ka istoj proceni.",
+      },
+      {
+        label: "Zamena",
+        title: "Šta je ponuđeno umesto leta",
+        body: "Bitno je vreme polaska, vreme dolaska i da li je promena realno prihvatljiva.",
+      },
+      {
+        label: "Pravo",
+        title: "Šta se traži odvojeno",
+        body: "Fiksna naknada, refundacija, preusmeravanje, hotel i obroci ne idu u istu stavku.",
+      },
+      {
+        label: "Razlog",
+        title: "Šta kompanija mora da objasni",
+        body: "Vanredne okolnosti moraju biti vezane za konkretan let, vreme i segment.",
+      },
+    ],
+  },
+  en: {
+    eyebrow: "Cancelled flight",
+    title: "The order that changes the claim outcome",
+    intro:
+      "Cancellation assessment does not start from one broad sentence. Notice timing comes first, then replacement travel, then the reason the airline gives.",
+    rows: [
+      {
+        label: "Notice",
+        title: "When you were informed",
+        body: "14+ days, 7-14 days and less than 7 days do not lead to the same assessment.",
+      },
+      {
+        label: "Alternative",
+        title: "What replaced the flight",
+        body: "Departure time, arrival time and whether the change was realistic all matter.",
+      },
+      {
+        label: "Right",
+        title: "What is requested separately",
+        body: "Fixed compensation, refund, rerouting, hotel and meals are not one item.",
+      },
+      {
+        label: "Cause",
+        title: "What the airline must explain",
+        body: "Extraordinary circumstances must be tied to the concrete flight, time and segment.",
+      },
+    ],
+  },
+};
+
+const cancellationReplyAudit = {
+  sr: {
+    eyebrow: "Provera odgovora",
+    title: "Odbijenica mora da preživi četiri pitanja",
+    checks: [
+      "Da li pominje tačan let, datum, rutu i putnike?",
+      "Da li navodi kada je obaveštenje poslato i šta je bila alternativa?",
+      "Da li razlog ima dokaz ili samo opštu formulaciju?",
+      "Da li je odvojeno odgovoreno na refundaciju, brigu i troškove?",
+    ],
+  },
+  en: {
+    eyebrow: "Response audit",
+    title: "A rejection must survive four questions",
+    checks: [
+      "Does it identify the exact flight, date, route and passengers?",
+      "Does it state when notice was sent and what alternative was offered?",
+      "Is the reason supported by evidence or only broad wording?",
+      "Does it answer refund, care and expenses separately?",
+    ],
+  },
+};
+
 function slugifyHeading(value: string) {
   return value
     .trim()
@@ -213,6 +295,22 @@ function isDocumentsSection(heading: string, locale: BlogLocale) {
   return locale === "sr"
     ? heading === "Dokumenta, rokovi i profesionalna obrada zahteva"
     : heading === "Documents, deadlines and professional claim handling";
+}
+
+function isCancellationDecisionSection(page: CornerstonePage, heading: string, locale: BlogLocale) {
+  return page.id === "flight-cancellation-compensation" && (
+    locale === "sr"
+      ? heading === "Vanredne okolnosti i zašto opšte objašnjenje nije dovoljno"
+      : heading === "Extraordinary circumstances and broad explanations"
+  );
+}
+
+function isCancellationReplySection(page: CornerstonePage, heading: string, locale: BlogLocale) {
+  return page.id === "flight-cancellation-compensation" && (
+    locale === "sr"
+      ? heading === "Kako proveriti odgovor aviokompanije po tačkama"
+      : heading === "How to check the airline response point by point"
+  );
 }
 
 function ArrivalTimeline({
@@ -358,6 +456,92 @@ function GuideCaseFileVisual({
   );
 }
 
+function CancellationDecisionVisual({
+  locale,
+}: {
+  locale: BlogLocale;
+}) {
+  const visual = cancellationDecision[locale];
+  const icons = [TimerReset, Route, FileCheck2, Clock];
+
+  return (
+    <div className="mt-8 overflow-hidden rounded-[18px] border border-[#D0D7E2] bg-white shadow-[0_18px_46px_rgba(16,24,40,0.08)]">
+      <div className="grid gap-0 md:grid-cols-[0.9fr_1.1fr]">
+        <div className="bg-[#111827] p-6 text-white md:p-8">
+          <p className="text-[11px] font-black uppercase tracking-[0.16em] text-[#79B6FF]">
+            {visual.eyebrow}
+          </p>
+          <h3 className="mt-3 font-display text-[26px] font-black leading-[1.13] md:text-[32px]">
+            {visual.title}
+          </h3>
+          <p className="mt-4 text-[16px] leading-[1.7] text-white/76">
+            {visual.intro}
+          </p>
+        </div>
+        <div className="grid gap-px bg-[#E4E7EC] md:grid-cols-2">
+          {visual.rows.map((row, index) => {
+            const Icon = icons[index];
+
+            return (
+              <div key={row.label} className="bg-[#F9FAFB] p-5 md:p-6">
+                <div className="flex items-center gap-3">
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] bg-[#EAF2FF] text-[#1F5FD2]">
+                    <Icon className="h-5 w-5" />
+                  </span>
+                  <span className="text-[11px] font-black uppercase tracking-[0.14em] text-[#667085]">
+                    {row.label}
+                  </span>
+                </div>
+                <h4 className="mt-4 text-[18px] font-black leading-[1.22] text-[#101828]">
+                  {row.title}
+                </h4>
+                <p className="mt-2 text-[14px] leading-[1.62] text-[#5D6B82]">
+                  {row.body}
+                </p>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function CancellationReplyAuditVisual({
+  locale,
+}: {
+  locale: BlogLocale;
+}) {
+  const visual = cancellationReplyAudit[locale];
+
+  return (
+    <div className="mt-8 rounded-[18px] border border-[#E4E7EC] bg-[#FFFDF7] p-5 shadow-[0_16px_42px_rgba(16,24,40,0.05)] md:p-6">
+      <div className="grid gap-6 md:grid-cols-[0.9fr_1.1fr] md:items-start">
+        <div>
+          <p className="text-[11px] font-black uppercase tracking-[0.14em] text-[#B54708]">
+            {visual.eyebrow}
+          </p>
+          <h3 className="mt-2 font-display text-[24px] font-black leading-[1.18] text-[#101828] md:text-[29px]">
+            {visual.title}
+          </h3>
+        </div>
+        <ol className="grid gap-3">
+          {visual.checks.map((check, index) => (
+            <li key={check} className="grid grid-cols-[40px_1fr] items-start gap-3 rounded-[14px] border border-[#FEDF89] bg-white p-4">
+              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#FFFAEB] text-[13px] font-black text-[#B54708]">
+                {index + 1}
+              </span>
+              <span className="pt-1 text-[15px] font-bold leading-[1.55] text-[#344054]">
+                {check}
+              </span>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  );
+}
+
 function GuideQuickCheckBanner({
   locale,
 }: {
@@ -454,6 +638,9 @@ export function CornerstoneTypographyPreview({
   );
   const currentHref = getCornerstoneHref(page, locale);
   const alternateHref = getAlternateCornerstoneHref(page, locale);
+  const isCancellationGuide = page.id === "flight-cancellation-compensation";
+  const canUseGenericGuideVisuals =
+    page.id !== "flight-delay-compensation" && !isCancellationGuide;
 
   return (
     <main className="min-h-screen bg-[#F7F8FB] text-[#172033]">
@@ -539,14 +726,20 @@ export function CornerstoneTypographyPreview({
                       {isProfessionalHandlingSection(section.heading, locale) ? (
                         <ProfessionalHandlingVisual locale={locale} />
                       ) : null}
-                      {page.id !== "flight-delay-compensation" && (index === 3 || index === 11) ? (
+                      {canUseGenericGuideVisuals && index === 3 ? (
                         <ProfessionalHandlingVisual locale={locale} />
                       ) : null}
                       {isArrivalSection(section.heading, locale) ? (
                         <ArrivalTimeline locale={locale} />
                       ) : null}
-                      {page.id !== "flight-delay-compensation" && (index === 7 || index === 15) ? (
+                      {isCancellationDecisionSection(page, section.heading, locale) ? (
+                        <CancellationDecisionVisual locale={locale} />
+                      ) : null}
+                      {canUseGenericGuideVisuals && index === 7 ? (
                         <GuideCaseFileVisual locale={locale} />
+                      ) : null}
+                      {isCancellationReplySection(page, section.heading, locale) ? (
+                        <CancellationReplyAuditVisual locale={locale} />
                       ) : null}
                       {isDocumentsSection(section.heading, locale) ? (
                         <div className="mt-8 scroll-mt-36">

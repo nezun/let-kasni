@@ -707,78 +707,9 @@ const generatedGuides: CornerstonePage[] = guideSummaries.map((guide) => {
   };
 });
 
-function getCornerstoneForArticleId(articleId: string): CornerstoneId {
-  switch (articleId) {
-    case "flight-delay-compensation":
-    case "bad-weather-flight-delay":
-    case "technical-fault-flight-compensation":
-    case "previous-flight-rotation-delay":
-    case "overnight-delay-hotel-rights":
-    case "self-rerouting-new-ticket":
-    case "air-traffic-control-slot-delay":
-    case "bird-strike-flight-delay":
-    case "lightning-strike-aircraft-delay":
-    case "medical-emergency-flight-delay":
-    case "crew-shortage-flight-delay":
-    case "night-flight-ban-curfew":
-    case "wizz-air-flight-delay-compensation":
-    case "air-serbia-flight-delay-compensation":
-    case "lufthansa-flight-delay-compensation":
-    case "austrian-airlines-flight-delay-compensation":
-    case "turkish-airlines-flight-delay-compensation":
-    case "ryanair-flight-delay-compensation":
-    case "easyjet-flight-delay-compensation":
-    case "klm-flight-delay-compensation":
-    case "air-france-flight-delay-compensation":
-    case "swiss-flight-delay-compensation":
-    case "two-hour-flight-delay-rights":
-    case "three-hour-flight-delay-compensation":
-    case "flight-diverted-rights":
-      return "flight-delay-compensation";
-    case "cancelled-flight-rights":
-    case "cancellation-under-14-days":
-    case "airline-bankruptcy-passenger-rights":
-    case "refund-vs-compensation":
-    case "airline-response-no-answer":
-    case "flight-moved-earlier-rights":
-      return "flight-cancellation-compensation";
-    case "missed-connection":
-    case "separate-tickets-missed-connection":
-    case "serbia-eu-transit-routes":
-      return "missed-connection-compensation";
-    case "denied-boarding-overbooking":
-    case "voluntary-denied-boarding-voucher":
-    case "voucher-or-cash-compensation":
-      return "overbooking-compensation";
-    case "missed-flight-security-queue":
-      return "denied-boarding-compensation";
-    case "delayed-baggage-after-flight":
-      return "delayed-baggage-compensation";
-    case "airline-strike-compensation":
-    case "airport-strike-flight-rights":
-      return "airline-strike-compensation";
-    default:
-      return "air-passenger-rights";
-  }
-}
-
-function childLinkList(page: CornerstonePage, locale: BlogLocale, limit = 7) {
-  return page.childArticleIds
-    .map((id) => blogArticles.find((article) => article.id === id))
-    .filter(
-      (article): article is BlogArticle =>
-        article !== undefined && getCornerstoneForArticleId(article.id) === page.id,
-    )
-    .slice(0, limit)
-    .map((article) => `[${article[locale].title}](${getCornerstoneHref(page, locale)}/${article[locale].slug})`)
-    .join(", ");
-}
-
 function addDepthToGeneratedGuide(page: CornerstonePage) {
   const srTopic = page.sr.title.toLowerCase();
   const enTopic = page.en.title.toLowerCase();
-  const srChildren = childLinkList(page, "sr");
-  const enChildren = childLinkList(page, "en");
   const srDepthBridge = new Set<CornerstoneId>([
     "overbooking-compensation",
     "denied-boarding-compensation",
@@ -829,8 +760,8 @@ function addDepthToGeneratedGuide(page: CornerstonePage) {
     {
       heading: "Kada je slučaj složeniji od osnovnog pravila",
       body: [
-        `Kod teme ${srTopic}, osnovno pravilo često nije dovoljno kada aviokompanija navede poseban razlog ili kada postoji više posledica po putnika. Tada treba proveriti konkretan scenario kao što su: ${srChildren}.`,
-        "To nije pitanje arhive tekstova, već pitanje dokaza. Loše vreme, tehnički kvar, odbijen zahtev, vaučer, odvojene karte i troškovi iz džepa ne traže isti odgovor. Svaki scenario ima drugačiji dokaz koji može promeniti ishod.",
+        `Kod teme ${srTopic}, osnovno pravilo često nije dovoljno kada aviokompanija navede poseban razlog ili kada postoji više posledica po putnika. Tada se ne otvara lista tekstova, nego se prvo određuje pitanje koje menja ishod: rok, ponuđena alternativa, razlog, refundacija, vaučer, odvojene karte ili trošak iz džepa.`,
+        "To nije pitanje arhive vodiča, već pitanje dokaza. Loše vreme, tehnički kvar, odbijen zahtev, vaučer, odvojene karte i troškovi iz džepa ne traže isti odgovor. Svaki scenario ima drugačiji dokaz koji može promeniti ishod.",
         "Ako se slučaj dodiruje više tema, prvo se određuje glavni događaj, a zatim sekundarne posledice. Tako se ne pokušava sve ugurati u jednu kategoriju, već se za svaku vrstu prava traži najjači osnov."
       ],
     },
@@ -940,8 +871,8 @@ function addDepthToGeneratedGuide(page: CornerstonePage) {
     {
       heading: "When the case is more complex than the basic rule",
       body: [
-        `For ${enTopic}, the basic rule is often not enough when the airline cites a specific reason or when the passenger has several consequences. Then the specific scenario should be checked, such as: ${enChildren}.`,
-        "This is not about browsing an article archive. It is about evidence. Bad weather, technical fault, rejected claim, voucher, separate tickets and out-of-pocket costs do not need the same response. Each scenario has a different proof point that can change the result.",
+        `For ${enTopic}, the basic rule is often not enough when the airline cites a specific reason or when the passenger has several consequences. The next step is not a list of articles, but the question that changes the outcome: timing, alternative transport, cause, refund, voucher, separate tickets or out-of-pocket expense.`,
+        "This is not about browsing a guide archive. It is about evidence. Bad weather, technical fault, rejected claim, voucher, separate tickets and out-of-pocket costs do not need the same response. Each scenario has a different proof point that can change the result.",
         "If the case touches several topics, identify the main event first and then the secondary consequences. That avoids forcing everything into one category and lets each right be checked on its strongest basis."
       ],
     },
@@ -1020,7 +951,8 @@ function addDepthToAirPassengerRightsGuide(page: CornerstonePage) {
     {
       heading: "Kako odabrati pravu glavnu temu",
       body: [
-        "Ako niste sigurni gde vaš slučaj pripada, krenite od posledice po putovanje. Ako ste stigli tri sata ili više kasnije, najbliža tema je [naknada za kašnjenje leta](/naknada-za-kasnjenje-leta). Ako let nije obavljen, krenite od [naknade za otkazan let](/naknada-za-otkazan-let). Ako ste zbog prvog segmenta izgubili drugi let, otvorite [naknadu za propuštenu konekciju](/naknada-za-propustenu-konekciju).",
+        "Ako niste sigurni gde vaš slučaj pripada, krenite od posledice po putovanje. Ako ste stigli tri sata ili više kasnije, najbliža tema je [naknada za kašnjenje leta](/naknada-za-kasnjenje-leta). Ako let nije obavljen, krenite od [naknade za otkazan let](/naknada-za-otkazan-let).",
+        "Ako ste zbog prvog segmenta izgubili drugi let, proverite naknadu za propuštenu konekciju i da li je sve bilo u jednoj rezervaciji.",
         "Overbooking i uskraćeno ukrcavanje se često preklapaju, ali nisu uvek isti problem. Ako je kompanija prodala više mesta nego što ima sedišta, osnovna tema je [overbooking naknada](/overbooking-naknada). Ako je ukrcavanje odbijeno zbog dokumenata, gate pravila ili bezbednosne procene, bliža je [naknada za uskraćeno ukrcavanje](/naknada-za-uskraceno-ukrcavanje).",
         "Prtljag i štrajk imaju svoju logiku. [Kašnjenje prtljaga](/naknada-za-kasnjenje-prtljaga) se uglavnom dokazuje PIR prijavom, rokovima i računima, dok [štrajk aviokompanije](/naknada-za-strajk-aviokompanije) zavisi od toga ko štrajkuje i da li je događaj u sferi aviokompanije."
       ],
@@ -1132,7 +1064,8 @@ function addDepthToAirPassengerRightsGuide(page: CornerstonePage) {
     {
       heading: "How to choose the right main topic",
       body: [
-        "If you are not sure where your case belongs, start with the consequence for the journey. If you arrived three hours or more late, the closest topic is [flight delay compensation](/en/flight-delay-compensation). If the flight was not operated, start with [flight cancellation compensation](/en/flight-cancellation-compensation). If the first segment made you miss the second flight, open [missed connection compensation](/en/missed-connection-compensation).",
+        "If you are not sure where your case belongs, start with the consequence for the journey. If you arrived three hours or more late, the closest topic is [flight delay compensation](/en/flight-delay-compensation). If the flight was not operated, start with [flight cancellation compensation](/en/flight-cancellation-compensation).",
+        "If the first segment made you miss the second flight, check missed connection compensation and whether the journey was under one booking.",
         "Overbooking and denied boarding often overlap, but they are not always the same problem. If the airline sold more seats than it had available, the primary topic is [overbooking compensation](/en/overbooking-compensation). If boarding was refused because of documents, gate rules or safety assessment, [denied boarding compensation](/en/denied-boarding-compensation) is closer.",
         "Baggage and strikes follow their own logic. [Delayed baggage compensation](/en/delayed-baggage-compensation) is mostly proven through PIR report, deadlines and receipts, while [airline strike compensation](/en/airline-strike-compensation) depends on who is striking and whether the event sits within the airline's responsibility."
       ],
@@ -1243,6 +1176,88 @@ for (const guide of generatedGuides) {
 }
 
 cornerstonePages.push(...generatedGuides);
+
+const cancellationGuide = cornerstonePages.find((page) => page.id === "flight-cancellation-compensation");
+
+if (cancellationGuide) {
+  cancellationGuide.updatedAt = "2026-05-09";
+
+  const srMoney = cancellationGuide.sr.sections.find(
+    (section) => section.heading === "Novac, refundacija i pravo na brigu nisu ista stvar",
+  );
+  if (srMoney) {
+    srMoney.body[1] =
+      "Kod otkazanog leta može se desiti da jedno pravo postoji, a drugo ne. Aviokompanija može imati dobar argument protiv fiksne naknade, ali i dalje dugovati hotel ili obrok. Može vratiti cenu karte, ali to ne znači da je automatski zatvoreno pitanje dodatne naknade. Zato zahtev treba pisati po stavkama, uz jasnu [razliku između refundacije karte i odštete](/naknada-za-otkazan-let/refundacija-karte-ili-odsteta).";
+  }
+
+  const srComplex = cancellationGuide.sr.sections.find(
+    (section) => section.heading === "Kada je slučaj složeniji od osnovnog pravila",
+  );
+  if (srComplex) {
+    srComplex.body = [
+      "Kod otkazanog leta osnovno pravilo nije dovoljno kada je sporan rok obaveštenja, kada je ponuđena loša alternativa ili kada aviokompanija navodi poseban razlog. Prvo se proverava da li je obaveštenje stiglo na vreme, zatim koliko je zamenski let promenio putovanje, pa tek onda da li razlog može da isključi fiksnu naknadu.",
+      "Ako je obaveštenje stiglo neposredno pred put, posebno proverite pravilo za [let otkazan manje od 14 dana ranije](/naknada-za-otkazan-let/otkazan-let-manje-od-14-dana-prava). Ako je kompanija umesto otkazivanja značajno pomerila polazak, uporedite i pravila za [let pomeren ranije](/naknada-za-otkazan-let/let-pomeren-ranije-prava-putnika).",
+      "Ako se slučaj dodiruje više tema, prvo se određuje glavni događaj, a zatim sekundarne posledice. Tako se ne pokušava sve ugurati u jednu kategoriju, već se za svaku vrstu prava traži najjači osnov.",
+    ];
+  }
+
+  const srReply = cancellationGuide.sr.sections.find(
+    (section) => section.heading === "Kako proveriti odgovor aviokompanije po tačkama",
+  );
+  if (srReply) {
+    srReply.body[2] =
+      "Za otkazan let je naročito važno da odgovor ne preskoči alternativu koju je kompanija ponudila. Ako je putnik morao da čeka, plati hotel, kupi novu kartu ili prihvati lošije rešenje, taj deo treba tražiti odvojeno od osnovnog objašnjenja. Ako kompanija ćuti, sledeći korak je uredan trag komunikacije, kao kod slučaja kada [aviokompanija ne odgovara na reklamaciju](/naknada-za-otkazan-let/avio-kompanija-ne-odgovara-na-reklamaciju).";
+  }
+
+  const enMoney = cancellationGuide.en.sections.find(
+    (section) => section.heading === "Money, refund and care are separate rights",
+  );
+  if (enMoney) {
+    enMoney.body[1] =
+      "For a cancelled flight, one right can exist while another does not. The airline may have a good defence against fixed compensation but still owe hotel or meals. It may refund the ticket without automatically closing the compensation question. That is why the claim should be written in separate parts, with the [difference between refund and compensation](/en/flight-cancellation-compensation/refund-vs-flight-compensation) kept clear.";
+  }
+
+  const enComplex = cancellationGuide.en.sections.find(
+    (section) => section.heading === "When the case is more complex than the basic rule",
+  );
+  if (enComplex) {
+    enComplex.body = [
+      "For a cancelled flight, the basic rule is not enough when notice timing is disputed, when the replacement flight was poor or when the airline cites a special cause. Check when notice arrived first, then how much the alternative changed the journey, and only then whether the cause can defeat fixed compensation.",
+      "If notice came close to departure, check the rule for a [flight cancelled less than 14 days before departure](/en/flight-cancellation-compensation/flight-cancelled-less-than-14-days-rights). If the airline changed the schedule instead of simply cancelling, compare the rules for a [flight moved earlier](/en/flight-cancellation-compensation/flight-moved-earlier-passenger-rights).",
+      "If the case touches several topics, identify the main event first and then the secondary consequences. That avoids forcing everything into one category and lets each right be checked on its strongest basis.",
+    ];
+  }
+
+  const enReply = cancellationGuide.en.sections.find(
+    (section) => section.heading === "How to check the airline response point by point",
+  );
+  if (enReply) {
+    enReply.body[2] =
+      "For a cancelled flight, it is especially important that the answer does not skip the alternative the airline offered. If the passenger had to wait, pay for a hotel, buy a new ticket or accept a worse solution, that part should be requested separately from the basic explanation. If the airline stays silent, the next step is a clean communication trail, as in cases where the [airline does not respond to the claim](/en/flight-cancellation-compensation/airline-not-responding-to-compensation-claim).";
+  }
+}
+
+const missedConnectionGuide = cornerstonePages.find((page) => page.id === "missed-connection-compensation");
+
+if (missedConnectionGuide) {
+  const srCheckSection = missedConnectionGuide.sr.sections.find(
+    (section) => section.heading === "Kada slučaj treba proveriti i kada je slabiji",
+  );
+  srCheckSection?.body.push(
+    "Posebno proverite da li su svi segmenti bili na istoj karti, jer taj detalj često određuje da li se gleda krajnja destinacija ili samo prvi let u lancu celog putovanja.",
+  );
+}
+
+const overbookingGuide = cornerstonePages.find((page) => page.id === "overbooking-compensation");
+
+if (overbookingGuide) {
+  const srCheckSection = overbookingGuide.sr.sections.find(
+    (section) => section.heading === "Kada slučaj treba proveriti i kada je slabiji",
+  );
+  srCheckSection?.body.push(
+    "Najvažnije je da se odmah zabeleži da li je pristanak bio dobrovoljan ili je ukrcavanje odbijeno protiv volje putnika.",
+  );
+}
 
 const airPassengerRightsGuide = cornerstonePages.find((page) => page.id === "air-passenger-rights");
 
