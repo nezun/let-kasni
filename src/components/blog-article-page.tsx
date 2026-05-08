@@ -44,7 +44,7 @@ const copy = {
     quickCheckTitle: "Saznajte da li vam pripada naknada i do 600 EUR.",
     quickCheckBody:
       "Brza provera spaja podatke o letu, dužinu rute i osnovne dokaze radi utvrđivanja Vašeg prava.",
-    quickCheckButton: "Proveri let",
+    quickCheckButton: "Proveri naknadu",
     quickCheckFlight: "Poremećaj leta",
     quickCheckStatus: "ZA STRUČNU PROVERU",
     quickCheckRoute: "Beograd",
@@ -75,7 +75,7 @@ const copy = {
     quickCheckTitle: "Find out if you are owed up to EUR 600 in compensation.",
     quickCheckBody:
       "The quick check combines flight details, route distance and basic evidence to assess your right.",
-    quickCheckButton: "Check flight",
+    quickCheckButton: "Check compensation",
     quickCheckFlight: "Flight disruption",
     quickCheckStatus: "FOR EXPERT REVIEW",
     quickCheckRoute: "Belgrade",

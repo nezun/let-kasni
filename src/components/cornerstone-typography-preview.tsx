@@ -33,7 +33,7 @@ const copy = {
     nextStep: "Proverite let",
     nextStepBody:
       "Brza provera spaja podatke o letu, dužinu rute i osnovne dokaze radi utvrđivanja Vašeg prava.",
-    checkFlight: "Proveri let",
+    checkFlight: "Proveri naknadu",
   },
   en: {
     breadcrumb: "Passenger rights",
@@ -49,7 +49,7 @@ const copy = {
     nextStep: "Check your flight",
     nextStepBody:
       "The quick check combines flight details, route distance and basic evidence to assess your right.",
-    checkFlight: "Check flight",
+    checkFlight: "Check compensation",
   },
 };
 
