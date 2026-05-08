@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { createContext, useContext, useMemo, type ReactNode } from "react";
+import { type ReactNode } from "react";
 
 type BlogTextLocale = "sr" | "en";
 type AutoLinkRule = {
@@ -27,7 +27,6 @@ type Props = {
 };
 
 const inlineLinkPattern = /\[([^\]]+)\]\(([^)]+)\)/g;
-const InterlinkingContext = createContext<InterlinkingState | null>(null);
 
 const autoLinkRules = {
   sr: [
@@ -97,18 +96,11 @@ function markLinkUsed(scope: InterlinkingState, href: string, anchor: string) {
 
 export function InterlinkingScope({
   children,
-  currentHref,
 }: {
   children: ReactNode;
   currentHref?: string;
 }) {
-  const state = useMemo(() => createInterlinkingState(currentHref), [currentHref]);
-
-  return (
-    <InterlinkingContext.Provider value={state}>
-      {children}
-    </InterlinkingContext.Provider>
-  );
+  return <>{children}</>;
 }
 
 function findBestAutoLink(
@@ -188,9 +180,8 @@ function linkedText(
   return { nodes, used: linkCount };
 }
 
-export function InlineRichText({ text, locale = "sr", maxAutoLinks = 2 }: Props) {
-  const contextScope = useContext(InterlinkingContext);
-  const localScope = contextScope ?? createInterlinkingState();
+export function InlineRichText({ text, locale = "sr", maxAutoLinks = 0 }: Props) {
+  const localScope = createInterlinkingState();
   const parts: ReactNode[] = [];
   let lastIndex = 0;
   let match: RegExpExecArray | null;

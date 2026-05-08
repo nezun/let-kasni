@@ -52,6 +52,11 @@ export const articles = [
             "Kada let kasni 4 sata, slučaj više nije samo neprijatno čekanje na gejtu. Ako je dolazak na krajnju destinaciju bio tri sata ili više kasnije, treba proveriti [naknadu za kašnjenje leta](/naknada-za-kasnjenje-leta). Ipak, ne odlučuje sama najava na aerodromu, već stvarno vreme dolaska.",
             "Kod putnika iz Srbije važno je proveriti i rutu. Let iz EU, let ka EU evropskim prevoznikom ili putovanje preko EU čvorišta pod jednom rezervacijom može imati drugačiji osnov od zasebno kupljenih karata. Zato 4 sata nisu automatska presuda, već signal da treba složiti činjenice.",
           ],
+          bullets: [
+            "Prvo se meri dolazak na krajnju destinaciju, ne samo kašnjenje u polasku.",
+            "Zatim se proverava ruta, prevoznik i da li su segmenti u jednoj rezervaciji.",
+            "Na kraju se traži konkretan razlog kašnjenja i dokaz aviokompanije.",
+          ],
         },
         {
           heading: "Naknada i pravo na brigu nisu isto",
@@ -96,6 +101,11 @@ export const articles = [
           body: [
             "When a flight is delayed by 4 hours, the case is no longer only an uncomfortable wait at the gate. If arrival at the final destination was three hours or more late, you should check [flight delay compensation](/en/flight-delay-compensation). Still, the airport announcement does not decide the case; actual arrival time does.",
             "For travelers from Serbia, the route matters too. A flight from the EU, a flight into the EU operated by a European carrier or a journey through an EU hub under one booking may have a different basis from separately bought tickets. Four hours are therefore not an automatic result, but a signal to organize the facts.",
+          ],
+          bullets: [
+            "First measure arrival at the final destination, not only departure delay.",
+            "Then check route coverage, operating carrier and whether the segments were under one booking.",
+            "Finally request the concrete delay reason and the airline's supporting evidence.",
           ],
         },
         {
@@ -147,6 +157,11 @@ export const articles = [
             "Kada je polazak odložen najmanje 5 sati, putnik često dobija pravo da odustane od putovanja i traži refundaciju karte. To pravo treba razlikovati od [naknade za kašnjenje leta](/naknada-za-kasnjenje-leta), koja se proverava prema dolasku na krajnju destinaciju i razlogu poremećaja.",
             "Ako odlučite da ipak putujete, najčešće se nastavlja pitanje preusmeravanja, obroka, komunikacije i eventualnog hotela. Ako odustanete i uzmete refundaciju, kompanija obično više ne mora da vas preveze tom rezervacijom. Zato izbor treba napraviti svesno, ne samo pod pritiskom reda na šalteru.",
           ],
+          bullets: [
+            "Refundacija karte i fiksna naknada su različita pitanja.",
+            "Preusmeravanje treba tražiti pod uporedivim uslovima i sa pisanim tragom.",
+            "Troškovi čekanja se vode odvojeno od odluke da nastavite ili odustanete.",
+          ],
         },
         {
           heading: "Refundacija ne rešava uvek sve",
@@ -191,6 +206,11 @@ export const articles = [
           body: [
             "When departure is delayed by at least 5 hours, passengers often gain the right to abandon the trip and request a ticket refund. That right should be separated from [flight delay compensation](/en/flight-delay-compensation), which is assessed by final arrival time and disruption reason.",
             "If you decide to travel anyway, the practical questions are rerouting, meals, communication and possibly hotel accommodation. If you abandon the trip and take a refund, the airline usually no longer has to transport you under that booking. Make the choice deliberately, not only under pressure at the counter.",
+          ],
+          bullets: [
+            "Ticket refund and fixed compensation are separate questions.",
+            "Rerouting should be requested under comparable conditions with a written trail.",
+            "Waiting expenses are handled separately from the decision to travel or abandon the trip.",
           ],
         },
         {
@@ -242,6 +262,11 @@ export const articles = [
             "Prvo sačuvajte osnovne podatke: broj leta, rutu, planirano vreme polaska i dolaska, trenutnu najavu kašnjenja i boarding pass. Ako je ruta potencijalno pokrivena pravilima za [naknadu za kašnjenje leta](/naknada-za-kasnjenje-leta), ovi podaci će biti osnova zahteva.",
             "Napravite screenshot aplikacije i fotografiju table polazaka. Pitajte osoblje za razlog, ali nemojte se oslanjati samo na usmeni odgovor. Zapišite vreme, mesto i tačnu formulaciju, jer se razlog često menja kroz dan.",
           ],
+          bullets: [
+            "Sačuvajte boarding pass, booking referencu i screenshot statusa leta.",
+            "Zabeležite tačan razlog koji je osoblje navelo i vreme kada je naveden.",
+            "Odvojeno čuvajte račune za hranu, vodu, hotel ili transfer.",
+          ],
         },
         {
           heading: "Kada tražiti obrok, vodu i komunikaciju",
@@ -286,6 +311,11 @@ export const articles = [
           body: [
             "First save the core details: flight number, route, scheduled departure and arrival, current delay notice and boarding pass. If the route may be covered by [flight delay compensation](/en/flight-delay-compensation), these facts will become the basis of the claim.",
             "Take an app screenshot and a photo of the departures board. Ask staff for the reason, but do not rely only on a verbal answer. Write down the time, place and exact wording, because the reason often changes during the day.",
+          ],
+          bullets: [
+            "Save boarding pass, booking reference and a flight-status screenshot.",
+            "Record the exact reason stated by staff and the time it was given.",
+            "Keep receipts for meals, water, hotel or transfer separately.",
           ],
         },
         {
@@ -337,6 +367,11 @@ export const articles = [
             "Kod [naknade za kašnjenje leta](/naknada-za-kasnjenje-leta), vreme dolaska otvara pitanje prava, ali razlog kašnjenja često odlučuje ishod. Isti broj sati može značiti jak zahtev ako je problem bio u organizaciji kompanije ili slabiji zahtev ako je uzrok bila okolnost van njene kontrole.",
             "Zato nije dovoljno da u aplikaciji piše samo delayed ili operational reasons. Potreban je konkretan opis: šta se dogodilo, kada, na kom aerodromu ili avionu, koliko je trajalo i zašto nije moglo da se izbegne kraće kašnjenje.",
           ],
+          bullets: [
+            "Naziv razloga nije dovoljan bez veze sa konkretnim letom.",
+            "Vremenska linija mora objasniti početak, trajanje i posledicu događaja.",
+            "Generička odbijenica treba da se proveri kroz dokaz, ne kroz pretpostavku.",
+          ],
         },
         {
           heading: "Tehnički kvar, posada i rotacija aviona",
@@ -381,6 +416,11 @@ export const articles = [
           body: [
             "For [flight delay compensation](/en/flight-delay-compensation), arrival time opens the rights question, but the delay reason often decides the outcome. The same number of hours may support a strong claim if the problem was within airline organization, or a weaker claim if the cause was outside its control.",
             "That is why it is not enough for the app to say only delayed or operational reasons. You need a concrete description: what happened, when, at which airport or aircraft, how long it lasted and why a shorter delay could not be avoided.",
+          ],
+          bullets: [
+            "The reason label is not enough without a link to the specific flight.",
+            "The timeline should explain the event start, duration and consequence.",
+            "A generic rejection should be tested through evidence, not assumptions.",
           ],
         },
         {
@@ -432,6 +472,11 @@ export const articles = [
             "Vaučer za hranu nije poklon aviokompanije i nije zamena za [naknadu za kašnjenje leta](/naknada-za-kasnjenje-leta). To je najčešće način da se ispuni pravo na brigu tokom čekanja. Fiksna naknada se proverava odvojeno, prema dolasku, ruti i razlogu kašnjenja.",
             "Zato prihvatanje obroka ili vode uglavnom ne znači da ste se odrekli drugih prava. Drugačije može biti ako potpišete dokument koji kaže da prihvatate poravnanje ili se odričete dodatnih zahteva. Takav dokument ne treba potpisivati na brzinu.",
           ],
+          bullets: [
+            "Vaučer je deo prava na brigu, ne zamena za fiksnu naknadu.",
+            "Računi za dodatne razumne troškove ostaju važni ako vaučer nije dovoljan.",
+            "Potpisivanje poravnanja treba odvojiti od prihvatanja obroka ili vode.",
+          ],
         },
         {
           heading: "Kada treba tražiti obrok i osveženje",
@@ -476,6 +521,11 @@ export const articles = [
           body: [
             "A meal voucher is not a gift from the airline and it is not a replacement for [flight delay compensation](/en/flight-delay-compensation). It is usually a way to provide care during the wait. Fixed compensation is checked separately by arrival, route and delay reason.",
             "Accepting food or water therefore usually does not mean that you gave up other rights. It may be different if you sign a document saying that you accept a settlement or waive further claims. Do not sign that kind of document in a hurry.",
+          ],
+          bullets: [
+            "A voucher is part of care rights, not a substitute for fixed compensation.",
+            "Receipts for additional reasonable costs still matter if the voucher is not enough.",
+            "Signing a settlement should be separated from accepting food or water.",
           ],
         },
         {
@@ -527,6 +577,11 @@ export const articles = [
             "Putnici često misle da je dovoljno da let poleti tri sata kasnije. Za [naknadu za kašnjenje leta](/naknada-za-kasnjenje-leta) mnogo je važnije kada ste stigli na krajnju destinaciju. Avion može kasniti u polasku, ali nadoknaditi deo vremena u letu.",
             "Suprotno tome, polazak može kasniti manje od tri sata, ali zbog propuštene konekcije ceo put može završiti mnogo kasnije. Zato treba gledati ukupno putovanje pod istom rezervacijom, a ne samo prvi segment koji je bio problematičan.",
           ],
+          bullets: [
+            "Prag se najčešće meri dolaskom na krajnju destinaciju.",
+            "Kod jedne rezervacije bitan je ceo put, ne samo prvi segment.",
+            "Vreme blizu granice od tri sata traži precizne dokaze, ne zaokruživanje.",
+          ],
         },
         {
           heading: "Šta je krajnja destinacija",
@@ -571,6 +626,11 @@ export const articles = [
           body: [
             "Passengers often think it is enough that the flight departed three hours late. For [flight delay compensation](/en/flight-delay-compensation), it is much more important when you reached the final destination. An aircraft may depart late but recover part of the time in flight.",
             "The opposite can also happen: departure may be under three hours late, but because of a missed connection the whole journey may end much later. Look at the total journey under the same booking, not only the first segment that caused trouble.",
+          ],
+          bullets: [
+            "The threshold is usually measured at final-destination arrival.",
+            "Under one booking, the whole journey matters, not only the first segment.",
+            "Arrival close to the three-hour line needs precise evidence, not rounding.",
           ],
         },
         {

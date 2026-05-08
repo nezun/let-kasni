@@ -11,10 +11,6 @@ const copy = {
       "Ovo nije konačna odluka, ali pomaže da odmah razdvojite slučajeve koji očigledno nisu za fiksnu naknadu od onih koje vredi proveriti.",
     route: "Dužina rute",
     delay: "Kašnjenje na dolasku",
-    covered: "Ruta je pokrivena evropskim pravilima",
-    airlineReason: "Razlog je verovatno u odgovornosti aviokompanije",
-    yes: "Da",
-    no: "Ne",
     result: "Procena",
     notLikely: "Fiksna naknada nije očigledna",
     check: "Slučaj vredi proveriti",
@@ -35,10 +31,6 @@ const copy = {
       "This is not a final decision, but it helps separate cases that clearly do not fit fixed compensation from those worth checking.",
     route: "Route distance",
     delay: "Arrival delay",
-    covered: "Route is covered by European rules",
-    airlineReason: "The reason is likely within the airline's responsibility",
-    yes: "Yes",
-    no: "No",
     result: "Estimate",
     notLikely: "Fixed compensation is not obvious",
     check: "The case is worth checking",
@@ -59,11 +51,9 @@ export function DelayCompensationCalculator({ locale }: { locale: Locale }) {
   const t = copy[locale];
   const [distance, setDistance] = useState<"short" | "medium" | "long">("medium");
   const [delay, setDelay] = useState<"under3" | "three" | "four">("four");
-  const [covered, setCovered] = useState(true);
-  const [airlineReason, setAirlineReason] = useState(true);
 
   const amount = useMemo(() => {
-    if (!covered || !airlineReason || delay === "under3") {
+    if (delay === "under3") {
       return null;
     }
 
@@ -76,7 +66,7 @@ export function DelayCompensationCalculator({ locale }: { locale: Locale }) {
     }
 
     return delay === "three" ? "300-600 EUR" : "600 EUR";
-  }, [airlineReason, covered, delay, distance]);
+  }, [delay, distance]);
 
   return (
     <div className="rounded-[16px] border border-[#BFD7FF] bg-[#EEF5FF] p-5">
@@ -115,45 +105,6 @@ export function DelayCompensationCalculator({ locale }: { locale: Locale }) {
           </select>
         </label>
 
-        <div className="grid gap-2 text-sm font-black text-[#0A0F1E]">
-          {t.covered}
-          <div className="grid grid-cols-2 gap-2">
-            {[true, false].map((value) => (
-              <button
-                key={String(value)}
-                type="button"
-                onClick={() => setCovered(value)}
-                className={`rounded-lg border px-3 py-2 text-sm font-black ${
-                  covered === value
-                    ? "border-[#2470EB] bg-[#2470EB] text-white"
-                    : "border-[#B4C7E7] bg-white text-[#41516B]"
-                }`}
-              >
-                {value ? t.yes : t.no}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <div className="grid gap-2 text-sm font-black text-[#0A0F1E]">
-          {t.airlineReason}
-          <div className="grid grid-cols-2 gap-2">
-            {[true, false].map((value) => (
-              <button
-                key={String(value)}
-                type="button"
-                onClick={() => setAirlineReason(value)}
-                className={`rounded-lg border px-3 py-2 text-sm font-black ${
-                  airlineReason === value
-                    ? "border-[#2470EB] bg-[#2470EB] text-white"
-                    : "border-[#B4C7E7] bg-white text-[#41516B]"
-                }`}
-              >
-                {value ? t.yes : t.no}
-              </button>
-            ))}
-          </div>
-        </div>
       </div>
 
       <div className="mt-5 rounded-xl bg-white p-4">

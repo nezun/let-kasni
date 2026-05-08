@@ -73,7 +73,7 @@ export const article = {
         {
           "heading": "Proverite i šta se desilo posle prvog kašnjenja",
           "body": [
-            "Kod ozbiljnijih konkurenata se često naglašava da se ne proverava samo prvi trenutak kašnjenja, već cela posledica po putnika. Ako je prvi let kasnio, zatim ste preusmereni, pa je i novi let kasnio, treba napraviti punu vremensku liniju.",
+            "U ozbiljnoj obradi se ne proverava samo prvi trenutak kašnjenja, već cela posledica po putnika. Ako je prvi let kasnio, zatim ste preusmereni, pa je i novi let kasnio, treba napraviti punu vremensku liniju.",
             "Važno je razlikovati kašnjenje u polasku, kašnjenje u dolasku, vreme provedeno u čekanju i eventualne troškove. Fiksna naknada se najčešće vezuje za dolazak, dok se troškovi hrane, hotela ili transfera dokazuju računima.",
             "Ako aviokompanija tvrdi da je jedan deo kašnjenja bio van njene kontrole, i dalje treba proveriti da li je kasniji deo nastao zbog njene organizacije. Nekad prvi poremećaj nije sporan, ali je sporno zašto je putnik stigao mnogo kasnije nego što je bilo neophodno."
           ]
@@ -143,7 +143,7 @@ export const article = {
         {
           "heading": "Check also what happened after the first delay",
           "body": [
-            "With more serious competitors, it is often emphasized that not only the first moment of delay is checked, but the entire consequence for the passenger. If the first flight was delayed, then you were rerouted, and the new flight was also delayed, a full timeline should be made.",
+            "In serious claim handling, the check does not stop at the first moment of delay; it looks at the full consequence for the passenger. If the first flight was delayed, then you were rerouted, and the new flight was also delayed, a full timeline should be made.",
             "It is important to distinguish between departure delay, arrival delay, time spent waiting and possible costs. A fixed fee is usually linked to arrival, while food, hotel or transfer costs are proven by invoices.",
             "If the airline claims that one part of the delay was beyond its control, it should still be checked whether the later part was caused by its organization. Sometimes the first disturbance is not disputed, but it is disputed why the passenger arrived much later than necessary."
           ]

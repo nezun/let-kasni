@@ -230,7 +230,7 @@ export const articles = [
           body: [
             "When a flight is delayed because of an engine inspection, replacement part, door issue, hydraulics, computer fault or another aircraft system, the airline often says it had to act for safety reasons. That may be true, but a safety inspection by itself does not mean responsibility disappears.",
             "European practice generally separates ordinary technical problems, which are part of normal airline operations, from truly unusual events. An aircraft is a complex machine and faults happen, but maintenance and operational readiness are normal carrier risks.",
-            "That is why technical faults are a topic where passengers should not give up too quickly. Competitors often simplify the message to technical problems may qualify. For travelers from Serbia, it is more useful to know what to ask and how to separate an ordinary fault from a genuinely external event."
+            "That is why technical faults are a topic where passengers should not give up too quickly. General passenger-rights guidance often simplifies the message to technical problems may qualify. For travelers from Serbia, it is more useful to know what to ask and how to separate an ordinary fault from a genuinely external event."
           ]
         },
         {
@@ -293,7 +293,7 @@ export const articles = [
           body: [
             "Aviokompanije koriste isti avion za više letova tokom dana. Ako raniji segment kasni, posledice se mogu preliti na vaš polazak. Putnik tada često dobije objašnjenje late arrival of incoming aircraft, aircraft rotation ili operational reasons.",
             "To objašnjenje nije samo po sebi dovoljno da se zahtev odbije. Rotacija aviona je način na koji aviokompanija organizuje posao, pa se mora proveriti zašto je prethodni let zakasnio i da li je prevoznik mogao da reaguje razumnim merama.",
-            "Konkurentski sadržaji često navode dolazak tri sata kasnije kao prag, ali ne objašnjavaju dovoljno šta uraditi kada kompanija prebaci priču na prethodni let. Za putnike iz Srbije to je čest scenario na rutama sa bazama u EU i gustim dnevnim rasporedom."
+            "Opšti vodiči često navode dolazak tri sata kasnije kao prag, ali ne objašnjavaju dovoljno šta uraditi kada kompanija prebaci priču na prethodni let. Za putnike iz Srbije to je čest scenario na rutama sa bazama u EU i gustim dnevnim rasporedom."
           ]
         },
         {
@@ -351,7 +351,7 @@ export const articles = [
           body: [
             "Airlines use the same aircraft for several flights during the day. If an earlier segment is delayed, the consequences can spill into your departure. Passengers often receive explanations such as late arrival of incoming aircraft, aircraft rotation or operational reasons.",
             "That explanation is not enough by itself to reject a claim. Aircraft rotation is part of how the airline organizes its business, so the real question is why the previous flight was delayed and whether the carrier could have reacted with reasonable measures.",
-            "Competitor content often mentions the three-hour arrival threshold, but does not explain enough what to do when the airline shifts the story to the previous flight. For travelers from Serbia this is common on routes connected to EU bases and tight daily schedules."
+            "General guidance often mentions the three-hour arrival threshold, but does not explain enough what to do when the airline shifts the story to the previous flight. For travelers from Serbia this is common on routes connected to EU bases and tight daily schedules."
           ]
         },
         {
@@ -593,7 +593,7 @@ export const articles = [
           body: [
             "When a flight is cancelled or seriously delayed, passengers often want to buy another flight immediately and send the bill later. Sometimes this makes sense, but it carries risk. The airline may say it offered its own alternative or that the ticket bought was unreasonably expensive.",
             "First ask the airline for a solution: rerouting at the earliest opportunity, a flight through another point, a later flight or refund if the journey no longer has a purpose. Only if real assistance is missing does self-rerouting become a stronger argument.",
-            "Competitors often emphasize the right to rerouting and refund, but passengers need the line between justified self-help and an expensive self-made plan. For travelers from Serbia that line matters because same-day replacement tickets can be very costly."
+            "Passenger-rights guidance often emphasizes the right to rerouting and refund, but passengers need the line between justified self-help and an expensive self-made plan. For travelers from Serbia that line matters because same-day replacement tickets can be very costly."
           ]
         },
         {

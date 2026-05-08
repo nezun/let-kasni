@@ -73,7 +73,7 @@ export const article = {
         {
           "heading": "Ne zaboravite da postoje i drugi režimi",
           "body": [
-            "AirHelp, AirAdvisor i drugi veći igrači često pokrivaju više režima, ne samo EU 261: UK 261, kanadska pravila, brazilski ANAC, turska pravila i druge lokalne okvire. Za putnika iz Srbije to ne znači da treba sam da nauči sve režime, već da ne treba prerano odbaciti međunarodni let.",
+            "Veći servisi za prava putnika često pokrivaju više režima, ne samo EU 261: UK 261, kanadska pravila, brazilski ANAC, turska pravila i druge lokalne okvire. Za putnika iz Srbije to ne znači da treba sam da nauči sve režime, već da ne treba prerano odbaciti međunarodni let.",
             "Ako putovanje ima više delova, više prevoznika ili polazak izvan Evrope, osnov se proverava šire. Nekad EU okvir nije dobar put, ali postoji drugi osnov za refundaciju troškova, pomoć ili lokalnu žalbu.",
             "Zato intake treba da pita rutu i operating carrier, a ne samo da li je let bio iz EU. Prava putnika su sve više mreža pravila, a ne jedna univerzalna tabela."
           ]
@@ -143,7 +143,7 @@ export const article = {
         {
           "heading": "Do not forget that there are other modes",
           "body": [
-            "AirHelp, AirAdvisor and other bigger players often cover multiple regimes, not only EU 261: UK 261, Canadian rules, Brazilian ANAC, Turkish rules and other local frameworks. For a passenger from Serbia, this does not mean that he should learn all the modes by himself, but that he should not reject an international flight too soon.",
+            "Larger passenger-rights services often cover multiple regimes, not only EU 261: UK 261, Canadian rules, Brazilian ANAC, Turkish rules and other local frameworks. For a passenger from Serbia, this does not mean that he should learn every regime by himself, but that he should not reject an international flight too soon.",
             "If the trip has multiple parts, multiple carriers or departures outside of Europe, the basis is checked more broadly. Sometimes the EU framework is not a good way to go, but there is another basis for reimbursement, assistance or a local appeal.",
             "That's why the intake should ask the route and the operating carrier, not just whether the flight was from the EU. Passenger rights are increasingly a network of rules rather than a single universal table."
           ]

@@ -263,7 +263,7 @@ export const articles = [
           body: [
             "Kada putnik propusti let jer je red na security, pasoškoj kontroli ili check-in šalteru bio predug, situacija se razlikuje od kašnjenja koje je izazvala aviokompanija. Let može poleteti na vreme, a putnik ipak ne stiže do gejta. Zato fiksna odšteta za kašnjenje leta obično nije prvi i najjači osnov.",
             "Aviokompanija će najčešće proveriti da li ste se pojavili na vreme, da li ste imali validna dokumenta i da li je boarding zatvoren po pravilima. Ako ste došli kasno, zahtev je slab. Ako ste došli razumno rano, a aerodromska procedura je bila neuobičajeno spora, slučaj postaje praktično složeniji.",
-            "Konkurentski sajtovi više pišu o propuštenoj konekciji zbog kasnog prvog leta. Ovde je problem drugačiji: prvi let nije kasnio, nego putnik nije prošao aerodromsku proceduru. Zato treba razdvojiti odgovornost aviokompanije, aerodroma i samog putnika."
+            "Većina opštih vodiča više piše o propuštenoj konekciji zbog kasnog prvog leta. Ovde je problem drugačiji: prvi let nije kasnio, nego putnik nije prošao aerodromsku proceduru. Zato treba razdvojiti odgovornost aviokompanije, aerodroma i samog putnika."
           ]
         },
         {
@@ -314,7 +314,7 @@ export const articles = [
           body: [
             "When a passenger misses a flight because the security, passport control or check-in queue was too long, the situation differs from a delay caused by the airline. The flight may depart on time while the passenger does not reach the gate. Fixed compensation for flight delay is therefore usually not the first or strongest basis.",
             "The airline will usually check whether you appeared on time, had valid documents and whether boarding closed according to the rules. If you arrived late, the claim is weak. If you arrived reasonably early and the airport procedure was unusually slow, the case becomes more practically complex.",
-            "Competitor sites write more about missed connections caused by a late first flight. This problem is different: the first flight was not delayed, but the passenger did not clear airport procedure. That is why airline, airport and passenger responsibility must be separated."
+            "Most general guides write more about missed connections caused by a late first flight. This problem is different: the first flight was not delayed, but the passenger did not clear airport procedure. That is why airline, airport and passenger responsibility must be separated."
           ]
         },
         {

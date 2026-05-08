@@ -117,10 +117,10 @@ export const cornerstonePages: CornerstonePage[] = [
           ],
         },
         {
-          heading: "Kako koristiti ovu strukturu",
+          heading: "Kako odabrati pravi vodič za svoj slučaj",
           body: [
-            "Glavni vodiči na ovoj stranici pokrivaju temu do srednje dubine: dovoljno da shvatite da li slučaj ima smisla i šta je sledeći korak. Detaljni blogovi ispod njih idu dublje u podteme kao što su loše vreme, tehnički kvar, rokovi, dokumenta, vaučer, odbijen zahtev ili posebne rute preko Srbije.",
-            "To znači da je najbolji put jednostavan: prvo pročitajte glavni vodič za svoj problem, zatim otvorite povezani detaljni vodič ako imate konkretan izgovor aviokompanije ili posebnu situaciju. Tako ne lutate kroz arhivu bloga, već idete od glavnog pravila ka specifičnom dokazu."
+            "Ako znate šta se dogodilo, krenite od najbliže glavne teme: kašnjenje, otkazivanje, propuštena konekcija, overbooking, uskraćeno ukrcavanje, prtljag ili štrajk. Ako niste sigurni, prvo utvrdite posledicu po putovanje: da li ste stigli kasno, da li let nije obavljen, da li ste izgubili sledeći segment ili ste imali troškove čekanja.",
+            "Kada se osnovna tema prepozna, sledeće pitanje su dokazi. Loše vreme, tehnički kvar, rokovi, dokumenta, vaučer ili odbijen zahtev ne rešavaju se istim argumentima. Zato je najbolje prvo odvojiti glavni problem, a zatim proveriti konkretan razlog koji aviokompanija navodi."
           ],
         },
       ],
@@ -187,10 +187,10 @@ export const cornerstonePages: CornerstonePage[] = [
           ],
         },
         {
-          heading: "How to use this structure",
+          heading: "How to choose the right guide for your case",
           body: [
-            "The main guides on this page cover each topic to medium depth: enough to understand whether the case makes sense and what the next step is. The detailed blog articles below them go deeper into subtopics such as bad weather, technical fault, deadlines, documents, vouchers, rejected claims or Serbia-specific routes.",
-            "The best path is simple: read the main guide for your disruption first, then open the linked detailed guide if you have a specific airline excuse or special situation. That avoids wandering through the blog archive and moves you from the main rule to the specific proof."
+            "If you know what happened, start with the closest main topic: delay, cancellation, missed connection, overbooking, denied boarding, baggage or strike. If you are not sure, identify the consequence first: late arrival, flight not operated, lost onward segment or waiting costs.",
+            "Once the main topic is clear, the next question is evidence. Bad weather, technical fault, deadlines, documents, voucher or rejection are not handled with the same argument. The better path is to identify the main disruption first, then check the specific reason the airline gives."
           ],
         },
       ],
@@ -265,7 +265,7 @@ export const cornerstonePages: CornerstonePage[] = [
         "Glavni vodič za naknadu zbog kašnjenja leta: uslovi, iznosi, rute iz Srbije, vanredne okolnosti, dokazi i postupak.",
       eyebrow: "Glavni vodič",
       excerpt:
-        "Ako ste na krajnju destinaciju stigli tri sata ili više kasnije, možda imate pravo na fiksnu naknadu. Ovaj vodič objašnjava kada kašnjenje vredi proveriti, koliki iznos može pripadati putniku i kako odvojiti pravi zahtev od situacija koje aviokompanija može opravdati.",
+        "Ako ste na krajnju destinaciju stigli tri sata ili više kasnije, verovatno imate pravo na fiksnu naknadu. Ovaj vodič objašnjava kada kašnjenje vredi proveriti, koliki iznos može pripadati putniku i kako odvojiti osnovani zahtev od situacija koje aviokompanija može opravdati.",
       ctaLabel: "Proveri kašnjenje",
       languageLabel: "English version",
       sections: [
@@ -822,15 +822,16 @@ function addDepthToGeneratedGuide(page: CornerstonePage) {
       body: [
         "Najbolji zahtev se priprema dok ste još na aerodromu. Sačuvajte boarding pass, potvrdu rezervacije, broj leta, obaveštenja, fotografiju table, screenshot aplikacije i račune. Ako osoblje kaže razlog, zapišite tačnu formulaciju, vreme i gejt ili šalter.",
         "Prva poruka ne mora biti duga. Treba da sadrži činjenice koje se mogu proveriti: broj leta, datum, rutu, planirano i stvarno vreme, booking referencu, šta je ponuđeno i šta tražite. Ako imate troškove, stavite ih u poseban deo i priložite račune.",
-        "Ako aviokompanija odbije zahtev, ne šalje se emotivna replika. Šalje se dopuna sa pitanjima: koji je tačan razlog, koji dokaz ga potvrđuje, zašto nije ponuđena razumna alternativa i kako je razlog uticao baš na vaš let. Takav odgovor je bolja osnova za dalju procenu."
+        "Ako aviokompanija odbije zahtev, ne šalje se emotivna replika. Šalje se dopuna sa pitanjima: koji je tačan razlog, koji dokaz ga potvrđuje, zašto nije ponuđena razumna alternativa i kako je razlog uticao baš na vaš let. Takav odgovor je bolja osnova za dalju procenu.",
+        "Kada se dokumenta slože pre slanja, zahtev deluje ozbiljnije i ostavlja manje prostora za šablonsku odbijenicu. To je naročito važno kod slučajeva koji imaju više putnika, više segmenata ili troškove nastale tokom čekanja."
       ],
     },
     {
-      heading: "Detaljni vodiči za konkretne scenarije",
+      heading: "Kada je slučaj složeniji od osnovnog pravila",
       body: [
-        `Ova glavna strana pokriva ${srTopic} do srednje dubine. Kada imate konkretan scenario, pređite na detaljan tekst koji razrađuje jedan problem do kraja: ${srChildren}.`,
-        "To je važno i za čitaoca i za strukturu sajta. Glavna strana treba da objasni mapu pravila, a detaljni vodič treba da odgovori na usko pitanje: šta ako je razlog loše vreme, šta ako je ponuđen vaučer, šta ako je kompanija odbila zahtev, šta ako je problem nastao na konekciji ili šta ako su troškovi plaćeni iz džepa.",
-        "Ako se vaš slučaj dodiruje više tema, ne morate menjati osnovnu klasifikaciju. Krenite od najbliže glavne strane, a zatim otvorite povezani detaljni vodič. Tako se ne gubi kontekst, a dobija se dubina tamo gde je stvarno potrebna."
+        `Kod teme ${srTopic}, osnovno pravilo često nije dovoljno kada aviokompanija navede poseban razlog ili kada postoji više posledica po putnika. Tada treba proveriti konkretan scenario kao što su: ${srChildren}.`,
+        "To nije pitanje arhive tekstova, već pitanje dokaza. Loše vreme, tehnički kvar, odbijen zahtev, vaučer, odvojene karte i troškovi iz džepa ne traže isti odgovor. Svaki scenario ima drugačiji dokaz koji može promeniti ishod.",
+        "Ako se slučaj dodiruje više tema, prvo se određuje glavni događaj, a zatim sekundarne posledice. Tako se ne pokušava sve ugurati u jednu kategoriju, već se za svaku vrstu prava traži najjači osnov."
       ],
     },
     {
@@ -932,15 +933,16 @@ function addDepthToGeneratedGuide(page: CornerstonePage) {
       body: [
         "The best claim is prepared while you are still at the airport. Keep the boarding pass, booking confirmation, flight number, notices, departures-board photo, app screenshot and receipts. If staff state the reason, write down the exact wording, time and gate or desk.",
         "The first message does not need to be long. It needs checkable facts: flight number, date, route, scheduled and actual time, booking reference, what was offered and what you request. If you have expenses, put them in a separate part and attach receipts.",
-        "If the airline rejects the claim, do not send an emotional reply. Send a follow-up asking for the exact cause, evidence supporting it, why no reasonable alternative was offered and how the cause affected your flight. That creates a much better basis for further assessment."
+        "If the airline rejects the claim, do not send an emotional reply. Send a follow-up asking for the exact cause, evidence supporting it, why no reasonable alternative was offered and how the cause affected your flight. That creates a much better basis for further assessment.",
+        "When documents are organized before filing, the claim looks more serious and leaves less room for a template rejection. This matters especially when several passengers, several segments or waiting costs are involved."
       ],
     },
     {
-      heading: "Detailed guides for specific scenarios",
+      heading: "When the case is more complex than the basic rule",
       body: [
-        `This main guide covers ${enTopic} to medium depth. When you have a concrete scenario, move to the detailed article that deals with one issue fully: ${enChildren}.`,
-        "This helps both the reader and the site structure. The main page should explain the map of rules, while the detailed guide should answer a narrow question: what if the cause was weather, what if a voucher was offered, what if the airline rejected the claim, what if the issue happened on a connection or what if you paid expenses yourself.",
-        "If your case touches several topics, you do not need to change the basic classification. Start from the closest main guide, then open the linked detailed guide. That keeps the context while giving depth where it is needed."
+        `For ${enTopic}, the basic rule is often not enough when the airline cites a specific reason or when the passenger has several consequences. Then the specific scenario should be checked, such as: ${enChildren}.`,
+        "This is not about browsing an article archive. It is about evidence. Bad weather, technical fault, rejected claim, voucher, separate tickets and out-of-pocket costs do not need the same response. Each scenario has a different proof point that can change the result.",
+        "If the case touches several topics, identify the main event first and then the secondary consequences. That avoids forcing everything into one category and lets each right be checked on its strongest basis."
       ],
     },
     {
@@ -1028,7 +1030,9 @@ function addDepthToAirPassengerRightsGuide(page: CornerstonePage) {
       body: [
         "Fiksna novčana naknada je samo jedan sloj prava putnika. Ona je najvidljivija jer iznosi mogu biti 250, 400 ili 600 evra, ali nije jedina. Refundacija karte, preusmeravanje, briga tokom čekanja i refundacija nužnih troškova često su jednako važni za stvarnog putnika.",
         "Zato se u dobroj proceni ne pita samo da li aviokompanija duguje novac. Pita se da li putnik treba da nastavi putovanje, da li može da odustane, da li je alternativa bila razumna, da li je tokom čekanja morao da dobije hranu ili hotel i da li su troškovi nastali zato što kompanija nije obezbedila pomoć.",
-        "Ako jedan deo zahteva padne, drugi može ostati. Na primer, vanredne okolnosti mogu otežati fiksnu naknadu, ali ne brišu automatski pravo na brigu. Povraćaj karte ne zatvara automatski pitanje dodatne naknade ako su uslovi ispunjeni."
+        "Ako jedan deo zahteva padne, drugi može ostati. Na primer, vanredne okolnosti mogu otežati fiksnu naknadu, ali ne brišu automatski pravo na brigu. Povraćaj karte ne zatvara automatski pitanje dodatne naknade ako su uslovi ispunjeni.",
+        "Ovo je važno za profesionalnu obradu jer se u jednom događaju često kriju dve ili tri različite stavke. Kada se one razdvoje od početka, manja je šansa da aviokompanija odgovori samo na najlakši deo i prećuti ostalo.",
+        "Zato se svaka procena završava pitanjem šta se tačno traži, od koga, po kom osnovu i kojim dokazom, posebno kada isti događaj otvara i naknadu i troškove koji se dokazuju drugačije pred aviokompanijom i kasnijom stručnom proverom dokumentacije i svih putnih računa."
       ],
     },
     {
@@ -1064,11 +1068,11 @@ function addDepthToAirPassengerRightsGuide(page: CornerstonePage) {
       ],
     },
     {
-      heading: "Kako ova struktura pomaže budućim tekstovima",
+      heading: "Kako povezati opšti problem sa konkretnim zahtevom",
       body: [
-        "Svaki novi detaljni tekst treba da ima jasno mesto u strukturi: jednu glavnu temu, jedan primarni URL i jedan najvažniji interni link nazad ka glavnoj strani. Tako putnik ne dobija arhivu nepovezanih tekstova, nego putanju od šireg pravila ka konkretnom problemu.",
-        "Ako se tema dodiruje više oblasti, rešava se internim linkovima, ne dupliranjem strukture. Na primer, dokumenta mogu pomoći i kod kašnjenja i kod otkazivanja, ali glavni tekst o dokumentima ostaje u opštoj temi prava putnika i linkuje ka relevantnim glavnim vodičima.",
-        "Ovakav model je skalabilan: glavne strane nose srednju dubinu, detaljni tekstovi nose maksimalnu dubinu, a korisnik uvek zna gde se nalazi i koji je sledeći korak."
+        "Putnik često ne zna da li ima jedan zahtev ili više različitih prava. Kašnjenje može otvoriti fiksnu naknadu, ali i troškove hotela. Otkazivanje može otvoriti refundaciju, ali i kasniji dolazak alternativnim letom. Propuštena konekcija može zavisiti od toga da li je sve bilo u jednoj rezervaciji.",
+        "Zato je korisno prvo imenovati glavni problem, a zatim sporedne posledice. Glavni problem određuje osnov zahteva, dok sporedne posledice pokazuju koja dokumenta, računi i dodatna objašnjenja treba priložiti.",
+        "Ako se slučaj dodiruje više oblasti, to nije mana. To samo znači da zahtev treba razdvojiti po vrstama prava, umesto da se sve pošalje kao jedna nejasna žalba."
       ],
     },
     {
@@ -1104,13 +1108,13 @@ function addDepthToAirPassengerRightsGuide(page: CornerstonePage) {
       ],
     },
     {
-      heading: "Kako glavne strane treba da šalju autoritet jedna drugoj",
+      heading: "Kako više poremećaja utiče na isti zahtev",
       body: [
-        "Najvažnije glavne strane ne treba da budu izolovane. Kada tekst o otkazivanju pominje kasniji dolazak alternativnim letom, prirodno linkuje ka kašnjenju. Kada tekst o konekciji objašnjava krajnju destinaciju, takođe vraća čitaoca na pravilo o dolasku. Kada tekst o štrajku ili prtljagu pominje brigu tokom čekanja, link ka pravima putnika i kašnjenju pomaže da se razume širi okvir.",
-        "Cilj nije da se svaki slučaj veštački pretvori u kašnjenje, već da se čitaocu pokaže glavna osovina procene: šta se dogodilo, ko je kontrolisao razlog, koliko je putovanje promenjeno i koje pravo se traži. Zbog toga ova stranica ostaje opšta mapa, dok glavne tematske strane nose dublju obradu pojedinačnih oblasti.",
-        "Kada se dodaju novi tekstovi, svaki treba da ima jedan primarni parent i nekoliko kontekstualnih linkova ka srodnim glavnim stranama. Tako se gradi autoritet bez haotične strukture i bez dupliranja istih objašnjenja kroz više URL-ova.",
-        "Za putnika to znači manje lutanja. Ako zna samo da je putovanje propalo, kreće od ove mape. Ako zna da je konkretno kasnio, ide pravo na vodič za kašnjenje. Ako se kasnije pokaže da je problem bio drugačiji, linkovi ga vode ka preciznijoj temi bez vraćanja na početak.",
-        "Za sajt to znači da se najvažniji vodiči međusobno pojačavaju. Detaljan tekst ne treba da bude slepa ulica, već korak koji vodi nazad ka glavnoj temi i ka narednom korisnom pitanju, bez rasipanja korisnika kroz nepovezane tekstove i arhive."
+        "Jedan put može imati više poremećaja: prvo kašnjenje, zatim propuštenu konekciju, zatim noćni hotel ili alternativni let. U takvoj situaciji nije dovoljno pitati samo da li je prvi avion kasnio. Treba videti šta je bila krajnja posledica i koje pravo se traži za svaku posledicu.",
+        "Ako je otkazan let zamenjen alternativom koja kasni, u istoj proceni mogu se pojaviti i otkazivanje i kašnjenje. Ako je konekcija propuštena zbog prvog segmenta, bitna je krajnja destinacija. Ako je čekanje trajalo dugo, troškovi brige mogu ostati relevantni čak i kada je fiksna naknada sporna.",
+        "Zato dobar zahtev ne pokušava da sve nazove jednim imenom. On razdvaja događaj, posledicu, odgovornost aviokompanije i dokaz koji podržava svaku stavku.",
+        "Za putnika to znači manje lutanja i manje rizika da se pravo propusti zato što je slučaj opisan preširoko ili pogrešnim redom.",
+        "Za profesionalnu obradu to znači jasniji dosije: prvo činjenice, zatim osnov, zatim dokazi, zatim iznos ili trošak koji se traži."
       ],
     },
     {
@@ -1138,7 +1142,8 @@ function addDepthToAirPassengerRightsGuide(page: CornerstonePage) {
       body: [
         "Fixed cash compensation is only one layer of passenger rights. It is the most visible because the amounts can be 250, 400 or 600 euros, but it is not the only one. Ticket refund, rerouting, care during the wait and reimbursement of necessary expenses are often just as important for the actual passenger.",
         "A good assessment therefore does not only ask whether the airline owes money. It asks whether the passenger should continue travel, whether they can abandon the trip, whether the alternative was reasonable, whether food or hotel should have been provided and whether costs arose because the airline did not arrange help.",
-        "If one part of the claim fails, another may remain. Extraordinary circumstances can make fixed compensation harder, but they do not automatically remove care rights. A ticket refund does not automatically close the compensation question if the conditions are met."
+        "If one part of the claim fails, another may remain. Extraordinary circumstances can make fixed compensation harder, but they do not automatically remove care rights. A ticket refund does not automatically close the compensation question if the conditions are met.",
+        "This matters for professional handling because one disruption often contains two or three separate items. When they are separated from the start, the airline has less room to answer only the easiest part and ignore the rest."
       ],
     },
     {
@@ -1174,11 +1179,11 @@ function addDepthToAirPassengerRightsGuide(page: CornerstonePage) {
       ],
     },
     {
-      heading: "How this structure supports future articles",
+      heading: "How to connect a broad disruption with the actual claim",
       body: [
-        "Every new detailed article should have a clear place in the structure: one main topic, one primary URL and one most important internal link back to the main page. That gives the passenger a path from the wider rule to the concrete problem, not an archive of disconnected posts.",
-        "If a topic touches several areas, handle it with internal links rather than duplicate structure. For example, documents help both delay and cancellation cases, but the main documents article can stay under general passenger rights while linking to relevant main guides.",
-        "This model scales: main pages carry medium depth, detailed articles carry maximum depth, and the user always knows where they are and what to do next."
+        "Passengers often do not know whether they have one claim or several separate rights. A delay can create fixed compensation, but also hotel costs. A cancellation can create a refund, but also late arrival on a replacement flight. A missed connection can depend on whether all flights were under one booking.",
+        "That is why the main problem should be named first, then the secondary consequences. The main problem decides the claim basis, while secondary consequences show which documents, receipts and explanations should be attached.",
+        "If a case touches several areas, that is not a defect. It means the claim should be separated by type of right instead of sent as one unclear complaint."
       ],
     },
     {
@@ -1214,12 +1219,12 @@ function addDepthToAirPassengerRightsGuide(page: CornerstonePage) {
       ],
     },
     {
-      heading: "How main pages should pass authority to each other",
+      heading: "How several disruptions affect the same claim",
       body: [
-        "The most important main pages should not be isolated. When a cancellation article discusses late arrival on a replacement flight, it naturally links to delay. When a missed-connection article explains final destination, it also points back to the arrival rule. When a strike or baggage article mentions care during waiting, a link to passenger rights and delay helps explain the wider framework.",
-        "The goal is not to force every case into delay, but to show the reader the central assessment: what happened, who controlled the cause, how much the journey changed and which right is being requested. This page remains the general map, while the main topic pages carry deeper treatment of each area.",
-        "When new articles are added, each one should have one primary parent and several contextual links to related main pages. That builds authority without a chaotic structure and without repeating the same explanation across many URLs.",
-        "For passengers, that means less wandering. If they only know that the journey failed, they start from this map. If they know they arrived late, they go straight to the delay guide. If the case later turns out to be different, the links move them to the precise topic without restarting from scratch and without losing the evidence already collected."
+        "One journey can include several disruptions: a first delay, a missed connection, an overnight hotel or a replacement flight. In that situation, it is not enough to ask whether the first aircraft was late. The final consequence and the right requested for each consequence must be checked.",
+        "If a cancelled flight is replaced by a delayed alternative, cancellation and delay can both appear in the same assessment. If a connection is missed because of the first segment, final destination matters. If the wait was long, care costs can remain relevant even when fixed compensation is disputed.",
+        "A good claim therefore does not force everything into one label. It separates the event, consequence, airline responsibility and evidence supporting each item.",
+        "For the passenger, that means less confusion and less risk of losing a right because the case was described too broadly or in the wrong order."
       ],
     },
     {
@@ -1531,6 +1536,317 @@ if (delayGuide) {
       question: "Does a diverted flight belong under delay?",
       answer:
         "Often yes. If you landed at another airport, the key question is when you actually reached the airport or destination in the booking and who covered the transfer.",
+    },
+  ];
+
+  // P1 rewrite: keep only reader/search/legal headings and frame the claim as professional handling.
+  delayGuide.sr.sections = [
+    {
+      heading: "Kada kašnjenje leta daje pravo na naknadu",
+      body: [
+        "Naknada za kašnjenje leta se ne procenjuje po tome koliko je putnik bio nervozan na aerodromu, niti po tome koliko je karta plaćena. Osnovno pitanje je da li ste na krajnju destinaciju stigli tri sata ili više kasnije od planiranog dolaska. Ako je polazak kasnio, ali je avion nadoknadio vreme u letu, slučaj može biti slabiji. Ako je prvi segment delovao kao manje kašnjenje, ali je zbog njega propala konekcija u jednoj rezervaciji, slučaj može biti mnogo jači.",
+        "Drugo pitanje je ruta. Evropska pravila najčešće pokrivaju letove koji polaze iz EU, letove koji dolaze u EU kada ih obavlja evropski prevoznik, i putovanja u jednoj rezervaciji gde se problem na jednom segmentu preliva na krajnju destinaciju. Za putnike iz Srbije posebno su važni letovi preko Beča, Frankfurta, Pariza, Rima, Amsterdama i drugih evropskih čvorišta, jer jedna booking referenca često menja celu procenu.",
+        "Treće pitanje je razlog kašnjenja. Tehnički kvar, kasna rotacija aviona, nedostatak posade i operativna organizacija često mogu biti u zoni odgovornosti aviokompanije. Loše vreme, zatvaranje aerodroma, ograničenja kontrole letenja i bezbednosni događaji mogu biti jača odbrana. Razlika nije u nazivu razloga, već u dokazima. Zato se ozbiljan zahtev ne zasniva na poruci iz aplikacije, već na vezi između rute, vremena, uzroka i posledice.",
+      ],
+      bullets: [
+        "Ključni prag je dolazak tri sata ili više kasnije.",
+        "Gleda se krajnja destinacija, naročito kod jedne rezervacije.",
+        "Iznos zavisi od razdaljine, a ne od cene karte.",
+        "Razlog kašnjenja mora biti konkretno proveren, ne samo prihvaćen.",
+      ],
+    },
+    {
+      heading: "Koliko može iznositi naknada",
+      body: [
+        "Kod evropskog modela najčešći iznosi su 250, 400 i 600 evra po putniku. Za kraće rute do 1.500 kilometara najčešći iznos je 250 evra. Za rute od 1.500 do 3.500 kilometara, kao i za duže rute unutar EU, najčešći iznos je 400 evra. Za rute preko 3.500 kilometara iznos može biti 600 evra.",
+        "Na dugim rutama postoji važan izuzetak: kada je kašnjenje pri dolasku između tri i četiri sata, iznos može biti smanjen. Zbog toga nije dovoljno znati da je let kasnio. Potrebni su tačna ruta, planirano vreme dolaska, stvarno vreme dolaska i potvrda da se procenjuje krajnja destinacija, a ne samo jedan segment koji je prvi napravio problem.",
+        "Za većinu letova iz Beograda, Niša ili Kraljeva prema evropskim gradovima praktično se najčešće pojavljuju iznosi od 250 ili 400 evra. Interkontinentalne rute preko EU čvorišta traže pažljiviju procenu, posebno ako postoji presedanje. Let Kasni zato prvo proverava udaljenost i rezervaciju, pa tek onda iznos, jer pogrešno postavljen iznos često vodi ka nepotrebnom odbijanju ili sporijoj obradi.",
+      ],
+    },
+    {
+      heading: "Vanredne okolnosti i najčešći razlozi odbijanja",
+      body: [
+        "Aviokompanije često odbijaju zahteve kratkim formulacijama: vremenski uslovi, slot, kontrola letenja, bezbednosni razlog, kasna rotacija, operativni razlozi ili tehnički razlog. Neki od tih razloga zaista mogu isključiti fiksnu naknadu. Problem je što opšta rečenica ne pokazuje da li je baš taj događaj pogodio baš vaš let i baš toliko produžio dolazak.",
+        "Kod lošeg vremena nije dovoljno napisati da je padala kiša ili da je bilo magle negde u mreži. Mora se videti gde je vreme bilo problem, koliko je trajalo i da li su drugi letovi mogli normalno da se obavljaju. Kod slotova kontrole letenja mora se razdvojiti deo kašnjenja koji je zaista nastao zbog ograničenja od dela koji je kasnije nastao zbog aviona, posade ili organizacije prevoznika.",
+        "U praksi je ovo deo gde profesionalna obrada najviše menja ton zahteva. Umesto da putnik sam ulazi u raspravu sa generičkim odgovorom, slučaj se postavlja kroz proverljive tačke: koji je događaj, kada je počeo, kada se završio, koji segment je pogodio i koje mere je aviokompanija preduzela da smanji posledice. Bez toga odbijenica često ostaje samo tvrdnja, ne dokaz.",
+      ],
+    },
+    {
+      heading: "Šta sačuvati dok ste još na aerodromu",
+      body: [
+        "Najbolji zahtev počinje dokazima koji se skupljaju dok je problem još svež. Sačuvajte boarding pass, potvrdu rezervacije, booking referencu, broj leta, poruke aviokompanije, screenshot statusa leta, fotografiju table polazaka i račune za hranu, vodu, transfer ili hotel. Ako osoblje na gejtu saopšti razlog, zapišite tačnu formulaciju, vreme i mesto gde ste informaciju dobili.",
+        "Ovo ne znači da putnik treba sam da vodi pravnu raspravu na aerodromu. Naprotiv, cilj je da ne ostane bez materijala koji kasnije omogućava stručnu proveru. Dve fotografije, jedan screenshot i račun često vrede više od dugog prepričavanja događaja posle mesec dana. Ako se razlog menjao tokom dana, sačuvajte sve verzije jer upravo te promene često pokazuju da slučaj nije jednostavan.",
+        "Ako čekanje ulazi u noć, bitni su tragovi o hotelu i transferu. Ako aviokompanija ništa ne organizuje, razumni troškovi mogu biti posebno pitanje, odvojeno od fiksne naknade. Zato račun za hotel, taksi ili obrok ne treba posmatrati kao sporedan detalj. On može biti deo zahteva čak i kada se o fiksnoj naknadi vodi posebna rasprava.",
+      ],
+    },
+    {
+      heading: "Zašto zahtev nije samo formular aviokompaniji",
+      body: [
+        "Putnik tehnički može sam poslati zahtev aviokompaniji, ali to ne znači da je svaki slučaj pogodan za jednostavan formular. Formular obično traži broj leta, datum i kratko objašnjenje. Spor počinje tek kada kompanija napiše da ne duguje ništa, da je postojao slot, da je razlog vreme, ili da je poremećaj bio van njene kontrole.",
+        "Tada zahtev više nije administrativna prijava, nego pitanje dokaza. Treba razdvojiti fiksnu naknadu od refundacije troškova, proveriti rutu, utvrditi da li je sve bilo u jednoj rezervaciji, uporediti planirani i stvarni dolazak i proceniti da li je razlog koji navodi aviokompanija dovoljan. To je cumbersome deo procesa: komunikacija, prikupljanje dokaza i, kada treba, pravno insistiranje.",
+        "Let Kasni zato preuzima deo koji najčešće pravi razliku: procenu osnova, slaganje dokaza, komunikaciju sa aviokompanijom i odgovor na prvu generičku odbijenicu. Aviokompanije često računaju da će fizičko lice stati posle prve odbijenice. Drugačiji je pritisak kada zahtev vodi neko ko poznaje pravila, rokove i procedure, jer cilj nije samo poslati poruku, već postaviti zahtev tako da na njega kompanija mora konkretno da odgovori.",
+        "U najjačem zahtevu nema viška emocije, ali ima dovoljno pritiska kroz činjenice. To je razlika između poruke koju korisnička podrška može zatvoriti šablonom i dosijea u kome se jasno vidi šta se dogodilo, šta se traži i zašto opšta odbijenica nije dovoljna.",
+      ],
+    },
+    {
+      heading: "Ruta, Srbija, EU i ECAA okvir",
+      body: [
+        "Putnici iz Srbije često polaze od pogrešnog pitanja: da li je putnik državljanin Srbije ili da li je karta kupljena u Srbiji. U većini slučajeva važniji su aerodrom polaska, aerodrom dolaska, operativni prevoznik i jedna rezervacija. Let iz EU ka Srbiji je obično čistiji slučaj. Let iz Srbije ka EU može biti jak kada ga obavlja evropski prevoznik.",
+        "[ECAA okvir](/prava-putnika-u-aviosaobracaju/eu261-ecaa-srbija-prava-putnika) je važan zato što se putnici iz Srbije često nalaze između lokalne prakse, evropskih pravila i kombinovanih ruta. Ako putujete iz Srbije preko evropskog čvorišta, ne procenjuje se samo prvi avion kao izolovan događaj. Mora se proveriti cela rezervacija, ko je obavljao problematični segment i kada ste stigli do krajnje destinacije.",
+        "Kod codeshare letova posebno je važno ko je operativni prevoznik. Na karti može stajati jedna kompanija, a avion može obavljati druga. To menja procenu kod dolazaka u EU iz trećih zemalja i kod ruta koje imaju više segmenata. Zato se u stručnoj proveri traže e-ticket, boarding pass, broj leta i detalji iz aplikacije, jer se iz tih dokumenata vidi ko je zaista obavljao let.",
+      ],
+    },
+    {
+      heading: "Dolazak tri sata kasnije i stvarno vreme dolaska",
+      body: [
+        "Presudan prag je vreme dolaska na krajnju destinaciju, ne samo vreme poletanja. Ako je polazak kasnio četiri sata, ali je dolazak kasnio dva sata i pedeset minuta, fiksna naknada može biti sporna. Ako je prvi let kasnio manje, ali ste zbog njega propustili konekciju i stigli pet sati kasnije, slučaj može biti mnogo jači pravno.",
+        "Zato se u proceni traže planirano vreme dolaska, stvarno vreme sletanja, vreme otvaranja vrata kada je dostupno, screenshot iz aplikacije i poruke aviokompanije. Vodiči za prava putnika i zvanični EU izvori posebno naglašavaju dolazak, jer se upravo tu najčešće pravi greška. Putnik pamti čekanje na polasku, ali pravo na fiksnu naknadu najčešće zavisi od kraja putovanja.",
+        "Ako ste [preusmereni na drugi aerodrom](/naknada-za-kasnjenje-leta/preusmeren-let-drugi-aerodrom-prava-putnika), nije dovoljno gledati samo vreme sletanja na alternativni aerodrom. Bitno je kada ste realno stigli do aerodroma ili destinacije iz rezervacije, ko je organizovao transfer i koliko je putovanje ukupno produženo. Zato preusmerenje često pripada temi kašnjenja, iako na prvi pogled deluje kao posebna situacija.",
+      ],
+    },
+    {
+      heading: "Iznos po dužini rute i kada se može smanjiti",
+      body: [
+        "Iznos se računa prema razdaljini, a ne prema ceni karte, klasi putovanja ili iznosu dodatnih usluga. Putnik sa jeftinom kartom može imati isti fiksni iznos kao putnik koji je platio mnogo skuplju kartu. To je razlog zašto procena mora prvo rešiti rutu, a tek posle vrednost zahteva.",
+        "Kod jedne rezervacije razdaljina se ne mora uvek svesti na segment koji je prvi zakasnio. Ako je kašnjenje na kratkom segmentu dovelo do ozbiljnog kašnjenja na krajnjoj destinaciji, gleda se ceo putni aranžman koji je prodat kao jedna celina. Ako su karte odvojene, procena se menja jer aviokompanija obično ne odgovara za samostalno kupljeni sledeći let.",
+        "Tabela iznosa na ovoj strani služi kao brza orijentacija, ali nije zamena za proveru odgovornosti. Dva leta iste razdaljine mogu imati potpuno različit ishod ako je jedan kasnio zbog redovnog tehničkog kvara, a drugi zbog zatvaranja aerodroma. Zbog toga Let Kasni iznos tretira kao poslednji korak posle rute, dolaska i razloga, ne kao prvi korak.",
+      ],
+    },
+    {
+      heading: "Tehnički kvar, rotacija aviona i posada",
+      body: [
+        "[Tehnički kvar](/naknada-za-kasnjenje-leta/tehnicki-kvar-aviona-odsteta) je jedan od najčešćih razloga zbog kojih putnik ne treba odmah da odustane. Redovni tehnički problemi obično su deo operativnog rizika aviokompanije. To ne znači da je svaki kvar automatski plaćen slučaj, ali znači da rečenica tehnički razlog nije dovoljna ako ne objašnjava šta se dogodilo, kada je otkriveno i zašto je kašnjenje trajalo baš toliko.",
+        "[Kasna rotacija prethodnog leta](/naknada-za-kasnjenje-leta/kasnjenje-prethodnog-leta-rotacija-aviona) traži proveru prethodnog segmenta. Ako je vaš avion zakasnio zato što se kasno vratio iz drugog grada, pravo pitanje je zašto je taj prethodni let kasnio. Ako je uzrok bio u odgovornosti aviokompanije, zahtev može ostati jak. Ako je prethodni segment pogodilo ozbiljno vreme ili zatvaranje aerodroma, procena je teža, ali nije automatski završena.",
+        "[Nedostatak posade](/naknada-za-kasnjenje-leta/nedostatak-posade-kasnjenje-leta-odsteta), prekoračenje radnog vremena ili loše planiranje smene često izgledaju kao interni operativni problem. U profesionalnoj obradi se zato ne prihvata samo etiketa posada. Proverava se da li je posada kasnila zbog događaja van kontrole kompanije ili zato što kompanija nije imala raspoloživ tim za planirani let.",
+      ],
+    },
+    {
+      heading: "Loše vreme, slotovi kontrole letenja i bezbednosni događaji",
+      body: [
+        "[Loše vreme](/naknada-za-kasnjenje-leta/kasnjenje-leta-zbog-loseg-vremena) može biti vanredna okolnost, ali nije svaka kiša, vetar ili magla dovoljan odgovor. Mora se videti gde je vreme nastalo, koliko je trajalo i da li je direktno sprečilo baš taj let. Ako je vreme pogodilo neki raniji segment u rotaciji, dodatno se proverava da li je kasnije čekanje zaista posledica vremena ili organizacije aviona.",
+        "[Slotovi kontrole letenja](/naknada-za-kasnjenje-leta/kasnjenje-leta-zbog-slotova-kontrole-letenja) često su jači argument aviokompanije jer prevoznik ne upravlja vazdušnim prostorom. Ipak, slot može objasniti deo kašnjenja, a ne nužno ceo dan čekanja. Zato se ne prihvata samo reč slot, već se proverava period ograničenja, segment koji je pogođen i šta se dogodilo posle prestanka ograničenja.",
+        "Bezbednosni događaji, zatvaranje piste, medicinski hitan slučaj, udar groma ili udar ptice mogu realno biti van kontrole aviokompanije. I tada ostaje pitanje brige, alternativnog prevoza i troškova čekanja. Ovo je važan deo framinga: čak i kada fiksna naknada nije sigurna, putnik ne mora ostati bez svih prava, a stručna procena pomaže da se ne mešaju pogrešne stavke.",
+      ],
+    },
+    {
+      heading: "Pravo na brigu: hrana, hotel, transfer i refundacija troškova",
+      body: [
+        "Pravo na brigu je odvojeno od fiksne naknade. To znači da putnik može imati pravo na obrok, osveženje, komunikaciju, hotel i transfer čak i kada aviokompanija kasnije dokaže da fiksna naknada od 250, 400 ili 600 evra ne pripada. Ovu razliku je važno naglasiti jer se u praksi često mešaju naknada za gubitak vremena i nužni troškovi čekanja.",
+        "Ako let ide tek sutradan, relevantan je [hotel i prevoz između aerodroma i hotela](/naknada-za-kasnjenje-leta/nocno-kasnjenje-leta-hotel-prava). Ako kompanija ne organizuje ništa, troškovi treba da budu razumni i dokazivi. Razumno znači ono što je potrebno da nastavite putovanje ili provedete noć bez nepotrebnog luksuza. Račun i vreme kupovine su važniji od dugog objašnjenja.",
+        "Ako ste zbog kašnjenja sami kupili novu kartu, slučaj postaje osetljiv. Mora se pokazati da je pomoć tražena, da ponuđena alternativa nije bila razumna ili da pomoći nije bilo. To je tipičan primer gde samostalna poruka putnika često preskoči najvažniji dokaz, dok profesionalna obrada prvo razdvaja fiksnu naknadu, refundaciju računa i pitanje smanjenja štete.",
+      ],
+    },
+    {
+      heading: "Dokumenta, rokovi i profesionalna obrada zahteva",
+      body: [
+        "Za obradu su najvažniji potvrda rezervacije, boarding pass, broj leta, datum, cela ruta, planirano vreme dolaska, stvarno vreme dolaska, poruke aviokompanije, dokaz o razlogu kašnjenja i računi za nužne troškove. Kod konekcije se dodaje kompletan itinerer i dokaz da su segmenti bili u jednoj rezervaciji.",
+        "Rokovi zavise od pravila koja se primenjuju i države u kojoj se zahtev vodi. Zato nije dobro čekati mesecima, ali nije dobro ni slati nepotpun zahtev istog dana bez dokaza. Bolja strategija je brzo sačuvati dokumenta, napraviti vremensku liniju i proveriti da li slučaj ide kao fiksna naknada, briga, refundacija troškova ili kombinacija.",
+        "Let Kasni u ovoj fazi preuzima najteži deo: slaganje činjenica, izbor osnova, komunikaciju sa aviokompanijom i odgovor na generičke odbijenice. Putniku ostaje da dostavi podatke i dokaze koje ima. To je realniji ton od obećanja da se sve rešava jednim formularom, jer dobri slučajevi često propadaju upravo zbog neuredno postavljenog zahteva.",
+        "Profesionalna obrada je posebno korisna kada se traži više stvari odjednom: fiksna naknada, hotel, transfer, obrok ili nova karta. Ako se te stavke ne razdvoje, aviokompanija često odgovori samo na jednu i prećuti ostale.",
+      ],
+    },
+    {
+      heading: "Šta ako aviokompanija odbije zahtev",
+      body: [
+        "Odbijenica ne znači automatski da je slučaj završen. Najčešći problem je što aviokompanija navede opšti razlog bez dokaza: vanredne okolnosti, operativni razlozi, slot, vreme ili odluka aerodroma. Takav odgovor mora se čitati po tačkama: da li pominje tačan let, tačan datum, tačan segment, trajanje događaja i vezu sa kašnjenjem na krajnjoj destinaciji.",
+        "Ako odgovor preskače ključne činjenice, sledeći korak nije emotivna rasprava nego precizna dopuna. U praksi se traži dokaz događaja, vreme početka i kraja, objašnjenje zašto nije bilo ranije alternative i razdvajanje fiksne naknade od troškova brige. Ovo je deo procesa gde profesionalni ton često ima veću težinu od duge poruke putnika.",
+        "Ako kompanija ne odgovara, važno je sačuvati trag komunikacije. Jedan uredan follow-up sa istim činjenicama i jasnim pitanjem bolji je od niza neorganizovanih poruka. Ako se kasnije ide dalje, istorija komunikacije pokazuje da je putnik pokušao da reši stvar direktno i da je aviokompanija imala priliku da konkretno obrazloži odbijanje.",
+        "U dobroj obradi se zato ne posmatra samo poslednji odgovor aviokompanije. Gleda se cela komunikacija: šta je putnik poslao, šta je kompanija preskočila i da li se razlog menjao. Često baš taj sled pokaže da odbijanje nije dovoljno precizno i da treba tražiti konkretniji dokaz za isplatu pune naknade.",
+      ],
+    },
+    {
+      heading: "Kada profesionalna provera posebno menja ishod",
+      body: [
+        "Profesionalna provera najviše znači kada slučaj nije čist na prvi pogled: presedanje u jednoj rezervaciji, codeshare let, više razloga kašnjenja, drugi aerodrom, kašnjenje blizu granice od tri sata, noćno čekanje, samostalno kupljena nova karta ili generička odbijenica. U takvim situacijama jedan pogrešan detalj može promeniti iznos ili ceo osnov zahteva.",
+        "Specijalizovani servisi ne prave razliku samo time što putniku kažu da pravo postoji. Razliku pravi preuzimanje posla: provera leta, slaganje dokumenata, komunikacija sa aviokompanijom, insistiranje na dokazima i pravni pritisak kada kompanija odbije. Let Kasni na tome zasniva obradu: putnik razume logiku, ali mu je jasno da proces nije trivijalan i da se ishod često menja kada slučaj vodi neko ko zna proceduru.",
+        "Najbolji framing nije plašenje putnika, već realna slika. Ako je slučaj jednostavan, proverava se brzo. Ako je složen, samostalno dopisivanje često vodi do prihvatanja prve odbijenice ili propuštanja troškova koji su mogli biti traženi. Zato je profesionalna provera korisna upravo kada aviokompanija deluje sigurno u odbijanju, a dokazi nisu potpuni. U takvim slučajevima razlika nije samo u tonu poruke, već u brzini, redosledu koraka i pritisku da kompanija konkretno obrazloži odbijanje.",
+      ],
+    },
+    {
+      heading: "Najčešće greške koje umanjuju naknadu",
+      body: [
+        "Prva greška je oslanjanje na usmeno objašnjenje bez dokaza. Druga je brisanje boarding pass dokumenata i poruka čim se putovanje završi. Treća je mešanje fiksne naknade, refundacije karte, hotela, hrane i transfera u jednu nejasnu žalbu. Aviokompaniji je lakše da odbije nejasan zahtev nego zahtev koji razdvaja svaku stavku.",
+        "Česta greška je prihvatanje vaučera ili ponude bez razumevanja uslova. Vaučer za hranu ne ukida fiksnu naknadu, ali neka poravnanja ili komercijalne ponude mogu sadržati odricanje od daljih potraživanja. Zato se pre prihvatanja bilo čega što liči na konačno rešenje moraju sačuvati uslovi i proveriti šta se time zatvara.",
+        "Treća greška je prerano odustajanje posle prve odbijenice. Ako je odbijenica konkretna i potkrepljena dokazom, slučaj može biti slab. Ako je opšta, bez vremenske linije i veze sa vašim letom, ona je samo početak druge faze. Tu Let Kasni preuzima rad: proverava razlog, slaže dokaze i procenjuje da li se ide dalje ili se slučaj realno zatvara.",
+      ],
+    },
+  ];
+
+  delayGuide.en.sections = [
+    {
+      heading: "When a flight delay gives a right to compensation",
+      body: [
+        "Flight delay compensation is not assessed by how stressful the airport wait felt or by how much the ticket cost. The core question is whether you reached the final destination three hours or more after the scheduled arrival time. If departure was late but the aircraft recovered time in the air, the claim can be weaker. If the first segment looked like a smaller delay but caused a missed connection under one booking, the case can be much stronger.",
+        "The second question is route coverage. European rules commonly cover flights departing from the EU, flights arriving in the EU when operated by a European carrier, and one-booking journeys where a problem on one segment affects arrival at the final destination. For travelers from Serbia, routes through Vienna, Frankfurt, Paris, Rome, Amsterdam and other European hubs matter because a single booking reference can change the assessment.",
+        "The third question is the cause of the delay. Technical faults, late aircraft rotation, crew shortage and operational organization can often sit within the airline's responsibility. Bad weather, airport closure, air traffic control restrictions and safety events can be stronger defenses. The difference is not the label, but the evidence connecting route, time, cause and consequence.",
+      ],
+      bullets: [
+        "The key threshold is arrival three hours or more late.",
+        "Final destination matters, especially under one booking.",
+        "The amount depends on distance, not ticket price.",
+        "The delay reason must be checked specifically, not merely accepted.",
+      ],
+    },
+    {
+      heading: "How much compensation can be owed",
+      body: [
+        "Under the European model, the common amounts are 250, 400 and 600 euros per passenger. For routes up to 1,500 kilometres, the usual amount is 250 euros. For routes between 1,500 and 3,500 kilometres, and for longer intra-EU routes, the usual amount is 400 euros. For routes over 3,500 kilometres, the amount can be 600 euros.",
+        "On long routes there is an important exception: if arrival delay is between three and four hours, the amount can be reduced. That is why it is not enough to know that the flight was late. The exact route, scheduled arrival, actual arrival and final destination need to be clear.",
+        "For most flights from Belgrade, Nis or Kraljevo to European cities, 250 or 400 euros are the practical amounts. Intercontinental routes through EU hubs require closer review, especially with connections. Let Kasni therefore checks distance and booking before calculating the amount, because a badly framed amount can slow the case down.",
+      ],
+    },
+    {
+      heading: "Extraordinary circumstances and common rejection reasons",
+      body: [
+        "Airlines often reject claims with short phrases: weather, slot, air traffic control, safety reason, late rotation, operational reasons or technical reason. Some of these reasons can genuinely defeat fixed compensation. The problem is that a broad sentence does not prove that the event directly affected your flight and caused that much delay at final destination.",
+        "For bad weather, it is not enough that rain or fog existed somewhere in the network. The issue is where it happened, how long it lasted and whether other flights could operate. For air traffic control slots, the real question is which part of the delay was caused by the restriction and which part came later from aircraft, crew or airline organization.",
+        "This is where professional handling changes the tone. Instead of the passenger arguing with a generic rejection, the case is framed around checkable points: what happened, when it started, when it ended, which segment it affected and what measures the airline took to reduce the delay. Without that, the rejection often remains an assertion, not proof.",
+      ],
+    },
+    {
+      heading: "What to save while you are still at the airport",
+      body: [
+        "The strongest claim starts with evidence saved while the problem is fresh. Keep the boarding pass, booking confirmation, booking reference, flight number, airline messages, flight-status screenshots, departure-board photos and receipts for food, water, transfer or hotel. If gate staff state a reason, write down the exact wording, time and place.",
+        "This does not mean the passenger should run a legal argument at the airport. The goal is to avoid losing the material needed for later professional review. Two photos, one screenshot and a receipt often matter more than a long explanation written a month later. If the reason changed during the day, keep every version.",
+        "If the wait goes overnight, hotel and transfer evidence becomes important. If the airline organizes nothing, reasonable costs can be a separate issue from fixed compensation. A hotel, taxi or meal receipt should not be treated as a side detail. It may remain recoverable even while fixed compensation is disputed.",
+      ],
+    },
+    {
+      heading: "Why the claim is not just an airline form",
+      body: [
+        "A passenger can technically file directly with the airline, but not every case is suitable for a simple form. The form usually asks for flight number, date and a short explanation. The real dispute starts when the airline says it owes nothing, cites a slot, weather, operational reasons or an event outside its control.",
+        "At that point the claim becomes an evidence problem. Fixed compensation must be separated from expense reimbursement, route coverage must be checked, one booking must be established, scheduled and actual arrival must be compared, and the airline's reason must be tested. This is the paperwork-heavy part that claim services address by taking over communication, evidence review and legal pressure where needed.",
+        "Let Kasni therefore takes over the part that most often changes the result: eligibility review, evidence organization, airline communication and response to the first generic rejection. Airlines often expect an individual passenger to stop after that first rejection. The pressure is different when the claim is handled by someone who knows the rules, deadlines and procedure. The goal is not only to send a message. The goal is to frame a claim the airline must answer specifically.",
+        "The strongest claim does not need extra emotion, but it needs pressure through facts. That is the difference between a message customer support can close with a template and a file showing what happened, what is requested and why a broad rejection is not enough.",
+      ],
+    },
+    {
+      heading: "Route coverage, Serbia, EU and the ECAA context",
+      body: [
+        "Travelers from Serbia often start from the wrong question: whether the passenger is Serbian or whether the ticket was bought in Serbia. In most cases, departure airport, arrival airport, operating carrier and one booking matter more. A flight from the EU to Serbia is usually cleaner. A flight from Serbia to the EU can be strong when operated by a European carrier.",
+        "The [ECAA context](/en/air-passenger-rights/eu261-ecaa-serbia-passenger-rights) matters because Serbia-based passengers often sit between local practice, European rules and mixed routes. If you travel from Serbia through a European hub, the first aircraft is not always assessed in isolation. The full booking, operating carrier and final destination need to be checked.",
+        "For codeshare flights, the operating carrier is especially important. The ticket can show one airline while another operates the aircraft. That can change the assessment for arrivals into the EU from third countries and for multi-segment journeys. Professional review therefore starts with the e-ticket, boarding pass, flight number and app details.",
+      ],
+    },
+    {
+      heading: "The three-hour arrival rule and actual arrival time",
+      body: [
+        "The decisive threshold is arrival at the final destination, not departure delay alone. If departure was four hours late but arrival was two hours and fifty minutes late, fixed compensation can be disputed. If the first flight was less delayed but caused a missed connection and a five-hour late arrival, the case can be much stronger.",
+        "The assessment needs scheduled arrival, actual landing, door-opening time where available, app screenshots and airline messages. Passenger-rights guidance and official EU sources focus on arrival because this is where passengers often make mistakes. Passengers remember departure waiting, but fixed compensation usually depends on the end of the journey.",
+        "If you were [diverted to another airport](/en/flight-delay-compensation/flight-diverted-different-airport-passenger-rights), it is not enough to look only at landing time at the alternative airport. The key question is when you actually reached the airport or destination in the booking, who arranged transfer and how much the journey was extended.",
+      ],
+    },
+    {
+      heading: "Compensation amounts by route distance and reductions",
+      body: [
+        "The amount is calculated by distance, not by ticket price, travel class or paid extras. A passenger with a cheap fare can have the same fixed amount as someone who paid far more. That is why route assessment comes before claim value.",
+        "Under one booking, distance is not always reduced to the segment that first caused the problem. If a short segment delay caused a serious late arrival at the final destination, the whole journey sold as one booking can matter. If tickets were separate, the assessment changes because the airline usually does not answer for a separately bought onward flight.",
+        "The amount table on this page is a quick orientation tool, not a substitute for responsibility review. Two flights of the same distance can have different outcomes if one was delayed by an ordinary technical fault and the other by airport closure. Let Kasni therefore treats the amount as the last step after route, arrival and cause.",
+      ],
+    },
+    {
+      heading: "Technical faults, aircraft rotation and crew",
+      body: [
+        "A [technical fault](/en/flight-delay-compensation/technical-fault-flight-compensation) is one of the common reasons why passengers should not give up immediately. Ordinary technical issues are usually part of airline operating risk. That does not mean every fault is automatically payable, but a broad technical-reason sentence is not enough if it does not explain what happened, when it was found and why the delay lasted so long.",
+        "[Late aircraft rotation](/en/flight-delay-compensation/previous-flight-rotation-delay-compensation) requires checking the earlier segment. If your aircraft was late because it arrived late from another city, the real question is why that previous flight was late. If the cause was within airline responsibility, the claim can remain strong. If the earlier segment was hit by severe weather or airport closure, the case is harder but not automatically closed.",
+        "[Crew shortage](/en/flight-delay-compensation/crew-shortage-flight-delay-compensation), crew duty-time limits and poor scheduling can look like internal operational issues. Professional handling therefore does not accept the crew label by itself. It checks whether crew was delayed by an event outside the airline's control or because the airline lacked an available team for a planned flight.",
+      ],
+    },
+    {
+      heading: "Bad weather, air traffic control slots and safety events",
+      body: [
+        "[Bad weather](/en/flight-delay-compensation/flight-delay-bad-weather-compensation) can be an extraordinary circumstance, but not every rain, wind or fog event is enough. The question is where it happened, how long it lasted and whether it directly prevented this flight. If weather affected an earlier rotation, later waiting may still need separate review.",
+        "[Air traffic control slots](/en/flight-delay-compensation/air-traffic-control-slot-delay-compensation) are often a stronger airline argument because the carrier does not control airspace. Still, a slot may explain part of the delay without explaining a full day of waiting. The period, affected segment and later airline actions need to be checked.",
+        "Safety events, runway closure, medical emergencies, lightning strike or bird strike can genuinely sit outside the airline's control. Even then, care, alternative transport and waiting costs remain separate questions. This matters for framing: even when fixed compensation is uncertain, the passenger may still have rights, and professional review helps avoid mixing the wrong claim parts.",
+      ],
+    },
+    {
+      heading: "Care rights: food, hotel, transfer and expense reimbursement",
+      body: [
+        "Care rights are separate from fixed compensation. A passenger may have rights to meals, refreshments, communication, hotel and transfer even if the airline later proves that fixed compensation of 250, 400 or 600 euros is not owed. This distinction matters because passengers often mix compensation for lost time with necessary waiting costs.",
+        "If the flight leaves the next day, [hotel accommodation and transport between the airport and hotel](/en/flight-delay-compensation/overnight-flight-delay-hotel-rights) become relevant. If the airline organizes nothing, costs should be reasonable and provable. Reasonable means what was needed to continue the journey or spend the night, not luxury. Receipt and purchase time matter more than a long explanation.",
+        "If you bought a new ticket because of the delay, the case becomes sensitive. It needs proof that assistance was requested, that the offered alternative was not reasonable or that no help was available. This is a common case where passengers skip the most important evidence, while professional handling separates fixed compensation, receipts and mitigation.",
+      ],
+    },
+    {
+      heading: "Documents, deadlines and professional claim handling",
+      body: [
+        "The most important documents are booking confirmation, boarding pass, flight number, date, full route, scheduled arrival, actual arrival, airline messages, evidence of the delay reason and receipts for necessary costs. For connections, add the complete itinerary and proof that the segments were under one booking.",
+        "Deadlines depend on the rules and country where the claim is pursued. Waiting for months is not good, but neither is filing a thin claim the same day without evidence. The better strategy is to save documents quickly, build a timeline and check whether the case is fixed compensation, care, expense reimbursement or a combination.",
+        "Let Kasni takes over the hardest part: arranging facts, choosing the basis, communicating with the airline and responding to generic rejections. The passenger provides the available data and evidence. This is more realistic than promising that one form solves everything, because good claims often fail when they are poorly framed.",
+        "Professional handling is especially useful when several items are requested at once: fixed compensation, hotel, transfer, meal or a new ticket. If these items are not separated, the airline often answers only one and ignores the rest.",
+      ],
+    },
+    {
+      heading: "What if the airline rejects the claim",
+      body: [
+        "A rejection does not automatically mean the case is over. The common problem is that the airline gives a broad reason without proof: extraordinary circumstances, operational reasons, slot, weather or airport decision. That answer needs to be read point by point: does it mention the correct flight, date, segment, duration and connection with final-arrival delay?",
+        "If the answer skips key facts, the next step is not an emotional argument but a precise follow-up. In practice, the claim asks for evidence of the event, start and end time, why no earlier alternative was available and a separation of fixed compensation from care expenses. This is where professional tone often matters more than a long passenger message.",
+        "If the airline does not respond, keep the communication trail. One orderly follow-up with the same facts and a clear question is better than many unstructured messages. If the case later escalates, the communication history shows that the passenger tried to resolve the matter directly and gave the airline a chance to explain specifically.",
+        "Good handling therefore does not look only at the airline's last answer. It looks at the whole communication trail: what the passenger sent, what the airline skipped and whether the reason changed. That sequence often shows that the rejection is not specific enough.",
+      ],
+    },
+    {
+      heading: "When professional review changes the outcome",
+      body: [
+        "Professional review matters most when the case is not clean at first glance: connection under one booking, codeshare flight, mixed delay reasons, alternative airport, arrival close to the three-hour threshold, overnight waiting, a new ticket bought by the passenger or a generic rejection. One wrong detail can change the amount or the whole claim basis.",
+        "The real value is not only knowing that rights exist. The value is taking over the work: flight check, document review, airline communication, evidence requests and legal pressure where needed. Let Kasni bases the process on that: the passenger understands the logic, but it is clear that the process is not trivial and that outcomes often change when someone who knows the procedure handles the case.",
+        "The best framing is not fear. It is the realistic picture. If the case is simple, it can be checked quickly. If it is complex, direct back-and-forth with the airline often ends with accepting the first rejection or missing expenses that could have been claimed. Professional review is useful exactly when the airline sounds confident and the evidence is incomplete. In those cases the difference is not only tone, but speed, sequence of steps and pressure for a specific answer.",
+      ],
+    },
+    {
+      heading: "Common mistakes that reduce compensation",
+      body: [
+        "The first mistake is relying on a verbal explanation without evidence. The second is deleting boarding passes and airline messages once the journey ends. The third is mixing fixed compensation, ticket refund, hotel, meals and transfer into one unclear complaint. A vague claim is easier to reject than a claim that separates each item.",
+        "Another common mistake is accepting a voucher or offer without understanding the terms. A meal voucher does not remove fixed compensation, but some settlement offers may include a waiver of further claims. Before accepting anything that looks like a final solution, the terms should be saved and checked.",
+        "The third mistake is giving up after the first rejection. If the rejection is specific and supported by evidence, the case may be weak. If it is broad, without a timeline or connection to your flight, it is the start of the second phase. That is where Let Kasni takes over: checks the reason, organizes evidence and decides whether to continue or close the case realistically.",
+      ],
+    },
+  ];
+
+  delayGuide.sr.faqs = [
+    {
+      question: "Da li se računa kašnjenje pri poletanju ili dolasku?",
+      answer:
+        "Za fiksnu naknadu najvažnije je kašnjenje pri dolasku na krajnju destinaciju. Polazak je dokaz, ali prag se najčešće meri završetkom putovanja.",
+    },
+    {
+      question: "Da li loše vreme automatski znači da nema naknade?",
+      answer:
+        "Ne automatski. Loše vreme može biti vanredna okolnost, ali mora biti konkretno povezano sa vašim letom, vremenom kašnjenja i posledicom po dolazak.",
+    },
+    {
+      question: "Da li vaučer za hranu ukida pravo na naknadu?",
+      answer:
+        "Ne. Hrana, hotel i transfer su pravo na brigu. Fiksna naknada se proverava odvojeno prema ruti, dolasku i razlogu kašnjenja.",
+    },
+    {
+      question: "Šta ako aviokompanija odbije zahtev?",
+      answer:
+        "Odbijenica se proverava po dokazima. Ako kompanija navede opšti razlog bez vremenske linije i veze sa vašim letom, slučaj često vredi dodatno proveriti.",
+    },
+  ];
+
+  delayGuide.en.faqs = [
+    {
+      question: "Is departure delay or arrival delay counted?",
+      answer:
+        "For fixed compensation, arrival delay at the final destination matters most. Departure is evidence, but the threshold is usually measured at the end of the journey.",
+    },
+    {
+      question: "Does bad weather automatically remove compensation?",
+      answer:
+        "Not automatically. Bad weather can be an extraordinary circumstance, but it must be specifically connected to your flight, delay period and final-arrival consequence.",
+    },
+    {
+      question: "Does a meal voucher remove compensation rights?",
+      answer:
+        "No. Food, hotel and transfer are care rights. Fixed compensation is checked separately by route, arrival and delay reason.",
+    },
+    {
+      question: "What if the airline rejects the claim?",
+      answer:
+        "The rejection must be checked against evidence. If the airline gives a broad reason without a timeline and connection to your flight, the case is often worth further review.",
     },
   ];
 }

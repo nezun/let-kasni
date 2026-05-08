@@ -43,7 +43,13 @@ Airport-action split:
 ## Research standard
 
 For each new or refreshed article:
-- Review at least three relevant sources from AirHelp, Flightright, Skycop, AirAdvisor, ClaimCompass, SkyRefund, Compensair, FairPlane, EUclaim, and ClaimFlights when available.
+- P1 hard gate: create an internal approved outline before writing. No rewrite starts from a blank page.
+- Every H2 must have one of three reasons: direct search intent, a key legal/eligibility condition, or a user step that at least one reviewed competitor actually covers.
+- Do not put H2s in the main article body that describe our site, our calculator, our internal links, detailed-guide navigation, SEO structure, or future article structure.
+- Attempt the full competitor set when practical: AirHelp, Flightright, Skycop, AirAdvisor, ClaimCompass, SkyRefund, Compensair, FairPlane, EUclaim, and ClaimFlights. If a source is blocked, unavailable, acquired, or has no matching page, document that.
+- Use the closest AirHelp topic-equivalent page as the primary length benchmark. Target roughly 10-20% more useful depth than that AirHelp page, unless local Serbia/ECAA context justifies more.
+- Frame the content around Let Kasni's business: passengers can understand the right, but the claim itself should feel evidence-sensitive, paperwork-heavy, and better handled by professionals. Let Kasni actively takes over the hardest parts: eligibility review, evidence sorting, airline communication, procedural pressure, and responses to generic rejections. Do not write a pure DIY playbook; airlines often reject individuals first because they expect many passengers to give up, while a professionally prepared case changes the pressure, speed, and outcome.
+- Each main/cornerstone guide should include 3-5 useful in-body visuals or interactive elements when the format supports it. Each standard article should include 2-4. Eligible elements include calculator, table, timeline, checklist module, comparison card, route map, process visual, or relevant image. Hero images and "Detaljni vodiči" / "Detailed guides" navigation cards do not count toward this minimum. Visuals must be distributed through the article, roughly every 3-4 H2s depending on length, instead of clustered at the beginning or stacked one after another.
 - Verify legal basics against official EU sources where possible.
 - Use the research to improve coverage, examples, FAQs, tables, and reader flow.
 - Do not mention competitors, research process, or internal SEO mechanics in public copy.
@@ -52,9 +58,17 @@ For each new or refreshed article:
 
 Before commit or deploy:
 - `npm run content:qa`
+- `npm run content:links`
+- `npm run content:benchmark`
 - `npm run lint`
 - `npm run build`
 - `npm run verify`
+
+`npm run content:benchmark` is the independent benchmark reviewer. It checks every
+SR/EN article and main guide against the P1 rules, including professional-service
+framing and visual distribution, and fails if any record scores below 90. The
+report is written to `reports/content-benchmark-review.json`; repair failed
+records and rerun until it passes.
 
 After deploy:
 - Check the canonical page.

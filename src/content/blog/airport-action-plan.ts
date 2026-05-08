@@ -21,9 +21,14 @@ export const article = {
         {
           "heading": "Prvo rešite putovanje, pa zahtev",
           "body": [
-            "Kada let kasni ili je otkazan, prvi cilj nije odmah pisanje reklamacije. Prvo treba rešiti praktičan problem: kako stići do destinacije, gde čekati, da li treba hotel, hrana, transfer ili nova karta.",
+            "Kada let kasni ili je otkazan, prvi cilj nije odmah pisanje reklamacije. Prvo treba rešiti praktičan problem: kako stići do destinacije, gde čekati, da li treba hotel, hrana, transfer ili nova karta. Ako se kasnije otvori pitanje [naknade za kašnjenje leta](/naknada-za-kasnjenje-leta), ti prvi tragovi postaju osnova profesionalne provere.",
             "Pitajte aviokompaniju koje opcije nudi i tražite da vam ih potvrdi pisano, kroz email, SMS ili aplikaciju. Usmeno obećanje na šalteru može pomoći u trenutku, ali je kasnije teško dokazivo.",
             "Ako putujete sa decom, starijim osobama ili imate važan događaj, zapišite i te okolnosti. One ne stvaraju automatski pravo na fiksnu naknadu, ali mogu biti važne za procenu troškova i hitnosti preusmeravanja."
+          ],
+          "bullets": [
+            "Prvo obezbedite put, smeštaj ili preusmeravanje.",
+            "Zatim sačuvajte dokaz o razlogu, vremenu i ponuđenom rešenju.",
+            "Na kraju prepustite slaganje zahteva nekome ko zna proceduru i rokove."
           ]
         },
         {
@@ -87,9 +92,14 @@ export const article = {
         {
           "heading": "Solve the trip first, then the request",
           "body": [
-            "When a flight is delayed or canceled, the first goal is not to immediately write a complaint. First, a practical problem needs to be solved: how to get to the destination, where to wait, whether you need a hotel, food, transfer or a new ticket.",
+            "When a flight is delayed or canceled, the first goal is not to immediately write a complaint. First, a practical problem needs to be solved: how to get to the destination, where to wait, whether you need a hotel, food, transfer or a new ticket. If [flight delay compensation](/en/flight-delay-compensation) later becomes relevant, those first traces become the basis for professional review.",
             "Ask the airline what options it offers and ask them to confirm them in writing, via email, SMS or app. A verbal promise at the counter may help in the moment, but is difficult to prove later.",
             "If you are traveling with children, elderly people or have an important event, write down those circumstances as well. They do not automatically create a right to a fixed fee, but may be important in assessing the costs and urgency of diversion."
+          ],
+          "bullets": [
+            "First secure travel, accommodation or rerouting.",
+            "Then save proof of the reason, timing and offered solution.",
+            "Finally let someone who knows the procedure and deadlines structure the claim."
           ]
         },
         {

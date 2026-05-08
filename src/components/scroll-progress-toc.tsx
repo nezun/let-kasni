@@ -20,6 +20,33 @@ export function ScrollProgressToc({ label, sections }: ScrollProgressTocProps) {
       return;
     }
 
+    const sectionElements = sections
+      .map((section) => document.getElementById(section.id))
+      .filter((element): element is HTMLElement => Boolean(element));
+
+    const updateActiveSection = () => {
+      if (sectionElements.length === 0) {
+        return;
+      }
+
+      const viewportAnchor = 150;
+      const bottomOffset =
+        window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 12;
+
+      if (bottomOffset) {
+        setActiveId(sectionElements[sectionElements.length - 1].id);
+        return;
+      }
+
+      const current =
+        [...sectionElements]
+          .reverse()
+          .find((element) => element.getBoundingClientRect().top <= viewportAnchor) ??
+        sectionElements[0];
+
+      setActiveId(current.id);
+    };
+
     const observer = new IntersectionObserver(
       (entries) => {
         const visibleEntry = entries
@@ -36,15 +63,16 @@ export function ScrollProgressToc({ label, sections }: ScrollProgressTocProps) {
       },
     );
 
-    sections.forEach((section) => {
-      const element = document.getElementById(section.id);
+    sectionElements.forEach((element) => observer.observe(element));
+    updateActiveSection();
+    window.addEventListener("scroll", updateActiveSection, { passive: true });
+    window.addEventListener("resize", updateActiveSection);
 
-      if (element) {
-        observer.observe(element);
-      }
-    });
-
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", updateActiveSection);
+      window.removeEventListener("resize", updateActiveSection);
+    };
   }, [sections]);
 
   useEffect(() => {
@@ -56,7 +84,7 @@ export function ScrollProgressToc({ label, sections }: ScrollProgressTocProps) {
     }
 
     const targetLeft =
-      activeLink.offsetLeft - scrollElement.clientWidth + activeLink.offsetWidth + 72;
+      activeLink.offsetLeft - scrollElement.clientWidth / 2 + activeLink.offsetWidth / 2;
 
     scrollElement.scrollTo({
       left: Math.max(0, targetLeft),
