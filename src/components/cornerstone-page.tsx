@@ -28,6 +28,18 @@ const copy = {
       "Unesite let i datum da se slučaj prvo konzervativno proveri prema ruti, razlogu i dostupnim dokazima.",
     blogLabel: "Blog",
     readMore: "Pročitaj detaljno",
+    evidenceEyebrow: "Dokazni okvir",
+    evidenceTitle: "Šta se slaže pre kontakta sa aviokompanijom",
+    evidenceItems: [
+      "ruta, rezervacija i operativni prevoznik",
+      "tačna vremenska linija poremećaja",
+      "dokaz razloga koji aviokompanija navodi",
+      "troškovi odvojeni od fiksne naknade",
+    ],
+    processEyebrow: "Profesionalna obrada",
+    processTitle: "Zašto procedura menja ishod",
+    processBody:
+      "Aviokompanije često prvo daju kratak odgovor fizičkom licu. Let Kasni preuzima najteži deo: proveru osnova, slaganje dokaza, komunikaciju i pritisak da odbijanje bude konkretno obrazloženo.",
   },
   en: {
     allGuides: "Main guides",
@@ -40,8 +52,60 @@ const copy = {
       "Enter the flight and date so the case can first be checked conservatively by route, reason and available evidence.",
     blogLabel: "Blog",
     readMore: "Read more",
+    evidenceEyebrow: "Evidence frame",
+    evidenceTitle: "What is organized before contacting the airline",
+    evidenceItems: [
+      "route, booking and operating carrier",
+      "exact disruption timeline",
+      "proof behind the airline's stated reason",
+      "expenses separated from fixed compensation",
+    ],
+    processEyebrow: "Professional handling",
+    processTitle: "Why procedure changes the outcome",
+    processBody:
+      "Airlines often first send a short answer to an individual passenger. Let Kasni takes over the hardest part: eligibility review, evidence organization, communication and pressure for a specific rejection reason.",
   },
 };
+
+function GuideProcessVisual({ locale }: { locale: BlogLocale }) {
+  const t = copy[locale];
+
+  return (
+    <div className="mt-8 rounded-[16px] border border-[#D8E4FF] bg-[#0B1220] p-5 text-white shadow-[0_18px_48px_rgba(16,24,40,0.14)] md:p-6">
+      <p className="text-[11px] font-black uppercase tracking-[0.14em] text-white/70">
+        {t.processEyebrow}
+      </p>
+      <h3 className="mt-2 font-display text-[24px] font-black leading-[1.18]">
+        {t.processTitle}
+      </h3>
+      <p className="mt-4 max-w-[680px] text-[16px] leading-[1.7] text-white/82">
+        {t.processBody}
+      </p>
+    </div>
+  );
+}
+
+function GuideEvidenceVisual({ locale }: { locale: BlogLocale }) {
+  const t = copy[locale];
+
+  return (
+    <div className="mt-8 rounded-[16px] border border-[#D6E4FF] bg-[#F3F7FF] p-5 md:p-6">
+      <p className="text-[11px] font-black uppercase tracking-[0.14em] text-[#2470EB]">
+        {t.evidenceEyebrow}
+      </p>
+      <h3 className="mt-2 font-display text-[24px] font-black leading-[1.18] text-[#101828]">
+        {t.evidenceTitle}
+      </h3>
+      <div className="mt-5 grid gap-3 md:grid-cols-2">
+        {t.evidenceItems.map((item) => (
+          <div key={item} className="rounded-[12px] border border-white bg-white p-4 text-[15px] font-bold leading-[1.55] text-[#344054] shadow-[0_10px_28px_rgba(16,24,40,0.04)]">
+            {item}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 export function CornerstonePageView({
   page,
@@ -133,7 +197,7 @@ export function CornerstonePageView({
           <div className="mx-auto grid max-w-[1180px] gap-12 lg:grid-cols-[minmax(0,760px)_300px]">
             <div className="space-y-11">
               <InterlinkingScope currentHref={currentHref}>
-                {localized.sections.map((section) => (
+                {localized.sections.map((section, index) => (
                   <section key={section.heading}>
                     <h2 className="font-display text-[30px] font-black leading-[1.15] tracking-[-0.025em] text-[#0A0F1E] md:text-[38px]">
                       {section.heading}
@@ -154,6 +218,12 @@ export function CornerstonePageView({
                           </li>
                         ))}
                       </ul>
+                    ) : null}
+                    {index === 3 || index === 11 ? (
+                      <GuideProcessVisual locale={locale} />
+                    ) : null}
+                    {index === 7 || index === 15 ? (
+                      <GuideEvidenceVisual locale={locale} />
                     ) : null}
                   </section>
                 ))}
