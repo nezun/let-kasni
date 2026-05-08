@@ -107,6 +107,30 @@ const parentGuideByArticle: Record<
     sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
     en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
   },
+  "four-hour-flight-delay-rights": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
+  "five-hour-flight-delay-refund": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
+  "delayed-flight-airport-action-plan": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
+  "flight-delay-reason-evidence": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
+  "meal-voucher-flight-delay": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
+  "flight-delay-final-arrival-time": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
   "cancelled-flight-rights": {
     sr: { title: "Naknada za otkazan let", href: "/naknada-za-otkazan-let" },
     en: { title: "Flight cancellation compensation", href: "/en/flight-cancellation-compensation" },
@@ -183,6 +207,15 @@ const airlineDelayArticleIds = new Set([
   "swiss-flight-delay-compensation",
 ]);
 
+const delayScenarioArticleIds = new Set([
+  "four-hour-flight-delay-rights",
+  "five-hour-flight-delay-refund",
+  "delayed-flight-airport-action-plan",
+  "flight-delay-reason-evidence",
+  "meal-voucher-flight-delay",
+  "flight-delay-final-arrival-time",
+]);
+
 function parentFor(articleId: string, locale: BlogLocale) {
   return (parentGuideByArticle[articleId] ?? defaultParentGuide)[locale];
 }
@@ -216,6 +249,42 @@ function enAirlineDelaySections(article: BlogArticle): BlogSection[] {
         `For ${article.en.title.toLowerCase()}, the most useful step is to turn the case into a small data set instead of a long complaint. Record the flight number, date, departure airport, final destination, scheduled arrival, actual arrival, reason given by the airline and costs incurred. Once those facts are in one place, it is much easier to see whether the case is about fixed compensation, expense reimbursement or only a request for a better explanation.`,
         "This order reduces manual work and mistakes. If a follow-up is needed later, you do not write everything again: you add only the new proof, airline reply or receipt. That matters with airlines that use short generic answers, because a structured file shows immediately what was not answered.",
         "For repeatable checks, keep the same format for every flight: core details, delay reason, timeline, costs and response status. That allows several passengers or several flights to be compared without copying scattered notes from email, apps and photos.",
+      ],
+    },
+  ];
+}
+
+function srDelayScenarioSections(article: BlogArticle): BlogSection[] {
+  if (!delayScenarioArticleIds.has(article.id)) {
+    return [];
+  }
+
+  return [
+    {
+      heading: "Mini-checklist za ponovljivu proveru",
+      body: [
+        "Najbrži način da se ovakav slučaj proveri bez haotičnog prepisivanja jeste da ga odmah svedete na isti obrazac: ruta, jedna ili više rezervacija, planirano vreme dolaska, stvarno vreme dolaska, razlog koji je saopšten, ponuđena pomoć i troškovi. Kada svaka prijava ima isti redosled, lakše je uporediti slučajeve i uočiti šta nedostaje.",
+        "Za putnike koji često lete iz Beograda, Niša, Kraljeva ili preko evropskih čvorišta, ovaj obrazac posebno smanjuje greške. Ne morate svaki put iznova razmišljati šta se čuva: boarding pass, booking potvrda, poruke aviokompanije, screenshot aplikacije, fotografija table i računi ulaze u isti folder ili istu belešku.",
+        `Kod teme ${article.sr.title.toLowerCase()} cilj nije samo poslati zahtev, već poslati zahtev koji se može brzo proveriti. Ako aviokompanija odgovori delimično, obrazac odmah pokazuje koji podatak nedostaje i koju dopunu treba tražiti, umesto da se cela priča piše ponovo od početka.`,
+        "Praktično pravilo je da svaka stavka ima izvor: vreme iz aplikacije, razlog iz poruke, trošak iz računa, konekciju iz itinerera. Kada jedna stavka nema izvor, odmah znate šta još treba pribaviti pre slanja, naročito ako je slučaj blizu vremenskog praga.",
+      ],
+    },
+  ];
+}
+
+function enDelayScenarioSections(article: BlogArticle): BlogSection[] {
+  if (!delayScenarioArticleIds.has(article.id)) {
+    return [];
+  }
+
+  return [
+    {
+      heading: "Mini-checklist for repeatable review",
+      body: [
+        "The fastest way to review this type of case without messy rewriting is to put it into the same structure every time: route, one or several bookings, scheduled arrival, actual arrival, stated reason, assistance offered and costs. When every claim follows the same order, it is easier to compare cases and see what is missing.",
+        "For travelers who often fly from Belgrade, Nis, Kraljevo or through European hubs, this structure reduces mistakes. You do not need to decide again what to save: boarding pass, booking confirmation, airline messages, app screenshot, departures-board photo and receipts go into the same folder or note.",
+        `For ${article.en.title.toLowerCase()}, the goal is not only to send a claim, but to send one that can be checked quickly. If the airline answers only partly, the structure shows which fact is missing and which follow-up should be requested instead of rewriting the whole story from the beginning.`,
+        "A useful rule is that every item should have a source: time from the app, reason from a message, cost from a receipt and connection from the itinerary. If one item has no source, you know what to collect before sending.",
       ],
     },
   ];
@@ -291,6 +360,7 @@ export function enhanceBlogArticle(article: BlogArticle): BlogArticle {
       sections: [
         ...article.sr.sections,
         ...srAirlineDelaySections(article),
+        ...srDelayScenarioSections(article),
         ...srEnhancementSections(article),
       ],
       readTime: "8 min čitanja",
@@ -300,6 +370,7 @@ export function enhanceBlogArticle(article: BlogArticle): BlogArticle {
       sections: [
         ...article.en.sections,
         ...enAirlineDelaySections(article),
+        ...enDelayScenarioSections(article),
         ...enEnhancementSections(article),
       ],
       readTime: "8 min read",
