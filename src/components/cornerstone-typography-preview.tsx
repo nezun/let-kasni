@@ -357,6 +357,83 @@ function GuideCaseFileVisual({
   );
 }
 
+function GuideQuickCheckBanner({
+  locale,
+  ctaLabel,
+}: {
+  locale: BlogLocale;
+  ctaLabel: string;
+}) {
+  const t = copy[locale];
+  const checkHref = locale === "sr" ? "/#proveri-let" : "/en#proveri-let";
+
+  return (
+    <div className="mt-8 relative overflow-hidden rounded-[18px] bg-[radial-gradient(circle_at_72%_20%,#61A5FF_0,#226CF0_30%,#14378E_56%,#B53771_100%)] p-6 text-white shadow-[0_22px_60px_rgba(36,112,235,0.22)] md:p-8">
+      <div className="relative z-10 grid gap-7 md:grid-cols-[minmax(0,0.95fr)_1.05fr] md:items-center">
+        <div>
+          <p className="text-[11px] font-black uppercase tracking-[0.16em] text-white/72">
+            {t.nextStep}
+          </p>
+          <h3 className="mt-3 max-w-[430px] font-display text-[27px] font-black leading-[1.14] md:text-[32px]">
+            {locale === "sr"
+              ? "Saznajte da li vam pripada naknada za poremećen let"
+              : "Find out if you are owed compensation for a disrupted flight"}
+          </h3>
+          <p className="mt-4 max-w-[440px] text-[15px] font-semibold leading-[1.65] text-white/78">
+            {t.nextStepBody}
+          </p>
+          <Link
+            href={checkHref}
+            className="mt-6 inline-flex rounded-[10px] border-2 border-white bg-white px-5 py-3 text-[14px] font-black text-[#0F5BEA] shadow-[0_10px_28px_rgba(0,0,0,0.18)] transition hover:bg-[#F3F7FF]"
+          >
+            {ctaLabel}
+          </Link>
+        </div>
+        <div className="relative min-h-[190px] md:min-h-[230px]" aria-hidden="true">
+          <div className="absolute right-[5%] top-0 w-[58%] rotate-[5deg] rounded-[18px] bg-white p-4 text-[#172033] shadow-[0_24px_56px_rgba(2,8,23,0.28)]">
+            <div className="flex items-center justify-between border-b border-[#E3E8F4] pb-3">
+              <span className="rounded-full bg-[#EAF2FF] px-3 py-1 text-[10px] font-black text-[#2470EB]">
+                LK 261
+              </span>
+              <span className="text-[10px] font-black uppercase text-[#98A2B3]">
+                {locale === "sr" ? "ZA STRUČNU PROVERU" : "FOR EXPERT REVIEW"}
+              </span>
+            </div>
+            <div className="mt-5 grid grid-cols-[1fr_auto_1fr] items-center gap-3">
+              <div>
+                <p className="text-[11px] font-black uppercase text-[#98A2B3]">
+                  {locale === "sr" ? "Ruta" : "Route"}
+                </p>
+                <p className="mt-1 text-[24px] font-black text-[#111827]">BEG</p>
+              </div>
+              <div className="h-[2px] w-12 bg-[#D7E2F2]" />
+              <div className="text-right">
+                <p className="text-[11px] font-black uppercase text-[#98A2B3]">
+                  EU
+                </p>
+                <p className="mt-1 text-[24px] font-black text-[#111827]">€600</p>
+              </div>
+            </div>
+            <p className="mt-5 rounded-[12px] bg-[#FFF4E5] px-4 py-3 text-[14px] font-black text-[#C45700]">
+              {locale === "sr" ? "provera uslova" : "eligibility check"}
+            </p>
+          </div>
+          <div className="absolute bottom-2 left-[4%] w-[50%] -rotate-[8deg] rounded-[16px] bg-[#FF5B72] p-4 text-white shadow-[0_20px_48px_rgba(2,8,23,0.24)]">
+            <p className="text-[10px] font-black uppercase tracking-[0.12em] text-white/72">
+              {locale === "sr" ? "Poremećaj leta" : "Flight disruption"}
+            </p>
+            <div className="mt-7 h-2 w-24 rounded-full bg-white/80" />
+            <div className="mt-3 h-2 w-32 rounded-full bg-white/45" />
+            <div className="mt-6 inline-flex rounded-full bg-white/18 px-3 py-1 text-[12px] font-black">
+              Let Kasni
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function CornerstoneTypographyPreview({
   page,
   locale,
@@ -453,6 +530,9 @@ export function CornerstoneTypographyPreview({
                           </li>
                         ))}
                       </ul>
+                      ) : null}
+                      {index === 2 ? (
+                        <GuideQuickCheckBanner locale={locale} ctaLabel={localized.ctaLabel} />
                       ) : null}
                       {isAmountSection(section.heading, locale) ? (
                         <AmountTable locale={locale} />

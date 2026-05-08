@@ -635,6 +635,16 @@ function checkRuntimeBlogContentSkeleton() {
         "Keep ScrollProgressToc in the global cornerstone typography template.",
     });
   }
+
+  if (!cornerstoneTypographySource.includes("GuideQuickCheckBanner")) {
+    addIssue({
+      type: "cornerstone_quick_check_missing",
+      file: "src/components/cornerstone-typography-preview.tsx",
+      message: "main guide pages must keep the in-body quick-check CTA module",
+      suggestedFix:
+        "Keep GuideQuickCheckBanner in the global cornerstone typography template after the early H2 sections.",
+    });
+  }
 }
 
 function runtimeArticleText(article, locale) {
