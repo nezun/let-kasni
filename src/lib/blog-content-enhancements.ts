@@ -131,6 +131,30 @@ const parentGuideByArticle: Record<
     sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
     en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
   },
+  "belgrade-eu-flight-delay-compensation": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
+  "eu-serbia-flight-delay-compensation": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
+  "serbia-eu-non-eu-airline-delay": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
+  "connecting-flight-delay-one-booking": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
+  "long-haul-flight-delay-300-600": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
+  "tarmac-delay-door-open-time": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
   "cancelled-flight-rights": {
     sr: { title: "Naknada za otkazan let", href: "/naknada-za-otkazan-let" },
     en: { title: "Flight cancellation compensation", href: "/en/flight-cancellation-compensation" },
@@ -216,6 +240,12 @@ const delayScenarioArticleIds = new Set([
   "flight-delay-reason-evidence",
   "meal-voucher-flight-delay",
   "flight-delay-final-arrival-time",
+  "belgrade-eu-flight-delay-compensation",
+  "eu-serbia-flight-delay-compensation",
+  "serbia-eu-non-eu-airline-delay",
+  "connecting-flight-delay-one-booking",
+  "long-haul-flight-delay-300-600",
+  "tarmac-delay-door-open-time",
 ]);
 
 function parentFor(articleId: string, locale: BlogLocale) {
