@@ -155,6 +155,30 @@ const parentGuideByArticle: Record<
     sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
     en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
   },
+  "codeshare-operating-carrier-flight-delay": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
+  "package-holiday-flight-delay-compensation": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
+  "group-booking-flight-delay-compensation": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
+  "flight-delay-after-boarding": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
+  "airline-changed-delay-reason": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
+  "connecting-delay-minimum-connection-time": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
   "cancelled-flight-rights": {
     sr: { title: "Naknada za otkazan let", href: "/naknada-za-otkazan-let" },
     en: { title: "Flight cancellation compensation", href: "/en/flight-cancellation-compensation" },
