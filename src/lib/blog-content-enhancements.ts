@@ -99,6 +99,30 @@ const parentGuideByArticle: Record<
     sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
     en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
   },
+  "pegasus-flight-delay-compensation": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
+  "lot-polish-flight-delay-compensation": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
+  "aegean-flight-delay-compensation": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
+  "ita-airways-flight-delay-compensation": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
+  "flydubai-flight-delay-compensation": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
+  "qatar-airways-flight-delay-compensation": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
   "two-hour-flight-delay-rights": {
     sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
     en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
@@ -277,6 +301,12 @@ const airlineDelayArticleIds = new Set([
   "klm-flight-delay-compensation",
   "air-france-flight-delay-compensation",
   "swiss-flight-delay-compensation",
+  "pegasus-flight-delay-compensation",
+  "lot-polish-flight-delay-compensation",
+  "aegean-flight-delay-compensation",
+  "ita-airways-flight-delay-compensation",
+  "flydubai-flight-delay-compensation",
+  "qatar-airways-flight-delay-compensation",
 ]);
 
 const delayScenarioArticleIds = new Set([
