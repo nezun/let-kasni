@@ -2,9 +2,6 @@ import type { Metadata } from "next";
 
 import { LandingPage } from "@/components/landing-page";
 
-export const runtime = "edge";
-export const preferredRegion = "global";
-
 export const metadata: Metadata = {
   title: "letkasni.rs | Flight compensation check",
   description:
