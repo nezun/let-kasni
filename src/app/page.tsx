@@ -1,4 +1,17 @@
+import type { Metadata } from "next";
+
 import { LandingPage } from "@/components/landing-page";
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: "/",
+    languages: {
+      sr: "/",
+      en: "/en",
+      "x-default": "/",
+    },
+  },
+};
 
 export default function Page() {
   return (

@@ -14,6 +14,26 @@ const nextConfig: NextConfig = {
         destination: "https://letkasni.rs/:path*",
         permanent: true,
       },
+      {
+        source: "/prava-putnika-u-aviosaobracaju/preusmeren-let-drugi-aerodrom-prava-putnika",
+        destination: "/naknada-za-kasnjenje-leta/preusmeren-let-drugi-aerodrom-prava-putnika",
+        permanent: true,
+      },
+      {
+        source: "/en/air-passenger-rights/flight-diverted-different-airport-passenger-rights",
+        destination: "/en/flight-delay-compensation/flight-diverted-different-airport-passenger-rights",
+        permanent: true,
+      },
+      {
+        source: "/prava-putnika-u-aviosaobracaju/let-pomeren-ranije-prava-putnika",
+        destination: "/naknada-za-otkazan-let/let-pomeren-ranije-prava-putnika",
+        permanent: true,
+      },
+      {
+        source: "/en/air-passenger-rights/flight-moved-earlier-passenger-rights",
+        destination: "/en/flight-cancellation-compensation/flight-moved-earlier-passenger-rights",
+        permanent: true,
+      },
     ];
   },
   async headers() {

@@ -59,7 +59,7 @@ jobs:
           GOOGLE_PRIVATE_KEY_BASE64: ${{ secrets.GOOGLE_PRIVATE_KEY_BASE64 }}
 
       - name: Sample index monitoring
-        run: npm run seo:index-status -- --limit=20 --delay-ms=300
+        run: npm run seo:index-status -- --limit=20 --delay-ms=300 --fail-on-attention
         env:
           NEXT_PUBLIC_SITE_URL: https://letkasni.rs
           GOOGLE_SEARCH_CONSOLE_SITE_URL: ${{ vars.GOOGLE_SEARCH_CONSOLE_SITE_URL || 'sc-domain:letkasni.rs' }}

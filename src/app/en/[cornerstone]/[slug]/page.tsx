@@ -40,6 +40,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       languages: {
         sr: getAlternateArticleCornerstoneHref(article, "en"),
         en: getArticleCornerstoneHref(article, "en"),
+        "x-default": getAlternateArticleCornerstoneHref(article, "en"),
       },
     },
     openGraph: {

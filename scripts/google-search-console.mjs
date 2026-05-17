@@ -572,8 +572,122 @@ function compactInspection(entry, inspection) {
   };
 }
 
+function normalizeCanonicalUrl(url) {
+  if (!url) {
+    return "";
+  }
+
+  try {
+    const parsed = new URL(url);
+    parsed.hash = "";
+    parsed.search = "";
+
+    if (parsed.pathname !== "/" && parsed.pathname.endsWith("/")) {
+      parsed.pathname = parsed.pathname.slice(0, -1);
+    }
+
+    return parsed.toString();
+  } catch {
+    return url;
+  }
+}
+
+function isSameCanonicalUrl(left, right) {
+  return normalizeCanonicalUrl(left) === normalizeCanonicalUrl(right);
+}
+
+function isLegacyCanonicalPath(url) {
+  if (!url) {
+    return false;
+  }
+
+  try {
+    const path = new URL(url).pathname;
+
+    return (
+      path.startsWith("/blog/") ||
+      path.startsWith("/en/blog/") ||
+      path.startsWith("/prava-putnika-u-aviosaobracaju/") ||
+      path.startsWith("/en/air-passenger-rights/")
+    );
+  } catch {
+    return false;
+  }
+}
+
+async function getRedirectTarget(url, maxHops = 5) {
+  if (!url) {
+    return "";
+  }
+
+  let currentUrl = url;
+
+  for (let hop = 0; hop < maxHops; hop += 1) {
+    const response = await fetch(currentUrl, {
+      method: "HEAD",
+      redirect: "manual",
+    });
+
+    if (response.status < 300 || response.status > 399) {
+      return currentUrl === url ? "" : currentUrl;
+    }
+
+    const location = response.headers.get("location");
+
+    if (!location) {
+      return currentUrl === url ? "" : currentUrl;
+    }
+
+    currentUrl = new URL(location, currentUrl).toString();
+  }
+
+  return currentUrl;
+}
+
+async function classifyInspectionResult(result) {
+  if (isIndexedStatus(result)) {
+    return {
+      ...result,
+      monitoringState: "indexed",
+    };
+  }
+
+  if (
+    result.coverageState === "Duplicate, Google chose different canonical than user" &&
+    isLegacyCanonicalPath(result.googleCanonical)
+  ) {
+    const redirectTarget = await getRedirectTarget(result.googleCanonical).catch(() => "");
+
+    if (isSameCanonicalUrl(redirectTarget, result.userCanonical)) {
+      return {
+        ...result,
+        monitoringState: "stale_redirect_pending",
+        redirectTarget,
+      };
+    }
+
+    return {
+      ...result,
+      monitoringState: "legacy_canonical_not_redirected",
+      redirectTarget,
+    };
+  }
+
+  return {
+    ...result,
+    monitoringState: "needs_attention",
+  };
+}
+
 function isIndexedStatus(result) {
   return result.verdict === "PASS";
+}
+
+function isAttentionStatus(result) {
+  return (
+    result.monitoringState !== "indexed" &&
+    result.monitoringState !== "stale_redirect_pending"
+  );
 }
 
 async function sleep(ms) {
@@ -595,16 +709,20 @@ async function indexStatus(flags) {
 
   for (const [index, entry] of entries.entries()) {
     const inspection = await inspectUrl(config.siteProperty, entry.loc);
-    const compact = compactInspection(entry, inspection);
+    const compact = await classifyInspectionResult(compactInspection(entry, inspection));
 
     results.push(compact);
     console.log(
-      `${String(index + 1).padStart(3, "0")}/${entries.length} ${compact.verdict.padEnd(8)} ${compact.coverageState} ${compact.url}`
+      `${String(index + 1).padStart(3, "0")}/${entries.length} ${compact.verdict.padEnd(8)} ${compact.monitoringState.padEnd(27)} ${compact.coverageState} ${compact.url}`
     );
     await sleep(delayMs);
   }
 
   const indexed = results.filter(isIndexedStatus).length;
+  const staleRedirectPending = results.filter(
+    (result) => result.monitoringState === "stale_redirect_pending",
+  ).length;
+  const needsAttention = results.filter(isAttentionStatus).length;
   const unindexed = results.length - indexed;
 
   if (flags.has("json")) {
@@ -615,17 +733,26 @@ async function indexStatus(flags) {
       results.map((result) => ({
         verdict: result.verdict,
         coverageState: result.coverageState,
+        monitoringState: result.monitoringState,
         lastCrawlTime: result.lastCrawlTime,
+        googleCanonical: result.googleCanonical,
+        userCanonical: result.userCanonical,
+        redirectTarget: result.redirectTarget,
         url: result.url,
       }))
     );
   }
 
   console.log(`Indexed/pass: ${indexed}`);
-  console.log(`Needs attention: ${unindexed}`);
+  console.log(`Stale legacy canonical with verified redirect: ${staleRedirectPending}`);
+  console.log(`Needs attention: ${needsAttention}`);
 
   if (flags.has("fail-on-unindexed") && unindexed > 0) {
     process.exitCode = 2;
+  }
+
+  if (flags.has("fail-on-attention") && needsAttention > 0) {
+    process.exitCode = 3;
   }
 }
 
@@ -647,6 +774,7 @@ Useful flags:
   --delay-ms=250              Delay between inspection calls.
   --json                      Print full compact JSON result.
   --fail-on-unindexed         Exit with code 2 if any inspected URL is not PASS.
+  --fail-on-attention         Exit with code 3 if any inspected URL needs action after redirect checks.
   --site=https://letkasni.rs  Override public site URL.
   --property=https://letkasni.rs/ or --property=sc-domain:letkasni.rs
   --no-open                   Print OAuth URL without opening the browser.

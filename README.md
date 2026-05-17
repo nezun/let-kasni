@@ -127,7 +127,17 @@ Useful one-off checks:
 npm run seo:submit-sitemap -- --dry-run
 npm run seo:index-status -- --limit=10
 npm run seo:index-status -- --json
+npm run seo:index-status -- --limit=20 --fail-on-attention
 ```
+
+`seo:index-status` is redirect-aware. When Google still reports an old
+canonical URL from the former `/blog/...`, `/en/blog/...`,
+`/prava-putnika-u-aviosaobracaju/...`, or `/en/air-passenger-rights/...`
+structure, the script checks whether that old canonical now 301-redirects to
+the current canonical URL. If it does, the result is counted as
+`stale_redirect_pending` instead of a failure. `--fail-on-attention` fails only
+when Search Console reports a URL that still needs action after those redirect
+checks.
 
 The repository also has a GitHub Actions workflow:
 
@@ -137,6 +147,8 @@ The repository also has a GitHub Actions workflow:
 - can be run manually from GitHub Actions
 - validates the live sitemap, submits it to Search Console, then samples URL
   Inspection API status for monitoring
+- fails only when sampled URLs have real indexing/canonical issues that are not
+  covered by verified legacy redirects
 
 Required GitHub secrets for the workflow:
 
