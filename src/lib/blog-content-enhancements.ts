@@ -123,6 +123,30 @@ const parentGuideByArticle: Record<
     sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
     en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
   },
+  "eurowings-flight-delay-compensation": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
+  "croatia-airlines-flight-delay-compensation": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
+  "vueling-flight-delay-compensation": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
+  "bulgaria-air-flight-delay-compensation": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
+  "tarom-flight-delay-compensation": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
+  "norwegian-flight-delay-compensation": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
   "two-hour-flight-delay-rights": {
     sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
     en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
@@ -307,6 +331,12 @@ const airlineDelayArticleIds = new Set([
   "ita-airways-flight-delay-compensation",
   "flydubai-flight-delay-compensation",
   "qatar-airways-flight-delay-compensation",
+  "eurowings-flight-delay-compensation",
+  "croatia-airlines-flight-delay-compensation",
+  "vueling-flight-delay-compensation",
+  "bulgaria-air-flight-delay-compensation",
+  "tarom-flight-delay-compensation",
+  "norwegian-flight-delay-compensation",
 ]);
 
 const delayScenarioArticleIds = new Set([
