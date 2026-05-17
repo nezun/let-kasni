@@ -24,8 +24,6 @@ const jetBrainsMono = JetBrains_Mono({
   preload: false,
 });
 
-export const preferredRegion = "fra1";
-
 export const metadata: Metadata = {
   title: "letkasni.rs | Provera avio odštete",
   description:
