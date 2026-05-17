@@ -151,6 +151,12 @@ function requireCredential() {
   return credential;
 }
 
+function hasServiceAccountCredential() {
+  const credential = getCredential();
+
+  return Boolean(credential.clientEmail && credential.privateKey);
+}
+
 function createJwt({ clientEmail, privateKey }) {
   const now = Math.floor(Date.now() / 1000);
   const header = {
@@ -227,7 +233,17 @@ async function getOAuthAccessToken() {
 
 async function getAccessToken() {
   if (process.env.GOOGLE_OAUTH_REFRESH_TOKEN) {
-    return getOAuthAccessToken();
+    try {
+      return await getOAuthAccessToken();
+    } catch (error) {
+      if (!hasServiceAccountCredential()) {
+        throw error;
+      }
+
+      console.warn(
+        `Google OAuth failed; falling back to service account auth. ${error.message}`,
+      );
+    }
   }
 
   return getServiceAccountAccessToken();

@@ -1,0 +1,71 @@
+name: Search Console Sitemap Submit
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Daily after the normal six-article publishing window.
+    - cron: "30 7 * * *"
+  workflow_run:
+    workflows:
+      - Content Quality Gate
+    types:
+      - completed
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  submit-sitemap:
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Wait for production deploy after main verification
+        if: ${{ github.event_name == 'workflow_run' }}
+        run: sleep 300
+
+      - name: Validate live sitemap
+        run: npm run seo:submit-sitemap -- --dry-run
+        env:
+          NEXT_PUBLIC_SITE_URL: https://letkasni.rs
+          GOOGLE_SEARCH_CONSOLE_SITE_URL: ${{ vars.GOOGLE_SEARCH_CONSOLE_SITE_URL || 'sc-domain:letkasni.rs' }}
+
+      - name: Submit live sitemap to Search Console
+        run: npm run seo:submit-sitemap
+        env:
+          NEXT_PUBLIC_SITE_URL: https://letkasni.rs
+          GOOGLE_SEARCH_CONSOLE_SITE_URL: ${{ vars.GOOGLE_SEARCH_CONSOLE_SITE_URL || 'sc-domain:letkasni.rs' }}
+          GOOGLE_OAUTH_CLIENT_ID: ${{ secrets.GOOGLE_OAUTH_CLIENT_ID }}
+          GOOGLE_OAUTH_CLIENT_SECRET: ${{ secrets.GOOGLE_OAUTH_CLIENT_SECRET }}
+          GOOGLE_OAUTH_REFRESH_TOKEN: ${{ secrets.GOOGLE_OAUTH_REFRESH_TOKEN }}
+          GOOGLE_SERVICE_ACCOUNT_EMAIL: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_EMAIL }}
+          GOOGLE_PRIVATE_KEY: ${{ secrets.GOOGLE_PRIVATE_KEY }}
+          GOOGLE_PRIVATE_KEY_BASE64: ${{ secrets.GOOGLE_PRIVATE_KEY_BASE64 }}
+
+      - name: Sample index monitoring
+        run: npm run seo:index-status -- --limit=20 --delay-ms=300
+        env:
+          NEXT_PUBLIC_SITE_URL: https://letkasni.rs
+          GOOGLE_SEARCH_CONSOLE_SITE_URL: ${{ vars.GOOGLE_SEARCH_CONSOLE_SITE_URL || 'sc-domain:letkasni.rs' }}
+          GOOGLE_OAUTH_CLIENT_ID: ${{ secrets.GOOGLE_OAUTH_CLIENT_ID }}
+          GOOGLE_OAUTH_CLIENT_SECRET: ${{ secrets.GOOGLE_OAUTH_CLIENT_SECRET }}
+          GOOGLE_OAUTH_REFRESH_TOKEN: ${{ secrets.GOOGLE_OAUTH_REFRESH_TOKEN }}
+          GOOGLE_SERVICE_ACCOUNT_EMAIL: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_EMAIL }}
+          GOOGLE_PRIVATE_KEY: ${{ secrets.GOOGLE_PRIVATE_KEY }}
+          GOOGLE_PRIVATE_KEY_BASE64: ${{ secrets.GOOGLE_PRIVATE_KEY_BASE64 }}

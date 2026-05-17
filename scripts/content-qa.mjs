@@ -1057,9 +1057,10 @@ function checkInterlinkingGuardrails() {
     addIssue({
       type: "legacy_blog_article_url_surface",
       file: "src/app",
-      message: "legacy /blog/[slug] and /en/blog/[slug] article URLs must not be served or redirected",
+      message:
+        "legacy /blog/[slug] and /en/blog/[slug] article URLs must not be served as indexable article pages or linked publicly",
       suggestedFix:
-        "Keep only /blog and /en/blog as index pages; article URLs must live under their cornerstone parent paths.",
+        "Keep only /blog and /en/blog as index pages. Legacy article URL handlers may exist only as 301 redirects to canonical cornerstone URLs, and they must stay out of sitemap/internal links.",
     });
   }
 }

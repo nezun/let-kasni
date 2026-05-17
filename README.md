@@ -129,6 +129,34 @@ npm run seo:index-status -- --limit=10
 npm run seo:index-status -- --json
 ```
 
+The repository also has a GitHub Actions workflow:
+
+- `.github/workflows/search-console-sitemap.yml`
+- runs daily at `07:30 UTC`
+- runs after the `Content Quality Gate` succeeds on `main`
+- can be run manually from GitHub Actions
+- validates the live sitemap, submits it to Search Console, then samples URL
+  Inspection API status for monitoring
+
+Required GitHub secrets for the workflow:
+
+OAuth path, used when Search Console rejects service-account users:
+
+- `GOOGLE_OAUTH_CLIENT_ID`
+- `GOOGLE_OAUTH_CLIENT_SECRET`
+- `GOOGLE_OAUTH_REFRESH_TOKEN`
+
+Service-account path, used only if the service account has Search Console
+permission:
+
+- `GOOGLE_SERVICE_ACCOUNT_EMAIL`
+- `GOOGLE_PRIVATE_KEY_BASE64` preferred, or `GOOGLE_PRIVATE_KEY`
+
+The workflow tries OAuth first when `GOOGLE_OAUTH_REFRESH_TOKEN` is present,
+then falls back to the service account. Without one authenticated Search
+Console user that has access to `sc-domain:letkasni.rs`, the workflow can
+validate the sitemap but cannot submit it.
+
 ## Auth policy
 
 - Preporučeno: `Supabase Auth` za produkciju
