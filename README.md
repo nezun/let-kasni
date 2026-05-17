@@ -142,9 +142,11 @@ Required GitHub secrets for the workflow:
 
 OAuth path, used when Search Console rejects service-account users:
 
-- `GOOGLE_OAUTH_CLIENT_ID`
 - `GOOGLE_OAUTH_CLIENT_SECRET`
 - `GOOGLE_OAUTH_REFRESH_TOKEN`
+
+The workflow carries the public OAuth client ID directly. Only the client
+secret and refresh token need to be stored as GitHub secrets.
 
 Service-account path, used only if the service account has Search Console
 permission:

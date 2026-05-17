@@ -76,8 +76,42 @@ function parseArgs(argv) {
   return { flags, positional };
 }
 
+function cleanEnvSecret(name) {
+  let value = process.env[name];
+
+  if (!value) {
+    return undefined;
+  }
+
+  value = value
+    .trim()
+    .replace(/^```(?:text|env|bash)?\s*/i, "")
+    .replace(/\s*```$/i, "")
+    .trim();
+
+  const matchingAssignmentLine = value
+    .split(/\r?\n/)
+    .find((line) => line.trim().startsWith(`${name}=`));
+
+  if (matchingAssignmentLine) {
+    value = matchingAssignmentLine.trim();
+  }
+
+  const assignmentPrefix = new RegExp(`^${name}\\s*=\\s*`);
+  value = value.replace(assignmentPrefix, "").trim();
+
+  if (
+    (value.startsWith('"') && value.endsWith('"')) ||
+    (value.startsWith("'") && value.endsWith("'"))
+  ) {
+    value = value.slice(1, -1).trim();
+  }
+
+  return value || undefined;
+}
+
 function getCredential() {
-  const credentialsPath = process.env.GOOGLE_APPLICATION_CREDENTIALS;
+  const credentialsPath = cleanEnvSecret("GOOGLE_APPLICATION_CREDENTIALS");
 
   if (credentialsPath) {
     const credentials = JSON.parse(readFileSync(credentialsPath, "utf8"));
@@ -89,19 +123,19 @@ function getCredential() {
   }
 
   const privateKey =
-    process.env.GOOGLE_PRIVATE_KEY ??
-    (process.env.GOOGLE_PRIVATE_KEY_BASE64
-      ? Buffer.from(process.env.GOOGLE_PRIVATE_KEY_BASE64, "base64").toString("utf8")
+    cleanEnvSecret("GOOGLE_PRIVATE_KEY") ??
+    (cleanEnvSecret("GOOGLE_PRIVATE_KEY_BASE64")
+      ? Buffer.from(cleanEnvSecret("GOOGLE_PRIVATE_KEY_BASE64"), "base64").toString("utf8")
       : undefined);
 
   return {
-    clientEmail: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
+    clientEmail: cleanEnvSecret("GOOGLE_SERVICE_ACCOUNT_EMAIL"),
     privateKey,
   };
 }
 
 function getOAuthClient() {
-  const credentialsPath = process.env.GOOGLE_OAUTH_CLIENT_CREDENTIALS;
+  const credentialsPath = cleanEnvSecret("GOOGLE_OAUTH_CLIENT_CREDENTIALS");
 
   if (credentialsPath) {
     const credentials = JSON.parse(readFileSync(credentialsPath, "utf8"));
@@ -114,8 +148,8 @@ function getOAuthClient() {
   }
 
   return {
-    clientId: process.env.GOOGLE_OAUTH_CLIENT_ID,
-    clientSecret: process.env.GOOGLE_OAUTH_CLIENT_SECRET,
+    clientId: cleanEnvSecret("GOOGLE_OAUTH_CLIENT_ID"),
+    clientSecret: cleanEnvSecret("GOOGLE_OAUTH_CLIENT_SECRET"),
   };
 }
 
@@ -201,7 +235,7 @@ async function getServiceAccountAccessToken() {
 }
 
 async function getOAuthAccessToken() {
-  const refreshToken = process.env.GOOGLE_OAUTH_REFRESH_TOKEN;
+  const refreshToken = cleanEnvSecret("GOOGLE_OAUTH_REFRESH_TOKEN");
 
   if (!refreshToken) {
     throw new Error(
