@@ -275,6 +275,30 @@ const parentGuideByArticle: Record<
     sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
     en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
   },
+  "separate-tickets-after-delay": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
+  "baggage-loading-flight-delay": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
+  "aircraft-cleaning-flight-delay": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
+  "crew-duty-time-flight-delay": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
+  "no-meal-voucher-flight-delay-receipts": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
+  "family-with-children-flight-delay-care": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
   "cancelled-flight-rights": {
     sr: { title: "Naknada za otkazan let", href: "/naknada-za-otkazan-let" },
     en: { title: "Flight cancellation compensation", href: "/en/flight-cancellation-compensation" },
@@ -384,6 +408,12 @@ const delayScenarioArticleIds = new Set([
   "serbia-turkey-flight-delay-compensation",
   "belgrade-flight-delay-compensation",
   "nis-flight-delay-compensation",
+  "separate-tickets-after-delay",
+  "baggage-loading-flight-delay",
+  "aircraft-cleaning-flight-delay",
+  "crew-duty-time-flight-delay",
+  "no-meal-voucher-flight-delay-receipts",
+  "family-with-children-flight-delay-care",
 ]);
 
 function parentFor(articleId: string, locale: BlogLocale) {
