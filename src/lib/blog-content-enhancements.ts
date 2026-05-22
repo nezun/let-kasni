@@ -171,6 +171,30 @@ const parentGuideByArticle: Record<
     sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
     en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
   },
+  "serbia-united-kingdom-flight-delay-compensation": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
+  "serbia-united-arab-emirates-flight-delay-compensation": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
+  "serbia-israel-flight-delay-compensation": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
+  "serbia-france-flight-delay-compensation": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
+  "serbia-italy-flight-delay-compensation": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
+  "serbia-netherlands-flight-delay-compensation": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
   "two-hour-flight-delay-rights": {
     sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
     en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
@@ -414,6 +438,12 @@ const delayScenarioArticleIds = new Set([
   "crew-duty-time-flight-delay",
   "no-meal-voucher-flight-delay-receipts",
   "family-with-children-flight-delay-care",
+  "serbia-united-kingdom-flight-delay-compensation",
+  "serbia-united-arab-emirates-flight-delay-compensation",
+  "serbia-israel-flight-delay-compensation",
+  "serbia-france-flight-delay-compensation",
+  "serbia-italy-flight-delay-compensation",
+  "serbia-netherlands-flight-delay-compensation",
 ]);
 
 function parentFor(articleId: string, locale: BlogLocale) {
