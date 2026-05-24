@@ -195,6 +195,30 @@ const parentGuideByArticle: Record<
     sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
     en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
   },
+  "airbaltic-flight-delay-compensation": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
+  "iberia-flight-delay-compensation": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
+  "luxair-flight-delay-compensation": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
+  "condor-flight-delay-compensation": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
+  "freebird-flight-delay-compensation": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
+  "brussels-airlines-flight-delay-compensation": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
   "two-hour-flight-delay-rights": {
     sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
     en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
@@ -409,6 +433,12 @@ const airlineDelayArticleIds = new Set([
   "bulgaria-air-flight-delay-compensation",
   "tarom-flight-delay-compensation",
   "norwegian-flight-delay-compensation",
+  "airbaltic-flight-delay-compensation",
+  "iberia-flight-delay-compensation",
+  "luxair-flight-delay-compensation",
+  "condor-flight-delay-compensation",
+  "freebird-flight-delay-compensation",
+  "brussels-airlines-flight-delay-compensation",
 ]);
 
 const delayScenarioArticleIds = new Set([
