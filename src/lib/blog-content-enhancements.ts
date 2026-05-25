@@ -371,6 +371,30 @@ const parentGuideByArticle: Record<
     sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
     en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
   },
+  "security-screening-flight-delay": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
+  "baggage-offload-flight-delay": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
+  "aircraft-fueling-flight-delay": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
+  "ground-handling-flight-delay": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
+  "runway-congestion-flight-delay": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
+  "destination-weather-flight-delay": {
+    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
+    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
+  },
   "cancelled-flight-rights": {
     sr: { title: "Naknada za otkazan let", href: "/naknada-za-otkazan-let" },
     en: { title: "Flight cancellation compensation", href: "/en/flight-cancellation-compensation" },
@@ -504,6 +528,12 @@ const delayScenarioArticleIds = new Set([
   "serbia-france-flight-delay-compensation",
   "serbia-italy-flight-delay-compensation",
   "serbia-netherlands-flight-delay-compensation",
+  "security-screening-flight-delay",
+  "baggage-offload-flight-delay",
+  "aircraft-fueling-flight-delay",
+  "ground-handling-flight-delay",
+  "runway-congestion-flight-delay",
+  "destination-weather-flight-delay",
 ]);
 
 function parentFor(articleId: string, locale: BlogLocale) {

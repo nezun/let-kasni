@@ -319,6 +319,12 @@ export const cornerstonePages: CornerstonePage[] = [
       "serbia-france-flight-delay-compensation",
       "serbia-italy-flight-delay-compensation",
       "serbia-netherlands-flight-delay-compensation",
+      "security-screening-flight-delay",
+      "baggage-offload-flight-delay",
+      "aircraft-fueling-flight-delay",
+      "ground-handling-flight-delay",
+      "runway-congestion-flight-delay",
+      "destination-weather-flight-delay",
       "flight-diverted-rights",
     ],
     supportArticleIds: [
