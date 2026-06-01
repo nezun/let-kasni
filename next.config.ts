@@ -34,6 +34,11 @@ const nextConfig: NextConfig = {
         destination: "/en/flight-cancellation-compensation/flight-moved-earlier-passenger-rights",
         permanent: true,
       },
+      {
+        source: "/_next/static/media/70bc3e132a0a741e-s.p.1409xf.ylxg8g.woff2",
+        destination: "/_next/static/media/70bc3e132a0a741e-s.1409xf.ylxg8g.woff2",
+        permanent: true,
+      },
     ];
   },
   async headers() {
