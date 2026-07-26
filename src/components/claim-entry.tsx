@@ -179,7 +179,7 @@ export function HeroClaimCard({
 
         <div className="mt-[14px] text-center text-xs leading-[1.5] text-[#64748B]">
           <p>{note}</p>
-          <p>{routeHint}</p>
+          {routeHint ? <p>{routeHint}</p> : null}
         </div>
       </div>
 

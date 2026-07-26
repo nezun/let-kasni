@@ -42,6 +42,7 @@ Ovaj app prati zaključani pravac iz `PLAN.autoplan.md`:
 ```bash
 npm run dev
 npm run lint
+npm run locales:check
 npm run build
 npm run start
 ```

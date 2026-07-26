@@ -49,6 +49,12 @@ This version has breaking changes — APIs, conventions, and file structure may 
 - Blog articles must be bilingual mirrors: Serbian and English versions should keep the same structure, section order, and substance.
 - Small wording changes are allowed only when the target language requires it, but the two language versions should remain about 95% equivalent in meaning and coverage.
 
+## Landing localization
+
+- Every user-facing landing-page copy change must update both Serbian and English in the same patch. Translate for natural meaning rather than copying Serbian wording literally.
+- Run `npm run locales:check` after landing-page copy edits. The check fails when only one locale changed or when the SR/EN landing-copy structures diverge.
+- A user may explicitly request a one-language exception. Record that exception in the handoff before bypassing the paired-locale rule.
+
 ## Blog and Content QA
 
 - Before publishing, deploying, or handing off new blog/content work, run `npm run content:qa`, `npm run content:links`, and `npm run content:benchmark` together with the normal lint/build checks.

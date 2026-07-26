@@ -34,15 +34,16 @@ const copy = {
     navFaq: "Česta pitanja",
     navBlog: "Blog",
     navCta: "Proveri let",
-    heroLine1: "Vaš let je",
-    heroLine2: "kasnio?",
-    heroLine3: "Naplatite",
-    heroLine4: "do 600€.",
+    heroLine1: "Pomeren ili",
+    heroLine2: "otkazan let?",
+    heroLine3: "Naplatite do 600€, ",
+    heroLine3Emphasis: "zadržite ceo iznos.",
+    heroLine4: "",
     heroBody:
-      "Kao prvi domaći servis, pomažemo putnicima u Srbiji da naplate ono što im zakonski pripada — bez stresa i bez troškova unapred.",
-    proofA: "Bez troškova unapred",
-    proofB: "Samo 10% provizije",
-    proofC: "94% uspešnost",
+      "Besplatno pomažemo putnicima u Srbiji da naplate ono što im zakonski pripada — bez stresa i bez troškova.",
+    proofA: "Bez ikakvih troškova",
+    proofB: "0% provizije od uspeha",
+    proofC: "94% uspešnost naplate",
     cardEyebrow: "Proveri odštetu odmah",
     cardTitle: "Koliko ti duguje avio-kompanija?",
     flightNumber: "Broj leta",
@@ -50,10 +51,10 @@ const copy = {
     flightDate: "Datum leta",
     issueType: "Vrsta problema",
     heroButton: "Proveri besplatno",
-    heroNote: "Provera traje manje od 60 sekundi.",
-    routeHint: "Kompletnu rutu tražimo u sledećem koraku.",
+    heroNote: "Provera traje manje od 2 minuta.",
+    routeHint: "",
     airlineStripLabel: "Radimo sa:",
-    airlineGridEyebrow: "Naplaćujemo od svih većih",
+    airlineGridEyebrow: "Naplaćujemo od svih većih avio-prevoznika",
     airlineGridTitle: "Vodeće avio-kompanije na našoj listi",
     airlineMore: "+ 40 drugih kompanija iz EU i regiona",
     active: "Aktivno",
@@ -67,27 +68,27 @@ const copy = {
         body: "Broj leta, datum i osnovni problem. Dovoljno za prvi signal.",
       },
       {
-        title: "Pravna provera",
+        title: "Provera slučaja",
         body: "Sistem i operativni tim proveravaju da li slučaj deluje naplativo.",
       },
       {
         title: "Isplata novca",
-        body: "Ako je slučaj dobar, vodimo proces naplate do isplate na vaš račun.",
+        body: "Sistematizujemo proces naplate do isplate na Vaš račun.",
       },
     ],
     benefitsEyebrow: "Lokalna ekspertiza",
-    benefitsTitle: "Prvi i jedini srpski provajder",
+    benefitsTitle: "Prvi srpski provajder",
     benefitsBody:
-      "Naš lokalni pravni tim vodi slučaj efikasno i razumljivo, tako da vi ne jurite avio-kompaniju po stranim formularima.",
-    featureRiskTitle: "Bez troškova unapred",
+      "Naš lokalni tim vodi proces efikasno i razumljivo, tako da Vi ne jurite avio-kompaniju ili nepotrebno ostavljate polovinu Vaše odštete stranim platformama za avio-odštetu.",
+    featureRiskTitle: "Bez ikakvih troškova",
     featureRiskBody:
-      "Proviziju uzimamo samo ako naplatimo. Mi preuzimamo operativni i pravni teret.",
-    featureFeeTitle: "Samo 10% provizije",
+      "Besplatno Vam pomažemo u procesu naplate. Bez ikakvih troškova niti plaćanja unapred.",
+    featureFeeTitle: "0% provizije",
     featureFeeBody:
-      "Najdirektniji model na tržištu: jasna provizija, bez skrivenih troškova.",
-    featureLocalTitle: "Lokalni pravni tim",
+      "Nema provizije od uspeha, čitav iznos se isplaćuje Vama.",
+    featureLocalTitle: "Lokalna podrška",
     featureLocalBody:
-      "Srpski pravnici koji poznaju lokalni kontekst i razumeju vaš problem.",
+      "Srpski tim koji poznaje lokalni kontekst i razume Vaš problem.",
     statSuccess: "Uspešnost slučajeva",
     statUpfront: "Troškovi unapred",
     statFee: "Provizija na uspeh",
@@ -105,23 +106,23 @@ const copy = {
       },
       {
         q: "Šta ako je avio-kompanija rekla da nema osnova?",
-        a: "To nije konačan odgovor. Kompanije često odbijaju zahteve generički, pa radimo sopstvenu proveru pre konačne odluke.",
+        a: "To nije konačan odgovor. Avio-kompanije u Srbiji, zbog nedovoljno jasnih propisa, po pravilu odbijaju zahteve generički. Stoga mi radimo sopstvenu proveru pre konačne odluke.",
       },
       {
         q: "Kada plaćam uslugu?",
-        a: "Ne plaćate unapred. Naknada se obračunava tek ako slučaj uspe.",
+        a: "Ne plaćate ništa. Usluga je besplatna i zadržavate ceo iznos odštete. Kako? Naš servis je automatizovan da radi gotovo bez ikakvih troškova, a ukoliko slučaj ode pred sud, advokat koji vodi Vaš predmet se naplaćuje isključivo od avio-kompanije.",
       },
       {
         q: "Koliko traje naplata odštete?",
-        a: "Zavisi od avio-kompanije. Jednostavniji predmeti mogu biti zatvoreni relativno brzo, dok sporiji zahtevi traže više vremena.",
+        a: "Zavisi od avio-kompanije i samog slučaja. Jednostavniji predmeti mogu biti zatvoreni za 1-2 meseca, dok kompleksniji zahtevi traže više vremena. U svakom slučaju ovaj proces ne zahteva aktivno učešće sa Vaše strane i redovno ćete biti obaveštavani o statusu Vašeg zahteva.",
       },
       {
         q: "Da li mogu da tražim odštetu i ako je let bio pre nekoliko godina?",
-        a: "U mnogim slučajevima da. Rokovi zastarelosti zavise od države i vrste leta.",
+        a: "U mnogim slučajevima da. Ukoliko se slučaj desio u poslednjih 5 godina, svakako da treba da proverite da li imate pravo. Naš servis će ovo za Vas uraditi besplatno.",
       },
     ],
-    ctaTitleA: "Ne dozvolite da vaš novac",
-    ctaTitleB: "ostane avio-kompaniji.",
+    ctaTitleA: "Ne ostavljajte Vaš novac",
+    ctaTitleB: "avio-kompaniji ili stranoj platformi.",
     ctaBody:
       "Započnite proveru odmah. Za prvi prolaz su vam potrebna samo dva minuta.",
     ctaButton: "Proveri moj let besplatno",
@@ -144,15 +145,16 @@ const copy = {
     navFaq: "FAQ",
     navBlog: "Blog",
     navCta: "Check flight",
-    heroLine1: "Was your flight",
-    heroLine2: "delayed?",
-    heroLine3: "Claim up to",
-    heroLine4: "€600.",
+    heroLine1: "Delayed or",
+    heroLine2: "cancelled flight?",
+    heroLine3: "Claim up to €600, ",
+    heroLine3Emphasis: "keep it all.",
+    heroLine4: "",
     heroBody:
-      "We help passengers connected to Serbia recover compensation they may be owed — with a clear local process, no maze, and no upfront cost.",
-    proofA: "No upfront fee",
-    proofB: "Only 10% fee",
-    proofC: "94% success rate",
+      "We help passengers connected to Serbia recover compensation they may be owed — free of charge, without stress or costs.",
+    proofA: "No costs",
+    proofB: "0% success commission",
+    proofC: "94% recovery success rate",
     cardEyebrow: "Check compensation now",
     cardTitle: "How much could your airline owe you?",
     flightNumber: "Flight number",
@@ -160,10 +162,10 @@ const copy = {
     flightDate: "Flight date",
     issueType: "Issue type",
     heroButton: "Check for free",
-    heroNote: "The first check takes less than 60 seconds.",
-    routeHint: "We collect the full route in the next step.",
+    heroNote: "The first check takes less than 2 minutes.",
+    routeHint: "",
     airlineStripLabel: "We work with:",
-    airlineGridEyebrow: "Claims across major carriers",
+    airlineGridEyebrow: "Claims across all major airlines",
     airlineGridTitle: "Leading airlines on our review list",
     airlineMore: "+ 40 other carriers across the EU and the region",
     active: "Active",
@@ -177,27 +179,27 @@ const copy = {
         body: "Flight number, date and issue. Enough for the first signal.",
       },
       {
-        title: "Legal review",
+        title: "Case review",
         body: "The system and operations team check whether the case looks viable.",
       },
       {
         title: "Payout",
-        body: "If the case is good, we drive the recovery through to payout.",
+        body: "We systematize the recovery process through to payout into your account.",
       },
     ],
     benefitsEyebrow: "Local expertise",
     benefitsTitle: "The first Serbian provider",
     benefitsBody:
-      "Our local legal team handles the case clearly and efficiently, so you do not have to chase airlines through generic foreign forms.",
-    featureRiskTitle: "No upfront costs",
+      "Our local team runs the process efficiently and clearly, so you do not have to chase the airline or unnecessarily give half of your compensation to foreign flight-compensation platforms.",
+    featureRiskTitle: "No costs",
     featureRiskBody:
-      "We only take a fee if we recover compensation. We carry the operational and legal burden.",
-    featureFeeTitle: "Only 10% fee",
+      "We help you through the recovery process free of charge. No costs or upfront payment.",
+    featureFeeTitle: "0% commission",
     featureFeeBody:
-      "A direct fee model with no hidden costs and no upfront payment.",
-    featureLocalTitle: "Local legal team",
+      "There is no success commission; the entire amount is paid to you.",
+    featureLocalTitle: "Local support",
     featureLocalBody:
-      "Serbian legal operators who understand the local context and your case.",
+      "A Serbian team that knows the local context and understands your problem.",
     statSuccess: "Case success rate",
     statUpfront: "Upfront cost",
     statFee: "Success fee",
@@ -215,23 +217,23 @@ const copy = {
       },
       {
         q: "What if the airline already rejected me?",
-        a: "That is not final. Airlines often reject with generic answers, so we run our own review before deciding.",
+        a: "That is not a final answer. Airlines in Serbia, due to insufficiently clear regulations, generally reject claims with generic responses. We therefore conduct our own review before making a final decision.",
       },
       {
         q: "When do I pay?",
-        a: "There is no upfront payment. The fee is charged only if the case succeeds.",
+        a: "You pay nothing. The service is free and you keep the full compensation amount. How? Our service is automated to operate at almost no cost, and if the case goes to court, the lawyer handling your case is paid exclusively by the airline.",
       },
       {
         q: "How long does a compensation claim take?",
-        a: "That depends on the airline. Simpler cases can move relatively quickly, while slower ones need more time.",
+        a: "That depends on the airline and the case itself. Simpler cases may be closed within 1-2 months, while more complex claims take longer. In any case, the process does not require your active involvement, and you will receive regular updates on the status of your claim.",
       },
       {
         q: "Can I still claim for an older flight?",
-        a: "Often yes. Limitation periods depend on the country and route, so older flights can still be worth checking.",
+        a: "In many cases, yes. If the disruption happened within the last 5 years, you should check whether you are entitled to compensation. Our service will check this for you free of charge.",
       },
     ],
     ctaTitleA: "Do not leave your money",
-    ctaTitleB: "with the airline.",
+    ctaTitleB: "with the airline or a foreign platform.",
     ctaBody: "Start the check now. The first pass takes only two minutes.",
     ctaButton: "Check my flight for free",
     footerBody:
@@ -319,7 +321,7 @@ const testimonialsCopy = {
           "Najviše mi je značilo što su prvo realno proverili slučaj. Bez velikih obećanja, samo konkretno šta fali od dokaza i koji je sledeći korak.",
       },
       {
-        name: "Nikola Marinković",
+        name: "Nikola Marinić",
         route: "Beograd - Njujork",
         amount: "600 EUR",
         quote:
@@ -350,7 +352,7 @@ const testimonialsCopy = {
           "What mattered most was that they checked the case realistically first. No big promises, just a concrete list of missing proof and the next step.",
       },
       {
-        name: "Nikola Marinkovic",
+        name: "Nikola Marinic",
         route: "Belgrade - New York",
         amount: "EUR 600",
         quote:
@@ -566,8 +568,15 @@ export function LandingPage({
               <h1 className="font-display mb-7 text-[3.55rem] font-bold leading-[1.01] text-white sm:text-[4.45rem] xl:text-[64px]">
                 <span className="block">{t.heroLine1}</span>
                 <span className="block">{t.heroLine2}</span>
-                <span className="block text-[#2470EB]">{t.heroLine3}</span>
-                <span className="block text-[#2470EB]">{t.heroLine4}</span>
+                <span className="block text-[#2470EB]">
+                  {t.heroLine3}
+                  <span className="underline decoration-[#2470EB] decoration-[3px] underline-offset-[5px] sm:decoration-[5px] sm:underline-offset-[8px]">
+                    {t.heroLine3Emphasis}
+                  </span>
+                </span>
+                {t.heroLine4 ? (
+                  <span className="block text-[#2470EB]">{t.heroLine4}</span>
+                ) : null}
               </h1>
 
               <p className="mb-9 max-w-[480px] text-[18px] leading-[1.7] text-white/62">
@@ -796,7 +805,7 @@ export function LandingPage({
             {[
               { value: "94%", label: t.statSuccess },
               { value: "€0", label: t.statUpfront },
-              { value: "10%", label: t.statFee },
+              { value: "0%", label: t.statFee },
               { value: "€600", label: t.statMax },
             ].map((item, index) => (
               <div
