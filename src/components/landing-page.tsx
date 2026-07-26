@@ -37,7 +37,7 @@ const copy = {
     heroLine1: "Pomeren ili",
     heroLine2: "otkazan let?",
     heroLine3: "Naplatite do 600€, ",
-    heroLine3Emphasis: "zadržite ceo iznos.",
+    heroLine3Emphasis: "zadržite ceo\u00a0iznos.",
     heroLine4: "",
     heroBody:
       "Besplatno pomažemo putnicima u Srbiji da naplate ono što im zakonski pripada — bez stresa i bez troškova.",
@@ -123,8 +123,7 @@ const copy = {
     ],
     ctaTitleA: "Ne ostavljajte Vaš novac",
     ctaTitleB: "avio-kompaniji ili stranoj platformi.",
-    ctaBody:
-      "Započnite proveru odmah. Za prvi prolaz su vam potrebna samo dva minuta.",
+    ctaBody: "Započnite proveru odmah. Potrebno Vam je samo dva minuta.",
     ctaButton: "Proveri moj let besplatno",
     footerBody:
       "Specijalizovani servis za zaštitu prava putnika u avio-saobraćaju i naplatu zakonom propisane odštete.",
@@ -234,7 +233,7 @@ const copy = {
     ],
     ctaTitleA: "Do not leave your money",
     ctaTitleB: "with the airline or a foreign platform.",
-    ctaBody: "Start the check now. The first pass takes only two minutes.",
+    ctaBody: "Start the check now. You only need two minutes.",
     ctaButton: "Check my flight for free",
     footerBody:
       "A focused service for passenger-rights claims and compensation recovery support connected to Serbia.",
@@ -565,7 +564,7 @@ export function LandingPage({
             }`}
           >
             <div className={compactHero ? "max-w-[35.5rem]" : "max-w-[37rem]"}>
-              <h1 className="font-display mb-7 text-[3.55rem] font-bold leading-[1.01] text-white sm:text-[4.45rem] xl:text-[64px]">
+              <h1 className="font-display mb-7 text-[48px] font-bold leading-[1.01] text-white sm:text-[54px] lg:text-[61.2px]">
                 <span className="block">{t.heroLine1}</span>
                 <span className="block">{t.heroLine2}</span>
                 <span className="block text-[#2470EB]">
@@ -579,7 +578,7 @@ export function LandingPage({
                 ) : null}
               </h1>
 
-              <p className="mb-9 max-w-[480px] text-[18px] leading-[1.7] text-white/62">
+              <p className="mb-9 max-w-[480px] text-[16px] leading-[1.7] text-white/62">
                 {t.heroBody}
               </p>
 
