@@ -105,7 +105,7 @@ export function SocialPreviewCard({
             }}
           >
             <span style={{ color: "#2470EB" }}>let</span>
-            <span style={{ color: "#FFFFFF" }}>kasni.rs</span>
+            <span style={{ color: "#FFFFFF" }}>kasni</span>
           </div>
         </div>
 

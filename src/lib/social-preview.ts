@@ -1,11 +1,9 @@
-export const SOCIAL_PREVIEW_VERSION = "2026-07-26-7";
+export const SOCIAL_PREVIEW_VERSION = "2026-07-26-8";
 
 export const socialPreview = {
   sr: {
-    title:
-      "Pomeren ili otkazan let? Naplatite do 600€ bez ikakvih troškova ili provizije | letkasni.rs",
-    description:
-      "Besplatno proverite pravo na avio-odštetu. 0% provizije od uspeha — zadržavate ceo iznos.",
+    title: "Besplatno naplatite do 600 EUR avio-odštete.",
+    description: "0% provizije od uspeha - Vi zadržavate ceo iznos.",
     imageAlt:
       "letkasni.rs — pomeren ili otkazan let, naplatite do 600€ i zadržite ceo iznos",
     question: "Pomeren ili otkazan let?",
@@ -15,10 +13,8 @@ export const socialPreview = {
     proofB: "Besplatna provera",
   },
   en: {
-    title:
-      "Delayed or cancelled flight? Claim up to €600 with no costs or commission | letkasni.rs",
-    description:
-      "Check your flight-compensation eligibility free of charge. 0% success commission — you keep the full amount.",
+    title: "Claim up to EUR 600 in flight compensation free of charge.",
+    description: "0% success commission - You keep the full amount.",
     imageAlt:
       "letkasni.rs — delayed or cancelled flight, claim up to €600 and keep the full amount",
     question: "Delayed or cancelled flight?",
