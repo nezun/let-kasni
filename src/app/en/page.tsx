@@ -1,11 +1,17 @@
 import type { Metadata } from "next";
 
 import { LandingPage } from "@/components/landing-page";
+import {
+  getSocialPreviewImageUrl,
+  socialPreview,
+} from "@/lib/social-preview";
+
+const enSocial = socialPreview.en;
+const enSocialImage = getSocialPreviewImageUrl("en");
 
 export const metadata: Metadata = {
-  title: "letkasni.rs | Flight compensation check",
-  description:
-    "Enter your flight details and get an initial check on whether your case is worth reviewing further under EU 261 / ECAA.",
+  title: enSocial.title,
+  description: enSocial.description,
   alternates: {
     canonical: "/en",
     languages: {
@@ -15,26 +21,28 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "letkasni.rs | Flight compensation check",
-    description:
-      "Enter your flight details and get an initial check on whether your case is worth reviewing further under EU 261 / ECAA.",
+    title: enSocial.title,
+    description: enSocial.description,
     type: "website",
+    url: "/en",
+    siteName: "letkasni.rs",
     locale: "en_US",
+    alternateLocale: ["sr_RS"],
     images: [
       {
-        url: "/opengraph-image",
+        url: enSocialImage,
         width: 1200,
         height: 630,
-        alt: "letkasni.rs - flight compensation check",
+        type: "image/png",
+        alt: enSocial.imageAlt,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "letkasni.rs | Flight compensation check",
-    description:
-      "Initial flight-compensation review for passengers connected to Serbia, with a clear next step and no upfront fee.",
-    images: ["/twitter-image"],
+    title: enSocial.title,
+    description: enSocial.description,
+    images: [enSocialImage],
   },
 };
 
