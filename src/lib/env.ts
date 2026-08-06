@@ -69,23 +69,30 @@ export function getSiteUrl() {
 }
 
 export function getOperatorName() {
-  return getEnv("NEXT_PUBLIC_OPERATOR_NAME") ?? "VGA EU CONSULTING DOO NIŠ";
+  return getEnv("NEXT_PUBLIC_OPERATOR_NAME") ?? "Expatwise LLC";
 }
 
 export function getOperatorAddress() {
-  return getEnv("NEXT_PUBLIC_OPERATOR_ADDRESS") ?? "Bulevar Nemanjića 1, 18000, Niš (Medijana), Srbija";
+  return (
+    getEnv("NEXT_PUBLIC_OPERATOR_ADDRESS") ??
+    "30 N Gould St, Ste R, Sheridan, WY 82801, USA"
+  );
+}
+
+export function getOperatorCountry() {
+  return getEnv("NEXT_PUBLIC_OPERATOR_COUNTRY") ?? "Sjedinjene Američke Države";
 }
 
 export function getOperatorRegistry() {
-  return getEnv("NEXT_PUBLIC_OPERATOR_REGISTRY") ?? "APR / Registar privrednih subjekata";
+  return getEnv("NEXT_PUBLIC_OPERATOR_REGISTRY");
 }
 
 export function getOperatorPib() {
-  return getEnv("NEXT_PUBLIC_OPERATOR_PIB") ?? "113473442";
+  return getEnv("NEXT_PUBLIC_OPERATOR_PIB");
 }
 
 export function getOperatorMb() {
-  return getEnv("NEXT_PUBLIC_OPERATOR_MB") ?? "21873446";
+  return getEnv("NEXT_PUBLIC_OPERATOR_MB");
 }
 
 export function isSupabaseConfigured() {
