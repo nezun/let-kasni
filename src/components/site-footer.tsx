@@ -16,7 +16,6 @@ const footerCopy = {
     navHow: "Kako radi",
     terms: "Uslovi korišćenja",
     privacy: "Politika privatnosti",
-    support: "Kontakt",
     copyright: "© 2026 letkasni.rs. Sva prava zadržana.",
   },
   en: {
@@ -28,7 +27,6 @@ const footerCopy = {
     navHow: "How it works",
     terms: "Terms of use",
     privacy: "Privacy policy",
-    support: "Contact",
     copyright: "© 2026 letkasni.rs. All rights reserved.",
   },
 } as const;
@@ -42,7 +40,6 @@ function footerRightsLinks(locale: FooterLocale) {
 
 export function SiteFooter({
   locale,
-  supportEmail,
   logoBalance = "compact",
 }: {
   locale: FooterLocale;
@@ -104,12 +101,6 @@ export function SiteFooter({
                 >
                   {t.navHow}
                 </Link>
-                <a
-                  href={`mailto:${supportEmail}`}
-                  className="w-fit text-sm leading-[1.45] text-[#8E9BB0] transition hover:text-[#C7D0DE]"
-                >
-                  {t.support}
-                </a>
               </nav>
             </div>
           </div>
