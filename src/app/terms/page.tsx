@@ -1,17 +1,13 @@
-import Link from "next/link";
-
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import {
   getOperatorAddress,
-  getOperatorMb,
+  getOperatorCountry,
   getOperatorName,
-  getOperatorPib,
-  getOperatorRegistry,
   getSupportEmail,
 } from "@/lib/env";
 
-const lastUpdated = "1. maj 2026.";
+const lastUpdated = "6. avgust 2026.";
 
 function Section({
   title,
@@ -31,36 +27,30 @@ function Section({
 function IdentityBlock() {
   const operatorName = getOperatorName();
   const operatorAddress = getOperatorAddress();
-  const operatorRegistry = getOperatorRegistry();
-  const operatorPib = getOperatorPib();
-  const operatorMb = getOperatorMb();
+  const operatorCountry = getOperatorCountry();
   const supportEmail = getSupportEmail();
 
   return (
     <dl className="grid gap-3 text-sm text-[var(--muted)] sm:grid-cols-[180px_1fr]">
       <div className="contents">
-        <dt className="font-semibold text-[var(--ink)]">Operator</dt>
+        <dt className="font-semibold text-[var(--ink)]">Operator sajta</dt>
         <dd>{operatorName}</dd>
       </div>
       <div className="contents">
-        <dt className="font-semibold text-[var(--ink)]">Adresa</dt>
+        <dt className="font-semibold text-[var(--ink)]">Poslovna adresa</dt>
         <dd>{operatorAddress}</dd>
       </div>
       <div className="contents">
+        <dt className="font-semibold text-[var(--ink)]">Država sedišta</dt>
+        <dd>{operatorCountry}</dd>
+      </div>
+      <div className="contents">
         <dt className="font-semibold text-[var(--ink)]">Kontakt email</dt>
-        <dd>{supportEmail}</dd>
-      </div>
-      <div className="contents">
-        <dt className="font-semibold text-[var(--ink)]">APR / registar</dt>
-        <dd>{operatorRegistry ?? "Biće dopunjeno."}</dd>
-      </div>
-      <div className="contents">
-        <dt className="font-semibold text-[var(--ink)]">PIB</dt>
-        <dd>{operatorPib ?? "Biće dopunjeno."}</dd>
-      </div>
-      <div className="contents">
-        <dt className="font-semibold text-[var(--ink)]">Matični broj</dt>
-        <dd>{operatorMb ?? "Biće dopunjeno."}</dd>
+        <dd>
+          <a className="hover:text-[var(--ink)]" href={`mailto:${supportEmail}`}>
+            {supportEmail}
+          </a>
+        </dd>
       </div>
     </dl>
   );
@@ -74,7 +64,6 @@ export default function TermsPage() {
       <SiteHeader locale="sr" />
       <div className="mx-auto max-w-5xl space-y-8 px-6 pb-16">
         <div className="space-y-4">
-          <p className="eyebrow">Legal</p>
           <h1 className="text-4xl font-bold tracking-[-0.03em] text-[var(--ink)]">
             Uslovi korišćenja
           </h1>
@@ -90,8 +79,9 @@ export default function TermsPage() {
 
         <Section title="1. Operator sajta">
           <p>
-            Sajt letkasni.rs vodi operator naveden ispod, koji je odgovoran za
-            organizaciju i pružanje usluge kroz ovaj sajt.
+            Sajtom letkasni.rs upravlja {getOperatorName()}, operator naveden ispod,
+            koji je odgovoran za organizaciju i pružanje usluge kroz ovaj sajt na
+            teritoriji Republike Srbije.
           </p>
           <IdentityBlock />
         </Section>
@@ -259,8 +249,9 @@ export default function TermsPage() {
           </p>
           <p>
             Strane će eventualne sporove nastojati da reše mirnim putem. Ako to nije moguće, za sporove
-            koji proisteknu iz korišćenja sajta ili ovih uslova nadležan je stvarno nadležni sud prema
-            sedištu operatora, osim ako imperativni propisi predviđaju drugačiju nadležnost.
+            koji proisteknu iz korišćenja sajta ili ovih uslova nadležan je stvarno i mesno
+            nadležni sud u Republici Srbiji, osim ako imperativni propisi predviđaju
+            drugačiju nadležnost.
           </p>
         </Section>
 
@@ -272,7 +263,7 @@ export default function TermsPage() {
           </p>
         </Section>
 
-        <Section title="13. Kontakt">
+        <Section title="14. Kontakt">
           <p>
             Za pitanja u vezi sa ovim Uslovima korišćenja možete se obratiti na{" "}
             <a className="font-medium text-[var(--ink)]" href={`mailto:${supportEmail}`}>
@@ -282,20 +273,6 @@ export default function TermsPage() {
           </p>
         </Section>
 
-        <div className="flex flex-wrap gap-4">
-          <Link
-            href="/privacy"
-            className="inline-flex rounded-full border border-[var(--line)] px-5 py-2 text-sm font-semibold text-[var(--ink)] transition hover:border-[var(--accent)] hover:text-[var(--accent)]"
-          >
-            Pogledaj politiku privatnosti
-          </Link>
-          <Link
-            href="/"
-            className="inline-flex rounded-full bg-[var(--accent)] px-5 py-2 text-sm font-semibold text-white transition hover:opacity-90"
-          >
-            Vrati se na početnu
-          </Link>
-        </div>
       </div>
       <SiteFooter locale="sr" supportEmail={supportEmail} />
     </main>
