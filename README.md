@@ -72,9 +72,11 @@ npm run start
 
 ### Production env optional
 
-- Operator podaci su već podrazumevano podešeni na `VGA EU CONSULTING DOO NIŠ`, ali se po potrebi mogu override-ovati kroz:
+- Operator podaci su podrazumevano podešeni na `Expatwise LLC`, ali se po potrebi mogu override-ovati kroz:
   - `NEXT_PUBLIC_OPERATOR_NAME`
   - `NEXT_PUBLIC_OPERATOR_ADDRESS`
+  - `NEXT_PUBLIC_OPERATOR_COUNTRY`
+- Opcioni registracioni identifikatori se ostavljaju prazni dok zvanične vrednosti nisu potvrđene:
   - `NEXT_PUBLIC_OPERATOR_REGISTRY`
   - `NEXT_PUBLIC_OPERATOR_PIB`
   - `NEXT_PUBLIC_OPERATOR_MB`
