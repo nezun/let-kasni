@@ -5,6 +5,7 @@ import {
   getOperatorCountry,
   getOperatorName,
   getSupportEmail,
+  getSupportPhone,
 } from "@/lib/env";
 
 const lastUpdated = "6. avgust 2026.";
@@ -12,14 +13,22 @@ const lastUpdated = "6. avgust 2026.";
 function DetailList({
   items,
 }: {
-  items: Array<{ label: string; value?: string }>;
+  items: Array<{ label: string; value?: string; href?: string }>;
 }) {
   return (
     <dl className="grid gap-3 text-sm text-[var(--muted)] sm:grid-cols-[180px_1fr]">
       {items.map((item) => (
         <div key={item.label} className="contents">
           <dt className="font-semibold text-[var(--ink)]">{item.label}</dt>
-          <dd>{item.value ?? "Biće dopunjeno."}</dd>
+          <dd>
+            {item.href && item.value ? (
+              <a className="hover:text-[var(--ink)]" href={item.href}>
+                {item.value}
+              </a>
+            ) : (
+              item.value ?? "Biće dopunjeno."
+            )}
+          </dd>
         </div>
       ))}
     </dl>
@@ -43,6 +52,7 @@ function Section({
 
 export default function PrivacyPage() {
   const supportEmail = getSupportEmail();
+  const supportPhone = getSupportPhone();
   const operatorName = getOperatorName();
   const operatorAddress = getOperatorAddress();
   const operatorCountry = getOperatorCountry();
@@ -75,7 +85,8 @@ export default function PrivacyPage() {
               { label: "Naziv rukovaoca", value: operatorName },
               { label: "Poslovna adresa", value: operatorAddress },
               { label: "Država sedišta", value: operatorCountry },
-              { label: "Kontakt email", value: supportEmail },
+              { label: "Kontakt email", value: supportEmail, href: `mailto:${supportEmail}` },
+              { label: "Kontakt telefon", value: supportPhone, href: `tel:${supportPhone}` },
             ]}
           />
           <p>
