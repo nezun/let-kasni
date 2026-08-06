@@ -5,6 +5,7 @@ import {
   getOperatorCountry,
   getOperatorName,
   getSupportEmail,
+  getSupportPhone,
 } from "@/lib/env";
 
 const lastUpdated = "6. avgust 2026.";
@@ -29,6 +30,7 @@ function IdentityBlock() {
   const operatorAddress = getOperatorAddress();
   const operatorCountry = getOperatorCountry();
   const supportEmail = getSupportEmail();
+  const supportPhone = getSupportPhone();
 
   return (
     <dl className="grid gap-3 text-sm text-[var(--muted)] sm:grid-cols-[180px_1fr]">
@@ -49,6 +51,14 @@ function IdentityBlock() {
         <dd>
           <a className="hover:text-[var(--ink)]" href={`mailto:${supportEmail}`}>
             {supportEmail}
+          </a>
+        </dd>
+      </div>
+      <div className="contents">
+        <dt className="font-semibold text-[var(--ink)]">Kontakt telefon</dt>
+        <dd>
+          <a className="hover:text-[var(--ink)]" href={`tel:${supportPhone}`}>
+            {supportPhone}
           </a>
         </dd>
       </div>
