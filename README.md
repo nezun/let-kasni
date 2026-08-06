@@ -65,6 +65,7 @@ npm run start
 
 - `NEXT_PUBLIC_SITE_URL=https://letkasni.rs`
 - `NEXT_PUBLIC_SUPPORT_EMAIL=podrska@letkasni.rs`
+- `NEXT_PUBLIC_SUPPORT_PHONE=+381637003779`
 - `NEXT_PUBLIC_SUPABASE_URL`
 - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
 - `SUPABASE_SERVICE_ROLE_KEY`
@@ -108,7 +109,7 @@ npm run start
 - Analytics je spreman za env-based uključivanje:
   - `ANALYTICS_MODE=plausible` + `PLAUSIBLE_DOMAIN`
   - ili `ANALYTICS_MODE=ga4` + `NEXT_PUBLIC_GA_MEASUREMENT_ID`
-- Kontakt email ide kroz `NEXT_PUBLIC_SUPPORT_EMAIL`
+- Kontakt podaci idu kroz `NEXT_PUBLIC_SUPPORT_EMAIL` i `NEXT_PUBLIC_SUPPORT_PHONE`
 
 ## Google Search Console automation
 
