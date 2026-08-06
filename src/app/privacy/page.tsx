@@ -1,17 +1,13 @@
-import Link from "next/link";
-
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import {
   getOperatorAddress,
-  getOperatorMb,
+  getOperatorCountry,
   getOperatorName,
-  getOperatorPib,
-  getOperatorRegistry,
   getSupportEmail,
 } from "@/lib/env";
 
-const lastUpdated = "1. maj 2026.";
+const lastUpdated = "6. avgust 2026.";
 
 function DetailList({
   items,
@@ -49,16 +45,13 @@ export default function PrivacyPage() {
   const supportEmail = getSupportEmail();
   const operatorName = getOperatorName();
   const operatorAddress = getOperatorAddress();
-  const operatorRegistry = getOperatorRegistry();
-  const operatorPib = getOperatorPib();
-  const operatorMb = getOperatorMb();
+  const operatorCountry = getOperatorCountry();
 
   return (
     <main className="min-h-screen bg-[var(--bg)] pt-32">
       <SiteHeader locale="sr" />
       <div className="mx-auto max-w-5xl space-y-8 px-6 pb-16">
         <div className="space-y-4">
-          <p className="eyebrow">Legal</p>
           <h1 className="text-4xl font-bold tracking-[-0.03em] text-[var(--ink)]">
             Politika privatnosti
           </h1>
@@ -80,11 +73,9 @@ export default function PrivacyPage() {
           <DetailList
             items={[
               { label: "Naziv rukovaoca", value: operatorName },
-              { label: "Adresa sedišta", value: operatorAddress },
+              { label: "Poslovna adresa", value: operatorAddress },
+              { label: "Država sedišta", value: operatorCountry },
               { label: "Kontakt email", value: supportEmail },
-              { label: "Registar / APR", value: operatorRegistry },
-              { label: "PIB", value: operatorPib },
-              { label: "Matični broj", value: operatorMb },
             ]}
           />
           <p>
@@ -259,20 +250,6 @@ export default function PrivacyPage() {
           </p>
         </Section>
 
-        <div className="flex flex-wrap gap-4">
-          <Link
-            href="/terms"
-            className="inline-flex rounded-full border border-[var(--line)] px-5 py-2 text-sm font-semibold text-[var(--ink)] transition hover:border-[var(--accent)] hover:text-[var(--accent)]"
-          >
-            Pogledaj uslove korišćenja
-          </Link>
-          <Link
-            href="/"
-            className="inline-flex rounded-full bg-[var(--accent)] px-5 py-2 text-sm font-semibold text-white transition hover:opacity-90"
-          >
-            Vrati se na početnu
-          </Link>
-        </div>
       </div>
       <SiteFooter locale="sr" supportEmail={supportEmail} />
     </main>
