@@ -64,6 +64,10 @@ export function getSupportEmail() {
   return getEnv("NEXT_PUBLIC_SUPPORT_EMAIL") ?? "podrska@letkasni.rs";
 }
 
+export function getSupportPhone() {
+  return getEnv("NEXT_PUBLIC_SUPPORT_PHONE") ?? "+381637003779";
+}
+
 export function getSiteUrl() {
   return getEnv("NEXT_PUBLIC_SITE_URL") ?? "https://letkasni.rs";
 }
