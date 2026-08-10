@@ -37,8 +37,8 @@ export const article = {
         {
           "heading": "Uporedite vreme, stres i proviziju",
           "body": [
-            "Ako servis radi uz proviziju samo po uspehu, glavno pitanje je da li vam je vredno da deo naplate zamenite za manje posla, bolju proceduru i manje direktne komunikacije sa aviokompanijom.",
-            "Kod jednostavnog slučaja možda vam se više isplati da pokušate sami. Kod spornog slučaja provizija može biti razumna cena za procenu, vođenje, praćenje rokova i odgovor na odbijanje.",
+            "Ako servis radi uz proviziju samo po uspehu, glavno pitanje je da li Vam je vredno da deo naplate zamenite za manje posla, bolju proceduru i manje direktne komunikacije sa aviokompanijom.",
+            "Kod jednostavnog slučaja možda Vam se više isplati da pokušate sami. Kod spornog slučaja provizija može biti razumna cena za procenu, vođenje, praćenje rokova i odgovor na odbijanje.",
             "Važno je razumeti model pre slanja. Kod letkasni.rs ideja je jednostavna: bez troškova unapred i provizija samo ako se slučaj naplati."
           ]
         },
@@ -61,7 +61,7 @@ export const article = {
         {
           "heading": "Praktično pravilo za odluku",
           "body": [
-            "Ako je slučaj jednostavan, imate dokumente i spremni ste da pratite proceduru, pokušajte sami ili bar prvo pošaljite urednu reklamaciju. Ako je slučaj sporan, odbijen ili vam nije jasno šta je sledeći korak, servis može imati realnu vrednost.",
+            "Ako je slučaj jednostavan, imate dokumente i spremni ste da pratite proceduru, pokušajte sami ili bar prvo pošaljite urednu reklamaciju. Ako je slučaj sporan, odbijen ili Vam nije jasno šta je sledeći korak, servis može imati realnu vrednost.",
             "Najvažnije je da ne propustite rokove i ne prihvatite nejasnu ponudu pre nego što razumete vrednost svog slučaja.",
             "Možete kombinovati pristupe: prvo sami pošaljete osnovnu reklamaciju, a servis uključite ako dobijete odbijanje, ako odgovor kasni ili ako aviokompanija traži dopune koje ne razumete.",
             "Tako zadržavate kontrolu nad jednostavnim delom, ali ne ostajete sami kada slučaj postane proceduralno ili pravno komplikovan.",
@@ -73,7 +73,7 @@ export const article = {
           "heading": "Pogledajte i šta servis radi posle odbijanja",
           "body": [
             "Nije svaki servis isti. Neki samo proslede zahtev, dok drugi vode dopisivanje, proveravaju baze letova, uključuju pravnike i po potrebi idu u dalji postupak. Razlika postaje važna tek kada aviokompanija odbije zahtev.",
-            "Pre nego što izaberete servis, proverite model provizije, da li postoje administrativni troškovi, šta se dešava ako aviokompanija plati direktno vama i da li servis pokriva sudske ili druge troškove ako do njih dođe.",
+            "Pre nego što izaberete servis, proverite model provizije, da li postoje administrativni troškovi, šta se dešava ako aviokompanija plati direktno Vama i da li servis pokriva sudske ili druge troškove ako do njih dođe.",
             "Za putnika je najvažnije da nema iznenađenja. No win, no fee zvuči jednostavno, ali uvek treba znati procenat, moguće dodatne naknade i trenutak kada se obavezujete."
           ]
         }

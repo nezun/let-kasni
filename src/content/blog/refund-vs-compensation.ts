@@ -21,7 +21,7 @@ export const article = {
         {
           "heading": "Refundacija rešava pitanje karte",
           "body": [
-            "Refundacija znači da vam se vraća novac za kartu ili deo karte koji nije iskorišćen. Najčešće se javlja kod otkazivanja leta, velikog kašnjenja, odbijanja ukrcavanja ili situacije kada put više nema svrhu.",
+            "Refundacija znači da Vam se vraća novac za kartu ili deo karte koji nije iskorišćen. Najčešće se javlja kod otkazivanja leta, velikog kašnjenja, odbijanja ukrcavanja ili situacije kada put više nema svrhu.",
             "To nije kazna za aviokompaniju niti dodatna naknada za neprijatnost. Refundacija vraća vrednost usluge koju niste dobili ili koju više ne možete smisleno koristiti.",
             "Ako prihvatite refundaciju, važno je razumeti šta tačno prihvatate. Nekad refundacija zatvara samo pitanje karte, a nekad uslovi ponude pokušavaju da zatvore i sva druga potraživanja."
           ]
@@ -62,7 +62,7 @@ export const article = {
           "body": [
             "Dobar zahtev razdvaja kategorije. Jedna rečenica može tražiti fiksnu naknadu, druga refundaciju karte, treća refundaciju troškova sa računima. Tako aviokompanija teže odgovara samo na jedan deo i ignoriše ostatak.",
             "Ako niste sigurni šta tačno tražite, prvo proverite slučaj. Najčešća greška je da putnik prihvati mali vaučer ili refundaciju karte, a tek kasnije sazna da je možda imao i jači zahtev.",
-            "U komunikaciji koristite iste izraze kroz ceo predmet. Ako jednom tražite refundaciju, drugi put compensation, a treći put reimbursement bez objašnjenja, podrška može odgovoriti samo na deo koji joj je najlakši. Jasna struktura čuva vaš zahtev.",
+            "U komunikaciji koristite iste izraze kroz ceo predmet. Ako jednom tražite refundaciju, drugi put compensation, a treći put reimbursement bez objašnjenja, podrška može odgovoriti samo na deo koji joj je najlakši. Jasna struktura čuva Vaš zahtev.",
             "Korisno je u prilogu razdvojiti dokaze: dokumenti o karti, dokazi o poremećaju i računi za troškove. Tako se vidi šta dokazuje pravo na kartu, a šta pravo na dodatnu naknadu."
           ]
         },

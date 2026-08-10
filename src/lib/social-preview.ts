@@ -1,4 +1,4 @@
-export const SOCIAL_PREVIEW_VERSION = "2026-07-26-8";
+export const SOCIAL_PREVIEW_VERSION = "2026-08-07-1";
 
 export const socialPreview = {
   sr: {
@@ -13,14 +13,14 @@ export const socialPreview = {
     proofB: "Besplatna provera",
   },
   en: {
-    title: "Claim up to EUR 600 in flight compensation free of charge.",
-    description: "0% success commission - You keep the full amount.",
+    title: "Claim up to €600 in flight compensation at no cost.",
+    description: "0% success fee — you keep the full amount.",
     imageAlt:
       "letkasni.rs — delayed or cancelled flight, claim up to €600 and keep the full amount",
     question: "Delayed or cancelled flight?",
     amount: "Claim up to €600.",
     emphasis: "Keep the full amount. Yes, you can.",
-    proofA: "0% success commission",
+    proofA: "0% success fee",
     proofB: "Free eligibility check",
   },
 } as const;

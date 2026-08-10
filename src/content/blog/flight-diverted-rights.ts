@@ -39,7 +39,7 @@ export const article = {
           body: [
             "Ako je avion preusmeren zbog zatvaranja piste, ozbiljnog vremena, hitne medicinske situacije ili bezbednosne odluke, aviokompanija će se verovatno pozvati na okolnosti koje ne kontroliše. Tada fiksna naknada može biti sporna, ali pravo na brigu i razuman nastavak putovanja ne treba automatski otpisati.",
             "Ako je razlog bio planiranje posade, tehnički problem koji je nastao u operaciji, loša organizacija rotacije ili kašnjenje prethodnog leta bez jasnog spoljnog uzroka, zahtev može biti jači. Naročito treba proveriti da li je prevoznik mogao da umanji posledice, ali nije ponudio realnu alternativu.",
-            "Ne prihvatajte generičnu formulaciju kao konačan odgovor. Rečenice kao što su operational reasons, airport restrictions ili safety reasons mogu značiti više stvari. Za ozbiljnu proveru treba znati konkretan događaj, vreme kada se desio i kako je uticao baš na vaš let."
+            "Ne prihvatajte generičnu formulaciju kao konačan odgovor. Rečenice kao što su operational reasons, airport restrictions ili safety reasons mogu značiti više stvari. Za ozbiljnu proveru treba znati konkretan događaj, vreme kada se desio i kako je uticao baš na Vaš let."
           ]
         },
         {

@@ -21,7 +21,7 @@ export const article = {
         {
           "heading": "Prvo rešite kartu, zatim proverite odštetu",
           "body": [
-            "Kada je let otkazan, aviokompanija obično mora da ponudi izbor: refundaciju karte ili alternativni prevoz do destinacije pod uporedivim uslovima. To je pitanje vaše karte i plana putovanja.",
+            "Kada je let otkazan, aviokompanija obično mora da ponudi izbor: refundaciju karte ili alternativni prevoz do destinacije pod uporedivim uslovima. To je pitanje Vaše karte i plana putovanja.",
             "Odšteta je odvojeno pravo. Putnik može dobiti povraćaj novca za kartu, a da i dalje ima osnov za dodatnu fiksnu naknadu ako su ispunjeni uslovi. Isto tako, prihvatanje novog leta ne znači automatski da je zahtev za odštetu nestao.",
             "Zato kod otkazivanja ne treba gledati samo da li je novac vraćen. Treba proveriti kada ste obavešteni, zašto je let otkazan, kakva alternativa je ponuđena i koliko je promenjen dolazak na krajnju destinaciju."
           ]
@@ -30,7 +30,7 @@ export const article = {
           "heading": "Rok od 14 dana je važan",
           "body": [
             "Ako ste o otkazivanju obavešteni više od 14 dana pre polaska, aviokompanija često ima jaču odbranu od zahteva za fiksnu naknadu. Ako je obaveštenje stiglo u poslednje dve nedelje pred put, slučaj treba proveriti detaljnije.",
-            "Ipak, nije dovoljno gledati samo datum poruke. Bitno je i da li je ponuđen alternativni let, koliko ranije polazi, koliko kasnije stiže i da li vas realno dovodi do iste destinacije u razumnom vremenu.",
+            "Ipak, nije dovoljno gledati samo datum poruke. Bitno je i da li je ponuđen alternativni let, koliko ranije polazi, koliko kasnije stiže i da li Vas realno dovodi do iste destinacije u razumnom vremenu.",
             "Ako je obaveštenje stiglo blizu polaska, a alternativa značajno menja plan putovanja, slučaj može biti jači. Ako je alternativa veoma blizu originalnom rasporedu, zahtev može biti slabiji ili iznos može biti drugačiji."
           ]
         },
@@ -38,7 +38,7 @@ export const article = {
           "heading": "Alternativni let ne briše automatski pravo",
           "body": [
             "Ako prihvatite preusmeravanje, to ne znači da ste se automatski odrekli svih prava. U zavisnosti od vremena polaska i dolaska alternativnog leta, zahtev za naknadu može i dalje postojati.",
-            "Važno je da alternativni prevoz bude do iste krajnje destinacije ili do mesta koje ste prihvatili. Ako vas aviokompanija pošalje na drugi aerodrom u istom regionu, treba proveriti i ko pokriva transfer do prvobitno planiranog aerodroma ili dogovorene adrese.",
+            "Važno je da alternativni prevoz bude do iste krajnje destinacije ili do mesta koje ste prihvatili. Ako Vas aviokompanija pošalje na drugi aerodrom u istom regionu, treba proveriti i ko pokriva transfer do prvobitno planiranog aerodroma ili dogovorene adrese.",
             "Sačuvajte staru i novu potvrdu leta, email o otkazivanju, boarding pass za novi let i sve poruke u aplikaciji aviokompanije. Poređenje tih podataka često odlučuje ishod."
           ]
         },
@@ -62,15 +62,15 @@ export const article = {
           "heading": "Šta odmah sačuvati",
           "body": [
             "Sačuvajte potvrdu originalne rezervacije, poruku o otkazivanju, ponuđenu alternativu, novu kartu, boarding pass i sve račune za obroke, hotel ili transfer. Ako ste razgovarali sa osobljem na aerodromu, zapišite vreme i šalter.",
-            "Najbolje je da imate jasan niz događaja: kada ste saznali za otkazivanje, šta vam je ponuđeno, šta ste prihvatili i kada ste stvarno stigli. Takva hronologija olakšava proveru i smanjuje prostor za nejasan odgovor aviokompanije."
+            "Najbolje je da imate jasan niz događaja: kada ste saznali za otkazivanje, šta Vam je ponuđeno, šta ste prihvatili i kada ste stvarno stigli. Takva hronologija olakšava proveru i smanjuje prostor za nejasan odgovor aviokompanije."
           ]
         },
         {
           "heading": "Tražite pismenu opciju, ne samo usmeno rešenje",
           "body": [
             "Kod otkazanog leta važno je da putnik dobije jasnu informaciju o izboru: refundacija, preusmeravanje što pre ili preusmeravanje na kasniji datum koji putniku odgovara. Ako se sve rešava na šalteru, tražite email, SMS ili potvrdu u aplikaciji.",
-            "Pismeni trag je važan jer kasnije pokazuje kada ste obavešteni, šta vam je ponuđeno i da li ste sami odustali ili je aviokompanija ograničila izbor. To direktno utiče na procenu odštete i refundacije.",
-            "Ako vam nude samo vaučer, pitajte da li imate pravo na novčanu refundaciju. Vaučer može biti izbor putnika, ali ne bi trebalo da bude jedina opcija ako pravila daju pravo na povraćaj novca."
+            "Pismeni trag je važan jer kasnije pokazuje kada ste obavešteni, šta Vam je ponuđeno i da li ste sami odustali ili je aviokompanija ograničila izbor. To direktno utiče na procenu odštete i refundacije.",
+            "Ako Vam nude samo vaučer, pitajte da li imate pravo na novčanu refundaciju. Vaučer može biti izbor putnika, ali ne bi trebalo da bude jedina opcija ako pravila daju pravo na povraćaj novca."
           ]
         }
       ]

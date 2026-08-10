@@ -87,7 +87,7 @@ const copy = {
     close: "Zatvori",
     successTitle: "Zahtev uspešno primljen",
     successBody:
-      "Dobili smo vaš zahtev i prosledili ga timu na obradu. Javljamo vam se u roku od 24h sa sledećim korakom.",
+      "Dobili smo Vaš zahtev i prosledili ga timu na obradu. Javljamo Vam se u roku od 24h sa sledećim korakom.",
     note: "Bez troškova unapred. Plaćate samo ako slučaj uspe.",
     invalid:
       "Popunite obavezna polja pre nastavka. Broj leta, datum i ruta su obavezni.",

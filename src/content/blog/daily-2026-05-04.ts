@@ -42,7 +42,7 @@ export const articles = [
       slug: "udar-ptice-kasnjenje-leta-odsteta",
       title: "Udar ptice i kašnjenje leta: kada zahtev ipak vredi proveriti",
       description: "Praktičan vodič za putnike iz Srbije: zašto je bird strike često vanredna okolnost, šta ostaje od prava na brigu i kada objašnjenje aviokompanije nije dovoljno.",
-      excerpt: "Udar ptice najčešće slabi zahtev za fiksnu odštetu, ali ne zatvara automatski ceo slučaj. Ključno je da li je udar zaista pogodio vaš avion, koliko je trajala provera i šta je aviokompanija uradila posle toga.",
+      excerpt: "Udar ptice najčešće slabi zahtev za fiksnu odštetu, ali ne zatvara automatski ceo slučaj. Ključno je da li je udar zaista pogodio Vaš avion, koliko je trajala provera i šta je aviokompanija uradila posle toga.",
       category: "Vanredne okolnosti",
       readTime: "8 min čitanja",
       sections: [
@@ -56,15 +56,15 @@ export const articles = [
         {
           heading: "Kada fiksna odšteta obično nije realna",
           body: [
-            "Ako je avion koji je trebalo da obavi vaš let stvarno pretrpeo udar ptice neposredno pre polaska ili na prethodnom letu, aviokompanija ima snažan argument da nije dužna da plati 250, 400 ili 600 evra. Bezbednosni pregled posle takvog događaja nije stvar komfora, već obavezna mera.",
-            "To ne znači da putnik treba da prihvati generičku odbijenicu bez pitanja. Ako kompanija samo napiše bird strike, tražite vremensku liniju: koji avion, kada se incident dogodio, da li je avion bio predviđen za vaš let, koliko je trajao pregled i kada je postalo jasno da će kašnjenje preći tri sata."
+            "Ako je avion koji je trebalo da obavi Vaš let stvarno pretrpeo udar ptice neposredno pre polaska ili na prethodnom letu, aviokompanija ima snažan argument da nije dužna da plati 250, 400 ili 600 evra. Bezbednosni pregled posle takvog događaja nije stvar komfora, već obavezna mera.",
+            "To ne znači da putnik treba da prihvati generičku odbijenicu bez pitanja. Ako kompanija samo napiše bird strike, tražite vremensku liniju: koji avion, kada se incident dogodio, da li je avion bio predviđen za Vaš let, koliko je trajao pregled i kada je postalo jasno da će kašnjenje preći tri sata."
           ],
         },
         {
           heading: "Kada slučaj ipak treba proveriti",
           body: [
             "Provera ima smisla ako je udar ptice naveden za prethodni avion, ali se kasnije pojavljuju drugi razlozi: nema posade, nema rezervnog aviona, kasni dokumentacija, čeka se slot ili se putnici prebacuju tek mnogo kasnije iako postoje druge opcije. Vanredna okolnost može objasniti početak problema, ali ne nužno svaki sat posle toga.",
-            "Posebno obratite pažnju na konekcije. Ako ste imali jednu rezervaciju i zbog bird strike kašnjenja propustili dalji let, pravo na preusmeravanje i brigu ostaje važno. Fiksna odšteta može biti sporna, ali aviokompanija i dalje mora razumno da vas dovede do krajnje destinacije."
+            "Posebno obratite pažnju na konekcije. Ako ste imali jednu rezervaciju i zbog bird strike kašnjenja propustili dalji let, pravo na preusmeravanje i brigu ostaje važno. Fiksna odšteta može biti sporna, ali aviokompanija i dalje mora razumno da Vas dovede do krajnje destinacije."
           ],
         },
         {
@@ -78,7 +78,7 @@ export const articles = [
           heading: "Šta sačuvati kao dokaz",
           body: [
             "Sačuvajte boarding pass, booking potvrdu, poruke aviokompanije, fotografije table polazaka i svaki račun za hranu, vodu, hotel ili transfer. Ako osoblje kaže da je problem udar ptice, zapišite tačnu formulaciju i vreme. Ako kasnije dobijete drugačiji razlog u emailu, sačuvajte obe verzije.",
-            "Najbolja poruka aviokompaniji nije agresivna. Napišite da razumete da bird strike može biti vanredna okolnost, ali tražite potvrdu direktne veze sa vašim letom, dokaz razumnih mera i refundaciju nužnih troškova. Takav zahtev zvuči ozbiljnije i ostavlja prostor da se slučaj proceni po činjenicama."
+            "Najbolja poruka aviokompaniji nije agresivna. Napišite da razumete da bird strike može biti vanredna okolnost, ali tražite potvrdu direktne veze sa Vašim letom, dokaz razumnih mera i refundaciju nužnih troškova. Takav zahtev zvuči ozbiljnije i ostavlja prostor da se slučaj proceni po činjenicama."
           ],
         },
         {
@@ -179,14 +179,14 @@ export const articles = [
         {
           heading: "Šta aviokompanija mora da objasni",
           body: [
-            "Ako se kompanija poziva na lightning strike, treba da objasni kada se dogodio, koji avion je pogođen, da li je to bio avion za vaš let ili prethodna rotacija, koliko je trajala obavezna provera i kada je odlučeno da avion ne može da leti. Bez toga putnik nema način da razume da li je razlog stvaran ili samo opšti izgovor.",
+            "Ako se kompanija poziva na lightning strike, treba da objasni kada se dogodio, koji avion je pogođen, da li je to bio avion za Vaš let ili prethodna rotacija, koliko je trajala obavezna provera i kada je odlučeno da avion ne može da leti. Bez toga putnik nema način da razume da li je razlog stvaran ili samo opšti izgovor.",
             "Posebno je važno odvojiti proveru od kasnije organizacije. Ako je pregled trajao dva sata, a zatim ste čekali još sedam sati zato što nije bilo posade ili jasnog plana, slučaj više nije samo pitanje groma. Tada vredi tražiti objašnjenje razumnih mera."
           ],
         },
         {
           heading: "Konekcija i krajnja destinacija",
           body: [
-            "Kod jedne rezervacije ne završava se sve na prvom segmentu. Ako vas je udar groma na letu Beograd-Beč, Beograd-Frankfurt ili neki drugi evropski segment doveo do propuštene konekcije, procenjuje se šta se dogodilo do krajnje destinacije i koliko brzo je aviokompanija pokušala da vas preusmeri.",
+            "Kod jedne rezervacije ne završava se sve na prvom segmentu. Ako Vas je udar groma na letu Beograd-Beč, Beograd-Frankfurt ili neki drugi evropski segment doveo do propuštene konekcije, procenjuje se šta se dogodilo do krajnje destinacije i koliko brzo je aviokompanija pokušala da Vas preusmeri.",
             "Ako je ponuđen prvi razuman nastavak puta, fiksna naknada može ostati slaba. Ako ste ostavljeni bez pomoći, ako je postojala očigledna alternativa ili ste morali sami da kupite novu kartu, tada se fokus pomera na refundaciju troškova i kvalitet postupanja posle početnog događaja."
           ],
         },
@@ -200,7 +200,7 @@ export const articles = [
         {
           heading: "Kako napisati dobar zahtev",
           body: [
-            "Najbolja struktura je kratka vremenska linija: planirani polazak, stvarna informacija, razlog koji je naveden, ponuđeno rešenje i dolazak na krajnju destinaciju. Dodajte da tražite dokaz direktne veze između udara groma i vašeg leta, kao i opis mera koje su preduzete da se kašnjenje smanji.",
+            "Najbolja struktura je kratka vremenska linija: planirani polazak, stvarna informacija, razlog koji je naveden, ponuđeno rešenje i dolazak na krajnju destinaciju. Dodajte da tražite dokaz direktne veze između udara groma i Vašeg leta, kao i opis mera koje su preduzete da se kašnjenje smanji.",
             "Za putnike iz Srbije posebno je korisno dodati da li je let polazio iz EU, dolazio u EU evropskom kompanijom ili bio deo jedne rezervacije preko EU čvorišta. Tako se odmah vidi da li se primenjuje evropska logika, bez potrebe da putnik piše pravni esej."
           ],
         },
@@ -426,7 +426,7 @@ export const articles = [
           heading: "Kada zahtev može biti jak",
           body: [
             "Zahtev je često jači kada kompanija navede da nema pilota, kabinskog osoblja, rezervne posade ili da je posada prešla dozvoljeno radno vreme bez spoljnog razloga koji direktno objašnjava kašnjenje. U takvim slučajevima putnik može tvrditi da je problem u organizaciji prevoznika.",
-            "Posebno obratite pažnju ako su drugi letovi iste kompanije normalno radili, ako je aerodrom funkcionisao, ako nije bilo ozbiljnog vremena ili ATC ograničenja, a vaš let je čekao samo zamensku posadu. Tada generički operational reasons nije dovoljno dobar odgovor."
+            "Posebno obratite pažnju ako su drugi letovi iste kompanije normalno radili, ako je aerodrom funkcionisao, ako nije bilo ozbiljnog vremena ili ATC ograničenja, a Vaš let je čekao samo zamensku posadu. Tada generički operational reasons nije dovoljno dobar odgovor."
           ],
         },
         {
@@ -549,7 +549,7 @@ export const articles = [
           heading: "Kada curfew slabi zahtev",
           body: [
             "Ako je aerodrom objektivno zabranio noćno poletanje ili sletanje, a aviokompanija nije mogla legalno da nastavi let, fiksna odšteta može biti teža. Posebno ako je prvobitno kašnjenje nastalo zbog kontrole letenja, lošeg vremena ili aerodromskog ograničenja.",
-            "Ipak, kompanija treba da pokaže zašto je zabrana direktno uticala baš na vaš let i zašto nije postojala razumna alternativa. U nekim situacijama moguće je preusmeravanje na drugi aerodrom, raniji zamenski let ili nastavak puta kopnenim prevozom."
+            "Ipak, kompanija treba da pokaže zašto je zabrana direktno uticala baš na Vaš let i zašto nije postojala razumna alternativa. U nekim situacijama moguće je preusmeravanje na drugi aerodrom, raniji zamenski let ili nastavak puta kopnenim prevozom."
           ],
         },
         {

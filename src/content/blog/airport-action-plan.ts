@@ -22,7 +22,7 @@ export const article = {
           "heading": "Prvo rešite putovanje, pa zahtev",
           "body": [
             "Kada let kasni ili je otkazan, prvi cilj nije odmah pisanje reklamacije. Prvo treba rešiti praktičan problem: kako stići do destinacije, gde čekati, da li treba hotel, hrana, transfer ili nova karta. Ako se kasnije otvori pitanje [naknade za kašnjenje leta](/naknada-za-kasnjenje-leta), ti prvi tragovi postaju osnova profesionalne provere.",
-            "Pitajte aviokompaniju koje opcije nudi i tražite da vam ih potvrdi pisano, kroz email, SMS ili aplikaciju. Usmeno obećanje na šalteru može pomoći u trenutku, ali je kasnije teško dokazivo.",
+            "Pitajte aviokompaniju koje opcije nudi i tražite da Vam ih potvrdi pisano, kroz email, SMS ili aplikaciju. Usmeno obećanje na šalteru može pomoći u trenutku, ali je kasnije teško dokazivo.",
             "Ako putujete sa decom, starijim osobama ili imate važan događaj, zapišite i te okolnosti. One ne stvaraju automatski pravo na fiksnu naknadu, ali mogu biti važne za procenu troškova i hitnosti preusmeravanja."
           ],
           "bullets": [
@@ -35,7 +35,7 @@ export const article = {
           "heading": "Pitajte za konkretan razlog",
           "body": [
             "Pitajte osoblje koji je zvaničan razlog kašnjenja ili otkazivanja. Nije isto ako je razlog tehnički kvar, kasna rotacija aviona, vremenski uslovi, odluka kontrole leta ili nedostatak posade.",
-            "Ako dobijete samo usmeno objašnjenje, odmah zapišite tačnu formulaciju, vreme, šalter i ko vam je to rekao. Ako se objašnjenje menja tokom dana, sačuvajte svaku verziju.",
+            "Ako dobijete samo usmeno objašnjenje, odmah zapišite tačnu formulaciju, vreme, šalter i ko Vam je to rekao. Ako se objašnjenje menja tokom dana, sačuvajte svaku verziju.",
             "Ne morate raspravljati na aerodromu. Cilj je da prikupite trag, ne da na licu mesta dokažete pravo. Kasnije se proverava da li objašnjenje zaista oslobađa aviokompaniju odgovornosti."
           ]
         },
@@ -43,7 +43,7 @@ export const article = {
           "heading": "Slikajte sve što menja hronologiju",
           "body": [
             "Fotografišite tablu leta, gate obaveštenje, poruke u aplikaciji, red za šalter, vaučer, novu kartu i svako obaveštenje o promeni vremena. To može izgledati previše, ali kasnije često baš te slike popune rupe.",
-            "Kod kašnjenja je važno planirano i stvarno vreme dolaska. Kod otkazivanja je važno kada ste obavešteni i šta vam je ponuđeno. Kod konekcije je važno kada je prvi let stigao i kada je sledeći let otišao.",
+            "Kod kašnjenja je važno planirano i stvarno vreme dolaska. Kod otkazivanja je važno kada ste obavešteni i šta Vam je ponuđeno. Kod konekcije je važno kada je prvi let stigao i kada je sledeći let otišao.",
             "Ako ste odbijeni za ukrcavanje zbog overbookinga, tražite pisanu potvrdu. Ako je ne dobijete, zapišite detalje i sačuvajte dokaze da ste bili čekirani i na gejtu na vreme."
           ]
         },
@@ -51,15 +51,15 @@ export const article = {
           "heading": "Tražite brigu dok čekate",
           "body": [
             "Kod dužeg čekanja aviokompanija u mnogim situacijama mora da obezbedi osnovnu brigu: obroke, osveženje i komunikaciju. Ako čekanje prelazi na sledeći dan, može biti potreban hotel i transfer.",
-            "Ako vam niko ne nudi pomoć, pitajte direktno šta je obezbeđeno. Ako morate sami da platite hranu, hotel ili prevoz, sačuvajte račune i zapišite zašto je trošak nastao.",
+            "Ako Vam niko ne nudi pomoć, pitajte direktno šta je obezbeđeno. Ako morate sami da platite hranu, hotel ili prevoz, sačuvajte račune i zapišite zašto je trošak nastao.",
             "Briga tokom čekanja nije isto što i fiksna odšteta. Možete imati pravo na jedno, drugo, oba ili nijedno, zavisno od okolnosti."
           ]
         },
         {
           "heading": "Ne potpisujte nejasno odricanje",
           "body": [
-            "Ako vam nude vaučer, milje, hotelski smeštaj ili zamenski let, pročitajte da li potpisujete da je slučaj u potpunosti zaključen. Neke ponude su korisne, ali neke mogu zatvoriti veći zahtev.",
-            "Ako nemate vremena da proučite uslove, fotografišite dokument pre potpisa ili tražite da vam ga pošalju emailom. Posebno pazite na formulacije no further claims, full and final settlement ili slične izraze."
+            "Ako Vam nude vaučer, milje, hotelski smeštaj ili zamenski let, pročitajte da li potpisujete da je slučaj u potpunosti zaključen. Neke ponude su korisne, ali neke mogu zatvoriti veći zahtev.",
+            "Ako nemate vremena da proučite uslove, fotografišite dokument pre potpisa ili tražite da Vam ga pošalju emailom. Posebno pazite na formulacije no further claims, full and final settlement ili slične izraze."
           ]
         },
         {
@@ -74,7 +74,7 @@ export const article = {
         {
           "heading": "Ne napuštajte aerodrom bez plana",
           "body": [
-            "Ako vam osoblje kaže da se javite kasnije ili da sami kupite kartu, tražite da vam to potvrde pisano. Napuštanje aerodroma bez dokaza može kasnije otežati refundaciju troškova ili dokazivanje da aviokompanija nije ponudila realnu pomoć.",
+            "Ako Vam osoblje kaže da se javite kasnije ili da sami kupite kartu, tražite da Vam to potvrde pisano. Napuštanje aerodroma bez dokaza može kasnije otežati refundaciju troškova ili dokazivanje da aviokompanija nije ponudila realnu pomoć.",
             "Ako čekate noću, pitajte konkretno za hotel i transfer. Ako dobijete odgovor da ništa nije dostupno, zabeležite ga i sačuvajte račun za razuman smeštaj.",
             "Ako put više nema svrhu, pitajte za refundaciju i povratak na početnu tačku ako je to relevantno. Kod složenih putovanja pravo nije samo doći bilo kada, već dobiti smisleno rešenje za poremećeno putovanje."
           ]

@@ -31,7 +31,7 @@ export const article = {
           body: [
             "Najvažniji korak je prijava na šalteru za izgubljeni prtljag pre nego što napustite aerodrom. Tražite PIR zapisnik ili drugi pisani dokaz da je kofer prijavljen kao zakasneo. Bez toga aviokompanija kasnije može tvrditi da problem nije prijavljen na vreme.",
             "U prijavi proverite broj prtljazne nalepnice, opis kofera, adresu za dostavu i kontakt telefon. Ako putujete dalje iz Beograda u drugi grad, navedite realnu adresu na kojoj možete primiti kofer. Greška u adresi često produži čekanje.",
-            "Fotografišite prtljaznu nalepnicu, PIR broj i svaki ekran ili papir koji dobijete. Ako vam osoblje kaže da će kofer stići sutra, tražite da se to unese ili potvrdi pisano. Usmeno obećanje je slabo ako se ispostavi da kofer kasni tri dana."
+            "Fotografišite prtljaznu nalepnicu, PIR broj i svaki ekran ili papir koji dobijete. Ako Vam osoblje kaže da će kofer stići sutra, tražite da se to unese ili potvrdi pisano. Usmeno obećanje je slabo ako se ispostavi da kofer kasni tri dana."
           ]
         },
         {
@@ -63,7 +63,7 @@ export const article = {
           body: [
             "Ponekad isti put ima dva problema: let je kasnio, a prtljag je stigao kasnije. Tada zahteve treba razdvojiti. Kašnjenje leta proverava se kroz dolazak, razlog i pokrivenost rute, dok se prtljag dokazuje PIR zapisnikom, računima i rokom čekanja.",
             "U jednom emailu možete navesti oba problema, ali ih strukturirajte u dva odeljka. Prvi: zahtev za let. Drugi: zahtev za prtljag i troškove. Tako smanjujete rizik da aviokompanija odgovori samo na jedan deo.",
-            "Najbolji rezultat dolazi iz uredne dokumentacije. Prijavite prtljag odmah, kupujte samo razumno, čuvajte račune i ne čekajte rokove. To je mnogo važnije od dugog objašnjenja koliko vam je put bio neprijatan."
+            "Najbolji rezultat dolazi iz uredne dokumentacije. Prijavite prtljag odmah, kupujte samo razumno, čuvajte račune i ne čekajte rokove. To je mnogo važnije od dugog objašnjenja koliko Vam je put bio neprijatan."
           ]
         }
       ],

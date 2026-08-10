@@ -176,8 +176,8 @@ function buildUserConfirmationHtml(claim: ClaimRecord) {
         </div>
         <div style="padding:28px;font-size:15px;line-height:1.7;color:#334155;">
           <p style="margin:0 0 14px;">${escapeHtml(name)},</p>
-          <p style="margin:0 0 14px;">hvala vam. Primili smo vaš zahtev za proveru avio-odštete i prosledili ga našem timu na obradu.</p>
-          <p style="margin:0 0 14px;">Javljamo vam se u roku od 24h sa sledećim korakom. Nema troškova unapred.</p>
+          <p style="margin:0 0 14px;">hvala Vam. Primili smo Vaš zahtev za proveru avio-odštete i prosledili ga našem timu na obradu.</p>
+          <p style="margin:0 0 14px;">Javljamo Vam se u roku od 24h sa sledećim korakom. Nema troškova unapred.</p>
           <div style="margin:22px 0;padding:14px 16px;background:#EEF5FF;border-radius:14px;color:#0B2E6F;font-weight:700;">
             Referenca zahteva: ${escapeHtml(reference)}
           </div>
@@ -192,8 +192,8 @@ function buildUserConfirmationText(claim: ClaimRecord) {
   return [
     `${claim.firstName?.trim() || "Poštovani"},`,
     "",
-    "Primili smo vaš zahtev za proveru avio-odštete i prosledili ga našem timu na obradu.",
-    "Javljamo vam se u roku od 24h sa sledećim korakom.",
+    "Primili smo Vaš zahtev za proveru avio-odštete i prosledili ga našem timu na obradu.",
+    "Javljamo Vam se u roku od 24h sa sledećim korakom.",
     "Nema troškova unapred.",
     "",
     `Referenca zahteva: ${claim.id.slice(0, 8).toUpperCase()}`,
@@ -220,7 +220,7 @@ export async function sendAdminClaimNotification(claim: ClaimRecord) {
 export async function sendUserClaimConfirmation(claim: ClaimRecord) {
   return sendResendEmail({
     to: [claim.email],
-    subject: `Primili smo vaš zahtev - ${claim.id.slice(0, 8).toUpperCase()}`,
+    subject: `Primili smo Vaš zahtev - ${claim.id.slice(0, 8).toUpperCase()}`,
     html: buildUserConfirmationHtml(claim),
     text: buildUserConfirmationText(claim),
   });

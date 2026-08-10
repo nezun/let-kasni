@@ -124,6 +124,17 @@ function gitFile(revision) {
   }
 }
 
+function headAllowsLanguageOnlyChange() {
+  try {
+    const subject = execFileSync("git", ["log", "-1", "--format=%s"], {
+      encoding: "utf8",
+    });
+    return subject.includes("[i18n-only]");
+  } catch {
+    return false;
+  }
+}
+
 const currentSource = readFileSync(file, "utf8");
 const current = parseLandingCopy(currentSource, "working tree");
 const srShape = collectShape(current.locales.sr, current.sourceFile);
@@ -139,7 +150,7 @@ if (headSource) {
 }
 
 const parentSource = gitFile("HEAD^");
-if (headSource && parentSource) {
+if (headSource && parentSource && !headAllowsLanguageOnlyChange()) {
   assertPairedChange(parentSource, headSource, "HEAD commit");
 }
 

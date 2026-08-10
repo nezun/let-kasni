@@ -3,9 +3,10 @@ import {
   CheckCircle2,
   ChevronRight,
   MessageSquareQuote,
-  Scale,
   ShieldCheck,
+  Zap,
 } from "lucide-react";
+import Image from "next/image";
 
 import {
   ClaimCtaButton,
@@ -13,6 +14,7 @@ import {
   HeroClaimCard,
 } from "@/components/claim-entry";
 import { SiteFooter } from "@/components/site-footer";
+import type { FooterContactVariant } from "@/components/site-footer";
 import { getSupportEmail } from "@/lib/env";
 import type { IssueType } from "@/lib/types";
 
@@ -40,10 +42,10 @@ const copy = {
     heroLine3Emphasis: "zadržite ceo\u00a0iznos.",
     heroLine4: "",
     heroBody:
-      "Besplatno pomažemo putnicima u Srbiji da naplate ono što im zakonski pripada — bez stresa i bez troškova.",
-    proofA: "Bez ikakvih troškova",
-    proofB: "0% provizije od uspeha",
-    proofC: "94% uspešnost naplate",
+      "Druge platforme uzimaju 35–50% Vaše odštete. Mi Vam ne uzimamo ništa — koliko avio-kompanija isplati, toliko Vi dobijate.",
+    proofA: "Do 600 EUR po putniku",
+    proofB: "Bez troškova",
+    proofC: "Letovi do 3 godine unazad",
     cardEyebrow: "Proveri odštetu odmah",
     cardTitle: "Koliko ti duguje avio-kompanija?",
     flightNumber: "Broj leta",
@@ -56,43 +58,44 @@ const copy = {
     airlineStripLabel: "Radimo sa:",
     airlineGridEyebrow: "Naplaćujemo od svih većih avio-prevoznika",
     airlineGridTitle: "Vodeće avio-kompanije na našoj listi",
-    airlineMore: "+ 40 drugih kompanija iz EU i regiona",
+    airlineMore: "+ 40 drugih kompanija",
     active: "Aktivno",
     howEyebrow: "Kako radi",
     howTitleA: "Tri koraka do",
-    howTitleB: "vaše odštete",
+    howTitleB: "Vaše odštete",
     howBody: "Zaboravite na birokratiju. Proces smo sveli na minimum.",
     steps: [
       {
         title: "Unesite podatke",
-        body: "Broj leta, datum i osnovni problem. Dovoljno za prvi signal.",
+        body: "Broj leta, datum i osnovni problem. Sistem proverava da li Vaš let ispunjava uslove.",
       },
       {
         title: "Provera slučaja",
-        body: "Sistem i operativni tim proveravaju da li slučaj deluje naplativo.",
+        body: "Advokat preuzima slučaj i utvrđuje da li ima osnova za potraživanje naknade.",
       },
       {
-        title: "Isplata novca",
-        body: "Sistematizujemo proces naplate do isplate na Vaš račun.",
+        title: "Postupak i isplata",
+        body: "Po završetku postupka kompletan iznos naknade isplaćuje se na Vaš račun.",
       },
     ],
-    benefitsEyebrow: "Lokalna ekspertiza",
-    benefitsTitle: "Prvi srpski provajder",
+    benefitsEyebrow: "Specijalizovana lokalna usluga",
+    benefitsTitle: "Radimo jedno — letove do i iz Srbije",
     benefitsBody:
-      "Naš lokalni tim vodi proces efikasno i razumljivo, tako da Vi ne jurite avio-kompaniju ili nepotrebno ostavljate polovinu Vaše odštete stranim platformama za avio-odštetu.",
-    featureRiskTitle: "Bez ikakvih troškova",
+      "Nismo platforma koja pokriva pola sveta a Srbiju usput. Svaki let koji vodimo polazi iz Srbije ili sleće ovde. To je jedino što radimo — i zato nam ništa u Vašem slučaju nije novo.",
+    featureRiskTitle: "Srpsko tržište jedini fokus",
     featureRiskBody:
-      "Besplatno Vam pomažemo u procesu naplate. Bez ikakvih troškova niti plaćanja unapred.",
-    featureFeeTitle: "0% provizije",
+      "Poznajemo kako se avio-kompanije ponašaju u Srbiji, procedure i način na koji se ovi zahtevi rešavaju u praksi.",
+    featureFeeTitle: "Lokalni ljudi, direktna podrška",
     featureFeeBody:
-      "Nema provizije od uspeha, čitav iznos se isplaćuje Vama.",
-    featureLocalTitle: "Lokalna podrška",
+      "Pišete i pričate na srpskom, sa nekim ko razume Vaš slučaj i daje konkretne odgovore.",
+    featureLocalTitle: "Efikasnost na terenu",
     featureLocalBody:
-      "Srpski tim koji poznaje lokalni kontekst i razume Vaš problem.",
-    statSuccess: "Uspešnost slučajeva",
+      "Kada predmet zahteva dodatni korak, on ide u egzekuciju istog dana — ne u red čekanja u inostranstvu.",
+    statPaidOut: "Naknade isplaćeno Vama",
     statUpfront: "Troškovi unapred",
     statFee: "Provizija na uspeh",
     statMax: "Maksimalna naknada",
+    statMaxValue: "600 EUR",
     faqEyebrow: "Česta pitanja",
     faqTitle: "Sve što treba da znate",
     faqs: [
@@ -106,11 +109,11 @@ const copy = {
       },
       {
         q: "Šta ako je avio-kompanija rekla da nema osnova?",
-        a: "To nije konačan odgovor. Avio-kompanije u Srbiji, zbog nedovoljno jasnih propisa, po pravilu odbijaju zahteve generički. Stoga mi radimo sopstvenu proveru pre konačne odluke.",
+        a: "To nije konačan odgovor. Avio-kompanije u Srbiji, zbog nedovoljno transparentnih propisa, po pravilu odbijaju zahteve generički. Stoga mi radimo sopstvenu proveru pre konačne odluke.",
       },
       {
-        q: "Kada plaćam uslugu?",
-        a: "Ne plaćate ništa. Usluga je besplatna i zadržavate ceo iznos odštete. Kako? Naš servis je automatizovan da radi gotovo bez ikakvih troškova, a ukoliko slučaj ode pred sud, advokat koji vodi Vaš predmet se naplaćuje isključivo od avio-kompanije.",
+        q: "Kako je moguće da ne plaćam baš ništa?!",
+        a: "Da, moguće je. Do kraja letnje sezone traje naš promotivni period i usluga je u potpunosti besplatna. Ukoliko slučaj ode pred sud, advokat koji vodi Vaš predmet se naplaćuje isključivo od avio-kompanije.",
       },
       {
         q: "Koliko traje naplata odštete?",
@@ -118,11 +121,11 @@ const copy = {
       },
       {
         q: "Da li mogu da tražim odštetu i ako je let bio pre nekoliko godina?",
-        a: "U mnogim slučajevima da. Ukoliko se slučaj desio u poslednjih 5 godina, svakako da treba da proverite da li imate pravo. Naš servis će ovo za Vas uraditi besplatno.",
+        a: "U mnogim slučajevima da. Ukoliko se slučaj desio u poslednje 3 godine, svakako da treba da proverite da li imate pravo. Naš servis će ovo za Vas uraditi besplatno.",
       },
     ],
-    ctaTitleA: "Ne ostavljajte Vaš novac",
-    ctaTitleB: "avio-kompaniji ili stranoj platformi.",
+    ctaTitleA: "Ne ostavljajte novac",
+    ctaTitleB: "avio-kompaniji i posrednicima.",
     ctaBody: "Započnite proveru odmah. Potrebno Vam je samo dva minuta.",
     ctaButton: "Proveri moj let besplatno",
     footerBody:
@@ -137,7 +140,7 @@ const copy = {
   en: {
     localeSwitchFlag: "🇷🇸",
     localeSwitchLabel: "SR",
-    localeSwitchAria: "Srpska verzija",
+    localeSwitchAria: "Serbian version",
     localeHref: "/",
     navHow: "How it works",
     navBenefits: "Benefits",
@@ -150,93 +153,94 @@ const copy = {
     heroLine3Emphasis: "keep it all.",
     heroLine4: "",
     heroBody:
-      "We help passengers connected to Serbia recover compensation they may be owed — free of charge, without stress or costs.",
-    proofA: "No costs",
-    proofB: "0% success commission",
-    proofC: "94% recovery success rate",
+      "Other providers keep 35–50% of your compensation. We charge no success fee — whatever the airline pays, you keep.",
+    proofA: "Up to €600 per passenger",
+    proofB: "No fees",
+    proofC: "Flights from the last 3 years",
     cardEyebrow: "Check compensation now",
-    cardTitle: "How much could your airline owe you?",
+    cardTitle: "How much compensation could you claim?",
     flightNumber: "Flight number",
     flightNumberPlaceholder: "e.g. JU 221",
     flightDate: "Flight date",
     issueType: "Issue type",
     heroButton: "Check for free",
-    heroNote: "The first check takes less than 2 minutes.",
+    heroNote: "The initial check takes less than 2 minutes.",
     routeHint: "",
     airlineStripLabel: "We work with:",
-    airlineGridEyebrow: "Claims across all major airlines",
-    airlineGridTitle: "Leading airlines on our review list",
-    airlineMore: "+ 40 other carriers across the EU and the region",
-    active: "Active",
+    airlineGridEyebrow: "Claims involving major airlines",
+    airlineGridTitle: "Major airlines covered by our checks",
+    airlineMore: "+ 40 other airlines",
+    active: "Covered",
     howEyebrow: "How it works",
     howTitleA: "Three steps to",
     howTitleB: "your compensation",
-    howBody: "Forget the paperwork maze. We reduced the process to the minimum.",
+    howBody: "Skip the paperwork maze. We keep the process as simple as possible.",
     steps: [
       {
         title: "Enter the details",
-        body: "Flight number, date and issue. Enough for the first signal.",
+        body: "Flight number, date and issue. Our system checks whether your flight qualifies.",
       },
       {
         title: "Case review",
-        body: "The system and operations team check whether the case looks viable.",
+        body: "A lawyer takes over the case and determines whether there are grounds for a compensation claim.",
       },
       {
-        title: "Payout",
-        body: "We systematize the recovery process through to payout into your account.",
+        title: "Process and payout",
+        body: "Once the process is complete, the full compensation amount is paid into your account.",
       },
     ],
-    benefitsEyebrow: "Local expertise",
-    benefitsTitle: "The first Serbian provider",
+    benefitsEyebrow: "Specialized local service",
+    benefitsTitle: "We do one thing — flights to and from Serbia",
     benefitsBody:
-      "Our local team runs the process efficiently and clearly, so you do not have to chase the airline or unnecessarily give half of your compensation to foreign flight-compensation platforms.",
-    featureRiskTitle: "No costs",
+      "We're not a platform that covers half the world and treats Serbia as a footnote. Every flight we handle departs from Serbia or lands here. It's all we do — which means nothing about your case is new to us.",
+    featureRiskTitle: "Serbian market is our sole focus",
     featureRiskBody:
-      "We help you through the recovery process free of charge. No costs or upfront payment.",
-    featureFeeTitle: "0% commission",
+      "We know how airlines operate in Serbia, the procedures they follow, and how these claims are handled in practice.",
+    featureFeeTitle: "Local people, direct support",
     featureFeeBody:
-      "There is no success commission; the entire amount is paid to you.",
-    featureLocalTitle: "Local support",
+      "You write and speak in English with someone who understands your case and gives clear, concrete answers.",
+    featureLocalTitle: "Efficiency on the ground",
     featureLocalBody:
-      "A Serbian team that knows the local context and understands your problem.",
-    statSuccess: "Case success rate",
+      "When a case requires an additional step, it moves forward the same day — not into an overseas queue.",
+    statPaidOut: "Compensation is paid to you",
     statUpfront: "Upfront cost",
     statFee: "Success fee",
     statMax: "Maximum compensation",
+    statMaxValue: "€600",
     faqEyebrow: "FAQ",
     faqTitle: "Everything you should know",
     faqs: [
       {
         q: "How much could I recover?",
-        a: "Typical EU 261 cases most often fall in the €250 to €600 range per passenger depending on route length and disruption details.",
+        a: "Under EU Regulation 261/2004, eligible claims typically range from €250 to €600 per passenger, depending on route distance and the circumstances of the disruption.",
       },
       {
         q: "Which documents do I need?",
-        a: "For the first step, flight number, date and a short problem description are enough. We ask for extra documents only when the case is worth pushing.",
+        a: "For the initial check, your flight number, date and a short description are enough. We request additional documents only if the case appears eligible.",
       },
       {
         q: "What if the airline already rejected me?",
-        a: "That is not a final answer. Airlines in Serbia, due to insufficiently clear regulations, generally reject claims with generic responses. We therefore conduct our own review before making a final decision.",
+        a: "It is not necessarily a final answer. Airlines operating in Serbia often reject claims generically because the rules are not transparent enough. We run our own review before making a final decision.",
       },
       {
-        q: "When do I pay?",
-        a: "You pay nothing. The service is free and you keep the full compensation amount. How? Our service is automated to operate at almost no cost, and if the case goes to court, the lawyer handling your case is paid exclusively by the airline.",
+        q: "How can the service be completely free?",
+        a: "Yes, it is possible. Our summer promotional period runs through the end of the season, and the service is completely free. If the case goes to court, the lawyer handling your matter is paid by the airline, not by you.",
       },
       {
         q: "How long does a compensation claim take?",
-        a: "That depends on the airline and the case itself. Simpler cases may be closed within 1-2 months, while more complex claims take longer. In any case, the process does not require your active involvement, and you will receive regular updates on the status of your claim.",
+        a: "The timeframe depends on the airline and the case. Simpler claims may be resolved within one or two months, while more complex cases take longer. The process does not require your active involvement, and we keep you updated throughout.",
       },
       {
         q: "Can I still claim for an older flight?",
-        a: "In many cases, yes. If the disruption happened within the last 5 years, you should check whether you are entitled to compensation. Our service will check this for you free of charge.",
+        a: "In many cases, yes. If the disruption happened within the last three years, it is worth checking whether you may be entitled to compensation. We will run that check for you free of charge.",
       },
     ],
     ctaTitleA: "Do not leave your money",
-    ctaTitleB: "with the airline or a foreign platform.",
-    ctaBody: "Start the check now. You only need two minutes.",
+    ctaTitleB: "with the airline or intermediaries.",
+    ctaBody: "Start your free check now. It takes only two minutes.",
     ctaButton: "Check my flight for free",
     footerBody:
-      "A focused service for passenger-rights claims and compensation recovery support connected to Serbia.",
+      "Local, English-speaking support for passenger compensation claims involving flights to and from Serbia.",
     footerLinks: "Links",
     footerLegal: "Legal",
     terms: "Terms of use",
@@ -262,11 +266,32 @@ const heroIssueOptions = {
 } as const satisfies Record<Locale, Array<{ value: IssueType; label: string }>>;
 
 const airlines = [
-  { code: "JU", name: "Air Serbia" },
-  { code: "W6", name: "Wizz Air" },
-  { code: "FR", name: "Ryanair" },
-  { code: "LH", name: "Lufthansa" },
-  { code: "TK", name: "Turkish" },
+  {
+    code: "JU",
+    name: "Air Serbia",
+    symbol: "/airlines/air-serbia-symbol.svg",
+  },
+  {
+    code: "W6",
+    name: "Wizz Air",
+    logo: "/airlines/wizz-air.svg",
+    logoClass: "h-[46px] w-[170px]",
+  },
+  {
+    code: "FR",
+    name: "Ryanair",
+    symbol: "/airlines/ryanair-symbol.svg",
+  },
+  {
+    code: "LH",
+    name: "Lufthansa",
+    symbol: "/airlines/lufthansa-symbol.svg",
+  },
+  {
+    code: "TK",
+    name: "Turkish Airlines",
+    symbol: "/airlines/turkish-airlines-symbol.svg",
+  },
 ];
 
 const formFieldClasses = {
@@ -299,63 +324,63 @@ const formFieldClasses = {
 const testimonialsCopy = {
   sr: {
     eyebrow: "Iskustva putnika",
-    titleA: "Ljudi koji su proverili slučaj na vreme",
+    titleA: "Utisci naših klijenata",
     titleB: "Kada je slučaj jasan, proces ne mora da bude težak",
     titleC: "Kratko, konkretno i bez praznih obećanja",
     caseExamples: "Primeri slučajeva",
     caseRange: "250-600 EUR",
     items: [
       {
-        name: "Milos Nikolić",
+        name: "Miloš Nikolić",
         route: "Niš - Beč",
         amount: "250 EUR",
         quote:
-          "Posle otkazanog leta nisam znao kome da pišem ni šta da tražim. Dobio sam jasan smer, predao dokumenta i nisam morao da jurim avio-kompaniju svaki drugi dan.",
+          "Posle otkazanog leta nisam znao kome da pišem ni šta da tražim. Pozvao sam kontakt telefon, Bojana iz podrške mi je sve lepo objasnila, poslao sam dokumentaciju i to je bilo to.",
       },
       {
         name: "Lazar Miučin",
         route: "Beograd - London",
         amount: "400 EUR",
         quote:
-          "Najviše mi je značilo što su prvo realno proverili slučaj. Bez velikih obećanja, samo konkretno šta fali od dokaza i koji je sledeći korak.",
+          "Dobio sam preporuku da je sve brzo i profi jer stvarno rade naši ljudi. Tako je i bilo i nakon neka 3-4 meseca mi je 400 EUR leglo na račun. :)",
       },
       {
         name: "Nikola Marinić",
         route: "Beograd - Njujork",
         amount: "600 EUR",
         quote:
-          "Konekcija mi je propala zbog kašnjenja prvog leta. Sve je bilo mnogo preglednije kada su mi objasnili da se gleda dolazak na krajnju destinaciju.",
+          "Imali smo propuštenu konekciju zbog kašnjenja - mikro haos u životu i milion pitanja šta dalje. Odmah sam upućen na srpskog advokata koji je vrlo profesionalno odradio svoj posao. Isplaćeno nam je kroz nekoliko meseci 2400 EUR za čitavu porodicu.",
       },
     ],
   },
   en: {
-    eyebrow: "Passenger stories",
-    titleA: "People who checked their case in time",
-    titleB: "When the case is clear, the process does not have to be hard",
-    titleC: "Short, specific and without empty promises",
-    caseExamples: "Case examples",
+    eyebrow: "Passenger experiences",
+    titleA: "What our clients say",
+    titleB: "When the case is clear, the process does not have to be difficult",
+    titleC: "Clear answers without empty promises",
+    caseExamples: "Example outcomes",
     caseRange: "EUR 250-600",
     items: [
       {
-        name: "Milos Nikolic",
-        route: "Nis - Vienna",
+        name: "Miloš Nikolić",
+        route: "Niš - Vienna",
         amount: "EUR 250",
         quote:
-          "After my flight was cancelled, I did not know who to write to or what to ask for. I got clear direction, submitted the documents, and did not have to chase the airline every other day.",
+          "After my flight was cancelled, I did not know who to contact or what to ask for. I called the support number, Bojana explained everything clearly, I sent the documents, and that was it.",
       },
       {
-        name: "Lazar Miucin",
+        name: "Lazar Miučin",
         route: "Belgrade - London",
         amount: "EUR 400",
         quote:
-          "What mattered most was that they checked the case realistically first. No big promises, just a concrete list of missing proof and the next step.",
+          "I was told the process would be quick and professional because the team is based in Serbia. That is exactly how it went, and after three or four months, EUR 400 was paid into my account. :)",
       },
       {
-        name: "Nikola Marinic",
+        name: "Nikola Marinić",
         route: "Belgrade - New York",
         amount: "EUR 600",
         quote:
-          "My connection failed because the first flight was delayed. It became much clearer once they explained that the arrival at the final destination is what matters.",
+          "We missed a connection because of a delay. It caused chaos for us and left us with a million questions about what to do next. I was immediately put in touch with a Serbian lawyer who handled the case very professionally. Our family received EUR 2,400 after a few months.",
       },
     ],
   },
@@ -467,7 +492,7 @@ function TestimonialsSection({
   }
 
   return (
-    <section className="bg-white px-6 pb-[84px] pt-[156px]">
+    <section className="bg-white px-6 pb-[84px] pt-[86px]">
       <div className="mx-auto max-w-[1200px]">
         <div className="mb-11 text-center">
           <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.12em] text-[#2470EB]">
@@ -514,6 +539,7 @@ export function LandingPage({
   testimonialsVariant = "none",
   formFieldTone = "default",
   verticalSpacing = "default",
+  footerContactVariant = "rows-brand-flat",
 }: {
   locale?: Locale;
   variant?: LandingVariant;
@@ -521,6 +547,7 @@ export function LandingPage({
   testimonialsVariant?: TestimonialsVariant;
   formFieldTone?: FormFieldTone;
   verticalSpacing?: VerticalSpacing;
+  footerContactVariant?: FooterContactVariant;
 }) {
   const t = copy[locale];
   const fieldClasses = formFieldClasses[formFieldTone];
@@ -565,11 +592,11 @@ export function LandingPage({
           >
             <div className={compactHero ? "max-w-[35.5rem]" : "max-w-[37rem]"}>
               <h1 className="font-display mb-7 text-[48px] font-bold leading-[1.01] text-white sm:text-[54px] lg:text-[61.2px]">
-                <span className="block">{t.heroLine1}</span>
-                <span className="block">{t.heroLine2}</span>
-                <span className="block text-[#2470EB]">
+                <span className="block text-[#2470EB]">{t.heroLine1}</span>
+                <span className="block text-[#2470EB]">{t.heroLine2}</span>
+                <span className="block text-[0.92em]">
                   {t.heroLine3}
-                  <span className="underline decoration-[#2470EB] decoration-[3px] underline-offset-[5px] sm:decoration-[5px] sm:underline-offset-[8px]">
+                  <span className="underline decoration-white decoration-[3px] underline-offset-[5px] sm:decoration-[5px] sm:underline-offset-[8px]">
                     {t.heroLine3Emphasis}
                   </span>
                 </span>
@@ -611,48 +638,10 @@ export function LandingPage({
             />
           </div>
         </div>
-
       </section>
 
-      <section className="border-b border-[#E2E6EF] bg-white px-6 py-[72px]">
-        <div className="mx-auto max-w-[1200px]">
-          <div className="mb-10 text-center">
-            <div className="mb-3 text-[11px] font-bold uppercase tracking-[0.12em] text-[#2470EB]">
-              {t.airlineGridEyebrow}
-            </div>
-            <h2 className="font-display text-[28px] font-bold leading-[1.2] tracking-[-0.02em] text-[#0A0F1E]">
-              {t.airlineGridTitle}
-            </h2>
-          </div>
-
-          <div className="grid overflow-hidden rounded-2xl border border-[#E2E6EF] bg-white md:grid-cols-5">
-            {airlines.map((airline, index) => (
-              <div
-                key={airline.code}
-                className={`flex flex-col items-center gap-[10px] px-5 py-7 transition hover:bg-[#F4F6FA] ${
-                  index < airlines.length - 1 ? "border-b border-[#E2E6EF] md:border-b-0 md:border-r" : ""
-                }`}
-              >
-                <div className="flex h-12 w-12 items-center justify-center rounded-[10px] bg-[#0B1326] font-display text-[17px] font-bold tracking-[0.02em] text-white">
-                  {airline.code}
-                </div>
-                <div className="font-display text-[15px] font-bold tracking-[-0.01em] text-[#0A0F1E]">
-                  {airline.name}
-                </div>
-                <div className="inline-flex items-center gap-[5px] text-[10px] font-bold uppercase tracking-[0.08em] text-[#047857]">
-                  <span className="h-[5px] w-[5px] rounded-full bg-[#047857]" />
-                  {t.active}
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className="mt-5 text-center text-[13px] text-[#64748B]">
-            {t.airlineMore}
-          </div>
-        </div>
-      </section>
-
-      <section id="kako-radi" className="bg-white px-6 py-[100px]">
+      {/* Keep the measured 212.5px content-to-content rhythm consistent across the landing flow. */}
+      <section id="kako-radi" className="bg-white px-6 pb-[110px] pt-[160px]">
         <div className="mx-auto max-w-[1200px]">
           <div className="mb-[60px] text-center">
             <div className="mb-3 text-[11px] font-bold uppercase tracking-[0.1em] text-[#2470EB]">
@@ -731,7 +720,7 @@ export function LandingPage({
                 number: "03",
                 title: t.featureLocalTitle,
                 body: t.featureLocalBody,
-                icon: Scale,
+                icon: Zap,
                 dark: false,
               },
             ].map((item) => (
@@ -789,6 +778,7 @@ export function LandingPage({
               </div>
             ))}
           </div>
+
         </div>
 
         <div className="relative overflow-hidden bg-[linear-gradient(180deg,#0B1326_0%,#101930_100%)] px-6 py-10">
@@ -802,10 +792,10 @@ export function LandingPage({
 
           <div className="relative mx-auto grid max-w-[1200px] gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-0">
             {[
-              { value: "94%", label: t.statSuccess },
+              { value: t.statMaxValue, label: t.statMax },
               { value: "€0", label: t.statUpfront },
+              { value: "100%", label: t.statPaidOut },
               { value: "0%", label: t.statFee },
-              { value: "€600", label: t.statMax },
             ].map((item, index) => (
               <div
                 key={item.label}
@@ -821,6 +811,63 @@ export function LandingPage({
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+
+      </section>
+
+      <section className="bg-white px-6 pb-[98px] pt-[184px]">
+        <div className="mx-auto max-w-[1200px]">
+          <div className="mb-10 text-center">
+            <div className="mb-3 text-[11px] font-bold uppercase tracking-[0.12em] text-[#2470EB]">
+              {t.airlineGridEyebrow}
+            </div>
+            <h2 className="font-display text-[28px] font-bold leading-[1.2] tracking-[-0.02em] text-[#0A0F1E]">
+              {t.airlineGridTitle}
+            </h2>
+          </div>
+
+          <div className="grid overflow-hidden rounded-2xl border border-[#E2E6EF] bg-white md:grid-cols-5">
+            {airlines.map((airline, index) => (
+              <div
+                key={airline.code}
+                className={`flex min-h-[196px] flex-col items-center justify-center gap-[10px] px-5 py-7 transition hover:bg-[#F4F6FA] ${
+                  index < airlines.length - 1 ? "border-b border-[#E2E6EF] md:border-b-0 md:border-r" : ""
+                }`}
+              >
+                <div className="flex h-16 w-[190px] items-center justify-center">
+                  {airline.code === "W6" ? (
+                    <Image
+                      src={airline.logo!}
+                      alt={`${airline.name} logo`}
+                      width={220}
+                      height={64}
+                      sizes="190px"
+                      className={`${airline.logoClass} object-contain`}
+                    />
+                  ) : (
+                    <Image
+                      src={airline.symbol!}
+                      alt={`${airline.name} symbol`}
+                      width={48}
+                      height={48}
+                      sizes="48px"
+                      className="h-12 w-12 object-contain"
+                    />
+                  )}
+                </div>
+                <div className="flex h-6 items-center justify-center whitespace-nowrap text-[15px] font-display font-bold leading-none tracking-[-0.02em] text-[#0A0F1E]">
+                  {airline.name}
+                </div>
+                <div className="inline-flex items-center gap-[5px] text-[10px] font-bold uppercase tracking-[0.08em] text-[#047857]">
+                  <span className="h-[5px] w-[5px] rounded-full bg-[#047857]" />
+                  {t.active}
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="mt-5 text-center text-[13px] text-[#64748B]">
+            {t.airlineMore}
           </div>
         </div>
       </section>
@@ -869,7 +916,7 @@ export function LandingPage({
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-[linear-gradient(180deg,#0B1326_0%,#121B33_100%)] px-6 py-24">
+      <section className="relative overflow-hidden bg-[linear-gradient(180deg,#0B1326_0%,#121B33_100%)] px-6 pb-24 pt-[112.5px]">
         <div
           className="pointer-events-none absolute left-1/2 top-1/2 h-[800px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[40px]"
           style={{
@@ -896,6 +943,7 @@ export function LandingPage({
         locale={locale}
         supportEmail={supportEmail}
         logoBalance={logoBalance}
+        contactVariant={footerContactVariant}
       />
     </main>
   );

@@ -41,7 +41,7 @@ const copy = {
     processVisualTitle: "Zašto ne stajemo na generičkoj odbijenici",
     processVisualBody:
       "Aviokompanije često računaju da će fizičko lice odustati posle prvog kratkog odgovora. Uredan dosije, poznavanje pravila i proceduralni ton menjaju brzinu i kvalitet odgovora.",
-    quickCheckTitle: "Saznajte da li vam pripada naknada i do 600 EUR.",
+    quickCheckTitle: "Saznajte da li Vam pripada naknada i do 600 EUR.",
     quickCheckBody:
       "Brza provera spaja podatke o letu, dužinu rute i osnovne dokaze radi utvrđivanja Vašeg prava.",
     quickCheckButton: "Proveri naknadu",

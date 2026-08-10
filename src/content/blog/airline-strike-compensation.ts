@@ -23,14 +23,14 @@ export const article = {
           body: [
             "Kada se let otkaže ili kasni zbog štrajka, putnici često čuju samo jednu reč i zaključe da nema prava na naknadu. To je previše grubo. U evropskoj praksi nije isto ako štrajkuje osoblje aviokompanije, aerodromsko osoblje, kontrola leta, obezbeđenje ili zaposleni drugog dobavljača.",
             "Ako štrajkuju piloti, kabinsko osoblje ili drugi zaposleni prevoznika, slučaj može biti jači nego što aviokompanija želi da prikaže. Razlog je jednostavan: organizacija rada i odnos sa sopstvenim zaposlenima često su bliži zoni kontrole aviokompanije nego štrajk na aerodromu ili odluka državnog tela.",
-            "Ako štrajkuje kontrola leta ili aerodromska služba koja utiče na sve prevoznike, aviokompanija ima bolji argument da se radi o okolnosti van njene kontrole. I tada, međutim, treba proveriti šta vam je ponuđeno i da li su umanjene posledice."
+            "Ako štrajkuje kontrola leta ili aerodromska služba koja utiče na sve prevoznike, aviokompanija ima bolji argument da se radi o okolnosti van njene kontrole. I tada, međutim, treba proveriti šta Vam je ponuđeno i da li su umanjene posledice."
           ]
         },
         {
           heading: "Fiksna naknada i briga nisu ista stvar",
           body: [
             "Čak i ako je fiksna naknada od 250, 400 ili 600 evra sporna zbog štrajka van kontrole prevoznika, putnik često zadržava pravo na brigu. To znači obroke, osveženje, komunikaciju, hotel i transfer kada čekanje to zahteva. Ta prava se ne brišu samo zato što je u pitanju štrajk.",
-            "U praksi je ovo najkorisnije za putnike koji ostanu preko noći u Beču, Frankfurtu, Parizu ili Istanbulu čekajući alternativni let za Srbiju ili iz Srbije. Ako aviokompanija ne organizuje pomoć, a vi platite hotel ili hranu, čuvajte račune i tražite refundaciju posebno.",
+            "U praksi je ovo najkorisnije za putnike koji ostanu preko noći u Beču, Frankfurtu, Parizu ili Istanbulu čekajući alternativni let za Srbiju ili iz Srbije. Ako aviokompanija ne organizuje pomoć, a Vi platite hotel ili hranu, čuvajte račune i tražite refundaciju posebno.",
             "U zahtevu zato ne treba pisati samo da tražite odštetu zbog štrajka. Navedite i troškove čekanja, šta je aviokompanija ponudila i šta nije. Tako slučaj ostaje koristan čak i ako se kasnije zaključi da fiksna naknada nije sigurna."
           ]
         },
@@ -38,7 +38,7 @@ export const article = {
           heading: "Obaveštenje unapred menja situaciju",
           body: [
             "Kod otkazivanja zbog najavljenog štrajka važno je kada ste obavešteni i kakva alternativa je ponuđena. Ako ste obavešteni dovoljno rano i ponuđen je razuman let koji stiže blizu planiranog vremena, pravo na fiksnu naknadu može biti slabije.",
-            "Ako ste obavešteni u poslednjem trenutku, ako alternativa stiže znatno kasnije ili ako vas je kompanija ostavila bez jasnog rešenja, slučaj je vredan provere. Putnik ne mora da zna sve pravne detalje; dovoljno je da sačuva email, SMS, novu kartu i realno vreme dolaska.",
+            "Ako ste obavešteni u poslednjem trenutku, ako alternativa stiže znatno kasnije ili ako Vas je kompanija ostavila bez jasnog rešenja, slučaj je vredan provere. Putnik ne mora da zna sve pravne detalje; dovoljno je da sačuva email, SMS, novu kartu i realno vreme dolaska.",
             "Posebno proverite da li ste sami prihvatili povraćaj novca umesto preusmeravanja. Povraćaj karte rešava cenu neiskorišćenog leta, ali ne mora automatski da zatvori pitanje dodatnih troškova ili moguće naknade."
           ]
         },
@@ -54,7 +54,7 @@ export const article = {
           heading: "Dokazi koji najviše pomažu",
           body: [
             "Sačuvajte originalnu rezervaciju, poruku o otkazivanju ili kašnjenju, obaveštenje o štrajku, novu kartu, boarding pass i račune. Ako je štrajk objavljen na sajtu aerodroma ili kompanije, screenshot sa datumom može pomoći da se kasnije utvrdi hronologija.",
-            "Ako vam je osoblje reklo da je uzrok štrajk posade, zapišite tačnu formulaciju. Razlika između airline crew strike i airport strike može promeniti celu procenu. Nije isto ni kada štrajkuje osoblje matične aviokompanije i kada problem nastaje kod zemaljskog opsluživača.",
+            "Ako Vam je osoblje reklo da je uzrok štrajk posade, zapišite tačnu formulaciju. Razlika između airline crew strike i airport strike može promeniti celu procenu. Nije isto ni kada štrajkuje osoblje matične aviokompanije i kada problem nastaje kod zemaljskog opsluživača.",
             "Za putovanja sa konekcijama, čuvajte dokumente za sve segmente iz iste rezervacije. Štrajk na prvom letu može izazvati mnogo veće kašnjenje na krajnjoj destinaciji, a upravo taj krajnji efekat često odlučuje da li slučaj ima vrednost."
           ]
         },

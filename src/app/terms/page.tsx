@@ -1,14 +1,9 @@
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import {
-  getOperatorAddress,
-  getOperatorCountry,
-  getOperatorName,
-  getSupportEmail,
-  getSupportPhone,
-} from "@/lib/env";
+import { LegalOperatorContact } from "@/components/legal-operator-contact";
+import { getSupportEmail, getSupportPhone } from "@/lib/env";
 
-const lastUpdated = "6. avgust 2026.";
+const lastUpdated = "9. avgust 2026.";
 
 function Section({
   title,
@@ -25,49 +20,9 @@ function Section({
   );
 }
 
-function IdentityBlock() {
-  const operatorName = getOperatorName();
-  const operatorAddress = getOperatorAddress();
-  const operatorCountry = getOperatorCountry();
-  const supportEmail = getSupportEmail();
-  const supportPhone = getSupportPhone();
-
-  return (
-    <dl className="grid gap-3 text-sm text-[var(--muted)] sm:grid-cols-[180px_1fr]">
-      <div className="contents">
-        <dt className="font-semibold text-[var(--ink)]">Operator sajta</dt>
-        <dd>{operatorName}</dd>
-      </div>
-      <div className="contents">
-        <dt className="font-semibold text-[var(--ink)]">Poslovna adresa</dt>
-        <dd>{operatorAddress}</dd>
-      </div>
-      <div className="contents">
-        <dt className="font-semibold text-[var(--ink)]">Država sedišta</dt>
-        <dd>{operatorCountry}</dd>
-      </div>
-      <div className="contents">
-        <dt className="font-semibold text-[var(--ink)]">Kontakt email</dt>
-        <dd>
-          <a className="hover:text-[var(--ink)]" href={`mailto:${supportEmail}`}>
-            {supportEmail}
-          </a>
-        </dd>
-      </div>
-      <div className="contents">
-        <dt className="font-semibold text-[var(--ink)]">Kontakt telefon</dt>
-        <dd>
-          <a className="hover:text-[var(--ink)]" href={`tel:${supportPhone}`}>
-            {supportPhone}
-          </a>
-        </dd>
-      </div>
-    </dl>
-  );
-}
-
 export default function TermsPage() {
   const supportEmail = getSupportEmail();
+  const supportPhone = getSupportPhone();
 
   return (
     <main className="min-h-screen bg-[var(--bg)] pt-32">
@@ -89,16 +44,17 @@ export default function TermsPage() {
 
         <Section title="1. Operator sajta">
           <p>
-            Sajtom letkasni.rs upravlja {getOperatorName()}, operator naveden ispod,
-            koji je odgovoran za organizaciju i pružanje usluge kroz ovaj sajt na
-            teritoriji Republike Srbije.
+            Sajtom letkasni.rs upravlja Expatwise LLC, sa poslovnom adresom 30 N Gould St, Ste R, Sheridan, WY 82801, USA, koji je odgovoran za organizaciju i pružanje usluge kroz ovaj sajt na teritoriji Republike Srbije.
           </p>
-          <IdentityBlock />
+          <LegalOperatorContact
+            supportEmail={supportEmail}
+            supportPhone={supportPhone}
+          />
         </Section>
 
         <Section title="2. Predmet usluge">
           <p>
-            letkasni.rs je informativni i operativni sajt namenjen prijemu zahteva
+            Letkasni.rs je informativni i operativni sajt namenjen prijemu zahteva
             korisnika u vezi sa avio-naknadom, organizaciji dostavljenih podataka i
             dokumentacije i daljoj administrativnoj komunikaciji u vezi sa takvim
             zahtevom.
@@ -116,7 +72,7 @@ export default function TermsPage() {
 
         <Section title="3. Priroda usluge i ograničenje pravnih usluga">
           <p>
-            letkasni.rs nije advokatska kancelarija i ne pruža pravne savete, pravno
+            Letkasni.rs nije advokatska kancelarija i ne pruža pravne savete, pravno
             zastupanje niti druge pravne usluge. Informacije prikazane na sajtu, u formi,
             email komunikaciji ili tokom obrade zahteva imaju isključivo informativnu,
             tehničku i administrativnu svrhu i ne predstavljaju pravni savet.
@@ -150,7 +106,7 @@ export default function TermsPage() {
           </p>
           <p>
             Slanjem zahteva potvrđujete da imate pravo da dostavite podatke koje unosite i da
-            su, prema vašem najboljem znanju, tačni i potpuni.
+            su, prema Vašem najboljem znanju, tačni i potpuni.
           </p>
         </Section>
 
@@ -179,7 +135,7 @@ export default function TermsPage() {
             email-a ili drugih kontakt kanala koje korisnik navede.
           </p>
           <p>
-            Slanjem zahteva pristajete da vas operator kontaktira radi obrade prijave, traženja
+            Slanjem zahteva pristajete da Vas operator kontaktira radi obrade prijave, traženja
             dopunskih podataka i dostavljanja informacija o sledećim koracima.
           </p>
           <p>

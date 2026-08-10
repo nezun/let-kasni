@@ -83,7 +83,7 @@ function srSections(topic: AirlineTopic) {
       heading: "Smer putovanja, presedanje i jedna rezervacija",
       body: [
         `${topic.srConnectionNote} Ako je putovanje bilo kupljeno kao jedna celina, ne gledajte samo prvi segment. Kratko kašnjenje na početku može značiti propušten nastavak, novu rutu, noćno čekanje ili dolazak na poslednji aerodrom mnogo kasnije od plana.`,
-        "Ako su karte bile odvojene, dokumenta postaju još važnija. Prvi prevoznik obično ne odgovara automatski za nastavak koji ste sami kupili. Zato itinerary i e-ticket pokazuju šta je bilo obećano u okviru iste rezervacije, a šta je bio vaš zaseban plan. Ta razlika često odlučuje da li se računa ceo put ili samo jedan let.",
+        "Ako su karte bile odvojene, dokumenta postaju još važnija. Prvi prevoznik obično ne odgovara automatski za nastavak koji ste sami kupili. Zato itinerary i e-ticket pokazuju šta je bilo obećano u okviru iste rezervacije, a šta je bio Vaš zaseban plan. Ta razlika često odlučuje da li se računa ceo put ili samo jedan let.",
       ],
     },
     {
@@ -235,7 +235,7 @@ const topics: AirlineTopic[] = [
     enCoverageNote: "EL AL is not a European carrier, so coverage is checked through departure airport, direction, any EU segment and the actual operating carrier.",
     srConnectionNote: "Tel Aviv može biti kraj puta ili deo duže rezervacije, naročito ako putnik nastavlja prema drugom gradu preko partnerskog leta.",
     enConnectionNote: "Tel Aviv can be the end of the trip or part of a longer booking, especially if the passenger continues to another city on a partner flight.",
-    srEvidenceNote: "Ako se pominje bezbednost, tražite period događaja i direktan uticaj na vaš let; ako se kasnije pominje posada, avion ili slot, sačuvajte obe verzije.",
+    srEvidenceNote: "Ako se pominje bezbednost, tražite period događaja i direktan uticaj na Vaš let; ako se kasnije pominje posada, avion ili slot, sačuvajte obe verzije.",
     enEvidenceNote: "If security is mentioned, ask for the event period and direct effect on your flight; if crew, aircraft or slot is mentioned later, keep both versions.",
   },
   {

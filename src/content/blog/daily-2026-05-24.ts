@@ -89,7 +89,7 @@ function srSections(topic: AirlineTopic) {
       heading: "Razlog kašnjenja i šta nije dovoljno objašnjenje",
       body: [
         "Aviokompanija može navesti tehnički kvar, prethodnu rotaciju, posadu, slot kontrole letenja, loše vreme, bezbednosnu proveru, zemaljsko opsluživanje ili zatvaranje aerodroma. Neki razlozi mogu biti jači argument protiv fiksne naknade, ali generička formulacija sama po sebi nije dovoljna da se slučaj razume.",
-        "Tražite vezu između razloga i baš vašeg leta: kada je problem nastao, koliko je trajao, da li je pogodio jedan avion ili ceo aerodrom, i šta je prevoznik uradio da smanji posledice. Ako odgovor preskače te činjenice, Let Kasni slučaj proverava kroz dokaznu vremensku liniju, a ne kroz etiketu koju je kompanija izabrala.",
+        "Tražite vezu između razloga i baš Vašeg leta: kada je problem nastao, koliko je trajao, da li je pogodio jedan avion ili ceo aerodrom, i šta je prevoznik uradio da smanji posledice. Ako odgovor preskače te činjenice, Let Kasni slučaj proverava kroz dokaznu vremensku liniju, a ne kroz etiketu koju je kompanija izabrala.",
       ],
     },
     {

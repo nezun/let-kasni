@@ -12,16 +12,16 @@ export const article = {
     updatedAt: "2026-05-01",
     sr: {
       slug: "downgrade-sedista-biznis-ekonomska-klasa",
-      title: "Downgrade sedišta: šta ako vas prebace u nižu klasu",
+      title: "Downgrade sedišta: šta ako Vas prebace u nižu klasu",
       description: "Šta putnik može da traži kada plati biznis ili premium klasu, a aviokompanija ga smesti u nižu kabinu.",
-      excerpt: "Downgrade nije isto što i loše sedište. Ako ste platili višu klasu, a leteli nižom, proverava se povraćaj dela cene za taj segment.",
+      excerpt: "Downgrade nije isto što i loše sedište. Ako ste platili Višu klasu, a leteli nižom, proverava se povraćaj dela cene za taj segment.",
       category: "Downgrade",
       readTime: "7 min čitanja",
       sections: [
         {
           heading: "Downgrade znači nižu putnu klasu, ne samo lošije mesto",
           body: [
-            "Prvo treba razlikovati stvarni downgrade od neprijatnog sedišta. Ako ste platili biznis klasu, premium ekonomsku ili prvu klasu, a aviokompanija vas prebaci u ekonomsku ili nižu kabinu, to je ozbiljna promena usluge. Ako ste samo izgubili mesto pored prozora ili sedište sa više prostora u istoj klasi, to je druga vrsta reklamacije.",
+            "Prvo treba razlikovati stvarni downgrade od neprijatnog sedišta. Ako ste platili biznis klasu, premium ekonomsku ili prvu klasu, a aviokompanija Vas prebaci u ekonomsku ili nižu kabinu, to je ozbiljna promena usluge. Ako ste samo izgubili mesto pored prozora ili sedište sa više prostora u istoj klasi, to je druga vrsta reklamacije.",
             "Kod evropskih pravila downgrade obično vodi ka povraćaju dela cene karte za pogođeni segment. To nije ista stvar kao fiksna naknada za kašnjenje od 250, 400 ili 600 evra. Ovde se gleda vrednost usluge koju ste platili i klasa kojom ste stvarno putovali.",
             "Za putnike iz Srbije ovo je bitno na konekcijama preko velikih evropskih aerodroma, gde se dešavaju promene aviona, overbooking premium kabine ili zamene letelica. Ako je samo jedan segment pogođen, zahtev se obično vezuje za taj segment, ne za celo putovanje."
           ]
@@ -31,14 +31,14 @@ export const article = {
           body: [
             "U tipičnom evropskom okviru povraćaj za downgrade zavisi od dužine leta i može biti procenat cene segmenta. Najčešće se pominju nivoi od 30, 50 ili 75 procenata, u zavisnosti od distance i vrste rute. To nije popust po dobroj volji, već posebna logika za uslugu koja nije isporučena u kupljenoj klasi.",
             "Najveći problem je što karta često nema jasno razdvojenu cenu po segmentima, posebno ako je kupljena kao povratna ili multi-city rezervacija. Zato treba sačuvati fakturu, potvrdu kupovine, fare breakdown ako postoji i boarding pass koji pokazuje klasu kojom ste stvarno leteli.",
-            "Ako ste platili upgrade gotovinom, miljama ili bodovima, sačuvajte i tu potvrdu. Povraćaj može zavisiti od načina plaćanja, ali osnovna ideja ostaje ista: ne treba platiti višu kabinu, a dobiti nižu bez odgovarajuće korekcije."
+            "Ako ste platili upgrade gotovinom, miljama ili bodovima, sačuvajte i tu potvrdu. Povraćaj može zavisiti od načina plaćanja, ali osnovna ideja ostaje ista: ne treba platiti Višu kabinu, a dobiti nižu bez odgovarajuće korekcije."
           ]
         },
         {
           heading: "Vaučeri i milje nisu uvek dovoljno rešenje",
           body: [
-            "Aviokompanije često nude milje, vaučer za budući let ili mali iznos kao gest dobre volje. To može biti prihvatljivo ako vam odgovara, ali ne morate automatski prihvatiti vaučer umesto novčanog povraćaja kada je pravilo na vašoj strani.",
-            "Pre prihvatanja proverite uslove: rok važenja, da li vaučer važi samo za jednu kompaniju, da li se može preneti i da li prihvatanjem zatvarate dalji zahtev. Ako niste sigurni, tražite da vam ponuda bude poslata pisano i da se jasno navede šta pokriva.",
+            "Aviokompanije često nude milje, vaučer za budući let ili mali iznos kao gest dobre volje. To može biti prihvatljivo ako Vam odgovara, ali ne morate automatski prihvatiti vaučer umesto novčanog povraćaja kada je pravilo na Vašoj strani.",
+            "Pre prihvatanja proverite uslove: rok važenja, da li vaučer važi samo za jednu kompaniju, da li se može preneti i da li prihvatanjem zatvarate dalji zahtev. Ako niste sigurni, tražite da Vam ponuda bude poslata pisano i da se jasno navede šta pokriva.",
             "Ako prihvatite milje jer želite brzo rešenje, sačuvajte dokaz o ponudi i prihvatanju. Ako ne prihvatate, odgovorite mirno i tražite obračun povraćaja za downgrade u novcu ili na originalni način plaćanja."
           ]
         },
@@ -46,8 +46,8 @@ export const article = {
           heading: "Šta ako je downgrade nastao zbog zamene aviona",
           body: [
             "Zamena aviona je čest razlog za downgrade. Kompanija može tvrditi da nova letelica nema dovoljno premium sedišta ili da je raspored kabine promenjen. To objašnjava zašto se problem desio, ali ne znači automatski da putnik nema pravo na povraćaj dela cene.",
-            "Ako vam je ponuđeno da putujete nižom klasom istog dana ili da čekate kasniji let u kupljenoj klasi, zapišite šta ste izabrali i zašto. Putnik koji mora da stigne na sastanak možda razumno prihvata nižu klasu, ali i dalje traži korekciju cene.",
-            "Ne mešajte downgrade sa uskraćenim ukrcavanjem. Ako vas uopšte ne puste na let zbog overbookinga, to je druga tema. Ako vas puste, ali u nižu kabinu, fokus je na razlici između kupljene i isporučene usluge."
+            "Ako Vam je ponuđeno da putujete nižom klasom istog dana ili da čekate kasniji let u kupljenoj klasi, zapišite šta ste izabrali i zašto. Putnik koji mora da stigne na sastanak možda razumno prihvata nižu klasu, ali i dalje traži korekciju cene.",
+            "Ne mešajte downgrade sa uskraćenim ukrcavanjem. Ako Vas uopšte ne puste na let zbog overbookinga, to je druga tema. Ako Vas puste, ali u nižu kabinu, fokus je na razlici između kupljene i isporučene usluge."
           ]
         },
         {

@@ -558,7 +558,7 @@ function GuideQuickCheckBanner({
           </p>
           <h3 className="mt-3 max-w-[430px] font-display text-[27px] font-black leading-[1.14] md:text-[32px]">
             {locale === "sr"
-              ? "Saznajte da li vam pripada naknada i do 600 EUR."
+              ? "Saznajte da li Vam pripada naknada i do 600 EUR."
               : "Find out if you are owed up to EUR 600 in compensation."}
           </h3>
           <p className="mt-4 max-w-[440px] text-[15px] font-semibold leading-[1.65] text-white/78">

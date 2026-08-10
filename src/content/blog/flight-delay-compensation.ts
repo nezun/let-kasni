@@ -39,7 +39,7 @@ export const article = {
           "body": [
             "Ako je uzrok tehnički problem, operativni propust, raspored posade, kasno okretanje aviona ili druga situacija koju aviokompanija kontroliše, osnov za zahtev je obično jači. To ne znači da je zahtev automatski dobijen, ali postoji razlog da se proveri.",
             "Ako je uzrok ozbiljno loše vreme, zatvaranje piste, bezbednosna odluka, ograničenje kontrole leta ili drugi događaj van kontrole prevoznika, aviokompanija se može pozvati na vanredne okolnosti. Tada fiksna naknada može biti odbijena, iako druga prava putnika mogu ostati.",
-            "Ne oslanjajte se samo na prvo usmeno objašnjenje na gejtu. Aviokompanije često daju opšte formulacije kao što su operativni razlozi, rotacija aviona ili kasni dolazak prethodnog leta. Za zahtev je važan konkretan uzrok i veza sa vašim letom."
+            "Ne oslanjajte se samo na prvo usmeno objašnjenje na gejtu. Aviokompanije često daju opšte formulacije kao što su operativni razlozi, rotacija aviona ili kasni dolazak prethodnog leta. Za zahtev je važan konkretan uzrok i veza sa Vašim letom."
           ]
         },
         {
@@ -47,7 +47,7 @@ export const article = {
           "body": [
             "Iznosi se najčešće vezuju za dužinu leta i kašnjenje na dolasku. U tipičnim evropskim slučajevima fiksna naknada je 250, 400 ili 600 evra po putniku, uz posebna pravila za neke duže rute i preusmeravanja.",
             "Cena karte nije presudna za fiksnu naknadu. Putnik sa jeftinom kartom i putnik sa skupljom kartom mogu imati isto pravo ako su okolnosti leta iste. Važno je i da se naknada računa po putniku, ne po rezervaciji.",
-            "Ako vam je aviokompanija ponudila alternativni let koji je stigao relativno blizu planiranog vremena, iznos može biti umanjen ili pravo može otpasti. Zato nije dovoljno znati samo da je let kasnio: mora se uporediti planirani i stvarni dolazak."
+            "Ako Vam je aviokompanija ponudila alternativni let koji je stigao relativno blizu planiranog vremena, iznos može biti umanjen ili pravo može otpasti. Zato nije dovoljno znati samo da je let kasnio: mora se uporediti planirani i stvarni dolazak."
           ],
           "bullets": [
             "do 1.500 km: tipično do 250 evra",

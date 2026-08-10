@@ -21,7 +21,7 @@ export const article = {
         {
           heading: "Raniji polazak može biti jednako ozbiljan kao kašnjenje",
           body: [
-            "Putnici obično razmišljaju o kašnjenju, ali let koji je pomeren ranije može napraviti još veći problem. Ako vam aviokompanija pomeri polazak za nekoliko sati unapred, možda ne možete da stignete na aerodrom, propuštate prethodni voz ili autobus, morate da uzmete hotel ili gubite konekciju koja je ranije bila realna.",
+            "Putnici obično razmišljaju o kašnjenju, ali let koji je pomeren ranije može napraviti još veći problem. Ako Vam aviokompanija pomeri polazak za nekoliko sati unapred, možda ne možete da stignete na aerodrom, propuštate prethodni voz ili autobus, morate da uzmete hotel ili gubite konekciju koja je ranije bila realna.",
             "Kod evropskih pravila važno je koliko je promena značajna i kada ste obavešteni. U praksi se ozbiljno posmatra situacija kada je polazak pomeren znatno ranije, naročito ako putnik više nema realnu mogućnost da koristi let pod uslovima koje je kupio.",
             "Za putnike iz Srbije ovo je često kod sezonskih, čarter i konektovanih letova. Promena sa 14:00 na 06:00 nije samo mala korekcija reda letenja; za nekoga ko dolazi iz drugog grada to može značiti dodatno noćenje i potpuno drugačiju organizaciju puta."
           ]
@@ -29,8 +29,8 @@ export const article = {
         {
           heading: "Ne prihvatajte automatski novu satnicu",
           body: [
-            "Kada dobijete email o promeni vremena, prvo proverite koliko je polazak pomeren, kada je obaveštenje stiglo i da li vam nova satnica realno odgovara. Klik na dugme accept može kasnije otežati argument da vam je promena bila neprihvatljiva, iako ne mora uvek potpuno zatvoriti slučaj.",
-            "Ako nova satnica ne odgovara, odmah zatražite alternativu ili povraćaj novca, u zavisnosti od toga šta vam je važnije. Ako morate da putujete, tražite preusmeravanje koje vas dovodi do destinacije pod razumnim uslovima. Ako više ne želite putovanje, jasno tražite refundaciju.",
+            "Kada dobijete email o promeni vremena, prvo proverite koliko je polazak pomeren, kada je obaveštenje stiglo i da li Vam nova satnica realno odgovara. Klik na dugme accept može kasnije otežati argument da Vam je promena bila neprihvatljiva, iako ne mora uvek potpuno zatvoriti slučaj.",
+            "Ako nova satnica ne odgovara, odmah zatražite alternativu ili povraćaj novca, u zavisnosti od toga šta Vam je važnije. Ako morate da putujete, tražite preusmeravanje koje Vas dovodi do destinacije pod razumnim uslovima. Ako više ne želite putovanje, jasno tražite refundaciju.",
             "Sačuvajte originalni itinerary i poruku sa novim vremenom. Bez originalnog rasporeda teško je dokazati koliko je promena bila velika. Screenshot iz aplikacije može biti koristan ako se kasnije podaci u rezervaciji prepišu novim vremenom."
           ]
         },
@@ -38,14 +38,14 @@ export const article = {
           heading: "Kada može postojati pravo na naknadu",
           body: [
             "Ako je promena ranijeg polaska praktično izjednačena sa otkazivanjem prvobitnog leta, može se otvoriti pitanje fiksne naknade, posebno kada ste obavešteni kasno i alternativa nije razumna. Nije svaka promena reda letenja osnov za naknadu, ali velike promene ne treba tretirati kao nebitne.",
-            "Proverava se koliko ranije let polazi, kada ste obavešteni, kada stižete na destinaciju i da li vam je ponuđeno prihvatljivo rešenje. Ako je polazak pomeren ranije, ali dolazak ostaje približno isti i obavešteni ste mnogo unapred, slučaj može biti slabiji.",
+            "Proverava se koliko ranije let polazi, kada ste obavešteni, kada stižete na destinaciju i da li Vam je ponuđeno prihvatljivo rešenje. Ako je polazak pomeren ranije, ali dolazak ostaje približno isti i obavešteni ste mnogo unapred, slučaj može biti slabiji.",
             "Ako zbog ranijeg polaska morate da kupite novi let, uzmete hotel ili izgubite konekciju, dokumentujte posledice. Čak i ako fiksna naknada nije jasna, troškovi nastali zbog promene mogu biti važan deo zahteva."
           ]
         },
         {
           heading: "Konekcije i dolazak na aerodrom",
           body: [
-            "Raniji polazak posebno pogađa putnike koji nisu iz grada polaska. Ako krećete iz Niša, Novog Sada, Kragujevca ili Banjaluke ka Beogradu, promena jutarnjeg leta može značiti da više nema javnog prevoza koji vas dovodi na vreme. To je praktična posledica koju treba objasniti.",
+            "Raniji polazak posebno pogađa putnike koji nisu iz grada polaska. Ako krećete iz Niša, Novog Sada, Kragujevca ili Banjaluke ka Beogradu, promena jutarnjeg leta može značiti da više nema javnog prevoza koji Vas dovodi na vreme. To je praktična posledica koju treba objasniti.",
             "Kod konekcija je važno da li su svi segmenti u jednoj rezervaciji. Ako je aviokompanija pomerila prvi segment ranije i time poremetila ostatak puta, proverava se cela rezervacija. Ako ste sami kombinovali odvojene karte, zaštita može biti slabija, ali i dalje vredi proveriti refundaciju ili promenu karte.",
             "Ne zaboravite troškove koji nisu očigledni: dodatni hotel pre polaska, noćni taksi, parking, izgubljena neiskorišćena karta za voz ili autobus. Sa računima i jasnim objašnjenjem ti troškovi imaju mnogo veću težinu."
           ]
@@ -61,7 +61,7 @@ export const article = {
         {
           heading: "Checklist pre nego što odlučite",
           body: [
-            "Pre odluke zapišite četiri stvari: originalno vreme polaska, novo vreme polaska, datum obaveštenja i realne posledice. Zatim proverite da li vam kompanija nudi izbor ili samo nameće novu kartu. To je osnova za svaki dalji zahtev.",
+            "Pre odluke zapišite četiri stvari: originalno vreme polaska, novo vreme polaska, datum obaveštenja i realne posledice. Zatim proverite da li Vam kompanija nudi izbor ili samo nameće novu kartu. To je osnova za svaki dalji zahtev.",
             "Ako je promena mala, najpraktičnije je često samo prilagoditi plan. Ako je promena velika, nemojte je tretirati kao običnu poruku iz aplikacije. Veliki pomeraj može značiti da prvobitni prevoz više nije isporučen onako kako je kupljen.",
             "Za letove iz Srbije ili ka Srbiji, proverite i koji prevoznik operiše let i odakle ruta polazi. Evropski okvir se najčešće gleda kroz aerodrome, prevoznika i rezervaciju, ne kroz državljanstvo putnika."
           ]

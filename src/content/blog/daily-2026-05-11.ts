@@ -71,7 +71,7 @@ export const articles = [
           body: [
             "Najjednostavnija provera je mala tabela sa kolonama: broj leta, ruta, prevoznik, planirani dolazak, stvarni dolazak, dužina rute, navedeni razlog i ponuđena pomoć. Ta tabela sprečava da se pomešaju polazak, sletanje i otvaranje vrata aviona, što je česta greška kod dužih čekanja.",
             "Ako je ruta kraća, iznos može biti 250 evra. Za srednje evropske rute često se proverava 400 evra, dok duge rute mogu otvoriti pitanje 600 evra, uz posebna pravila kada je kašnjenje između tri i četiri sata. Iznos ne zavisi od cene karte, već od razdaljine i uslova primene.",
-            "Ako je aviokompanija navela loše vreme, slot, zatvaranje piste ili bezbednost, to ne znači automatski kraj. Treba proveriti gde je problem nastao, koliko je trajao i da li direktno objašnjava baš vaš kasni dolazak. Kod tehničkog kvara, posade ili kasne rotacije obično se traži precizniji odgovor.",
+            "Ako je aviokompanija navela loše vreme, slot, zatvaranje piste ili bezbednost, to ne znači automatski kraj. Treba proveriti gde je problem nastao, koliko je trajao i da li direktno objašnjava baš Vaš kasni dolazak. Kod tehničkog kvara, posade ili kasne rotacije obično se traži precizniji odgovor.",
           ],
         },
         {
@@ -85,7 +85,7 @@ export const articles = [
           heading: "Kontrolna lista za dokazni dosije",
           body: [
             "Za codeshare slučaj sačuvajte kartu sa oba koda leta, boarding pass, ime operativnog prevoznika, poruke svake uključene aviokompanije i dokaz kada ste stigli na poslednju destinaciju.",
-            "Najbolji dosije ima kratak redosled događaja: kada ste saznali za kašnjenje, šta je navedeno kao razlog, šta vam je ponuđeno, kada ste stvarno krenuli i kada ste stigli. Ako se razlog menjao kroz aplikaciju, email i usmeno obaveštenje, sačuvajte sve verzije.",
+            "Najbolji dosije ima kratak redosled događaja: kada ste saznali za kašnjenje, šta je navedeno kao razlog, šta Vam je ponuđeno, kada ste stvarno krenuli i kada ste stigli. Ako se razlog menjao kroz aplikaciju, email i usmeno obaveštenje, sačuvajte sve verzije.",
             "Profesionalna obrada zahteva je korisna baš zato što se ne oslanja na utisak putnika, već na proverljive činjenice. Uredan dosije skraćuje komunikaciju sa aviokompanijom, smanjuje rizik od generičkog odbijanja i olakšava sledeći korak ako odgovor ne pokrije sve podatke.",
           ],
           bullets: [
@@ -194,7 +194,7 @@ export const articles = [
           body: [
             "Najjednostavnija provera je mala tabela sa kolonama: broj leta, ruta, prevoznik, planirani dolazak, stvarni dolazak, dužina rute, navedeni razlog i ponuđena pomoć. Ta tabela sprečava da se pomešaju polazak, sletanje i otvaranje vrata aviona, što je česta greška kod dužih čekanja.",
             "Ako je ruta kraća, iznos može biti 250 evra. Za srednje evropske rute često se proverava 400 evra, dok duge rute mogu otvoriti pitanje 600 evra, uz posebna pravila kada je kašnjenje između tri i četiri sata. Iznos ne zavisi od cene karte, već od razdaljine i uslova primene.",
-            "Ako je aviokompanija navela loše vreme, slot, zatvaranje piste ili bezbednost, to ne znači automatski kraj. Treba proveriti gde je problem nastao, koliko je trajao i da li direktno objašnjava baš vaš kasni dolazak. Kod tehničkog kvara, posade ili kasne rotacije obično se traži precizniji odgovor.",
+            "Ako je aviokompanija navela loše vreme, slot, zatvaranje piste ili bezbednost, to ne znači automatski kraj. Treba proveriti gde je problem nastao, koliko je trajao i da li direktno objašnjava baš Vaš kasni dolazak. Kod tehničkog kvara, posade ili kasne rotacije obično se traži precizniji odgovor.",
           ],
         },
         {
@@ -208,7 +208,7 @@ export const articles = [
           heading: "Kontrolna lista za dokazni dosije",
           body: [
             "Za paket aranžman sačuvajte ugovor ili potvrdu aranžmana, avionsku kartu, boarding pass, poruke agencije i aviokompanije, vaučere, račune i stvarno vreme dolaska.",
-            "Najbolji dosije ima kratak redosled događaja: kada ste saznali za kašnjenje, šta je navedeno kao razlog, šta vam je ponuđeno, kada ste stvarno krenuli i kada ste stigli. Ako se razlog menjao kroz aplikaciju, email i usmeno obaveštenje, sačuvajte sve verzije.",
+            "Najbolji dosije ima kratak redosled događaja: kada ste saznali za kašnjenje, šta je navedeno kao razlog, šta Vam je ponuđeno, kada ste stvarno krenuli i kada ste stigli. Ako se razlog menjao kroz aplikaciju, email i usmeno obaveštenje, sačuvajte sve verzije.",
             "Profesionalna obrada zahteva je korisna baš zato što se ne oslanja na utisak putnika, već na proverljive činjenice. Uredan dosije skraćuje komunikaciju sa aviokompanijom, smanjuje rizik od generičkog odbijanja i olakšava sledeći korak ako odgovor ne pokrije sve podatke.",
           ],
           bullets: [
@@ -317,7 +317,7 @@ export const articles = [
           body: [
             "Najjednostavnija provera je mala tabela sa kolonama: broj leta, ruta, prevoznik, planirani dolazak, stvarni dolazak, dužina rute, navedeni razlog i ponuđena pomoć. Ta tabela sprečava da se pomešaju polazak, sletanje i otvaranje vrata aviona, što je česta greška kod dužih čekanja.",
             "Ako je ruta kraća, iznos može biti 250 evra. Za srednje evropske rute često se proverava 400 evra, dok duge rute mogu otvoriti pitanje 600 evra, uz posebna pravila kada je kašnjenje između tri i četiri sata. Iznos ne zavisi od cene karte, već od razdaljine i uslova primene.",
-            "Ako je aviokompanija navela loše vreme, slot, zatvaranje piste ili bezbednost, to ne znači automatski kraj. Treba proveriti gde je problem nastao, koliko je trajao i da li direktno objašnjava baš vaš kasni dolazak. Kod tehničkog kvara, posade ili kasne rotacije obično se traži precizniji odgovor.",
+            "Ako je aviokompanija navela loše vreme, slot, zatvaranje piste ili bezbednost, to ne znači automatski kraj. Treba proveriti gde je problem nastao, koliko je trajao i da li direktno objašnjava baš Vaš kasni dolazak. Kod tehničkog kvara, posade ili kasne rotacije obično se traži precizniji odgovor.",
           ],
         },
         {
@@ -331,7 +331,7 @@ export const articles = [
           heading: "Kontrolna lista za dokazni dosije",
           body: [
             "Za grupu sačuvajte spisak putnika, booking referencu, boarding pass za svaku osobu, račune sa objašnjenjem za koga su plaćeni i dokaz ko može da komunicira u ime grupe.",
-            "Najbolji dosije ima kratak redosled događaja: kada ste saznali za kašnjenje, šta je navedeno kao razlog, šta vam je ponuđeno, kada ste stvarno krenuli i kada ste stigli. Ako se razlog menjao kroz aplikaciju, email i usmeno obaveštenje, sačuvajte sve verzije.",
+            "Najbolji dosije ima kratak redosled događaja: kada ste saznali za kašnjenje, šta je navedeno kao razlog, šta Vam je ponuđeno, kada ste stvarno krenuli i kada ste stigli. Ako se razlog menjao kroz aplikaciju, email i usmeno obaveštenje, sačuvajte sve verzije.",
             "Profesionalna obrada zahteva je korisna baš zato što se ne oslanja na utisak putnika, već na proverljive činjenice. Uredan dosije skraćuje komunikaciju sa aviokompanijom, smanjuje rizik od generičkog odbijanja i olakšava sledeći korak ako odgovor ne pokrije sve podatke.",
           ],
           bullets: [
@@ -440,7 +440,7 @@ export const articles = [
           body: [
             "Najjednostavnija provera je mala tabela sa kolonama: broj leta, ruta, prevoznik, planirani dolazak, stvarni dolazak, dužina rute, navedeni razlog i ponuđena pomoć. Ta tabela sprečava da se pomešaju polazak, sletanje i otvaranje vrata aviona, što je česta greška kod dužih čekanja.",
             "Ako je ruta kraća, iznos može biti 250 evra. Za srednje evropske rute često se proverava 400 evra, dok duge rute mogu otvoriti pitanje 600 evra, uz posebna pravila kada je kašnjenje između tri i četiri sata. Iznos ne zavisi od cene karte, već od razdaljine i uslova primene.",
-            "Ako je aviokompanija navela loše vreme, slot, zatvaranje piste ili bezbednost, to ne znači automatski kraj. Treba proveriti gde je problem nastao, koliko je trajao i da li direktno objašnjava baš vaš kasni dolazak. Kod tehničkog kvara, posade ili kasne rotacije obično se traži precizniji odgovor.",
+            "Ako je aviokompanija navela loše vreme, slot, zatvaranje piste ili bezbednost, to ne znači automatski kraj. Treba proveriti gde je problem nastao, koliko je trajao i da li direktno objašnjava baš Vaš kasni dolazak. Kod tehničkog kvara, posade ili kasne rotacije obično se traži precizniji odgovor.",
           ],
         },
         {
@@ -454,7 +454,7 @@ export const articles = [
           heading: "Kontrolna lista za dokazni dosije",
           body: [
             "Za kašnjenje posle ukrcavanja zabeležite kada ste ušli u avion, kada su vrata zatvorena, kada je navedeni razlog saopšten, kada su vrata otvorena na dolasku i da li je ponuđena voda ili druga pomoć.",
-            "Najbolji dosije ima kratak redosled događaja: kada ste saznali za kašnjenje, šta je navedeno kao razlog, šta vam je ponuđeno, kada ste stvarno krenuli i kada ste stigli. Ako se razlog menjao kroz aplikaciju, email i usmeno obaveštenje, sačuvajte sve verzije.",
+            "Najbolji dosije ima kratak redosled događaja: kada ste saznali za kašnjenje, šta je navedeno kao razlog, šta Vam je ponuđeno, kada ste stvarno krenuli i kada ste stigli. Ako se razlog menjao kroz aplikaciju, email i usmeno obaveštenje, sačuvajte sve verzije.",
             "Profesionalna obrada zahteva je korisna baš zato što se ne oslanja na utisak putnika, već na proverljive činjenice. Uredan dosije skraćuje komunikaciju sa aviokompanijom, smanjuje rizik od generičkog odbijanja i olakšava sledeći korak ako odgovor ne pokrije sve podatke.",
           ],
           bullets: [
@@ -553,7 +553,7 @@ export const articles = [
         {
           heading: "Ruta i pokrivenost pravila",
           body: [
-            "Aviokompanija može imati više stvarnih razloga za jedno kašnjenje, ali svaki razlog mora objasniti konkretan period i vezu sa vašim letom. Opšta promena formulacije ne bi trebalo da zameni dokaz.",
+            "Aviokompanija može imati više stvarnih razloga za jedno kašnjenje, ali svaki razlog mora objasniti konkretan period i vezu sa Vašim letom. Opšta promena formulacije ne bi trebalo da zameni dokaz.",
             "Tipično je da aplikacija prvo pokaže tehnički razlog, osoblje na gejtu kaže slot, a pisani odgovor kasnije navede vanredne okolnosti. Tada se proverava šta je zaista izazvalo kašnjenje na dolasku. Kod svake takve situacije treba zabeležiti aerodrom polaska, aerodrom dolaska, operativnog prevoznika i da li su svi segmenti kupljeni zajedno. Ta četiri podatka često odlučuju da li se slučaj vodi kao običan poremećaj ili kao zahtev za naknadu.",
             "Državljanstvo putnika obično nije glavna činjenica. Mnogo važnije je da li pravila pokrivaju aerodrom i prevoznika, kao i da li je dolazak na poslednju destinaciju bio dovoljno kasan. Zato zahtev ne treba slati pre nego što je ruta zapisana uredno i bez pretpostavki.",
           ],
@@ -563,7 +563,7 @@ export const articles = [
           body: [
             "Najjednostavnija provera je mala tabela sa kolonama: broj leta, ruta, prevoznik, planirani dolazak, stvarni dolazak, dužina rute, navedeni razlog i ponuđena pomoć. Ta tabela sprečava da se pomešaju polazak, sletanje i otvaranje vrata aviona, što je česta greška kod dužih čekanja.",
             "Ako je ruta kraća, iznos može biti 250 evra. Za srednje evropske rute često se proverava 400 evra, dok duge rute mogu otvoriti pitanje 600 evra, uz posebna pravila kada je kašnjenje između tri i četiri sata. Iznos ne zavisi od cene karte, već od razdaljine i uslova primene.",
-            "Ako je aviokompanija navela loše vreme, slot, zatvaranje piste ili bezbednost, to ne znači automatski kraj. Treba proveriti gde je problem nastao, koliko je trajao i da li direktno objašnjava baš vaš kasni dolazak. Kod tehničkog kvara, posade ili kasne rotacije obično se traži precizniji odgovor.",
+            "Ako je aviokompanija navela loše vreme, slot, zatvaranje piste ili bezbednost, to ne znači automatski kraj. Treba proveriti gde je problem nastao, koliko je trajao i da li direktno objašnjava baš Vaš kasni dolazak. Kod tehničkog kvara, posade ili kasne rotacije obično se traži precizniji odgovor.",
           ],
         },
         {
@@ -577,7 +577,7 @@ export const articles = [
           heading: "Kontrolna lista za dokazni dosije",
           body: [
             "Sačuvajte svaki screenshot, email, SMS, gate obaveštenje i odgovor aviokompanije. Pored svakog razloga zapišite vreme kada je saopšten i ko ga je saopštio.",
-            "Najbolji dosije ima kratak redosled događaja: kada ste saznali za kašnjenje, šta je navedeno kao razlog, šta vam je ponuđeno, kada ste stvarno krenuli i kada ste stigli. Ako se razlog menjao kroz aplikaciju, email i usmeno obaveštenje, sačuvajte sve verzije.",
+            "Najbolji dosije ima kratak redosled događaja: kada ste saznali za kašnjenje, šta je navedeno kao razlog, šta Vam je ponuđeno, kada ste stvarno krenuli i kada ste stigli. Ako se razlog menjao kroz aplikaciju, email i usmeno obaveštenje, sačuvajte sve verzije.",
             "Profesionalna obrada zahteva je korisna baš zato što se ne oslanja na utisak putnika, već na proverljive činjenice. Uredan dosije skraćuje komunikaciju sa aviokompanijom, smanjuje rizik od generičkog odbijanja i olakšava sledeći korak ako odgovor ne pokrije sve podatke.",
           ],
           bullets: [
@@ -686,7 +686,7 @@ export const articles = [
           body: [
             "Najjednostavnija provera je mala tabela sa kolonama: broj leta, ruta, prevoznik, planirani dolazak, stvarni dolazak, dužina rute, navedeni razlog i ponuđena pomoć. Ta tabela sprečava da se pomešaju polazak, sletanje i otvaranje vrata aviona, što je česta greška kod dužih čekanja.",
             "Ako je ruta kraća, iznos može biti 250 evra. Za srednje evropske rute često se proverava 400 evra, dok duge rute mogu otvoriti pitanje 600 evra, uz posebna pravila kada je kašnjenje između tri i četiri sata. Iznos ne zavisi od cene karte, već od razdaljine i uslova primene.",
-            "Ako je aviokompanija navela loše vreme, slot, zatvaranje piste ili bezbednost, to ne znači automatski kraj. Treba proveriti gde je problem nastao, koliko je trajao i da li direktno objašnjava baš vaš kasni dolazak. Kod tehničkog kvara, posade ili kasne rotacije obično se traži precizniji odgovor.",
+            "Ako je aviokompanija navela loše vreme, slot, zatvaranje piste ili bezbednost, to ne znači automatski kraj. Treba proveriti gde je problem nastao, koliko je trajao i da li direktno objašnjava baš Vaš kasni dolazak. Kod tehničkog kvara, posade ili kasne rotacije obično se traži precizniji odgovor.",
           ],
         },
         {
@@ -700,7 +700,7 @@ export const articles = [
           heading: "Kontrolna lista za dokazni dosije",
           body: [
             "Sačuvajte originalni itinerer sa vremenom presedanja, boarding pass za oba segmenta, dokaz gejta, vreme dolaska prvog aviona i novi itinerer ako ste preusmereni.",
-            "Najbolji dosije ima kratak redosled događaja: kada ste saznali za kašnjenje, šta je navedeno kao razlog, šta vam je ponuđeno, kada ste stvarno krenuli i kada ste stigli. Ako se razlog menjao kroz aplikaciju, email i usmeno obaveštenje, sačuvajte sve verzije.",
+            "Najbolji dosije ima kratak redosled događaja: kada ste saznali za kašnjenje, šta je navedeno kao razlog, šta Vam je ponuđeno, kada ste stvarno krenuli i kada ste stigli. Ako se razlog menjao kroz aplikaciju, email i usmeno obaveštenje, sačuvajte sve verzije.",
             "Profesionalna obrada zahteva je korisna baš zato što se ne oslanja na utisak putnika, već na proverljive činjenice. Uredan dosije skraćuje komunikaciju sa aviokompanijom, smanjuje rizik od generičkog odbijanja i olakšava sledeći korak ako odgovor ne pokrije sve podatke.",
           ],
           bullets: [

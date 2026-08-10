@@ -21,7 +21,7 @@ export const article = {
         {
           "heading": "Vaučer može biti koristan",
           "body": [
-            "Ako vam aviokompanija nudi vaučer koji zaista možete iskoristiti, to može biti praktično rešenje. Nekome ko redovno leti istom kompanijom vaučer od većeg iznosa može vredeti skoro kao novac.",
+            "Ako Vam aviokompanija nudi vaučer koji zaista možete iskoristiti, to može biti praktično rešenje. Nekome ko redovno leti istom kompanijom vaučer od većeg iznosa može vredeti skoro kao novac.",
             "Problem nije vaučer kao takav. Problem su uslovi: rok važenja, ograničene rute, nemogućnost prenosa, doplate, sezonska ograničenja i formulacije da prihvatanjem zatvarate ceo slučaj.",
             "Pre prihvatanja zato treba uporediti realnu vrednost vaučera sa potencijalnom novčanom naknadom, refundacijom karte ili troškovima koje ste imali."
           ]
@@ -30,7 +30,7 @@ export const article = {
           "heading": "Novac je čistiji i fleksibilniji",
           "body": [
             "Fiksna naknada, kada postoji, obično se izražava u novcu. Novac ne zavisi od toga da li ćete opet leteti istom aviokompanijom, da li će ista ruta postojati ili da li ćete stići da iskoristite vaučer pre isteka.",
-            "Zbog toga je novac često čistije rešenje za putnika. Ako je potencijalna odšteta 250, 400 ili 600 evra, vaučer treba gledati kroz pitanje koliko vam realno vredi, ne koliko nominalno piše na ponudi.",
+            "Zbog toga je novac često čistije rešenje za putnika. Ako je potencijalna odšteta 250, 400 ili 600 evra, vaučer treba gledati kroz pitanje koliko Vam realno vredi, ne koliko nominalno piše na ponudi.",
             "Vaučer od 300 evra koji ističe za šest meseci i važi samo za skupe karte može realno vredeti mnogo manje od 300 evra u gotovini."
           ]
         },
@@ -54,7 +54,7 @@ export const article = {
           "heading": "Šta sačuvati pre klika",
           "body": [
             "Sačuvajte screenshot ponude, uslove korišćenja, email potvrdu, rok važenja, iznos i sve što pokazuje da li se odričete daljih prava. Ako se ponuda menja u aplikaciji, slikajte svaki ekran pre potvrde.",
-            "Ako vam ponudu daju na šalteru, tražite papir ili email. Ako nema ničega, zapišite vreme, mesto i ime službe ako ga imate.",
+            "Ako Vam ponudu daju na šalteru, tražite papir ili email. Ako nema ničega, zapišite vreme, mesto i ime službe ako ga imate.",
             "Ovi detalji kasnije odlučuju da li ima prostora za nastavak ili je prihvatanjem ponude slučaj praktično zatvoren."
           ]
         },
@@ -64,13 +64,13 @@ export const article = {
             "Ako je ponuda jasna, korisna i veća od onoga što realno možete tražiti, prihvatanje može imati smisla. Ako je ponuda mala, nejasna ili traži odricanje od prava, prvo proverite slučaj.",
             "Najvažnije je da odluka bude svesna. Vaučer može biti dobar izbor, ali ne sme biti rezultat pritiska, žurbe ili nejasnih uslova.",
             "Uporedite i praktične detalje: da li vaučer pokriva takse, da li se može koristiti za više putnika, da li mora da se potroši odjednom i šta se dešava ako nova karta košta manje od vrednosti vaučera.",
-            "Ako vam aviokompanija daje kratak rok za prihvatanje, to je dodatni razlog da sačuvate uslove i brzo proverite vrednost slučaja. Dobra odluka traži podatke, ne paniku."
+            "Ako Vam aviokompanija daje kratak rok za prihvatanje, to je dodatni razlog da sačuvate uslove i brzo proverite vrednost slučaja. Dobra odluka traži podatke, ne paniku."
           ]
         },
         {
           "heading": "Pazite na milje i travel credit",
           "body": [
-            "Ponuda ne mora biti samo vaučer. Aviokompanija može ponuditi milje, travel credit, popust na sledeću kartu ili kombinaciju pogodnosti. Sve to treba prevesti u realnu vrednost za vas.",
+            "Ponuda ne mora biti samo vaučer. Aviokompanija može ponuditi milje, travel credit, popust na sledeću kartu ili kombinaciju pogodnosti. Sve to treba prevesti u realnu vrednost za Vas.",
             "Milje mogu vredeti mnogo manje ako ih ne koristite često, ako imaju ograničenu dostupnost ili ako uz njih i dalje plaćate visoke takse. Travel credit može biti vezan za ime putnika, rok važenja ili jednu aviokompaniju.",
             "Ako birate između novca i kredita, pitajte da li prihvatanjem kredita odustajete od novčanog zahteva. To je najvažnija tačka."
           ]

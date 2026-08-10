@@ -83,7 +83,7 @@ export const articles = [
           heading: "Kako formulisati zahtev",
           body: [
             "U zahtevu navedite Beograd kao polazak, krajnju destinaciju, operativnog prevoznika, planirano i stvarno vreme dolaska, razlog koji je saopšten i šta tražite. Nemojte slati samo opštu žalbu. Kratak strukturisan zahtev je bolji jer se kasnije lakše dopunjava.",
-            "Ako aviokompanija odbije zahtev uz vanredne okolnosti, tražite da objasni kako je događaj direktno pogodio baš vaš let i koje realne mere su preduzete da se kašnjenje smanji. To je često mesto gde generičan odgovor postaje proverljiv.",
+            "Ako aviokompanija odbije zahtev uz vanredne okolnosti, tražite da objasni kako je događaj direktno pogodio baš Vaš let i koje realne mere su preduzete da se kašnjenje smanji. To je često mesto gde generičan odgovor postaje proverljiv.",
           ],
         },
       ],
@@ -173,7 +173,7 @@ export const articles = [
         {
           heading: "Šta aviokompanija mora da objasni",
           body: [
-            "Ako kompanija tvrdi da je kašnjenje nastalo zbog vanrednih okolnosti, objašnjenje treba da bude konkretno. Nije dovoljno da napiše samo vreme, operativne razloge ili odluku kontrole letenja. Potrebno je videti kako je taj događaj pogodio vaš let i zašto ga nije bilo moguće ublažiti.",
+            "Ako kompanija tvrdi da je kašnjenje nastalo zbog vanrednih okolnosti, objašnjenje treba da bude konkretno. Nije dovoljno da napiše samo vreme, operativne razloge ili odluku kontrole letenja. Potrebno je videti kako je taj događaj pogodio Vaš let i zašto ga nije bilo moguće ublažiti.",
             "Kod letova iz EU posebno je korisno pitati za vremensku liniju: kada je problem nastao, kada je posada ili avion bio dostupan, kada je doneta odluka o novom polasku i kada su putnici obavešteni. Takva pitanja smanjuju prostor za generičku odbijenicu.",
           ],
         },
@@ -181,7 +181,7 @@ export const articles = [
           heading: "Troškovi čekanja pre povratka",
           body: [
             "Ako ste dugo čekali na aerodromu u EU, pravo na brigu može obuhvatiti obroke, osveženje, komunikaciju, a kod noćnog čekanja hotel i transfer. To pravo je odvojeno od fiksne naknade i može postojati čak i ako se kasnije pokaže da za odštetu nema osnova.",
-            "Računi treba da budu razumni i povezani sa čekanjem. Sačuvajte račun, vreme kupovine i kratak razlog zašto je trošak nastao. Ako kompanija nije ponudila pomoć, zabeležite kada ste pitali i šta vam je odgovoreno.",
+            "Računi treba da budu razumni i povezani sa čekanjem. Sačuvajte račun, vreme kupovine i kratak razlog zašto je trošak nastao. Ako kompanija nije ponudila pomoć, zabeležite kada ste pitali i šta Vam je odgovoreno.",
           ],
         },
         {

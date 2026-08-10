@@ -86,7 +86,7 @@ function srSections(topic: AirlineTopic) {
       heading: "Razlog kašnjenja koji aviokompanija navodi",
       body: [
         "Najčešći razlozi su tehnički kvar, kasna rotacija aviona, nedostatak posade, slot kontrole letenja, loše vreme, zatvaranje aerodroma ili bezbednosni događaj. Neki od tih razloga mogu biti vanredne okolnosti, ali generička rečenica nije dovoljna za ozbiljnu procenu.",
-        "Tražite vezu između razloga i baš vašeg leta: gde je problem nastao, koliko je trajao, koji segment je pogodio i šta je prevoznik uradio da smanji kašnjenje. Ako se razlog menja od obaveštenja na aerodromu do email odbijenice, sačuvajte sve verzije.",
+        "Tražite vezu između razloga i baš Vašeg leta: gde je problem nastao, koliko je trajao, koji segment je pogodio i šta je prevoznik uradio da smanji kašnjenje. Ako se razlog menja od obaveštenja na aerodromu do email odbijenice, sačuvajte sve verzije.",
       ],
     },
     {

@@ -73,8 +73,8 @@ export const article = {
           "heading": "Proverite da li postoji skriven status",
           "body": [
             "Neke aviokompanije ne šalju uvek jasan email, već status promene ostaje u portalu ili aplikaciji. Ako čekate odgovor, proverite i korisnički nalog, spam folder, claim portal i sve adrese koje ste koristili.",
-            "Ako vidite status zatvoreno, rejected ili resolved bez obrazloženja, napravite screenshot. To je dokaz da predmet postoji i da je aviokompanija donela neku odluku, čak i ako vam je nije uredno poslala.",
-            "U follow-upu tražite da vam odluku i obrazloženje pošalju pisano. Bez toga je teže razumeti da li treba slati dopunu, žalbu ili novi zahtev."
+            "Ako vidite status zatvoreno, rejected ili resolved bez obrazloženja, napravite screenshot. To je dokaz da predmet postoji i da je aviokompanija donela neku odluku, čak i ako Vam je nije uredno poslala.",
+            "U follow-upu tražite da Vam odluku i obrazloženje pošalju pisano. Bez toga je teže razumeti da li treba slati dopunu, žalbu ili novi zahtev."
           ]
         }
       ]

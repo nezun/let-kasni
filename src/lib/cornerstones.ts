@@ -81,9 +81,9 @@ export const cornerstonePages: CornerstonePage[] = [
         {
           heading: "Šta ova prava stvarno pokrivaju",
           body: [
-            "Prava putnika nisu samo jedno pravilo i nisu samo fiksna odšteta od 250, 400 ili 600 evra. U praksi se uvek razdvajaju tri pitanja: da li imate pravo na novčanu naknadu, da li imate pravo na refundaciju ili preusmeravanje, i da li vam aviokompanija duguje brigu tokom čekanja.",
+            "Prava putnika nisu samo jedno pravilo i nisu samo fiksna odšteta od 250, 400 ili 600 evra. U praksi se uvek razdvajaju tri pitanja: da li imate pravo na novčanu naknadu, da li imate pravo na refundaciju ili preusmeravanje, i da li Vam aviokompanija duguje brigu tokom čekanja.",
             "Kod kašnjenja je najvažniji dolazak na krajnju destinaciju. Kod otkazivanja je važan rok obaveštenja i ponuđena zamena. Kod propuštene konekcije presudno je da li su letovi bili u jednoj rezervaciji. Kod prtljaga se ne koristi ista logika kao kod EC261 naknade, već se gledaju prijava, rokovi i stvarni troškovi.",
-            "Zato je ova strana zamišljena kao mapa. Ako znate šta vam se dogodilo, odmah idite na odgovarajući glavni vodič. Ako još niste sigurni da li je problem kašnjenje, otkazivanje, konekcija ili prtljag, krenite od ovog pregleda."
+            "Zato je ova strana zamišljena kao mapa. Ako znate šta Vam se dogodilo, odmah idite na odgovarajući glavni vodič. Ako još niste sigurni da li je problem kašnjenje, otkazivanje, konekcija ili prtljag, krenite od ovog pregleda."
           ],
           bullets: [
             "Kašnjenje leta: najčešće se proverava dolazak tri sata ili više kasnije.",
@@ -352,7 +352,7 @@ export const cornerstonePages: CornerstonePage[] = [
           body: [
             "Osnovno pravilo je jednostavno: ne gleda se samo koliko je let kasnio pri poletanju, već koliko ste kasno stigli na krajnju destinaciju. Ako je dolazak tri sata ili više kasnije od plana, slučaj vredi proveriti. Ako je polazak kasnio tri sata, ali je avion nadoknadio vreme i stigao ranije, zahtev može biti slabiji.",
             "Drugi uslov je ruta. Letovi iz EU, letovi ka EU evropskim prevoznikom i putovanja pod jednom rezervacijom preko evropskih čvorišta često su najvažniji za putnike iz Srbije. Državljanstvo putnika obično nije presudno.",
-            "Treći uslov je razlog kašnjenja. Tehnički kvar, kasna rotacija aviona, operativni problemi ili nedostatak posade često mogu biti u sferi aviokompanije. Loše vreme, zatvaranje aerodroma, kontrola letenja ili bezbednosni događaji mogu biti jači argument protiv fiksne naknade, ali i tada treba proveriti šta je kompanija uradila da smanji posledice. Zato se dobra procena ne završava na jednoj rečenici iz aplikacije ili na usmenom objašnjenju na gejtu. Potrebna je kratka vremenska linija, konkretan razlog i dokaz da je taj razlog zaista pogodio baš vaš let. Bez toga putnik ne zna da li šalje zahtev za naknadu, troškove ili dopunu objašnjenja, posebno kod dužih čekanja."
+            "Treći uslov je razlog kašnjenja. Tehnički kvar, kasna rotacija aviona, operativni problemi ili nedostatak posade često mogu biti u sferi aviokompanije. Loše vreme, zatvaranje aerodroma, kontrola letenja ili bezbednosni događaji mogu biti jači argument protiv fiksne naknade, ali i tada treba proveriti šta je kompanija uradila da smanji posledice. Zato se dobra procena ne završava na jednoj rečenici iz aplikacije ili na usmenom objašnjenju na gejtu. Potrebna je kratka vremenska linija, konkretan razlog i dokaz da je taj razlog zaista pogodio baš Vaš let. Bez toga putnik ne zna da li šalje zahtev za naknadu, troškove ili dopunu objašnjenja, posebno kod dužih čekanja."
           ],
           bullets: [
             "Prag za proveru je dolazak tri sata ili više kasnije.",
@@ -373,7 +373,7 @@ export const cornerstonePages: CornerstonePage[] = [
           heading: "Vanredne okolnosti i najčešći izgovori",
           body: [
             "Aviokompanije često navode loše vreme, air traffic control, slot, prethodni let, tehnički razlog, operativne razloge ili bezbednost. Neki od tih razloga zaista mogu oboriti zahtev. Problem je što generička formulacija nije dovoljna za dobru procenu.",
-            "Ako je razlog loše vreme, pitajte gde je vreme bilo problem i da li je direktno pogodilo vaš let. Ako je razlog slot, pitajte kada je ograničenje trajalo i zašto je kašnjenje na kraju bilo toliko dugo. Ako je razlog tehnički kvar, pitajte da li je reč o redovnom operativnom riziku ili zaista neuobičajenom događaju.",
+            "Ako je razlog loše vreme, pitajte gde je vreme bilo problem i da li je direktno pogodilo Vaš let. Ako je razlog slot, pitajte kada je ograničenje trajalo i zašto je kašnjenje na kraju bilo toliko dugo. Ako je razlog tehnički kvar, pitajte da li je reč o redovnom operativnom riziku ili zaista neuobičajenom događaju.",
             "Dobar zahtev ne ignoriše mogućnost vanrednih okolnosti. On traži konkretne činjenice. To je mnogo jače od poruke u kojoj samo piše da ste kasnili i da tražite novac."
           ],
         },
@@ -389,7 +389,7 @@ export const cornerstonePages: CornerstonePage[] = [
           heading: "Kako poslati zahtev",
           body: [
             "Zahtev treba da bude kratak, ali precizan: broj leta, datum, ruta, planirano i stvarno vreme dolaska, booking reference, objašnjenje koje ste dobili i šta tražite. Ako imate troškove, odvojite ih od fiksne naknade.",
-            "Napišite da tražite obradu zahteva za naknadu zbog kašnjenja i, ako aviokompanija smatra da postoje vanredne okolnosti, da tražite konkretno objašnjenje događaja, perioda i uticaja na vaš let. To tera odgovor iz generičke zone u proverljive činjenice.",
+            "Napišite da tražite obradu zahteva za naknadu zbog kašnjenja i, ako aviokompanija smatra da postoje vanredne okolnosti, da tražite konkretno objašnjenje događaja, perioda i uticaja na Vaš let. To tera odgovor iz generičke zone u proverljive činjenice.",
             "Ako kompanija ne odgovori ili odbije zahtev opštom rečenicom, sledeći korak je dopuna sa dokazima i jasnim pitanjima. Detaljni vodiči ispod ove stranice pokrivaju upravo te scenarije: tehnički kvar, loše vreme, slot, prethodni let, hotel i rokove."
           ],
         },
@@ -403,7 +403,7 @@ export const cornerstonePages: CornerstonePage[] = [
         {
           question: "Da li loše vreme automatski znači da nema naknade?",
           answer:
-            "Ne automatski. Može biti vanredna okolnost, ali treba proveriti gde je nastalo, koliko je trajalo i da li je direktno uticalo baš na vaš let.",
+            "Ne automatski. Može biti vanredna okolnost, ali treba proveriti gde je nastalo, koliko je trajalo i da li je direktno uticalo baš na Vaš let.",
         },
       ],
     },
@@ -554,7 +554,7 @@ const guideSummaries: Array<Omit<CornerstonePage, "image" | "sr" | "en" | "updat
       title: "Overbooking naknada",
       description: "Glavni vodič za overbooking: kada je ukrcavanje odbijeno zbog previše prodatih karata, šta znači dobrovoljni vaučer i kada se traži novčana naknada.",
       eyebrow: "Glavni vodič",
-      excerpt: "Overbooking je situacija u kojoj aviokompanija proda više mesta nego što realno može da preveze. Prava putnika zavise od toga da li ste dobrovoljno prihvatili dogovor ili vam je ukrcavanje uskraćeno protiv vaše volje.",
+      excerpt: "Overbooking je situacija u kojoj aviokompanija proda više mesta nego što realno može da preveze. Prava putnika zavise od toga da li ste dobrovoljno prihvatili dogovor ili Vam je ukrcavanje uskraćeno protiv Vaše volje.",
       ctaLabel: "Proveri overbooking",
       languageLabel: "English version",
     },
@@ -664,7 +664,7 @@ const generatedGuides: CornerstonePage[] = guideSummaries.map((guide) => {
         {
           heading: "Kada ova situacija može dati pravo na novac",
           body: [
-            `${guide.sr.title} treba proveriti kada je poremećaj direktno promenio vaše putovanje i kada aviokompanija nema jasan, konkretan razlog koji je van njene kontrole. Prvi korak je uvek isti: utvrditi rutu, rezervaciju, planirano vreme, stvarno vreme i tačan razlog koji je kompanija navela.`,
+            `${guide.sr.title} treba proveriti kada je poremećaj direktno promenio Vaše putovanje i kada aviokompanija nema jasan, konkretan razlog koji je van njene kontrole. Prvi korak je uvek isti: utvrditi rutu, rezervaciju, planirano vreme, stvarno vreme i tačan razlog koji je kompanija navela.`,
             "Kod evropskih prava putnika iznos ne zavisi od cene karte, već od vrste događaja, dužine rute i posledice po putnika. Zato skupa karta nije uslov za dobar zahtev, a jeftina karta nije razlog da se zahtev ne pošalje.",
             "Ako je kompanija ponudila zamenski let, vaučer ili refundaciju, to ne zatvara automatski pitanje naknade. Potrebno je videti da li ste stigli znatno kasnije, da li ste dobrovoljno prihvatili ponudu i da li je alternativa bila razumna."
           ],
@@ -678,8 +678,8 @@ const generatedGuides: CornerstonePage[] = guideSummaries.map((guide) => {
         {
           heading: "Šta aviokompanija mora da objasni",
           body: [
-            `Za ${srTopic} nije dovoljno da aviokompanija pošalje jednu opštu rečenicu. Mora biti jasno šta se dogodilo, kada se dogodilo, na kom aerodromu ili letu, i kako je baš taj događaj uticao na vaše putovanje.`,
-            "Ako se kompanija poziva na vanredne okolnosti, tražite konkretno objašnjenje. Loše vreme, slot, štrajk, bezbednost ili operativni razlog imaju potpuno različitu težinu. Neki razlozi mogu biti validni, ali samo ako su direktno povezani sa vašim letom i ako kompanija nije mogla razumno da izbegne posledicu.",
+            `Za ${srTopic} nije dovoljno da aviokompanija pošalje jednu opštu rečenicu. Mora biti jasno šta se dogodilo, kada se dogodilo, na kom aerodromu ili letu, i kako je baš taj događaj uticao na Vaše putovanje.`,
+            "Ako se kompanija poziva na vanredne okolnosti, tražite konkretno objašnjenje. Loše vreme, slot, štrajk, bezbednost ili operativni razlog imaju potpuno različitu težinu. Neki razlozi mogu biti validni, ali samo ako su direktno povezani sa Vašim letom i ako kompanija nije mogla razumno da izbegne posledicu.",
             "Posebno pazite na promenu razloga. Ako se u jednoj poruci pominje tehnički problem, u drugoj kontrola letenja, a u trećoj kasna posada, zahtev treba strukturisati po vremenskoj liniji. Kombinovani razlozi nisu retki, ali ne smeju ostati nejasni."
           ],
         },
@@ -688,7 +688,7 @@ const generatedGuides: CornerstonePage[] = guideSummaries.map((guide) => {
           body: [
             "Bez obzira na krajnji odgovor o fiksnoj naknadi, putnik tokom dužeg čekanja ne treba da ostane bez pomoći. Obroci, osveženje, komunikacija, hotel i transfer mogu biti relevantni kada čekanje traje dugo ili se putovanje pomera na naredni dan.",
             "Ako pomoć nije organizovana, troškovi moraju biti razumni i povezani sa poremećajem. Sačuvajte račun, vreme kupovine i kratak razlog zašto je trošak bio nužan. Luksuzne troškove je teže opravdati, ali osnovna hrana, voda, prevoz i smeštaj su druga priča.",
-            "Ako vam kompanija ponudi alternativu koja nema smisla, zatražite bolju opciju pisanim putem. Ako sami kupujete novo rešenje, zabeležite da ste prvo pokušali da dobijete pomoć od aviokompanije."
+            "Ako Vam kompanija ponudi alternativu koja nema smisla, zatražite bolju opciju pisanim putem. Ako sami kupujete novo rešenje, zabeležite da ste prvo pokušali da dobijete pomoć od aviokompanije."
           ],
         },
         {
@@ -821,7 +821,7 @@ function addDepthToGeneratedGuide(page: CornerstonePage) {
     {
       heading: "Vanredne okolnosti i zašto opšte objašnjenje nije dovoljno",
       body: [
-        "Vanredne okolnosti nisu čarobna reč koja automatski zatvara slučaj. Loše vreme, bezbednosna odluka, štrajk aerodroma, kontrola letenja ili zatvaranje piste mogu biti ozbiljni razlozi, ali moraju biti konkretno povezani sa vašim letom i vremenskim okvirom u kome je problem nastao.",
+        "Vanredne okolnosti nisu čarobna reč koja automatski zatvara slučaj. Loše vreme, bezbednosna odluka, štrajk aerodroma, kontrola letenja ili zatvaranje piste mogu biti ozbiljni razlozi, ali moraju biti konkretno povezani sa Vašim letom i vremenskim okvirom u kome je problem nastao.",
         "Ako kompanija napiše samo operativni razlozi, rotacija aviona, slot ili odluka aerodroma, tražite preciznije objašnjenje. Dobro pitanje glasi: šta se tačno dogodilo, kada je počelo, kada se završilo, na koji segment se odnosilo i zašto nije postojala razumna alternativa.",
         "Posebno su važni kombinovani slučajevi. Prvi problem može biti van kontrole aviokompanije, ali kasnije čekanje može nastati zbog organizacije posade, aviona ili preusmeravanja. Zato se ne proverava samo naziv razloga, već ceo lanac događaja."
       ],
@@ -831,7 +831,7 @@ function addDepthToGeneratedGuide(page: CornerstonePage) {
       body: [
         "Najbolji zahtev se priprema dok ste još na aerodromu. Sačuvajte boarding pass, potvrdu rezervacije, broj leta, obaveštenja, fotografiju table, screenshot aplikacije i račune. Ako osoblje kaže razlog, zapišite tačnu formulaciju, vreme i gejt ili šalter.",
         "Prva poruka ne mora biti duga. Treba da sadrži činjenice koje se mogu proveriti: broj leta, datum, rutu, planirano i stvarno vreme, booking referencu, šta je ponuđeno i šta tražite. Ako imate troškove, stavite ih u poseban deo i priložite račune.",
-        "Ako aviokompanija odbije zahtev, ne šalje se emotivna replika. Šalje se dopuna sa pitanjima: koji je tačan razlog, koji dokaz ga potvrđuje, zašto nije ponuđena razumna alternativa i kako je razlog uticao baš na vaš let. Takav odgovor je bolja osnova za dalju procenu.",
+        "Ako aviokompanija odbije zahtev, ne šalje se emotivna replika. Šalje se dopuna sa pitanjima: koji je tačan razlog, koji dokaz ga potvrđuje, zašto nije ponuđena razumna alternativa i kako je razlog uticao baš na Vaš let. Takav odgovor je bolja osnova za dalju procenu.",
         "Kada se dokumenta slože pre slanja, zahtev deluje ozbiljnije i ostavlja manje prostora za šablonsku odbijenicu. To je naročito važno kod slučajeva koji imaju više putnika, više segmenata ili troškove nastale tokom čekanja."
       ],
     },
@@ -887,7 +887,7 @@ function addDepthToGeneratedGuide(page: CornerstonePage) {
       heading: "Kako proveriti odgovor aviokompanije po tačkama",
       body: [
         "Kada dobijete odgovor, ne gledajte samo da li piše prihvaćeno ili odbijeno. Proverite da li se odgovor odnosi na tačan broj leta, datum, rutu i putnike. Zatim proverite da li je razlog opisan konkretnim događajem ili samo opštom frazom.",
-        "Dobar odgovor treba da objasni vezu između događaja i posledice. Ako kompanija tvrdi da je postojao slot, treba da se vidi kada je slot važio i zašto je uticao baš na vaš dolazak. Ako tvrdi da je razlog vreme, treba da bude jasno gde je vreme bilo problem i zašto let nije mogao biti obavljen ranije.",
+        "Dobar odgovor treba da objasni vezu između događaja i posledice. Ako kompanija tvrdi da je postojao slot, treba da se vidi kada je slot važio i zašto je uticao baš na Vaš dolazak. Ako tvrdi da je razlog vreme, treba da bude jasno gde je vreme bilo problem i zašto let nije mogao biti obavljen ranije.",
         `Za ${srTopic} je naročito važno da odgovor ne preskoči alternativu koju je kompanija ponudila. Ako je putnik morao da čeka, plati hotel, kupi novu kartu ili prihvati lošije rešenje, taj deo treba tražiti odvojeno od osnovnog objašnjenja.`
       ],
     },
@@ -1090,7 +1090,7 @@ function addDepthToAirPassengerRightsGuide(page: CornerstonePage) {
       body: [
         "Ako se poremećaj desi dok ste na aerodromu, najvažnije je da ne napustite situaciju bez dokaza. Praktičan redosled je objašnjen u vodiču [šta uraditi kada let kasni](/prava-putnika-u-aviosaobracaju/sta-uraditi-kada-let-kasni): pitajte osoblje za razlog, tražite pisani trag ako je moguće, fotografišite tablu polazaka i sačuvajte svaki SMS, email ili push notifikaciju aviokompanije.",
         "Ako čekanje traje duže, pitajte za obrok, vodu, komunikaciju, hotel i transfer. Ako pomoć ne dobijete, kupujte razumno i čuvajte račune. Ne morate znati sve pravne detalje na licu mesta, ali morate sačuvati trag koji će kasnije pokazati šta se dogodilo.",
-        "Ako vam se nudi vaučer, refundacija ili preusmeravanje, tražite uslove pre prihvatanja. Posebno pazite na formulacije kojima se odričete daljih potraživanja. Ako niste sigurni, bolje je sačuvati ponudu i proveriti je nego potpisati nešto što ne razumete."
+        "Ako Vam se nudi vaučer, refundacija ili preusmeravanje, tražite uslove pre prihvatanja. Posebno pazite na formulacije kojima se odričete daljih potraživanja. Ako niste sigurni, bolje je sačuvati ponudu i proveriti je nego potpisati nešto što ne razumete."
       ],
     },
     {
@@ -1132,7 +1132,7 @@ function addDepthToAirPassengerRightsGuide(page: CornerstonePage) {
       body: [
         "Pre slanja zahteva prođite kroz kratku proveru: da li znate broj leta, datum, rutu, operativnog prevoznika, planirano i stvarno vreme, razlog koji je naveden i šta tačno tražite. Ako jedan od tih elemenata nedostaje, prvo ga dopunite dokazima ili pitanjem aviokompaniji.",
         "Zatim odvojite vrste prava. Fiksna naknada, refundacija karte, preusmeravanje, hotel, obrok, transfer i refundacija računa nisu ista stvar. Kada ih razdvojite, lakše je videti šta je jak deo slučaja, šta je slabije i šta treba pitati dalje.",
-        "Na kraju proverite da li postoji detaljan vodič koji pokriva vaš konkretan scenario. Ako postoji, otvorite ga pre slanja zahteva, jer često sadrži baš ono pitanje koje pravi razliku između generičke žalbe i preciznog zahteva."
+        "Na kraju proverite da li postoji detaljan vodič koji pokriva Vaš konkretan scenario. Ako postoji, otvorite ga pre slanja zahteva, jer često sadrži baš ono pitanje koje pravi razliku između generičke žalbe i preciznog zahteva."
       ],
     },
   ];
@@ -1406,14 +1406,14 @@ if (delayGuide) {
       heading: "Tehnički kvar, rotacija aviona i posada",
       body: [
         "[Tehnički kvar](/naknada-za-kasnjenje-leta/tehnicki-kvar-aviona-odsteta) je jedan od najčešćih razloga zbog kojih putnik ne treba automatski da odustane. Redovni tehnički problemi su deo operativnog rizika aviokompanije. To ne znači da je svaki kvar automatski plaćen slučaj, ali znači da opšta rečenica o tehničkom razlogu nije dovoljna. Tražite šta se dogodilo, kada je kvar otkriven, da li je avion mogao biti zamenjen i zašto je posledica bila baš toliko kašnjenje.",
-        "[Kasna rotacija prethodnog leta](/naknada-za-kasnjenje-leta/kasnjenje-prethodnog-leta-rotacija-aviona) je posebno česta kod aviona koji tokom dana rade više segmenata. Ako je vaš avion zakasnio jer je prethodni let kasnio, pitanje je zašto je prethodni let kasnio. Ako je uzrok bio u odgovornosti aviokompanije, zahtev može ostati jak. Ako je prethodni segment pogodilo zatvaranje aerodroma ili ozbiljno vreme, analiza je teža, ali opet treba proveriti da li je kompanija imala razumnu rezervu i alternativu.",
+        "[Kasna rotacija prethodnog leta](/naknada-za-kasnjenje-leta/kasnjenje-prethodnog-leta-rotacija-aviona) je posebno česta kod aviona koji tokom dana rade više segmenata. Ako je Vaš avion zakasnio jer je prethodni let kasnio, pitanje je zašto je prethodni let kasnio. Ako je uzrok bio u odgovornosti aviokompanije, zahtev može ostati jak. Ako je prethodni segment pogodilo zatvaranje aerodroma ili ozbiljno vreme, analiza je teža, ali opet treba proveriti da li je kompanija imala razumnu rezervu i alternativu.",
         "[Nedostatak posade](/naknada-za-kasnjenje-leta/nedostatak-posade-kasnjenje-leta-odsteta), prekoračenje radnog vremena posade ili loše planiranje smene često deluju kao interni operativni problem. Ako aviokompanija navodi posadu, tražite pisani razlog. Nije isto kada posada kasni zbog zatvaranja aerodroma i kada kompanija nije imala raspoloživ tim za let koji je već bio planiran."
       ],
     },
     {
       heading: "Loše vreme, slotovi kontrole letenja i bezbednosni događaji",
       body: [
-        "[Loše vreme](/naknada-za-kasnjenje-leta/kasnjenje-leta-zbog-loseg-vremena) može biti vanredna okolnost, ali ne svaka kiša, vetar ili magla. Bitno je gde je vreme bilo problem, koliko je trajalo, da li su drugi letovi normalno poletali i da li je vaš let zaista bio direktno pogođen. Ako je avion kasnio iz drugog grada zbog vremena tamo, treba proveriti da li je to direktno objašnjenje ili samo zgodan izgovor za kasnu rotaciju.",
+        "[Loše vreme](/naknada-za-kasnjenje-leta/kasnjenje-leta-zbog-loseg-vremena) može biti vanredna okolnost, ali ne svaka kiša, vetar ili magla. Bitno je gde je vreme bilo problem, koliko je trajalo, da li su drugi letovi normalno poletali i da li je Vaš let zaista bio direktno pogođen. Ako je avion kasnio iz drugog grada zbog vremena tamo, treba proveriti da li je to direktno objašnjenje ili samo zgodan izgovor za kasnu rotaciju.",
         "[Slotovi kontrole letenja](/naknada-za-kasnjenje-leta/kasnjenje-leta-zbog-slotova-kontrole-letenja) su često jači argument aviokompanije jer prevoznik ne kontroliše raspored letenja u vazdušnom prostoru. Ipak, ni tu ne treba stati na prvoj rečenici. Slot može objasniti deo kašnjenja, ali ne mora objasniti ceo dan čekanja. Dobar zahtev pita kada je ograničenje počelo, kada se završilo i šta je kompanija uradila posle toga.",
         "[Udar ptice](/naknada-za-kasnjenje-leta/udar-ptice-kasnjenje-leta-odsteta), [udar groma](/naknada-za-kasnjenje-leta/udar-groma-u-avion-kasnjenje-prava), zatvaranje piste, [medicinski hitan slučaj](/naknada-za-kasnjenje-leta/medicinski-hitan-slucaj-kasnjenje-leta) i bezbednosne odluke zahtevaju odvojenu procenu. Neki događaji su zaista van kontrole aviokompanije. Drugi samo započnu problem, dok kasnije kašnjenje nastane zato što kompanija nema avion, posadu ili plan oporavka. Zato se u zahtevu uvek traži vremenska linija, ne samo naziv razloga."
       ],
@@ -1422,15 +1422,15 @@ if (delayGuide) {
       heading: "Pravo na brigu: hrana, hotel, transfer i refundacija troškova",
       body: [
         "Pravo na brigu postoji odvojeno od fiksne naknade. To je jedna od najvažnijih stvari za putnika koji je zaglavljen na aerodromu. Čak i kada aviokompanija kasnije uspešno dokaže vanredne okolnosti, putnik može imati pravo na obroke, osveženje, komunikaciju, hotel i transfer ako čekanje traje dovoljno dugo i ako je pomoć bila potrebna.",
-        "Ako let ide tek sutradan, pitajte za [hotel i prevoz između aerodroma i hotela](/naknada-za-kasnjenje-leta/nocno-kasnjenje-leta-hotel-prava). Ako kompanija ne organizuje ništa, kupujte razumno i čuvajte račune. Razumno znači ono što vam je potrebno da nastavite putovanje, ne luksuz. U zahtevu jasno odvojite fiksnu naknadu od refundacije troškova, jer ta dva pitanja imaju različitu logiku.",
-        "Ako ste zbog kašnjenja [sami kupili novu kartu](/naknada-za-kasnjenje-leta/samostalno-kupljen-novi-let-refundacija), slučaj postaje osetljiviji. Potrebno je pokazati da ste prvo tražili pomoć od aviokompanije, da ponuđena alternativa nije bila razumna ili da pomoći nije bilo, i da je nova karta bila realan način da smanjite štetu. Bez tog traga aviokompanija lakše tvrdi da je trošak bio vaš izbor."
+        "Ako let ide tek sutradan, pitajte za [hotel i prevoz između aerodroma i hotela](/naknada-za-kasnjenje-leta/nocno-kasnjenje-leta-hotel-prava). Ako kompanija ne organizuje ništa, kupujte razumno i čuvajte račune. Razumno znači ono što Vam je potrebno da nastavite putovanje, ne luksuz. U zahtevu jasno odvojite fiksnu naknadu od refundacije troškova, jer ta dva pitanja imaju različitu logiku.",
+        "Ako ste zbog kašnjenja [sami kupili novu kartu](/naknada-za-kasnjenje-leta/samostalno-kupljen-novi-let-refundacija), slučaj postaje osetljiviji. Potrebno je pokazati da ste prvo tražili pomoć od aviokompanije, da ponuđena alternativa nije bila razumna ili da pomoći nije bilo, i da je nova karta bila realan način da smanjite štetu. Bez tog traga aviokompanija lakše tvrdi da je trošak bio Vaš izbor."
       ],
     },
     {
       heading: "Dokumenta, rokovi i slanje zahteva",
       body: [
         "Najbolji zahtev počinje pre nego što napustite aerodrom. Sačuvajte boarding pass, potvrdu rezervacije, broj leta, poruke aviokompanije, fotografiju table polazaka, screenshot statusa leta i račune. Ako ste razgovarali sa osobljem, zapišite vreme i tačnu formulaciju razloga. Ako se razlog menjao tokom dana, sačuvajte sve verzije.",
-        "Zahtev ne mora biti dugačak, ali mora biti precizan. U prvoj poruci navedite broj leta, datum, rutu, planirano i stvarno vreme dolaska, booking referencu, krajnju destinaciju i šta tražite. Ako tražite i fiksnu naknadu i refundaciju troškova, razdvojite ta dva dela. Ako aviokompanija tvrdi da su postojale vanredne okolnosti, tražite konkretan opis događaja, vremenski period i vezu sa vašim letom.",
+        "Zahtev ne mora biti dugačak, ali mora biti precizan. U prvoj poruci navedite broj leta, datum, rutu, planirano i stvarno vreme dolaska, booking referencu, krajnju destinaciju i šta tražite. Ako tražite i fiksnu naknadu i refundaciju troškova, razdvojite ta dva dela. Ako aviokompanija tvrdi da su postojale vanredne okolnosti, tražite konkretan opis događaja, vremenski period i vezu sa Vašim letom.",
         "Rokovi zavise od pravila koja se primenjuju i od toga gde se zahtev vodi, zato ne treba čekati. Što se ranije pošalje zahtev, lakše je sačuvati dokaze i uhvatiti kontradikcije u objašnjenju. Ako kompanija ne odgovori ili pošalje opšte odbijanje, sledeći korak nije nova emotivna poruka, već dopuna sa dokazima i jasnim pitanjima."
       ],
     },
@@ -1461,7 +1461,7 @@ if (delayGuide) {
     {
       heading: "Kako se zahtev odbija i kako odgovoriti",
       body: [
-        "Aviokompanije često odbijaju zahtev kratkim porukama: vanredne okolnosti, operativni razlozi, slot, vremenski uslovi, kasna rotacija ili odluka aerodroma. Neke od tih poruka mogu biti validne, ali nijedna nije dovoljna ako ne objašnjava konkretno šta se dogodilo i kako je uticalo na vaš dolazak.",
+        "Aviokompanije često odbijaju zahtev kratkim porukama: vanredne okolnosti, operativni razlozi, slot, vremenski uslovi, kasna rotacija ili odluka aerodroma. Neke od tih poruka mogu biti validne, ali nijedna nije dovoljna ako ne objašnjava konkretno šta se dogodilo i kako je uticalo na Vaš dolazak.",
         "Dobar odgovor na odbijanje traži dokaz, ne raspravu. Pitajte za tačan događaj, vreme početka i kraja, segment na koji se odnosio, mere koje je aviokompanija preduzela i razlog zašto nije postojala ranija alternativa. Ako imate račune za hranu, hotel ili transfer, pošaljite ih odvojeno od fiksne naknade.",
         "Ako kompanija ne odgovara, ne čekajte mesecima bez traga. Pošaljite kratak follow-up sa istim činjenicama i jasnim zahtevom da se navede razlog. Svaka komunikacija kasnije pomaže da se vidi da li je putnik uredno pokušao da reši stvar direktno."
       ],
@@ -1471,7 +1471,7 @@ if (delayGuide) {
       body: [
         "Kašnjenje leta je centralna tema zato što se pojavljuje i kada problem na prvi pogled nije samo kašnjenje. Otkazan let može završiti kao kasniji dolazak alternativnim letom. Propuštena konekcija se meri po dolasku na krajnju destinaciju. Preusmeren let se često svodi na pitanje kada ste stigli do dogovorene destinacije. Čak i štrajk ili prtljag mogu otvoriti pitanje brige i troškova tokom čekanja.",
         "To ne znači da svaki slučaj treba nasilno pretvoriti u kašnjenje. Znači da je pravilo o dolasku, ruti, razlogu i dokazima osnova za veliki broj praktičnih situacija. Kada je ta osnova jasna, lakše je proceniti i otkazivanje, konekciju, overbooking ili troškove.",
-        "Ako vaš slučaj ima više elemenata, prvo identifikujte glavni događaj, zatim proverite da li je završio kašnjenjem na krajnjoj destinaciji. Ako jeste, ova strana ostaje glavni orijentir, a detaljni vodič rešava specifičan izuzetak."
+        "Ako Vaš slučaj ima više elemenata, prvo identifikujte glavni događaj, zatim proverite da li je završio kašnjenjem na krajnjoj destinaciji. Ako jeste, ova strana ostaje glavni orijentir, a detaljni vodič rešava specifičan izuzetak."
       ],
     },
     {
@@ -1627,7 +1627,7 @@ if (delayGuide) {
     {
       question: "Šta ako je aviokompanija napisala samo operativni razlozi?",
       answer:
-        "Tražite konkretno objašnjenje: šta se dogodilo, kada, na kom letu ili aerodromu i kako je to uticalo baš na vaš dolazak. Opšta formulacija nije dovoljna za dobru procenu.",
+        "Tražite konkretno objašnjenje: šta se dogodilo, kada, na kom letu ili aerodromu i kako je to uticalo baš na Vaš dolazak. Opšta formulacija nije dovoljna za dobru procenu.",
     },
     {
       question: "Da li preusmeren let spada u kašnjenje?",
@@ -1687,7 +1687,7 @@ if (delayGuide) {
     {
       heading: "Vanredne okolnosti i najčešći razlozi odbijanja",
       body: [
-        "Aviokompanije često odbijaju zahteve kratkim formulacijama: vremenski uslovi, slot, kontrola letenja, bezbednosni razlog, kasna rotacija, operativni razlozi ili tehnički razlog. Neki od tih razloga zaista mogu isključiti fiksnu naknadu. Problem je što opšta rečenica ne pokazuje da li je baš taj događaj pogodio baš vaš let i baš toliko produžio dolazak.",
+        "Aviokompanije često odbijaju zahteve kratkim formulacijama: vremenski uslovi, slot, kontrola letenja, bezbednosni razlog, kasna rotacija, operativni razlozi ili tehnički razlog. Neki od tih razloga zaista mogu isključiti fiksnu naknadu. Problem je što opšta rečenica ne pokazuje da li je baš taj događaj pogodio baš Vaš let i baš toliko produžio dolazak.",
         "Kod lošeg vremena nije dovoljno napisati da je padala kiša ili da je bilo magle negde u mreži. Mora se videti gde je vreme bilo problem, koliko je trajalo i da li su drugi letovi mogli normalno da se obavljaju. Kod slotova kontrole letenja mora se razdvojiti deo kašnjenja koji je zaista nastao zbog ograničenja od dela koji je kasnije nastao zbog aviona, posade ili organizacije prevoznika.",
         "U praksi je ovo deo gde profesionalna obrada najviše menja ton zahteva. Umesto da putnik sam ulazi u raspravu sa generičkim odgovorom, slučaj se postavlja kroz proverljive tačke: koji je događaj, kada je počeo, kada se završio, koji segment je pogodio i koje mere je aviokompanija preduzela da smanji posledice. Bez toga odbijenica često ostaje samo tvrdnja, ne dokaz.",
       ],
@@ -1706,7 +1706,7 @@ if (delayGuide) {
         "Putnik tehnički može sam poslati zahtev aviokompaniji, ali to ne znači da je svaki slučaj pogodan za jednostavan formular. Formular obično traži broj leta, datum i kratko objašnjenje. Spor počinje tek kada kompanija napiše da ne duguje ništa, da je postojao slot, da je razlog vreme, ili da je poremećaj bio van njene kontrole.",
         "Tada zahtev više nije administrativna prijava, nego pitanje dokaza. Treba razdvojiti fiksnu naknadu od refundacije troškova, proveriti rutu, utvrditi da li je sve bilo u jednoj rezervaciji, uporediti planirani i stvarni dolazak i proceniti da li je razlog koji navodi aviokompanija dovoljan. To je cumbersome deo procesa: komunikacija, prikupljanje dokaza i, kada treba, pravno insistiranje.",
         "Let Kasni zato preuzima deo koji najčešće pravi razliku: procenu osnova, slaganje dokaza, komunikaciju sa aviokompanijom i odgovor na prvu generičku odbijenicu. Aviokompanije često računaju da će fizičko lice stati posle prve odbijenice. Drugačiji je pritisak kada zahtev vodi neko ko poznaje pravila, rokove i procedure, jer cilj nije samo poslati poruku, već postaviti zahtev tako da na njega kompanija mora konkretno da odgovori.",
-        "U najjačem zahtevu nema viška emocije, ali ima dovoljno pritiska kroz činjenice. To je razlika između poruke koju korisnička podrška može zatvoriti šablonom i dosijea u kome se jasno vidi šta se dogodilo, šta se traži i zašto opšta odbijenica nije dovoljna.",
+        "U najjačem zahtevu nema Viška emocije, ali ima dovoljno pritiska kroz činjenice. To je razlika između poruke koju korisnička podrška može zatvoriti šablonom i dosijea u kome se jasno vidi šta se dogodilo, šta se traži i zašto opšta odbijenica nije dovoljna.",
       ],
     },
     {
@@ -1737,7 +1737,7 @@ if (delayGuide) {
       heading: "Tehnički kvar, rotacija aviona i posada",
       body: [
         "[Tehnički kvar](/naknada-za-kasnjenje-leta/tehnicki-kvar-aviona-odsteta) je jedan od najčešćih razloga zbog kojih putnik ne treba odmah da odustane. Redovni tehnički problemi obično su deo operativnog rizika aviokompanije. To ne znači da je svaki kvar automatski plaćen slučaj, ali znači da rečenica tehnički razlog nije dovoljna ako ne objašnjava šta se dogodilo, kada je otkriveno i zašto je kašnjenje trajalo baš toliko.",
-        "[Kasna rotacija prethodnog leta](/naknada-za-kasnjenje-leta/kasnjenje-prethodnog-leta-rotacija-aviona) traži proveru prethodnog segmenta. Ako je vaš avion zakasnio zato što se kasno vratio iz drugog grada, pravo pitanje je zašto je taj prethodni let kasnio. Ako je uzrok bio u odgovornosti aviokompanije, zahtev može ostati jak. Ako je prethodni segment pogodilo ozbiljno vreme ili zatvaranje aerodroma, procena je teža, ali nije automatski završena.",
+        "[Kasna rotacija prethodnog leta](/naknada-za-kasnjenje-leta/kasnjenje-prethodnog-leta-rotacija-aviona) traži proveru prethodnog segmenta. Ako je Vaš avion zakasnio zato što se kasno vratio iz drugog grada, pravo pitanje je zašto je taj prethodni let kasnio. Ako je uzrok bio u odgovornosti aviokompanije, zahtev može ostati jak. Ako je prethodni segment pogodilo ozbiljno vreme ili zatvaranje aerodroma, procena je teža, ali nije automatski završena.",
         "[Nedostatak posade](/naknada-za-kasnjenje-leta/nedostatak-posade-kasnjenje-leta-odsteta), prekoračenje radnog vremena ili loše planiranje smene često izgledaju kao interni operativni problem. U profesionalnoj obradi se zato ne prihvata samo etiketa posada. Proverava se da li je posada kasnila zbog događaja van kontrole kompanije ili zato što kompanija nije imala raspoloživ tim za planirani let.",
       ],
     },
@@ -1788,7 +1788,7 @@ if (delayGuide) {
       body: [
         "Prva greška je oslanjanje na usmeno objašnjenje bez dokaza. Druga je brisanje boarding pass dokumenata i poruka čim se putovanje završi. Treća je mešanje fiksne naknade, refundacije karte, hotela, hrane i transfera u jednu nejasnu žalbu. Aviokompaniji je lakše da odbije nejasan zahtev nego zahtev koji razdvaja svaku stavku.",
         "Česta greška je prihvatanje vaučera ili ponude bez razumevanja uslova. Vaučer za hranu ne ukida fiksnu naknadu, ali neka poravnanja ili komercijalne ponude mogu sadržati odricanje od daljih potraživanja. Zato se pre prihvatanja bilo čega što liči na konačno rešenje moraju sačuvati uslovi i proveriti šta se time zatvara.",
-        "Treća greška je prerano odustajanje posle prve odbijenice. Ako je odbijenica konkretna i potkrepljena dokazom, slučaj može biti slab. Ako je opšta, bez vremenske linije i veze sa vašim letom, ona je samo početak druge faze. Tu Let Kasni preuzima rad: proverava razlog, slaže dokaze i procenjuje da li se ide dalje ili se slučaj realno zatvara.",
+        "Treća greška je prerano odustajanje posle prve odbijenice. Ako je odbijenica konkretna i potkrepljena dokazom, slučaj može biti slab. Ako je opšta, bez vremenske linije i veze sa Vašim letom, ona je samo početak druge faze. Tu Let Kasni preuzima rad: proverava razlog, slaže dokaze i procenjuje da li se ide dalje ili se slučaj realno zatvara.",
       ],
     },
   ];
@@ -1934,7 +1934,7 @@ if (delayGuide) {
     {
       question: "Da li loše vreme automatski znači da nema naknade?",
       answer:
-        "Ne automatski. Loše vreme može biti vanredna okolnost, ali mora biti konkretno povezano sa vašim letom, vremenom kašnjenja i posledicom po dolazak.",
+        "Ne automatski. Loše vreme može biti vanredna okolnost, ali mora biti konkretno povezano sa Vašim letom, vremenom kašnjenja i posledicom po dolazak.",
     },
     {
       question: "Da li vaučer za hranu ukida pravo na naknadu?",
@@ -1944,7 +1944,7 @@ if (delayGuide) {
     {
       question: "Šta ako aviokompanija odbije zahtev?",
       answer:
-        "Odbijenica se proverava po dokazima. Ako kompanija navede opšti razlog bez vremenske linije i veze sa vašim letom, slučaj često vredi dodatno proveriti.",
+        "Odbijenica se proverava po dokazima. Ako kompanija navede opšti razlog bez vremenske linije i veze sa Vašim letom, slučaj često vredi dodatno proveriti.",
     },
   ];
 

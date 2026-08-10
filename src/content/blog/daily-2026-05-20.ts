@@ -95,7 +95,7 @@ function srSections(topic: DelayScenarioTopic) {
       heading: "Razlog koji aviokompanija navodi",
       body: [
         `${topic.srReason} Neki razlozi mogu biti vanredne okolnosti, ali operativna organizacija, posada, tehnička priprema, dokumentacija leta, ukrcavanje, čišćenje ili utovar često traže precizniju proveru. Generička rečenica ne pokazuje sama po sebi da je prevoznik uradio sve razumno da smanji kašnjenje.`,
-        "Zato je korisno tražiti vezu između razloga i vašeg leta: kada je problem nastao, koliko je trajao, da li je pogodio samo vaš avion ili ceo aerodrom, da li je postojao rezervni avion, druga posada ili razumno preusmeravanje. Bez tih detalja odbijenica može biti nepotpuna.",
+        "Zato je korisno tražiti vezu između razloga i Vašeg leta: kada je problem nastao, koliko je trajao, da li je pogodio samo Vaš avion ili ceo aerodrom, da li je postojao rezervni avion, druga posada ili razumno preusmeravanje. Bez tih detalja odbijenica može biti nepotpuna.",
       ],
     },
     {
@@ -109,7 +109,7 @@ function srSections(topic: DelayScenarioTopic) {
       heading: "Briga tokom čekanja i razuman trošak",
       body: [
         `${topic.srCare} Pravo na brigu je odvojeno od fiksne naknade. Putnik može imati slabiji slučaj za odštetu zbog vanrednih okolnosti, ali i dalje tražiti obrok, osveženje, hotel, transfer ili refundaciju razumnog troška ako pomoć nije obezbeđena.`,
-        "Troškovi treba da budu proporcionalni situaciji. Obrok tokom višesatnog čekanja, osnovni transfer do hotela ili razumna hotelska noć mnogo se lakše objašnjavaju od luksuznih kupovina. U zahtevu ih treba navesti po stavkama, uz račun i kratak razlog zašto je trošak nastao.",
+        "Troškovi treba da budu proporcionalni situaciji. Obrok tokom Višesatnog čekanja, osnovni transfer do hotela ili razumna hotelska noć mnogo se lakše objašnjavaju od luksuznih kupovina. U zahtevu ih treba navesti po stavkama, uz račun i kratak razlog zašto je trošak nastao.",
       ],
     },
     {
@@ -242,7 +242,7 @@ const topics: DelayScenarioTopic[] = [
     enReason: "For baggage loading, ask whether the reason was late aircraft arrival, lack of equipment, sorting error, security screening or an airport decision.",
     srEvidence: "Korisni su screenshot aplikacije, obaveštenje sa gejta, fotografija table i svaka poruka koja izričito pominje prtljag ili zemaljsko opsluživanje.",
     enEvidence: "Useful proof includes app screenshots, gate notices, departures-board photos and any message that specifically mentions baggage or ground handling.",
-    srCare: "Ako čekanje postane višesatno, obrok i osveženje ne treba čekati pasivno; tražite ih i sačuvajte trag ako nisu obezbeđeni.",
+    srCare: "Ako čekanje postane Višesatno, obrok i osveženje ne treba čekati pasivno; tražite ih i sačuvajte trag ako nisu obezbeđeni.",
     enCare: "If the wait becomes long, do not wait passively for meals and refreshments; ask for them and keep a trail if they were not provided.",
     srClaim: "U zahtevu razdvojite operativni razlog od posledice: prtljag je razlog, ali kasni dolazak i računi su ono što se traži.",
     enClaim: "In the claim, separate the operational reason from the consequence: baggage is the reason, but late arrival and receipts are what you claim.",

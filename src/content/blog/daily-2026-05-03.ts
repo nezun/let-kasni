@@ -66,14 +66,14 @@ export const articles = [
           heading: "Kada aviokompanija ima jači izgovor",
           body: [
             "Ako je štrajk na aerodromu, kontroli letenja, graničnoj policiji, obezbeđenju ili službi za prtljag, aviokompanija često ima jači argument da nije odgovorna za fiksnu naknadu. To posebno važi kada je aerodrom ograničio rad, zatvorio pistu, smanjio broj polazaka ili uveo slotove koje prevoznik ne može da zaobiđe.",
-            "To ne znači da je svaka reklamacija besmislena. Treba proveriti da li je štrajk zaista direktno pogodio vaš let, da li je kompanija mogla ranije da vas prebaci na drugi let, i da li je posle završetka štrajka nepotrebno produžila kašnjenje lošom organizacijom.",
-            "Ako odgovor kompanije glasi samo strike ili airport strike, tražite preciziranje. Pitajte koja služba je štrajkovala, u kom periodu, kako je to uticalo baš na vaš let i koje su alternative proverene."
+            "To ne znači da je svaka reklamacija besmislena. Treba proveriti da li je štrajk zaista direktno pogodio Vaš let, da li je kompanija mogla ranije da Vas prebaci na drugi let, i da li je posle završetka štrajka nepotrebno produžila kašnjenje lošom organizacijom.",
+            "Ako odgovor kompanije glasi samo strike ili airport strike, tražite preciziranje. Pitajte koja služba je štrajkovala, u kom periodu, kako je to uticalo baš na Vaš let i koje su alternative proverene."
           ]
         },
         {
           heading: "Pravo na brigu ostaje posebno",
           body: [
-            "Čak i kada nema osnova za fiksnu odštetu, putnik ne treba da ostane bez pomoći. Kod dužeg čekanja aviokompanija mora razumno da organizuje obroke, osveženje, komunikaciju, a kod noćenja hotel i transfer. To pravo je posebno važno kada se štrajk pretvori u višesatno čekanje bez jasnih informacija.",
+            "Čak i kada nema osnova za fiksnu odštetu, putnik ne treba da ostane bez pomoći. Kod dužeg čekanja aviokompanija mora razumno da organizuje obroke, osveženje, komunikaciju, a kod noćenja hotel i transfer. To pravo je posebno važno kada se štrajk pretvori u Višesatno čekanje bez jasnih informacija.",
             "Ako pomoć nije ponuđena, kupujte razumno i čuvajte račune. Voda, obrok, prevoz do hotela i osnovni smeštaj mnogo su lakši za pravdanje od luksuznih troškova. Sačuvajte i dokaz da ste bili na aerodromu ili da ste čekali zamenski let.",
             "U zahtevu odvojite dve linije: proveru fiksne naknade ako smatrate da štrajk nije pravi ili jedini razlog, i refundaciju nužnih troškova čekanja. Ta podela daje bolju šansu da bar deo zahteva bude rešen bez nepotrebne rasprave."
           ]
@@ -148,7 +148,7 @@ export const articles = [
       slug: "kasnjenje-leta-zbog-slotova-kontrole-letenja",
       title: "Kašnjenje zbog slotova i kontrole letenja: kada ima smisla slati zahtev",
       description: "Šta znače ATC slot, air traffic restrictions i flow control, kako utiču na odštetu i šta putnik iz Srbije treba da pita pre nego što odustane.",
-      excerpt: "ATC ograničenje često slabi zahtev za fiksnu odštetu, ali nije dovoljno da aviokompanija napiše samo slot. Važno je da li je ograničenje direktno pogodilo vaš let i kako je kompanija reagovala.",
+      excerpt: "ATC ograničenje često slabi zahtev za fiksnu odštetu, ali nije dovoljno da aviokompanija napiše samo slot. Važno je da li je ograničenje direktno pogodilo Vaš let i kako je kompanija reagovala.",
       category: "Kontrola letenja",
       readTime: "8 min čitanja",
       sections: [
@@ -172,7 +172,7 @@ export const articles = [
           heading: "Konekcije su najosetljivije",
           body: [
             "Kod jedne rezervacije, kašnjenje se često posmatra do krajnje destinacije. Ako je prvi segment kasnio zbog ATC slota i zbog toga ste propustili dalje presedanje, važno je šta je aviokompanija uradila posle toga. Najbrži razuman nastavak puta može biti ključan deo procene.",
-            "Ako vas je kompanija prebacila na prvi dostupan let i stigli ste mnogo kasnije samo zato što nije bilo mesta, fiksna naknada može biti teža. Ako je bilo realnih alternativa, ali nisu proverene, ili ste ostavljeni da sami tražite rešenje, zahtev za troškove i dodatnu proveru postaje jači.",
+            "Ako Vas je kompanija prebacila na prvi dostupan let i stigli ste mnogo kasnije samo zato što nije bilo mesta, fiksna naknada može biti teža. Ako je bilo realnih alternativa, ali nisu proverene, ili ste ostavljeni da sami tražite rešenje, zahtev za troškove i dodatnu proveru postaje jači.",
             "Putnici iz Srbije treba posebno da čuvaju kompletan itinerer. Ako je sve kupljeno pod jednim booking reference brojem, to je važan dokaz. Ako su karte odvojene, propuštena konekcija se procenjuje strože i aviokompanija prvog leta obično ne preuzima ceo dalji rizik."
           ]
         },
@@ -190,7 +190,7 @@ export const articles = [
             "Zahtev vredi proveriti ako je objašnjenje generičko, ako je kašnjenje trajalo mnogo duže od samog slota, ako su drugi letovi iste kompanije normalno radili, ako ste propustili konekciju pod jednom rezervacijom ili ako su troškovi čekanja značajni.",
             "Takođe vredi proveriti ako je kompanija promenila razlog. Na primer, prvo je naveden slot, zatim kasna posada, zatim tehnička provera. Kombinovani razlozi nisu retki, ali ih treba razdvojiti jer samo deo kašnjenja može biti van kontrole prevoznika.",
             "Najbolji pristup je miran i precizan: ne tvrdite da ATC nije postojao ako to ne znate, već tražite dokaz direktne veze i objašnjenje mera koje su preduzete. To je mnogo ozbiljnije od opšte žalbe.",
-            "Ako šaljete slučaj na proveru, dodajte i podatak da li ste imali čekirani prtljag i koliko je bilo vremena do konekcije. Kod slotova se često odlučuje na osnovu minuta, pa detalji koji deluju sitno mogu pokazati da li je prevoznik imao realnu šansu da vas prebaci na vreme."
+            "Ako šaljete slučaj na proveru, dodajte i podatak da li ste imali čekirani prtljag i koliko je bilo vremena do konekcije. Kod slotova se često odlučuje na osnovu minuta, pa detalji koji deluju sitno mogu pokazati da li je prevoznik imao realnu šansu da Vas prebaci na vreme."
           ]
         }
       ],
@@ -270,7 +270,7 @@ export const articles = [
           heading: "Dokaz dolaska na aerodrom je ključan",
           body: [
             "Najvažnije je dokazati kada ste stigli. Sačuvajte parking račun, taksi aplikaciju, račun sa aerodroma, fotografiju table, screenshot lokacije, vreme predaje prtljaga ili bilo koji trag koji pokazuje da niste došli u poslednjem trenutku.",
-            "Ako je red bio ekstreman, fotografišite ga bez ometanja procedure. Sačuvajte objave aerodroma, poruke o gužvi i eventualne javne informacije. Ako je bilo više putnika koji su propustili isti let, zapišite to jer pokazuje da problem možda nije bio individualan.",
+            "Ako je red bio ekstreman, fotografišite ga bez ometanja procedure. Sačuvajte objave aerodroma, poruke o gužVi i eventualne javne informacije. Ako je bilo više putnika koji su propustili isti let, zapišite to jer pokazuje da problem možda nije bio individualan.",
             "Kod letova iz Beograda, Niša ili evropskih aerodroma sa kojih nastavljate put, bitno je i šta piše u uslovima aviokompanije: kada se zatvara check-in, kada se zatvara boarding, i koliko ranije preporučuju dolazak. Preporuka nije uvek strogo pravilo, ali pomaže u proceni."
           ]
         },
@@ -295,7 +295,7 @@ export const articles = [
           body: [
             "Napišite kratku hronologiju: kada ste stigli na aerodrom, kada ste ušli u red, kada ste stigli do kontrole, kada je boarding zatvoren i kome ste se obratili. Dodajte dokaze i tražite konkretan ishod, na primer refundaciju taksi, potvrdu no-show statusa ili razmatranje troška nove karte.",
             "Nemojte tvrditi da imate automatsko pravo na 600 evra ako let nije kasnio i ako niste bili na gejtu. Takav zahtev kompanija lako odbija. Bolje je fokusirati se na realan propust u organizaciji i troškove koji su nastali.",
-            "Za buduće letove, najviše automatizacije pomaže u pripremi: online check-in, screenshot boarding pass-a, praćenje airport alerts, dolazak ranije kod sezonskih gužvi i čuvanje digitalnih tragova. Ako do problema dođe, ti tragovi postaju dokazni paket.",
+            "Za buduće letove, najviše automatizacije pomaže u pripremi: online check-in, screenshot boarding pass-a, praćenje airport alerts, dolazak ranije kod sezonskih gužVi i čuvanje digitalnih tragova. Ako do problema dođe, ti tragovi postaju dokazni paket.",
             "Ako je druga karta propala jer niste stigli na prvi let, nemojte sve slati samo prvoj aviokompaniji. Odvojeno proverite tarifu druge karte, putno osiguranje i pravila aerodroma. U ovakvim slučajevima rešenje često dolazi iz kombinacije manjih refundacija, a ne iz jedne velike naknade."
           ]
         }
@@ -360,7 +360,7 @@ export const articles = [
       slug: "odvojene-karte-propustena-konekcija",
       title: "Odvojene karte i propuštena konekcija: najveći rizik koji putnici potcene",
       description: "Zašto put Beograd-Beč-Njujork nije uvek jedna pravna celina ako su karte kupljene odvojeno, i šta putnik može da uradi kada prvi let zakasni.",
-      excerpt: "Ako su segmenti pod jednom rezervacijom, kašnjenje se često meri do krajnje destinacije. Ako su karte odvojene, drugi let može biti vaš sopstveni rizik.",
+      excerpt: "Ako su segmenti pod jednom rezervacijom, kašnjenje se često meri do krajnje destinacije. Ako su karte odvojene, drugi let može biti Vaš sopstveni rizik.",
       category: "Konekcije",
       readTime: "8 min čitanja",
       sections: [
@@ -384,7 +384,7 @@ export const articles = [
           heading: "Šta ako prvi let kasni",
           body: [
             "Ako prvi let kasni tri sata ili više na svom odredištu, možda možete tražiti naknadu za taj segment ako je pokriven evropskim pravilima i ako uzrok nije vanredan. Ali to ne znači automatski da će aviokompanija platiti novi transatlantski let koji ste odvojeno kupili.",
-            "Ako kašnjenje prvog leta nije dostiglo prag, ali je bilo dovoljno da propustite drugu kartu, situacija je još teža. Iz ugla prve aviokompanije, ona je možda isporučila segment sa manjim kašnjenjem, dok je za vas posledica ogromna zbog kratkog self-transfer vremena.",
+            "Ako kašnjenje prvog leta nije dostiglo prag, ali je bilo dovoljno da propustite drugu kartu, situacija je još teža. Iz ugla prve aviokompanije, ona je možda isporučila segment sa manjim kašnjenjem, dok je za Vas posledica ogromna zbog kratkog self-transfer vremena.",
             "Zato kod odvojenih karata dokazi treba da budu precizni: vreme dolaska, vreme izlaska iz aviona, vreme preuzimanja prtljaga, zatvaranje check-in-a za drugi let i svaka pomoć koju ste tražili."
           ]
         },
@@ -484,7 +484,7 @@ export const articles = [
           body: [
             "Aviokompanija može ponuditi zamenski let koji polazi ili stiže blizu prvobitnog plana. U nekim situacijama to smanjuje ili uklanja fiksnu naknadu. Zato nije dovoljno napisati moj let je otkazan; treba uporediti stari i novi raspored.",
             "Zabeležite planirano vreme polaska i dolaska otkazanog leta, vreme obaveštenja, ponuđenu alternativu, stvarni dolazak i da li ste alternativu prihvatili. Ako je ponuđena opcija bila nepraktična, na primer sa noćenjem ili mnogo kasnijim dolaskom, napišite zašto.",
-            "Ako kompanija nije ponudila razuman zamenski let, a vi ste morali sami da kupite kartu, čuvajte račun. Refundacija samostalno kupljene karte nije automatska u svakom iznosu, ali je mnogo jača ako se vidi da ste prvo tražili rešenje od aviokompanije."
+            "Ako kompanija nije ponudila razuman zamenski let, a Vi ste morali sami da kupite kartu, čuvajte račun. Refundacija samostalno kupljene karte nije automatska u svakom iznosu, ali je mnogo jača ako se vidi da ste prvo tražili rešenje od aviokompanije."
           ]
         },
         {
@@ -509,7 +509,7 @@ export const articles = [
             "Sačuvajte originalnu kartu, obaveštenje o otkazivanju, ponuđenu alternativu, boarding pass za zamenski let, račune za hotel, hranu, transfer i novu kartu ako ste je sami kupili. Ako ste razgovarali telefonom, zapišite vreme poziva i sažetak odgovora.",
             "Ako je put bio pod jednom rezervacijom sa konekcijom, sačuvajte ceo itinerer. Otkazivanje prvog segmenta može uticati na krajnju destinaciju i iznos. Ako su karte odvojene, to odmah navedite jer menja procenu.",
             "Najbolji zahtev je kratak, ali potpun: broj leta, datum, ruta, vreme obaveštenja, ponuđeni zamenski let, stvarni dolazak, traženi ishod i prilozi. To je format koji se lako automatizuje i kasnije koristi u admin obradi.",
-            "Ako niste sigurni da li je obaveštenje stiglo na vreme, proverite inbox, spam, aplikaciju i SMS log. Vreme kada je kompanija poslala poruku može biti drugačije od vremena kada ste je vi videli, pa je korisno sačuvati ceo header emaila ili screenshot notifikacije.",
+            "Ako niste sigurni da li je obaveštenje stiglo na vreme, proverite inbox, spam, aplikaciju i SMS log. Vreme kada je kompanija poslala poruku može biti drugačije od vremena kada ste je Vi videli, pa je korisno sačuvati ceo header emaila ili screenshot notifikacije.",
             "Ako je otkazivanje pokvarilo hotel, transfer ili događaj, te troškove navedite odvojeno i priložite račune. Nisu svi posledični troškovi automatski naplativi od aviokompanije, ali uredan spisak pomaže da se vidi šta je direktno nastalo zbog otkazivanja."
           ]
         }
@@ -581,7 +581,7 @@ export const articles = [
         {
           heading: "Volonter i odbijeni putnik nisu isto",
           body: [
-            "Kada je let overbooked, aviokompanija najpre može tražiti volontere koji će odustati od mesta u zamenu za novac, vaučer, milje, hotel ili kasniji let. Ako se dobrovoljno javite i prihvatite dogovor, vaša situacija nije ista kao kod putnika kome je ukrcavanje prisilno uskraćeno.",
+            "Kada je let overbooked, aviokompanija najpre može tražiti volontere koji će odustati od mesta u zamenu za novac, vaučer, milje, hotel ili kasniji let. Ako se dobrovoljno javite i prihvatite dogovor, Vaša situacija nije ista kao kod putnika kome je ukrcavanje prisilno uskraćeno.",
             "Kod prisilnog uskraćivanja ukrcavanja, evropska pravila mogu dati pravo na fiksnu naknadu, izbor između refundacije i preusmeravanja, kao i brigu. Kod dobrovoljnog odustajanja, centralno je šta ste dogovorili sa aviokompanijom. Zato uslovi moraju biti jasni pre nego što prihvatite.",
             "Uobičajeni vodiči često objašnjavaju overbooking kroz iznos od 250, 400 ili 600 evra. Za realan aerodromski trenutak korisnije je znati šta pitati dok ste još na gejtu, pre nego što vaučer izgleda kao brza pobeda."
           ]
@@ -598,14 +598,14 @@ export const articles = [
           heading: "Kada ne treba žuriti",
           body: [
             "Ne žurite ako ne znate kada tačno stižete, da li je novi let potvrđen i šta se dešava sa prtljagom. Ako imate konekciju pod jednom rezervacijom, pitajte da li će ceo itinerer biti zaštićen. Ako imate odvojene karte, rizik je veći i treba ga uračunati u dogovor.",
-            "Ako aviokompanija ne nađe dovoljno volontera i zatim vas prisilno odbije, tada se otvara drugačiji skup prava. Zato je važno ne potpisati ili kliknuti pristanak ako zapravo ne razumete šta prihvatate.",
+            "Ako aviokompanija ne nađe dovoljno volontera i zatim Vas prisilno odbije, tada se otvara drugačiji skup prava. Zato je važno ne potpisati ili kliknuti pristanak ako zapravo ne razumete šta prihvatate.",
             "Posebno pazite na formulacije final settlement, full and final compensation ili waiver. One mogu značiti da kompanija smatra da ste se odrekli dodatnih zahteva. Ako niste sigurni, tražite objašnjenje pre prihvatanja."
           ]
         },
         {
           heading: "Briga tokom čekanja i dalje je deo dogovora",
           body: [
-            "Ako prihvatite kasniji let, dogovor treba da pokrije čekanje. Obrok, osveženje, hotel i transfer nisu samo ljubaznost ako vas kompanija pomera za mnogo kasnije ili za sutradan. Ako to nije jasno navedeno, pitajte odmah.",
+            "Ako prihvatite kasniji let, dogovor treba da pokrije čekanje. Obrok, osveženje, hotel i transfer nisu samo ljubaznost ako Vas kompanija pomera za mnogo kasnije ili za sutradan. Ako to nije jasno navedeno, pitajte odmah.",
             "Sačuvajte boarding pass starog i novog leta, vaučer, email potvrdu, račune i ime ili šalter gde je dogovor napravljen. Ako se kasnije ispostavi da vaučer ne radi ili novi let nije potvrđen, ti dokazi su jedini način da se problem brzo objasni.",
             "Ako ste pristali pod pritiskom ili bez jasnih informacija, i dalje možete poslati prigovor, ali dokazivanje je teže. Najbolja zaštita je da u trenutku odluke tražite pisani sažetak uslova."
           ]

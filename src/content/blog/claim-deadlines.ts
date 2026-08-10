@@ -62,7 +62,7 @@ export const article = {
           "body": [
             "Ako ste već poslali reklamaciju i aviokompanija ćuti, nemojte pustiti da meseci prođu bez traga. Pošaljite razuman follow-up, sačuvajte dokaz i proverite koji je sledeći korak.",
             "Najbolji trenutak za proveru je dok slučaj još ima sveže dokaze. Čak i kada dalji postupak ima duži rok, ranija reakcija obično pravi jači i uredniji predmet.",
-            "Ako niste sigurni koji rok važi, tretirajte slučaj kao hitniji, ne kao manje hitan. Rani intake ne znači da odmah morate pokretati sve korake, ali vam daje bolju sliku šta sme da čeka, a šta ne.",
+            "Ako niste sigurni koji rok važi, tretirajte slučaj kao hitniji, ne kao manje hitan. Rani intake ne znači da odmah morate pokretati sve korake, ali Vam daje bolju sliku šta sme da čeka, a šta ne.",
             "Posebno ne odlažite slučajeve sa više putnika, konekcijama ili troškovima hotela. Takvi predmeti traže više dokaza, pa je svaki izgubljeni email ili račun veći problem."
           ]
         },
@@ -70,7 +70,7 @@ export const article = {
           "heading": "Rok može zavisiti od zemlje postupka",
           "body": [
             "U praksi se često pominje period od nekoliko godina, ali taj podatak zavisi od zemlje u kojoj se potraživanje sprovodi. Neki putnici imaju pravo da traže starije letove, dok kod lokalne reklamacije prvi korak može biti mnogo kraći.",
-            "Zato treba razlikovati marketinšku poruku claim flights from last 3 years od preciznog pravnog roka za vaš slučaj. Ruta, prevoznik, mesto polaska i nadležni organ mogu promeniti odgovor.",
+            "Zato treba razlikovati marketinšku poruku claim flights from last 3 years od preciznog pravnog roka za Vaš slučaj. Ruta, prevoznik, mesto polaska i nadležni organ mogu promeniti odgovor.",
             "Ako je let star, prvo pitanje je da li imate dokumente. Drugo pitanje je koji režim se primenjuje. Tek treće pitanje je da li je rok za konkretan korak prošao."
           ]
         }

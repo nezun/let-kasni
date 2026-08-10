@@ -38,15 +38,15 @@ export const article = {
           "heading": "Aviokompanija mora da bude uzrok",
           "body": [
             "Ako ste konekciju propustili jer je prethodni let kasnio, otkazan je ili ste bili odbijeni zbog overbookinga, postoji potencijalni osnov. Ako ste zakasnili na gate iz ličnih razloga, zbog pasoške kontrole koju ste mogli realno da završite na vreme ili zbog odvojene samostalne konekcije, osnov je mnogo slabiji.",
-            "Mora se proveriti i razlog prvog poremećaja. Tehnički ili operativni razlozi obično su drugačiji od ozbiljnog nevremena, zatvaranja aerodroma ili odluke kontrole leta. Aviokompanija se može braniti vanrednim okolnostima, ali ta odbrana mora imati vezu sa vašim konkretnim kašnjenjem.",
+            "Mora se proveriti i razlog prvog poremećaja. Tehnički ili operativni razlozi obično su drugačiji od ozbiljnog nevremena, zatvaranja aerodroma ili odluke kontrole leta. Aviokompanija se može braniti vanrednim okolnostima, ali ta odbrana mora imati vezu sa Vašim konkretnim kašnjenjem.",
             "U praksi treba proveriti boarding dokumenta, novu kartu, poruke aviokompanije i razlog prvog poremećaja. Što je hronologija jasnija, lakše je odvojiti dobar zahtev od slučaja koji pravno ne stoji."
           ]
         },
         {
           "heading": "Preusmeravanje je obaveza, ne usluga",
           "body": [
-            "Ako je konekcija propuštena u okviru iste rezervacije, aviokompanija treba da vas prebaci do krajnje destinacije. To nije gest dobre volje, već praktično rešavanje puta koji ste već kupili.",
-            "Novi let treba da bude pod uporedivim uslovima. Ako čekate duže, mogu se otvoriti i prava na obroke, osveženje, komunikaciju, hotel i transfer. Ako vam kažu da sami kupite novu kartu, tražite pisano objašnjenje pre nego što platite.",
+            "Ako je konekcija propuštena u okviru iste rezervacije, aviokompanija treba da Vas prebaci do krajnje destinacije. To nije gest dobre volje, već praktično rešavanje puta koji ste već kupili.",
+            "Novi let treba da bude pod uporedivim uslovima. Ako čekate duže, mogu se otvoriti i prava na obroke, osveženje, komunikaciju, hotel i transfer. Ako Vam kažu da sami kupite novu kartu, tražite pisano objašnjenje pre nego što platite.",
             "Ta prava postoje odvojeno od eventualne novčane naknade, pa ih ne treba mešati. Putnik može imati pravo na preusmeravanje i brigu čak i kada je fiksna odšteta sporna."
           ]
         },
@@ -54,7 +54,7 @@ export const article = {
           "heading": "Kada put više nema smisla",
           "body": [
             "Nekad propuštena konekcija toliko promeni plan da put više nema svrhu: poslovni sastanak je prošao, događaj je završen ili stižete tek posle planiranog povratka. U takvim situacijama može biti važno proveriti i pravo na refundaciju dela putovanja.",
-            "Ako ste već prešli deo puta, pitanje je složenije. Potrebno je pokazati šta je originalni cilj putovanja bio, šta je aviokompanija ponudila i da li je ponuđena alternativa i dalje imala realnu vrednost za vas."
+            "Ako ste već prešli deo puta, pitanje je složenije. Potrebno je pokazati šta je originalni cilj putovanja bio, šta je aviokompanija ponudila i da li je ponuđena alternativa i dalje imala realnu vrednost za Vas."
           ]
         },
         {

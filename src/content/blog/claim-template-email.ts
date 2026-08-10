@@ -14,7 +14,7 @@ export const article = {
       "slug": "primer-emaila-za-reklamaciju-leta",
       "title": "Primer emaila za reklamaciju zbog kašnjenja ili otkazivanja leta",
       "description": "Praktičan obrazac emaila koji putnik može prilagoditi kada traži odštetu, refundaciju troškova ili obrazložen odgovor avio-kompanije.",
-      "excerpt": "Najbolji email za reklamaciju je kratak, formalan i pun konkretnih podataka. Bez pretnji, bez viška emocija i bez mešanja različitih zahteva.",
+      "excerpt": "Najbolji email za reklamaciju je kratak, formalan i pun konkretnih podataka. Bez pretnji, bez Viška emocija i bez mešanja različitih zahteva.",
       "category": "Obrasci",
       "readTime": "4 min čitanja",
       "sections": [
@@ -30,7 +30,7 @@ export const article = {
           "heading": "Osnovni primer poruke",
           "body": [
             "Poštovani, podnosim reklamaciju za let [broj leta] na relaciji [od-do], planiran za [datum]. Let je [kasnio/otkazan/preusmeren], a na krajnju destinaciju sam stigao/la [koliko kasno] u odnosu na planirano vreme.",
-            "Molim vas da proverite osnov za fiksnu naknadu i dostavite obrazložen odgovor. U prilogu šaljem potvrdu rezervacije, boarding pass i dostupnu komunikaciju o poremećaju. Molim potvrdu prijema reklamacije i referentni broj.",
+            "Molim Vas da proverite osnov za fiksnu naknadu i dostavite obrazložen odgovor. U prilogu šaljem potvrdu rezervacije, boarding pass i dostupnu komunikaciju o poremećaju. Molim potvrdu prijema reklamacije i referentni broj.",
             "Ovaj tekst je namerno kratak. Po potrebi dodajte jednu ili dve rečenice koje objašnjavaju specifičnost slučaja, na primer propuštenu konekciju, alternativni let ili uskraćeno ukrcavanje."
           ]
         },
@@ -45,7 +45,7 @@ export const article = {
         {
           "heading": "Ako je let otkazan",
           "body": [
-            "Kod otkazanog leta dodajte kada ste obavešteni o otkazivanju i šta vam je ponuđeno. To je važno jer rok obaveštenja i alternativni let mogu promeniti pravo na naknadu.",
+            "Kod otkazanog leta dodajte kada ste obavešteni o otkazivanju i šta Vam je ponuđeno. To je važno jer rok obaveštenja i alternativni let mogu promeniti pravo na naknadu.",
             "Primer dodatka: O otkazivanju sam obavešten/a dana [datum i vreme]. Ponuđen mi je alternativni let [broj/ruta], kojim sam stigao/la na krajnju destinaciju [koliko kasno].",
             "Ako ste umesto preusmeravanja tražili refundaciju, navedite i to, ali jasno odvojite pitanje karte od pitanja fiksne odštete."
           ]
@@ -54,7 +54,7 @@ export const article = {
           "heading": "Ako je zahtev već odbijen",
           "body": [
             "Ako odgovarate na odbijanje, nemojte slati isti email od početka. Pozovite se na referentni broj i tražite konkretnije obrazloženje.",
-            "Primer: Hvala na odgovoru. Molim vas da precizirate koje konkretne vanredne okolnosti su uticale na let [broj leta], u kom vremenskom periodu i koje mere su preduzete da se kašnjenje smanji.",
+            "Primer: Hvala na odgovoru. Molim Vas da precizirate koje konkretne vanredne okolnosti su uticale na let [broj leta], u kom vremenskom periodu i koje mere su preduzete da se kašnjenje smanji.",
             "Takav odgovor je korisniji od rasprave. Tražite činjenice koje se kasnije mogu proveriti."
           ]
         },

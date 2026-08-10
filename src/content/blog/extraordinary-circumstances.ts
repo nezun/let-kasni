@@ -23,7 +23,7 @@ export const article = {
           "body": [
             "Vanredne okolnosti su događaji koje aviokompanija realno nije mogla da izbegne ni uz razumne mere. Tipični primeri su ozbiljno loše vreme, zatvaranje aerodroma, bezbednosni incidenti, politička nestabilnost, određene odluke kontrole leta i neki događaji koji utiču na bezbednost letenja.",
             "Ako je takav događaj stvarno uzrok kašnjenja ili otkazivanja, fiksna naknada može biti odbijena. Ali teret objašnjenja nije na putniku. Aviokompanija treba da pokaže šta se desilo i zašto to nije mogla da izbegne.",
-            "Najvažnije je da postoji konkretna veza između događaja i vašeg leta. Nije dovoljno da je negde u sistemu postojao problem ako se ne vidi kako je baš taj problem doveo do vašeg kašnjenja ili otkazivanja."
+            "Najvažnije je da postoji konkretna veza između događaja i Vašeg leta. Nije dovoljno da je negde u sistemu postojao problem ako se ne vidi kako je baš taj problem doveo do Vašeg kašnjenja ili otkazivanja."
           ]
         },
         {
@@ -46,7 +46,7 @@ export const article = {
           "heading": "Vreme i kontrola leta nisu automatski kraj priče",
           "body": [
             "Ozbiljno nevreme, zatvaranje piste, ograničenja vazdušnog prostora i odluke kontrole leta često se navode kao vanredne okolnosti. Ipak, i tu treba proveriti obim i trajanje događaja.",
-            "Ako su drugi letovi normalno poletali, ako je problem trajao kratko ili ako je kašnjenje nastalo tek mnogo kasnije zbog rotacije aviona, slučaj može zahtevati dodatnu proveru. Ponekad vanredna okolnost objašnjava početni poremećaj, ali ne i ceo višesatni zastoj.",
+            "Ako su drugi letovi normalno poletali, ako je problem trajao kratko ili ako je kašnjenje nastalo tek mnogo kasnije zbog rotacije aviona, slučaj može zahtevati dodatnu proveru. Ponekad vanredna okolnost objašnjava početni poremećaj, ali ne i ceo Višesatni zastoj.",
             "Važno je pitanje razumnih mera: da li je aviokompanija mogla da obezbedi drugi avion, posadu, preusmeravanje ili bolje informisanje putnika. Odgovor zavisi od konkretnih činjenica."
           ]
         },
@@ -70,7 +70,7 @@ export const article = {
           "heading": "Pitajte koje su mere preduzete",
           "body": [
             "Vanredne okolnosti nisu samo pitanje šta se desilo, već i šta je aviokompanija uradila da smanji posledice. Ako je postojao problem sa vremenom, kontrolom leta ili bezbednošću, i dalje se može pitati da li je prevoznik mogao bolje da organizuje preusmeravanje, posadu ili informisanje.",
-            "Zato u odgovoru aviokompanije tražite konkretnu vezu između događaja i vašeg leta, kao i objašnjenje razumnih mera. Opšta rečenica da je let kasnio iz razloga van kontrole često nije dovoljna za ozbiljnu proveru.",
+            "Zato u odgovoru aviokompanije tražite konkretnu vezu između događaja i Vašeg leta, kao i objašnjenje razumnih mera. Opšta rečenica da je let kasnio iz razloga van kontrole često nije dovoljna za ozbiljnu proveru.",
             "Ako su drugi letovi iste kompanije ili iste rute poletali normalno, zabeležite to. Ne znači automatski da imate pravo, ali je koristan signal za dodatnu proveru."
           ]
         }

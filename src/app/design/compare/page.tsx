@@ -24,7 +24,7 @@ const groups = [
       },
       {
         title: "A2 — Proof Final",
-        body: "Više gradi poverenje kroz proces, ograničenja i disciplinovan trust model.",
+        body: "više gradi poverenje kroz proces, ograničenja i disciplinovan trust model.",
         links: [
           { href: "/design/top-a", label: "Open A2" },
           { href: "/design-lab/a2-final-proof.html", label: "Raw HTML" },
@@ -32,7 +32,7 @@ const groups = [
       },
       {
         title: "A3 — Guided Final",
-        body: "Najmirniji flow. Više vodi zbunjenog korisnika kroz problem nego što ga gura u kalkulator osećaj.",
+        body: "Najmirniji flow. više vodi zbunjenog korisnika kroz problem nego što ga gura u kalkulator osećaj.",
         links: [
           { href: "/design/top-b", label: "Open A3" },
           { href: "/design-lab/a3-final-guided.html", label: "Raw HTML" },

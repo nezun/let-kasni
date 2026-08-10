@@ -93,7 +93,7 @@ function srSections(topic: Topic) {
       heading: "Razlog kašnjenja i granica odgovornosti",
       body: [
         "Aviokompanija može navesti tehnički kvar, prethodnu rotaciju, posadu, slot kontrole letenja, loše vreme, zatvaranje aerodroma ili bezbednosni događaj. Nije svaki razlog isti. Tehnički i operativni problemi često se proveravaju strože, dok vreme, bezbednost i kontrola letenja mogu biti jači argument protiv fiksne naknade.",
-        "Ipak, generička rečenica nije dovoljna da putnik razume slučaj. Ako se navodi vanredna okolnost, tražite kada je nastala, koliko je trajala, zašto je pogodila baš vaš let i šta je prevoznik uradio da smanji posledice. Bez tih podataka odgovor je teško proverljiv.",
+        "Ipak, generička rečenica nije dovoljna da putnik razume slučaj. Ako se navodi vanredna okolnost, tražite kada je nastala, koliko je trajala, zašto je pogodila baš Vaš let i šta je prevoznik uradio da smanji posledice. Bez tih podataka odgovor je teško proverljiv.",
       ],
     },
     {
@@ -240,7 +240,7 @@ const topics: Topic[] = [
     enContext: "Tel Aviv may involve security checks, schedule changes and longer explanations, so a generic reply should not be treated as the end of the assessment.",
     srRouteRule: "Pošto Izrael nije EU ruta u užem smislu, proveravaju se smer putovanja, operativni prevoznik i eventualni EU segment. Ako je put nastavljen preko evropskog čvorišta, jedna rezervacija postaje posebno važna.",
     enRouteRule: "Because Israel is not an EU route in the narrow sense, direction of travel, operating carrier and any EU segment are checked. If the trip continued through a European hub, one booking becomes especially important.",
-    srEvidence: "Za Izrael rutu korisni su obaveštenje o razlogu kašnjenja, dokaz da je ograničenje pogodilo baš vaš let, nova satnica, računi za čekanje i dokaz krajnjeg dolaska ako je postojao nastavak puta.",
+    srEvidence: "Za Izrael rutu korisni su obaveštenje o razlogu kašnjenja, dokaz da je ograničenje pogodilo baš Vaš let, nova satnica, računi za čekanje i dokaz krajnjeg dolaska ako je postojao nastavak puta.",
     enEvidence: "For the Israel route, useful evidence includes the delay-reason notice, proof that the restriction affected your flight, revised timing, waiting receipts and final-arrival proof if there was onward travel.",
   },
   {
@@ -278,7 +278,7 @@ const topics: Topic[] = [
     enContext: "Rome, Milan and seasonal Italy routes should be checked by actual arrival, not only departure delay from Belgrade or Nis.",
     srRouteRule: "Ako polazite iz Italije, EU zaštita je obično početna tačka. Ako polazite iz Srbije, proverite operativnog prevoznika i da li je let samo jedan segment duže rezervacije preko Italije.",
     enRouteRule: "If you depart from Italy, EU protection is usually the starting point. If you depart from Serbia, check the operating carrier and whether the flight is only one segment of a longer booking through Italy.",
-    srEvidence: "Za Italiju posebno čuvajte dokaze o promeni gejta, kasnoj rotaciji, propuštenom nastavku puta i računima za obrok ili hotel ako se kratka ruta pretvorila u višesatno čekanje.",
+    srEvidence: "Za Italiju posebno čuvajte dokaze o promeni gejta, kasnoj rotaciji, propuštenom nastavku puta i računima za obrok ili hotel ako se kratka ruta pretvorila u Višesatno čekanje.",
     enEvidence: "For Italy, keep proof of gate changes, late aircraft rotation, missed onward travel and meal or hotel receipts if a short route turned into a multi-hour wait.",
   },
   {

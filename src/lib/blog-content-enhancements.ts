@@ -648,7 +648,7 @@ function srEnhancementSections(article: BlogArticle): BlogSection[] {
       body: [
         "Kod ovakvih slučajeva najviše pomažu dokazi koji pokazuju činjenice iz istog dana: boarding pass, potvrda rezervacije, poruke aviokompanije, screenshot aplikacije, fotografija table polazaka, računi za hranu, hotel ili transfer i svaka pisana informacija koju ste dobili na aerodromu.",
         "Ako je razlog objašnjen usmeno, zapišite tačnu formulaciju, vreme i mesto. Ako se razlog promenio, sačuvajte sve verzije. Razlika između tehničkog kvara, kontrole letenja, lošeg vremena, štrajka i nedostatka posade nije formalnost; to je često granica između jakog i slabog zahteva.",
-        "U zahtevu nemojte samo napisati da tražite odštetu. Navedite broj leta, datum, rutu, booking referencu, planirano i stvarno vreme dolaska, kratku hronologiju i jasno odvojite fiksnu naknadu od troškova koje želite da vam se refundiraju."
+        "U zahtevu nemojte samo napisati da tražite odštetu. Navedite broj leta, datum, rutu, booking referencu, planirano i stvarno vreme dolaska, kratku hronologiju i jasno odvojite fiksnu naknadu od troškova koje želite da Vam se refundiraju."
       ],
     },
     {

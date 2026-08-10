@@ -171,7 +171,7 @@ export function ClaimIntakeForm({ locale = "sr" }: { locale?: "sr" | "en" }) {
         body:
           data.claim.providerStatus === "live_match"
             ? data.claim.verdictBody
-            : `${data.claim.verdictBody} Ako okolnosti nisu dovoljno jasne, javljamo vam sledeći korak nakon dodatne provere.`,
+            : `${data.claim.verdictBody} Ako okolnosti nisu dovoljno jasne, javljamo Vam sledeći korak nakon dodatne provere.`,
         reference: data.claim.id.slice(0, 8).toUpperCase(),
       });
 

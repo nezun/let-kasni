@@ -83,11 +83,11 @@ function srSections(topic: AirlineTopic) {
       heading: "Ruta, presedanje i operativni prevoznik",
       body: [
         `${topic.srHubNote} Ako je putovanje bilo u jednoj rezervaciji, procena se ne zaustavlja na prvom segmentu. Kratak problem na početku može napraviti mnogo veći kasni dolazak ako izgubite nastavak puta ili ako prevoznik promeni celu rutu.`,
-        "Ako su karte bile odvojene, zahtev je obično teži jer prvi prevoznik ne mora odgovarati za samostalno kupljen nastavak. Zato su itinerary, booking reference i e-ticket važniji od opšte priče o putovanju. Oni pokazuju šta je prevoznik zaista prodao, do koje destinacije je trebalo da vas dovede i gde je nastao prekid plana.",
+        "Ako su karte bile odvojene, zahtev je obično teži jer prvi prevoznik ne mora odgovarati za samostalno kupljen nastavak. Zato su itinerary, booking reference i e-ticket važniji od opšte priče o putovanju. Oni pokazuju šta je prevoznik zaista prodao, do koje destinacije je trebalo da Vas dovede i gde je nastao prekid plana.",
       ],
     },
     {
-      heading: "Razlog kašnjenja i dokaz veze sa vašim letom",
+      heading: "Razlog kašnjenja i dokaz veze sa Vašim letom",
       body: [
         "Aviokompanija može navesti tehnički kvar, kasnu rotaciju aviona, posadu, slot kontrole letenja, loše vreme, zatvaranje aerodroma, bezbednosni događaj ili kasniji dolazak aviona iz drugog grada. Neki razlozi mogu biti vanredne okolnosti, ali generička formulacija ne rešava slučaj.",
         `${topic.srEvidenceNote} Dobar dosije zato ima kratku vremensku liniju: kada je kašnjenje objavljeno, koji razlog je naveden, da li se razlog menjao, kada je avion stvarno stigao i koju pomoć je prevoznik ponudio. Let Kasni iz te građe odvaja deo za fiksnu naknadu od dela za troškove čekanja.`,
@@ -96,7 +96,7 @@ function srSections(topic: AirlineTopic) {
     {
       heading: "Briga tokom čekanja i troškovi",
       body: [
-        "Kod dužeg čekanja putnik treba da traži obrok, osveženje i jasnu informaciju o novom vremenu polaska. Ako čekanje prelazi u noć ili vas prevoznik pomera na kasniji let, hotel, transfer i razuman trošak komunikacije treba posebno sačuvati, uz vreme kupovine i razlog troška.",
+        "Kod dužeg čekanja putnik treba da traži obrok, osveženje i jasnu informaciju o novom vremenu polaska. Ako čekanje prelazi u noć ili Vas prevoznik pomera na kasniji let, hotel, transfer i razuman trošak komunikacije treba posebno sačuvati, uz vreme kupovine i razlog troška.",
         "Ova prava se proveravaju odvojeno od fiksne naknade. Moguće je da prevoznik ima jak argument protiv odštete, ali da i dalje ostanu računi za brigu ili preusmeravanje. U zahtevu ih ne treba mešati u jednu cifru: hrana, voda, hotel, transfer, nova karta i osnov za 250, 400 ili 600 evra imaju različitu logiku.",
       ],
     },
@@ -255,7 +255,7 @@ const topics: AirlineTopic[] = [
     enHubNote: "If Tel Aviv was only one part of a wider trip, check whether the rest of the journey was in the same booking and whether a missed connection changed final arrival.",
     srCoverageNote: "Arkia nije evropski prevoznik, pa se evropska pokrivenost proverava kroz aerodrom polaska, dolazak, eventualni EU segment i operativnog prevoznika.",
     enCoverageNote: "Arkia is not a European carrier, so European coverage is checked through departure airport, arrival, any EU segment and operating carrier.",
-    srEvidenceNote: "Ako se pominje bezbednost, tražite konkretan vremenski period i uticaj na vaš let; ako se kasnije pominje operativni razlog, sačuvajte obe verzije.",
+    srEvidenceNote: "Ako se pominje bezbednost, tražite konkretan vremenski period i uticaj na Vaš let; ako se kasnije pominje operativni razlog, sačuvajte obe verzije.",
     enEvidenceNote: "If security is mentioned, ask for the specific time period and effect on your flight; if an operational reason is later mentioned, keep both versions.",
   },
   {

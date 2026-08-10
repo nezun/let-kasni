@@ -73,7 +73,7 @@ function routeSrSections(topic: RouteTopic): BlogSection[] {
     {
       heading: "Razlog kašnjenja na međunarodnoj ruti",
       body: [
-        "Na međunarodnim rutama često se pominju slot, kontrola letenja, vreme, prethodna rotacija, tehnički razlog ili posada. Neki od tih razloga mogu biti vanredne okolnosti, ali samo ako su konkretno povezani sa vašim letom i ako aviokompanija pokaže da je razumno pokušala da smanji kašnjenje.",
+        "Na međunarodnim rutama često se pominju slot, kontrola letenja, vreme, prethodna rotacija, tehnički razlog ili posada. Neki od tih razloga mogu biti vanredne okolnosti, ali samo ako su konkretno povezani sa Vašim letom i ako aviokompanija pokaže da je razumno pokušala da smanji kašnjenje.",
         "Ako je prvi uzrok bio vanredan, ali se kasnije kašnjenje povećalo zbog organizacije aviona, posade ili preusmeravanja, slučaj može ostati otvoren za detaljniju proveru. Zato je vremenska linija važnija od jedne kratke poruke u aplikaciji.",
       ],
     },

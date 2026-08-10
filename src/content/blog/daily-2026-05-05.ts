@@ -78,7 +78,7 @@ export const articles = [
           heading: "Najbrži sledeći korak",
           body: [
             "Za Wizz Air let prvo napravite kratku tabelu: ruta, broj leta, planirani dolazak, stvarni dolazak, razlog koji je naveden i troškovi koje ste imali. Ako je dolazak kasnio tri sata ili više, a razlog nije jasno van kontrole aviokompanije, slučaj vredi poslati na proveru.",
-            "Ako je odgovor kompanije generički, tražite vremensku liniju i dokaz direktne veze između razloga i vašeg leta. Ne morate pisati dugo. Dovoljno je da zahtev bude precizan, dokumentovan i povezan sa pravilima za kašnjenje leta.",
+            "Ako je odgovor kompanije generički, tražite vremensku liniju i dokaz direktne veze između razloga i Vašeg leta. Ne morate pisati dugo. Dovoljno je da zahtev bude precizan, dokumentovan i povezan sa pravilima za kašnjenje leta.",
           ],
         },
       ],
@@ -158,7 +158,7 @@ export const articles = [
         {
           heading: "Razlog kašnjenja i odgovornost",
           body: [
-            "Tehnički kvar, kasna rotacija aviona, operativni problem ili nedostatak posade mogu pojačati zahtev. Loše vreme, zatvaranje aerodroma, kontrola letenja ili bezbednosni incident mogu biti jači argument protiv fiksne odštete, ali aviokompanija i dalje mora da objasni vezu sa vašim letom.",
+            "Tehnički kvar, kasna rotacija aviona, operativni problem ili nedostatak posade mogu pojačati zahtev. Loše vreme, zatvaranje aerodroma, kontrola letenja ili bezbednosni incident mogu biti jači argument protiv fiksne odštete, ali aviokompanija i dalje mora da objasni vezu sa Vašim letom.",
             "Ako dobijete samo kratko objašnjenje, tražite preciznije podatke: kada je problem nastao, koji avion ili segment je pogođen, koliko je trajao i koje alternative su proverene. Bez te vremenske linije putnik ne može da zna da li je odbijenica realna.",
           ],
         },
@@ -253,8 +253,8 @@ export const articles = [
         {
           heading: "Kada je slučaj slabiji",
           body: [
-            "Loše vreme u čvorištu, ograničenje kontrole letenja, bezbednosni događaj ili zatvaranje piste mogu oslabiti fiksnu naknadu. Ipak, kompanija mora da pokaže direktnu vezu između događaja i vašeg kašnjenja, kao i da kašnjenje nije moglo biti izbegnuto razumnim merama.",
-            "Ako odgovor samo navodi weather, ATC ili airport restrictions, tražite vremensku liniju. Kod velikih čvorišta ista rečenica može pokrivati hiljade putnika, ali vaš zahtev zavisi od konkretnog leta, konekcije i ponuđenog rešenja.",
+            "Loše vreme u čvorištu, ograničenje kontrole letenja, bezbednosni događaj ili zatvaranje piste mogu oslabiti fiksnu naknadu. Ipak, kompanija mora da pokaže direktnu vezu između događaja i Vašeg kašnjenja, kao i da kašnjenje nije moglo biti izbegnuto razumnim merama.",
+            "Ako odgovor samo navodi weather, ATC ili airport restrictions, tražite vremensku liniju. Kod velikih čvorišta ista rečenica može pokrivati hiljade putnika, ali Vaš zahtev zavisi od konkretnog leta, konekcije i ponuđenog rešenja.",
           ],
         },
         {
@@ -342,7 +342,7 @@ export const articles = [
           heading: "Tipični razlozi i kako ih čitati",
           body: [
             "Tehnički kvar, kasna rotacija i nedostatak posade obično traže ozbiljniju proveru. Magla, sneg, oluja, ograničenje kontrole letenja ili zatvaranje piste mogu biti vanredne okolnosti, ali ne treba prihvatiti samo jednu opštu rečenicu bez veze sa konkretnim letom.",
-            "Ako aviokompanija navede da je problem bio u Beču, pitajte da li je ograničenje važilo baš u periodu vašeg leta i koliko je trajalo. Ako je problem bio na prethodnoj rotaciji, tražite objašnjenje zašto nije postojala razumna alternativa.",
+            "Ako aviokompanija navede da je problem bio u Beču, pitajte da li je ograničenje važilo baš u periodu Vašeg leta i koliko je trajalo. Ako je problem bio na prethodnoj rotaciji, tražite objašnjenje zašto nije postojala razumna alternativa.",
           ],
         },
         {
@@ -436,7 +436,7 @@ export const articles = [
         {
           heading: "Istanbul i jedna rezervacija",
           body: [
-            "Istanbul je veliko čvorište, a propuštena konekcija može značiti višesatno ili celodnevno čekanje. Ako su svi segmenti bili pod jednom rezervacijom, fokus je na tome kako je aviokompanija preusmerila putnika i kada je stigao na krajnju destinaciju.",
+            "Istanbul je veliko čvorište, a propuštena konekcija može značiti Višesatno ili celodnevno čekanje. Ako su svi segmenti bili pod jednom rezervacijom, fokus je na tome kako je aviokompanija preusmerila putnika i kada je stigao na krajnju destinaciju.",
             "Ako su karte bile odvojene, rizik je mnogo veći. Turkish Airlines može biti odgovoran za svoj let, ali ne nužno za kasnije posledice koje su nastale zato što je putnik sam spojio dva odvojena putovanja sa kratkim razmakom.",
           ],
         },
@@ -539,13 +539,13 @@ export const articles = [
           heading: "Razlog kašnjenja kod niskotarifnog modela",
           body: [
             "Kasna rotacija aviona, nedostatak posade, operativni problem ili tehnički kvar mogu biti važni razlozi za zahtev. Loše vreme, ograničenje kontrole letenja, zatvaranje aerodroma ili bezbednosni događaj mogu oslabiti fiksnu naknadu.",
-            "Ako je razlog samo operational reasons, tražite preciziranje. Kod brzih rotacija jedan mali poremećaj može napraviti veće kašnjenje, ali kompanija i dalje treba da objasni zašto je vaš dolazak kasnio preko tri sata.",
+            "Ako je razlog samo operational reasons, tražite preciziranje. Kod brzih rotacija jedan mali poremećaj može napraviti veće kašnjenje, ali kompanija i dalje treba da objasni zašto je Vaš dolazak kasnio preko tri sata.",
           ],
         },
         {
           heading: "Računi i pravo na brigu",
           body: [
-            "Tokom dužeg čekanja imate pravo na razumnu pomoć u skladu sa trajanjem i udaljenošću leta. Ako vam nisu dati obrok, voda ili informacije, čuvajte račune i screenshot poruka. Kod noćenja sačuvajte hotel i transfer ako ste morali sami da ih platite.",
+            "Tokom dužeg čekanja imate pravo na razumnu pomoć u skladu sa trajanjem i udaljenošću leta. Ako Vam nisu dati obrok, voda ili informacije, čuvajte račune i screenshot poruka. Kod noćenja sačuvajte hotel i transfer ako ste morali sami da ih platite.",
             "U zahtevu nemojte sve staviti pod jednu reč odšteta. Napišite posebno fiksna naknada, posebno refundacija troškova. To pomaže da slučaj ostane uredan čak i ako aviokompanija osporava jedan deo.",
           ],
         },

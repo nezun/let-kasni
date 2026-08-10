@@ -78,7 +78,7 @@ export const articles = [
           heading: "Najbolji sledeći korak",
           body: [
             "Napravite kratku tabelu: broj leta, datum, ruta, planirano vreme dolaska, stvarno vreme dolaska, naveden razlog, šta je ponuđeno i koji troškovi postoje. Ako je dolazak kasnio tri sata ili više, a razlog nije jasno van kontrole aviokompanije, zahtev ima smisla poslati na proveru.",
-            "Ako odgovor bude generički, ne šaljite novu dugu žalbu. Tražite preciznu vremensku liniju i dokaz veze između razloga i vašeg leta. Takav odgovor je bolja osnova za dalji postupak od ponavljanja iste priče bez novih činjenica.",
+            "Ako odgovor bude generički, ne šaljite novu dugu žalbu. Tražite preciznu vremensku liniju i dokaz veze između razloga i Vašeg leta. Takav odgovor je bolja osnova za dalji postupak od ponavljanja iste priče bez novih činjenica.",
           ],
         },
       ],
@@ -159,7 +159,7 @@ export const articles = [
           heading: "Razlozi kašnjenja koji menjaju slučaj",
           body: [
             "Tehnički kvar, posada, kasna rotacija aviona ili interni operativni problem mogu pojačati zahtev. Loše vreme, zatvaranje piste, odluka kontrole letenja ili bezbednosni događaj mogu biti jači argument protiv fiksne odštete, ali aviokompanija mora da objasni vezu sa konkretnim letom.",
-            "Ako je navedeno više razloga, ne prihvatajte automatski prvi ili najkraći. Tražite vremensku liniju: šta se desilo, kada, na kom segmentu, koliko je trajalo i zbog čega nije bilo moguće preusmeravanje koje bi vas ranije dovelo do cilja.",
+            "Ako je navedeno više razloga, ne prihvatajte automatski prvi ili najkraći. Tražite vremensku liniju: šta se desilo, kada, na kom segmentu, koliko je trajalo i zbog čega nije bilo moguće preusmeravanje koje bi Vas ranije dovelo do cilja.",
           ],
         },
         {
@@ -247,13 +247,13 @@ export const articles = [
           heading: "Konekcije preko Pariza",
           body: [
             "Velika čvorišta znače da se mala promena na prvom letu može pretvoriti u veliki problem na kraju puta. Sačuvajte originalni itinerer, novu kartu, poruke o preusmeravanju i vreme kada ste stvarno stigli na poslednji aerodrom.",
-            "Ako vam je ponuđen kasniji let, proverite da li je postojao razumniji raniji let. Putnik ne mora sam dokazivati svaku alternativu, ali je korisno sačuvati screenshot dostupnih opcija ako je aviokompanija tvrdila da boljeg rešenja nije bilo.",
+            "Ako Vam je ponuđen kasniji let, proverite da li je postojao razumniji raniji let. Putnik ne mora sam dokazivati svaku alternativu, ali je korisno sačuvati screenshot dostupnih opcija ako je aviokompanija tvrdila da boljeg rešenja nije bilo.",
           ],
         },
         {
           heading: "Odgovornost i vanredne okolnosti",
           body: [
-            "Tehnički kvar, organizacija posade, kasna rotacija ili interni operativni problem mogu podržati zahtev. Loše vreme, bezbednosna odluka, ograničenje aerodroma ili kontrola letenja mogu biti vanredne okolnosti, ali kompanija mora pokazati kako su baš one napravile kašnjenje vašeg leta.",
+            "Tehnički kvar, organizacija posade, kasna rotacija ili interni operativni problem mogu podržati zahtev. Loše vreme, bezbednosna odluka, ograničenje aerodroma ili kontrola letenja mogu biti vanredne okolnosti, ali kompanija mora pokazati kako su baš one napravile kašnjenje Vašeg leta.",
             "Ako se razlog menja, to ne znači automatski da imate pravo na novac, ali znači da treba tražiti jasnije objašnjenje. Dobar zahtev traži vremensku liniju i dokaz, umesto da se oslanja na opšti utisak da je aviokompanija odgovorna.",
           ],
         },
@@ -348,7 +348,7 @@ export const articles = [
         {
           heading: "Razlozi koji jačaju ili slabe zahtev",
           body: [
-            "Tehnički kvar, kasna rotacija, organizacija posade ili interni operativni problem mogu biti dobar signal za zahtev. Vreme, bezbednosni rizik, odluka aerodroma ili kontrola letenja mogu biti vanredne okolnosti, ali samo ako su konkretno povezane sa vašim kašnjenjem.",
+            "Tehnički kvar, kasna rotacija, organizacija posade ili interni operativni problem mogu biti dobar signal za zahtev. Vreme, bezbednosni rizik, odluka aerodroma ili kontrola letenja mogu biti vanredne okolnosti, ali samo ako su konkretno povezane sa Vašim kašnjenjem.",
             "Ako dobijete kratak odgovor, tražite preciznije: koji događaj, kada je počeo, koliko je trajao, koji segment je pogodio i koje mere su preduzete. Bez toga putnik ne može znati da li je odbijanje realno ili samo generičko.",
             "Kod povezanih letova obratite pažnju i na to da li je prvi razlog bio samo početak problema. Nekad je početni poremećaj van kontrole aviokompanije, ali se kasnije kašnjenje produži zbog organizacije posade, aviona ili preusmeravanja. Zato je vremenska linija važnija od jedne oznake razloga.",
           ],
@@ -364,7 +364,7 @@ export const articles = [
           heading: "Kako formulisati zahtev",
           body: [
             "Zahtev treba da bude kratak: cela ruta, broj leta, datum, planirani i stvarni dolazak, razlog koji je naveden i šta tražite. Ako tražite i troškove, napišite ih u posebnoj listi sa računima, da se ne pomešaju sa fiksnom naknadom.",
-            "Ako Swiss navede vanredne okolnosti, sledeća poruka treba da traži dokaz direktne veze sa letom. Nije dovoljno da je negde u mreži postojao problem; važno je da taj problem objašnjava kašnjenje vašeg konkretnog puta.",
+            "Ako Swiss navede vanredne okolnosti, sledeća poruka treba da traži dokaz direktne veze sa letom. Nije dovoljno da je negde u mreži postojao problem; važno je da taj problem objašnjava kašnjenje Vašeg konkretnog puta.",
           ],
         },
       ],
@@ -546,7 +546,7 @@ export const articles = [
           heading: "Razlog kašnjenja odlučuje da li se plaća",
           body: [
             "Tri sata ne znače automatski novac. Aviokompanija može odbiti fiksnu naknadu ako dokaže vanredne okolnosti koje nije mogla da izbegne razumnim merama. Tipični primeri su ozbiljno loše vreme, bezbednosni rizik, odluka kontrole letenja ili zatvaranje aerodroma.",
-            "S druge strane, mnogi tehnički problemi, interna organizacija, posada ili kasna rotacija ne moraju biti dovoljan izgovor. Zato ne gledajte samo dužinu kašnjenja. Tražite tačan razlog, vremensku liniju i dokaz veze između razloga i vašeg leta.",
+            "S druge strane, mnogi tehnički problemi, interna organizacija, posada ili kasna rotacija ne moraju biti dovoljan izgovor. Zato ne gledajte samo dužinu kašnjenja. Tražite tačan razlog, vremensku liniju i dokaz veze između razloga i Vašeg leta.",
             "Ako je kašnjenje nastalo u lancu, proverite svaki deo lanca. Prvi događaj može biti vanredan, ali kasnije čekanje može zavisiti od toga kako je aviokompanija rasporedila avion, posadu ili alternativu. U tom delu se često krije razlika između slabog i ozbiljnog zahteva.",
             "Ne morate dokazivati unutrašnju organizaciju aviokompanije, ali možete tražiti da ona objasni svoje mere. Uredan zahtev zato ne tvrdi napamet da je kompanija kriva, već traži proverljiv odgovor na pitanje šta je moglo biti urađeno da se dolazak skrati u praksi.",
           ],

@@ -69,7 +69,7 @@ export const articles = [
           heading: "Razlog kašnjenja menja ishod",
           body: [
             "Četiri sata zbog tehničkog kvara, kasne rotacije aviona ili nedostatka posade ne znače isto što i četiri sata zbog zatvaranja piste, jakog nevremena ili odluke kontrole letenja. Zato tražite konkretan razlog, ne samo opštu poruku da je let odložen.",
-            "Ako aviokompanija kasnije navede vanredne okolnosti, pitajte kako je taj događaj direktno uticao baš na vaš let i koje mere su preduzete da se kašnjenje smanji. Bez takvog objašnjenja teško je proceniti da li je odbijanje osnovano.",
+            "Ako aviokompanija kasnije navede vanredne okolnosti, pitajte kako je taj događaj direktno uticao baš na Vaš let i koje mere su preduzete da se kašnjenje smanji. Bez takvog objašnjenja teško je proceniti da li je odbijanje osnovano.",
           ],
         },
         {
@@ -155,7 +155,7 @@ export const articles = [
           heading: "Šta se menja posle 5 sati čekanja",
           body: [
             "Kada je polazak odložen najmanje 5 sati, putnik često dobija pravo da odustane od putovanja i traži refundaciju karte. To pravo treba razlikovati od [naknade za kašnjenje leta](/naknada-za-kasnjenje-leta), koja se proverava prema dolasku na krajnju destinaciju i razlogu poremećaja.",
-            "Ako odlučite da ipak putujete, najčešće se nastavlja pitanje preusmeravanja, obroka, komunikacije i eventualnog hotela. Ako odustanete i uzmete refundaciju, kompanija obično više ne mora da vas preveze tom rezervacijom. Zato izbor treba napraviti svesno, ne samo pod pritiskom reda na šalteru.",
+            "Ako odlučite da ipak putujete, najčešće se nastavlja pitanje preusmeravanja, obroka, komunikacije i eventualnog hotela. Ako odustanete i uzmete refundaciju, kompanija obično više ne mora da Vas preveze tom rezervacijom. Zato izbor treba napraviti svesno, ne samo pod pritiskom reda na šalteru.",
           ],
           bullets: [
             "Refundacija karte i fiksna naknada su različita pitanja.",
@@ -167,7 +167,7 @@ export const articles = [
           heading: "Refundacija ne rešava uvek sve",
           body: [
             "Refundacija vraća cenu karte ili deo putovanja koji više nema smisla koristiti. Ako ste već na konekciji i kašnjenje prekida put, može biti važno i pitanje povratka na početni aerodrom. Kod jedne rezervacije posledice mogu biti šire nego kod zasebnih karata.",
-            "Fiksna naknada se ne gasi automatski samo zato što je karta refundirana. Ipak, ako niste putovali, treba jasno objasniti kada ste odustali, šta je kompanija ponudila i da li je kašnjenje već dostiglo prag koji vam je omogućio taj izbor.",
+            "Fiksna naknada se ne gasi automatski samo zato što je karta refundirana. Ipak, ako niste putovali, treba jasno objasniti kada ste odustali, šta je kompanija ponudila i da li je kašnjenje već dostiglo prag koji Vam je omogućio taj izbor.",
           ],
         },
         {
@@ -187,7 +187,7 @@ export const articles = [
         {
           heading: "Kako dokumentovati odluku",
           body: [
-            "Zapišite vreme kada je kašnjenje dostiglo 5 sati, šta vam je ponuđeno, da li ste izabrali refundaciju ili nastavak puta i ko je to potvrdio. Sačuvajte email, SMS, boarding pass i novi itinerer ako je izdat.",
+            "Zapišite vreme kada je kašnjenje dostiglo 5 sati, šta Vam je ponuđeno, da li ste izabrali refundaciju ili nastavak puta i ko je to potvrdio. Sačuvajte email, SMS, boarding pass i novi itinerer ako je izdat.",
             "Ako je odgovor aviokompanije nejasan, pošaljite kratak zahtev sa dve odvojene tačke: prvo refundacija ili preusmeravanje, zatim provera fiksne naknade ako je dolazak ili izgubljeno putovanje za to relevantno. Takav zahtev smanjuje prostor za pogrešno tumačenje.",
           ],
         },
@@ -271,7 +271,7 @@ export const articles = [
         {
           heading: "Kada tražiti obrok, vodu i komunikaciju",
           body: [
-            "Ako kašnjenje prelazi prag za vašu udaljenost leta, tražite obroke, osveženje i mogućnost komunikacije. Ne morate čekati da se osoblje samo seti. Najbolje je pitati kratko i konkretno: gde se preuzimaju vaučeri i šta putnici treba da urade dok čekaju.",
+            "Ako kašnjenje prelazi prag za Vašu udaljenost leta, tražite obroke, osveženje i mogućnost komunikacije. Ne morate čekati da se osoblje samo seti. Najbolje je pitati kratko i konkretno: gde se preuzimaju vaučeri i šta putnici treba da urade dok čekaju.",
             "Ako pomoć nije ponuđena, kupujte razumno. Sačuvajte fiskalni račun, kartičnu potvrdu i kratku belešku zašto ste trošak imali. Kasnije je mnogo lakše tražiti refundaciju kada postoji račun i vremenska linija.",
           ],
         },
@@ -383,7 +383,7 @@ export const articles = [
         {
           heading: "Vreme, slot i kontrola letenja",
           body: [
-            "Loše vreme, sigurnosni rizik, zatvaranje piste ili odluka kontrole letenja mogu biti jači argument za aviokompaniju. Ipak, i tada treba proveriti direktnu vezu. Nije dovoljno da je negde u mreži bilo nevreme ako vaš konkretan let nije bio pogođen.",
+            "Loše vreme, sigurnosni rizik, zatvaranje piste ili odluka kontrole letenja mogu biti jači argument za aviokompaniju. Ipak, i tada treba proveriti direktnu vezu. Nije dovoljno da je negde u mreži bilo nevreme ako Vaš konkretan let nije bio pogođen.",
             "Kod slotova tražite vreme kada je slot dodeljen, koliko je odložio polazak i da li je postojalo dodatno kašnjenje posle toga. Ako je prvi uzrok bio vanredan, ali je ostatak kašnjenja nastao zbog organizacije kompanije, slučaj može ostati otvoren.",
           ],
         },
@@ -397,8 +397,8 @@ export const articles = [
         {
           heading: "Kako tražiti objašnjenje od aviokompanije",
           body: [
-            "U dopuni zahteva tražite da aviokompanija navede konkretan razlog, vremensku liniju, dokaz veze sa vašim letom i mere koje je preduzela da smanji kašnjenje. Kratak i precizan zahtev je bolji od emotivne žalbe.",
-            "Ako kompanija ponovi istu opštu rečenicu, to ne znači automatski da ćete dobiti slučaj, ali pokazuje šta nedostaje. Sledeći korak je proveriti da li su vaši dokazi, ruta i kašnjenje dovoljno jaki za dalju eskalaciju.",
+            "U dopuni zahteva tražite da aviokompanija navede konkretan razlog, vremensku liniju, dokaz veze sa Vašim letom i mere koje je preduzela da smanji kašnjenje. Kratak i precizan zahtev je bolji od emotivne žalbe.",
+            "Ako kompanija ponovi istu opštu rečenicu, to ne znači automatski da ćete dobiti slučaj, ali pokazuje šta nedostaje. Sledeći korak je proveriti da li su Vaši dokazi, ruta i kašnjenje dovoljno jaki za dalju eskalaciju.",
           ],
         },
       ],
@@ -481,8 +481,8 @@ export const articles = [
         {
           heading: "Kada treba tražiti obrok i osveženje",
           body: [
-            "Pravo na pomoć zavisi od dužine čekanja i udaljenosti leta. Kod kraćih letova prag je niži, kod srednjih i dužih letova viši. U praksi, čim kašnjenje postane ozbiljno, pitajte gde se preuzimaju vaučeri i šta je plan za putnike.",
-            "Ako dobijete samo mali vaučer koji očigledno nije dovoljan za višesatno čekanje, sačuvajte ga, ali zabeležite i dodatne razumne troškove. Važno je da računi pokažu osnovnu potrebu, ne luksuznu potrošnju.",
+            "Pravo na pomoć zavisi od dužine čekanja i udaljenosti leta. Kod kraćih letova prag je niži, kod srednjih i dužih letova Viši. U praksi, čim kašnjenje postane ozbiljno, pitajte gde se preuzimaju vaučeri i šta je plan za putnike.",
+            "Ako dobijete samo mali vaučer koji očigledno nije dovoljan za Višesatno čekanje, sačuvajte ga, ali zabeležite i dodatne razumne troškove. Važno je da računi pokažu osnovnu potrebu, ne luksuznu potrošnju.",
           ],
         },
         {
@@ -586,7 +586,7 @@ export const articles = [
         {
           heading: "Šta je krajnja destinacija",
           body: [
-            "Krajnja destinacija je aerodrom iz rezervacije do kog je aviokompanija trebalo da vas doveze. Ako imate jednu rezervaciju Beograd - Frankfurt - Lisabon, ne završava se procena u Frankfurtu. Gleda se kada ste stigli u Lisabon.",
+            "Krajnja destinacija je aerodrom iz rezervacije do kog je aviokompanija trebalo da Vas doveze. Ako imate jednu rezervaciju Beograd - Frankfurt - Lisabon, ne završava se procena u Frankfurtu. Gleda se kada ste stigli u Lisabon.",
             "Ako su karte kupljene odvojeno, svaka karta se obično procenjuje zasebno. To može oslabiti zahtev za posledice drugog leta, ali ne briše prava koja imate na prvom letu ako je i on stigao dovoljno kasno ili je izazvao troškove čekanja.",
           ],
         },

@@ -85,7 +85,7 @@ function srSections(topic: AirlineTopic) {
       heading: "Razlog kašnjenja i odgovornost prevoznika",
       body: [
         "Tehnički kvar, kasna rotacija aviona, nedostatak posade ili operativna organizacija često traže detaljniju proveru jer mogu biti u sferi aviokompanije. Loše vreme, zatvaranje aerodroma, bezbednosni događaj ili odluka kontrole letenja mogu oslabiti fiksnu naknadu, ali ne zatvaraju automatski pravo na brigu.",
-        "Najslabiji odgovor je opšta rečenica da su postojale vanredne okolnosti. Bolji dosije traži vezu između razloga, vremenskog perioda i baš vašeg leta. Ako se razlog menja iz poruke u poruku, sačuvajte sve verzije jer promena često pokazuje da slučaj nije objašnjen dovoljno precizno.",
+        "Najslabiji odgovor je opšta rečenica da su postojale vanredne okolnosti. Bolji dosije traži vezu između razloga, vremenskog perioda i baš Vašeg leta. Ako se razlog menja iz poruke u poruku, sačuvajte sve verzije jer promena često pokazuje da slučaj nije objašnjen dovoljno precizno.",
       ],
     },
     {

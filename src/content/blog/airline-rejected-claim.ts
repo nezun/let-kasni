@@ -30,7 +30,7 @@ export const article = {
           "heading": "Koji razlozi traže dodatnu proveru",
           "body": [
             "Posebno treba proveriti odgovore koji samo navode weather, safety, technical issue, operational reasons ili air traffic restrictions bez detalja. Neki od tih razloga zaista mogu isključiti naknadu, ali se često koriste preširoko.",
-            "Tehnički problem nije automatski vanredna okolnost. Loše vreme jeste ozbiljan razlog samo ako je stvarno uticalo na taj let. Kašnjenje prethodnog leta mora imati jasnu vezu sa vašim poremećajem.",
+            "Tehnički problem nije automatski vanredna okolnost. Loše vreme jeste ozbiljan razlog samo ako je stvarno uticalo na taj let. Kašnjenje prethodnog leta mora imati jasnu vezu sa Vašim poremećajem.",
             "Ako se odgovor aviokompanije ne poklapa sa porukama koje ste dobijali na aerodromu, fotografijama table leta ili javno dostupnim informacijama, postoji razlog za dodatnu analizu."
           ]
         },

@@ -1,39 +1,9 @@
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import {
-  getOperatorAddress,
-  getOperatorCountry,
-  getOperatorName,
-  getSupportEmail,
-  getSupportPhone,
-} from "@/lib/env";
+import { LegalOperatorContact } from "@/components/legal-operator-contact";
+import { getSupportEmail, getSupportPhone } from "@/lib/env";
 
-const lastUpdated = "6. avgust 2026.";
-
-function DetailList({
-  items,
-}: {
-  items: Array<{ label: string; value?: string; href?: string }>;
-}) {
-  return (
-    <dl className="grid gap-3 text-sm text-[var(--muted)] sm:grid-cols-[180px_1fr]">
-      {items.map((item) => (
-        <div key={item.label} className="contents">
-          <dt className="font-semibold text-[var(--ink)]">{item.label}</dt>
-          <dd>
-            {item.href && item.value ? (
-              <a className="hover:text-[var(--ink)]" href={item.href}>
-                {item.value}
-              </a>
-            ) : (
-              item.value ?? "Biće dopunjeno."
-            )}
-          </dd>
-        </div>
-      ))}
-    </dl>
-  );
-}
+const lastUpdated = "9. avgust 2026.";
 
 function Section({
   title,
@@ -53,9 +23,6 @@ function Section({
 export default function PrivacyPage() {
   const supportEmail = getSupportEmail();
   const supportPhone = getSupportPhone();
-  const operatorName = getOperatorName();
-  const operatorAddress = getOperatorAddress();
-  const operatorCountry = getOperatorCountry();
 
   return (
     <main className="min-h-screen bg-[var(--bg)] pt-32">
@@ -77,17 +44,11 @@ export default function PrivacyPage() {
 
         <Section title="1. Ko je rukovalac podacima">
           <p>
-            Rukovalac podacima o ličnosti je lice koje upravlja sajtom letkasni.rs
-            i određuje svrhe i sredstva obrade podataka o ličnosti.
+            Rukovalac podacima o ličnosti je Expatwise LLC, sa poslovnom adresom 30 N Gould St, Ste R, Sheridan, WY 82801, USA, koji upravlja sajtom letkasni.rs i određuje svrhe i sredstva obrade podataka o ličnosti.
           </p>
-          <DetailList
-            items={[
-              { label: "Naziv rukovaoca", value: operatorName },
-              { label: "Poslovna adresa", value: operatorAddress },
-              { label: "Država sedišta", value: operatorCountry },
-              { label: "Kontakt email", value: supportEmail, href: `mailto:${supportEmail}` },
-              { label: "Kontakt telefon", value: supportPhone, href: `tel:${supportPhone}` },
-            ]}
+          <LegalOperatorContact
+            supportEmail={supportEmail}
+            supportPhone={supportPhone}
           />
           <p>
             Za sva pitanja u vezi sa obradom podataka i ostvarivanjem prava u vezi
@@ -139,7 +100,7 @@ export default function PrivacyPage() {
           </ul>
           <p>
             Podaci se ne koriste za donošenje isključivo automatizovanih odluka koje
-            proizvode pravne posledice po korisnika. letkasni.rs ne obrađuje podatke u
+            proizvode pravne posledice po korisnika. Letkasni.rs ne obrađuje podatke u
             svrhu pružanja pravnih saveta, pravnog zastupanja ili drugih pravnih usluga.
           </p>
           <p>
@@ -154,11 +115,11 @@ export default function PrivacyPage() {
           <p>
             Davanje osnovnih podataka o letu i kontakt podataka nije zakonska obaveza,
             ali je praktično neophodno ako želite da administrativno obradimo zahtev ili
-            da vas kontaktiramo povodom prijave.
+            da Vas kontaktiramo povodom prijave.
           </p>
           <p>
             Ako ne dostavite minimum potrebnih podataka, možda nećemo moći da obradimo
-            zahtev ili da vam odgovorimo na upit.
+            zahtev ili da Vam odgovorimo na upit.
           </p>
         </Section>
 

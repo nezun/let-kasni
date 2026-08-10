@@ -14,7 +14,7 @@ export const article = {
       "slug": "uskraceno-ukrcavanje-overbooking",
       "title": "Uskraćeno ukrcavanje i overbooking: šta putnik može da traži",
       "description": "Šta znači denied boarding, kada overbooking daje pravo na naknadu, koja prava imate na aerodromu i zašto ne treba brzopleto potpisivati odricanje od prava.",
-      "excerpt": "Ako ste imali kartu, čekirali se na vreme i aviokompanija vas ipak nije pustila u avion zbog overbookinga ili operativnog razloga, pravo na naknadu može biti jače nego kod običnog kašnjenja.",
+      "excerpt": "Ako ste imali kartu, čekirali se na vreme i aviokompanija Vas ipak nije pustila u avion zbog overbookinga ili operativnog razloga, pravo na naknadu može biti jače nego kod običnog kašnjenja.",
       "category": "Denied boarding",
       "readTime": "5 min čitanja",
       "sections": [
@@ -30,7 +30,7 @@ export const article = {
           "heading": "Dobrovoljno i prinudno odricanje nisu isto",
           "body": [
             "Kada je let prebukiran, aviokompanija prvo može tražiti dobrovoljce koji prihvataju kasniji let uz vaučer, milje ili drugu pogodnost. Ako dobrovoljno pristanete, uslovi koje potpišete mogu uticati na kasniji zahtev.",
-            "Drugačija je situacija kada niste pristali da odustanete od mesta, a osoblje vas ipak ne pusti u avion. To je prinudno uskraćeno ukrcavanje i tada se posebno proverava pravo na fiksnu naknadu, preusmeravanje i brigu tokom čekanja.",
+            "Drugačija je situacija kada niste pristali da odustanete od mesta, a osoblje Vas ipak ne pusti u avion. To je prinudno uskraćeno ukrcavanje i tada se posebno proverava pravo na fiksnu naknadu, preusmeravanje i brigu tokom čekanja.",
             "Ne potpisujte brzo ako ne razumete šta dobijate. Ako je ponuda dobra i želite da je prihvatite, tražite da jasno piše da li se odričete dodatne naknade ili samo prihvatate alternativni let i pomoć."
           ]
         },
@@ -68,7 +68,7 @@ export const article = {
           "heading": "Tražite obaveštenje o pravima",
           "body": [
             "Kod uskraćenog ukrcavanja putnik treba da traži pismeno objašnjenje i obaveštenje o pravima. Ozbiljni vodiči za putnike stalno naglašavaju da usmeno obrazloženje na gejtu nije dovoljno kada kasnije treba dokazati šta se desilo.",
-            "Ako aviokompanija traži dobrovoljce, uslovi dobrovoljnog odustajanja treba da budu jasni. Ako niste dobrovoljno pristali, već ste odbijeni protiv svoje volje, to treba da piše u potvrdi ili barem u vašoj hronologiji.",
+            "Ako aviokompanija traži dobrovoljce, uslovi dobrovoljnog odustajanja treba da budu jasni. Ako niste dobrovoljno pristali, već ste odbijeni protiv svoje volje, to treba da piše u potvrdi ili barem u Vašoj hronologiji.",
             "Posebno zabeležite da ste imali važeću rezervaciju, da ste se čekirali i da ste se pojavili na vreme. Bez ta tri elementa aviokompanija često pokušava da slučaj prikaže kao problem putnika, a ne overbooking ili operativnu odluku."
           ]
         }
