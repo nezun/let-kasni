@@ -9,6 +9,7 @@ const minimumHumanSubmitMs = 2500;
 
 interface ValidatedSubmission {
   input: ClaimInput;
+  locale: "sr" | "en";
   skipProvider?: boolean;
   providerSkipReason?: string;
 }
@@ -76,6 +77,7 @@ function validateInput(body: unknown): ValidatedSubmission | null {
   if (normalized.website) {
     return {
       input: normalized,
+      locale: data.locale === "en" ? "en" : "sr",
       skipProvider: true,
       providerSkipReason: "Honeypot polje je popunjeno; provider lookup je preskočen.",
     };
@@ -83,16 +85,20 @@ function validateInput(body: unknown): ValidatedSubmission | null {
 
   const formStartedAt =
     typeof data.formStartedAt === "string" ? Number(data.formStartedAt) : NaN;
+  const manualReviewOnly = data.manualReviewOnly === true;
   const formCompletedTooFast =
     Number.isFinite(formStartedAt) &&
     Date.now() - formStartedAt < minimumHumanSubmitMs;
 
   return {
     input: normalized,
-    skipProvider: formCompletedTooFast,
-    providerSkipReason: formCompletedTooFast
-      ? "Forma je poslata prebrzo; provider lookup je preskočen."
-      : undefined,
+    locale: data.locale === "en" ? "en" : "sr",
+    skipProvider: manualReviewOnly || formCompletedTooFast,
+    providerSkipReason: manualReviewOnly
+      ? "Nova ruta forma nema broj leta; predmet ide direktno na ručnu proveru."
+      : formCompletedTooFast
+        ? "Forma je poslata prebrzo; provider lookup je preskočen."
+        : undefined,
   };
 }
 
@@ -162,7 +168,7 @@ export async function POST(request: Request) {
     sendAdminClaimNotification(claim).catch((error) => {
       console.error("Failed to send admin claim notification.", error);
     });
-    sendUserClaimConfirmation(claim).catch((error) => {
+    sendUserClaimConfirmation(claim, submission.locale).catch((error) => {
       console.error("Failed to send user claim confirmation.", error);
     });
   }

@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "locales:check": "node scripts/check-landing-locales.mjs",
+    "airports:generate": "node scripts/generate-airports.mjs",
     "content:qa": "node scripts/content-qa.mjs",
     "content:links": "node scripts/content-link-graph.mjs",
     "content:benchmark": "node scripts/content-benchmark-review.mjs",

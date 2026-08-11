@@ -20,6 +20,9 @@ export default function Page() {
       variant="hero-compact"
       testimonialsVariant="a"
       formFieldTone="muted"
+      heroFlightPath
+      heroFlightPathVariant="with-visual"
+      ctaFlightPath
     />
   );
 }

@@ -3,6 +3,7 @@ import {
   CheckCircle2,
   ChevronRight,
   MessageSquareQuote,
+  Plane,
   ShieldCheck,
   Zap,
 } from "lucide-react";
@@ -24,6 +25,138 @@ type LogoBalance = "default" | "optical" | "compact" | "badge";
 type TestimonialsVariant = "none" | "a" | "b" | "c";
 type FormFieldTone = "default" | "soft" | "muted" | "quiet";
 type VerticalSpacing = "default" | "compact";
+type HeroFlightPathVariant = "with-visual" | "plane-only" | "visual-low";
+
+function HeroPayoutVisual({ locale, low = false }: { locale: Locale; low?: boolean }) {
+  return (
+    <>
+      <div
+        className={`absolute -rotate-[8deg] rounded-[11px] border border-white/14 bg-[#172444] shadow-[0_14px_36px_rgba(0,0,0,0.25)] ${
+          low
+            ? "left-[340px] top-[690px] w-[125px] px-4 py-4"
+            : "left-[303px] top-[127px] w-[100px] px-3 py-3"
+        }`}
+      >
+        <span
+          className={`block font-bold uppercase tracking-[0.1em] text-white/42 ${
+            low ? "text-[8px]" : "text-[7px]"
+          }`}
+        >
+          {locale === "en" ? "flight disruption" : "poremećaj leta"}
+        </span>
+        <div className={low ? "mt-4 space-y-2" : "mt-3 space-y-1.5"}>
+          <span className={`block rounded-full bg-white/75 ${low ? "h-[5px] w-[60px]" : "h-1 w-[48px]"}`} />
+          <span className={`block rounded-full bg-white/28 ${low ? "h-[5px] w-[85px]" : "h-1 w-[68px]"}`} />
+        </div>
+        <span
+          className={`inline-flex rounded-full bg-[#A83F52]/28 font-bold uppercase tracking-[0.06em] text-[#FFB3BF] ${
+            low ? "mt-4 px-2.5 py-1.5 text-[8px]" : "mt-3 px-2 py-1 text-[7px]"
+          }`}
+        >
+          {locale === "en" ? "delayed 3h+" : "kasni 3h+"}
+        </span>
+      </div>
+
+      <div
+        className={`absolute rotate-[6deg] rounded-[11px] bg-white text-[#0B1326] shadow-[0_18px_42px_rgba(0,0,0,0.3)] ${
+          low
+            ? "left-[397px] top-[718px] w-[148px] px-4 py-4"
+            : "left-[351px] top-[150px] w-[118px] px-3 py-3"
+        }`}
+      >
+        <span
+          className={`block font-bold uppercase tracking-[0.08em] text-[#7A8494] ${
+            low ? "text-[8px]" : "text-[7px]"
+          }`}
+        >
+          {locale === "en" ? "You receive" : "Vama"}
+        </span>
+        <strong
+          className={`block font-display leading-none text-[#2470EB] ${
+            low ? "mt-3 text-[24px]" : "mt-2.5 text-[20px]"
+          }`}
+        >
+          600 EUR
+        </strong>
+        <span
+          className={`block font-bold uppercase tracking-[0.07em] text-[#7A8494] ${
+            low ? "mt-2 text-[8px]" : "mt-1.5 text-[7px]"
+          }`}
+        >
+          {locale === "en" ? "no commission" : "bez provizije"}
+        </span>
+      </div>
+    </>
+  );
+}
+
+function HeroQuestionFlightPath({
+  locale,
+  variant = "with-visual",
+}: {
+  locale: Locale;
+  variant?: HeroFlightPathVariant;
+}) {
+  return (
+    <div
+      aria-hidden="true"
+      className="pointer-events-none absolute left-[120px] top-[-122px] hidden h-[255px] w-[685px] xl:block"
+    >
+      <svg
+        className="absolute left-0 top-0 h-[145px] w-[685px] overflow-visible"
+        viewBox="0 0 685 145"
+      >
+        <path
+          d="M 0 145 A 1400 1400 0 0 1 685 110"
+          fill="none"
+          stroke="rgba(255,255,255,0.28)"
+          strokeDasharray="3 4"
+          strokeLinecap="round"
+          strokeWidth="1"
+        />
+      </svg>
+
+      <span className="absolute left-[439px] top-[65px] flex h-9 w-9 items-center justify-center rounded-full border border-white/12 bg-[#0B1326]/86 shadow-[0_10px_28px_rgba(0,0,0,0.3)] backdrop-blur-sm">
+        <Plane className="h-5 w-5 rotate-[47deg] fill-white text-white" />
+      </span>
+
+      {variant !== "plane-only" ? (
+        <HeroPayoutVisual locale={locale} low={variant === "visual-low"} />
+      ) : null}
+    </div>
+  );
+}
+
+function CtaFlightPath() {
+  return (
+    <div
+      aria-hidden="true"
+      className="pointer-events-none absolute left-1/2 top-1 hidden h-[150px] w-[min(49.25vw,785px)] -translate-x-1/2 xl:block"
+    >
+      <svg
+        className="absolute inset-0 h-[150px] w-full overflow-visible"
+        preserveAspectRatio="none"
+        viewBox="0 0 785 150"
+      >
+        <path
+          d="M 0 145 A 972 972 0 0 1 785 103"
+          fill="none"
+          stroke="rgba(255,255,255,0.28)"
+          strokeDasharray="3 4"
+          strokeLinecap="round"
+          strokeWidth="1"
+        />
+      </svg>
+
+      <span
+        className="absolute top-[84px] flex h-9 w-9 items-center justify-center rounded-full border border-white/12 bg-[#0B1326]/86 shadow-[0_10px_28px_rgba(0,0,0,0.3)] backdrop-blur-sm"
+        style={{ left: "calc(12.6% - 18px)" }}
+      >
+        <Plane className="h-5 w-5 rotate-[24deg] fill-white text-white" />
+      </span>
+    </div>
+  );
+}
 
 const copy = {
   sr: {
@@ -540,6 +673,9 @@ export function LandingPage({
   formFieldTone = "default",
   verticalSpacing = "default",
   footerContactVariant = "rows-brand-flat",
+  heroFlightPath = false,
+  heroFlightPathVariant = "with-visual",
+  ctaFlightPath = false,
 }: {
   locale?: Locale;
   variant?: LandingVariant;
@@ -548,6 +684,9 @@ export function LandingPage({
   formFieldTone?: FormFieldTone;
   verticalSpacing?: VerticalSpacing;
   footerContactVariant?: FooterContactVariant;
+  heroFlightPath?: boolean;
+  heroFlightPathVariant?: HeroFlightPathVariant;
+  ctaFlightPath?: boolean;
 }) {
   const t = copy[locale];
   const fieldClasses = formFieldClasses[formFieldTone];
@@ -586,10 +725,14 @@ export function LandingPage({
 
         <div className="relative mx-auto flex w-full max-w-[1160px] flex-1 items-center px-6 py-12 md:py-14">
           <div
-            className={`grid w-full items-center gap-8 lg:gap-10 ${
+            className={`relative grid w-full items-center gap-8 lg:gap-10 ${
               compactHero ? "xl:grid-cols-[minmax(0,1fr)_420px]" : "xl:grid-cols-[minmax(0,1fr)_440px]"
             }`}
           >
+            {heroFlightPath ? (
+              <HeroQuestionFlightPath locale={locale} variant={heroFlightPathVariant} />
+            ) : null}
+
             <div className={compactHero ? "max-w-[35.5rem]" : "max-w-[37rem]"}>
               <h1 className="font-display mb-7 text-[48px] font-bold leading-[1.01] text-white sm:text-[54px] lg:text-[61.2px]">
                 <span className="block text-[#2470EB]">{t.heroLine1}</span>
@@ -916,7 +1059,10 @@ export function LandingPage({
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-[linear-gradient(180deg,#0B1326_0%,#121B33_100%)] px-6 pb-24 pt-[112.5px]">
+      <section
+        id="final-cta"
+        className="relative overflow-hidden bg-[linear-gradient(180deg,#0B1326_0%,#121B33_100%)] px-6 pb-24 pt-[112.5px]"
+      >
         <div
           className="pointer-events-none absolute left-1/2 top-1/2 h-[800px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[40px]"
           style={{
@@ -924,6 +1070,7 @@ export function LandingPage({
               "radial-gradient(ellipse, rgba(46,142,255,0.16) 0%, rgba(46,142,255,0.03) 40%, transparent 70%)",
           }}
         />
+        {ctaFlightPath ? <CtaFlightPath /> : null}
         <div className="relative mx-auto max-w-[640px] text-center">
           <h2 className="font-display mb-[18px] text-[42px] font-bold leading-[1.12] tracking-[-0.025em] text-white">
             {t.ctaTitleA}

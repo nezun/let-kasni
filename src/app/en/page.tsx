@@ -53,6 +53,9 @@ export default function EnglishPage() {
       variant="hero-compact"
       testimonialsVariant="a"
       formFieldTone="muted"
+      heroFlightPath
+      heroFlightPathVariant="with-visual"
+      ctaFlightPath
     />
   );
 }
