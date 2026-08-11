@@ -35,7 +35,7 @@ function HeroPayoutVisual({ locale, low = false }: { locale: Locale; low?: boole
           low
             ? "left-[340px] top-[690px] w-[125px] px-4 py-4"
             : locale === "en"
-              ? "left-[383px] top-[127px] w-[100px] px-3 py-3"
+              ? "left-[289px] top-[127px] w-[100px] px-3 py-3"
               : "left-[303px] top-[127px] w-[100px] px-3 py-3"
         }`}
       >
@@ -64,7 +64,7 @@ function HeroPayoutVisual({ locale, low = false }: { locale: Locale; low?: boole
           low
             ? "left-[397px] top-[718px] w-[148px] px-4 py-4"
             : locale === "en"
-              ? "left-[431px] top-[150px] w-[118px] px-3 py-3"
+              ? "left-[337px] top-[150px] w-[118px] px-3 py-3"
               : "left-[351px] top-[150px] w-[118px] px-3 py-3"
         }`}
       >
@@ -121,8 +121,10 @@ function HeroQuestionFlightPath({
       </svg>
 
       <span
-        className={`absolute top-[65px] flex h-9 w-9 items-center justify-center rounded-full border border-white/12 bg-[#0B1326]/86 shadow-[0_10px_28px_rgba(0,0,0,0.3)] backdrop-blur-sm ${
-          locale === "en" ? "left-[160px]" : "left-[439px]"
+        className={`absolute flex h-9 w-9 items-center justify-center ${
+          locale === "en"
+            ? "left-[160px] top-[85px]"
+            : "left-[439px] top-[65px] rounded-full border border-white/12 bg-[#0B1326]/86 shadow-[0_10px_28px_rgba(0,0,0,0.3)] backdrop-blur-sm"
         }`}
       >
         <Plane className="h-5 w-5 rotate-[47deg] fill-white text-white" />
@@ -157,8 +159,10 @@ function CtaFlightPath({ locale }: { locale: Locale }) {
       </svg>
 
       <span
-        className={`absolute flex h-9 w-9 items-center justify-center rounded-full border border-white/12 bg-[#0B1326]/86 shadow-[0_10px_28px_rgba(0,0,0,0.3)] backdrop-blur-sm ${
-          locale === "en" ? "top-[36px]" : "top-[84px]"
+        className={`absolute flex h-9 w-9 items-center justify-center ${
+          locale === "en"
+            ? "top-[50px]"
+            : "top-[84px] rounded-full border border-white/12 bg-[#0B1326]/86 shadow-[0_10px_28px_rgba(0,0,0,0.3)] backdrop-blur-sm"
         }`}
         style={{ left: locale === "en" ? "calc(26.4% - 18px)" : "calc(12.6% - 18px)" }}
       >
