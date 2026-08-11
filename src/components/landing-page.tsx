@@ -35,7 +35,7 @@ function HeroPayoutVisual({ locale, low = false }: { locale: Locale; low?: boole
           low
             ? "left-[340px] top-[690px] w-[125px] px-4 py-4"
             : locale === "en"
-              ? "left-[289px] top-[127px] w-[100px] px-3 py-3"
+              ? "left-[299px] top-[78px] w-[100px] px-3 py-3"
               : "left-[303px] top-[127px] w-[100px] px-3 py-3"
         }`}
       >
@@ -64,7 +64,7 @@ function HeroPayoutVisual({ locale, low = false }: { locale: Locale; low?: boole
           low
             ? "left-[397px] top-[718px] w-[148px] px-4 py-4"
             : locale === "en"
-              ? "left-[337px] top-[150px] w-[118px] px-3 py-3"
+              ? "left-[347px] top-[101px] w-[118px] px-3 py-3"
               : "left-[351px] top-[150px] w-[118px] px-3 py-3"
         }`}
       >
@@ -127,7 +127,11 @@ function HeroQuestionFlightPath({
             : "left-[439px] top-[65px] rounded-full border border-white/12 bg-[#0B1326]/86 shadow-[0_10px_28px_rgba(0,0,0,0.3)] backdrop-blur-sm"
         }`}
       >
-        <Plane className="h-5 w-5 rotate-[47deg] fill-white text-white" />
+        <Plane
+          className={`h-5 w-5 fill-white text-white ${
+            locale === "en" ? "rotate-[36deg]" : "rotate-[47deg]"
+          }`}
+        />
       </span>
 
       {variant !== "plane-only" ? (
