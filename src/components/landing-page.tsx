@@ -34,7 +34,9 @@ function HeroPayoutVisual({ locale, low = false }: { locale: Locale; low?: boole
         className={`absolute -rotate-[8deg] rounded-[11px] border border-white/14 bg-[#172444] shadow-[0_14px_36px_rgba(0,0,0,0.25)] ${
           low
             ? "left-[340px] top-[690px] w-[125px] px-4 py-4"
-            : "left-[303px] top-[127px] w-[100px] px-3 py-3"
+            : locale === "en"
+              ? "left-[383px] top-[127px] w-[100px] px-3 py-3"
+              : "left-[303px] top-[127px] w-[100px] px-3 py-3"
         }`}
       >
         <span
@@ -61,7 +63,9 @@ function HeroPayoutVisual({ locale, low = false }: { locale: Locale; low?: boole
         className={`absolute rotate-[6deg] rounded-[11px] bg-white text-[#0B1326] shadow-[0_18px_42px_rgba(0,0,0,0.3)] ${
           low
             ? "left-[397px] top-[718px] w-[148px] px-4 py-4"
-            : "left-[351px] top-[150px] w-[118px] px-3 py-3"
+            : locale === "en"
+              ? "left-[431px] top-[150px] w-[118px] px-3 py-3"
+              : "left-[351px] top-[150px] w-[118px] px-3 py-3"
         }`}
       >
         <span
@@ -116,7 +120,11 @@ function HeroQuestionFlightPath({
         />
       </svg>
 
-      <span className="absolute left-[439px] top-[65px] flex h-9 w-9 items-center justify-center rounded-full border border-white/12 bg-[#0B1326]/86 shadow-[0_10px_28px_rgba(0,0,0,0.3)] backdrop-blur-sm">
+      <span
+        className={`absolute top-[65px] flex h-9 w-9 items-center justify-center rounded-full border border-white/12 bg-[#0B1326]/86 shadow-[0_10px_28px_rgba(0,0,0,0.3)] backdrop-blur-sm ${
+          locale === "en" ? "left-[160px]" : "left-[439px]"
+        }`}
+      >
         <Plane className="h-5 w-5 rotate-[47deg] fill-white text-white" />
       </span>
 
@@ -127,7 +135,7 @@ function HeroQuestionFlightPath({
   );
 }
 
-function CtaFlightPath() {
+function CtaFlightPath({ locale }: { locale: Locale }) {
   return (
     <div
       aria-hidden="true"
@@ -149,8 +157,10 @@ function CtaFlightPath() {
       </svg>
 
       <span
-        className="absolute top-[84px] flex h-9 w-9 items-center justify-center rounded-full border border-white/12 bg-[#0B1326]/86 shadow-[0_10px_28px_rgba(0,0,0,0.3)] backdrop-blur-sm"
-        style={{ left: "calc(12.6% - 18px)" }}
+        className={`absolute flex h-9 w-9 items-center justify-center rounded-full border border-white/12 bg-[#0B1326]/86 shadow-[0_10px_28px_rgba(0,0,0,0.3)] backdrop-blur-sm ${
+          locale === "en" ? "top-[36px]" : "top-[84px]"
+        }`}
+        style={{ left: locale === "en" ? "calc(26.4% - 18px)" : "calc(12.6% - 18px)" }}
       >
         <Plane className="h-5 w-5 rotate-[24deg] fill-white text-white" />
       </span>
@@ -1070,7 +1080,7 @@ export function LandingPage({
               "radial-gradient(ellipse, rgba(46,142,255,0.16) 0%, rgba(46,142,255,0.03) 40%, transparent 70%)",
           }}
         />
-        {ctaFlightPath ? <CtaFlightPath /> : null}
+        {ctaFlightPath ? <CtaFlightPath locale={locale} /> : null}
         <div className="relative mx-auto max-w-[640px] text-center">
           <h2 className="font-display mb-[18px] text-[42px] font-bold leading-[1.12] tracking-[-0.025em] text-white">
             {t.ctaTitleA}
