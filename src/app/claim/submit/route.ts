@@ -169,7 +169,11 @@ export async function POST(request: Request) {
           ? metadata.eventSourceUrl
           : undefined,
       email: input.email,
+      firstName: input.firstName,
+      lastName: input.lastName,
       phone: input.phone,
+      externalId: claim.id,
+      locale: submission.locale,
       customData: {
         form_locale: submission.locale,
       },
