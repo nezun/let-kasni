@@ -2,8 +2,6 @@
 
 import { useEffect, useId, useRef, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
-import { LockKeyhole } from "lucide-react";
-
 import {
   getTrackingConsent,
   setTrackingConsent,
@@ -20,14 +18,13 @@ const adminConsent: TrackingConsent = {
 
 const copy = {
   sr: {
-    title: "Kolačići — Vaš izbor",
-    body: "Neophodni kolačići omogućavaju da sajt radi. Opcionu analitiku i marketing koristimo za merenje poseta i uspeha oglasa samo ako ih odobrite. Ništa od toga ne uključujemo pre Vašeg izbora.",
+    dialogLabel: "Podešavanja kolačića",
+    body: "Koristimo kolačiće kako bi naš sajt ispravno radio, kako bismo personalizovali sadržaj i oglase, omogućili funkcije društvenih mreža i analizirali naš saobraćaj.",
     privacy: "Politika privatnosti",
     terms: "Uslovi korišćenja",
-    accept: "Prihvatam",
-    essential: "Samo neophodni",
-    customize: "Podesi",
-    customizeClose: "Sakrij podešavanja",
+    accept: "Prihvati sve kolačiće",
+    settings: "Podešavanja kolačića",
+    settingsClose: "Sakrij podešavanja",
     save: "Sačuvaj izbor",
     optionsTitle: "Opciono",
     analytics: "Analitika",
@@ -36,14 +33,13 @@ const copy = {
     marketingBody: "Pomaže nam da merimo uspeh Meta oglasa.",
   },
   en: {
-    title: "Cookies — your choice",
-    body: "Essential cookies keep the site working. We use optional analytics and marketing tools to measure visits and ad performance only if you allow them. Nothing optional is enabled before you choose.",
-    privacy: "Privacy policy",
-    terms: "Terms of use",
-    accept: "Accept",
-    essential: "Essential only",
-    customize: "Customize",
-    customizeClose: "Hide settings",
+    dialogLabel: "Cookie consent",
+    body: "We use cookies to make our website work properly, to personalise content and advertisements, to provide social media features, and to analyse our traffic.",
+    privacy: "Privacy Policy",
+    terms: "Terms of Use",
+    accept: "Accept All Cookies",
+    settings: "Cookie Settings",
+    settingsClose: "Hide cookie settings",
     save: "Save choice",
     optionsTitle: "Optional tools",
     analytics: "Analytics",
@@ -56,10 +52,10 @@ const copy = {
 type ConsentSelection = Pick<TrackingConsent, "analytics" | "marketing">;
 
 export function ConsentBanner({ locale }: { locale: "sr" | "en" }) {
-  const titleId = useId();
   const descriptionId = useId();
   const settingsId = useId();
   const firstActionRef = useRef<HTMLButtonElement>(null);
+  const [rightInset, setRightInset] = useState(18);
   const [customizing, setCustomizing] = useState(false);
   const [selection, setSelection] = useState<ConsentSelection>({
     analytics: false,
@@ -81,6 +77,30 @@ export function ConsentBanner({ locale }: { locale: "sr" | "en" }) {
     () => null,
   );
   const t = copy[locale];
+  const termsHref = locale === "en" ? "/en/terms" : "/terms";
+  const privacyHref = locale === "en" ? "/en/privacy" : "/privacy";
+
+  useEffect(() => {
+    function updateBannerBounds() {
+      if (window.innerWidth < 1280) {
+        setRightInset(18);
+        return;
+      }
+
+      const form = document.querySelector<HTMLElement>("[data-claim-form='embedded']");
+      if (!form) {
+        setRightInset(18);
+        return;
+      }
+
+      const formLeft = form.getBoundingClientRect().left;
+      setRightInset(Math.max(18, window.innerWidth - formLeft + 8));
+    }
+
+    updateBannerBounds();
+    window.addEventListener("resize", updateBannerBounds);
+    return () => window.removeEventListener("resize", updateBannerBounds);
+  }, []);
 
   useEffect(() => {
     if (!consent) {
@@ -101,116 +121,110 @@ export function ConsentBanner({ locale }: { locale: "sr" | "en" }) {
   }
 
   return (
-    <aside
-      role="dialog"
-      aria-modal="false"
-      aria-labelledby={titleId}
-      aria-describedby={descriptionId}
-      className="fixed bottom-4 left-4 right-4 z-[120] max-w-sm rounded-2xl border border-slate-200 bg-white p-4 pb-[max(1rem,env(safe-area-inset-bottom))] shadow-2xl sm:right-auto"
+    <div
+      className="fixed bottom-[18px] left-[18px] z-[120] flex justify-start"
+      style={{ right: `${rightInset}px` }}
     >
-      <div className="flex items-start gap-3">
-        <LockKeyhole
-          className="mt-0.5 h-5 w-5 shrink-0 text-blue-600"
-          aria-hidden="true"
-        />
-        <div className="min-w-0 flex-1">
-          <h2 id={titleId} className="text-sm font-bold text-slate-900">
-            {t.title}
-          </h2>
-          <p id={descriptionId} className="mt-2 text-sm leading-relaxed text-slate-600">
-            {t.body}
-          </p>
+      <aside
+        role="dialog"
+        aria-modal="true"
+        aria-label={t.dialogLabel}
+        aria-describedby={descriptionId}
+        className="w-full max-w-[1920px] rounded-[24px] bg-white px-6 py-7 shadow-2xl sm:px-10 sm:py-9 lg:px-12 lg:py-10"
+      >
+        <div className="grid items-center gap-8 lg:grid-cols-[minmax(0,1.55fr)_minmax(390px,0.85fr)] lg:gap-12">
+          <div className="min-w-0">
+            <p
+              id={descriptionId}
+              className="max-w-[1120px] text-xl leading-[1.4] text-[#123575] sm:text-2xl lg:text-[29px] lg:leading-[1.45]"
+            >
+              {t.body}{" "}
+              <Link
+                href={termsHref}
+                className="text-[#1478F2] underline decoration-2 underline-offset-2"
+              >
+                {t.terms}
+              </Link>
+              <span className="px-2 text-[#1478F2]">|</span>
+              <Link
+                href={privacyHref}
+                className="text-[#1478F2] underline decoration-2 underline-offset-2"
+              >
+                {t.privacy}
+              </Link>
+            </p>
 
-          <div className="mt-4 flex gap-2">
+            {customizing ? (
+              <fieldset id={settingsId} className="mt-6 max-w-[700px] space-y-3 rounded-2xl bg-slate-50 p-4">
+                <legend className="px-1 text-sm font-bold text-slate-900">
+                  {t.optionsTitle}
+                </legend>
+                <label className="flex cursor-pointer items-start gap-3">
+                  <input
+                    type="checkbox"
+                    checked={selection.analytics}
+                    onChange={(event) =>
+                      setSelection((current) => ({
+                        ...current,
+                        analytics: event.target.checked,
+                      }))
+                    }
+                    className="mt-0.5 h-4 w-4 shrink-0 accent-blue-600"
+                  />
+                  <span className="text-sm leading-5 text-slate-700">
+                    <span className="block font-semibold text-slate-900">{t.analytics}</span>
+                    {t.analyticsBody}
+                  </span>
+                </label>
+                <label className="flex cursor-pointer items-start gap-3">
+                  <input
+                    type="checkbox"
+                    checked={selection.marketing}
+                    onChange={(event) =>
+                      setSelection((current) => ({
+                        ...current,
+                        marketing: event.target.checked,
+                      }))
+                    }
+                    className="mt-0.5 h-4 w-4 shrink-0 accent-blue-600"
+                  />
+                  <span className="text-sm leading-5 text-slate-700">
+                    <span className="block font-semibold text-slate-900">{t.marketing}</span>
+                    {t.marketingBody}
+                  </span>
+                </label>
+                <button
+                  type="button"
+                  onClick={() => saveChoice(selection)}
+                  className="min-h-11 w-full rounded-xl bg-[#1478F2] px-4 py-2.5 text-sm font-bold text-white transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                >
+                  {t.save}
+                </button>
+              </fieldset>
+            ) : null}
+          </div>
+
+          <div className="flex flex-col gap-5 lg:gap-6">
             <button
               ref={firstActionRef}
               type="button"
-              onClick={() =>
-                saveChoice({ analytics: true, marketing: true })
-              }
-              className="min-h-11 flex-1 rounded-xl bg-blue-600 px-3 py-3 text-sm font-bold text-white transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+              onClick={() => saveChoice({ analytics: true, marketing: true })}
+              className="min-h-20 rounded-2xl bg-[#1478F2] px-6 py-4 text-xl font-bold text-white transition hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-500/30 sm:text-2xl lg:text-[29px]"
             >
               {t.accept}
             </button>
             <button
               type="button"
-              onClick={() =>
-                saveChoice({ analytics: false, marketing: false })
-              }
-              className="min-h-11 flex-1 rounded-xl border border-slate-300 bg-slate-100 px-3 py-3 text-sm font-bold text-slate-900 transition hover:bg-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-            >
-              {t.essential}
-            </button>
-          </div>
-
-          <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs font-semibold">
-            <button
-              type="button"
               aria-expanded={customizing}
               aria-controls={settingsId}
               onClick={() => setCustomizing((current) => !current)}
-              className="text-blue-700 underline underline-offset-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+              className="min-h-20 rounded-2xl border-4 border-[#1478F2] bg-white px-6 py-4 text-xl font-bold text-[#1478F2] transition hover:bg-blue-50 focus:outline-none focus:ring-4 focus:ring-blue-500/30 sm:text-2xl lg:text-[29px]"
             >
-              {customizing ? t.customizeClose : t.customize}
+              {customizing ? t.settingsClose : t.settings}
             </button>
-            <Link href="/privacy" className="text-slate-500 underline underline-offset-2 hover:text-slate-700">
-              {t.privacy}
-            </Link>
-            <Link href="/terms" className="text-slate-500 underline underline-offset-2 hover:text-slate-700">
-              {t.terms}
-            </Link>
           </div>
-
-          {customizing ? (
-            <fieldset id={settingsId} className="mt-4 space-y-3 rounded-xl bg-slate-50 p-3">
-              <legend className="px-1 text-xs font-bold text-slate-900">
-                {t.optionsTitle}
-              </legend>
-              <label className="flex cursor-pointer items-start gap-3">
-                <input
-                  type="checkbox"
-                  checked={selection.analytics}
-                  onChange={(event) =>
-                    setSelection((current) => ({
-                      ...current,
-                      analytics: event.target.checked,
-                    }))
-                  }
-                  className="mt-0.5 h-4 w-4 shrink-0 accent-blue-600"
-                />
-                <span className="text-xs leading-4 text-slate-700">
-                  <span className="block font-semibold text-slate-900">{t.analytics}</span>
-                  {t.analyticsBody}
-                </span>
-              </label>
-              <label className="flex cursor-pointer items-start gap-3">
-                <input
-                  type="checkbox"
-                  checked={selection.marketing}
-                  onChange={(event) =>
-                    setSelection((current) => ({
-                      ...current,
-                      marketing: event.target.checked,
-                    }))
-                  }
-                  className="mt-0.5 h-4 w-4 shrink-0 accent-blue-600"
-                />
-                <span className="text-xs leading-4 text-slate-700">
-                  <span className="block font-semibold text-slate-900">{t.marketing}</span>
-                  {t.marketingBody}
-                </span>
-              </label>
-              <button
-                type="button"
-                onClick={() => saveChoice(selection)}
-                className="min-h-11 w-full rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-bold text-white transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-              >
-                {t.save}
-              </button>
-            </fieldset>
-          ) : null}
         </div>
-      </div>
     </aside>
+    </div>
   );
 }

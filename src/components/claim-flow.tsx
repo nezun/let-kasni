@@ -498,7 +498,7 @@ function ClaimFlow({
 
   if (step === 1) {
     content = (
-      <div className={frameClass}>
+      <div className={frameClass} data-claim-form={surface === "embedded" ? "embedded" : undefined}>
         <div className="mb-6">
           <h1 className={headingClass}>{t.stepOneTitle}</h1>
           {isFocused ? (
@@ -590,7 +590,7 @@ function ClaimFlow({
     );
   } else if (step === 2) {
     content = (
-      <div className={frameClass}>
+      <div className={frameClass} data-claim-form={surface === "embedded" ? "embedded" : undefined}>
         <div className="mb-6">
           <h1 className={headingClass}>{t.stepTwoTitle}</h1>
         </div>
@@ -720,13 +720,13 @@ function ClaimFlow({
     );
   } else if (step === "checking") {
     content = (
-      <div className={frameClass} aria-busy="true">
+      <div className={frameClass} data-claim-form={surface === "embedded" ? "embedded" : undefined} aria-busy="true">
         <FlightCheckLoader locale={locale} />
       </div>
     );
   } else {
     content = (
-      <div className={frameClass}>
+      <div className={frameClass} data-claim-form={surface === "embedded" ? "embedded" : undefined}>
         <div className="overflow-hidden rounded-[16px] border border-[#BDE6CC] bg-white">
           <div className="bg-[#EFFAF3] p-5 sm:p-7">
             <div className="flex items-center gap-3 text-[#168A4B]">
