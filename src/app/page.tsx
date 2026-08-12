@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { LandingPage } from "@/components/landing-page";
 
 export const metadata: Metadata = {
+  title: "letkasni.rs",
   alternates: {
     canonical: "/",
     languages: {
@@ -23,6 +24,7 @@ export default function Page() {
       heroFlightPath
       heroFlightPathVariant="with-visual"
       ctaFlightPath
+      heroTextColorVariant="body-and-proof-white"
     />
   );
 }
