@@ -1,5 +1,29 @@
 # letkasni.rs — Phase 1 Next.js Foundation
 
+## Canonical workspace
+
+This checkout is the canonical local production workspace. GitHub `main` is the only source of truth for deployable code.
+
+Before starting work:
+
+```bash
+npm run session:start -- --new task-name
+```
+
+Before an approved deploy:
+
+```bash
+npm run release:gate
+```
+
+After GitHub `main` deploys through Vercel:
+
+```bash
+npm run release:gate -- --production
+```
+
+Read [docs/OPERATIONS-RUNBOOK.md](docs/OPERATIONS-RUNBOOK.md) for the full session, handoff, and release process. Do not deploy from sibling folders or local browser previews.
+
 Ovaj app prati zaključani pravac iz `PLAN.autoplan.md`:
 
 - Next.js App Router foundation
@@ -45,7 +69,12 @@ npm run lint
 npm run locales:check
 npm run build
 npm run start
+npm run session:start -- --new task-name
+npm run release:gate
+npm run production:check
 ```
+
+For a final production release decision, always use `npm run release:gate -- --production`; direct `production:check` is diagnostic-only and requires an explicit commit SHA or opt-out.
 
 ## Deployment
 

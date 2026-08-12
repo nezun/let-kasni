@@ -14,6 +14,10 @@ export async function GET() {
       ok: true,
       service: "letkasni-phase1",
       timestamp: new Date().toISOString(),
+      deployment: {
+        gitCommitSha: process.env.VERCEL_GIT_COMMIT_SHA ?? null,
+        deploymentId: process.env.VERCEL_DEPLOYMENT_ID ?? null,
+      },
       checks: {
         supabaseConfigured: isSupabaseConfigured(),
         localAdminFallbackConfigured: isAdminPasswordConfigured(),
