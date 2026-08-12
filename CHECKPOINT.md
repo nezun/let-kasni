@@ -14,13 +14,13 @@ Canonical handoff file for future local and Codex Cloud sessions.
 ## Generated Status
 
 <!-- BEGIN:generated-status -->
-Generated at: `2026-08-12T22:35:42.986Z`
+Generated at: `2026-08-12T23:11:56.339Z`
 
 Branch: `main`
 
 Remote: `https://github.com/nezun/let-kasni.git`
 
-Latest local commit: `5073ce2 fix: make consent cookie the only runtime authority (#17)`
+Latest local commit: `dc21baf fix(qa): add English legal pages (#19)`
 
 Worktree status:
 
@@ -51,6 +51,7 @@ Useful commands:
 - GitHub `main` is the only source of truth for deployable code.
 - Production URL: `https://letkasni.rs`.
 - Deploy target: Vercel.
+- Production currently serves GitHub `main` commit `dc21baf` after the 2026-08-13 total independent QA release.
 - The final approved bilingual landing and claim flow is on GitHub `main` from production commit `be1c24a` or its descendants.
 - Historical sibling folders are non-canonical and must not be used for deploys.
 - Production now implements the screenshot-matched bilingual consent banner with separate Analytics and Marketing choices, Terms of Use and Privacy Policy links, and a footer privacy-settings reset path.
@@ -58,7 +59,7 @@ Useful commands:
 - Meta Pixel, browser Meta events, analytics events, and server-side Meta Lead delivery are now gated by the matching consent category.
 - Server-side Meta Lead now forwards `_fbp`/`_fbc` when present, builds an `fbc` fallback from same-origin `fbclid`, forwards the first `x-forwarded-for` IP, and sends hashed first name, last name, country, and claim ID as `external_id`; phone remains unchanged and optional.
 - Consent now uses a 12-month `lk_consent` cookie as the server CAPI authority. A blocking head bootstrap hides the banner before first paint for valid cookie consent and migrates legacy localStorage consent only when no valid cookie exists; cookie path is `/`, `SameSite=Lax`, `Secure`, and not `HttpOnly` so privacy settings can clear it.
-- Local independent browser QA passed for SR, EN, mobile, granular selection, withdrawal, `/privacy`, and `/terms`; report is in `.gstack/qa-reports/qa-report-letkasni-rs-2026-08-12.md`.
+- Total independent production QA passed for SR, EN, mobile, consent gating, GA4, Meta Pixel loading, claim-flow transitions, public links, and legal routes; report is in `.gstack/qa-reports/qa-report-letkasni-rs-2026-08-13.md`.
 
 ## Guardrails
 
@@ -78,6 +79,7 @@ Useful commands:
 - Confirm whether campaign traffic will use canonical `letkasni.rs` or a separate `leadcast.rs` host before domain verification and release.
 - After Meta Test Events and privacy/consent review pass, run `npm run release:gate` and deploy only with explicit release authorization.
 - Complete a real Meta Test Events submission with disposable data and verify the new `fbc`, `fbp`, IP, name, country, and `external_id` fields in Events Manager.
+- Configure durable Supabase persistence in Vercel production and rerun the production gate with `REQUIRE_SUPABASE=1`.
 - The root layout still reads the existing `x-site-locale` request header for the `<html lang>` attribute; the consent change deliberately adds no `cookies()` read to the layout. A separate locale-layout refactor would be needed if static ISR output is required.
 - Use this canonical workflow for every future LetKasni task and deploy.
 - Audit the legacy dirty folders in a separate task without resetting or deleting their local work.
@@ -96,10 +98,10 @@ Useful commands:
 - Phone matching remains intentionally unchanged and optional; this task did not add a phone requirement or alter phone collection.
 - `leadcast.rs` could not be resolved from the current environment and is not the canonical production domain in this checkout; do not silently switch domains.
 - Privacy/cookie consent and final Meta data-processing terms require business/legal review before enabling production tracking.
-- The implementation does not claim full GDPR compliance. Final legal review remains required, and the English legal pages have not been independently translated.
+- The implementation does not claim full GDPR compliance. Final legal review remains required; the English legal pages were added and browser-verified in the 2026-08-13 QA release, but legal review remains manual.
 - Explicit authorization before transmitting the local Supabase service-role credential to Vercel.
 - Business/legal review for claim, fee, eligibility, payout, and regulator workflow assumptions.
-- Final browser verification after deployment must cover first visit, return visit with cookie, one-time localStorage migration, and footer privacy-settings reset.
+- Final browser verification after the 2026-08-13 deployment covered first visit, consented return visit, GA4/Meta loading, mobile navigation, and footer legal links. A controlled real-lead CAPI check remains manual.
 - A separate audit decision for preserving, committing, or archiving changes in legacy dirty folders.
 
 ## Verification Log
@@ -110,6 +112,7 @@ Useful commands:
 - `npm run release:gate -- --production`: verifies the live deployment commit, both locales, health, Step 2 routes, and safe submit validation.
 - `npm run production:check`: diagnostic primitive used by the production gate; do not use it alone for a release decision.
 - Production releases still require an agent-driven SR/EN browser interaction pass; the HTTP smoke check cannot prove hydration or client-side transitions.
+- 2026-08-13 total independent QA: `npm run verify`, `npm run release:gate -- --production`, production public-link audit (294 sitemap pages / 328 linked URLs), SR/EN desktop and 375px mobile browser pass, legal-link regression fix, consent gating pass, and GA4 collection confirmed HTTP 204.
 - `npm run verify`: passed on `codex/meta-tracking`, including `npm run meta:check`, content QA, locale checks, lint, and production build.
 - Consent redesign validation: `npm run lint`, `npm run meta:check`, `npm run build`, and independent local browser QA passed on `codex/consent-banner-redesign`; production deploy was intentionally not performed.
 - Cookie banner reference validation: `npm run verify`, local SR/EN browser QA, desktop 8px form gap check, settings interaction check, and `npm run release:gate -- --production` passed on production commit `be1c24a`.
