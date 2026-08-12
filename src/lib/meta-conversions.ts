@@ -11,7 +11,11 @@ interface MetaLeadEventInput {
   eventId?: string;
   eventSourceUrl?: string;
   email?: string;
+  firstName?: string;
+  lastName?: string;
   phone?: string;
+  externalId?: string;
+  locale?: "sr" | "en";
   customData?: Record<string, string | number | boolean>;
 }
 
@@ -20,6 +24,19 @@ function hash(value: string) {
 }
 
 function normalizeEmail(value: string) {
+  return value.trim().toLowerCase();
+}
+
+function normalizeName(value: string) {
+  return value
+    .trim()
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/\p{Diacritic}/gu, "")
+    .replace(/\s+/g, " ");
+}
+
+function normalizeCountry(value: string) {
   return value.trim().toLowerCase();
 }
 
@@ -47,6 +64,46 @@ function getCookie(request: Request, name: string) {
 function getClientIp(request: Request) {
   const forwarded = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim();
   return forwarded || request.headers.get("x-real-ip") || undefined;
+}
+
+function getCountryCode(request: Request, locale?: "sr" | "en") {
+  const geoCountry =
+    request.headers.get("x-vercel-ip-country") ??
+    request.headers.get("cf-ipcountry");
+
+  if (geoCountry && /^[a-z]{2}$/i.test(geoCountry.trim())) {
+    return normalizeCountry(geoCountry);
+  }
+
+  // The Serbian locale is an honest product-level fallback. Do not label
+  // English-language visitors as Serbian without a geo signal.
+  return locale === "sr" ? "rs" : undefined;
+}
+
+function getFbcFromUrl(request: Request, candidate?: string) {
+  const requestOrigin = new URL(request.url).origin;
+
+  for (const value of [candidate, request.headers.get("referer"), request.url]) {
+    if (!value) {
+      continue;
+    }
+
+    try {
+      const parsed = new URL(value, requestOrigin);
+      if (parsed.origin !== requestOrigin) {
+        continue;
+      }
+
+      const fbclid = parsed.searchParams.get("fbclid")?.trim();
+      if (fbclid && fbclid.length <= 500) {
+        return `fb.1.${Date.now()}.${fbclid}`;
+      }
+    } catch {
+      // Ignore invalid URLs and continue to the next request signal.
+    }
+  }
+
+  return undefined;
 }
 
 function getEventSourceUrl(request: Request, candidate?: string) {
@@ -94,17 +151,36 @@ export async function sendMetaLeadEvent(
   if (input.email) {
     userData.em = [hash(normalizeEmail(input.email))];
   }
+  if (input.firstName) {
+    const normalizedFirstName = normalizeName(input.firstName);
+    if (normalizedFirstName) {
+      userData.fn = [hash(normalizedFirstName)];
+    }
+  }
+  if (input.lastName) {
+    const normalizedLastName = normalizeName(input.lastName);
+    if (normalizedLastName) {
+      userData.ln = [hash(normalizedLastName)];
+    }
+  }
   if (input.phone) {
     const normalizedPhone = normalizePhone(input.phone);
     if (normalizedPhone) {
       userData.ph = [hash(normalizedPhone)];
     }
   }
+  if (input.externalId) {
+    const normalizedExternalId = input.externalId.trim().toLowerCase();
+    if (normalizedExternalId) {
+      userData.external_id = [hash(normalizedExternalId)];
+    }
+  }
 
   const clientIp = getClientIp(request);
   const userAgent = request.headers.get("user-agent");
   const fbp = getCookie(request, "_fbp");
-  const fbc = getCookie(request, "_fbc");
+  const fbc = getCookie(request, "_fbc") ?? getFbcFromUrl(request, input.eventSourceUrl);
+  const country = getCountryCode(request, input.locale);
 
   if (clientIp) {
     userData.client_ip_address = clientIp;
@@ -117,6 +193,9 @@ export async function sendMetaLeadEvent(
   }
   if (fbc) {
     userData.fbc = fbc;
+  }
+  if (country) {
+    userData.country = [hash(normalizeCountry(country))];
   }
 
   const event = {

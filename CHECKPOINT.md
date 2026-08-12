@@ -14,19 +14,21 @@ Canonical handoff file for future local and Codex Cloud sessions.
 ## Generated Status
 
 <!-- BEGIN:generated-status -->
-Generated at: `2026-08-12T21:45:10.782Z`
+Generated at: `2026-08-12T21:58:34.027Z`
 
-Branch: `codex/consent-banner-compact`
+Branch: `codex/capi-quality-matching`
 
 Remote: `https://github.com/nezun/let-kasni.git`
 
-Latest local commit: `be1c24a feat: match cookie banner reference layout`
+Latest local commit: `91f7201 fix: make cookie banner discreet (#13)`
 
 Worktree status:
 
 ```text
-M CHECKPOINT.md
- M src/components/consent-banner.tsx
+M docs/META-ADS-TRACKING.md
+ M scripts/meta-tracking-check.mjs
+ M src/app/claim/submit/route.ts
+ M src/lib/meta-conversions.ts
 ```
 
 Useful commands:
@@ -57,6 +59,7 @@ Useful commands:
 - Production now implements the screenshot-matched bilingual consent banner with separate Analytics and Marketing choices, Terms of Use and Privacy Policy links, and a footer privacy-settings reset path.
 - On desktop, the banner measures its right edge against the embedded claim form and leaves an 8px gap before the form begins; on smaller screens it uses the full available width.
 - Meta Pixel, browser Meta events, analytics events, and server-side Meta Lead delivery are now gated by the matching consent category.
+- Server-side Meta Lead now forwards `_fbp`/`_fbc` when present, builds an `fbc` fallback from same-origin `fbclid`, forwards the first `x-forwarded-for` IP, and sends hashed first name, last name, country, and claim ID as `external_id`; phone remains unchanged and optional.
 - Local independent browser QA passed for SR, EN, mobile, granular selection, withdrawal, `/privacy`, and `/terms`; report is in `.gstack/qa-reports/qa-report-letkasni-rs-2026-08-12.md`.
 
 ## Guardrails
@@ -76,6 +79,7 @@ Useful commands:
 - Add the real Meta Pixel ID and Conversions API token in Vercel Production, then run the Test Events flow from `docs/META-ADS-TRACKING.md`.
 - Confirm whether campaign traffic will use canonical `letkasni.rs` or a separate `leadcast.rs` host before domain verification and release.
 - After Meta Test Events and privacy/consent review pass, run `npm run release:gate` and deploy only with explicit release authorization.
+- Complete a real Meta Test Events submission with disposable data and verify the new `fbc`, `fbp`, IP, name, country, and `external_id` fields in Events Manager.
 - Use this canonical workflow for every future LetKasni task and deploy.
 - Audit the legacy dirty folders in a separate task without resetting or deleting their local work.
 - With explicit authorization, add the existing Supabase service-role credential to Vercel production and verify durable claim persistence with `REQUIRE_SUPABASE=1 npm run production:check`.
@@ -90,6 +94,7 @@ Useful commands:
 ## Manual Work Still Needed
 
 - Meta Business setup is still manual: Pixel/Dataset, domain verification, `Lead` event prioritization, Pixel ID, and server access token.
+- Phone matching remains intentionally unchanged and optional; this task did not add a phone requirement or alter phone collection.
 - `leadcast.rs` could not be resolved from the current environment and is not the canonical production domain in this checkout; do not silently switch domains.
 - Privacy/cookie consent and final Meta data-processing terms require business/legal review before enabling production tracking.
 - The implementation does not claim full GDPR compliance. Final legal review remains required, and the English legal pages have not been independently translated.
@@ -109,6 +114,7 @@ Useful commands:
 - Consent redesign validation: `npm run lint`, `npm run meta:check`, `npm run build`, and independent local browser QA passed on `codex/consent-banner-redesign`; production deploy was intentionally not performed.
 - Cookie banner reference validation: `npm run verify`, local SR/EN browser QA, desktop 8px form gap check, settings interaction check, and `npm run release:gate -- --production` passed on production commit `be1c24a`.
 - Local smoke test: `/` and `/en` rendered with the Meta Pixel component when a dummy Pixel ID was supplied; honeypot submit returned success without a Meta token and no external CAPI request was attempted.
+- CAPI quality matching patch: `npm run meta:check`, `npm run lint`, `npm run build`, and `npm run verify` passed on `codex/capi-quality-matching`; no real Meta payload was sent because production Meta credentials are not configured in this checkout.
 - Add latest successful `npm run lint`, `npm run build`, `npm run verify`, deploy URL, and known failures here after each substantial session.
 
 ## Paste-Ready Prompt

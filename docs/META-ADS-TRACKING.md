@@ -10,6 +10,12 @@ ne učitava se Meta skripta i server ne šalje događaje.
 - `InitiateCheckout` kada korisnik započne proveru leta
 - `Lead` tek kada server uspešno primi novi zahtev
 
+Server-side `Lead` šalje, kada postoje i kada je marketing consent odobren:
+hashovani email, ime i prezime, country signal, hashovani `external_id` iz ID-ja
+predmeta, `fbp`, `fbc`, IP adresu i user-agent. `fbc` se čita iz `_fbc` cookie-ja,
+uz bezbedan fallback iz `fbclid` parametra na istom domenu. Telefon ostaje
+opcion i nije deo ove implementacione izmene.
+
 `Lead` se šalje dvaput, iz browsera i servera, ali sa istim `event_id`. To je
 namerno, jer Pixel pokriva browser signal, a Conversions API pokriva gubitak signala
 i server potvrdu. Meta ih treba spojiti u jedan događaj.
