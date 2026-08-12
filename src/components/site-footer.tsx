@@ -67,7 +67,6 @@ const footerCopy = {
       "Specijalizovana lokalna usluga za zaštitu prava putnika u avio-saobraćaju i naplatu zakonom propisane odštete.",
     rightsTitle: "Prava putnika",
     companyTitle: "Kompanija",
-    navHow: "Kako radi",
     terms: "Uslovi korišćenja",
     privacy: "Politika privatnosti",
     privacySettings: "Podešavanja privatnosti",
@@ -83,7 +82,6 @@ const footerCopy = {
       "Local, English-speaking support for passenger compensation claims involving flights to and from Serbia.",
     rightsTitle: "Know your rights",
     companyTitle: "Our company",
-    navHow: "How it works",
     terms: "Terms of use",
     privacy: "Privacy policy",
     privacySettings: "Privacy settings",
@@ -417,24 +415,18 @@ export function SiteFooter({
               </div>
               <nav className="flex flex-col gap-[10px]" aria-label={t.companyTitle}>
                 <Link
-                  href="/privacy"
-                  className="w-fit text-sm leading-[1.45] text-[#8E9BB0] transition hover:text-[#C7D0DE]"
-                >
-                  {t.privacy}
-                </Link>
-                <Link
-                  href="/terms"
+                  href={locale === "en" ? "/en/terms" : "/terms"}
                   className="w-fit text-sm leading-[1.45] text-[#8E9BB0] transition hover:text-[#C7D0DE]"
                 >
                   {t.terms}
                 </Link>
-                <PrivacySettingsButton label={t.privacySettings} />
                 <Link
-                  href={`${t.homeHref}#kako-radi`}
+                  href={locale === "en" ? "/en/privacy" : "/privacy"}
                   className="w-fit text-sm leading-[1.45] text-[#8E9BB0] transition hover:text-[#C7D0DE]"
                 >
-                  {t.navHow}
+                  {t.privacy}
                 </Link>
+                <PrivacySettingsButton label={t.privacySettings} />
               </nav>
 
               <ContactBlock
