@@ -14,31 +14,19 @@ Canonical handoff file for future local and Codex Cloud sessions.
 ## Generated Status
 
 <!-- BEGIN:generated-status -->
-Generated at: `2026-08-12T20:50:25.307Z`
+Generated at: `2026-08-12T21:45:10.782Z`
 
-Branch: `codex/consent-banner-redesign`
+Branch: `codex/consent-banner-compact`
 
 Remote: `https://github.com/nezun/let-kasni.git`
 
-Latest local commit: `44e7f5c fix: harden consent and lead tracking`
+Latest local commit: `be1c24a feat: match cookie banner reference layout`
 
 Worktree status:
 
 ```text
-M scripts/meta-tracking-check.mjs
- M src/app/claim/submit/route.ts
- M src/app/privacy/page.tsx
- M src/components/analytics.tsx
- M src/components/claim-flow.tsx
- M src/components/claim-intake-form.tsx
- M src/components/claim-modal.tsx
+M CHECKPOINT.md
  M src/components/consent-banner.tsx
- M src/components/meta-pixel.tsx
- M src/components/site-footer.tsx
- M src/lib/analytics.ts
- M src/lib/consent.ts
- M src/lib/meta.ts
-?? src/components/privacy-settings-button.tsx
 ```
 
 Useful commands:
@@ -64,9 +52,10 @@ Useful commands:
 - GitHub `main` is the only source of truth for deployable code.
 - Production URL: `https://letkasni.rs`.
 - Deploy target: Vercel.
-- The final approved bilingual landing and claim flow is on GitHub `main` from production commit `41f99a1` or its descendants.
+- The final approved bilingual landing and claim flow is on GitHub `main` from production commit `be1c24a` or its descendants.
 - Historical sibling folders are non-canonical and must not be used for deploys.
-- Current feature branch implements the consent banner redesign with separate Analytics and Marketing choices, storage compatibility for legacy consent strings, and a footer privacy-settings reset path.
+- Production now implements the screenshot-matched bilingual consent banner with separate Analytics and Marketing choices, Terms of Use and Privacy Policy links, and a footer privacy-settings reset path.
+- On desktop, the banner measures its right edge against the embedded claim form and leaves an 8px gap before the form begins; on smaller screens it uses the full available width.
 - Meta Pixel, browser Meta events, analytics events, and server-side Meta Lead delivery are now gated by the matching consent category.
 - Local independent browser QA passed for SR, EN, mobile, granular selection, withdrawal, `/privacy`, and `/terms`; report is in `.gstack/qa-reports/qa-report-letkasni-rs-2026-08-12.md`.
 
@@ -86,7 +75,7 @@ Useful commands:
 
 - Add the real Meta Pixel ID and Conversions API token in Vercel Production, then run the Test Events flow from `docs/META-ADS-TRACKING.md`.
 - Confirm whether campaign traffic will use canonical `letkasni.rs` or a separate `leadcast.rs` host before domain verification and release.
-- After Meta Test Events and privacy/consent review pass, run `npm run release:gate` and deploy only with explicit release authorization. This branch has not been deployed.
+- After Meta Test Events and privacy/consent review pass, run `npm run release:gate` and deploy only with explicit release authorization.
 - Use this canonical workflow for every future LetKasni task and deploy.
 - Audit the legacy dirty folders in a separate task without resetting or deleting their local work.
 - With explicit authorization, add the existing Supabase service-role credential to Vercel production and verify durable claim persistence with `REQUIRE_SUPABASE=1 npm run production:check`.
@@ -118,6 +107,7 @@ Useful commands:
 - Production releases still require an agent-driven SR/EN browser interaction pass; the HTTP smoke check cannot prove hydration or client-side transitions.
 - `npm run verify`: passed on `codex/meta-tracking`, including `npm run meta:check`, content QA, locale checks, lint, and production build.
 - Consent redesign validation: `npm run lint`, `npm run meta:check`, `npm run build`, and independent local browser QA passed on `codex/consent-banner-redesign`; production deploy was intentionally not performed.
+- Cookie banner reference validation: `npm run verify`, local SR/EN browser QA, desktop 8px form gap check, settings interaction check, and `npm run release:gate -- --production` passed on production commit `be1c24a`.
 - Local smoke test: `/` and `/en` rendered with the Meta Pixel component when a dummy Pixel ID was supplied; honeypot submit returned success without a Meta token and no external CAPI request was attempted.
 - Add latest successful `npm run lint`, `npm run build`, `npm run verify`, deploy URL, and known failures here after each substantial session.
 
