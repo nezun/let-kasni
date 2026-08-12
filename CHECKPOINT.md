@@ -14,18 +14,25 @@ Canonical handoff file for future local and Codex Cloud sessions.
 ## Generated Status
 
 <!-- BEGIN:generated-status -->
-Generated at: `2026-08-12T22:02:33.238Z`
+Generated at: `2026-08-12T22:23:10.875Z`
 
-Branch: `main`
+Branch: `codex/consent-cookie-gating`
 
 Remote: `https://github.com/nezun/let-kasni.git`
 
-Latest local commit: `d4df1fa feat: improve Meta lead matching signals (#14)`
+Latest local commit: `5499382 chore: refresh checkpoint (#15)`
 
 Worktree status:
 
 ```text
-clean
+M docs/META-ADS-TRACKING.md
+ M scripts/meta-tracking-check.mjs
+ M src/app/claim/submit/route.ts
+ M src/app/globals.css
+ M src/app/layout.tsx
+ M src/components/consent-banner.tsx
+ M src/lib/consent.ts
+?? src/lib/consent-cookie.ts
 ```
 
 Useful commands:
@@ -57,6 +64,7 @@ Useful commands:
 - On desktop, the banner measures its right edge against the embedded claim form and leaves an 8px gap before the form begins; on smaller screens it uses the full available width.
 - Meta Pixel, browser Meta events, analytics events, and server-side Meta Lead delivery are now gated by the matching consent category.
 - Server-side Meta Lead now forwards `_fbp`/`_fbc` when present, builds an `fbc` fallback from same-origin `fbclid`, forwards the first `x-forwarded-for` IP, and sends hashed first name, last name, country, and claim ID as `external_id`; phone remains unchanged and optional.
+- Consent now uses a 12-month `lk_consent` cookie as the server CAPI authority. A blocking head bootstrap hides the banner before first paint for valid cookie consent and migrates legacy localStorage consent only when no valid cookie exists; cookie path is `/`, `SameSite=Lax`, `Secure`, and not `HttpOnly` so privacy settings can clear it.
 - Local independent browser QA passed for SR, EN, mobile, granular selection, withdrawal, `/privacy`, and `/terms`; report is in `.gstack/qa-reports/qa-report-letkasni-rs-2026-08-12.md`.
 
 ## Guardrails
@@ -77,6 +85,7 @@ Useful commands:
 - Confirm whether campaign traffic will use canonical `letkasni.rs` or a separate `leadcast.rs` host before domain verification and release.
 - After Meta Test Events and privacy/consent review pass, run `npm run release:gate` and deploy only with explicit release authorization.
 - Complete a real Meta Test Events submission with disposable data and verify the new `fbc`, `fbp`, IP, name, country, and `external_id` fields in Events Manager.
+- The root layout still reads the existing `x-site-locale` request header for the `<html lang>` attribute; the consent change deliberately adds no `cookies()` read to the layout. A separate locale-layout refactor would be needed if static ISR output is required.
 - Use this canonical workflow for every future LetKasni task and deploy.
 - Audit the legacy dirty folders in a separate task without resetting or deleting their local work.
 - With explicit authorization, add the existing Supabase service-role credential to Vercel production and verify durable claim persistence with `REQUIRE_SUPABASE=1 npm run production:check`.
@@ -97,6 +106,7 @@ Useful commands:
 - The implementation does not claim full GDPR compliance. Final legal review remains required, and the English legal pages have not been independently translated.
 - Explicit authorization before transmitting the local Supabase service-role credential to Vercel.
 - Business/legal review for claim, fee, eligibility, payout, and regulator workflow assumptions.
+- Final browser verification after deployment must cover first visit, return visit with cookie, one-time localStorage migration, and footer privacy-settings reset.
 - A separate audit decision for preserving, committing, or archiving changes in legacy dirty folders.
 
 ## Verification Log
@@ -112,6 +122,7 @@ Useful commands:
 - Cookie banner reference validation: `npm run verify`, local SR/EN browser QA, desktop 8px form gap check, settings interaction check, and `npm run release:gate -- --production` passed on production commit `be1c24a`.
 - Local smoke test: `/` and `/en` rendered with the Meta Pixel component when a dummy Pixel ID was supplied; honeypot submit returned success without a Meta token and no external CAPI request was attempted.
 - CAPI quality matching patch: `npm run meta:check`, `npm run lint`, `npm run build`, and `npm run verify` passed on `codex/capi-quality-matching`; no real Meta payload was sent because production Meta credentials are not configured in this checkout.
+- Consent cookie gating validation: local fresh visit showed the banner, acceptance wrote `lk_consent` with `Path=/`, return reload showed no banner, localStorage-only migration wrote the cookie before hydration, footer privacy settings removed the cookie and restored the banner, and no browser console errors were observed.
 - Add latest successful `npm run lint`, `npm run build`, `npm run verify`, deploy URL, and known failures here after each substantial session.
 
 ## Paste-Ready Prompt

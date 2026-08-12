@@ -51,7 +51,9 @@ const copy = {
 
 type ConsentSelection = Pick<TrackingConsent, "analytics" | "marketing">;
 
-export function ConsentBanner({ locale }: { locale: "sr" | "en" }) {
+export function ConsentBanner({
+  locale,
+}: { locale: "sr" | "en" }) {
   const descriptionId = useId();
   const settingsId = useId();
   const firstActionRef = useRef<HTMLButtonElement>(null);
@@ -122,7 +124,8 @@ export function ConsentBanner({ locale }: { locale: "sr" | "en" }) {
 
   return (
     <div
-      className="fixed bottom-[18px] left-[18px] z-[120] flex justify-start"
+      data-consent-banner
+      className="consent-banner fixed bottom-[18px] left-[18px] z-[120] flex justify-start"
       style={{ right: `${rightInset}px` }}
     >
       <aside

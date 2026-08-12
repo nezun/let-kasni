@@ -16,6 +16,13 @@ predmeta, `fbp`, `fbc`, IP adresu i user-agent. `fbc` se čita iz `_fbc` cookie-
 uz bezbedan fallback iz `fbclid` parametra na istom domenu. Telefon ostaje
 opcion i nije deo ove implementacione izmene.
 
+Consent je upisan u `lk_consent` cookie na 12 meseci (`SameSite=Lax`, `Secure`,
+bez `HttpOnly` atributa kako bi podešavanja privatnosti mogla da ga promene).
+Server ga čita direktno za CAPI odluku. `localStorage` ostaje kao kompatibilni
+lokalni zapis i ogledalo, ali nikada nije autoritet za odluku o slanju. Blocking
+head bootstrap pre prvog bojenja proverava validan cookie, a postojeće korisnike
+bez cookie-ja jednokratno migrira iz localStorage-a.
+
 `Lead` se šalje dvaput, iz browsera i servera, ali sa istim `event_id`. To je
 namerno, jer Pixel pokriva browser signal, a Conversions API pokriva gubitak signala
 i server potvrdu. Meta ih treba spojiti u jedan događaj.
