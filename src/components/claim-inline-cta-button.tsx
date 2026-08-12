@@ -5,6 +5,7 @@ import type { ReactNode } from "react";
 import { useState } from "react";
 
 import { trackEvent } from "@/lib/analytics";
+import { getMetaEventId, trackMetaEvent } from "@/lib/meta";
 
 type Locale = "sr" | "en";
 
@@ -32,6 +33,15 @@ export function ClaimInlineCtaButton({
       event_label: eventLabel,
       form_locale: locale,
     });
+    trackMetaEvent(
+      "InitiateCheckout",
+      {
+        content_name: "flight_compensation_claim",
+        content_category: "claim",
+        form_locale: locale,
+      },
+      getMetaEventId(),
+    );
     setIsClaimModalOpen(true);
   }
 

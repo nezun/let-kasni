@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { createOrReuseClaim } from "@/lib/claims";
+import { isValidEmail } from "@/lib/email-validation";
 import { sendAdminClaimNotification, sendUserClaimConfirmation } from "@/lib/notifications";
 import { isRateLimited } from "@/lib/rate-limit";
 import { sendMetaLeadEvent } from "@/lib/meta-conversions";
@@ -70,7 +71,9 @@ function validateInput(body: unknown): ValidatedSubmission | null {
     !normalized.flightNumber ||
     !normalized.flightDate ||
     !normalized.route ||
-    !normalized.email
+    !normalized.email ||
+    !isValidEmail(normalized.email) ||
+    data.privacyConsent !== true
   ) {
     return null;
   }
@@ -145,7 +148,7 @@ export async function POST(request: Request) {
   const providerSnapshot = claim.providerSnapshot;
 
   if (!reused) {
-    await sendMetaLeadEvent(request, {
+    const metaResult = await sendMetaLeadEvent(request, {
       eventId:
         typeof metadata.metaEventId === "string" ? metadata.metaEventId : undefined,
       eventSourceUrl:
@@ -158,6 +161,18 @@ export async function POST(request: Request) {
         form_locale: submission.locale,
       },
     });
+    console.info(
+      "Meta Lead CAPI delivery.",
+      JSON.stringify({
+        claimId: claim.id,
+        eventId:
+          typeof metadata.metaEventId === "string"
+            ? metadata.metaEventId
+            : undefined,
+        sent: metaResult.sent,
+        reason: "reason" in metaResult ? metaResult.reason : undefined,
+      }),
+    );
   }
 
   console.info(

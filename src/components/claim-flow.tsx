@@ -20,6 +20,7 @@ import {
 import { BrandLogo } from "@/components/brand-logo";
 import { AirportCombobox } from "@/components/airport-combobox";
 import { trackEvent } from "@/lib/analytics";
+import { isValidEmail } from "@/lib/email-validation";
 import { getMetaEventId, trackMetaEvent } from "@/lib/meta";
 
 export type HeroFormVariant = "focused" | "embedded";
@@ -102,6 +103,8 @@ const flowCopy = {
     submitting: "Šaljemo...",
     submitError: "Slanje nije uspelo. Proverite podatke i pokušajte ponovo.",
     freeCheck: "Besplatna provera",
+    consent: "Saglasan/na sam da LetKasni obradi ove podatke radi prijema i provere zahteva.",
+    privacyLink: "Politika privatnosti",
   },
   en: {
     progress: ["What happened", "Flight details", "Result"],
@@ -159,6 +162,8 @@ const flowCopy = {
     submitting: "Sending...",
     submitError: "We could not send your details. Check them and try again.",
     freeCheck: "Free check",
+    consent: "I agree that LetKasni may process these details to receive and review my claim.",
+    privacyLink: "Privacy policy",
   },
 } as const;
 
@@ -368,6 +373,7 @@ function ContactField({
           onChange={(event) => onChange(event.target.value)}
           placeholder={placeholder}
           autoComplete={autoComplete}
+          name={autoComplete}
           className={`${inputClass} pl-12`}
         />
       </span>
@@ -433,6 +439,7 @@ function ClaimFlow({
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [privacyConsent, setPrivacyConsent] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
@@ -449,7 +456,8 @@ function ClaimFlow({
   const contactReady = Boolean(
     firstName.trim().length >= 2 &&
       lastName.trim().length >= 2 &&
-      /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim()),
+      isValidEmail(email) &&
+      privacyConsent,
   );
 
   useEffect(() => {
@@ -772,6 +780,7 @@ function ClaimFlow({
                   formStartedAt: String(formStartedAt),
                   manualReviewOnly: true,
                   locale,
+                  privacyConsent,
                   metaEventId,
                   eventSourceUrl: window.location.href,
                 }),
@@ -852,6 +861,26 @@ function ClaimFlow({
               icon={Phone}
             />
           </div>
+
+          <label className="mt-4 flex items-start gap-3 text-xs leading-5 text-[#64748B]">
+            <input
+              type="checkbox"
+              checked={privacyConsent}
+              onChange={(event) => setPrivacyConsent(event.target.checked)}
+              className="mt-1 h-4 w-4 shrink-0 accent-[#2470EB]"
+            />
+            <span>
+              {t.consent}{" "}
+              <a
+                href={locale === "en" ? "/en/privacy" : "/privacy"}
+                target="_blank"
+                rel="noreferrer"
+                className="font-semibold text-[#2470EB] underline"
+              >
+                {t.privacyLink}
+              </a>
+            </span>
+          </label>
 
           <button
             type="submit"

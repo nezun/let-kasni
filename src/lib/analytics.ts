@@ -1,5 +1,7 @@
 "use client";
 
+import { hasTrackingConsent } from "@/lib/consent";
+
 declare global {
   interface Window {
     dataLayer?: unknown[];
@@ -8,7 +10,11 @@ declare global {
 }
 
 export function trackPageView(url: string) {
-  if (typeof window === "undefined" || typeof window.gtag !== "function") {
+  if (
+    typeof window === "undefined" ||
+    !hasTrackingConsent() ||
+    typeof window.gtag !== "function"
+  ) {
     return;
   }
 
@@ -20,7 +26,11 @@ export function trackPageView(url: string) {
 }
 
 export function trackEvent(eventName: string, params?: Record<string, unknown>) {
-  if (typeof window === "undefined" || typeof window.gtag !== "function") {
+  if (
+    typeof window === "undefined" ||
+    !hasTrackingConsent() ||
+    typeof window.gtag !== "function"
+  ) {
     return;
   }
 

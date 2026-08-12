@@ -128,7 +128,7 @@ export async function sendMetaLeadEvent(
     user_data: userData,
     custom_data: {
       content_name: "flight_compensation_claim",
-      content_category: "lead",
+      content_category: "claim",
       ...input.customData,
     },
   };

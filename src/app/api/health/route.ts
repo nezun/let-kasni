@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 
 import {
   getAnalyticsMode,
+  getMetaConversionsApiToken,
+  getMetaPixelId,
   getSupportEmail,
   isAdminPasswordConfigured,
   isSupabaseConfigured,
@@ -23,6 +25,7 @@ export async function GET() {
         localAdminFallbackConfigured: isAdminPasswordConfigured(),
         flightProviderMode: getFlightProviderMode() ?? "off",
         analyticsMode: getAnalyticsMode() ?? "off",
+        metaCapiConfigured: Boolean(getMetaPixelId() && getMetaConversionsApiToken()),
         supportEmail: getSupportEmail(),
       },
     },

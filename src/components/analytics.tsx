@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import Script from "next/script";
 
 import { trackPageView } from "@/lib/analytics";
+import { getTrackingConsent, trackingConsentEvent } from "@/lib/consent";
 import { getAnalyticsMode, getGoogleAnalyticsId, getPlausibleDomain } from "@/lib/env";
 
 export function Analytics() {
@@ -12,9 +13,17 @@ export function Analytics() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const skippedInitialPageView = useRef(false);
+  const [hasConsent, setHasConsent] = useState(false);
 
   useEffect(() => {
-    if (mode !== "ga4" || !pathname) {
+    const syncConsent = () => setHasConsent(getTrackingConsent() === "granted");
+    syncConsent();
+    window.addEventListener(trackingConsentEvent, syncConsent);
+    return () => window.removeEventListener(trackingConsentEvent, syncConsent);
+  }, []);
+
+  useEffect(() => {
+    if (mode !== "ga4" || !pathname || !hasConsent) {
       return;
     }
 
@@ -26,7 +35,11 @@ export function Analytics() {
     const query = searchParams?.toString();
     const url = `${window.location.origin}${pathname}${query ? `?${query}` : ""}`;
     trackPageView(url);
-  }, [mode, pathname, searchParams]);
+  }, [hasConsent, mode, pathname, searchParams]);
+
+  if (!hasConsent) {
+    return null;
+  }
 
   if (mode === "plausible") {
     const domain = getPlausibleDomain();

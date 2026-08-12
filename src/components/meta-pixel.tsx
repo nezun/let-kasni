@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import Script from "next/script";
 
+import { getTrackingConsent, trackingConsentEvent } from "@/lib/consent";
 import { getMetaPixelId } from "@/lib/env";
 import { getMetaEventId, trackMetaEvent } from "@/lib/meta";
 
@@ -12,9 +13,17 @@ export function MetaPixel() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const skippedInitialPageView = useRef(false);
+  const [hasConsent, setHasConsent] = useState(false);
 
   useEffect(() => {
-    if (!pixelId || !pathname) {
+    const syncConsent = () => setHasConsent(getTrackingConsent() === "granted");
+    syncConsent();
+    window.addEventListener(trackingConsentEvent, syncConsent);
+    return () => window.removeEventListener(trackingConsentEvent, syncConsent);
+  }, []);
+
+  useEffect(() => {
+    if (!pixelId || !pathname || !hasConsent) {
       return;
     }
 
@@ -32,9 +41,9 @@ export function MetaPixel() {
       },
       getMetaEventId(),
     );
-  }, [pathname, pixelId, searchParams]);
+  }, [hasConsent, pathname, pixelId, searchParams]);
 
-  if (!pixelId) {
+  if (!pixelId || !hasConsent) {
     return null;
   }
 

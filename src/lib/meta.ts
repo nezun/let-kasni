@@ -1,5 +1,7 @@
 "use client";
 
+import { hasTrackingConsent } from "@/lib/consent";
+
 declare global {
   interface Window {
     fbq?: (...args: unknown[]) => void;
@@ -21,7 +23,11 @@ export function trackMetaEvent(
   params: MetaEventParams = {},
   eventId?: string,
 ) {
-  if (typeof window === "undefined" || typeof window.fbq !== "function") {
+  if (
+    typeof window === "undefined" ||
+    !hasTrackingConsent() ||
+    typeof window.fbq !== "function"
+  ) {
     return;
   }
 

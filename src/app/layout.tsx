@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { DM_Sans, JetBrains_Mono, Sora } from "next/font/google";
 import { Analytics } from "@/components/analytics";
+import { ConsentBanner } from "@/components/consent-banner";
 import { MetaPixel } from "@/components/meta-pixel";
 import { getSiteUrl } from "@/lib/site-url";
 import {
@@ -80,6 +81,7 @@ export default async function RootLayout({
       <body className="min-h-full flex flex-col">
         <Analytics />
         <MetaPixel />
+        <ConsentBanner locale={locale} />
         {children}
       </body>
     </html>

@@ -15,6 +15,8 @@ import {
 
 import { trackEvent } from "@/lib/analytics";
 import { BrandLogo } from "@/components/brand-logo";
+import { isValidEmail } from "@/lib/email-validation";
+import { getMetaEventId, trackMetaEvent } from "@/lib/meta";
 import type { IssueType } from "@/lib/types";
 
 interface ClaimModalProps {
@@ -91,6 +93,9 @@ const copy = {
     note: "Bez troškova unapred. Plaćate samo ako slučaj uspe.",
     invalid:
       "Popunite obavezna polja pre nastavka. Broj leta, datum i ruta su obavezni.",
+    consent:
+      "Saglasan/na sam da LetKasni obradi ove podatke radi prijema i provere zahteva.",
+    privacyLink: "Politika privatnosti",
     tooMany:
       "Previše pokušaja u kratkom roku. Sačekajte nekoliko minuta pa pokušajte ponovo.",
     genericError:
@@ -126,6 +131,9 @@ const copy = {
     note: "No upfront fee. You only pay if the claim succeeds.",
     invalid:
       "Fill the required fields before continuing. Flight number, date and route are required.",
+    consent:
+      "I agree that LetKasni may process these details to receive and review my claim.",
+    privacyLink: "Privacy policy",
     tooMany:
       "Too many attempts in a short period. Wait a few minutes and try again.",
     genericError:
@@ -145,6 +153,7 @@ const initialState = {
   lastName: "",
   email: "",
   phone: "",
+  privacyConsent: false,
   website: "",
 };
 
@@ -232,7 +241,18 @@ export function ClaimModal({
       return;
     }
 
+    if (
+      form.firstName.trim().length < 2 ||
+      form.lastName.trim().length < 2 ||
+      !isValidEmail(form.email) ||
+      !form.privacyConsent
+    ) {
+      setSubmitState({ status: "error", message: t.invalid });
+      return;
+    }
+
     setSubmitState({ status: "submitting" });
+    const metaEventId = getMetaEventId();
 
     try {
       const response = await fetch("/claim/submit", {
@@ -250,7 +270,10 @@ export function ClaimModal({
           email: form.email,
           phone: form.phone,
           website: form.website,
+          privacyConsent: form.privacyConsent,
           formStartedAt: String(formStartedAt),
+          metaEventId,
+          eventSourceUrl: window.location.href,
         }),
       });
 
@@ -282,13 +305,24 @@ export function ClaimModal({
         body: t.successBody,
         reference: data.claim.id.slice(0, 8).toUpperCase(),
       });
-      trackEvent("generate_lead", {
-        event_category: "claim",
-        event_label: "modal_form",
-        form_locale: locale,
-        reused: data.reused,
-        provider_status: data.claim.providerStatus,
-      });
+      if (!data.reused) {
+        trackEvent("generate_lead", {
+          event_category: "claim",
+          event_label: "modal_form",
+          form_locale: locale,
+          reused: data.reused,
+          provider_status: data.claim.providerStatus,
+        });
+        trackMetaEvent(
+          "Lead",
+          {
+            content_name: "flight_compensation_claim",
+            content_category: "claim",
+            form_locale: locale,
+          },
+          metaEventId,
+        );
+      }
       setStep("success");
     } catch {
       setSubmitState({
@@ -361,7 +395,7 @@ export function ClaimModal({
               </button>
             </div>
           ) : (
-            <form className="space-y-5" onSubmit={handleSubmit}>
+            <form className="space-y-5" onSubmit={handleSubmit} autoComplete="on">
               <div className="space-y-2 text-center">
                 <h2 className="text-2xl font-black tracking-tight text-slate-900">
                   {step === "details" ? t.detailsTitle : t.contactTitle}
@@ -384,6 +418,8 @@ export function ClaimModal({
                         updateField("flightNumber", event.target.value)
                       }
                       placeholder="JU101"
+                      name="flightNumber"
+                      autoComplete="off"
                       className="w-full rounded-xl border border-slate-200 px-4 py-3.5 outline-none transition focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10"
                     />
                   </label>
@@ -399,6 +435,7 @@ export function ClaimModal({
                       onChange={(event) =>
                         updateField("flightDate", event.target.value)
                       }
+                      name="flightDate"
                       className="w-full rounded-xl border border-slate-200 px-4 py-3.5 outline-none transition focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10"
                     />
                   </label>
@@ -412,6 +449,8 @@ export function ClaimModal({
                       value={form.route}
                       onChange={(event) => updateField("route", event.target.value)}
                       placeholder={t.routePlaceholder}
+                      name="route"
+                      autoComplete="off"
                       className="w-full rounded-xl border border-slate-200 px-4 py-3.5 outline-none transition focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10"
                     />
                   </label>
@@ -447,6 +486,8 @@ export function ClaimModal({
                         value={form.route}
                         onChange={(event) => updateField("route", event.target.value)}
                         placeholder={t.routePlaceholder}
+                        name="route"
+                        autoComplete="off"
                         className="w-full rounded-xl border border-slate-200 px-4 py-3.5 outline-none transition focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10"
                       />
                     </label>
@@ -463,6 +504,8 @@ export function ClaimModal({
                         onChange={(event) =>
                           updateField("firstName", event.target.value)
                         }
+                        name="given-name"
+                        autoComplete="given-name"
                         className="w-full rounded-xl border border-slate-200 px-4 py-3.5 outline-none transition focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10"
                       />
                     </label>
@@ -477,6 +520,8 @@ export function ClaimModal({
                         onChange={(event) =>
                           updateField("lastName", event.target.value)
                         }
+                        name="family-name"
+                        autoComplete="family-name"
                         className="w-full rounded-xl border border-slate-200 px-4 py-3.5 outline-none transition focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10"
                       />
                     </label>
@@ -489,6 +534,8 @@ export function ClaimModal({
                     <input
                       required
                       type="email"
+                      name="email"
+                      autoComplete="email"
                       value={form.email}
                       onChange={(event) => updateField("email", event.target.value)}
                       className="w-full rounded-xl border border-slate-200 px-4 py-3.5 outline-none transition focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10"
@@ -501,6 +548,8 @@ export function ClaimModal({
                     </span>
                     <input
                       value={form.phone}
+                      name="tel"
+                      autoComplete="tel"
                       onChange={(event) => updateField("phone", event.target.value)}
                       className="w-full rounded-xl border border-slate-200 px-4 py-3.5 outline-none transition focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10"
                     />
@@ -517,6 +566,34 @@ export function ClaimModal({
                 onChange={(event) => updateField("website", event.target.value)}
                 name="website"
               />
+
+              {step === "contact" ? (
+                <label className="flex items-start gap-3 text-xs leading-5 text-slate-600">
+                  <input
+                    type="checkbox"
+                    required
+                    checked={form.privacyConsent}
+                    onChange={(event) =>
+                      setForm((current) => ({
+                        ...current,
+                        privacyConsent: event.target.checked,
+                      }))
+                    }
+                    className="mt-1 h-4 w-4 shrink-0 accent-blue-600"
+                  />
+                  <span>
+                    {t.consent}{" "}
+                    <a
+                      href={locale === "en" ? "/en/privacy" : "/privacy"}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="font-semibold text-blue-700 underline"
+                    >
+                      {t.privacyLink}
+                    </a>
+                  </span>
+                </label>
+              ) : null}
 
               {submitState.status === "error" ? (
                 <div className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">

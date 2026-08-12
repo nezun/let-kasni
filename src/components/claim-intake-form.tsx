@@ -73,6 +73,8 @@ const formCopy = {
     ],
     legal:
       "Slanjem prijave prihvatate osnovnu obradu podataka radi provere slučaja. Detalji su na stranicama privatnosti i uslova korišćenja.",
+    consent: "Saglasan/na sam da LetKasni obradi ove podatke radi prijema i provere zahteva.",
+    privacyLink: "Politika privatnosti",
     tooMany:
       "Previše pokušaja u kratkom roku. Sačekajte nekoliko minuta pa pokušajte ponovo.",
     genericError:
@@ -105,6 +107,8 @@ const formCopy = {
     ],
     legal:
       "By sending the case, you accept basic data processing for case review. Details are on the privacy and terms pages.",
+    consent: "I agree that LetKasni may process these details to receive and review my claim.",
+    privacyLink: "Privacy policy",
     tooMany:
       "Too many attempts in a short period. Wait a few minutes and try again.",
     genericError:
@@ -118,6 +122,7 @@ const formCopy = {
 
 export function ClaimIntakeForm({ locale = "sr" }: { locale?: "sr" | "en" }) {
   const [form, setForm] = useState(initialForm);
+  const [privacyConsent, setPrivacyConsent] = useState(false);
   const [formStartedAt] = useState(() => Date.now());
   const [submitState, setSubmitState] = useState<SubmitState>({
     status: "idle",
@@ -140,6 +145,7 @@ export function ClaimIntakeForm({ locale = "sr" }: { locale?: "sr" | "en" }) {
           ...form,
           formStartedAt: String(formStartedAt),
           locale,
+          privacyConsent,
           metaEventId,
           eventSourceUrl: window.location.href,
         }),
@@ -214,7 +220,7 @@ export function ClaimIntakeForm({ locale = "sr" }: { locale?: "sr" | "en" }) {
         <p>{t.body}</p>
       </div>
 
-      <form className="lk-form-grid" onSubmit={handleSubmit}>
+      <form className="lk-form-grid" onSubmit={handleSubmit} autoComplete="on">
         <label className="lk-form-label">
           <span>{t.flightNumber}</span>
           <input
@@ -228,6 +234,7 @@ export function ClaimIntakeForm({ locale = "sr" }: { locale?: "sr" | "en" }) {
             }
             placeholder={t.flightPlaceholder}
             name="flightNumber"
+            autoComplete="off"
             className="lk-control"
           />
         </label>
@@ -319,6 +326,7 @@ export function ClaimIntakeForm({ locale = "sr" }: { locale?: "sr" | "en" }) {
               }
               placeholder={t.emailPlaceholder}
               name="email"
+              autoComplete="email"
               className="lk-control"
             />
           </label>
@@ -335,10 +343,32 @@ export function ClaimIntakeForm({ locale = "sr" }: { locale?: "sr" | "en" }) {
               }
               placeholder={t.phonePlaceholder}
               name="phone"
+              autoComplete="tel"
               className="lk-control"
             />
           </label>
         </div>
+
+        <label className="flex items-start gap-3 text-xs leading-5 text-slate-600">
+          <input
+            type="checkbox"
+            required
+            checked={privacyConsent}
+            onChange={(event) => setPrivacyConsent(event.target.checked)}
+            className="mt-1 h-4 w-4 shrink-0 accent-blue-600"
+          />
+          <span>
+            {t.consent}{" "}
+            <a
+              href={locale === "en" ? "/en/privacy" : "/privacy"}
+              target="_blank"
+              rel="noreferrer"
+              className="font-semibold text-blue-700 underline"
+            >
+              {t.privacyLink}
+            </a>
+          </span>
+        </label>
 
         <button
           type="submit"
