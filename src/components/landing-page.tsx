@@ -26,6 +26,7 @@ type TestimonialsVariant = "none" | "a" | "b" | "c";
 type FormFieldTone = "default" | "soft" | "muted" | "quiet";
 type VerticalSpacing = "default" | "compact";
 type HeroFlightPathVariant = "with-visual" | "plane-only" | "visual-low";
+export type HeroTextColorVariant = "default" | "body-and-proof-white";
 
 function HeroPayoutVisual({ locale, low = false }: { locale: Locale; low?: boolean }) {
   return (
@@ -193,10 +194,10 @@ const copy = {
     heroLine3Emphasis: "zadržite ceo\u00a0iznos.",
     heroLine4: "",
     heroBody:
-      "Druge platforme uzimaju 35–50% Vaše odštete. Mi Vam ne uzimamo ništa — koliko avio-kompanija isplati, toliko Vi dobijate.",
-    proofA: "Do 600 EUR po putniku",
-    proofB: "Bez troškova",
-    proofC: "Letovi do 3 godine unazad",
+      "Druge platforme uzimaju 30–50% Vaše odštete. Mi Vam ne uzimamo ništa — koliko avio-kompanija isplati, toliko Vi dobijate.",
+    proofA: "DO 600 Eur po putniku",
+    proofB: "Bez troškova i provizije",
+    proofC: "Lokalna podrška",
     cardEyebrow: "Proveri odštetu odmah",
     cardTitle: "Koliko ti duguje avio-kompanija?",
     flightNumber: "Broj leta",
@@ -304,10 +305,10 @@ const copy = {
     heroLine3Emphasis: "keep it all.",
     heroLine4: "",
     heroBody:
-      "Other providers keep 35–50% of your compensation. We charge no success fee — whatever the airline pays, you keep.",
+      "Other platforms take 30–50% of your compensation. We take nothing — whatever the airline pays, you receive in full.",
     proofA: "Up to €600 per passenger",
-    proofB: "No fees",
-    proofC: "Flights from the last 3 years",
+    proofB: "No costs or commission",
+    proofC: "Local support",
     cardEyebrow: "Check compensation now",
     cardTitle: "How much compensation could you claim?",
     flightNumber: "Flight number",
@@ -694,6 +695,7 @@ export function LandingPage({
   heroFlightPath = false,
   heroFlightPathVariant = "with-visual",
   ctaFlightPath = false,
+  heroTextColorVariant = "default",
 }: {
   locale?: Locale;
   variant?: LandingVariant;
@@ -705,8 +707,10 @@ export function LandingPage({
   heroFlightPath?: boolean;
   heroFlightPathVariant?: HeroFlightPathVariant;
   ctaFlightPath?: boolean;
+  heroTextColorVariant?: HeroTextColorVariant;
 }) {
   const t = copy[locale];
+  const proofItems = [t.proofA, t.proofB, t.proofC];
   const fieldClasses = formFieldClasses[formFieldTone];
   const compactSpacing = verticalSpacing === "compact";
   const supportEmail = getSupportEmail();
@@ -766,15 +770,25 @@ export function LandingPage({
                 ) : null}
               </h1>
 
-              <p className="mb-9 max-w-[480px] text-[16px] leading-[1.7] text-white/62">
+              <p
+                className={`mb-9 max-w-[480px] text-[16px] leading-[1.7] ${
+                  heroTextColorVariant === "body-and-proof-white"
+                    ? "text-white"
+                    : "text-white/62"
+                }`}
+              >
                 {t.heroBody}
               </p>
 
               <div className="flex flex-wrap gap-x-6 gap-y-3">
-                {[t.proofA, t.proofB, t.proofC].map((item) => (
+                {proofItems.map((item) => (
                   <div
                     key={item}
-                    className="flex items-center gap-[7px] text-sm font-medium text-white/70"
+                    className={`flex items-center gap-[7px] text-sm font-medium ${
+                      heroTextColorVariant === "body-and-proof-white"
+                        ? "text-white"
+                        : "text-white/70"
+                    }`}
                   >
                     <CheckCircle2 className="h-[14px] w-[14px] text-[#2DB87A]" />
                     <span>{item}</span>
