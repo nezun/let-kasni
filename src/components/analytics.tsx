@@ -5,7 +5,7 @@ import { usePathname, useSearchParams } from "next/navigation";
 import Script from "next/script";
 
 import { trackPageView } from "@/lib/analytics";
-import { getTrackingConsent, trackingConsentEvent } from "@/lib/consent";
+import { hasAnalyticsConsent, trackingConsentEvent } from "@/lib/consent";
 import { getAnalyticsMode, getGoogleAnalyticsId, getPlausibleDomain } from "@/lib/env";
 
 export function Analytics() {
@@ -16,7 +16,7 @@ export function Analytics() {
   const [hasConsent, setHasConsent] = useState(false);
 
   useEffect(() => {
-    const syncConsent = () => setHasConsent(getTrackingConsent() === "granted");
+    const syncConsent = () => setHasConsent(hasAnalyticsConsent());
     syncConsent();
     window.addEventListener(trackingConsentEvent, syncConsent);
     return () => window.removeEventListener(trackingConsentEvent, syncConsent);

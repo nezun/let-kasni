@@ -1,6 +1,6 @@
 "use client";
 
-import { hasTrackingConsent } from "@/lib/consent";
+import { hasAnalyticsConsent } from "@/lib/consent";
 
 declare global {
   interface Window {
@@ -12,7 +12,7 @@ declare global {
 export function trackPageView(url: string) {
   if (
     typeof window === "undefined" ||
-    !hasTrackingConsent() ||
+    !hasAnalyticsConsent() ||
     typeof window.gtag !== "function"
   ) {
     return;
@@ -28,7 +28,7 @@ export function trackPageView(url: string) {
 export function trackEvent(eventName: string, params?: Record<string, unknown>) {
   if (
     typeof window === "undefined" ||
-    !hasTrackingConsent() ||
+    !hasAnalyticsConsent() ||
     typeof window.gtag !== "function"
   ) {
     return;

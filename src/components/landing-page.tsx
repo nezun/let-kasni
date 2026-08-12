@@ -244,7 +244,7 @@ const copy = {
     featureLocalBody:
       "Kada predmet zahteva dodatni korak, on ide u egzekuciju istog dana — ne u red čekanja u inostranstvu.",
     statPaidOut: "Naknade isplaćeno Vama",
-    statUpfront: "Troškovi unapred",
+    statUpfront: "Troškovi",
     statFee: "Provizija na uspeh",
     statMax: "Maksimalna naknada",
     statMaxValue: "600 EUR",
@@ -355,7 +355,7 @@ const copy = {
     featureLocalBody:
       "When a case requires an additional step, it moves forward the same day — not into an overseas queue.",
     statPaidOut: "Compensation is paid to you",
-    statUpfront: "Upfront cost",
+    statUpfront: "Cost",
     statFee: "Success fee",
     statMax: "Maximum compensation",
     statMaxValue: "€600",

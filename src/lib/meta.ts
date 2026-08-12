@@ -1,6 +1,6 @@
 "use client";
 
-import { hasTrackingConsent } from "@/lib/consent";
+import { hasMarketingConsent } from "@/lib/consent";
 
 declare global {
   interface Window {
@@ -25,7 +25,7 @@ export function trackMetaEvent(
 ) {
   if (
     typeof window === "undefined" ||
-    !hasTrackingConsent() ||
+    !hasMarketingConsent() ||
     typeof window.fbq !== "function"
   ) {
     return;

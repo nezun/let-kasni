@@ -4,13 +4,15 @@ import { resolve } from "node:path";
 const root = process.cwd();
 const checks = [
   ["src/components/meta-pixel.tsx", "fbq('track', 'PageView')"],
-  ["src/components/meta-pixel.tsx", "getTrackingConsent"],
+  ["src/components/meta-pixel.tsx", "hasMarketingConsent"],
   ["src/lib/meta.ts", "eventID"],
-  ["src/lib/meta.ts", "hasTrackingConsent"],
+  ["src/lib/meta.ts", "hasMarketingConsent"],
   ["src/lib/meta-conversions.ts", 'event_name: "Lead"'],
   ["src/app/claim/submit/route.ts", "sendMetaLeadEvent"],
   ["src/app/claim/submit/route.ts", "privacyConsent"],
   ["src/components/consent-banner.tsx", "setTrackingConsent"],
+  ["src/components/consent-banner.tsx", "marketing"],
+  ["src/components/privacy-settings-button.tsx", "clearTrackingConsent"],
   ["docs/META-ADS-TRACKING.md", "META_CONVERSIONS_API_ACCESS_TOKEN"],
 ];
 

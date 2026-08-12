@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 
 import { trackEvent } from "@/lib/analytics";
+import { getTrackingConsent } from "@/lib/consent";
 import { getMetaEventId, trackMetaEvent } from "@/lib/meta";
 import type { IssueType } from "@/lib/types";
 
@@ -146,6 +147,7 @@ export function ClaimIntakeForm({ locale = "sr" }: { locale?: "sr" | "en" }) {
           formStartedAt: String(formStartedAt),
           locale,
           privacyConsent,
+          trackingConsent: getTrackingConsent(),
           metaEventId,
           eventSourceUrl: window.location.href,
         }),
@@ -360,7 +362,7 @@ export function ClaimIntakeForm({ locale = "sr" }: { locale?: "sr" | "en" }) {
           <span>
             {t.consent}{" "}
             <a
-              href={locale === "en" ? "/en/privacy" : "/privacy"}
+              href="/privacy"
               target="_blank"
               rel="noreferrer"
               className="font-semibold text-blue-700 underline"
