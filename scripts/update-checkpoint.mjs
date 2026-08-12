@@ -24,7 +24,20 @@ function listPackageScripts() {
   if (!existsSync(packagePath)) return "- No package.json found.";
   const pkg = JSON.parse(readFileSync(packagePath, "utf8"));
   const scripts = pkg.scripts || {};
-  const preferred = ["dev", "lint", "build", "verify", "content:qa", "content:links", "content:benchmark", "checkpoint"];
+  const preferred = [
+    "session:start",
+    "dev",
+    "lint",
+    "build",
+    "verify",
+    "release:gate",
+    "production:check",
+    "workflow:check",
+    "content:qa",
+    "content:links",
+    "content:benchmark",
+    "checkpoint",
+  ];
   const names = preferred.filter((name) => scripts[name]);
   return names.length
     ? names.map((name) => `- \`npm run ${name}\`: \`${scripts[name]}\``).join("\n")

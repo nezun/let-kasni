@@ -64,47 +64,57 @@ Useful commands:
 
 ## Current State
 
-- Production repo: `air-help-next`.
+- Canonical local checkout: `/Users/nemanjazunic/Documents/CODEX_LET KASNI/letkasni-production`.
 - GitHub remote: `https://github.com/nezun/let-kasni.git`.
+- GitHub `main` is the only source of truth for deployable code.
 - Production URL: `https://letkasni.rs`.
 - Deploy target: Vercel.
-- Existing dated handoff: `CHECKPOINT-LANDING-2026-04-30.md`.
-- The worktree may contain unrelated local design/content exploration. Inspect before staging.
+- The final approved bilingual landing and claim flow is on GitHub `main` from production commit `41f99a1` or its descendants.
+- Historical sibling folders are non-canonical and must not be used for deploys.
 
 ## Guardrails
 
 - Follow `AGENTS.md` first.
+- Run `npm run session:start` at the beginning of every new chat or resumed task.
 - Do not stage unrelated dirty files.
-- Do not commit or deploy unless the task requires it or the user has approved the final selected version.
+- Keep work on a feature branch until the user explicitly requests deploy.
+- Run `npm run release:gate` before merging an approved release into GitHub `main`.
+- Deploy only a tree that is traceable to GitHub `main`; never deploy from a sibling folder or random local preview.
 - Treat landing design experiments, generated design routes, and imported assets as local exploration until explicitly selected.
 - Keep public Serbian content in Latin script.
-- For blog/content work, run `npm run verify` before deploy.
+- Always verify Serbian `/` and English `/en` together unless the user explicitly requests an exception.
 
 ## Next Work
 
-- Confirm whether current local landing/blog/favicon changes are still wanted.
-- Decide which local design exploration files should be kept, committed, or removed.
-- If continuing content work, run `npm run content:qa`, `npm run content:links`, and `npm run content:benchmark` before final handoff.
+- Commit and publish the canonical-workspace rules, scripts, and runbook after verification.
+- Audit the legacy dirty folders in a separate task without resetting or deleting their local work.
+- With explicit authorization, add the existing Supabase service-role credential to Vercel production and verify durable claim persistence with `REQUIRE_SUPABASE=1 npm run production:check`.
 
 ## Locked / Do Not Change Without Approval
 
 - Do not change production credentials or external integrations.
 - Do not alter deploy target away from Vercel.
 - Do not rewrite approved public content architecture without checking `AGENTS.md` content rules.
+- Do not use `air-help-next`, `air-help-next-live`, or another sibling folder as an implicit source for production code.
 
 ## Manual Work Still Needed
 
-- User approval for visual/design choices before shipping exploratory landing changes.
+- Explicit authorization before transmitting the local Supabase service-role credential to Vercel.
 - Business/legal review for claim, fee, eligibility, payout, and regulator workflow assumptions.
-- Browser authorization for any external Codex Cloud or GitHub Connector setup.
+- A separate audit decision for preserving, committing, or archiving changes in legacy dirty folders.
 
 ## Verification Log
 
 - `npm run checkpoint`: refreshes the generated status block in this file.
+- `npm run session:start`: verifies canonical remote, branch, and clean worktree before work starts.
+- `npm run release:gate`: runs the full SR/EN release gate and shows the exact proposed production diff.
+- `npm run release:gate -- --production`: verifies the live deployment commit, both locales, health, Step 2 routes, and safe submit validation.
+- `npm run production:check`: diagnostic primitive used by the production gate; do not use it alone for a release decision.
+- Production releases still require an agent-driven SR/EN browser interaction pass; the HTTP smoke check cannot prove hydration or client-side transitions.
 - Add latest successful `npm run lint`, `npm run build`, `npm run verify`, deploy URL, and known failures here after each substantial session.
 
 ## Paste-Ready Prompt
 
-Continue in `/Users/nemanjazunic/Documents/CODEX_LET KASNI/air-help-next`.
+Continue in `/Users/nemanjazunic/Documents/CODEX_LET KASNI/letkasni-production`.
 
-Read `AGENTS.md` and `CHECKPOINT.md` first. Run `git status --short` and `npm run checkpoint`, then continue autonomously from "Next Work". Preserve guardrails and update `CHECKPOINT.md` before finishing.
+Read `AGENTS.md` and `CHECKPOINT.md` first. Run `npm run session:start`, then continue autonomously from "Next Work". For a new task, use `npm run session:start -- --new <task-slug>`. Never deploy from a sibling folder or a local preview. Preserve guardrails and update `CHECKPOINT.md` before finishing.

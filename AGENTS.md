@@ -1,3 +1,32 @@
+## Project Identity
+
+This repository is the canonical production source for the LetKasni website and claim-intake flow.
+
+- Repository: `https://github.com/nezun/let-kasni`
+- Source-of-truth branch: `main`
+- Canonical local checkout: `/Users/nemanjazunic/Documents/CODEX_LET KASNI/letkasni-production`
+- Deployment target: Vercel project `let-kasni`
+- Production: `https://letkasni.rs` and `https://letkasni.rs/en`
+
+This repository is not a design sandbox or a snapshot archive. Sibling folders under `CODEX_LET KASNI` are historical or experimental and must never be used as implicit sources for production code.
+
+## Source of Truth and Session Start
+
+- GitHub `main` is the only source of truth for deployable code. A chat, browser tab, screenshot, local preview, handoff note, checkpoint, or sibling folder is never a deployable source of truth.
+- At the start of every session, read `AGENTS.md` and `CHECKPOINT.md`, then run `npm run session:start`.
+- For new work, run `npm run session:start -- --new <task-slug>`. This synchronizes local `main` with `origin/main` and creates `codex/<task-slug>`.
+- For unfinished work already on a feature branch, run `npm run session:start -- --resume`. Never guess which branch to continue.
+- Never reset, overwrite, stage, or delete unrelated local changes. Stop and report a dirty or diverged worktree.
+- Never import code from another local LetKasni folder unless the user explicitly identifies exact files and requests that transfer.
+
+## Release Contract
+
+- Local work remains on a feature branch until the user explicitly requests deploy.
+- Deploy means: run `npm run release:gate`, review the exact diff against `origin/main`, merge the approved commit into GitHub `main`, wait for Vercel, then run `npm run release:gate -- --production`.
+- Never deploy uncommitted code, a dirty worktree, a local-only commit, or a random Vercel preview.
+- Vercel production must be traceable to GitHub `main`. Direct CLI deploys are emergency-only and must be followed by synchronizing the identical tree to `main`.
+- Serbian `/` and English `/en` ship together unless the user explicitly and unambiguously requests a one-language exception.
+
 ## Project Instructions
 
 Priority: These project instructions are repository-level guidance and should be applied before lower-priority workflow preferences. They are intended to align with the user's global instructions.
@@ -37,7 +66,7 @@ This version has breaking changes — APIs, conventions, and file structure may 
 - Recommended deploy target for this app: `Vercel`
 - Health check endpoint: `/api/health`
 - Production URL: `https://letkasni.rs`
-- Default execution rule: deploy completed changes immediately unless the user explicitly says to keep the work local first.
+- Default execution rule: keep completed changes on the feature branch until the user explicitly requests deploy.
 - App is allowed to ship before live flight-provider wiring is connected, as long as:
   - claim intake works
   - admin login works
