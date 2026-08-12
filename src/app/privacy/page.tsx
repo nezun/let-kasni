@@ -94,8 +94,8 @@ export default function PrivacyPage() {
             <li>
               <span className="font-semibold text-[var(--ink)]">Pristanak:</span>{" "}
               samo za one obrade za koje je pristanak zaista potreban, na primer za
-              opcionu marketinšku komunikaciju ili određene analitičke alate ako ih
-              kasnije uvedemo.
+              opcionu analitiku i marketing alate koji se uključuju kroz podešavanja
+              privatnosti.
             </li>
           </ul>
           <p>
@@ -204,20 +204,21 @@ export default function PrivacyPage() {
         <Section title="10. Kolačići, analitika i oglašavanje">
           <p>
             Sajt može koristiti nužne tehničke kolačiće i slične tehnologije potrebne za rad sajta,
-            bezbednost sesije i osnovnu funkcionalnost. Kada su odgovarajuće env promenljive uključene,
-            sajt može koristiti Google Analytics i Meta Pixel za merenje posećenosti, početka provere i
-            uspešno primljenih zahteva u vezi sa oglasnim kampanjama.
+            bezbednost sesije i osnovnu funkcionalnost. Kada su odgovarajuće env promenljive uključene
+            i kada korisnik izabere odgovarajuću kategoriju, sajt može koristiti Google Analytics za
+            analitiku i Meta Pixel za merenje uspeha oglasa. Ovi alati se ne učitavaju pre izbora.
           </p>
           <p>
-            Za server-side merenje uspešno primljenog zahteva, Conversions API može primiti tehničke
-            podatke o zahtevu, kao i jednosmerno hashovane vrednosti email adrese i telefona kada ih
-            korisnik unese. Access token za ovaj servis ne izlaže se pregledaču.
+            Kada korisnik izabere marketing kategoriju, za server-side merenje uspešno primljenog
+            zahteva Conversions API može primiti tehničke podatke o zahtevu, kao i jednosmerno
+            hashovane vrednosti email adrese i telefona kada ih korisnik unese. Access token za ovaj
+            servis ne izlaže se pregledaču.
           </p>
           <p>
-            Opcionu analitiku i oglašavanje uključujemo samo uz odgovarajući pravni osnov, obaveštenje
-            i, kada je potrebno, mehanizam za izbor ili povlačenje pristanka. Detalji o konkretnim
-            provajderima, rokovima i prekograničnim prenosima biće dopunjeni pre konačnog produkcijskog
-            puštanja kampanja.
+            Opcionu analitiku i marketing uključujemo odvojeno, prema izboru korisnika u baneru. Izbor
+            se može promeniti ili povući preko opcije „Podešavanja privatnosti“ u podnožju sajta.
+            Tehničko blokiranje novih događaja nakon povlačenja izbora ne znači automatsko brisanje svih
+            ranije postavljenih kolačića iz pregledača.
           </p>
         </Section>
 

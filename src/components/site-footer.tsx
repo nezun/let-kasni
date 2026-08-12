@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Mail, Phone } from "lucide-react";
 
 import { BrandLogo } from "@/components/brand-logo";
+import { PrivacySettingsButton } from "@/components/privacy-settings-button";
 import { cornerstonePages, getCornerstoneHref } from "@/lib/cornerstones";
 import { getSupportEmail, getSupportPhone } from "@/lib/env";
 
@@ -69,6 +70,7 @@ const footerCopy = {
     navHow: "Kako radi",
     terms: "Uslovi korišćenja",
     privacy: "Politika privatnosti",
+    privacySettings: "Podešavanja privatnosti",
     contactTitle: "Kontakt",
     emailLabel: "E-mail",
     phoneLabel: "Telefon",
@@ -84,6 +86,7 @@ const footerCopy = {
     navHow: "How it works",
     terms: "Terms of use",
     privacy: "Privacy policy",
+    privacySettings: "Privacy settings",
     contactTitle: "Contact",
     emailLabel: "Email",
     phoneLabel: "Phone",
@@ -425,6 +428,7 @@ export function SiteFooter({
                 >
                   {t.terms}
                 </Link>
+                <PrivacySettingsButton label={t.privacySettings} />
                 <Link
                   href={`${t.homeHref}#kako-radi`}
                   className="w-fit text-sm leading-[1.45] text-[#8E9BB0] transition hover:text-[#C7D0DE]"

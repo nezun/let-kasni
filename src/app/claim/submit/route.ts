@@ -9,6 +9,19 @@ import type { ClaimInput, IssueType } from "@/lib/types";
 
 const minimumHumanSubmitMs = 2500;
 
+function hasMarketingConsent(value: unknown) {
+  if (value === "granted") {
+    return true;
+  }
+
+  if (!value || typeof value !== "object") {
+    return false;
+  }
+
+  const consent = value as Record<string, unknown>;
+  return consent.v === 2 && consent.marketing === true;
+}
+
 interface ValidatedSubmission {
   input: ClaimInput;
   locale: "sr" | "en";
@@ -147,7 +160,7 @@ export async function POST(request: Request) {
   });
   const providerSnapshot = claim.providerSnapshot;
 
-  if (!reused) {
+  if (!reused && hasMarketingConsent(metadata.trackingConsent)) {
     const metaResult = await sendMetaLeadEvent(request, {
       eventId:
         typeof metadata.metaEventId === "string" ? metadata.metaEventId : undefined,

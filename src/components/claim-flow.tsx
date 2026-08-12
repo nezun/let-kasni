@@ -20,6 +20,7 @@ import {
 import { BrandLogo } from "@/components/brand-logo";
 import { AirportCombobox } from "@/components/airport-combobox";
 import { trackEvent } from "@/lib/analytics";
+import { getTrackingConsent } from "@/lib/consent";
 import { isValidEmail } from "@/lib/email-validation";
 import { getMetaEventId, trackMetaEvent } from "@/lib/meta";
 
@@ -781,6 +782,7 @@ function ClaimFlow({
                   manualReviewOnly: true,
                   locale,
                   privacyConsent,
+                  trackingConsent: getTrackingConsent(),
                   metaEventId,
                   eventSourceUrl: window.location.href,
                 }),
@@ -872,7 +874,7 @@ function ClaimFlow({
             <span>
               {t.consent}{" "}
               <a
-                href={locale === "en" ? "/en/privacy" : "/privacy"}
+                href="/privacy"
                 target="_blank"
                 rel="noreferrer"
                 className="font-semibold text-[#2470EB] underline"

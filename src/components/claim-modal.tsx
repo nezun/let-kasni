@@ -15,6 +15,7 @@ import {
 
 import { trackEvent } from "@/lib/analytics";
 import { BrandLogo } from "@/components/brand-logo";
+import { getTrackingConsent } from "@/lib/consent";
 import { isValidEmail } from "@/lib/email-validation";
 import { getMetaEventId, trackMetaEvent } from "@/lib/meta";
 import type { IssueType } from "@/lib/types";
@@ -271,6 +272,7 @@ export function ClaimModal({
           phone: form.phone,
           website: form.website,
           privacyConsent: form.privacyConsent,
+          trackingConsent: getTrackingConsent(),
           formStartedAt: String(formStartedAt),
           metaEventId,
           eventSourceUrl: window.location.href,
@@ -584,7 +586,7 @@ export function ClaimModal({
                   <span>
                     {t.consent}{" "}
                     <a
-                      href={locale === "en" ? "/en/privacy" : "/privacy"}
+                      href="/privacy"
                       target="_blank"
                       rel="noreferrer"
                       className="font-semibold text-blue-700 underline"

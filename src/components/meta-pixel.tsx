@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import Script from "next/script";
 
-import { getTrackingConsent, trackingConsentEvent } from "@/lib/consent";
+import { hasMarketingConsent, trackingConsentEvent } from "@/lib/consent";
 import { getMetaPixelId } from "@/lib/env";
 import { getMetaEventId, trackMetaEvent } from "@/lib/meta";
 
@@ -16,7 +16,7 @@ export function MetaPixel() {
   const [hasConsent, setHasConsent] = useState(false);
 
   useEffect(() => {
-    const syncConsent = () => setHasConsent(getTrackingConsent() === "granted");
+    const syncConsent = () => setHasConsent(hasMarketingConsent());
     syncConsent();
     window.addEventListener(trackingConsentEvent, syncConsent);
     return () => window.removeEventListener(trackingConsentEvent, syncConsent);
