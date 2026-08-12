@@ -6,56 +6,38 @@ Canonical handoff file for future local and Codex Cloud sessions.
 
 1. Read `AGENTS.md`.
 2. Read this `CHECKPOINT.md`.
-3. Run `git status --short`.
-4. Run `npm run checkpoint` to refresh the generated status block.
-5. Continue from the first open item in "Next Work".
+3. Run `npm run session:start` to verify a clean, synchronized canonical checkout.
+4. For new work, run `npm run session:start -- --new <task-slug>`.
+5. For explicitly checkpointed unfinished work, run `npm run session:start -- --resume`.
+6. Continue from the first open item in "Next Work".
 
 ## Generated Status
 
 <!-- BEGIN:generated-status -->
-Generated at: `2026-05-08T22:49:28.985Z`
+Generated at: `2026-08-12T12:15:22.007Z`
 
 Branch: `main`
 
 Remote: `https://github.com/nezun/let-kasni.git`
 
-Latest local commit: `ff04840 docs: add autonomous checkpoint handoff`
+Latest local commit: `81d0040 chore: establish canonical release workflow`
 
 Worktree status:
 
 ```text
-M scripts/fetch_beg_history.py
- M src/app/favicon.ico
- M src/app/layout.tsx
- M src/app/manifest.ts
- M src/components/blog-article-page.tsx
- M src/components/claim-modal.tsx
- M src/components/landing-page.tsx
-?? .design-import/
-?? CHECKPOINT-LANDING-2026-04-30.md
-?? public/a11y-annotations/
-?? public/apple-touch-icon.png
-?? public/favicon.ico
-?? public/icon-192.png
-?? public/icon-48.png
-?? public/icon-512.png
-?? public/icon-96.png
-?? src/app/design/blog-structure/
-?? src/app/design/cs-delay-typography/
-?? src/app/design/header-logo/
-?? src/app/design/logo-b/
-?? src/app/design/logo-c/
-?? src/app/design/logo/
-?? src/components/blog-hero-route-form.tsx
-?? tmp-a11y-annotations/
+clean
 ```
 
 Useful commands:
 
+- `npm run session:start`: `bash scripts/start-canonical-session.sh`
 - `npm run dev`: `next dev`
 - `npm run lint`: `eslint`
 - `npm run build`: `next build`
-- `npm run verify`: `npm run content:qa && npm run content:links && npm run content:benchmark && npm run lint && npm run build`
+- `npm run verify`: `npm run workflow:check && npm run content:qa && npm run content:links && npm run content:benchmark && npm run locales:check && npm run lint && npm run build`
+- `npm run release:gate`: `bash scripts/release-gate.sh`
+- `npm run production:check`: `node scripts/check-production.mjs`
+- `npm run workflow:check`: `bash scripts/check-workflow-guards.sh`
 - `npm run content:qa`: `node scripts/content-qa.mjs`
 - `npm run content:links`: `node scripts/content-link-graph.mjs`
 - `npm run content:benchmark`: `node scripts/content-benchmark-review.mjs`
@@ -86,7 +68,7 @@ Useful commands:
 
 ## Next Work
 
-- Commit and publish the canonical-workspace rules, scripts, and runbook after verification.
+- Use this canonical workflow for every future LetKasni task and deploy.
 - Audit the legacy dirty folders in a separate task without resetting or deleting their local work.
 - With explicit authorization, add the existing Supabase service-role credential to Vercel production and verify durable claim persistence with `REQUIRE_SUPABASE=1 npm run production:check`.
 
