@@ -3,6 +3,7 @@
 import { HeroFlowStartCard } from "@/components/claim-flow";
 import { SiteHeader } from "@/components/site-header";
 import { trackEvent } from "@/lib/analytics";
+import { getMetaEventId, trackMetaEvent } from "@/lib/meta";
 import type { IssueType } from "@/lib/types";
 
 type Locale = "sr" | "en";
@@ -21,6 +22,11 @@ export function HeaderWithClaimCta({
       event_label: source,
       form_locale: locale,
     });
+    trackMetaEvent("InitiateCheckout", {
+      content_name: "flight_compensation_claim",
+      content_category: "claim",
+      form_locale: locale,
+    }, getMetaEventId());
     window.location.assign(locale === "en" ? "/en/check-flight" : "/proveri-let");
   }
 
@@ -68,6 +74,11 @@ export function ClaimCtaButton({
       event_label: "cta_section",
       form_locale: locale,
     });
+    trackMetaEvent("InitiateCheckout", {
+      content_name: "flight_compensation_claim",
+      content_category: "claim",
+      form_locale: locale,
+    }, getMetaEventId());
     window.location.assign(locale === "en" ? "/en/check-flight" : "/proveri-let");
   }
 

@@ -14,20 +14,18 @@ Canonical handoff file for future local and Codex Cloud sessions.
 ## Generated Status
 
 <!-- BEGIN:generated-status -->
-Generated at: `2026-08-12T15:03:03.640Z`
+Generated at: `2026-08-12T18:54:47.083Z`
 
-Branch: `codex/confirmation-email-branding`
+Branch: `codex/meta-tracking`
 
 Remote: `https://github.com/nezun/let-kasni.git`
 
-Latest local commit: `28f64a4 fix: finalize bilingual hero copy and titles`
+Latest local commit: `977865c feat: add Meta Pixel and Conversions API tracking`
 
 Worktree status:
 
 ```text
-M CHECKPOINT.md
- M src/lib/notifications.ts
-?? src/app/design/email-confirmation/
+clean
 ```
 
 Useful commands:
@@ -36,7 +34,7 @@ Useful commands:
 - `npm run dev`: `next dev`
 - `npm run lint`: `eslint`
 - `npm run build`: `next build`
-- `npm run verify`: `npm run workflow:check && npm run content:qa && npm run content:links && npm run content:benchmark && npm run locales:check && npm run lint && npm run build`
+- `npm run verify`: `npm run workflow:check && npm run meta:check && npm run content:qa && npm run content:links && npm run content:benchmark && npm run locales:check && npm run lint && npm run build`
 - `npm run release:gate`: `bash scripts/release-gate.sh`
 - `npm run production:check`: `node scripts/check-production.mjs`
 - `npm run workflow:check`: `bash scripts/check-workflow-guards.sh`
@@ -70,6 +68,9 @@ Useful commands:
 
 ## Next Work
 
+- Add the real Meta Pixel ID and Conversions API token in Vercel Production, then run the Test Events flow from `docs/META-ADS-TRACKING.md`.
+- Confirm whether campaign traffic will use canonical `letkasni.rs` or a separate `leadcast.rs` host before domain verification and release.
+- After Meta Test Events and privacy/consent review pass, run `npm run release:gate` and deploy only with explicit release authorization.
 - Use this canonical workflow for every future LetKasni task and deploy.
 - Audit the legacy dirty folders in a separate task without resetting or deleting their local work.
 - With explicit authorization, add the existing Supabase service-role credential to Vercel production and verify durable claim persistence with `REQUIRE_SUPABASE=1 npm run production:check`.
@@ -83,6 +84,9 @@ Useful commands:
 
 ## Manual Work Still Needed
 
+- Meta Business setup is still manual: Pixel/Dataset, domain verification, `Lead` event prioritization, Pixel ID, and server access token.
+- `leadcast.rs` could not be resolved from the current environment and is not the canonical production domain in this checkout; do not silently switch domains.
+- Privacy/cookie consent and final Meta data-processing terms require business/legal review before enabling production tracking.
 - Explicit authorization before transmitting the local Supabase service-role credential to Vercel.
 - Business/legal review for claim, fee, eligibility, payout, and regulator workflow assumptions.
 - A separate audit decision for preserving, committing, or archiving changes in legacy dirty folders.
@@ -95,6 +99,8 @@ Useful commands:
 - `npm run release:gate -- --production`: verifies the live deployment commit, both locales, health, Step 2 routes, and safe submit validation.
 - `npm run production:check`: diagnostic primitive used by the production gate; do not use it alone for a release decision.
 - Production releases still require an agent-driven SR/EN browser interaction pass; the HTTP smoke check cannot prove hydration or client-side transitions.
+- `npm run verify`: passed on `codex/meta-tracking`, including `npm run meta:check`, content QA, locale checks, lint, and production build.
+- Local smoke test: `/` and `/en` rendered with the Meta Pixel component when a dummy Pixel ID was supplied; honeypot submit returned success without a Meta token and no external CAPI request was attempted.
 - Add latest successful `npm run lint`, `npm run build`, `npm run verify`, deploy URL, and known failures here after each substantial session.
 
 ## Paste-Ready Prompt

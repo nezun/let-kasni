@@ -72,6 +72,7 @@ npm run start
 npm run session:start -- --new task-name
 npm run release:gate
 npm run production:check
+npm run meta:check
 ```
 
 For a final production release decision, always use `npm run release:gate -- --production`; direct `production:check` is diagnostic-only and requires an explicit commit SHA or opt-out.
@@ -111,6 +112,11 @@ For a final production release decision, always use `npm run release:gate -- --p
   - `NEXT_PUBLIC_OPERATOR_PIB`
   - `NEXT_PUBLIC_OPERATOR_MB`
 - `NEXT_PUBLIC_GA_MEASUREMENT_ID` kada bude spreman GA4
+- Meta Ads tracking env ako želiš browser Pixel + server-side Conversions API:
+  - `NEXT_PUBLIC_META_PIXEL_ID`
+  - `META_CONVERSIONS_API_ACCESS_TOKEN` (samo server-side, nikad u browseru)
+  - `META_GRAPH_API_VERSION` (podrazumevano `v23.0`, promeni prema Meta Events Manager setupu)
+  - `META_TEST_EVENT_CODE` samo privremeno tokom provere u Test Events
 - Aviation Edge soft-check env ako želiš server-side provider proveru:
   - `FLIGHT_PROVIDER_MODE=aviation_edge`
   - `AVIATION_EDGE_API_KEY`
@@ -130,6 +136,8 @@ For a final production release decision, always use `npm run release:gate -- --p
 - Provider cache/dedupe sprečava ponovljene Aviation Edge pozive za isti let, datum i rutu
 - `FLIGHT_PROVIDER_DAILY_LIMIT` ograničava dnevnu potrošnju provider poziva po server instanci
 - Provider odgovor razlikuje `live_match`, `no_match`, `timeout`, `provider_skipped_budget`, `outside_provider_window` i `unconfigured`
+- Meta Lead događaj se šalje i iz browsera i server-side sa istim `event_id`, tako da Meta može da deduplikuje događaj
+- Email i telefon za Conversions API se šalju samo kao SHA-256 hash, dok access token ostaje server-side
 - Queue sada ima osnovne filtere po statusu, provider ishodu i verdict-u
 - `normalized_input_snapshot` sada stvarno koristi provider normalizaciju kada postoji
 

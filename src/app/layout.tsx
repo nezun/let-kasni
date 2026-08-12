@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { DM_Sans, JetBrains_Mono, Sora } from "next/font/google";
 import { Analytics } from "@/components/analytics";
+import { MetaPixel } from "@/components/meta-pixel";
 import { getSiteUrl } from "@/lib/site-url";
 import {
   getSocialPreviewImageUrl,
@@ -78,6 +79,7 @@ export default async function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         <Analytics />
+        <MetaPixel />
         {children}
       </body>
     </html>
