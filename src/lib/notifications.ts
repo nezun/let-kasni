@@ -182,7 +182,7 @@ export function buildUserConfirmationHtml(claim: ClaimRecord, locale: "sr" | "en
           <div style="margin:22px 0;padding:14px 16px;background:#EEF5FF;border-radius:14px;color:#0B2E6F;font-weight:700;">
             ${english ? "Request reference" : "Referenca zahteva"}: ${escapeHtml(reference)}
           </div>
-          <p style="margin:0;">${english ? "If you have any questions, reply directly to this email." : "Ako budete imali dodatna pitanja, možete odgovoriti direktno na ovaj email."}</p>
+          <p style="margin:0;">${english ? `If you have any questions, email ${escapeHtml(getSupportEmail())}.` : `Ako imate dodatna pitanja, pišite na ${escapeHtml(getSupportEmail())}.`}</p>
         </div>
       </div>
     </div>
@@ -199,7 +199,7 @@ function buildUserConfirmationText(claim: ClaimRecord, locale: "sr" | "en") {
       "",
       `Request reference: ${claim.id.slice(0, 8).toUpperCase()}`,
       "",
-      "If you have any questions, reply directly to this email.",
+      `If you have any questions, email ${getSupportEmail()}.`,
     ].join("\n");
   }
 
@@ -211,7 +211,7 @@ function buildUserConfirmationText(claim: ClaimRecord, locale: "sr" | "en") {
     "",
     `Referenca zahteva: ${claim.id.slice(0, 8).toUpperCase()}`,
     "",
-    "Ako imate dodatna pitanja, možete odgovoriti direktno na ovaj email.",
+    `Ako imate dodatna pitanja, pišite na ${getSupportEmail()}.`,
   ].join("\n");
 }
 
