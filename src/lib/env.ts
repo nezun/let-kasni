@@ -61,7 +61,7 @@ export function getGoogleAnalyticsId() {
 }
 
 export function getSupportEmail() {
-  return getEnv("NEXT_PUBLIC_SUPPORT_EMAIL") ?? "podrska@letkasni.rs";
+  return getEnv("NEXT_PUBLIC_SUPPORT_EMAIL") ?? "kontakt@letkasni.rs";
 }
 
 export function getSupportPhone() {
