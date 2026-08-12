@@ -14,25 +14,18 @@ Canonical handoff file for future local and Codex Cloud sessions.
 ## Generated Status
 
 <!-- BEGIN:generated-status -->
-Generated at: `2026-08-12T22:23:10.875Z`
+Generated at: `2026-08-12T22:35:42.986Z`
 
-Branch: `codex/consent-cookie-gating`
+Branch: `main`
 
 Remote: `https://github.com/nezun/let-kasni.git`
 
-Latest local commit: `5499382 chore: refresh checkpoint (#15)`
+Latest local commit: `5073ce2 fix: make consent cookie the only runtime authority (#17)`
 
 Worktree status:
 
 ```text
-M docs/META-ADS-TRACKING.md
- M scripts/meta-tracking-check.mjs
- M src/app/claim/submit/route.ts
- M src/app/globals.css
- M src/app/layout.tsx
- M src/components/consent-banner.tsx
- M src/lib/consent.ts
-?? src/lib/consent-cookie.ts
+clean
 ```
 
 Useful commands:
