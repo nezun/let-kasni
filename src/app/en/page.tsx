@@ -56,6 +56,7 @@ export default function EnglishPage() {
       heroFlightPath
       heroFlightPathVariant="with-visual"
       ctaFlightPath
+      heroTextColorVariant="body-and-proof-white"
     />
   );
 }

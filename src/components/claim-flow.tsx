@@ -113,7 +113,7 @@ const flowCopy = {
     stepOneBody: "Choose the option that best matches your situation.",
     disruptionAria: "Type of flight disruption",
     stepOneError: "Choose what happened to your flight to continue.",
-    stepOneCta: "Check how much you could claim",
+    stepOneCta: "Check how much you're owed",
     stepOneNote: "The check takes less than 2 minutes.",
     stepTwoTitle: "Your flight details",
     routeTitle: "Where did you fly?",
