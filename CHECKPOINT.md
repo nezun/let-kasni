@@ -14,18 +14,20 @@ Canonical handoff file for future local and Codex Cloud sessions.
 ## Generated Status
 
 <!-- BEGIN:generated-status -->
-Generated at: `2026-08-12T12:15:22.007Z`
+Generated at: `2026-08-12T15:03:03.640Z`
 
-Branch: `main`
+Branch: `codex/confirmation-email-branding`
 
 Remote: `https://github.com/nezun/let-kasni.git`
 
-Latest local commit: `81d0040 chore: establish canonical release workflow`
+Latest local commit: `28f64a4 fix: finalize bilingual hero copy and titles`
 
 Worktree status:
 
 ```text
-clean
+M CHECKPOINT.md
+ M src/lib/notifications.ts
+?? src/app/design/email-confirmation/
 ```
 
 Useful commands:
