@@ -61,7 +61,9 @@ export function getGoogleAnalyticsId() {
 }
 
 export function getMetaPixelId() {
-  return getEnv("NEXT_PUBLIC_META_PIXEL_ID");
+  const value = process.env.NEXT_PUBLIC_META_PIXEL_ID;
+  const trimmed = value?.trim();
+  return trimmed && trimmed.length > 0 ? trimmed : undefined;
 }
 
 export function getMetaConversionsApiToken() {
