@@ -93,7 +93,7 @@ For a final production release decision, always use `npm run release:gate -- --p
 ### Production env minimum
 
 - `NEXT_PUBLIC_SITE_URL=https://letkasni.rs`
-- `NEXT_PUBLIC_SUPPORT_EMAIL=podrska@letkasni.rs`
+- `NEXT_PUBLIC_SUPPORT_EMAIL=kontakt@letkasni.rs`
 - `NEXT_PUBLIC_SUPPORT_PHONE=+381637003779`
 - `NEXT_PUBLIC_SUPABASE_URL`
 - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
