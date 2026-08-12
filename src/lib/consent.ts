@@ -34,26 +34,17 @@ export function getTrackingConsent(): TrackingConsent | null {
   }
 
   try {
-    const cookieValue = getClientConsentCookie();
-    if (cookieValue) {
-      const cacheKey = `cookie:${cookieValue}`;
-      if (cacheKey === cachedRawValue) {
-        return cachedConsent;
-      }
-
-      cachedRawValue = cacheKey;
-      cachedConsent = parseConsent(cookieValue);
-      return cachedConsent;
-    }
-
-    const rawValue = window.localStorage.getItem(trackingConsentKey);
-    const cacheKey = `storage:${rawValue ?? ""}`;
+    const cookieValue = getClientConsentCookie() ?? null;
+    // The cookie is the only runtime authority. The head bootstrap migrates
+    // legacy localStorage before first paint, so localStorage must never
+    // become a second render-time decision path.
+    const cacheKey = `cookie:${cookieValue ?? ""}`;
     if (cacheKey === cachedRawValue) {
       return cachedConsent;
     }
 
     cachedRawValue = cacheKey;
-    cachedConsent = parseConsent(rawValue);
+    cachedConsent = parseConsent(cookieValue);
     return cachedConsent;
   } catch {
     return null;
