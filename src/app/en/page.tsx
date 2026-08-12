@@ -10,7 +10,7 @@ const enSocial = socialPreview.en;
 const enSocialImage = getSocialPreviewImageUrl("en");
 
 export const metadata: Metadata = {
-  title: enSocial.title,
+  title: "letkasni.rs",
   description: enSocial.description,
   alternates: {
     canonical: "/en",

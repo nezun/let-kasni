@@ -124,7 +124,7 @@ function HeroQuestionFlightPath({
         className={`absolute flex h-9 w-9 items-center justify-center ${
           locale === "en"
             ? "left-[160px] top-[85px]"
-            : "left-[439px] top-[65px] rounded-full border border-white/12 bg-[#0B1326]/86 shadow-[0_10px_28px_rgba(0,0,0,0.3)] backdrop-blur-sm"
+            : "left-[439px] top-[65px]"
         }`}
       >
         <Plane
@@ -166,7 +166,7 @@ function CtaFlightPath({ locale }: { locale: Locale }) {
         className={`absolute flex h-9 w-9 items-center justify-center ${
           locale === "en"
             ? "top-[50px]"
-            : "top-[84px] rounded-full border border-white/12 bg-[#0B1326]/86 shadow-[0_10px_28px_rgba(0,0,0,0.3)] backdrop-blur-sm"
+            : "top-[84px]"
         }`}
         style={{ left: locale === "en" ? "calc(26.4% - 18px)" : "calc(12.6% - 18px)" }}
       >

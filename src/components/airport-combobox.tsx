@@ -76,6 +76,7 @@ export function AirportCombobox({
   const rootRef = useRef<HTMLDivElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const suppressOpenOnFocusRef = useRef(false);
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [groups, setGroups] = useState<AirportCountryGroup[] | null>(null);
@@ -147,11 +148,18 @@ export function AirportCombobox({
   }
 
   function selectAirport(airport: AirportOption) {
+    const shouldRestoreFocus = document.activeElement !== inputRef.current;
     onChange(airportLabel(airport));
     setQuery("");
     setSelectedCountryCode(null);
     setOpen(false);
-    inputRef.current?.focus();
+    if (shouldRestoreFocus) {
+      suppressOpenOnFocusRef.current = true;
+      window.requestAnimationFrame(() => {
+        inputRef.current?.focus();
+        suppressOpenOnFocusRef.current = false;
+      });
+    }
   }
 
   function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
@@ -192,6 +200,10 @@ export function AirportCombobox({
             aria-expanded={open}
             value={query || value}
             onFocus={(event) => {
+              if (suppressOpenOnFocusRef.current) {
+                suppressOpenOnFocusRef.current = false;
+                return;
+              }
               void openPicker();
               if (value) {
                 event.currentTarget.select();

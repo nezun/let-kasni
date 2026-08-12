@@ -96,7 +96,6 @@ const flowCopy = {
     phone: "Telefon",
     phonePlaceholder: "+381...",
     optional: "opciono",
-    privacy: "Podatke koristimo samo za proveru Vašeg slučaja i kontakt u vezi sa rezultatom.",
     submit: "Pošalji",
     submitted: "Podaci su primljeni. Javićemo Vam se sa rezultatom provere.",
     submitting: "Šaljemo...",
@@ -154,7 +153,6 @@ const flowCopy = {
     phone: "Phone",
     phonePlaceholder: "+44...",
     optional: "optional",
-    privacy: "We use your details only to review your case and contact you about the result.",
     submit: "Send result",
     submitted: "Your details have been received. We will contact you with the review result.",
     submitting: "Sending...",
@@ -214,7 +212,7 @@ const airlineOptions = [
 ] as const;
 
 const inputClass =
-  "w-full rounded-[10px] border border-[#DCE4EF] bg-[#FBFCFE] py-[14px] pl-12 pr-4 text-[15px] font-medium text-[#243047] outline-none placeholder:font-normal placeholder:text-[#9AA7B8] transition focus:border-[#2470EB] focus:bg-white focus:shadow-[0_0_0_3px_rgba(36,112,235,0.09)]";
+  "w-full rounded-[10px] border border-[#DCE4EF] bg-[#FBFCFE] py-[14px] pr-4 text-[15px] font-medium text-[#243047] outline-none placeholder:font-normal placeholder:text-[#9AA7B8] transition focus:border-[#2470EB] focus:bg-white focus:shadow-[0_0_0_3px_rgba(36,112,235,0.09)]";
 
 function getRelativeDate(daysFromToday: number) {
   const date = new Date();
@@ -369,7 +367,7 @@ function ContactField({
           onChange={(event) => onChange(event.target.value)}
           placeholder={placeholder}
           autoComplete={autoComplete}
-          className={inputClass}
+          className={`${inputClass} pl-12`}
         />
       </span>
     </label>
@@ -829,10 +827,6 @@ function ClaimFlow({
               autoComplete="tel"
               icon={Phone}
             />
-          </div>
-
-          <div className="mt-4 rounded-[12px] bg-[#F1F4F9] px-4 py-3 text-xs leading-5 text-[#53627A]">
-            {t.privacy}
           </div>
 
           <button
