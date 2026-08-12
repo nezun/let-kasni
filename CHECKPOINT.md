@@ -14,21 +14,18 @@ Canonical handoff file for future local and Codex Cloud sessions.
 ## Generated Status
 
 <!-- BEGIN:generated-status -->
-Generated at: `2026-08-12T21:58:34.027Z`
+Generated at: `2026-08-12T22:02:33.238Z`
 
-Branch: `codex/capi-quality-matching`
+Branch: `main`
 
 Remote: `https://github.com/nezun/let-kasni.git`
 
-Latest local commit: `91f7201 fix: make cookie banner discreet (#13)`
+Latest local commit: `d4df1fa feat: improve Meta lead matching signals (#14)`
 
 Worktree status:
 
 ```text
-M docs/META-ADS-TRACKING.md
- M scripts/meta-tracking-check.mjs
- M src/app/claim/submit/route.ts
- M src/lib/meta-conversions.ts
+clean
 ```
 
 Useful commands:
