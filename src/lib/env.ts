@@ -60,6 +60,22 @@ export function getGoogleAnalyticsId() {
   return getEnv("NEXT_PUBLIC_GA_MEASUREMENT_ID") ?? "G-RVJ906DKVF";
 }
 
+export function getMetaPixelId() {
+  return getEnv("NEXT_PUBLIC_META_PIXEL_ID");
+}
+
+export function getMetaConversionsApiToken() {
+  return getEnv("META_CONVERSIONS_API_ACCESS_TOKEN");
+}
+
+export function getMetaGraphApiVersion() {
+  return getEnv("META_GRAPH_API_VERSION") ?? "v23.0";
+}
+
+export function getMetaTestEventCode() {
+  return getEnv("META_TEST_EVENT_CODE");
+}
+
 export function getSupportEmail() {
   return getEnv("NEXT_PUBLIC_SUPPORT_EMAIL") ?? "kontakt@letkasni.rs";
 }

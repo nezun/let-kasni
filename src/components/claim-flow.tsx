@@ -20,6 +20,7 @@ import {
 import { BrandLogo } from "@/components/brand-logo";
 import { AirportCombobox } from "@/components/airport-combobox";
 import { trackEvent } from "@/lib/analytics";
+import { getMetaEventId, trackMetaEvent } from "@/lib/meta";
 
 export type HeroFormVariant = "focused" | "embedded";
 export type ClaimFlowLocale = "sr" | "en";
@@ -559,6 +560,12 @@ function ClaimFlow({
               onStepOneComplete(selected);
               return;
             }
+            trackMetaEvent("InitiateCheckout", {
+              content_name: "flight_compensation_claim",
+              content_category: "claim",
+              form_locale: locale,
+              issue_type: selected,
+            }, getMetaEventId());
             setStep(2);
           }}
           className="mt-5 flex w-full items-center justify-center gap-2 rounded-[10px] bg-[#2470EB] px-4 py-[15px] text-base font-bold text-white transition hover:bg-[#1D5FD0]"
@@ -747,6 +754,7 @@ function ClaimFlow({
 
             setSubmitting(true);
             setSubmitError("");
+            const metaEventId = getMetaEventId();
             try {
               const response = await fetch("/claim/submit", {
                 method: "POST",
@@ -764,18 +772,34 @@ function ClaimFlow({
                   formStartedAt: String(formStartedAt),
                   manualReviewOnly: true,
                   locale,
+                  metaEventId,
+                  eventSourceUrl: window.location.href,
                 }),
               });
-              const data = (await response.json()) as { ok?: boolean };
+              const data = (await response.json()) as {
+                ok?: boolean;
+                reused?: boolean;
+              };
               if (!response.ok || !data.ok) {
                 throw new Error("claim_submit_failed");
               }
               setSubmitted(true);
-              trackEvent("generate_lead", {
-                event_category: "claim",
-                event_label: "focused_claim_flow",
-                form_locale: locale,
-              });
+              if (!data.reused) {
+                trackEvent("generate_lead", {
+                  event_category: "claim",
+                  event_label: "focused_claim_flow",
+                  form_locale: locale,
+                });
+                trackMetaEvent(
+                  "Lead",
+                  {
+                    content_name: "flight_compensation_claim",
+                    content_category: "claim",
+                    form_locale: locale,
+                  },
+                  metaEventId,
+                );
+              }
             } catch {
               setSubmitError(t.submitError);
             } finally {
@@ -952,6 +976,12 @@ export function HeroFlowStartCard({ locale }: { locale: ClaimFlowLocale }) {
           form_locale: locale,
           issue_type: issue,
         });
+        trackMetaEvent("InitiateCheckout", {
+          content_name: "flight_compensation_claim",
+          content_category: "claim",
+          form_locale: locale,
+          issue_type: issue,
+        }, getMetaEventId());
         const path = locale === "en" ? "/en/check-flight" : "/proveri-let";
         window.location.assign(`${path}?step=2&issue=${encodeURIComponent(issue)}`);
       }}

@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { createOrReuseClaim } from "@/lib/claims";
 import { sendAdminClaimNotification, sendUserClaimConfirmation } from "@/lib/notifications";
 import { isRateLimited } from "@/lib/rate-limit";
+import { sendMetaLeadEvent } from "@/lib/meta-conversions";
 import type { ClaimInput, IssueType } from "@/lib/types";
 
 const minimumHumanSubmitMs = 2500;
@@ -116,6 +117,8 @@ export async function POST(request: Request) {
     );
   }
 
+  const metadata = body as Record<string, unknown>;
+
   const { input } = submission;
 
   const forwardedFor = request.headers.get("x-forwarded-for") ?? "unknown";
@@ -140,6 +143,22 @@ export async function POST(request: Request) {
     providerSkipReason: submission.providerSkipReason,
   });
   const providerSnapshot = claim.providerSnapshot;
+
+  if (!reused) {
+    await sendMetaLeadEvent(request, {
+      eventId:
+        typeof metadata.metaEventId === "string" ? metadata.metaEventId : undefined,
+      eventSourceUrl:
+        typeof metadata.eventSourceUrl === "string"
+          ? metadata.eventSourceUrl
+          : undefined,
+      email: input.email,
+      phone: input.phone,
+      customData: {
+        form_locale: submission.locale,
+      },
+    });
+  }
 
   console.info(
     "Flight provider lookup completed.",

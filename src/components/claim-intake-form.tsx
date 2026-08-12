@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 
 import { trackEvent } from "@/lib/analytics";
+import { getMetaEventId, trackMetaEvent } from "@/lib/meta";
 import type { IssueType } from "@/lib/types";
 
 type SubmitState =
@@ -127,6 +128,7 @@ export function ClaimIntakeForm({ locale = "sr" }: { locale?: "sr" | "en" }) {
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setSubmitState({ status: "submitting" });
+    const metaEventId = getMetaEventId();
 
     try {
       const response = await fetch("/claim/submit", {
@@ -137,6 +139,9 @@ export function ClaimIntakeForm({ locale = "sr" }: { locale?: "sr" | "en" }) {
         body: JSON.stringify({
           ...form,
           formStartedAt: String(formStartedAt),
+          locale,
+          metaEventId,
+          eventSourceUrl: window.location.href,
         }),
       });
 
@@ -175,13 +180,24 @@ export function ClaimIntakeForm({ locale = "sr" }: { locale?: "sr" | "en" }) {
         reference: data.claim.id.slice(0, 8).toUpperCase(),
       });
 
-      trackEvent("generate_lead", {
-        event_category: "claim",
-        event_label: "inline_form",
-        form_locale: locale,
-        reused: data.reused,
-        provider_status: data.claim.providerStatus,
-      });
+      if (!data.reused) {
+        trackEvent("generate_lead", {
+          event_category: "claim",
+          event_label: "inline_form",
+          form_locale: locale,
+          reused: data.reused,
+          provider_status: data.claim.providerStatus,
+        });
+        trackMetaEvent(
+          "Lead",
+          {
+            content_name: "flight_compensation_claim",
+            content_category: "claim",
+            form_locale: locale,
+          },
+          metaEventId,
+        );
+      }
     } catch {
       setSubmitState({
         status: "error",

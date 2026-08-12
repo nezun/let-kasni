@@ -3,7 +3,7 @@ import { SiteHeader } from "@/components/site-header";
 import { LegalOperatorContact } from "@/components/legal-operator-contact";
 import { getSupportEmail, getSupportPhone } from "@/lib/env";
 
-const lastUpdated = "9. avgust 2026.";
+const lastUpdated = "12. avgust 2026.";
 
 function Section({
   title,
@@ -201,16 +201,23 @@ export default function PrivacyPage() {
           </p>
         </Section>
 
-        <Section title="10. Kolačići i analitika">
+        <Section title="10. Kolačići, analitika i oglašavanje">
           <p>
             Sajt može koristiti nužne tehničke kolačiće i slične tehnologije potrebne za rad sajta,
-            bezbednost sesije i osnovnu funkcionalnost. Ako uvedemo opcionu analitiku ili marketinške
-            alate, korisnici će biti dodatno obavešteni kroz odgovarajući banner ili dopunsko
-            obaveštenje, kada to bude potrebno.
+            bezbednost sesije i osnovnu funkcionalnost. Kada su odgovarajuće env promenljive uključene,
+            sajt može koristiti Google Analytics i Meta Pixel za merenje posećenosti, početka provere i
+            uspešno primljenih zahteva u vezi sa oglasnim kampanjama.
           </p>
           <p>
-            U trenutnom osnovnom modelu sajta fokus je na nužnoj funkcionalnosti i obradi prijava, a
-            ne na oglašavanju ili profilisanju korisnika.
+            Za server-side merenje uspešno primljenog zahteva, Conversions API može primiti tehničke
+            podatke o zahtevu, kao i jednosmerno hashovane vrednosti email adrese i telefona kada ih
+            korisnik unese. Access token za ovaj servis ne izlaže se pregledaču.
+          </p>
+          <p>
+            Opcionu analitiku i oglašavanje uključujemo samo uz odgovarajući pravni osnov, obaveštenje
+            i, kada je potrebno, mehanizam za izbor ili povlačenje pristanka. Detalji o konkretnim
+            provajderima, rokovima i prekograničnim prenosima biće dopunjeni pre konačnog produkcijskog
+            puštanja kampanja.
           </p>
         </Section>
 
