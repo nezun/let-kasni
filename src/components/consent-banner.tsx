@@ -130,13 +130,13 @@ export function ConsentBanner({ locale }: { locale: "sr" | "en" }) {
         aria-modal="true"
         aria-label={t.dialogLabel}
         aria-describedby={descriptionId}
-        className="w-full max-w-[1920px] rounded-[24px] bg-white px-6 py-7 shadow-2xl sm:px-10 sm:py-9 lg:px-12 lg:py-10"
+        className="w-full max-w-[1920px] rounded-[16px] bg-white px-4 py-4 shadow-[0_18px_50px_rgba(0,0,0,0.18)] sm:px-5 sm:py-5"
       >
-        <div className="grid items-center gap-8 lg:grid-cols-[minmax(0,1.55fr)_minmax(390px,0.85fr)] lg:gap-12">
+        <div className="grid items-center gap-4 lg:grid-cols-[minmax(0,1fr)_230px] lg:gap-5">
           <div className="min-w-0">
             <p
               id={descriptionId}
-              className="max-w-[1120px] text-xl leading-[1.4] text-[#123575] sm:text-2xl lg:text-[29px] lg:leading-[1.45]"
+              className="max-w-[700px] text-sm leading-[1.45] text-[#123575] sm:text-base sm:leading-[1.5]"
             >
               {t.body}{" "}
               <Link
@@ -155,8 +155,8 @@ export function ConsentBanner({ locale }: { locale: "sr" | "en" }) {
             </p>
 
             {customizing ? (
-              <fieldset id={settingsId} className="mt-6 max-w-[700px] space-y-3 rounded-2xl bg-slate-50 p-4">
-                <legend className="px-1 text-sm font-bold text-slate-900">
+              <fieldset id={settingsId} className="mt-4 max-w-[700px] space-y-2 rounded-xl bg-slate-50 p-3">
+                <legend className="px-1 text-xs font-bold text-slate-900">
                   {t.optionsTitle}
                 </legend>
                 <label className="flex cursor-pointer items-start gap-3">
@@ -171,7 +171,7 @@ export function ConsentBanner({ locale }: { locale: "sr" | "en" }) {
                     }
                     className="mt-0.5 h-4 w-4 shrink-0 accent-blue-600"
                   />
-                  <span className="text-sm leading-5 text-slate-700">
+                  <span className="text-xs leading-4 text-slate-700">
                     <span className="block font-semibold text-slate-900">{t.analytics}</span>
                     {t.analyticsBody}
                   </span>
@@ -188,7 +188,7 @@ export function ConsentBanner({ locale }: { locale: "sr" | "en" }) {
                     }
                     className="mt-0.5 h-4 w-4 shrink-0 accent-blue-600"
                   />
-                  <span className="text-sm leading-5 text-slate-700">
+                  <span className="text-xs leading-4 text-slate-700">
                     <span className="block font-semibold text-slate-900">{t.marketing}</span>
                     {t.marketingBody}
                   </span>
@@ -196,7 +196,7 @@ export function ConsentBanner({ locale }: { locale: "sr" | "en" }) {
                 <button
                   type="button"
                   onClick={() => saveChoice(selection)}
-                  className="min-h-11 w-full rounded-xl bg-[#1478F2] px-4 py-2.5 text-sm font-bold text-white transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                  className="min-h-10 w-full rounded-lg bg-[#1478F2] px-3 py-2 text-xs font-bold text-white transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                 >
                   {t.save}
                 </button>
@@ -204,12 +204,12 @@ export function ConsentBanner({ locale }: { locale: "sr" | "en" }) {
             ) : null}
           </div>
 
-          <div className="flex flex-col gap-5 lg:gap-6">
+          <div className="flex flex-col gap-2.5">
             <button
               ref={firstActionRef}
               type="button"
               onClick={() => saveChoice({ analytics: true, marketing: true })}
-              className="min-h-20 rounded-2xl bg-[#1478F2] px-6 py-4 text-xl font-bold text-white transition hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-500/30 sm:text-2xl lg:text-[29px]"
+              className="min-h-12 rounded-xl bg-[#1478F2] px-4 py-2.5 text-sm font-bold text-white transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500/30 sm:text-base"
             >
               {t.accept}
             </button>
@@ -218,7 +218,7 @@ export function ConsentBanner({ locale }: { locale: "sr" | "en" }) {
               aria-expanded={customizing}
               aria-controls={settingsId}
               onClick={() => setCustomizing((current) => !current)}
-              className="min-h-20 rounded-2xl border-4 border-[#1478F2] bg-white px-6 py-4 text-xl font-bold text-[#1478F2] transition hover:bg-blue-50 focus:outline-none focus:ring-4 focus:ring-blue-500/30 sm:text-2xl lg:text-[29px]"
+              className="min-h-12 rounded-xl border-2 border-[#1478F2] bg-white px-4 py-2.5 text-sm font-bold text-[#1478F2] transition hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-500/30 sm:text-base"
             >
               {customizing ? t.settingsClose : t.settings}
             </button>
