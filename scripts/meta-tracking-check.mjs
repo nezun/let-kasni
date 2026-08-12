@@ -35,7 +35,7 @@ for (const relativePath of [
 
 const pixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID?.trim();
 const accessToken = process.env.META_CONVERSIONS_API_ACCESS_TOKEN?.trim();
-if (pixelId && !/^\\d+$/.test(pixelId)) {
+if (pixelId && !/^\d+$/.test(pixelId)) {
   errors.push("NEXT_PUBLIC_META_PIXEL_ID must contain only digits");
 }
 if (Boolean(pixelId) !== Boolean(accessToken)) {
