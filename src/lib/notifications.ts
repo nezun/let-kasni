@@ -163,7 +163,7 @@ function buildAdminClaimNotificationText(claim: ClaimRecord) {
   ].join("\n");
 }
 
-function buildUserConfirmationHtml(claim: ClaimRecord, locale: "sr" | "en") {
+export function buildUserConfirmationHtml(claim: ClaimRecord, locale: "sr" | "en") {
   const english = locale === "en";
   const name = claim.firstName?.trim() || (english ? "Dear passenger" : "Poštovani");
   const reference = claim.id.slice(0, 8).toUpperCase();
@@ -171,14 +171,14 @@ function buildUserConfirmationHtml(claim: ClaimRecord, locale: "sr" | "en") {
   return `
     <div style="background:#f4f6fa;padding:32px 16px;font-family:Arial,sans-serif;color:#0A0F1E;">
       <div style="max-width:640px;margin:0 auto;background:#ffffff;border:1px solid #e2e6ef;border-radius:20px;overflow:hidden;">
-        <div style="padding:24px 28px;background:#0B1326;color:#ffffff;">
-          <div style="font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.58);font-weight:700;">${english ? "Request received" : "Potvrda prijema"}</div>
+        <div style="padding:24px 28px;background:#2470EB;color:#ffffff;">
+          <div style="font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.78);font-weight:700;">${english ? "Request received" : "Potvrda prijema"}</div>
           <h1 style="margin:10px 0 0;font-size:28px;line-height:1.15;">${english ? "We received your request" : "Vaš zahtev je uspešno primljen"}</h1>
         </div>
         <div style="padding:28px;font-size:15px;line-height:1.7;color:#334155;">
           <p style="margin:0 0 14px;">${escapeHtml(name)},</p>
           <p style="margin:0 0 14px;">${english ? "Thank you. We received your flight-compensation check and sent it to our team for review." : "hvala Vam. Primili smo Vaš zahtev za proveru avio-odštete i prosledili ga našem timu na obradu."}</p>
-          <p style="margin:0 0 14px;">${english ? "We will contact you within 24 hours with the next step. There are no upfront costs." : "Javljamo Vam se u roku od 24h sa sledećim korakom. Nema troškova unapred."}</p>
+          <p style="margin:0 0 14px;">${english ? "We will contact you within 24 hours with the next step." : "Javljamo Vam se u roku od 24h sa sledećim korakom."}</p>
           <div style="margin:22px 0;padding:14px 16px;background:#EEF5FF;border-radius:14px;color:#0B2E6F;font-weight:700;">
             ${english ? "Request reference" : "Referenca zahteva"}: ${escapeHtml(reference)}
           </div>
@@ -196,7 +196,6 @@ function buildUserConfirmationText(claim: ClaimRecord, locale: "sr" | "en") {
       "",
       "We received your flight-compensation check and sent it to our team for review.",
       "We will contact you within 24 hours with the next step.",
-      "There are no upfront costs.",
       "",
       `Request reference: ${claim.id.slice(0, 8).toUpperCase()}`,
       "",
@@ -209,7 +208,6 @@ function buildUserConfirmationText(claim: ClaimRecord, locale: "sr" | "en") {
     "",
     "Primili smo Vaš zahtev za proveru avio-odštete i prosledili ga našem timu na obradu.",
     "Javljamo Vam se u roku od 24h sa sledećim korakom.",
-    "Nema troškova unapred.",
     "",
     `Referenca zahteva: ${claim.id.slice(0, 8).toUpperCase()}`,
     "",
