@@ -78,6 +78,14 @@ export default async function RootLayout({
       lang={locale}
       className={`${sora.variable} ${dmSans.variable} ${jetBrainsMono.variable} h-full antialiased`}
     >
+      <head>
+        <script
+          id="lk-consent-bootstrap"
+          dangerouslySetInnerHTML={{
+            __html: `(()=>{try{const readCookie=()=>document.cookie.split(";").map((part)=>part.trim()).find((part)=>part.startsWith("lk_consent="))?.slice("lk_consent=".length);const valid=(value)=>{if(!value)return false;try{const decoded=decodeURIComponent(value);if(decoded==="granted"||decoded==="denied")return true;const parsed=JSON.parse(decoded);return parsed?.v===2&&typeof parsed.analytics==="boolean"&&typeof parsed.marketing==="boolean";}catch(_){return false;}};const cookieValue=readCookie();if(valid(cookieValue)){document.documentElement.dataset.consent="1";return;}const raw=window.localStorage.getItem("letkasni-tracking-consent-v1");if(valid(raw)){document.cookie="lk_consent="+encodeURIComponent(raw)+"; Max-Age=31536000; Path=/; SameSite=Lax; Secure";document.documentElement.dataset.consent="1";}}catch(_){}})();`,
+          }}
+        />
+      </head>
       <body className="min-h-full flex flex-col">
         <Analytics />
         <MetaPixel />

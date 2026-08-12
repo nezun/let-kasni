@@ -830,3 +830,8 @@ summary::-webkit-details-marker {
     max-width: none;
   }
 }
+
+/* Hide a one-time localStorage-to-cookie migration banner before first paint. */
+html[data-consent="1"] .consent-banner {
+  display: none;
+}

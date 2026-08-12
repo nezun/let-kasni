@@ -5,21 +5,21 @@ import { isValidEmail } from "@/lib/email-validation";
 import { sendAdminClaimNotification, sendUserClaimConfirmation } from "@/lib/notifications";
 import { isRateLimited } from "@/lib/rate-limit";
 import { sendMetaLeadEvent } from "@/lib/meta-conversions";
+import {
+  getCookieHeaderValue,
+  parseTrackingConsentValue,
+  trackingConsentCookieName,
+} from "@/lib/consent-cookie";
 import type { ClaimInput, IssueType } from "@/lib/types";
 
 const minimumHumanSubmitMs = 2500;
 
-function hasMarketingConsent(value: unknown) {
-  if (value === "granted") {
-    return true;
-  }
-
-  if (!value || typeof value !== "object") {
-    return false;
-  }
-
-  const consent = value as Record<string, unknown>;
-  return consent.v === 2 && consent.marketing === true;
+function hasMarketingCookieConsent(request: Request) {
+  const rawConsent = getCookieHeaderValue(
+    request.headers.get("cookie"),
+    trackingConsentCookieName,
+  );
+  return parseTrackingConsentValue(rawConsent)?.marketing === true;
 }
 
 interface ValidatedSubmission {
@@ -160,7 +160,7 @@ export async function POST(request: Request) {
   });
   const providerSnapshot = claim.providerSnapshot;
 
-  if (!reused && hasMarketingConsent(metadata.trackingConsent)) {
+  if (!reused && hasMarketingCookieConsent(request)) {
     const metaResult = await sendMetaLeadEvent(request, {
       eventId:
         typeof metadata.metaEventId === "string" ? metadata.metaEventId : undefined,

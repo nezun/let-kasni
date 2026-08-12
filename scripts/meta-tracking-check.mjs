@@ -13,6 +13,15 @@ const checks = [
   ["src/lib/meta-conversions.ts", "userData.fn"],
   ["src/lib/meta-conversions.ts", "userData.ln"],
   ["src/lib/meta-conversions.ts", "userData.country"],
+  ["src/lib/consent-cookie.ts", "trackingConsentCookieName"],
+  ["src/lib/consent-cookie.ts", "trackingConsentCookieMaxAge"],
+  ["src/lib/consent-cookie.ts", "parseTrackingConsentValue"],
+  ["src/lib/consent.ts", "serializeTrackingConsentCookie"],
+  ["src/app/layout.tsx", "lk-consent-bootstrap"],
+  ["src/app/claim/submit/route.ts", "hasMarketingCookieConsent"],
+  ["src/app/claim/submit/route.ts", "trackingConsentCookieName"],
+  ["src/components/consent-banner.tsx", "data-consent-banner"],
+  ["src/app/globals.css", "data-consent=\"1\""],
   ["src/app/claim/submit/route.ts", "sendMetaLeadEvent"],
   ["src/app/claim/submit/route.ts", "externalId: claim.id"],
   ["src/app/claim/submit/route.ts", "privacyConsent"],
@@ -43,6 +52,11 @@ for (const relativePath of [
   if (content.includes("META_CONVERSIONS_API_ACCESS_TOKEN")) {
     errors.push(`${relativePath} must not contain the server-only Meta access token`);
   }
+}
+
+const layout = readFileSync(resolve(root, "src/app/layout.tsx"), "utf8");
+if (layout.includes("cookies()")) {
+  errors.push("src/app/layout.tsx must not read consent cookies; use the blocking head bootstrap instead");
 }
 
 const pixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID?.trim();
