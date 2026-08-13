@@ -279,7 +279,7 @@ const copy = {
     ctaTitleA: "Ne ostavljajte novac",
     ctaTitleB: "avio-kompaniji i posrednicima.",
     ctaBody: "Započnite proveru odmah. Potrebno Vam je samo dva minuta.",
-    ctaButton: "Proveri moj let besplatno",
+    ctaButton: "Proveri let besplatno",
     footerBody:
       "Specijalizovani servis za zaštitu prava putnika u avio-saobraćaju i naplatu zakonom propisane odštete.",
     footerLinks: "Linkovi",
@@ -390,7 +390,7 @@ const copy = {
     ctaTitleA: "Do not leave your money",
     ctaTitleB: "with the airline or intermediaries.",
     ctaBody: "Start your free check now. It takes only two minutes.",
-    ctaButton: "Check my flight for free",
+    ctaButton: "Free flight check",
     footerBody:
       "Local, English-speaking support for passenger compensation claims involving flights to and from Serbia.",
     footerLinks: "Links",
