@@ -216,12 +216,28 @@ export async function POST(request: Request) {
   );
 
   if (!reused) {
-    sendAdminClaimNotification(claim).catch((error) => {
-      console.error("Failed to send admin claim notification.", error);
-    });
-    sendUserClaimConfirmation(claim, submission.locale).catch((error) => {
-      console.error("Failed to send user claim confirmation.", error);
-    });
+    const notificationResults = await Promise.allSettled([
+      sendAdminClaimNotification(claim),
+      sendUserClaimConfirmation(claim, submission.locale),
+    ]);
+
+    for (const [index, result] of notificationResults.entries()) {
+      if (result.status === "rejected") {
+        console.error(
+          index === 0
+            ? "Failed to send admin claim notification."
+            : "Failed to send user claim confirmation.",
+          result.reason,
+        );
+      }
+    }
+
+    if (notificationResults.every((result) => result.status === "fulfilled")) {
+      console.info(
+        "Claim notifications sent.",
+        JSON.stringify({ claimId: claim.id }),
+      );
+    }
   }
 
   return NextResponse.json({
