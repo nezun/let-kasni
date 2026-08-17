@@ -245,6 +245,7 @@ const copy = {
       "Kada predmet zahteva dodatni korak, on ide u egzekuciju istog dana — ne u red čekanja u inostranstvu.",
     statPaidOut: "Naknade isplaćeno Vama",
     statUpfront: "Troškovi",
+    statUpfrontValue: "0 EUR",
     statFee: "Provizija na uspeh",
     statMax: "Maksimalna naknada",
     statMaxValue: "600 EUR",
@@ -356,6 +357,7 @@ const copy = {
       "When a case requires an additional step, it moves forward the same day — not into an overseas queue.",
     statPaidOut: "Compensation is paid to you",
     statUpfront: "Cost",
+    statUpfrontValue: "€0",
     statFee: "Success fee",
     statMax: "Maximum compensation",
     statMaxValue: "€600",
@@ -968,7 +970,7 @@ export function LandingPage({
           <div className="relative mx-auto grid max-w-[1200px] gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-0">
             {[
               { value: t.statMaxValue, label: t.statMax },
-              { value: "€0", label: t.statUpfront },
+              { value: t.statUpfrontValue, label: t.statUpfront },
               { value: "100%", label: t.statPaidOut },
               { value: "0%", label: t.statFee },
             ].map((item, index) => (
