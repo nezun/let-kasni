@@ -14,13 +14,13 @@ Canonical handoff file for future local and Codex Cloud sessions.
 ## Generated Status
 
 <!-- BEGIN:generated-status -->
-Generated at: `2026-08-12T23:11:56.339Z`
+Generated at: `2026-08-19T12:58:12.489Z`
 
-Branch: `main`
+Branch: `codex/email-delivery-reliability`
 
 Remote: `https://github.com/nezun/let-kasni.git`
 
-Latest local commit: `dc21baf fix(qa): add English legal pages (#19)`
+Latest local commit: `e032cd3 fix: make claim email delivery resilient`
 
 Worktree status:
 
@@ -34,7 +34,7 @@ Useful commands:
 - `npm run dev`: `next dev`
 - `npm run lint`: `eslint`
 - `npm run build`: `next build`
-- `npm run verify`: `npm run workflow:check && npm run meta:check && npm run content:qa && npm run content:links && npm run content:benchmark && npm run locales:check && npm run lint && npm run build`
+- `npm run verify`: `npm run workflow:check && npm run meta:check && npm run email:check && npm run content:qa && npm run content:links && npm run content:benchmark && npm run locales:check && npm run lint && npm run build`
 - `npm run release:gate`: `bash scripts/release-gate.sh`
 - `npm run production:check`: `node scripts/check-production.mjs`
 - `npm run workflow:check`: `bash scripts/check-workflow-guards.sh`
@@ -51,6 +51,7 @@ Useful commands:
 - GitHub `main` is the only source of truth for deployable code.
 - Production URL: `https://letkasni.rs`.
 - Deploy target: Vercel.
+- Email delivery reliability fix is prepared on `codex/email-delivery-reliability`: claim submit now waits for admin and user notification delivery, retries transient Resend failures up to three attempts, uses stable idempotency keys, and logs Resend IDs plus attempt counts.
 - Production currently serves GitHub `main` commit `dc21baf` after the 2026-08-13 total independent QA release.
 - The final approved bilingual landing and claim flow is on GitHub `main` from production commit `be1c24a` or its descendants.
 - Historical sibling folders are non-canonical and must not be used for deploys.
@@ -75,6 +76,7 @@ Useful commands:
 
 ## Next Work
 
+- After the immediate reliability release, add a durable email outbox plus Resend delivery/bounce webhooks once Supabase production persistence is configured; this is the remaining step that can recover emails after all in-request retries fail.
 - Add the real Meta Pixel ID and Conversions API token in Vercel Production, then run the Test Events flow from `docs/META-ADS-TRACKING.md`.
 - Confirm whether campaign traffic will use canonical `letkasni.rs` or a separate `leadcast.rs` host before domain verification and release.
 - After Meta Test Events and privacy/consent review pass, run `npm run release:gate` and deploy only with explicit release authorization.
@@ -94,6 +96,7 @@ Useful commands:
 
 ## Manual Work Still Needed
 
+- Run one controlled real claim after the email reliability deployment and confirm both the admin notification and user confirmation arrive; automated tests cover transport behavior without sending real customer email.
 - Meta Business setup is still manual: Pixel/Dataset, domain verification, `Lead` event prioritization, Pixel ID, and server access token.
 - Phone matching remains intentionally unchanged and optional; this task did not add a phone requirement or alter phone collection.
 - `leadcast.rs` could not be resolved from the current environment and is not the canonical production domain in this checkout; do not silently switch domains.
@@ -106,6 +109,7 @@ Useful commands:
 
 ## Verification Log
 
+- 2026-08-19 email reliability patch: `npm run email:check` passed 5 regression tests covering `ECONNRESET`, `ETIMEDOUT`, retryable 5xx/409 responses, non-retryable 4xx responses, stable idempotency keys, and awaited claim notification delivery. `npm run verify` passed, including workflow guards, content checks, locale alignment, lint, TypeScript, and the production build.
 - `npm run checkpoint`: refreshes the generated status block in this file.
 - `npm run session:start`: verifies canonical remote, branch, and clean worktree before work starts.
 - `npm run release:gate`: runs the full SR/EN release gate and shows the exact proposed production diff.

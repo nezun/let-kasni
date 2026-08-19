@@ -216,12 +216,45 @@ export async function POST(request: Request) {
   );
 
   if (!reused) {
-    sendAdminClaimNotification(claim).catch((error) => {
-      console.error("Failed to send admin claim notification.", error);
-    });
-    sendUserClaimConfirmation(claim, submission.locale).catch((error) => {
-      console.error("Failed to send user claim confirmation.", error);
-    });
+    const notificationKinds = ["admin", "user"] as const;
+    const notificationResults = await Promise.allSettled([
+      sendAdminClaimNotification(claim),
+      sendUserClaimConfirmation(claim, submission.locale),
+    ]);
+
+    for (const [index, result] of notificationResults.entries()) {
+      const kind = notificationKinds[index];
+
+      if (result.status === "rejected") {
+        const error = result.reason;
+        console.error(
+          "Claim email delivery failed.",
+          JSON.stringify({
+            claimId: claim.id,
+            kind,
+            attempts:
+              error && typeof error === "object" && "attempts" in error
+                ? error.attempts
+                : undefined,
+            error: error instanceof Error ? error.message : String(error),
+          }),
+        );
+        continue;
+      }
+
+      console.info(
+        result.value.skipped
+          ? "Claim email delivery skipped."
+          : "Claim email delivered to Resend.",
+        JSON.stringify({
+          claimId: claim.id,
+          kind,
+          skipped: result.value.skipped,
+          resendEmailId: "id" in result.value ? result.value.id : undefined,
+          attempts: "attempts" in result.value ? result.value.attempts : undefined,
+        }),
+      );
+    }
   }
 
   return NextResponse.json({
