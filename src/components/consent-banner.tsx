@@ -2,6 +2,7 @@
 
 import { useEffect, useId, useRef, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   getTrackingConsent,
   setTrackingConsent,
@@ -54,6 +55,7 @@ type ConsentSelection = Pick<TrackingConsent, "analytics" | "marketing">;
 export function ConsentBanner({
   locale,
 }: { locale: "sr" | "en" }) {
+  const pathname = usePathname();
   const descriptionId = useId();
   const settingsId = useId();
   const firstActionRef = useRef<HTMLButtonElement>(null);
@@ -81,6 +83,9 @@ export function ConsentBanner({
   const t = copy[locale];
   const termsHref = locale === "en" ? "/en/terms" : "/terms";
   const privacyHref = locale === "en" ? "/en/privacy" : "/privacy";
+  const isLocalFocusedFlow =
+    process.env.NODE_ENV !== "production" &&
+    (pathname === "/proveri-let" || pathname === "/en/check-flight");
 
   useEffect(() => {
     function updateBannerBounds() {
@@ -110,7 +115,7 @@ export function ConsentBanner({
     }
   }, [consent]);
 
-  if (consent) {
+  if (consent || isLocalFocusedFlow) {
     return null;
   }
 

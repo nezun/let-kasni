@@ -29,12 +29,13 @@ export default async function CheckFlightPage({
   const params = await searchParams;
   const initialIssue = parseIssue(params.issue);
   const startsAtStepTwo = params.step === "2" && initialIssue !== null;
+  const startsAtStepThree = process.env.NODE_ENV !== "production" && params.step === "3";
 
   return (
     <HeroFormVariantPage
       variant="focused"
       locale="sr"
-      initialStep={startsAtStepTwo ? 2 : 1}
+      initialStep={startsAtStepThree ? 3 : startsAtStepTwo ? 2 : 1}
       initialIssue={initialIssue}
     />
   );

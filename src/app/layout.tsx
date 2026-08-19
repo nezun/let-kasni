@@ -77,6 +77,7 @@ export default async function RootLayout({
     <html
       lang={locale}
       className={`${sora.variable} ${dmSans.variable} ${jetBrainsMono.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
       <head>
         <script
