@@ -14,13 +14,13 @@ Canonical handoff file for future local and Codex Cloud sessions.
 ## Generated Status
 
 <!-- BEGIN:generated-status -->
-Generated at: `2026-08-19T12:58:12.489Z`
+Generated at: `2026-08-19T13:07:38Z`
 
-Branch: `codex/email-delivery-reliability`
+Branch: `main`
 
 Remote: `https://github.com/nezun/let-kasni.git`
 
-Latest local commit: `e032cd3 fix: make claim email delivery resilient`
+Latest local commit: `859b2f9 fix: make claim email delivery resilient (#20)`
 
 Worktree status:
 
@@ -51,8 +51,7 @@ Useful commands:
 - GitHub `main` is the only source of truth for deployable code.
 - Production URL: `https://letkasni.rs`.
 - Deploy target: Vercel.
-- Email delivery reliability fix is prepared on `codex/email-delivery-reliability`: claim submit now waits for admin and user notification delivery, retries transient Resend failures up to three attempts, uses stable idempotency keys, and logs Resend IDs plus attempt counts.
-- Production currently serves GitHub `main` commit `dc21baf` after the 2026-08-13 total independent QA release.
+- Production serves GitHub `main` commit `859b2f9` with the email delivery reliability fix: claim submit waits for admin and user notification delivery, retries transient Resend failures up to three attempts, uses stable idempotency keys, and logs Resend IDs plus attempt counts.
 - The final approved bilingual landing and claim flow is on GitHub `main` from production commit `be1c24a` or its descendants.
 - Historical sibling folders are non-canonical and must not be used for deploys.
 - Production now implements the screenshot-matched bilingual consent banner with separate Analytics and Marketing choices, Terms of Use and Privacy Policy links, and a footer privacy-settings reset path.
@@ -96,7 +95,7 @@ Useful commands:
 
 ## Manual Work Still Needed
 
-- Run one controlled real claim after the email reliability deployment and confirm both the admin notification and user confirmation arrive; automated tests cover transport behavior without sending real customer email.
+- No manual email reliability step remains. A controlled production claim to `kontakt@letkasni.rs` was accepted by Resend for both admin and user messages; inbox routing can still be checked independently when needed.
 - Meta Business setup is still manual: Pixel/Dataset, domain verification, `Lead` event prioritization, Pixel ID, and server access token.
 - Phone matching remains intentionally unchanged and optional; this task did not add a phone requirement or alter phone collection.
 - `leadcast.rs` could not be resolved from the current environment and is not the canonical production domain in this checkout; do not silently switch domains.
@@ -109,6 +108,7 @@ Useful commands:
 
 ## Verification Log
 
+- 2026-08-19 email reliability production release: PR #20 merged as `859b2f9`; `npm run release:gate -- --production` passed and `/api/health` matched GitHub `main`. Controlled claim `02d6cb2d-848d-4b75-9569-c864c5a5b8e8` returned HTTP 200, while Vercel logged admin Resend ID `848f3123-669c-447f-8a9f-acd581713828` and user Resend ID `1459438d-d0c9-4a15-83c6-a4e8d297a7ee`, both on attempt 1.
 - 2026-08-19 email reliability patch: `npm run email:check` passed 5 regression tests covering `ECONNRESET`, `ETIMEDOUT`, retryable 5xx/409 responses, non-retryable 4xx responses, stable idempotency keys, and awaited claim notification delivery. `npm run verify` passed, including workflow guards, content checks, locale alignment, lint, TypeScript, and the production build.
 - `npm run checkpoint`: refreshes the generated status block in this file.
 - `npm run session:start`: verifies canonical remote, branch, and clean worktree before work starts.
