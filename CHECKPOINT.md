@@ -14,13 +14,13 @@ Canonical handoff file for future local and Codex Cloud sessions.
 ## Generated Status
 
 <!-- BEGIN:generated-status -->
-Generated at: `2026-08-19T13:07:38Z`
+Generated at: `2026-08-19T19:55:10.900Z`
 
 Branch: `main`
 
 Remote: `https://github.com/nezun/let-kasni.git`
 
-Latest local commit: `859b2f9 fix: make claim email delivery resilient (#20)`
+Latest local commit: `cbf83ca Finalize mobile result flow and fix consent hydration warning (#22)`
 
 Worktree status:
 
