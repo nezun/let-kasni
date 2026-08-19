@@ -1,4 +1,5 @@
 import { getResendAdminToEmail, getResendApiKey, getResendFromEmail, getSiteUrl, getSupportEmail } from "@/lib/env";
+import { sendResendRequest } from "@/lib/resend-delivery.mjs";
 import type { ClaimRecord } from "@/lib/types";
 
 function escapeHtml(value: string) {
@@ -116,6 +117,10 @@ async function sendResendEmail(payload: {
   subject: string;
   html: string;
   text: string;
+}, options: {
+  idempotencyKey: string;
+  claimId: string;
+  kind: "admin" | "user";
 }) {
   const apiKey = getResendApiKey();
 
@@ -123,25 +128,31 @@ async function sendResendEmail(payload: {
     return { ok: false, skipped: true as const };
   }
 
-  const response = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
+  return sendResendRequest({
+    apiKey,
+    idempotencyKey: options.idempotencyKey,
+    payload: {
       from: getResendFromEmail(),
       reply_to: getSupportEmail(),
       ...payload,
-    }),
+    },
+    onRetry: ({ attempt, delayMs, error }: {
+      attempt: number;
+      delayMs: number;
+      error: unknown;
+    }) => {
+      console.warn(
+        "Retrying Resend email delivery.",
+        JSON.stringify({
+          claimId: options.claimId,
+          kind: options.kind,
+          failedAttempt: attempt,
+          retryDelayMs: delayMs,
+          error: error instanceof Error ? error.message : String(error),
+        }),
+      );
+    },
   });
-
-  if (!response.ok) {
-    const body = await response.text().catch(() => "");
-    throw new Error(`Resend email failed: HTTP ${response.status}${body ? ` - ${body}` : ""}`);
-  }
-
-  return { ok: true as const, skipped: false as const };
 }
 
 function buildAdminClaimNotificationText(claim: ClaimRecord) {
@@ -227,6 +238,10 @@ export async function sendAdminClaimNotification(claim: ClaimRecord) {
     subject: `Novi claim: ${claim.flightNumber} / ${claim.flightDate}`,
     html: buildClaimNotificationHtml(claim),
     text: buildAdminClaimNotificationText(claim),
+  }, {
+    idempotencyKey: `claim/${claim.id}/admin`,
+    claimId: claim.id,
+    kind: "admin",
   });
 }
 
@@ -239,5 +254,9 @@ export async function sendUserClaimConfirmation(
     subject: `${locale === "en" ? "We received your request" : "Primili smo Vaš zahtev"} - ${claim.id.slice(0, 8).toUpperCase()}`,
     html: buildUserConfirmationHtml(claim, locale),
     text: buildUserConfirmationText(claim, locale),
+  }, {
+    idempotencyKey: `claim/${claim.id}/user/${locale}`,
+    claimId: claim.id,
+    kind: "user",
   });
 }
