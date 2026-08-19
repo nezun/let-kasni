@@ -881,8 +881,12 @@ function ClaimFlow({
         </form>
 
         {submitted ? (
-          <div className="mt-3 rounded-[10px] border border-[#BFD3F5] bg-[#F3F7FF] px-4 py-3 text-center text-xs font-semibold text-[#2456A6]" role="status">
-            {t.submitted}
+          <div
+            className="mt-3 flex items-center justify-center gap-2 rounded-[10px] border border-[#BDE6CC] bg-[#EFFAF3] px-4 py-3 text-center text-[13px] font-bold leading-[1.35] text-[#168A4B]"
+            role="status"
+          >
+            <CheckCircle2 className="h-[18px] w-[18px] shrink-0" aria-hidden="true" />
+            <span>{t.submitted}</span>
           </div>
         ) : null}
 
