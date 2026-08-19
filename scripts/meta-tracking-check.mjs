@@ -18,6 +18,7 @@ const checks = [
   ["src/lib/consent-cookie.ts", "parseTrackingConsentValue"],
   ["src/lib/consent.ts", "serializeTrackingConsentCookie"],
   ["src/app/layout.tsx", "lk-consent-bootstrap"],
+  ["src/app/layout.tsx", "suppressHydrationWarning"],
   ["src/app/claim/submit/route.ts", "hasMarketingCookieConsent"],
   ["src/app/claim/submit/route.ts", "trackingConsentCookieName"],
   ["src/components/consent-banner.tsx", "data-consent-banner"],
