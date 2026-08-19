@@ -14,13 +14,13 @@ Canonical handoff file for future local and Codex Cloud sessions.
 ## Generated Status
 
 <!-- BEGIN:generated-status -->
-Generated at: `2026-08-19T19:55:10.900Z`
+Generated at: `2026-08-19T20:36:00.134Z`
 
 Branch: `main`
 
 Remote: `https://github.com/nezun/let-kasni.git`
 
-Latest local commit: `cbf83ca Finalize mobile result flow and fix consent hydration warning (#22)`
+Latest local commit: `88b7903 Fix: emphasize successful claim submission (#24)`
 
 Worktree status:
 
@@ -53,6 +53,7 @@ Useful commands:
 - Deploy target: Vercel.
 - Production serves GitHub `main` commit `859b2f9` with the email delivery reliability fix: claim submit waits for admin and user notification delivery, retries transient Resend failures up to three attempts, uses stable idempotency keys, and logs Resend IDs plus attempt counts.
 - The final approved bilingual landing and claim flow is on GitHub `main` from production commit `be1c24a` or its descendants.
+- The compact post-submit confirmation uses the approved green success palette, check icon, and shared SR/EN styling from production commit `88b7903` or its descendants.
 - Historical sibling folders are non-canonical and must not be used for deploys.
 - Production now implements the screenshot-matched bilingual consent banner with separate Analytics and Marketing choices, Terms of Use and Privacy Policy links, and a footer privacy-settings reset path.
 - On desktop, the banner measures its right edge against the embedded claim form and leaves an 8px gap before the form begins; on smaller screens it uses the full available width.
@@ -108,6 +109,7 @@ Useful commands:
 
 ## Verification Log
 
+- 2026-08-19 green submit confirmation release: PR #24 merged as `88b7903`; the local and production release gates passed, `/`, `/en`, both Step 2 routes, `/api/health`, and invalid-submit validation passed, and production matched GitHub `main`.
 - 2026-08-19 email reliability production release: PR #20 merged as `859b2f9`; `npm run release:gate -- --production` passed and `/api/health` matched GitHub `main`. Controlled claim `02d6cb2d-848d-4b75-9569-c864c5a5b8e8` returned HTTP 200, while Vercel logged admin Resend ID `848f3123-669c-447f-8a9f-acd581713828` and user Resend ID `1459438d-d0c9-4a15-83c6-a4e8d297a7ee`, both on attempt 1.
 - 2026-08-19 email reliability patch: `npm run email:check` passed 5 regression tests covering `ECONNRESET`, `ETIMEDOUT`, retryable 5xx/409 responses, non-retryable 4xx responses, stable idempotency keys, and awaited claim notification delivery. `npm run verify` passed, including workflow guards, content checks, locale alignment, lint, TypeScript, and the production build.
 - `npm run checkpoint`: refreshes the generated status block in this file.
