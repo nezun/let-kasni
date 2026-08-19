@@ -84,11 +84,7 @@ const flowCopy = {
     checkingBody: "Pregledamo rutu, datum i osnovne uslove za naknadu. Ovo traje samo nekoliko sekundi.",
     congratulations: "Čestitamo!",
     likelyEligible: "Vaš let verovatno ispunjava uslove za naknadu do 600 EUR!",
-    legalParagraphs: [
-      "Utvrđeni rezultat sistema i Vaš let biće analizirani od strane advokata u naredna 24 sata.",
-      "Ukoliko advokat ustanovi da imate pravo na naknadu, Vama ostaje da, ukoliko želite, pošaljete adekvatnu dokumentaciju radi pokretanja postupka u skladu sa našim smernicama.",
-      "Postupak se dalje nastavlja do isplate, za Vas bez troškova, bez rizika, bez aktivnog učešća i bez provizije. Ukoliko postupak ode na sud, sudske troškove i troškove advokata, tj. rizik neuspeha u sporu snosimo mi, Vi ne plaćate ništa. Ako postupak bude uspešan, Vama pripada pun iznos dosuđene naknade koji se uplaćuje na Vaš račun.",
-    ],
+    resultIntro: "Utvrđeni rezultat sistema i Vaš let biće analizirani od strane advokata u naredna 24 sata. Molimo Vas da ostavite Vaše podatke kako bismo Vam poslali finalnu procenu i sugerisane naredne korake za ostvarivanje Vaše naknade.",
     contactTitle: "Gde želite da Vam pošaljemo rezultat?",
     firstName: "Ime",
     firstNamePlaceholder: "Vaše ime",
@@ -143,11 +139,7 @@ const flowCopy = {
     checkingBody: "We are reviewing the route, date and basic compensation conditions. This takes only a few seconds.",
     congratulations: "Congratulations!",
     likelyEligible: "Your flight is likely eligible for compensation of up to EUR 600!",
-    legalParagraphs: [
-      "The system result and your flight will be reviewed by a lawyer within the next 24 hours.",
-      "If the lawyer confirms that you may be entitled to compensation, all you need to do, if you wish to proceed, is send the appropriate documents in line with our guidance so we can start the claim.",
-      "We then handle the process through to payment, with no cost, no risk, no active involvement and no commission for you. If the case goes to court, we cover the court and legal costs, including the risk of an unsuccessful claim — you pay nothing. If the claim succeeds, the full compensation awarded belongs to you and is paid into your account.",
-    ],
+    resultIntro: "The system result and your flight will be reviewed by a lawyer within the next 24 hours. Please leave your details so that we can send you the final assessment and suggested next steps for obtaining your compensation.",
     contactTitle: "Where should we send your result?",
     firstName: "First name",
     firstNamePlaceholder: "Your first name",
@@ -291,7 +283,7 @@ function FocusedFlowShell({
 }) {
   return (
     <main className="min-h-screen bg-white text-[#0A0F1E] lg:grid lg:grid-cols-[360px_minmax(0,1fr)]">
-      <aside className="relative overflow-hidden border-b border-[#DDE6F1] bg-[#F1F5FA] px-6 py-5 lg:min-h-screen lg:border-b-0 lg:border-r lg:px-12 lg:py-10">
+      <aside className="relative hidden overflow-hidden border-r border-[#DDE6F1] bg-[#F1F5FA] px-12 py-10 lg:block lg:min-h-screen">
         <div className="relative z-10 mx-auto max-w-[260px] lg:mx-0">
           <BrandLogo href={locale === "en" ? "/en" : "/"} size="lg" balance="compact" />
           <FlowProgress step={step} locale={locale} />
@@ -327,7 +319,7 @@ function FocusedFlowShell({
         </div>
       </aside>
 
-      <section className="flex min-h-[calc(100vh-190px)] flex-col px-5 pb-12 pt-6 sm:px-8 lg:min-h-screen lg:px-12 lg:pb-16 lg:pt-8">
+      <section className="flex min-h-screen flex-col px-5 pb-12 pt-6 sm:px-8 lg:px-12 lg:pb-16 lg:pt-8">
         <div
           className={`mx-auto flex w-full max-w-[760px] flex-1 items-center ${
             step === 2 ? "lg:-translate-y-3" : ""
@@ -727,25 +719,19 @@ function ClaimFlow({
   } else {
     content = (
       <div className={frameClass} data-claim-form={surface === "embedded" ? "embedded" : undefined}>
-        <div className="overflow-hidden rounded-[16px] border border-[#BDE6CC] bg-white">
-          <div className="bg-[#EFFAF3] p-5 sm:p-7">
-            <div className="flex items-center gap-3 text-[#168A4B]">
-              <CheckCircle2 className="h-7 w-7 shrink-0 sm:h-8 sm:w-8" />
-              <h1 className="font-display text-[30px] font-bold leading-none sm:text-[36px]">
-                {t.congratulations}
-              </h1>
-            </div>
-            <p className="font-display mt-4 max-w-[680px] text-balance text-[24px] font-bold leading-[1.18] text-[#123D28] sm:text-[29px]">
-              {t.likelyEligible}
-            </p>
+        <div className="rounded-[16px] border border-[#BDE6CC] bg-[#EFFAF3] p-5 sm:p-7">
+          <div className="flex items-center gap-3 text-[#168A4B]">
+            <CheckCircle2 className="h-7 w-7 shrink-0 sm:h-8 sm:w-8" />
+            <h1 className="font-display text-[30px] font-bold leading-none sm:text-[36px]">
+              {t.congratulations}
+            </h1>
           </div>
-          <div className="border-t border-[#CBE8D5] bg-white p-5 sm:p-7">
-            <div className="max-w-[690px] space-y-3 text-[15px] leading-[1.65] text-[#365646]">
-              {t.legalParagraphs.map((paragraph) => (
-                <p key={paragraph}>{paragraph}</p>
-              ))}
-            </div>
-          </div>
+          <p className="font-display mt-4 max-w-[680px] text-balance text-[24px] font-bold leading-[1.18] text-[#123D28] sm:text-[29px]">
+            {t.likelyEligible}
+          </p>
+          <p className="mt-4 max-w-[690px] text-[15px] leading-[1.65] text-[#365646]">
+            {t.resultIntro}
+          </p>
         </div>
 
         <div className="mb-5 mt-7 sm:mt-8">
