@@ -1,18 +1,9 @@
-import { siteOperator } from "@/lib/site-operator";
+import { LegalOperatorContact } from "@/components/legal-operator-contact";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import { LegalOperatorContact } from "@/components/legal-operator-contact";
-import { getSupportEmail, getSupportPhone } from "@/lib/env";
+import { siteOperator } from "@/lib/site-operator";
 
-const lastUpdated = "8. septembar 2026.";
-
-function Section({
-  title,
-  children,
-}: {
-  title: string;
-  children: React.ReactNode;
-}) {
+function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <section className="space-y-4 rounded-3xl border border-[var(--line)] bg-white p-6 shadow-sm md:p-8">
       <h2 className="text-xl font-bold tracking-[-0.02em] text-[var(--ink)]">{title}</h2>
@@ -21,216 +12,126 @@ function Section({
   );
 }
 
+const listClassName = "list-disc space-y-2 pl-5";
+
 export default function PrivacyPage() {
-  const supportEmail = getSupportEmail();
-  const supportPhone = getSupportPhone();
+  const supportEmail = siteOperator.email.sr;
+  const supportPhone = siteOperator.phone;
 
   return (
     <main className="min-h-screen bg-[var(--bg)] pt-32">
       <SiteHeader locale="sr" />
       <div className="mx-auto max-w-5xl space-y-8 px-6 pb-16">
         <div className="space-y-4">
-          <h1 className="text-4xl font-bold tracking-[-0.03em] text-[var(--ink)]">
-            Politika privatnosti
-          </h1>
-          <p className="max-w-3xl text-sm leading-7 text-[var(--muted)]">
-            Ova Politika privatnosti objašnjava kako letkasni.rs obrađuje podatke o
-            ličnosti u vezi sa korišćenjem sajta, podnošenjem zahteva za avio-naknadu
-            i daljom komunikacijom sa korisnicima.
-          </p>
-          <p className="text-xs font-medium uppercase tracking-[0.2em] text-[var(--muted)]/80">
-            Poslednje ažuriranje: {lastUpdated}
-          </p>
+          <h1 className="text-4xl font-bold tracking-[-0.03em] text-[var(--ink)]">Politika privatnosti</h1>
+          <p className="max-w-3xl text-sm font-semibold leading-7 text-[var(--ink)]">LETKASNI / {siteOperator.name}</p>
+          <p className="text-xs font-medium uppercase tracking-[0.2em] text-[var(--muted)]/80">Verzija 1.1 | Važi od 08.09.2026.</p>
         </div>
 
-        <Section title="1. Ko je rukovalac podacima">
-          <p>
-            Rukovalac podacima o ličnosti je {siteOperator.name}, sa sedištem na adresi {siteOperator.address}, {siteOperator.country.sr}, koji je vlasnik i operator sajta letkasni.rs i određuje svrhe i sredstva obrade podataka o ličnosti.
-          </p>
-          <LegalOperatorContact
-            supportEmail={supportEmail}
-            supportPhone={supportPhone}
-          />
-          <p>
-            Za sva pitanja u vezi sa obradom podataka i ostvarivanjem prava u vezi
-            sa privatnošću koristi se kontakt email naveden iznad.
-          </p>
+        <Section title="Ukratko">
+          <p>Rukovalac je {siteOperator.name}. Ne prodajemo vaše podatke.</p>
+          <p>Podatke koristimo da proverimo, preuzmemo, naplatimo i isplatimo vaše konkretno potraživanje, vodimo evidenciju i zaštitimo prava u postupku.</p>
+          <p>Relevantne podatke možemo deliti sa avio-prevoznikom, advokatom, sudom ili regulatorom, bankom i potrebnim IT i potpisnim servisima.</p>
+          <p>Marketing i neobavezna analitika i oglašavanje nisu uslov za obradu zahteva.</p>
+          <p>Za sva pitanja, podršku, reklamacije i ostvarivanje prava u vezi sa privatnošću pišite na <a className="font-medium text-[var(--ink)]" href={`mailto:${supportEmail}`}>{supportEmail}</a>. Za komunikaciju na engleskom koristite <a className="font-medium text-[var(--ink)]" href={`mailto:${siteOperator.email.en}`}>{siteOperator.email.en}</a>.</p>
+        </Section>
+
+        <Section title="1. Ko je rukovalac">
+          <p>Rukovalac podacima o ličnosti je {siteOperator.name}, {siteOperator.address}, {siteOperator.country.sr}, PIB {siteOperator.pib}, MB {siteOperator.mb}, koje pruža uslugu LETKASNI na letkasni.rs. Registar: {siteOperator.registry.sr}. Kontakt za privatnost i opšta pitanja: <a className="font-medium text-[var(--ink)]" href={`mailto:${supportEmail}`}>{supportEmail}</a>; za komunikaciju na engleskom: <a className="font-medium text-[var(--ink)]" href={`mailto:${siteOperator.email.en}`}>{siteOperator.email.en}</a>. Telefon: <a className="font-medium text-[var(--ink)]" href={`tel:${supportPhone}`}>{supportPhone}</a>.</p>
+          <p>Primarno postupamo u skladu sa Zakonom o zaštiti podataka o ličnosti Republike Srbije. Kada se na konkretnu obradu primenjuju i druga obavezna pravila, uključujući GDPR, poštujemo i ta pravila u njihovom dometu.</p>
+          <LegalOperatorContact supportEmail={supportEmail} supportPhone={supportPhone} />
         </Section>
 
         <Section title="2. Koje podatke obrađujemo">
-          <p>U zavisnosti od načina korišćenja sajta, možemo obrađivati sledeće kategorije podataka:</p>
-          <ul className="list-disc space-y-2 pl-5">
-            <li>identifikacione i kontakt podatke koje sami unesete, kao što su ime, email adresa i telefon;</li>
-            <li>podatke o letu i događaju, kao što su broj leta, datum leta, ruta, tip problema i slobodan opis slučaja;</li>
-            <li>tehničke podatke o korišćenju sajta, kao što su IP adresa, osnovni logovi, vreme pristupa i podaci o uređaju ili pregledaču;</li>
-            <li>dokumentaciju i dodatne informacije koje naknadno dostavite ako se slučaj dalje proverava.</li>
+          <p>Ne prikupljamo sve podatke u svakom predmetu. Prikupljamo ono što je potrebno za konkretnu svrhu.</p>
+          <ul className={listClassName}>
+            <li>Identitet i kontakt: ime, prezime, datum rođenja kada je potreban za razlikovanje putnika, adresa, e-mail, telefon.</li>
+            <li>Putovanje i zahtev: PNR, broj/datum leta, ruta, prevoznik, podaci o poremećaju, booking/boarding dokumentacija, komunikacija sa prevoznikom.</li>
+            <li>Dokazi i troškovi: računi, potvrde, fotografije i drugi dokumenti koje dostavite.</li>
+            <li>Isplata: ime vlasnika računa, IBAN/broj računa, valuta i evidencija transakcije.</li>
+            <li>Elektronsko zaključenje: crtež potpisa, vreme i identifikatori događaja, autentikacioni podaci, IP, osnovni tehnički podaci sesije/uređaja, heš i verzije dokumenata.</li>
+            <li>Komunikacija sa nama i reklamacije.</li>
+            <li>Tehnički/cookie podaci u meri opisanoj u Podešavanjima privatnosti.</li>
+            <li>Posebne vrste podataka (npr. zdravstveno stanje ili invaliditet) samo kada su za konkretan zahtev zaista potrebni i kada postoji odgovarajući pravni osnov.</li>
           </ul>
-          <p>
-            Ne tražimo posebne vrste podataka o ličnosti osim ako su izuzetno potrebne
-            za konkretan zahtev i ako za to postoji odgovarajući pravni osnov.
-          </p>
         </Section>
 
-        <Section title="3. Svrhe obrade i pravni osnov">
-          <p>Podatke obrađujemo samo kada za to postoji odgovarajući pravni osnov i jasna svrha obrade.</p>
-          <ul className="list-disc space-y-2 pl-5">
-            <li>
-              <span className="font-semibold text-[var(--ink)]">Predugovorne radnje i izvršenje usluge:</span>{" "}
-              kada dostavite zahtev, podatke obrađujemo radi prijema zahteva,
-              organizacije podataka i dokumentacije, odgovora na upit i preduzimanja
-              administrativnih koraka pre eventualnog zaključenja posebnog ugovora ili
-              punomoćja.
-            </li>
-            <li>
-              <span className="font-semibold text-[var(--ink)]">Legitimni interes:</span>{" "}
-              radi zaštite sistema, sprečavanja zloupotrebe, vođenja evidencija,
-              unapređenja procesa i odbrane od pravnih zahteva, u meri u kojoj interesi
-              korisnika ne pretežu.
-            </li>
-            <li>
-              <span className="font-semibold text-[var(--ink)]">Pravna obaveza:</span>{" "}
-              kada je obrada neophodna radi čuvanja poslovne dokumentacije, postupanja
-              po zahtevima nadležnih organa ili ispunjavanja drugih zakonskih obaveza.
-            </li>
-            <li>
-              <span className="font-semibold text-[var(--ink)]">Pristanak:</span>{" "}
-              samo za one obrade za koje je pristanak zaista potreban, na primer za
-              opcionu analitiku i marketing alate koji se uključuju kroz podešavanja
-              privatnosti.
-            </li>
+        <Section title="3. Odakle dobijamo podatke">
+          <p>Većinu podataka dobijamo direktno od vas. Kada je potrebno za zahtev, podatke možemo dobiti i od roditelja/staratelja ili drugog uredno ovlašćenog lica, avio-prevoznika, turističke agencije/organizatora, aerodroma, advokata, suda, regulatora, pouzdanog flight-data providera ili javno dostupnog izvora.</p>
+        </Section>
+
+        <Section title="4. Zašto ih obrađujemo i na kom osnovu">
+          <p>Pravni osnov zavisi od svrhe. Ne tražimo „saglasnost za sve”.</p>
+          <ul className={listClassName}>
+            <li>Zaključenje i izvršenje ugovora: provera predmeta, generisanje i dokazivanje Assignment Agreement-a, komunikacija, naplata i isplata.</li>
+            <li>Zakonska obaveza: računovodstvo, porezi, postupanje po obavezujućim nalozima suda ili organa i druge obaveze koje se na nas odnose.</li>
+            <li>Legitimni interes: bezbednost platforme, sprečavanje prevare i dvostruke naplate, unapređenje procesa bez zadiranja u prava korisnika, kao i uspostavljanje, ostvarivanje i odbrana pravnih zahteva.</li>
+            <li>Pristanak: direktni marketing i neobavezni analytics/advertising kolačići kada je pristanak potreban; pristanak možete povući u svakom trenutku.</li>
+            <li>Posebni podaci: samo kada je obrada dopuštena posebnim pravilom, npr. kada je neophodna za uspostavljanje, ostvarivanje ili odbranu pravnog zahteva, ili uz izričit pristanak kada je to odgovarajući osnov.</li>
           </ul>
-          <p>
-            Podaci se ne koriste za donošenje isključivo automatizovanih odluka koje
-            proizvode pravne posledice po korisnika. Letkasni.rs ne obrađuje podatke u
-            svrhu pružanja pravnih saveta, pravnog zastupanja ili drugih pravnih usluga.
-          </p>
-          <p>
-            Ako korisnik naknadno zatraži ili odobri uključivanje eksternog pravnog
-            stručnjaka, određeni podaci mogu biti podeljeni sa tim stručnjakom samo u
-            meri u kojoj je to potrebno za dalji postupak i u skladu sa odgovarajućim
-            pravnim osnovom.
-          </p>
         </Section>
 
-        <Section title="4. Obaveznost davanja podataka">
-          <p>
-            Davanje osnovnih podataka o letu i kontakt podataka nije zakonska obaveza,
-            ali je praktično neophodno ako želite da administrativno obradimo zahtev ili
-            da Vas kontaktiramo povodom prijave.
-          </p>
-          <p>
-            Ako ne dostavite minimum potrebnih podataka, možda nećemo moći da obradimo
-            zahtev ili da Vam odgovorimo na upit.
-          </p>
-        </Section>
-
-        <Section title="5. Primaoci podataka i obrađivači">
-          <p>
-            Podaci mogu biti dostupni zaposlenima, saradnicima i obrađivačima koji učestvuju
-            u tehničkom održavanju sajta i obradi zahteva, ali samo u meri koja je nužna za
-            ostvarenje konkretne svrhe.
-          </p>
-          <p>Tipični primaoci ili obrađivači mogu uključivati:</p>
-          <ul className="list-disc space-y-2 pl-5">
-            <li>provajdere hostinga, CDN-a i infrastrukture;</li>
-            <li>provajdere baze podataka i cloud servisa;</li>
-            <li>email i komunikacione servise;</li>
-            <li>spoljne pravne ili operativne saradnike, ako je to potrebno za obradu konkretnog slučaja;</li>
-            <li>nadležne organe kada postoji zakonska obaveza ili valjan pravni zahtev.</li>
+        <Section title="5. Sa kim delimo podatke">
+          <p>Podatke ne prodajemo niti iznajmljujemo. Delimo samo ono što je potrebno.</p>
+          <ul className={listClassName}>
+            <li>Avio-prevoznici, organizatori putovanja i druga lica protiv kojih se ostvaruje označeno Potraživanje.</li>
+            <li>Advokati i advokatske kancelarije angažovani za predmet; njihov privacy status može biti obrađivač ili samostalni rukovalac, zavisno od uloge i važećeg prava.</li>
+            <li>Sudovi, Direktorat civilnog vazduhoplovstva, drugi regulatori, izvršitelji i nadležni organi kada je to potrebno ili obavezno.</li>
+            <li>Banke i platni servisi radi isplate.</li>
+            <li>Hosting/cloud, e-mail, e-signature/authentication, flight-data, sigurnosni i drugi IT provideri koji rade po našim uputstvima kada su obrađivači.</li>
+            <li>Računovođe, revizori i drugi profesionalni savetnici kada je to razumno potrebno.</li>
+            <li>Analytics/advertising partneri samo prema Podešavanjima privatnosti i vašem izboru kada je pristanak potreban.</li>
           </ul>
-          <p>
-            Sa obrađivačima se zaključuju ili će se zaključiti odgovarajući ugovori o obradi
-            podataka kada je to potrebno prema zakonu.
-          </p>
         </Section>
 
-        <Section title="6. Međunarodni prenos podataka">
-          <p>
-            Deo tehničke infrastrukture može uključivati provajdere koji podatke obrađuju ili
-            im pristupaju van Republike Srbije. Kada do takvog prenosa dolazi, preduzimaju se
-            odgovarajuće mere zaštite, uključujući ugovorne i organizacione mehanizme, u meri
-            u kojoj je to propisano važećim pravom.
-          </p>
-          <p>
-            Ako budu uvedeni dodatni provajderi ili složeniji transferi, ova politika će biti
-            ažurirana konkretnijim spiskom servisa i osnovom prenosa.
-          </p>
+        <Section title="6. Prenos podataka u druge države">
+          <p>Claim može zahtevati komunikaciju sa stranim avio-prevoznikom, advokatom ili servisom, pa podaci mogu biti preneti van Srbije. Takav prenos sprovodimo samo kada postoji dopušten pravni mehanizam i odgovarajuće mere zaštite prema srpskom ZZPL, a kada je primenljiv GDPR i prema njegovim pravilima. Prenos ograničavamo na podatke koji su potrebni konkretnoj svrsi.</p>
         </Section>
 
-        <Section title="7. Rokovi čuvanja podataka">
-          <p>
-            Podatke čuvamo onoliko dugo koliko je potrebno za svrhu za koju su prikupljeni, a
-            zatim onoliko koliko nalažu legitimni interesi ili zakonske obaveze.
-          </p>
-          <ul className="list-disc space-y-2 pl-5">
-            <li>prijave koje ne pređu u dalju saradnju čuvaju se razumno ograničen period radi evidencije i eventualnog odgovora na upit;</li>
-            <li>podaci o aktivnim predmetima čuvaju se tokom trajanja obrade slučaja i nakon toga onoliko koliko je potrebno zbog računovodstvenih, poreskih, obligacionih i drugih zakonskih obaveza;</li>
-            <li>tehnički logovi i bezbednosni zapisi čuvaju se ograničeno, u skladu sa svrhom zaštite sistema.</li>
+        <Section title="7. Koliko dugo čuvamo podatke">
+          <p>Rokovi su vezani za svrhu, zakonske obaveze i potrebu da možemo dokazati ugovor i pravni postupak. Ako je predmet aktivan ili postoji spor, podatke čuvamo duže samo koliko je potrebno za taj spor.</p>
+          <ul className={listClassName}>
+            <li>Claim, ugovor, dokazni paket i ključna komunikacija: tokom predmeta i do 5 godina nakon zatvaranja, osim ako duži/kraći rok nalaže zakon ili konkretan spor.</li>
+            <li>Finansijska/računovodstvena dokumentacija: do 10 godina kada je takav rok potreban prema propisima o računovodstvu/porezima.</li>
+            <li>Nepotpun intake bez zaključenog ugovora: najduže 12 meseci od poslednje aktivnosti, osim ako tražite ranije brisanje i nema drugog pravnog osnova.</li>
+            <li>Marketing: do povlačenja pristanka, a najduže 2 godine od poslednje relevantne interakcije ako pre toga ne obnovite odnos.</li>
+            <li>Bezbednosni i tehnički logovi: tipično do 12 meseci, osim ako su potrebni za istragu incidenta ili pravni zahtev.</li>
+            <li>Kolačići: prema periodu navedenom u Podešavanjima privatnosti.</li>
           </ul>
-          <p>
-            Konkretni rokovi čuvanja mogu se dodatno precizirati kroz interne politike rukovaoca
-            po kategorijama podataka.
-          </p>
         </Section>
 
-        <Section title="8. Vaša prava">
-          <p>
-            U skladu sa Zakonom o zaštiti podataka o ličnosti, imate pravo da zatražite pristup,
-            ispravku ili dopunu podataka, brisanje, ograničenje obrade, prenosivost podataka kada
-            su za to ispunjeni uslovi, kao i da podnesete prigovor na obradu.
-          </p>
-          <p>
-            Takođe imate pravo da u svakom trenutku povučete pristanak za obradu koja se zasniva na
-            pristanku, pri čemu povlačenje ne utiče na zakonitost obrade izvršene pre povlačenja.
-          </p>
-          <p>
-            Zahteve možete poslati na{" "}
-            <a className="font-medium text-[var(--ink)]" href={`mailto:${supportEmail}`}>
-              {supportEmail}
-            </a>
-            . Ako smatrate da je obrada nezakonita, imate pravo da se obratite Povereniku za informacije
-            od javnog značaja i zaštitu podataka o ličnosti.
-          </p>
+        <Section title="8. Bezbednost">
+          <p>Koristimo odgovarajuće tehničke i organizacione mere, uključujući kontrolu pristupa po potrebi-posla, enkripciju u prenosu, zaštitu naloga, logovanje relevantnih bezbednosnih događaja, rezervne kopije i ugovorne obaveze poverljivosti za pružaoce usluga. Nijedan sistem nije apsolutno bezbedan, ali mere prilagođavamo riziku i vrsti podataka.</p>
         </Section>
 
-        <Section title="9. Bezbednost podataka">
-          <p>
-            Primenjujemo razumne tehničke, organizacione i kadrovske mere radi zaštite podataka od
-            neovlašćenog pristupa, gubitka, zloupotrebe, izmene ili uništenja. Ipak, nijedan sistem
-            nije apsolutno bezbedan, pa nije moguće garantovati potpunu sigurnost svih prenosa ili
-            čuvanja podataka.
-          </p>
+        <Section title="9. Vaša prava">
+          <p>U skladu sa primenljivim pravom možete tražiti pristup podacima, ispravku, brisanje, ograničenje obrade, prenosivost kada su uslovi ispunjeni, kao i uložiti prigovor na obradu zasnovanu na legitimnom interesu. Kada se obrada zasniva na pristanku, možete ga povući u svakom trenutku bez uticaja na raniju zakonitu obradu.</p>
+          <p>Zahtev pošaljite na <a className="font-medium text-[var(--ink)]" href={`mailto:${supportEmail}`}>{supportEmail}</a>. Možemo tražiti razumnu proveru identiteta da podatke ne bismo otkrili pogrešnom licu. Odgovaramo u rokovima propisanim važećim pravom.</p>
         </Section>
 
-        <Section title="10. Kolačići, analitika i oglašavanje">
-          <p>
-            Sajt može koristiti nužne tehničke kolačiće i slične tehnologije potrebne za rad sajta,
-            bezbednost sesije i osnovnu funkcionalnost. Kada su odgovarajuće env promenljive uključene
-            i kada korisnik izabere odgovarajuću kategoriju, sajt može koristiti Google Analytics za
-            analitiku i Meta Pixel za merenje uspeha oglasa. Ovi alati se ne učitavaju pre izbora.
-          </p>
-          <p>
-            Kada korisnik izabere marketing kategoriju, za server-side merenje uspešno primljenog
-            zahteva Conversions API može primiti tehničke podatke o zahtevu, kao i jednosmerno
-            hashovane vrednosti email adrese i telefona kada ih korisnik unese. Access token za ovaj
-            servis ne izlaže se pregledaču.
-          </p>
-          <p>
-            Opcionu analitiku i marketing uključujemo odvojeno, prema izboru korisnika u baneru. Izbor
-            se može promeniti ili povući preko opcije „Podešavanja privatnosti“ u podnožju sajta.
-            Tehničko blokiranje novih događaja nakon povlačenja izbora ne znači automatsko brisanje svih
-            ranije postavljenih kolačića iz pregledača.
-          </p>
+        <Section title="10. Automatizacija i procena zahteva">
+          <p>Koristimo automatizovane alate za izračunavanje vremena, udaljenosti, iznosa, rokova i preliminarnu procenu mogućih pravnih grana. U verziji usluge na koju se ova Politika odnosi ne donosimo isključivo automatizovanu odluku koja sama proizvodi pravno dejstvo ili slično značajno utiče na vas bez mogućnosti odgovarajuće ljudske provere. Sporan ili negativan rezultat možete tražiti da pregleda osoba.</p>
         </Section>
 
-        <Section title="11. Izmene politike">
-          <p>
-            Ova politika može biti povremeno izmenjena radi usklađivanja sa promenama poslovnog modela,
-            tehnologije ili propisa. Važeća verzija je objavljena na ovoj stranici uz naznačen datum
-            poslednjeg ažuriranja.
-          </p>
+        <Section title="11. Deca i zastupanje drugog lica">
+          <p>Maloletno lice ne zaključuje samostalno Ugovor o ustupanju preko LETKASNI-ja. Za claim maloletnika podatke dostavlja i ugovorne radnje preduzima roditelj, staratelj ili drugo lice koje ima odgovarajuće ovlašćenje. Po potrebi možemo tražiti dokaz ovlašćenja. Podatke deteta ograničavamo na ono što je potrebno za predmet.</p>
         </Section>
 
+        <Section title="12. Marketing, cookies i slične tehnologije">
+          <p>Statusne poruke o vašem predmetu, zahtev za dokumente i servisna obaveštenja nisu marketing. Direktni marketing šaljemo samo kada postoji odgovarajući pravni osnov i uvek omogućavamo jednostavno odjavljivanje.</p>
+          <p>Neophodni kolačići i slične tehnologije koriste se za rad sajta, bezbednost sesije i osnovnu funkcionalnost. Neobavezna analitika i oglašavanje aktiviraju se prema vašem izboru u Podešavanjima privatnosti.</p>
+          <p>Kada su odgovarajuće funkcije uključene i izaberete odgovarajuću kategoriju, sajt može koristiti Google Analytics za analitiku i Meta Pixel za merenje uspeha oglasa. Ovi alati se ne učitavaju pre vašeg izbora.</p>
+          <p>Ako izaberete marketing kategoriju, Meta Conversions API može primiti tehničke podatke o uspešno primljenom zahtevu, kao i jednosmerno hešovane vrednosti e-mail adrese i telefona kada ih unesete. Token za pristup ovom servisu ne izlaže se pregledaču.</p>
+          <p>Analitiku i marketing birate odvojeno. Izbor možete promeniti ili povući preko opcije „Podešavanja privatnosti” u podnožju sajta. Zaustavljanje novih događaja nakon povlačenja izbora ne znači automatsko brisanje svih ranije postavljenih kolačića iz pregledača.</p>
+        </Section>
+
+        <Section title="13. Pritužba Povereniku">
+          <p>Ako smatrate da je obrada nezakonita, možete nam se prvo obratiti na <a className="font-medium text-[var(--ink)]" href={`mailto:${supportEmail}`}>{supportEmail}</a>, a imate i pravo da podnesete pritužbu Povereniku za informacije od javnog značaja i zaštitu podataka o ličnosti: Bulevar kralja Aleksandra 15, 11120 Beograd, <a className="font-medium text-[var(--ink)]" href="mailto:office@poverenik.rs">office@poverenik.rs</a>, <a className="font-medium text-[var(--ink)]" href="tel:+381113408900">+381 11 3408 900</a>, <a className="font-medium text-[var(--ink)]" href="https://www.poverenik.rs">poverenik.rs</a>.</p>
+        </Section>
+
+        <Section title="14. Izmene ove Politike">
+          <p>Politiku možemo ažurirati zbog promene zakona, tehnologije ili načina obrade. Na sajtu objavljujemo datum verzije. Ako promena bitno utiče na vaše pravo ili uvodi novu obradu za koju je potreban pristanak, obavestićemo vas i pribaviti novi pristanak kada je to obavezno.</p>
+        </Section>
       </div>
       <SiteFooter locale="sr" supportEmail={supportEmail} />
     </main>

@@ -5,7 +5,7 @@ import { Mail, Phone } from "lucide-react";
 import { BrandLogo } from "@/components/brand-logo";
 import { PrivacySettingsButton } from "@/components/privacy-settings-button";
 import { cornerstonePages, getCornerstoneHref } from "@/lib/cornerstones";
-import { getSupportEmail, getSupportPhone } from "@/lib/env";
+import { getSupportEmail } from "@/lib/env";
 
 type FooterLocale = "sr" | "en";
 type LogoBalance = "default" | "optical" | "compact" | "badge";
@@ -378,8 +378,12 @@ export function SiteFooter({
 }) {
   const t = footerCopy[locale];
   const rightsLinks = footerRightsLinks(locale);
-  const supportEmail = supportEmailOverride ?? getSupportEmail();
-  const supportPhone = getSupportPhone();
+  const configuredSupportEmail = getSupportEmail();
+  const supportEmail =
+    supportEmailOverride && supportEmailOverride !== configuredSupportEmail
+      ? supportEmailOverride
+      : siteOperator.email[locale];
+  const supportPhone = siteOperator.phone;
 
   return (
     <footer className="bg-[#0A0F1E] px-6 pb-8 pt-14 text-[#8E9BB0]">
