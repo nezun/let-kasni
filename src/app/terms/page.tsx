@@ -1,9 +1,10 @@
+import { siteOperator } from "@/lib/site-operator";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { LegalOperatorContact } from "@/components/legal-operator-contact";
 import { getSupportEmail, getSupportPhone } from "@/lib/env";
 
-const lastUpdated = "9. avgust 2026.";
+const lastUpdated = "8. septembar 2026.";
 
 function Section({
   title,
@@ -44,7 +45,7 @@ export default function TermsPage() {
 
         <Section title="1. Operator sajta">
           <p>
-            Sajtom letkasni.rs upravlja Expatwise LLC, sa poslovnom adresom 30 N Gould St, Ste R, Sheridan, WY 82801, USA, koji je odgovoran za organizaciju i pružanje usluge kroz ovaj sajt na teritoriji Republike Srbije.
+            Vlasnik i operator sajta letkasni.rs je {siteOperator.name}, sa sedištem na adresi {siteOperator.address}, {siteOperator.country.sr}, koji je odgovoran za organizaciju i pružanje usluge kroz ovaj sajt na teritoriji Republike Srbije.
           </p>
           <LegalOperatorContact
             supportEmail={supportEmail}
