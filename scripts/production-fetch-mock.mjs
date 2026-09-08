@@ -32,6 +32,10 @@ globalThis.fetch = async (input, init = {}) => {
   }
 
   const pages = {
+    "/terms": "Terms",
+    "/privacy": "Privacy",
+    "/en/terms": "Terms",
+    "/en/privacy": "Privacy",
     "/": "Let je kasnio 3+ sata Šta se dogodilo sa Vašim letom?",
     "/en": `<title>letkasni.rs</title> Flight delayed 3+ hours ${scenario === "missing-locale" ? "" : "What happened to your flight?"}`,
     "/proveri-let?step=2&issue=delay": "Detalji Vašeg leta",
@@ -42,7 +46,9 @@ globalThis.fetch = async (input, init = {}) => {
     return new Response("server error", { status: 500 });
   }
 
-  return new Response(pages[route] || "not found", {
+  const identity = scenario === "missing-operator" ? "" : "VGA EU CONSULTING DOO NIŠ Bulevar Nemanjića 1 113473442 21873446";
+  const retired = scenario === "retired-operator" ? "Expatwise LLC" : "";
+  return new Response(pages[route] ? `${pages[route]} ${identity} ${retired}` : "not found", {
     status: pages[route] ? 200 : 404,
     headers: { "content-type": "text/html; charset=utf-8" },
   });

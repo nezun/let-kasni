@@ -214,3 +214,12 @@ test("production checker rejects unhealthy transport and response shapes", () =>
     assert.notEqual(result.status, 0, `${scenario} unexpectedly passed`);
   }
 });
+
+
+test("production checker rejects missing or retired operator identity", () => {
+  for (const scenario of ["missing-operator", "retired-operator"]) {
+    const result = runProductionMock(scenario);
+    assert.notEqual(result.status, 0, `${scenario} unexpectedly passed`);
+    assert.match(result.stderr, /missing expected marker|retired operator details/);
+  }
+});

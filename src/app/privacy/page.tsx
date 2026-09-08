@@ -1,9 +1,10 @@
+import { siteOperator } from "@/lib/site-operator";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { LegalOperatorContact } from "@/components/legal-operator-contact";
 import { getSupportEmail, getSupportPhone } from "@/lib/env";
 
-const lastUpdated = "12. avgust 2026.";
+const lastUpdated = "8. septembar 2026.";
 
 function Section({
   title,
@@ -44,7 +45,7 @@ export default function PrivacyPage() {
 
         <Section title="1. Ko je rukovalac podacima">
           <p>
-            Rukovalac podacima o ličnosti je Expatwise LLC, sa poslovnom adresom 30 N Gould St, Ste R, Sheridan, WY 82801, USA, koji upravlja sajtom letkasni.rs i određuje svrhe i sredstva obrade podataka o ličnosti.
+            Rukovalac podacima o ličnosti je {siteOperator.name}, sa sedištem na adresi {siteOperator.address}, {siteOperator.country.sr}, koji je vlasnik i operator sajta letkasni.rs i određuje svrhe i sredstva obrade podataka o ličnosti.
           </p>
           <LegalOperatorContact
             supportEmail={supportEmail}

@@ -1,3 +1,4 @@
+import { siteOperator } from "@/lib/site-operator";
 const requiredSupabaseKeys = [
   "NEXT_PUBLIC_SUPABASE_URL",
   "NEXT_PUBLIC_SUPABASE_ANON_KEY",
@@ -91,30 +92,27 @@ export function getSiteUrl() {
 }
 
 export function getOperatorName() {
-  return getEnv("NEXT_PUBLIC_OPERATOR_NAME") ?? "Expatwise LLC";
+  return siteOperator.name;
 }
 
 export function getOperatorAddress() {
-  return (
-    getEnv("NEXT_PUBLIC_OPERATOR_ADDRESS") ??
-    "30 N Gould St, Ste R, Sheridan, WY 82801, USA"
-  );
+  return `${siteOperator.address}, ${siteOperator.country.sr}`;
 }
 
 export function getOperatorCountry() {
-  return getEnv("NEXT_PUBLIC_OPERATOR_COUNTRY") ?? "Sjedinjene Američke Države";
+  return siteOperator.country.sr;
 }
 
 export function getOperatorRegistry() {
-  return getEnv("NEXT_PUBLIC_OPERATOR_REGISTRY");
+  return siteOperator.registry.sr;
 }
 
 export function getOperatorPib() {
-  return getEnv("NEXT_PUBLIC_OPERATOR_PIB");
+  return siteOperator.pib;
 }
 
 export function getOperatorMb() {
-  return getEnv("NEXT_PUBLIC_OPERATOR_MB");
+  return siteOperator.mb;
 }
 
 export function isSupabaseConfigured() {

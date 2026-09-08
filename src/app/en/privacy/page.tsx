@@ -1,9 +1,10 @@
+import { siteOperator } from "@/lib/site-operator";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { LegalOperatorContact } from "@/components/legal-operator-contact";
 import { getSupportEmail, getSupportPhone } from "@/lib/env";
 
-const lastUpdated = "12 August 2026";
+const lastUpdated = "8 September 2026";
 
 function Section({
   title,
@@ -44,9 +45,7 @@ export default function PrivacyPage() {
 
         <Section title="1. Data controller">
           <p>
-            The data controller is Expatwise LLC, with its business address at 30 N Gould
-            St, Ste R, Sheridan, WY 82801, USA, which operates letkasni.rs and determines
-            the purposes and means of processing personal data.
+            The data controller is {siteOperator.name}, with its registered office at {siteOperator.address}, {siteOperator.country.en}, which owns and operates letkasni.rs and determines the purposes and means of processing personal data.
           </p>
           <LegalOperatorContact
             supportEmail={supportEmail}

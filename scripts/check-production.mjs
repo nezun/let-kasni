@@ -35,6 +35,10 @@ async function expectPage(path, markers) {
     }
   }
 
+  if (/expat\s*wise|Gould|Sheridan|82801/i.test(body)) {
+    throw new Error(`${path} contains retired operator details.`);
+  }
+
   console.log(`PASS ${path} (${response.status})`);
 }
 
@@ -42,6 +46,10 @@ await expectPage("/", ["Let je kasnio 3+ sata", "Šta se dogodilo sa Vašim leto
 await expectPage("/en", ["<title>letkasni.rs</title>", "Flight delayed 3+ hours", "What happened to your flight?"]);
 await expectPage("/proveri-let?step=2&issue=delay", ["Detalji Vašeg leta"]);
 await expectPage("/en/check-flight?step=2&issue=delay", ["Your flight details"]);
+
+for (const path of ["/", "/en", "/terms", "/privacy", "/en/terms", "/en/privacy"]) {
+  await expectPage(path, ["VGA EU CONSULTING DOO NIŠ", "Bulevar Nemanjića 1", "113473442", "21873446"]);
+}
 
 const healthResponse = await request("/api/health");
 const health = await healthResponse.json();

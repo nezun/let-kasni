@@ -103,14 +103,7 @@ For a final production release decision, always use `npm run release:gate -- --p
 
 ### Production env optional
 
-- Operator podaci su podrazumevano podešeni na `Expatwise LLC`, ali se po potrebi mogu override-ovati kroz:
-  - `NEXT_PUBLIC_OPERATOR_NAME`
-  - `NEXT_PUBLIC_OPERATOR_ADDRESS`
-  - `NEXT_PUBLIC_OPERATOR_COUNTRY`
-- Opcioni registracioni identifikatori se ostavljaju prazni dok zvanične vrednosti nisu potvrđene:
-  - `NEXT_PUBLIC_OPERATOR_REGISTRY`
-  - `NEXT_PUBLIC_OPERATOR_PIB`
-  - `NEXT_PUBLIC_OPERATOR_MB`
+- Vlasnik i operator sajta je `VGA EU CONSULTING DOO NIŠ` (PIB `113473442`, MB `21873446`). Javni podaci su centralizovani u `src/lib/site-operator.ts`; futer i obe jezičke verzije pravnih stranica koriste isti izvor. Stare operator environment promenljive više ne menjaju javni identitet.
 - `NEXT_PUBLIC_GA_MEASUREMENT_ID` kada bude spreman GA4
 - Meta Ads tracking env ako želiš browser Pixel + server-side Conversions API:
   - `NEXT_PUBLIC_META_PIXEL_ID`

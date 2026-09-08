@@ -14,18 +14,27 @@ Canonical handoff file for future local and Codex Cloud sessions.
 ## Generated Status
 
 <!-- BEGIN:generated-status -->
-Generated at: `2026-08-19T20:36:00.134Z`
+Generated at: `2026-09-08T16:55:31.156Z`
 
-Branch: `main`
+Branch: `codex/restore-vga-operator`
 
 Remote: `https://github.com/nezun/let-kasni.git`
 
-Latest local commit: `88b7903 Fix: emphasize successful claim submission (#24)`
+Latest local commit: `a0a60a8 Docs: checkpoint green submit confirmation release (#25)`
 
 Worktree status:
 
 ```text
-clean
+M .env.example
+ M README.md
+ M src/app/en/privacy/page.tsx
+ M src/app/en/terms/page.tsx
+ M src/app/privacy/page.tsx
+ M src/app/terms/page.tsx
+ M src/components/legal-operator-contact.tsx
+ M src/components/site-footer.tsx
+ M src/lib/env.ts
+?? src/lib/site-operator.ts
 ```
 
 Useful commands:
@@ -45,6 +54,10 @@ Useful commands:
 <!-- END:generated-status -->
 
 ## Current State
+
+- 2026-09-08: restored VGA EU CONSULTING DOO NIŠ as owner/operator and controller in SR/EN footer, Terms and Privacy. Identity is centralized in `src/lib/site-operator.ts`; legacy operator environment overrides no longer affect public identity.
+- Restored identity from canonical history (`5f821e1^`): Bulevar Nemanjića 1, Niš (Medijana), 18000 Niš, Serbia; PIB 113473442; MB 21873446; APR. User explicitly authorized restoration and immediate deployment.
+- Production checker now verifies company identity on both landing pages and all four legal routes and rejects retired operator details.
 
 - Canonical local checkout: `/Users/nemanjazunic/Documents/CODEX_LET KASNI/letkasni-production`.
 - GitHub remote: `https://github.com/nezun/let-kasni.git`.

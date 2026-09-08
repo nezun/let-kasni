@@ -1,9 +1,10 @@
+import { siteOperator } from "@/lib/site-operator";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { LegalOperatorContact } from "@/components/legal-operator-contact";
 import { getSupportEmail, getSupportPhone } from "@/lib/env";
 
-const lastUpdated = "9 August 2026";
+const lastUpdated = "8 September 2026";
 
 function Section({
   title,
@@ -41,8 +42,7 @@ export default function TermsPage() {
 
         <Section title="1. Website operator">
           <p>
-            Letkasni.rs is operated by Expatwise LLC, with its business address at 30 N Gould St, Ste R, Sheridan, WY 82801,
-            USA, which is responsible for organising and providing the service through this website in the Republic of Serbia.
+            Letkasni.rs is owned and operated by {siteOperator.name}, with its registered office at {siteOperator.address}, {siteOperator.country.en}, which is responsible for organising and providing the service through this website in the Republic of Serbia.
           </p>
           <LegalOperatorContact supportEmail={supportEmail} supportPhone={supportPhone} locale="en" />
         </Section>
