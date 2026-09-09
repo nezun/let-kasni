@@ -12,10 +12,12 @@ import {
   marketingConsentText,
   marketingConsentVersion,
   marketingControllerId,
+  marketingEvidenceRetentionMs,
   marketingPrivacyPolicyVersion,
   marketingPurposeId,
   marketingScopeId,
   normalizeMarketingEmail,
+  pendingMarketingRequestRetentionMs,
   sanitizeMarketingSourcePath,
 } from "@/lib/marketing-consent-core";
 import { sendMarketingConfirmation, sendMarketingManagementLink } from "@/lib/marketing-emails";
@@ -425,7 +427,8 @@ export async function sendEligibleMarketingEmail(input: {
 export async function expireMarketingRecords() {
   requireEnabled();
   const supabase = createSupabaseAdminClient();
-  const now = new Date().toISOString();
+  const currentTime = new Date();
+  const now = currentTime.toISOString();
   const { data: expired, error } = await supabase
     .from("marketing_email_subscriptions")
     .update({ status: "expired", updated_at: now })
@@ -437,11 +440,54 @@ export async function expireMarketingRecords() {
   for (const record of expired ?? []) {
     await addEvent({ subscriptionId: record.id, eventType: "expired", locale: record.locale, sourcePath: "/internal/retention", actor: "system" });
   }
-  await supabase
+  const { error: tokenCleanupError } = await supabase
     .from("marketing_email_subscriptions")
     .update({ confirmation_token_hash: null, confirmation_expires_at: null, updated_at: now })
     .eq("status", "pending")
     .lte("confirmation_expires_at", now)
     .is("legal_hold_until", null);
-  return { expired: expired?.length ?? 0 };
+  if (tokenCleanupError) throw tokenCleanupError;
+
+  const pendingCutoff = new Date(currentTime.getTime() - pendingMarketingRequestRetentionMs).toISOString();
+  const { data: deletedPending, error: pendingDeleteError } = await supabase
+    .from("marketing_email_subscriptions")
+    .delete()
+    .eq("status", "pending")
+    .lt("requested_at", pendingCutoff)
+    .is("legal_hold_until", null)
+    .select("id");
+  if (pendingDeleteError) throw pendingDeleteError;
+
+  const evidenceCutoff = new Date(currentTime.getTime() - marketingEvidenceRetentionMs).toISOString();
+  const { data: deletedWithdrawn, error: withdrawnDeleteError } = await supabase
+    .from("marketing_email_subscriptions")
+    .delete()
+    .eq("status", "withdrawn")
+    .lt("withdrawn_at", evidenceCutoff)
+    .is("legal_hold_until", null)
+    .select("id");
+  if (withdrawnDeleteError) throw withdrawnDeleteError;
+
+  const { data: deletedExpired, error: expiredDeleteError } = await supabase
+    .from("marketing_email_subscriptions")
+    .delete()
+    .eq("status", "expired")
+    .lt("expires_at", evidenceCutoff)
+    .is("legal_hold_until", null)
+    .select("id");
+  if (expiredDeleteError) throw expiredDeleteError;
+
+  const { count: suppressionReviewsDue, error: suppressionReviewError } = await supabase
+    .from("marketing_email_suppressions")
+    .select("email_hash", { count: "exact", head: true })
+    .lte("review_due_at", now)
+    .is("legal_hold_until", null);
+  if (suppressionReviewError) throw suppressionReviewError;
+
+  return {
+    expired: expired?.length ?? 0,
+    deletedPending: deletedPending?.length ?? 0,
+    deletedEvidence: (deletedWithdrawn?.length ?? 0) + (deletedExpired?.length ?? 0),
+    suppressionReviewsDue: suppressionReviewsDue ?? 0,
+  };
 }

@@ -8,6 +8,8 @@ export const marketingConsentVersion = "1.0";
 export const marketingPrivacyPolicyVersion = "1.2";
 export const marketingConsentLifetimeMs = 2 * 365 * 24 * 60 * 60 * 1000;
 export const confirmationTokenLifetimeMs = 24 * 60 * 60 * 1000;
+export const pendingMarketingRequestRetentionMs = 30 * 24 * 60 * 60 * 1000;
+export const marketingEvidenceRetentionMs = 5 * 365 * 24 * 60 * 60 * 1000;
 
 export const marketingConsentText = {
   sr: "Kao punoletno lice, želim da mi VGA EU CONSULTING DOO na moju e-mail adresu šalje novosti i ponude o svojim postojećim i budućim proizvodima i uslugama za ostvarivanje i zaštitu prava putnika i potrošača, uključujući digitalne alate za te namene i druge brendove istog društva.",

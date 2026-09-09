@@ -105,3 +105,15 @@ test("provider one-click unsubscribe is a POST tied to the URL token", async () 
   assert.match(source, /searchParams\.get\("token"\)/);
   assert.doesNotMatch(source, /export\s+async\s+function\s+GET/);
 });
+
+test("retention job expires active consent and removes only aged non-held marketing records", async () => {
+  const source = await readFile(new URL("../src/lib/marketing-consent-store.ts", import.meta.url), "utf8");
+  const retention = source.slice(source.indexOf("export async function expireMarketingRecords"));
+  assert.match(retention, /pendingMarketingRequestRetentionMs/);
+  assert.match(retention, /marketingEvidenceRetentionMs/);
+  assert.match(retention, /\.eq\("status", "pending"\)/);
+  assert.match(retention, /\.eq\("status", "withdrawn"\)/);
+  assert.match(retention, /\.eq\("status", "expired"\)/);
+  assert.match(retention, /\.is\("legal_hold_until", null\)/);
+  assert.match(retention, /suppressionReviewsDue/);
+});

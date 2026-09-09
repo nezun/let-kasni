@@ -20,7 +20,7 @@
 
 - Active consent expires two years after the last explicit confirmation; delivery and opens do not extend it. Eligibility is checked against `expires_at` on every export.
 - Evidence and suppression are separate tables. Suppression has an annual review date. Legal-hold fields are available for a specific dispute.
-- `expireMarketingRecords()` is idempotent and expires active records and clears expired pending confirmation tokens. There is no existing cloud scheduler in this repository, so no schedule was invented; connect this function only after durable production storage is enabled.
+- `expireMarketingRecords()` is idempotent: it expires active records, clears confirmation tokens after 24 hours, removes unconfirmed requests after 30 days, deletes withdrawn/expired consent evidence after five years unless a legal hold applies, and reports suppression records due for annual necessity review. It does not automatically remove a suppression record. There is no existing cloud scheduler in this repository, so no schedule was invented; connect this function only after durable production storage is enabled.
 - Existing claim, incomplete-intake and log deletion could not be safely automated from the present data model because the production database is not configured and there is no reliable closed-case/legal-hold classifier. No historical claim or contract data was deleted.
 
 ## Service and transfer register
