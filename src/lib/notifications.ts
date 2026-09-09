@@ -1,5 +1,6 @@
 import { getResendAdminToEmail, getResendApiKey, getResendFromEmail, getSiteUrl, getSupportEmail } from "@/lib/env";
 import { sendResendRequest } from "@/lib/resend-delivery.mjs";
+import { siteOperator } from "@/lib/site-operator";
 import type { ClaimRecord } from "@/lib/types";
 
 function escapeHtml(value: string) {
@@ -117,10 +118,12 @@ async function sendResendEmail(payload: {
   subject: string;
   html: string;
   text: string;
+  headers?: Record<string, string>;
 }, options: {
   idempotencyKey: string;
-  claimId: string;
-  kind: "admin" | "user";
+  logReference: string;
+  kind: "admin" | "user" | "consent_confirmation" | "consent_management" | "marketing";
+  replyTo?: string;
 }) {
   const apiKey = getResendApiKey();
 
@@ -133,7 +136,7 @@ async function sendResendEmail(payload: {
     idempotencyKey: options.idempotencyKey,
     payload: {
       from: getResendFromEmail(),
-      reply_to: getSupportEmail(),
+      reply_to: options.replyTo ?? getSupportEmail(),
       ...payload,
     },
     onRetry: ({ attempt, delayMs, error }: {
@@ -144,7 +147,7 @@ async function sendResendEmail(payload: {
       console.warn(
         "Retrying Resend email delivery.",
         JSON.stringify({
-          claimId: options.claimId,
+          reference: options.logReference,
           kind: options.kind,
           failedAttempt: attempt,
           retryDelayMs: delayMs,
@@ -153,6 +156,48 @@ async function sendResendEmail(payload: {
       );
     },
   });
+}
+
+export async function sendMarketingDeliveryEmail(input: {
+  to: string;
+  subject: string;
+  html: string;
+  text: string;
+  headers: Record<string, string>;
+  idempotencyKey: string;
+  reference: string;
+  locale: "sr" | "en";
+}) {
+  return sendResendEmail(
+    { to: [input.to], subject: input.subject, html: input.html, text: input.text, headers: input.headers },
+    { idempotencyKey: input.idempotencyKey, logReference: input.reference, kind: "marketing", replyTo: siteOperator.email[input.locale] },
+  );
+}
+
+export async function sendOperationalEmail(input: {
+  to: string;
+  subject: string;
+  html: string;
+  text: string;
+  idempotencyKey: string;
+  reference: string;
+  kind: "consent_confirmation" | "consent_management";
+  locale: "sr" | "en";
+}) {
+  return sendResendEmail(
+    {
+      to: [input.to],
+      subject: input.subject,
+      html: input.html,
+      text: input.text,
+    },
+    {
+      idempotencyKey: input.idempotencyKey,
+      logReference: input.reference,
+      kind: input.kind,
+      replyTo: siteOperator.email[input.locale],
+    },
+  );
 }
 
 function buildAdminClaimNotificationText(claim: ClaimRecord) {
@@ -240,7 +285,7 @@ export async function sendAdminClaimNotification(claim: ClaimRecord) {
     text: buildAdminClaimNotificationText(claim),
   }, {
     idempotencyKey: `claim/${claim.id}/admin`,
-    claimId: claim.id,
+    logReference: claim.id,
     kind: "admin",
   });
 }
@@ -256,7 +301,8 @@ export async function sendUserClaimConfirmation(
     text: buildUserConfirmationText(claim, locale),
   }, {
     idempotencyKey: `claim/${claim.id}/user/${locale}`,
-    claimId: claim.id,
+    logReference: claim.id,
+    replyTo: siteOperator.email[locale],
     kind: "user",
   });
 }

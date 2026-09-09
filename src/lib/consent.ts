@@ -6,6 +6,7 @@ import {
   serializeTrackingConsentCookie,
   trackingConsentCookieMaxAge,
   trackingConsentCookieName,
+  trackingConsentNoticeVersion,
   type ConsentCookieValue,
 } from "@/lib/consent-cookie";
 
@@ -71,20 +72,27 @@ export function setTrackingConsent(value: TrackingConsentInput) {
     return;
   }
 
-  const consent =
+  const consent: TrackingConsent =
     value === "granted" || value === "denied"
       ? {
-          v: 2 as const,
+          v: 3 as const,
           analytics: value === "granted",
           marketing: value === "granted",
-          ts: 0,
+          ts: Date.now(),
+          notice: trackingConsentNoticeVersion,
         }
       : {
-          v: 2 as const,
+          v: 3 as const,
           analytics: value.analytics,
           marketing: value.marketing,
           ts: value.ts,
+          notice: trackingConsentNoticeVersion,
         };
+
+  clearOptionalTrackingCookies({
+    analytics: !consent.analytics,
+    advertising: !consent.marketing,
+  });
 
   const rawValue = JSON.stringify(consent);
   try {
@@ -106,6 +114,20 @@ export function setTrackingConsent(value: TrackingConsentInput) {
   window.dispatchEvent(new Event(trackingConsentEvent));
 }
 
+function expireCookie(name: string) {
+  document.cookie = `${name}=; Max-Age=0; Path=/; SameSite=Lax; Secure`;
+}
+
+export function clearOptionalTrackingCookies(options: { analytics: boolean; advertising: boolean }) {
+  if (typeof document === "undefined") return;
+  const names = document.cookie.split(";").map((item) => item.trim().split("=", 1)[0]).filter(Boolean);
+  for (const name of names) {
+    if ((options.analytics && (name === "_gid" || name.startsWith("_ga"))) || (options.advertising && (name === "_fbp" || name === "_fbc"))) {
+      expireCookie(name);
+    }
+  }
+}
+
 export function clearTrackingConsent() {
   if (typeof window === "undefined") {
     return;
@@ -118,6 +140,7 @@ export function clearTrackingConsent() {
   }
 
   try {
+    clearOptionalTrackingCookies({ analytics: true, advertising: true });
     document.cookie = `${trackingConsentCookieName}=; Max-Age=0; Path=/; SameSite=Lax; Secure`;
     delete document.documentElement.dataset.consent;
   } catch {

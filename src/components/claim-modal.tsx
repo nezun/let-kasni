@@ -15,6 +15,7 @@ import {
 
 import { trackEvent } from "@/lib/analytics";
 import { BrandLogo } from "@/components/brand-logo";
+import { MarketingSubscriptionCard } from "@/components/marketing-subscription-card";
 import { getTrackingConsent } from "@/lib/consent";
 import { isValidEmail } from "@/lib/email-validation";
 import { getMetaEventId, trackMetaEvent } from "@/lib/meta";
@@ -389,6 +390,7 @@ export function ClaimModal({
                   {t.claimLabel}: {submitState.status === "success" ? submitState.reference : "----"}
                 </div>
               </div>
+              <MarketingSubscriptionCard locale={locale} initialEmail={form.email} />
               <button
                 className="w-full rounded-2xl bg-slate-900 px-6 py-4 font-bold text-white transition hover:bg-slate-800"
                 onClick={handleClose}

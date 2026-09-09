@@ -1,22 +1,14 @@
 export type ConsentCookieValue = {
-  v: 2;
+  v: 3;
   analytics: boolean;
   marketing: boolean;
   ts: number;
+  notice: typeof trackingConsentNoticeVersion;
 };
 
 export const trackingConsentCookieName = "lk_consent";
 export const trackingConsentCookieMaxAge = 60 * 60 * 24 * 365;
-
-function fromLegacyConsent(value: "granted" | "denied"): ConsentCookieValue {
-  const granted = value === "granted";
-  return {
-    v: 2,
-    analytics: granted,
-    marketing: granted,
-    ts: 0,
-  };
-}
+export const trackingConsentNoticeVersion = "privacy-1.2-2026-09-09";
 
 export function parseTrackingConsentValue(
   value: string | null | undefined,
@@ -32,25 +24,25 @@ export function parseTrackingConsentValue(
     // Use the raw value when a malformed cookie cannot be decoded.
   }
 
-  if (decoded === "granted" || decoded === "denied") {
-    return fromLegacyConsent(decoded);
-  }
-
   try {
     const parsed = JSON.parse(decoded) as Record<string, unknown>;
     if (
-      parsed.v !== 2 ||
+      parsed.v !== 3 ||
       typeof parsed.analytics !== "boolean" ||
-      typeof parsed.marketing !== "boolean"
+      typeof parsed.marketing !== "boolean" ||
+      parsed.notice !== trackingConsentNoticeVersion ||
+      typeof parsed.ts !== "number" ||
+      parsed.ts <= 0
     ) {
       return null;
     }
 
     return {
-      v: 2,
+      v: 3,
       analytics: parsed.analytics,
       marketing: parsed.marketing,
-      ts: typeof parsed.ts === "number" ? parsed.ts : 0,
+      ts: parsed.ts,
+      notice: trackingConsentNoticeVersion,
     };
   } catch {
     return null;

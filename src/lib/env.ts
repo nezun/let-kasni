@@ -158,3 +158,17 @@ export function getResendFromEmail() {
 export function getResendAdminToEmail() {
   return getEnv("RESEND_ADMIN_TO_EMAIL");
 }
+
+export function getMarketingConsentSecret() {
+  return getEnv("MARKETING_CONSENT_TOKEN_SECRET");
+}
+
+export function isMarketingSubscriptionsEnabled() {
+  return (
+    getEnv("MARKETING_SUBSCRIPTIONS_ENABLED") === "1" &&
+    getEnv("NEXT_PUBLIC_MARKETING_SUBSCRIPTIONS_ENABLED") === "1" &&
+    isSupabaseConfigured() &&
+    Boolean(getResendApiKey() && getMarketingConsentSecret()) &&
+    getEnv("MARKETING_TRANSFER_REVIEW_VERSION") === "2026-09-09"
+  );
+}

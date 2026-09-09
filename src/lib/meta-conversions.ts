@@ -118,6 +118,8 @@ function getEventSourceUrl(request: Request, candidate?: string) {
     try {
       const parsed = new URL(value, requestOrigin);
       if (parsed.origin === requestOrigin) {
+        parsed.search = "";
+        parsed.hash = "";
         return parsed.toString();
       }
     } catch {
