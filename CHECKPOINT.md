@@ -14,53 +14,18 @@ Canonical handoff file for future local and Codex Cloud sessions.
 ## Generated Status
 
 <!-- BEGIN:generated-status -->
-Generated at: `2026-09-09T17:34:21.398Z`
+Generated at: `2026-09-09T17:35:36.420Z`
 
 Branch: `codex/privacy-marketing-consent`
 
 Remote: `https://github.com/nezun/let-kasni.git`
 
-Latest local commit: `13d64ce Publish Terms and Conditions v1.4 (#28)`
+Latest local commit: `e9fb450 Prepare Privacy Policy 1.2 and email consent`
 
 Worktree status:
 
 ```text
-M .env.example
- M CHECKPOINT.md
- M package.json
- M scripts/meta-tracking-check.mjs
- M src/app/api/health/route.ts
- M src/app/claim/submit/route.ts
- M src/app/en/privacy/page.tsx
- M src/app/layout.tsx
- M src/app/privacy/page.tsx
- M src/components/claim-flow.tsx
- M src/components/claim-modal.tsx
- M src/components/consent-banner.tsx
- M src/components/site-footer.tsx
- M src/lib/consent-cookie.ts
- M src/lib/consent.ts
- M src/lib/env.ts
- M src/lib/meta-conversions.ts
- M src/lib/notifications.ts
-?? docs/PRIVACY-MARKETING-CONSENT-2026-09-09.md
-?? scripts/marketing-consent.test.mjs
-?? scripts/privacy-policy-check.mjs
-?? src/app/admin/(protected)/marketing/
-?? src/app/api/marketing/
-?? src/app/email-offers/
-?? src/app/en/email-offers/
-?? src/app/en/marketing/
-?? src/app/marketing/
-?? src/components/marketing-action-panel.tsx
-?? src/components/marketing-subscription-card.tsx
-?? src/components/privacy-service-overview.tsx
-?? src/lib/marketing-consent-core.ts
-?? src/lib/marketing-consent-store.ts
-?? src/lib/marketing-emails.ts
-?? src/lib/marketing-products.ts
-?? src/lib/privacy-service-registry.ts
-?? supabase/migrations/202609091200_marketing_email_consent.sql
+clean
 ```
 
 Useful commands:
