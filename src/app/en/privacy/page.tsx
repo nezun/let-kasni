@@ -28,7 +28,7 @@ export default function PrivacyPage() {
         <div className="space-y-4">
           <h1 className="text-4xl font-bold tracking-[-0.03em] text-[var(--ink)]">Privacy Policy</h1>
           <p className="max-w-3xl text-sm font-semibold leading-7 text-[var(--ink)]">letkasni.rs / {controllerName}</p>
-          <p className="text-xs font-medium uppercase tracking-[0.2em] text-[var(--muted)]/80">PP 1.2 | Effective from 9 September 2026</p>
+          <p className="text-xs font-medium uppercase tracking-[0.2em] text-[var(--muted)]/80">PP 1.2 | Effective from 10 September 2026</p>
         </div>
 
         <Section title="At a glance">

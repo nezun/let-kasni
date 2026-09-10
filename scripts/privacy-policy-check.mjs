@@ -11,7 +11,7 @@ for (const [path, locale] of pages) {
   const sectionNumbers = [...source.matchAll(/<Section title="(\d+)\./g)].map((match) => Number(match[1]));
   assert.deepEqual(sectionNumbers, Array.from({ length: 14 }, (_, index) => index + 1), `${path} must contain articles 1-14 in order`);
   assert.match(source, /PP 1\.2/);
-  assert.match(source, /09\.09\.2026|9 September 2026/);
+  assert.match(source, /10\.09\.2026|10 September 2026/);
   assert.match(source, /VGA EU CONSULTING DOO/);
   assert.doesNotMatch(source, /Expatwise|support@letkasni\.rs|privacy@letkasni\.rs/);
   assert.match(source, locale === "sr" ? /kontakt@letkasni\.rs|siteOperator\.email\.sr/ : /office@letkasni\.rs|siteOperator\.email\.en/);

@@ -92,17 +92,6 @@ export async function requestMarketingSubscription(input: {
   const confirmationExpiresAt = new Date(now.getTime() + confirmationTokenLifetimeMs).toISOString();
   const sourcePath = sanitizeMarketingSourcePath(input.sourcePath);
 
-  const { data: existing, error: readError } = await supabase
-    .from("marketing_email_subscriptions")
-    .select("*")
-    .eq("email_hash", emailHash)
-    .eq("controller_id", marketingControllerId)
-    .eq("purpose_id", marketingPurposeId)
-    .eq("channel", marketingChannel)
-    .eq("scope_id", marketingScopeId)
-    .maybeSingle();
-  if (readError) throw readError;
-
   const payload = {
     email,
     email_hash: emailHash,
@@ -126,10 +115,11 @@ export async function requestMarketingSubscription(input: {
     updated_at: requestedAt,
   };
 
-  const query = existing
-    ? supabase.from("marketing_email_subscriptions").update(payload).eq("id", existing.id)
-    : supabase.from("marketing_email_subscriptions").insert(payload);
-  const { data: saved, error: saveError } = await query.select("id").single();
+  const { data: saved, error: saveError } = await supabase
+    .from("marketing_email_subscriptions")
+    .upsert(payload, { onConflict: "email_hash,controller_id,purpose_id,channel,scope_id" })
+    .select("id")
+    .single();
   if (saveError || !saved) throw saveError ?? new Error("Consent request was not stored.");
 
   await addEvent({

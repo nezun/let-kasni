@@ -14,18 +14,27 @@ Canonical handoff file for future local and Codex Cloud sessions.
 ## Generated Status
 
 <!-- BEGIN:generated-status -->
-Generated at: `2026-09-09T17:35:36.420Z`
+Generated at: `2026-09-10T09:20:41.685Z`
 
 Branch: `codex/privacy-marketing-consent`
 
 Remote: `https://github.com/nezun/let-kasni.git`
 
-Latest local commit: `e9fb450 Prepare Privacy Policy 1.2 and email consent`
+Latest local commit: `6661ce1 Complete marketing consent retention controls`
 
 Worktree status:
 
 ```text
-clean
+M CHECKPOINT.md
+ M docs/PRIVACY-MARKETING-CONSENT-2026-09-09.md
+ M scripts/marketing-consent.test.mjs
+ M scripts/meta-tracking-check.mjs
+ M scripts/privacy-policy-check.mjs
+ M src/app/en/privacy/page.tsx
+ M src/app/layout.tsx
+ M src/app/privacy/page.tsx
+ M src/lib/consent-cookie.ts
+ M src/lib/marketing-consent-store.ts
 ```
 
 Useful commands:
@@ -46,6 +55,7 @@ Useful commands:
 
 ## Current State
 
+- 2026-09-10: the user explicitly authorized publishing the full PP 1.2 package before the marketing persistence/CRM integration is activated. PP 1.2 now uses the actual static publication date 10.09.2026. Marketing subscription remains fail-closed and hidden while Supabase and the required feature settings are absent; no campaign product is approved.
 - 2026-09-09: Privacy Policy 1.2 and the separate adult email-offer consent flow are implemented on `codex/privacy-marketing-consent`. The flow is fail-closed, uses double opt-in, separate consent/event/suppression tables, POST-only confirmation and unsubscribe, strict expiry/scope/product checks, and a central send gate with visible and one-click unsubscribe. The approved marketing-product registry is empty, so no sales campaign can run from this release.
 - PP 1.2 and the subscription UI must ship together. Production `/api/health` at `13d64ce652a4b1dcbc559c1a7759676e81a4aeab` reported `supabaseConfigured: false` on 2026-09-09, so the additive migration and durable consent storage cannot yet be verified. The release remains blocked and feature flags remain off.
 - The current production health response reports Meta Pixel/CAPI configured. The PP 1.2 change resets pre-1.2 cookie choices, keeps analytics and advertising separate from email offers, scrubs URL query/hash data, and removes claim contact hashes from CAPI because adult/minor ownership is not proven by the claim flow.
@@ -118,6 +128,7 @@ Useful commands:
 
 ## Verification Log
 
+- 2026-09-10 release preparation: PP 1.2 publication date and consent-notice identifier were updated to 10.09.2026. A concurrent subscription-write finding was fixed with an atomic database upsert. Privacy checks (12 tests), lint, TypeScript and the 331-route production build passed before the final release gate.
 - 2026-09-09 privacy/marketing implementation: `npm run verify` passed, including 12 workflow checks, 10 privacy/marketing tests, 5 Resend tests, Meta checks, content checks, locale alignment, lint, TypeScript and a production build of 331 routes. SR/EN `/privacy` and `/email-offers` pages were checked locally at desktop and 375px mobile; the privacy page had no horizontal overflow, and rejecting optional tracking wrote the current v3 consent with GA and Meta disabled.
 - 2026-09-09 production preflight: public `/api/health` matched commit `13d64ce652a4b1dcbc559c1a7759676e81a4aeab`, reported `supabaseConfigured: false`, `metaCapiConfigured: true`, and `supportEmail: kontakt@letkasni.rs`. No deployment was attempted because durable consent storage and account-level transfer evidence are mandatory publication conditions.
 - 2026-08-19 green submit confirmation release: PR #24 merged as `88b7903`; the local and production release gates passed, `/`, `/en`, both Step 2 routes, `/api/health`, and invalid-submit validation passed, and production matched GitHub `main`.

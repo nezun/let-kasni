@@ -3,7 +3,7 @@
 ## Version history
 
 - Privacy Policy 1.1, effective 08.09.2026, remains preserved in Git at production commit `13d64ce652a4b1dcbc559c1a7759676e81a4aeab` (`src/app/privacy/page.tsx` and `src/app/en/privacy/page.tsx`).
-- Privacy Policy 1.2 is prepared with the static date 09.09.2026. It must not be published after that date without changing the effective date to the actual publication date.
+- Privacy Policy 1.2 has the static publication date 10.09.2026.
 - Privacy Policy versions and marketing-consent text versions are independent. The first email-consent text is version `1.0`, scope `vga_passenger_consumer_rights_v1`, purpose `direct_marketing_email`, controller MB `21873446`.
 
 ## Consent and unsubscribe model

@@ -25,7 +25,7 @@ const checks = [
   ["src/components/consent-banner.tsx", "data-consent-banner"],
   ["src/app/globals.css", "data-consent=\"1\""],
   ["src/app/claim/submit/route.ts", "sendMetaLeadEvent"],
-  ["src/lib/consent-cookie.ts", "privacy-1.2-2026-09-09"],
+  ["src/lib/consent-cookie.ts", "privacy-1.2-2026-09-10"],
   ["src/app/claim/submit/route.ts", "privacyConsent"],
   ["src/components/consent-banner.tsx", "setTrackingConsent"],
   ["src/components/consent-banner.tsx", "marketing"],

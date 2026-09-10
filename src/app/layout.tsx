@@ -83,7 +83,7 @@ export default async function RootLayout({
         <script
           id="lk-consent-bootstrap"
           dangerouslySetInnerHTML={{
-            __html: `(()=>{try{const readCookie=()=>document.cookie.split(";").map((part)=>part.trim()).find((part)=>part.startsWith("lk_consent="))?.slice("lk_consent=".length);const valid=(value)=>{if(!value)return false;try{const parsed=JSON.parse(decodeURIComponent(value));return parsed?.v===3&&parsed.notice==="privacy-1.2-2026-09-09"&&typeof parsed.analytics==="boolean"&&typeof parsed.marketing==="boolean"&&typeof parsed.ts==="number"&&parsed.ts>0;}catch(_){return false;}};const cookieValue=readCookie();if(valid(cookieValue)){document.documentElement.dataset.consent="1";}}catch(_){}})();`,
+            __html: `(()=>{try{const readCookie=()=>document.cookie.split(";").map((part)=>part.trim()).find((part)=>part.startsWith("lk_consent="))?.slice("lk_consent=".length);const valid=(value)=>{if(!value)return false;try{const parsed=JSON.parse(decodeURIComponent(value));return parsed?.v===3&&parsed.notice==="privacy-1.2-2026-09-10"&&typeof parsed.analytics==="boolean"&&typeof parsed.marketing==="boolean"&&typeof parsed.ts==="number"&&parsed.ts>0;}catch(_){return false;}};const cookieValue=readCookie();if(valid(cookieValue)){document.documentElement.dataset.consent="1";}}catch(_){}})();`,
           }}
         />
       </head>

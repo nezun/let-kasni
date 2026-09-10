@@ -117,3 +117,10 @@ test("retention job expires active consent and removes only aged non-held market
   assert.match(retention, /\.is\("legal_hold_until", null\)/);
   assert.match(retention, /suppressionReviewsDue/);
 });
+
+test("concurrent subscription requests use the database uniqueness key atomically", async () => {
+  const source = await readFile(new URL("../src/lib/marketing-consent-store.ts", import.meta.url), "utf8");
+  const requestFlow = source.slice(source.indexOf("export async function requestMarketingSubscription"), source.indexOf("export async function confirmMarketingSubscription"));
+  assert.match(requestFlow, /\.upsert\(payload, \{ onConflict: "email_hash,controller_id,purpose_id,channel,scope_id" \}\)/);
+  assert.doesNotMatch(requestFlow, /\.maybeSingle\(\)[\s\S]*\.insert\(payload\)/);
+});
