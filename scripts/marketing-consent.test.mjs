@@ -1,15 +1,30 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
+import ts from "typescript";
 
-import {
+async function importTypeScriptModule(relativePath) {
+  const fileUrl = new URL(relativePath, import.meta.url);
+  const source = await readFile(fileUrl, "utf8");
+  const output = ts.transpileModule(source, {
+    compilerOptions: {
+      module: ts.ModuleKind.ESNext,
+      target: ts.ScriptTarget.ES2022,
+    },
+    fileName: fileUrl.pathname,
+  }).outputText;
+
+  return import(`data:text/javascript;base64,${Buffer.from(output).toString("base64")}`);
+}
+
+const {
   canConfirmationGrant,
   isEligibleForMarketing,
   marketingScopeId,
   sanitizeMarketingSourcePath,
-} from "../src/lib/marketing-consent-core.ts";
-import { parseTrackingConsentValue, trackingConsentNoticeVersion } from "../src/lib/consent-cookie.ts";
-import { approvedMarketingProducts, getApprovedMarketingProduct } from "../src/lib/marketing-products.ts";
+} = await importTypeScriptModule("../src/lib/marketing-consent-core.ts");
+const { parseTrackingConsentValue, trackingConsentNoticeVersion } = await importTypeScriptModule("../src/lib/consent-cookie.ts");
+const { approvedMarketingProducts, getApprovedMarketingProduct } = await importTypeScriptModule("../src/lib/marketing-products.ts");
 
 const future = "2099-01-01T00:00:00.000Z";
 const valid = {

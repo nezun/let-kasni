@@ -17,7 +17,7 @@
     "release:gate": "bash scripts/release-gate.sh",
     "production:check": "node scripts/check-production.mjs",
     "meta:check": "node scripts/meta-tracking-check.mjs",
-    "privacy:check": "node --experimental-strip-types --test scripts/marketing-consent.test.mjs && node scripts/privacy-policy-check.mjs",
+    "privacy:check": "node --test scripts/marketing-consent.test.mjs && node scripts/privacy-policy-check.mjs",
     "email:check": "node --test scripts/resend-delivery.test.mjs",
     "workflow:check": "bash scripts/check-workflow-guards.sh",
     "links:audit": "node scripts/public-link-audit.mjs",
