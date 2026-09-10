@@ -9,43 +9,47 @@ import {
   trackingConsentEvent,
   type TrackingConsent,
 } from "@/lib/consent";
+import { trackingConsentNoticeVersion } from "@/lib/consent-cookie";
 
 const adminConsent: TrackingConsent = {
-  v: 2,
+  v: 3,
   analytics: false,
   marketing: false,
   ts: 0,
+  notice: trackingConsentNoticeVersion,
 };
 
 const copy = {
   sr: {
     dialogLabel: "Podešavanja kolačića",
-    body: "Koristimo kolačiće kako bi naš sajt ispravno radio, kako bismo personalizovali sadržaj i oglase, omogućili funkcije društvenih mreža i analizirali naš saobraćaj.",
+    body: "Neophodne tehnologije koristimo da sajt radi i zapamti vaš izbor. Uz vaš odvojeni izbor možemo koristiti analitiku i alate za merenje oglašavanja.",
     privacy: "Politika privatnosti",
     terms: "Uslovi korišćenja",
     accept: "Prihvati sve kolačiće",
+    reject: "Odbij neobavezne",
     settings: "Podešavanja kolačića",
     settingsClose: "Sakrij podešavanja",
     save: "Sačuvaj izbor",
     optionsTitle: "Opciono",
     analytics: "Analitika",
     analyticsBody: "Pomaže nam da razumemo posete i korišćenje sajta.",
-    marketing: "Marketing",
+    marketing: "Oglašavanje",
     marketingBody: "Pomaže nam da merimo uspeh Meta oglasa.",
   },
   en: {
     dialogLabel: "Cookie consent",
-    body: "We use cookies to make our website work properly, to personalise content and advertisements, to provide social media features, and to analyse our traffic.",
+    body: "We use necessary technologies to operate the website and remember your choice. With your separate selection, we may use analytics and advertising measurement tools.",
     privacy: "Privacy Policy",
     terms: "Terms of Use",
     accept: "Accept All Cookies",
+    reject: "Reject optional",
     settings: "Cookie Settings",
     settingsClose: "Hide cookie settings",
     save: "Save choice",
     optionsTitle: "Optional tools",
     analytics: "Analytics",
     analyticsBody: "Helps us understand visits and site usage.",
-    marketing: "Marketing",
+    marketing: "Advertising",
     marketingBody: "Helps us measure Meta ad performance.",
   },
 } as const;
@@ -121,9 +125,10 @@ export function ConsentBanner({
 
   function saveChoice(choice: ConsentSelection) {
     setTrackingConsent({
-      v: 2,
+      v: 3,
       ...choice,
       ts: Date.now(),
+      notice: trackingConsentNoticeVersion,
     });
   }
 
@@ -220,6 +225,13 @@ export function ConsentBanner({
               className="min-h-12 rounded-xl bg-[#1478F2] px-4 py-2.5 text-sm font-bold text-white transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500/30 sm:text-base"
             >
               {t.accept}
+            </button>
+            <button
+              type="button"
+              onClick={() => saveChoice({ analytics: false, marketing: false })}
+              className="min-h-12 rounded-xl border-2 border-[#1478F2] bg-white px-4 py-2.5 text-sm font-bold text-[#1478F2] transition hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-500/30 sm:text-base"
+            >
+              {t.reject}
             </button>
             <button
               type="button"

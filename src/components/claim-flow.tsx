@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 
 import { BrandLogo } from "@/components/brand-logo";
+import { MarketingSubscriptionCard } from "@/components/marketing-subscription-card";
 import { AirportCombobox } from "@/components/airport-combobox";
 import { trackEvent } from "@/lib/analytics";
 import { getTrackingConsent } from "@/lib/consent";
@@ -881,13 +882,16 @@ function ClaimFlow({
         </form>
 
         {submitted ? (
-          <div
-            className="mt-3 flex items-center justify-center gap-2 rounded-[10px] border border-[#BDE6CC] bg-[#EFFAF3] px-4 py-3 text-center text-[13px] font-bold leading-[1.35] text-[#168A4B]"
-            role="status"
-          >
-            <CheckCircle2 className="h-[18px] w-[18px] shrink-0" aria-hidden="true" />
-            <span>{t.submitted}</span>
-          </div>
+          <>
+            <div
+              className="mt-3 flex items-center justify-center gap-2 rounded-[10px] border border-[#BDE6CC] bg-[#EFFAF3] px-4 py-3 text-center text-[13px] font-bold leading-[1.35] text-[#168A4B]"
+              role="status"
+            >
+              <CheckCircle2 className="h-[18px] w-[18px] shrink-0" aria-hidden="true" />
+              <span>{t.submitted}</span>
+            </div>
+            <MarketingSubscriptionCard locale={locale} initialEmail={email} />
+          </>
         ) : null}
 
         {submitError ? (

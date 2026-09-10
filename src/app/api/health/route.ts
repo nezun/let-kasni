@@ -6,6 +6,7 @@ import {
   getMetaPixelId,
   getSupportEmail,
   isAdminPasswordConfigured,
+  isMarketingSubscriptionsEnabled,
   isSupabaseConfigured,
 } from "@/lib/env";
 import { getFlightProviderMode } from "@/lib/env";
@@ -26,6 +27,7 @@ export async function GET() {
         flightProviderMode: getFlightProviderMode() ?? "off",
         analyticsMode: getAnalyticsMode() ?? "off",
         metaCapiConfigured: Boolean(getMetaPixelId() && getMetaConversionsApiToken()),
+        marketingSubscriptionsEnabled: isMarketingSubscriptionsEnabled(),
         supportEmail: getSupportEmail(),
       },
     },

@@ -14,27 +14,27 @@ Canonical handoff file for future local and Codex Cloud sessions.
 ## Generated Status
 
 <!-- BEGIN:generated-status -->
-Generated at: `2026-09-08T16:55:31.156Z`
+Generated at: `2026-09-10T09:20:41.685Z`
 
-Branch: `codex/restore-vga-operator`
+Branch: `codex/privacy-marketing-consent`
 
 Remote: `https://github.com/nezun/let-kasni.git`
 
-Latest local commit: `a0a60a8 Docs: checkpoint green submit confirmation release (#25)`
+Latest local commit: `6661ce1 Complete marketing consent retention controls`
 
 Worktree status:
 
 ```text
-M .env.example
- M README.md
+M CHECKPOINT.md
+ M docs/PRIVACY-MARKETING-CONSENT-2026-09-09.md
+ M scripts/marketing-consent.test.mjs
+ M scripts/meta-tracking-check.mjs
+ M scripts/privacy-policy-check.mjs
  M src/app/en/privacy/page.tsx
- M src/app/en/terms/page.tsx
+ M src/app/layout.tsx
  M src/app/privacy/page.tsx
- M src/app/terms/page.tsx
- M src/components/legal-operator-contact.tsx
- M src/components/site-footer.tsx
- M src/lib/env.ts
-?? src/lib/site-operator.ts
+ M src/lib/consent-cookie.ts
+ M src/lib/marketing-consent-store.ts
 ```
 
 Useful commands:
@@ -43,7 +43,7 @@ Useful commands:
 - `npm run dev`: `next dev`
 - `npm run lint`: `eslint`
 - `npm run build`: `next build`
-- `npm run verify`: `npm run workflow:check && npm run meta:check && npm run email:check && npm run content:qa && npm run content:links && npm run content:benchmark && npm run locales:check && npm run lint && npm run build`
+- `npm run verify`: `npm run workflow:check && npm run privacy:check && npm run meta:check && npm run email:check && npm run content:qa && npm run content:links && npm run content:benchmark && npm run locales:check && npm run lint && npm run build`
 - `npm run release:gate`: `bash scripts/release-gate.sh`
 - `npm run production:check`: `node scripts/check-production.mjs`
 - `npm run workflow:check`: `bash scripts/check-workflow-guards.sh`
@@ -55,6 +55,10 @@ Useful commands:
 
 ## Current State
 
+- 2026-09-10: the user explicitly authorized publishing the full PP 1.2 package before the marketing persistence/CRM integration is activated. PP 1.2 now uses the actual static publication date 10.09.2026. Marketing subscription remains fail-closed and hidden while Supabase and the required feature settings are absent; no campaign product is approved.
+- 2026-09-09: Privacy Policy 1.2 and the separate adult email-offer consent flow are implemented on `codex/privacy-marketing-consent`. The flow is fail-closed, uses double opt-in, separate consent/event/suppression tables, POST-only confirmation and unsubscribe, strict expiry/scope/product checks, and a central send gate with visible and one-click unsubscribe. The approved marketing-product registry is empty, so no sales campaign can run from this release.
+- PP 1.2 and the subscription UI must ship together. Production `/api/health` at `13d64ce652a4b1dcbc559c1a7759676e81a4aeab` reported `supabaseConfigured: false` on 2026-09-09, so the additive migration and durable consent storage cannot yet be verified. The release remains blocked and feature flags remain off.
+- The current production health response reports Meta Pixel/CAPI configured. The PP 1.2 change resets pre-1.2 cookie choices, keeps analytics and advertising separate from email offers, scrubs URL query/hash data, and removes claim contact hashes from CAPI because adult/minor ownership is not proven by the claim flow.
 - 2026-09-08: restored VGA EU CONSULTING DOO NIŠ as owner/operator and controller in SR/EN footer, Terms and Privacy. Identity is centralized in `src/lib/site-operator.ts`; legacy operator environment overrides no longer affect public identity.
 - Restored identity from canonical history (`5f821e1^`): Bulevar Nemanjića 1, Niš (Medijana), 18000 Niš, Serbia; PIB 113473442; MB 21873446; APR. User explicitly authorized restoration and immediate deployment.
 - Production checker now verifies company identity on both landing pages and all four legal routes and rejects retired operator details.
@@ -89,6 +93,8 @@ Useful commands:
 
 ## Next Work
 
+- Configure a durable Supabase production project, confirm its region/account DPA/transfer basis, apply `202609091200_marketing_email_consent.sql`, and test pending -> confirmed -> withdrawn using only a controlled test address.
+- Confirm account-level DPA/transfer evidence for Vercel, Resend and the applicable Google contracting entity. Only then set the two marketing flags, token secret and `MARKETING_TRANSFER_REVIEW_VERSION=2026-09-09`; if publication occurs after 09.09.2026, update PP 1.2's static effective date to the actual deployment date.
 - After the immediate reliability release, add a durable email outbox plus Resend delivery/bounce webhooks once Supabase production persistence is configured; this is the remaining step that can recover emails after all in-request retries fail.
 - Add the real Meta Pixel ID and Conversions API token in Vercel Production, then run the Test Events flow from `docs/META-ADS-TRACKING.md`.
 - Confirm whether campaign traffic will use canonical `letkasni.rs` or a separate `leadcast.rs` host before domain verification and release.
@@ -122,6 +128,9 @@ Useful commands:
 
 ## Verification Log
 
+- 2026-09-10 release preparation: PP 1.2 publication date and consent-notice identifier were updated to 10.09.2026. A concurrent subscription-write finding was fixed with an atomic database upsert. Privacy checks (12 tests), lint, TypeScript and the 331-route production build passed before the final release gate.
+- 2026-09-09 privacy/marketing implementation: `npm run verify` passed, including 12 workflow checks, 10 privacy/marketing tests, 5 Resend tests, Meta checks, content checks, locale alignment, lint, TypeScript and a production build of 331 routes. SR/EN `/privacy` and `/email-offers` pages were checked locally at desktop and 375px mobile; the privacy page had no horizontal overflow, and rejecting optional tracking wrote the current v3 consent with GA and Meta disabled.
+- 2026-09-09 production preflight: public `/api/health` matched commit `13d64ce652a4b1dcbc559c1a7759676e81a4aeab`, reported `supabaseConfigured: false`, `metaCapiConfigured: true`, and `supportEmail: kontakt@letkasni.rs`. No deployment was attempted because durable consent storage and account-level transfer evidence are mandatory publication conditions.
 - 2026-08-19 green submit confirmation release: PR #24 merged as `88b7903`; the local and production release gates passed, `/`, `/en`, both Step 2 routes, `/api/health`, and invalid-submit validation passed, and production matched GitHub `main`.
 - 2026-08-19 email reliability production release: PR #20 merged as `859b2f9`; `npm run release:gate -- --production` passed and `/api/health` matched GitHub `main`. Controlled claim `02d6cb2d-848d-4b75-9569-c864c5a5b8e8` returned HTTP 200, while Vercel logged admin Resend ID `848f3123-669c-447f-8a9f-acd581713828` and user Resend ID `1459438d-d0c9-4a15-83c6-a4e8d297a7ee`, both on attempt 1.
 - 2026-08-19 email reliability patch: `npm run email:check` passed 5 regression tests covering `ECONNRESET`, `ETIMEDOUT`, retryable 5xx/409 responses, non-retryable 4xx responses, stable idempotency keys, and awaited claim notification delivery. `npm run verify` passed, including workflow guards, content checks, locale alignment, lint, TypeScript, and the production build.

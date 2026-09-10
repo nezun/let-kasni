@@ -71,6 +71,7 @@ const footerCopy = {
     terms: "Uslovi korišćenja",
     privacy: "Politika privatnosti",
     privacySettings: "Podešavanja privatnosti",
+    emailOffers: "Upravljanje e-mail ponudama",
     contactTitle: "Kontakt",
     emailLabel: "E-mail",
     phoneLabel: "Telefon",
@@ -86,6 +87,7 @@ const footerCopy = {
     terms: "Terms of use",
     privacy: "Privacy policy",
     privacySettings: "Privacy settings",
+    emailOffers: "Manage email offers",
     contactTitle: "Contact",
     emailLabel: "Email",
     phoneLabel: "Phone",
@@ -432,6 +434,12 @@ export function SiteFooter({
                   {t.privacy}
                 </Link>
                 <PrivacySettingsButton label={t.privacySettings} />
+                <Link
+                  href={locale === "en" ? "/en/email-offers" : "/email-offers"}
+                  className="w-fit text-sm leading-[1.45] text-[#8E9BB0] transition hover:text-[#C7D0DE]"
+                >
+                  {t.emailOffers}
+                </Link>
               </nav>
 
               <ContactBlock
