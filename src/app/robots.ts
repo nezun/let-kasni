@@ -16,6 +16,8 @@ export default function robots(): MetadataRoute.Robots {
         "/design/*",
         "/design-lab",
         "/design-lab/*",
+        "/pregled",
+        "/pregled/*",
       ],
     },
     sitemap: `${siteUrl}/sitemap.xml`,

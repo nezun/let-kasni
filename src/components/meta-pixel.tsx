@@ -11,6 +11,8 @@ import { getMetaEventId, trackMetaEvent } from "@/lib/meta";
 export function MetaPixel() {
   const pixelId = getMetaPixelId();
   const pathname = usePathname();
+  // Interni pregled predmeta (/pregled/<ključ>): bez praćenja, da tajni ključ iz URL-a ne ode spoljnim servisima.
+  const isExcludedPath = pathname?.startsWith("/pregled") ?? false;
   const searchParams = useSearchParams();
   const skippedInitialPageView = useRef(false);
   const [hasConsent, setHasConsent] = useState(false);
@@ -23,7 +25,7 @@ export function MetaPixel() {
   }, []);
 
   useEffect(() => {
-    if (!pixelId || !pathname || !hasConsent) {
+    if (!pixelId || !pathname || !hasConsent || isExcludedPath) {
       return;
     }
 
@@ -41,9 +43,9 @@ export function MetaPixel() {
       },
       getMetaEventId(),
     );
-  }, [hasConsent, pathname, pixelId, searchParams]);
+  }, [hasConsent, isExcludedPath, pathname, pixelId, searchParams]);
 
-  if (!pixelId || !hasConsent) {
+  if (!pixelId || !hasConsent || isExcludedPath) {
     return null;
   }
 

@@ -14,27 +14,31 @@ Canonical handoff file for future local and Codex Cloud sessions.
 ## Generated Status
 
 <!-- BEGIN:generated-status -->
-Generated at: `2026-09-10T09:20:41.685Z`
+Generated at: `2026-09-14T14:34:27.049Z`
 
-Branch: `codex/privacy-marketing-consent`
+Branch: `codex/pregled-predmeta`
 
 Remote: `https://github.com/nezun/let-kasni.git`
 
-Latest local commit: `6661ce1 Complete marketing consent retention controls`
+Latest local commit: `cad98a8 Privacy Policy 1.2 and email consent controls (#29)`
 
 Worktree status:
 
 ```text
-M CHECKPOINT.md
- M docs/PRIVACY-MARKETING-CONSENT-2026-09-09.md
- M scripts/marketing-consent.test.mjs
- M scripts/meta-tracking-check.mjs
- M scripts/privacy-policy-check.mjs
- M src/app/en/privacy/page.tsx
- M src/app/layout.tsx
- M src/app/privacy/page.tsx
- M src/lib/consent-cookie.ts
- M src/lib/marketing-consent-store.ts
+M .env.example
+ M CHECKPOINT.md
+ M next.config.ts
+ M package-lock.json
+ M package.json
+ M src/app/robots.ts
+ M src/components/analytics.tsx
+ M src/components/consent-banner.tsx
+ M src/components/meta-pixel.tsx
+?? src/app/pregled/
+?? src/components/pregled/
+?? src/components/ui/
+?? src/lib/pregled/
+?? src/lib/utils.ts
 ```
 
 Useful commands:
@@ -55,6 +59,7 @@ Useful commands:
 
 ## Current State
 
+- 2026-09-14 (branch `codex/pregled-predmeta`, not deployed): read-only case overview at `/pregled/<key>` for the team and lawyers. Data comes from the LetKasni pipeline index (`indeks.json`, schema 1) published to Google Drive (`Letkasni.rs / LetKasni — sistem`), read server-side with a personal-account OAuth refresh token; local dev can use `PREGLED_INDEKS_PATH`. Access is per-role secret keys in `PREGLED_KLJUCEVI` (`tim:…,advokati:…`, min 24 chars, timing-safe compare, 404 otherwise). The index intentionally carries no passport, JMBG, address, birth date, phone or email. The page is noindex (metadata + `X-Robots-Tag`), `Referrer-Policy: no-referrer`, excluded in robots.txt, and GA4/Meta Pixel plus the consent banner are disabled on `/pregled` so the key never reaches third parties. Tabs: Predmeti (filters by phase/owner, search) and Potpisivanje (per-passenger signing status; e-sign provider plan visible only to the team role). UI uses shadcn-style components in `src/components/ui` built on brand CSS variables (no shadcn global theme, to avoid clashing with `--muted`/`--accent`).
 - 2026-09-10: the user explicitly authorized publishing the full PP 1.2 package before the marketing persistence/CRM integration is activated. PP 1.2 now uses the actual static publication date 10.09.2026. Marketing subscription remains fail-closed and hidden while Supabase and the required feature settings are absent; no campaign product is approved.
 - 2026-09-09: Privacy Policy 1.2 and the separate adult email-offer consent flow are implemented on `codex/privacy-marketing-consent`. The flow is fail-closed, uses double opt-in, separate consent/event/suppression tables, POST-only confirmation and unsubscribe, strict expiry/scope/product checks, and a central send gate with visible and one-click unsubscribe. The approved marketing-product registry is empty, so no sales campaign can run from this release.
 - PP 1.2 and the subscription UI must ship together. Production `/api/health` at `13d64ce652a4b1dcbc559c1a7759676e81a4aeab` reported `supabaseConfigured: false` on 2026-09-09, so the additive migration and durable consent storage cannot yet be verified. The release remains blocked and feature flags remain off.
@@ -93,6 +98,7 @@ Useful commands:
 
 ## Next Work
 
+- Case overview (`codex/pregled-predmeta`): after the Google OAuth client exists, publish the index from the pipeline (`node scripts/drive/objavi-indeks.mjs`), set `PREGLED_KLJUCEVI`, `PREGLED_INDEKS_DRIVE_FILE_ID`, `GOOGLE_DRIVE_CLIENT_ID/SECRET/REFRESH_TOKEN` in Vercel, then release only with explicit authorization. Next step after that: Yousign e-sign integration (SES level, consent checkbox before signing, director signature set once in the provider), with webhook status flowing into the index.
 - Configure a durable Supabase production project, confirm its region/account DPA/transfer basis, apply `202609091200_marketing_email_consent.sql`, and test pending -> confirmed -> withdrawn using only a controlled test address.
 - Confirm account-level DPA/transfer evidence for Vercel, Resend and the applicable Google contracting entity. Only then set the two marketing flags, token secret and `MARKETING_TRANSFER_REVIEW_VERSION=2026-09-09`; if publication occurs after 09.09.2026, update PP 1.2's static effective date to the actual deployment date.
 - After the immediate reliability release, add a durable email outbox plus Resend delivery/bounce webhooks once Supabase production persistence is configured; this is the remaining step that can recover emails after all in-request retries fail.

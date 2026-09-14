@@ -11,6 +11,8 @@ import { getAnalyticsMode, getGoogleAnalyticsId, getPlausibleDomain } from "@/li
 export function Analytics() {
   const mode = getAnalyticsMode();
   const pathname = usePathname();
+  // Interni pregled predmeta (/pregled/<ključ>): bez praćenja, da tajni ključ iz URL-a ne ode spoljnim servisima.
+  const isExcludedPath = pathname?.startsWith("/pregled") ?? false;
   const searchParams = useSearchParams();
   const skippedInitialPageView = useRef(false);
   const [hasConsent, setHasConsent] = useState(false);
@@ -23,7 +25,7 @@ export function Analytics() {
   }, []);
 
   useEffect(() => {
-    if (mode !== "ga4" || !pathname || !hasConsent) {
+    if (mode !== "ga4" || !pathname || !hasConsent || isExcludedPath) {
       return;
     }
 
@@ -35,9 +37,9 @@ export function Analytics() {
     const query = searchParams?.toString();
     const url = `${window.location.origin}${pathname}${query ? `?${query}` : ""}`;
     trackPageView(url);
-  }, [hasConsent, mode, pathname, searchParams]);
+  }, [hasConsent, isExcludedPath, mode, pathname, searchParams]);
 
-  if (!hasConsent) {
+  if (!hasConsent || isExcludedPath) {
     return null;
   }
 

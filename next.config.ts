@@ -66,6 +66,16 @@ const nextConfig: NextConfig = {
           },
         ],
       },
+      {
+        // Pregled predmeta je dostupan preko tajnog linka: ne indeksira se i ključ
+        // iz URL-a ne sme da ode kao referrer na spoljne sajtove.
+        source: "/pregled/:path*",
+        headers: [
+          { key: "X-Robots-Tag", value: "noindex, nofollow, noarchive" },
+          { key: "Referrer-Policy", value: "no-referrer" },
+          { key: "Cache-Control", value: "private, no-store" },
+        ],
+      },
     ];
   },
 };
