@@ -113,6 +113,11 @@ function buildClaimNotificationHtml(claim: ClaimRecord) {
   `;
 }
 
+function isOutsideProductionDeployment() {
+  const vercelEnv = process.env.VERCEL_ENV;
+  return Boolean(vercelEnv) && vercelEnv !== "production" && process.env.ALLOW_PREVIEW_EMAIL !== "1";
+}
+
 async function sendResendEmail(payload: {
   to: string[];
   subject: string;
@@ -128,6 +133,16 @@ async function sendResendEmail(payload: {
   const apiKey = getResendApiKey();
 
   if (!apiKey) {
+    return { ok: false, skipped: true as const };
+  }
+
+  // Staging (Vercel Preview) koristi isti Resend ključ kao produkcija. Da test zahtev
+  // ne bi poslao pravi mejl, van produkcije se ništa ne šalje osim uz ALLOW_PREVIEW_EMAIL=1.
+  if (isOutsideProductionDeployment()) {
+    console.info(
+      "Resend email skipped outside production.",
+      JSON.stringify({ reference: options.logReference, kind: options.kind }),
+    );
     return { ok: false, skipped: true as const };
   }
 
