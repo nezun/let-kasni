@@ -2,6 +2,8 @@ import { createHash, timingSafeEqual } from "node:crypto";
 
 import { NextResponse } from "next/server";
 
+import { jeCrmPodesen } from "@/lib/crm/baza";
+import { oznaciDogadjajPotpisa } from "@/lib/crm/portal";
 import { driveFolder, driveUpisiFajl, jeDrivePodesen } from "@/lib/drive";
 import { getEnv } from "@/lib/env";
 
@@ -28,7 +30,7 @@ export async function POST(request: Request) {
 
   const folderId = getEnv("PIPELINE_DRIVE_FOLDER_ID");
 
-  if (!folderId || !jeDrivePodesen()) {
+  if ((!folderId || !jeDrivePodesen()) && !jeCrmPodesen()) {
     return NextResponse.json({ ok: false, error: "nije_podeseno" }, { status: 503 });
   }
 
@@ -49,8 +51,16 @@ export async function POST(request: Request) {
     dokument_id: dokumentId,
   };
 
+  if (jeCrmPodesen()) {
+    // predmet dobija novu verziju → raspored (na 5 min) odmah pokreće prolaz koji čita stanje od signNow-a
+    const oznaceno = await oznaciDogadjajPotpisa(dokumentId, dogadjaj.dogadjaj).catch(() => false);
+    if (!folderId || !jeDrivePodesen()) {
+      return NextResponse.json({ ok: true, crm: oznaceno });
+    }
+  }
+
   try {
-    const dogadjajiId = await driveFolder("dogadjaji", folderId);
+    const dogadjajiId = await driveFolder("dogadjaji", folderId!);
     await driveUpisiFajl(dogadjajiId, `signnow-${Date.now()}-${dokumentId.slice(0, 12)}.json`, JSON.stringify(dogadjaj), "application/json");
     return NextResponse.json({ ok: true });
   } catch (error) {

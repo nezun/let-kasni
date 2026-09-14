@@ -79,7 +79,7 @@ export function ConsentBanner({
       };
     },
     () =>
-      (window.location.pathname.startsWith("/admin") || window.location.pathname.startsWith("/pregled") || window.location.pathname.startsWith("/dokumenta"))
+      (window.location.pathname.startsWith("/admin") || window.location.pathname.startsWith("/pregled") || window.location.pathname.startsWith("/dokumenta") || window.location.pathname.startsWith("/predmet"))
         ? adminConsent
         : getTrackingConsent(),
     () => null,

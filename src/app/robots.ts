@@ -20,6 +20,8 @@ export default function robots(): MetadataRoute.Robots {
         "/pregled/*",
         "/dokumenta",
         "/dokumenta/*",
+        "/predmet",
+        "/predmet/*",
       ],
     },
     sitemap: `${siteUrl}/sitemap.xml`,

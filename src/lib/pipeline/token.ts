@@ -9,9 +9,10 @@ function potpis(tajna: string, poruka: string) {
 }
 
 /**
- * Link za slanje dokumenata: /dokumenta/v1.<REF>.<ističe unix>.<potpis>.
- * Pravi ga pipeline (scripts/sistem/alati/link-dokumenta.mjs) istom tajnom (DOKUMENTA_TAJNA, ≥ 32 znaka).
- * Link ne otkriva ništa o klijentu osim broja predmeta i ne daje pristup postojećim dokumentima.
+ * Lični link klijenta: /predmet/<token> (portal) i /dokumenta/<token>.
+ * v2.<ref base64url>.<ističe unix>.<potpis> — pravi ga pipeline (scripts/sistem/lib/link.mjs);
+ * v1.<REF>.<ističe>.<potpis> — stariji format, i dalje važi.
+ * Ista tajna na obe strane (DOKUMENTA_TAJNA, ≥ 32 znaka). Link ne otkriva ništa o klijentu.
  */
 export function proveriTokenDokumenata(token: string): { ref: string; istice: Date } | null {
   const tajna = getEnv("DOKUMENTA_TAJNA");
@@ -22,18 +23,19 @@ export function proveriTokenDokumenata(token: string): { ref: string; istice: Da
 
   const delovi = decodeURIComponent(token).split(".");
 
-  if (delovi.length !== 4 || delovi[0] !== "v1") {
+  if (delovi.length !== 4 || (delovi[0] !== "v1" && delovi[0] !== "v2")) {
     return null;
   }
 
-  const [, ref, istice, dobijeno] = delovi;
+  const [verzija, refDeo, istice, dobijeno] = delovi;
+  const ref = verzija === "v2" ? Buffer.from(refDeo, "base64url").toString("utf8") : refDeo;
 
   if (!refOblik.test(ref) || !/^\d{10}$/.test(istice)) {
     return null;
   }
 
   const a = Buffer.from(dobijeno);
-  const b = Buffer.from(potpis(tajna, `v1.${ref}.${istice}`));
+  const b = Buffer.from(potpis(tajna, `${verzija}.${refDeo}.${istice}`));
 
   if (a.length !== b.length || !timingSafeEqual(a, b)) {
     return null;

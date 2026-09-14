@@ -11,9 +11,9 @@ import { getAnalyticsMode, getGoogleAnalyticsId, getPlausibleDomain } from "@/li
 export function Analytics() {
   const mode = getAnalyticsMode();
   const pathname = usePathname();
-  // Pregled predmeta (/pregled/<ključ>) i slanje dokumenata (/dokumenta/<token>): bez praćenja,
-  // da tajni ključ iz URL-a ne ode spoljnim servisima.
-  const isExcludedPath = /^\/(pregled|dokumenta)(\/|$)/.test(pathname ?? "");
+  // Pregled predmeta (/pregled/<ključ>), portal klijenta (/predmet/<token>) i slanje dokumenata (/dokumenta/<token>):
+  // bez praćenja, da tajni ključ iz URL-a ne ode spoljnim servisima.
+  const isExcludedPath = /^\/(pregled|predmet|dokumenta)(\/|$)/.test(pathname ?? "");
   const searchParams = useSearchParams();
   const skippedInitialPageView = useRef(false);
   const [hasConsent, setHasConsent] = useState(false);

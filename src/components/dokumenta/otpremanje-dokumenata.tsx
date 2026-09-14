@@ -48,7 +48,8 @@ function fajlova(n: number) {
   return "fajlova";
 }
 
-export function OtpremanjeDokumenata({ token }: { token: string }) {
+/** Kartica za slanje dokumenata — samostalno na /dokumenta/<token> i kao korak 2 u portalu /predmet/<token>. */
+export function OtpremanjeDokumenataKartica({ token, naslov = "Šta nam je potrebno" }: { token: string; naslov?: string }) {
   const [stavke, setStavke] = useState<Stavka[]>([]);
   const [radi, setRadi] = useState(false);
   const ulaz = useRef<HTMLInputElement>(null);
@@ -93,66 +94,70 @@ export function OtpremanjeDokumenata({ token }: { token: string }) {
   const primljeno = stavke.filter((s) => s.stanje === "poslato").length;
 
   return (
+    <Card>
+      <CardHeader>
+        <CardTitle>{naslov}</CardTitle>
+        <CardDescription>Fotografija telefonom je sasvim dovoljna, samo da se vidi ceo dokument.</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <ul className="list-disc space-y-1.5 pl-5 text-sm leading-6 text-[var(--ink)]">
+          <li>pasoš ili lična karta svakog putnika</li>
+          <li>boarding karta ili e-karta (potvrda o kupovini karte)</li>
+          <li>obaveštenje avio-kompanije o kašnjenju ili otkazivanju, ako ste ga dobili</li>
+        </ul>
+
+        <label
+          className={`mt-5 flex flex-col items-center justify-center rounded-xl border-2 border-dashed border-[var(--border)] bg-white px-4 py-8 text-center ${
+            radi ? "opacity-70" : "cursor-pointer hover:bg-slate-50"
+          }`}
+        >
+          <span className="text-sm font-semibold text-[var(--ink)]">{radi ? "Slanje je u toku…" : "Izaberite fajlove"}</span>
+          <span className="mt-1 text-xs text-[var(--muted)]">JPG, PNG, HEIC ili PDF, do 4 MB po fajlu</span>
+          <input
+            ref={ulaz}
+            type="file"
+            multiple
+            accept="image/*,application/pdf"
+            className="sr-only"
+            disabled={radi}
+            onChange={(e) => posalji(e.target.files)}
+          />
+        </label>
+
+        {stavke.length > 0 ? (
+          <ul className="mt-4 divide-y divide-[var(--border)] text-sm">
+            {stavke.map((s) => (
+              <li key={s.id} className="flex items-center justify-between gap-3 py-2">
+                <span className="min-w-0">
+                  <span className="block truncate text-[var(--ink)]">{s.ime}</span>
+                  {s.poruka ? <span className="block text-xs text-red-700">{s.poruka}</span> : null}
+                </span>
+                <Badge variant={prikaz[s.stanje].variant}>{prikaz[s.stanje].label}</Badge>
+              </li>
+            ))}
+          </ul>
+        ) : null}
+
+        {primljeno > 0 && !radi ? (
+          <p className="mt-4 rounded-lg bg-emerald-50 px-3 py-2 text-sm text-emerald-900">
+            Hvala! Primili smo {primljeno} {fajlova(primljeno)}. Javićemo Vam se kada pregledamo dokumentaciju.
+          </p>
+        ) : null}
+      </CardContent>
+    </Card>
+  );
+}
+
+export function OtpremanjeDokumenata({ token }: { token: string }) {
+  return (
     <main className="min-h-screen bg-[var(--bg)] px-4 py-10 sm:px-6">
       <div className="mx-auto max-w-xl">
         <p className="eyebrow mb-2">letkasni.rs</p>
         <h1 className="text-3xl font-bold tracking-[-0.03em] text-[var(--ink)]">Slanje dokumenata</h1>
-        <p className="mt-3 text-sm leading-6 text-[var(--muted)]">
+        <p className="mt-3 mb-6 text-sm leading-6 text-[var(--muted)]">
           Ovde nam možete poslati dokumenta za Vaš predmet. Dokumenta vidi samo naš tim i advokat koji vodi postupak.
         </p>
-
-        <Card className="mt-6">
-          <CardHeader>
-            <CardTitle>Šta nam je potrebno</CardTitle>
-            <CardDescription>Fotografija telefonom je sasvim dovoljna, samo da se vidi ceo dokument.</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <ul className="list-disc space-y-1.5 pl-5 text-sm leading-6 text-[var(--ink)]">
-              <li>pasoš ili lična karta svakog putnika</li>
-              <li>boarding karta ili e-karta (potvrda o kupovini karte)</li>
-              <li>potpisan ugovor o ustupanju, kada Vam ga pošaljemo</li>
-            </ul>
-
-            <label
-              className={`mt-5 flex flex-col items-center justify-center rounded-xl border-2 border-dashed border-[var(--border)] bg-white px-4 py-8 text-center ${
-                radi ? "opacity-70" : "cursor-pointer hover:bg-slate-50"
-              }`}
-            >
-              <span className="text-sm font-semibold text-[var(--ink)]">{radi ? "Slanje je u toku…" : "Izaberite fajlove"}</span>
-              <span className="mt-1 text-xs text-[var(--muted)]">JPG, PNG, HEIC ili PDF, do 4 MB po fajlu</span>
-              <input
-                ref={ulaz}
-                type="file"
-                multiple
-                accept="image/*,application/pdf"
-                className="sr-only"
-                disabled={radi}
-                onChange={(e) => posalji(e.target.files)}
-              />
-            </label>
-
-            {stavke.length > 0 ? (
-              <ul className="mt-4 divide-y divide-[var(--border)] text-sm">
-                {stavke.map((s) => (
-                  <li key={s.id} className="flex items-center justify-between gap-3 py-2">
-                    <span className="min-w-0">
-                      <span className="block truncate text-[var(--ink)]">{s.ime}</span>
-                      {s.poruka ? <span className="block text-xs text-red-700">{s.poruka}</span> : null}
-                    </span>
-                    <Badge variant={prikaz[s.stanje].variant}>{prikaz[s.stanje].label}</Badge>
-                  </li>
-                ))}
-              </ul>
-            ) : null}
-
-            {primljeno > 0 && !radi ? (
-              <p className="mt-4 rounded-lg bg-emerald-50 px-3 py-2 text-sm text-emerald-900">
-                Hvala! Primili smo {primljeno} {fajlova(primljeno)}. Javićemo Vam se kada pregledamo dokumentaciju.
-              </p>
-            ) : null}
-          </CardContent>
-        </Card>
-
+        <OtpremanjeDokumenataKartica token={token} />
         <p className="mt-6 text-xs leading-5 text-[var(--muted)]">
           Imate pitanje ili ne možete da pošaljete fajl? Pišite nam na kontakt@letkasni.rs.
         </p>
