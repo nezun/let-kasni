@@ -15,11 +15,12 @@ export interface PotpisV1 {
   maloletan: boolean;
   dokument: VrstaDokumenta | null;
   stanje: StanjePotpisa;
-  kanal: "email" | "yousign";
+  /** "email" = PDF poslat mejlom; "e_potpis" = link za potpis preko provajdera (signNow, Youtrust…). */
+  kanal: "email" | "e_potpis";
   poslato: string | null;
   potpisano: string | null;
   ceka_dana: number | null;
-  provajder: { naziv: string; status: string; link?: string } | null;
+  provajder: { naziv: string; status: string; audit_trail?: boolean } | null;
 }
 
 export interface PredmetV1 {

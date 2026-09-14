@@ -66,6 +66,17 @@ function eur(value: number | null) {
   return value == null ? "—" : `${value.toLocaleString("en-US").replace(/,/g, ".")} €`;
 }
 
+const provajderi: Record<string, string> = {
+  signnow: "signNow",
+  youtrust: "Youtrust",
+  eurosign: "Eurosign",
+  skribble: "Skribble",
+};
+
+function nazivProvajdera(naziv: string | undefined) {
+  return naziv ? (provajderi[naziv] ?? naziv) : "E-potpis";
+}
+
 function dokumentNaziv(value: PotpisV1["dokument"]) {
   if (value === "ugovor_o_ustupanju") return "Ugovor o ustupanju";
   if (value === "punomocje") return "Punomoćje";
@@ -310,9 +321,9 @@ export function PregledPredmeta({
                           <Badge variant={prikaz.variant}>{prikaz.label}</Badge>
                         </TableCell>
                         <TableCell className="whitespace-nowrap">
-                          {x.kanal === "yousign" ? "Yousign" : "Email"}
-                          {x.provajder?.status ? (
-                            <div className="text-xs text-[var(--muted)]">{x.provajder.status}</div>
+                          {x.kanal === "e_potpis" ? nazivProvajdera(x.provajder?.naziv) : "Email"}
+                          {x.provajder?.audit_trail ? (
+                            <div className="text-xs text-[var(--muted)]">audit trail sačuvan</div>
                           ) : null}
                         </TableCell>
                         <TableCell className="whitespace-nowrap">{kratakDatum(x.poslato)}</TableCell>
@@ -337,18 +348,35 @@ export function PregledPredmeta({
             {uloga === "tim" ? (
               <Card>
                 <CardHeader>
-                  <CardTitle>Elektronsko potpisivanje — u pripremi</CardTitle>
-                  <CardDescription>Plan prema Nemanjinoj proveri provajdera (13.09.2026).</CardDescription>
+                  <CardTitle>Elektronsko potpisivanje — plan</CardTitle>
+                  <CardDescription>Prema Nemanjinom poređenju provajdera (13.09.2026).</CardDescription>
                 </CardHeader>
-                <CardContent>
-                  <ul className="list-disc space-y-1.5 pl-5 text-sm leading-6 text-[var(--ink)]">
-                    <li>Za naše ugovore dovoljan je jednostavan elektronski potpis (SES); AES i KES nisu potrebni.</li>
-                    <li>Prvi izbor: Yousign — direktan API, klijent na kraju samo klikne „Potpiši“. Rezerva: SignNow.</li>
-                    <li>Tok: podaci iz dokumenata idu direktno u ugovor, link za potpis se pravi i šalje automatski.</li>
-                    <li>Pre potpisa: polje za saglasnost o obradi podataka (ZZPL), iako je već u ugovoru.</li>
-                    <li>Potpis direktora VGA: jednom potpisan u sistemu, umesto ubačene slike sa pozadinom.</li>
-                    <li>Kad provajder bude povezan, kolone „Kanal“ i „Stanje“ ovde se osvežavaju iz njegovih obaveštenja.</li>
-                  </ul>
+                <CardContent className="grid gap-5 md:grid-cols-3">
+                  <div>
+                    <div className="mb-2 text-xs font-semibold uppercase tracking-wide text-[var(--muted)]">Sada</div>
+                    <ul className="list-disc space-y-1.5 pl-5 text-sm leading-6 text-[var(--ink)]">
+                      <li><strong>signNow Business</strong> (~$8/mes.), bez limita dokumenata.</li>
+                      <li>Jednostavan elektronski potpis (SES), bez SMS koda i ličnih dokumenata.</li>
+                      <li>Podešavanje „Draw only“: putnik mora da nacrta potpis.</li>
+                      <li>Ugovor pravimo mi, šaljemo ručno iz dashboard-a; čuvamo potpisan PDF i audit trail.</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <div className="mb-2 text-xs font-semibold uppercase tracking-wide text-[var(--muted)]">Paralelno testirati</div>
+                    <ul className="list-disc space-y-1.5 pl-5 text-sm leading-6 text-[var(--ink)]">
+                      <li>Youtrust Plus (~€23) i Eurosign Business Pro (~€19), isti ugovor poslat sebi na telefon.</li>
+                      <li>Proveriti: izgled nacrtanog potpisa, finalni PDF, sadržaj audit fajla, koliko je tok lak putniku.</li>
+                      <li>Otpadaju: DocuSign (limit dokumenata), Evrotrust (SMS kod), Adobe (nema prednost).</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <div className="mb-2 text-xs font-semibold uppercase tracking-wide text-[var(--muted)]">Za 2–3 meseca</div>
+                    <ul className="list-disc space-y-1.5 pl-5 text-sm leading-6 text-[var(--ink)]">
+                      <li>API: Skribble Pro (~€36, najjeftiniji), Youtrust API (od €106, najjači EU dokazi) ili signNow API.</li>
+                      <li>Adapter sa pet funkcija, da se provajder menja bez diranja ostatka sistema.</li>
+                      <li>Pre potpisa polje za saglasnost; potpis direktora postavljen jednom kod provajdera.</li>
+                    </ul>
+                  </div>
                 </CardContent>
               </Card>
             ) : null}
