@@ -4,6 +4,7 @@ import { createOrReuseClaim } from "@/lib/claims";
 import { isValidEmail } from "@/lib/email-validation";
 import { sendAdminClaimNotification, sendUserClaimConfirmation } from "@/lib/notifications";
 import { predajClaimPipelineu } from "@/lib/pipeline/prijem";
+import { upisiClaimUCrm } from "@/lib/crm/prijem";
 import { isRateLimited } from "@/lib/rate-limit";
 import { sendMetaLeadEvent } from "@/lib/meta-conversions";
 import {
@@ -254,8 +255,14 @@ export async function POST(request: Request) {
   }
 
   if (!reused) {
-    // Predaja LetKasni pipeline-u (Drive „prijem/“). Bez PIPELINE_DRIVE_FOLDER_ID ne radi ništa.
-    const predaja = await predajClaimPipelineu(claim, submission.locale);
+    // CRM: predmet je u bazi odmah (status NEW), orkestrator ga preuzima u roku od 5 minuta.
+    const crm = await upisiClaimUCrm(claim, submission.locale);
+    if (crm.upisano || !crm.razlog.startsWith("CRM_SUPABASE")) {
+      console.info("CRM intake.", JSON.stringify({ claimId: claim.id, ...crm }));
+    }
+
+    // Rezervni put: predaja LetKasni pipeline-u preko Drive-a („prijem/“). Bez PIPELINE_DRIVE_FOLDER_ID ne radi ništa.
+    const predaja = crm.upisano ? { poslato: false as const, razlog: "PIPELINE_DRIVE_FOLDER_ID: preskočeno, predmet je u CRM bazi" } : await predajClaimPipelineu(claim, submission.locale);
     if (predaja.poslato || !predaja.razlog.startsWith("PIPELINE_DRIVE_FOLDER_ID")) {
       console.info(
         "Pipeline intake handoff.",
