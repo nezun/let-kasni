@@ -54,6 +54,23 @@ export interface PredmetV1 {
   azurirano: string | null;
 }
 
+/** Zadatak za čoveka iz orkestratora (scripts/sistem). ko: niko = tim LetKasni. */
+export interface ZadatakV1 {
+  ref: string | null;
+  ko: "niko" | "advokat" | "sistem";
+  vrsta: string;
+  opis: string;
+  od: string;
+}
+
+export interface SistemV1 {
+  okruzenje: string;
+  poslednji_prolaz: string;
+  rezimi: Record<string, string>;
+  agenti_cekaju: number;
+  greske: number;
+}
+
 export interface IndeksV1 {
   sema: 1;
   generisano: string;
@@ -67,6 +84,9 @@ export interface IndeksV1 {
     procena_eur: number;
   };
   predmeti: PredmetV1[];
+  /** Opciono (dodaje orkestrator): otvoreni zadaci i stanje poslednjeg prolaza. */
+  zadaci?: ZadatakV1[];
+  sistem?: SistemV1;
 }
 
 export function jeIndeksV1(value: unknown): value is IndeksV1 {

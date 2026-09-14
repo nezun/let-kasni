@@ -55,6 +55,8 @@ export default async function PregledPredmetaPage(props: { params: Params }) {
 
   const g = beogradskiDelovi(new Date(rezultat.indeks.generisano));
   const generisano = `${g.dan}.${g.mesec}.${g.godina}. u ${g.sat}:${g.minut}`;
+  const s = rezultat.indeks.sistem ? beogradskiDelovi(new Date(rezultat.indeks.sistem.poslednji_prolaz)) : null;
+  const sistemProlaz = s ? `${s.dan}.${s.mesec}. u ${s.sat}:${s.minut}` : null;
 
   return (
     <PregledPredmeta
@@ -62,6 +64,7 @@ export default async function PregledPredmetaPage(props: { params: Params }) {
       uloga={pristup.uloga}
       danas={danas}
       generisano={generisano}
+      sistemProlaz={sistemProlaz}
     />
   );
 }

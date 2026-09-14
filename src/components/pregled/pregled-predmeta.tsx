@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import type { UlogaPregleda } from "@/lib/pregled/pristup";
-import type { Faza, IndeksV1, NaPotezu, PotpisV1, PredmetV1, StanjePotpisa } from "@/lib/pregled/types";
+import type { Faza, IndeksV1, NaPotezu, PotpisV1, PredmetV1, StanjePotpisa, ZadatakV1 } from "@/lib/pregled/types";
 
 type BadgeVariant = "default" | "outline" | "muted" | "info" | "warning" | "success" | "danger" | "violet";
 
@@ -28,6 +28,12 @@ const naPotezuPrikaz: Record<NaPotezu, string> = {
   klijent: "Klijent",
   advokat: "Advokat",
   niko: "—",
+};
+
+const koPrikaz: Record<ZadatakV1["ko"], { label: string; variant: BadgeVariant }> = {
+  niko: { label: "Tim", variant: "warning" },
+  advokat: { label: "Advokat", variant: "success" },
+  sistem: { label: "Sistem", variant: "muted" },
 };
 
 const stanjePrikaz: Record<StanjePotpisa, { label: string; variant: BadgeVariant }> = {
@@ -100,11 +106,13 @@ export function PregledPredmeta({
   uloga,
   danas,
   generisano,
+  sistemProlaz,
 }: {
   indeks: IndeksV1;
   uloga: UlogaPregleda;
   danas: string;
   generisano: string;
+  sistemProlaz: string | null;
 }) {
   const [upit, setUpit] = useState("");
   const [faza, setFaza] = useState<"sve" | Faza>("sve");
@@ -139,6 +147,18 @@ export function PregledPredmeta({
       );
   }, [indeks.predmeti]);
 
+  const zadaci = useMemo(() => {
+    const redosled: Record<ZadatakV1["ko"], number> = { niko: 0, advokat: 1, sistem: 2 };
+    return (indeks.zadaci ?? [])
+      .filter((z) => uloga === "tim" || z.ko === "advokat")
+      .sort((a, b) => redosled[a.ko] - redosled[b.ko] || (a.ref ?? "").localeCompare(b.ref ?? ""));
+  }, [indeks.zadaci, uloga]);
+
+  const putniciPoRef = useMemo(
+    () => new Map(indeks.predmeti.map((p) => [p.ref, p.putnici.map((x) => x.ime).join(", ")])),
+    [indeks.predmeti],
+  );
+
   const { ukupno } = indeks;
 
   return (
@@ -151,6 +171,12 @@ export function PregledPredmeta({
           </div>
           <p className="text-xs text-[var(--muted)]">
             Stanje od {generisano} · {uloga === "advokati" ? "pristup za advokate" : "pristup za tim"} · samo za pregled
+            {uloga === "tim" && indeks.sistem ? (
+              <span className="block sm:text-right">
+                Sistem ({indeks.sistem.okruzenje}): poslednji prolaz {sistemProlaz ?? "—"} · agenti čekaju{" "}
+                {indeks.sistem.agenti_cekaju} · greške {indeks.sistem.greske}
+              </span>
+            ) : null}
           </p>
         </div>
 
@@ -169,6 +195,12 @@ export function PregledPredmeta({
               Potpisivanje
               {ukupno.ceka_potpis > 0 ? <Badge variant="violet">{ukupno.ceka_potpis}</Badge> : null}
             </TabsTrigger>
+            {indeks.zadaci ? (
+              <TabsTrigger value="zadaci">
+                Zadaci
+                {zadaci.length > 0 ? <Badge variant="warning">{zadaci.length}</Badge> : null}
+              </TabsTrigger>
+            ) : null}
           </TabsList>
 
           <TabsContent value="predmeti">
@@ -380,6 +412,48 @@ export function PregledPredmeta({
                 </CardContent>
               </Card>
             ) : null}
+          </TabsContent>
+          <TabsContent value="zadaci">
+            <Card>
+              <Table>
+                <TableHeader>
+                  <TableRow className="hover:bg-transparent">
+                    <TableHead>Za</TableHead>
+                    <TableHead>Predmet</TableHead>
+                    <TableHead>Zadatak</TableHead>
+                    <TableHead>Od</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {zadaci.map((z, i) => (
+                    <TableRow key={`${z.ref ?? "sistem"}-${z.vrsta}-${i}`}>
+                      <TableCell className="whitespace-nowrap">
+                        <Badge variant={koPrikaz[z.ko].variant}>{koPrikaz[z.ko].label}</Badge>
+                      </TableCell>
+                      <TableCell className="min-w-44">
+                        {z.ref ? (
+                          <>
+                            <div className="font-medium">{putniciPoRef.get(z.ref) ?? z.ref}</div>
+                            <div className="text-xs text-[var(--muted)]">{z.ref}</div>
+                          </>
+                        ) : (
+                          "—"
+                        )}
+                      </TableCell>
+                      <TableCell className="min-w-72 text-[var(--ink)]">{z.opis}</TableCell>
+                      <TableCell className="whitespace-nowrap">{kratakDatum(z.od)}</TableCell>
+                    </TableRow>
+                  ))}
+                  {zadaci.length === 0 ? (
+                    <TableRow>
+                      <TableCell colSpan={4} className="py-10 text-center text-[var(--muted)]">
+                        Nema otvorenih zadataka.
+                      </TableCell>
+                    </TableRow>
+                  ) : null}
+                </TableBody>
+              </Table>
+            </Card>
           </TabsContent>
         </Tabs>
       </div>

@@ -11,8 +11,9 @@ import { getMetaEventId, trackMetaEvent } from "@/lib/meta";
 export function MetaPixel() {
   const pixelId = getMetaPixelId();
   const pathname = usePathname();
-  // Interni pregled predmeta (/pregled/<ključ>): bez praćenja, da tajni ključ iz URL-a ne ode spoljnim servisima.
-  const isExcludedPath = pathname?.startsWith("/pregled") ?? false;
+  // Pregled predmeta (/pregled/<ključ>) i slanje dokumenata (/dokumenta/<token>): bez praćenja,
+  // da tajni ključ iz URL-a ne ode spoljnim servisima.
+  const isExcludedPath = /^\/(pregled|dokumenta)(\/|$)/.test(pathname ?? "");
   const searchParams = useSearchParams();
   const skippedInitialPageView = useRef(false);
   const [hasConsent, setHasConsent] = useState(false);

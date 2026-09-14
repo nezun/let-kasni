@@ -1,5 +1,6 @@
 import { readFile } from "node:fs/promises";
 
+import { citajDriveJson } from "@/lib/drive";
 import { getEnv } from "@/lib/env";
 import { jeIndeksV1, type IndeksV1 } from "@/lib/pregled/types";
 
@@ -9,50 +10,6 @@ export type RezultatIndeksa =
 
 const kesTrajanjeMs = 60_000;
 let kes: { rezultat: Extract<RezultatIndeksa, { ok: true }>; istice: number } | null = null;
-
-async function driveAccessToken() {
-  const clientId = getEnv("GOOGLE_DRIVE_CLIENT_ID");
-  const clientSecret = getEnv("GOOGLE_DRIVE_CLIENT_SECRET");
-  const refreshToken = getEnv("GOOGLE_DRIVE_REFRESH_TOKEN");
-
-  if (!clientId || !clientSecret || !refreshToken) {
-    throw new Error("Google Drive pristup nije podešen.");
-  }
-
-  const response = await fetch("https://oauth2.googleapis.com/token", {
-    method: "POST",
-    headers: { "content-type": "application/x-www-form-urlencoded" },
-    body: new URLSearchParams({
-      client_id: clientId,
-      client_secret: clientSecret,
-      refresh_token: refreshToken,
-      grant_type: "refresh_token",
-    }),
-    cache: "no-store",
-  });
-
-  const body = (await response.json().catch(() => ({}))) as { access_token?: string };
-
-  if (!response.ok || !body.access_token) {
-    throw new Error(`Google OAuth osvežavanje nije uspelo (${response.status}).`);
-  }
-
-  return body.access_token;
-}
-
-async function citajSaDrivea(fileId: string) {
-  const token = await driveAccessToken();
-  const response = await fetch(
-    `https://www.googleapis.com/drive/v3/files/${encodeURIComponent(fileId)}?alt=media`,
-    { headers: { authorization: `Bearer ${token}` }, cache: "no-store" },
-  );
-
-  if (!response.ok) {
-    throw new Error(`Drive je vratio ${response.status} za indeks.`);
-  }
-
-  return response.json() as Promise<unknown>;
-}
 
 /**
  * Učitava indeks predmeta. Redosled izvora:
@@ -72,7 +29,7 @@ export async function ucitajIndeks(): Promise<RezultatIndeksa> {
     let izvor: "drive" | "lokalno";
 
     if (driveFileId) {
-      sirovo = await citajSaDrivea(driveFileId);
+      sirovo = await citajDriveJson(driveFileId);
       izvor = "drive";
     } else if (lokalnaPutanja && process.env.NODE_ENV !== "production") {
       sirovo = JSON.parse(await readFile(lokalnaPutanja, "utf8"));

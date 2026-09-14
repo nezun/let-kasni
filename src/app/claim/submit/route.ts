@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { createOrReuseClaim } from "@/lib/claims";
 import { isValidEmail } from "@/lib/email-validation";
 import { sendAdminClaimNotification, sendUserClaimConfirmation } from "@/lib/notifications";
+import { predajClaimPipelineu } from "@/lib/pipeline/prijem";
 import { isRateLimited } from "@/lib/rate-limit";
 import { sendMetaLeadEvent } from "@/lib/meta-conversions";
 import {
@@ -248,6 +249,17 @@ export async function POST(request: Request) {
           resendEmailId: "id" in result.value ? result.value.id : undefined,
           attempts: "attempts" in result.value ? result.value.attempts : undefined,
         }),
+      );
+    }
+  }
+
+  if (!reused) {
+    // Predaja LetKasni pipeline-u (Drive „prijem/“). Bez PIPELINE_DRIVE_FOLDER_ID ne radi ništa.
+    const predaja = await predajClaimPipelineu(claim, submission.locale);
+    if (predaja.poslato || !predaja.razlog.startsWith("PIPELINE_DRIVE_FOLDER_ID")) {
+      console.info(
+        "Pipeline intake handoff.",
+        JSON.stringify({ claimId: claim.id, poslato: predaja.poslato, razlog: predaja.poslato ? undefined : predaja.razlog }),
       );
     }
   }
