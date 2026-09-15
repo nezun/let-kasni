@@ -62,7 +62,7 @@ export function getGoogleAnalyticsId() {
 }
 
 export function getGoogleTagManagerId() {
-  const value = getEnv("NEXT_PUBLIC_GTM_ID");
+  const value = process.env.NEXT_PUBLIC_GTM_ID?.trim();
   return value && /^GTM-[A-Z0-9]+$/.test(value) ? value : undefined;
 }
 

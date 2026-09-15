@@ -128,6 +128,10 @@ test("tracking wiring is consent-gated, success-gated and PII-minimized", () => 
 
   assert.match(measurement, /consent\?\.marketing/);
   assert.match(measurement, /NEXT_PUBLIC_GTM_ID|getGoogleTagManagerId/);
+  assert.match(
+    read("src/lib/env.ts"),
+    /process\.env\.NEXT_PUBLIC_GTM_ID\?\.trim\(\)/,
+  );
   assert.match(route, /marketingConsent[\s\S]*submission\.input\.attribution/);
   assert.match(tracking, /trackOnce\(`lead_submit:\$\{input\.claimId\}`/);
   assert.doesNotMatch(tracking, /email|firstName|lastName|phoneNumber|passport|pnr/i);
