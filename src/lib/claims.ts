@@ -48,8 +48,10 @@ async function buildClaimRecord(
   });
   const verdict = getConservativeVerdict(input, providerSnapshot);
   const now = new Date().toISOString();
+  const inputWithoutAttribution = { ...input };
+  delete inputWithoutAttribution.attribution;
   const normalizedInputSnapshot = {
-    ...input,
+    ...inputWithoutAttribution,
     flightNumber:
       providerSnapshot.normalized?.flightNumber ??
       input.flightNumber.trim().toUpperCase(),

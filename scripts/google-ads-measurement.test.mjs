@@ -14,6 +14,10 @@ const attributionCoreModule = ts.transpileModule(attributionCoreSource, {
     target: ts.ScriptTarget.ES2022,
   },
 }).outputText;
+const claimsSource = readFileSync(
+  new URL("../src/lib/claims.ts", import.meta.url),
+  "utf8",
+);
 const {
   appendAttributionParameters,
   attributionMaxAgeMs,
@@ -289,6 +293,18 @@ test("server validation binds attribution to the current site and a recent times
     ),
     undefined,
   );
+});
+
+test("stores attribution once in the original claim audit snapshot", () => {
+  assert.match(
+    claimsSource,
+    /const inputWithoutAttribution = \{ \.\.\.input \};\s*delete inputWithoutAttribution\.attribution;/,
+  );
+  assert.match(
+    claimsSource,
+    /const normalizedInputSnapshot = \{\s*\.\.\.inputWithoutAttribution,/,
+  );
+  assert.match(claimsSource, /originalInputSnapshot: \{ \.\.\.input \}/);
 });
 
 test("keeps organic first touch and handles an empty attribution history", () => {
