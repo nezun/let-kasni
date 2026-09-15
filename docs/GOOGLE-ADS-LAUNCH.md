@@ -6,14 +6,14 @@ Status: code-ready on `codex/google-ads-measurement`; production remains disable
 
 | Component | Before | After | Status |
 | --- | --- | --- | --- |
-| GA4 | Direct `gtag.js`, consent-gated | Preserved; receives the new safe journey events | Ready for QA |
+| GA4 | Direct `gtag.js`, consent-gated | Preserved; receives the new safe journey events | Local regression passed |
 | GTM | Not present | Optional `NEXT_PUBLIC_GTM_ID`, loaded only after advertising consent | Needs real container ID |
 | Google Ads conversion | Not present | `lead_submit` data-layer contract with a claim transaction ID | Needs Ads/GTM UI setup |
 | Consent Mode v2 | Not present | Denied-by-default signals for all four v2 consent types, updated from the existing consent cookie | Code-ready |
 | Attribution | Not persisted | First paid touch stored for 90 days after advertising consent | Code-ready |
 | Claim payload | No Google attribution | Allowlisted attribution stored in `original_input_snapshot.attribution` | Code-ready |
-| Meta Pixel/CAPI | Existing browser/server `Lead` deduplication | Unchanged | Regression test required |
-| SEO | Existing metadata, canonicals and routes | Unchanged | Regression test required |
+| Meta Pixel/CAPI | Existing browser/server `Lead` deduplication | Unchanged | Existing checks passed |
+| SEO | Existing metadata, canonicals and routes | Unchanged | Existing checks and build passed |
 
 ## Actual tracking flow
 
@@ -41,6 +41,28 @@ Google Ads click
 Existing GA4 `begin_checkout` and `generate_lead` events remain in place for continuity. Do not import `generate_lead` as another primary Google Ads conversion.
 
 No name, email, phone, PNR, passport data, document data or legal free text is sent through the new GA4/GTM events.
+
+## Files changed
+
+| File | Purpose |
+| --- | --- |
+| `.env.example` | Documents the optional GTM Web container variable. |
+| `package.json` | Adds the Google Ads measurement check to the existing verification chain. |
+| `src/app/layout.tsx` | Sets denied Consent Mode v2 defaults before tags and mounts the shared Google measurement component. |
+| `src/app/claim/submit/route.ts` | Sanitizes attribution and accepts it only with server-verified advertising consent. |
+| `src/components/google-measurement.tsx` | Updates Google consent, captures attribution, loads optional GTM and tracks contact clicks. |
+| `src/components/claim-entry.tsx` | Carries allowlisted campaign parameters into the focused form. |
+| `src/components/claim-flow.tsx` | Adds attribution to the primary submission and emits success-only journey events. |
+| `src/components/claim-modal.tsx` | Applies the same attribution and success-only event contract to the modal form. |
+| `src/components/claim-intake-form.tsx` | Applies the same contract to the legacy inline form. |
+| `src/lib/attribution-core.ts` | Pure capture, allowlist, cleanup, first-paid-touch and navigation helpers. |
+| `src/lib/attribution.ts` | Consent-gated 90-day first-party persistence in the browser. |
+| `src/lib/google-tracking.ts` | Consent-gated event dispatch and claim-ID deduplication. |
+| `src/lib/consent.ts` | Clears LetKasni and Google advertising storage when consent is denied or withdrawn. |
+| `src/lib/env.ts` | Validates and exposes `NEXT_PUBLIC_GTM_ID` to the client bundle. |
+| `src/lib/types.ts` | Adds optional attribution to the existing claim input without breaking callers. |
+| `scripts/google-ads-measurement.test.mjs` | Covers capture, sanitization, persistence rules, consent wiring, PII exclusion and exact-once lead delivery. |
+| `docs/GOOGLE-ADS-LAUNCH.md` | Launch configuration, blockers and repeatable QA runbook. |
 
 ## Attribution contract
 
@@ -220,6 +242,29 @@ In Tag Assistant/Data Layer verify:
 - No contact or claim details appear in GA4/GTM event payloads.
 - SR and EN claim flows both submit successfully.
 - Existing SEO metadata, sitemap and routes remain unchanged.
+
+## QA results (2026-09-15)
+
+Passed locally on `codex/google-ads-measurement`:
+
+- Organic homepage and focused claim flow load with no browser console errors.
+- Before consent, all four Google consent signals are denied, no GA4/GTM/Meta script loads and no attribution is stored.
+- Analytics-only keeps GTM, Meta and attribution blocked; advertising-only loads GTM and Meta while GA4 stays blocked; accept-all loads all three.
+- Revoking optional consent removes the LetKasni attribution object and `_gcl*` storage.
+- A mock Google click preserved `gclid` and UTM values through `/proveri-let`; the original paid landing remained the first paid touch.
+- `claim_start`, `phone_click` and `whatsapp_click` were observed in the data layer with no contact data.
+- A real local claim submission reached the success state and stored the allowlisted attribution alongside claim UUID `265aeb88-f215-43da-8170-18a72e679b2f`.
+- The runtime regression test calls the same successful claim ID twice and proves exactly one `lead_submit` reaches GA4 and exactly one reaches the GTM data layer.
+- The Serbian form completed end to end; the English landing preserved campaign parameters into `/en/check-flight`.
+- Existing workflow, privacy, Meta, email, content, locale, lint and TypeScript checks passed.
+- The optimized Next.js production build passed and generated all 331 static pages.
+
+Not yet testable without production account access:
+
+- real GTM Preview / Tag Assistant delivery using the production container;
+- receipt of the direct Google Ads conversion using its real Conversion ID and Label;
+- GA4 DebugView and Google Ads diagnostics after the GA4/Ads account link;
+- one controlled production submission after deployment.
 
 ## Deferred work
 

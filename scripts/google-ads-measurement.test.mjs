@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import test from "node:test";
+import vm from "node:vm";
 import ts from "typescript";
 
 const attributionCoreSource = readFileSync(
@@ -102,6 +103,49 @@ test("server sanitizer accepts only bounded structured attribution", () => {
   assert.equal(result?.initial_landing_page, "https://letkasni.rs/");
   assert.equal(result?.referrer, "https://google.com/search");
   assert.equal("email" in (result ?? {}), false);
+});
+
+test("emits exactly one lead_submit for the same successful claim ID", () => {
+  const source = readFileSync(
+    new URL("../src/lib/google-tracking.ts", import.meta.url),
+    "utf8",
+  ).replace(
+    'import { hasAnalyticsConsent, hasMarketingConsent } from "@/lib/consent";',
+    "const hasAnalyticsConsent = () => true; const hasMarketingConsent = () => true;",
+  );
+  const compiled = ts.transpileModule(source, {
+    compilerOptions: {
+      module: ts.ModuleKind.CommonJS,
+      target: ts.ScriptTarget.ES2022,
+    },
+  }).outputText;
+  const sessionValues = new Map();
+  const gtagCalls = [];
+  const module = { exports: {} };
+  const window = {
+    dataLayer: [],
+    gtag: (...args) => gtagCalls.push(args),
+    location: { pathname: "/proveri-let" },
+    sessionStorage: {
+      getItem: (key) => sessionValues.get(key) ?? null,
+      setItem: (key, value) => sessionValues.set(key, value),
+    },
+  };
+
+  vm.runInNewContext(compiled, { module, exports: module.exports, window });
+  const input = {
+    claimId: "00000000-0000-4000-8000-000000000001",
+    source: "focused_claim_flow",
+    locale: "sr",
+    providerStatus: "manual_review",
+  };
+
+  assert.equal(module.exports.trackLeadSubmitOnce(input), true);
+  assert.equal(module.exports.trackLeadSubmitOnce(input), false);
+  assert.equal(window.dataLayer.length, 1);
+  assert.equal(gtagCalls.length, 1);
+  assert.equal(window.dataLayer[0].event, "lead_submit");
+  assert.equal(window.dataLayer[0].transaction_id, input.claimId);
 });
 
 test("tracking wiring is consent-gated, success-gated and PII-minimized", () => {
