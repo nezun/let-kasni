@@ -2,6 +2,7 @@
 import { createHash } from "node:crypto";
 
 import type { Kontekst } from "../kontekst.ts";
+import { brojLeta } from "./prijem.ts";
 
 /**
  * Dokumenta: agent (na Nikovom Macu) pregleda sve fajlove predmeta i vrati dokumenta.json; kod iz toga menja
@@ -120,6 +121,12 @@ async function primeni(ctx: Kontekst, ref: string, dj: any, r: ReturnType<Kontek
 
   const k = dj.let_sa_karte;
   const bez = (s: unknown) => String(s ?? "").replace(/\s+/g, "").toUpperCase();
+  // forma nije imala broj leta: uzima se sa karte (provera leta tek tada kreće)
+  const brojSaKarte = !c.let?.broj ? brojLeta(k?.broj) : null;
+  if (brojSaKarte) {
+    ctx.predmeti.azuriraj(ref, (x) => { x.let = { ...x.let, broj: brojSaKarte, datum: x.let?.datum ?? k?.datum ?? null, kljuc_cinjenica: null }; });
+    ctx.predmeti.log(ref, `dokumenta (agent + kod): broj leta sa karte — ${brojSaKarte}`);
+  }
   if (k?.broj && c.let?.broj && bez(k.broj) !== bez(c.let.broj)) konflikti.push(`boarding karta glasi na let ${k.broj}, predmet na ${c.let.broj}`);
   if (k?.datum && c.let?.datum && k.datum !== c.let.datum) konflikti.push(`boarding karta: datum ${k.datum}, predmet: ${c.let.datum}`);
   konflikti.push(...(dj.neslaganja ?? []));
@@ -127,6 +134,8 @@ async function primeni(ctx: Kontekst, ref: string, dj: any, r: ReturnType<Kontek
   ctx.predmeti.log(ref, `dokumenta (agent + kod): ${[...vrste].join(", ") || "ništa prepoznato"}${konflikti.length ? `; neslaganja: ${konflikti.length}` : ""}${dj.sta_fali?.length ? `; fali: ${dj.sta_fali.join(", ")}` : ""}`);
 
   let cur = ctx.predmeti.ucitaj(ref);
+  // let još nije proveren (broj leta je tek stigao sa karte): prvo provera leta, pa tek onda dokumenta dalje
+  if (!cur.provera_kod && cur.let?.pronalazenje?.stanje === "ceka_klijenta") return;
   // Portal: ugovor pravi sajt iz podataka koje je klijent upisao; ovde samo poređenje sa dokumentima.
   if (cur.portal?.link_napravljen || cur.portal?.podaci_poslati) {
     const fali = [!cur.dokumenta?.pasos && "pasoš ili lična karta", !(cur.dokumenta?.boarding || cur.dokumenta?.rezervacija) && "boarding karta"].filter(Boolean);

@@ -144,6 +144,7 @@ const portal: Portal = {
 const SABLONI: Record<string, string> = {
   "A-portal": "<!-- test -->\nSubject: AVIO-NAKNADA ZA {{vrsta}} LET {{let}} {{od}} - {{do}}\n\n{{oslovljavanje}} {{vokativ}},\n\nVaš {{let_opis}}:\n\n{{nalaz_tacke}}\n\nPostoji osnov{{iznos_blok}}.\n\n{{link}}\n\nPodrška letkasni.rs\n",
   "A-delay": "Subject: AVIO-NAKNADA ZA POMEREN LET {{let}} {{od}} - {{do}}\n\n{{oslovljavanje}} {{vokativ}},\n\nKasnio {{kasnjenje}}. Pošaljite nam pasoš i boarding kartu.\n\nPodrška letkasni.rs\n",
+  "D-dokumenta": "Subject: AVIO-NAKNADA ZA LET {{od}} - {{do}}\n\n{{oslovljavanje}} {{vokativ}},\n\nZa let {{prevozilac_opis}}{{od}} - {{do}} pošaljite nam boarding kartu i ličnu kartu.\n\nPodrška letkasni.rs\n",
   "G-potpis": "Subject: Re: {{postojeci_naslov}}\n\n{{oslovljavanje}} {{vokativ}},\n\nUgovor{{za_koga}} za potpis:\n\n{{link}}\n\nPodrška letkasni.rs\n",
   "B-nema-osnova": "Subject: AVIO-NAKNADA ZA LET {{od}} - {{do}}\n\n{{oslovljavanje}} {{vokativ}},\n\nNema osnova, jer {{razlog}}.\n\n{{nega_pasus}}\n\nPodrška letkasni.rs\n",
   "B-nega-pasus": "Pravo na brigu na aerodromu.\n",
@@ -361,4 +362,28 @@ test("12. CRM pregled: svaki predmet ima red, bez mejlova i ličnih brojeva", ()
   assert.ok(Array.isArray(sistem.get("zadaci")));
   assert.equal(sistem.get("sistem").okruzenje, "staging");
   assert.equal(sistem.get("sistem").provere.google_drive.ok, true, "provere pristupa upisane za CRM");
+});
+
+test("13. forma bez broja leta: agent pronađe jedini let tog dana; kad ih je više, mejl traži dokumenta", async () => {
+  const bezBroja = (datum: string) => ({ broj: null, datum, od: "BCN", do: "BEG", ruta_opis: "Barcelona (BCN) → Belgrade (BEG); Wizz Air; direct" });
+  saForme("E2E-R", "Marko Marković", "r@example.com", bezBroja("2026-08-21"));
+  saForme("E2E-M", "Ana Anić", "m@example.com", bezBroja("2026-08-22"));
+  await prolaz();
+  const posao = posloviZa("provera-leta").find((p) => p.ref === "RUTA_BCN-BEG_2026-08-21");
+  assert.equal(posao?.ulaz.pronadji_broj, true, "posao za agenta traži broj leta");
+  assert.equal(posao?.ulaz.let.prevozilac, "Wizz Air", "prevozilac iz teksta rute");
+  assert.equal(c("E2E-R").pregled.korak.naziv, "Agent traži broj leta i proverava let");
+
+  agentZavrsi("provera-leta", (p) => {
+    if (p.ref === "RUTA_BCN-BEG_2026-08-21") letovi[p.ref] = { ...cinjenice("BCN", "BEG", "W6", "2026-08-21T12:00+02:00", "2026-08-21T16:30+02:00"), let: "W6 4115", pronalazenje: { jednoznacno: true } };
+    if (p.ref === "RUTA_BCN-BEG_2026-08-22") letovi[p.ref] = { pronalazenje: { jednoznacno: false, kandidati: [{ broj: "W64115", polazak: "06:10" }, { broj: "W6 4117", polazak: "18:40" }] } };
+  });
+  await prolaz();
+  assert.equal(c("E2E-R").podaci.let.broj, "W6 4115");
+  assert.equal(c("E2E-R").status, "VERIFIED", "pronađen let ide dalje u proveru");
+  assert.equal(c("E2E-M").status, "DRAFTED");
+  const d = [...draftovi.values()].find((x) => x.to.includes("m@example.com"));
+  assert.ok(d?.body.includes("boarding kartu") && d.body.includes("Wizz Air BCN - BEG"), "mejl traži dokumenta za taj let");
+  assert.ok(!/W6 41|broj leta/i.test(d.body), "mejl ne pita za tačan let i ne nabraja letove");
+  assert.ok(!/postoji osnov|EUR/i.test(d.body), "bez tvrdnje o osnovu i bez iznosa");
 });

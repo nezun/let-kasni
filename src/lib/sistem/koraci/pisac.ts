@@ -91,6 +91,15 @@ async function izaberi(ctx: Kontekst, c: any): Promise<Plan | null> {
     return { sablon: "B-nema-osnova", subject: popuni(t.subject, b), telo: sredi(popuni(t.telo, { ...b, razlog, nega_pasus: nega })), noviStatus: null };
   }
 
+  // agent nije mogao jednoznačno da odredi let → tražimo dokumenta; tačan let se čita sa karte (bez tvrdnje o osnovu)
+  if (c.status === "NEW" && c.let?.pronalazenje?.stanje === "ceka_klijenta" && !c.let?.broj) {
+    if (vec("D-dokumenta")) return null;
+    if (!c.let?.od || !c.let?.do || !c.let?.datum) return z("draft_fale_podaci", "D-dokumenta: fali ruta ili datum");
+    const prevozilac = c.let?.prevozilac ?? (String(c.let?.ruta_opis ?? "").split(";")[1]?.trim() || "");
+    const t = await sablon(ctx, "D-dokumenta");
+    return { sablon: "D-dokumenta", subject: popuni(t.subject, b), telo: sredi(popuni(t.telo, { ...b, prevozilac_opis: prevozilac ? `${prevozilac} ` : "" })), noviStatus: "DRAFTED" };
+  }
+
   if (c.status === "NEW" && c.tip === "other") {
     if (vec("C-other")) return null;
     if (!c.let?.od || !c.let?.do) return z("draft_fale_podaci", "C-other: forma nema rutu u IATA kodovima");

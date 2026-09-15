@@ -4,6 +4,7 @@ import { createHash } from "node:crypto";
 import type { Kontekst } from "../kontekst.ts";
 import { proveriCinjenice } from "../pravila/cinjenice.ts";
 import { proceni } from "../pravila/eu261.ts";
+import { brojLeta } from "./prijem.ts";
 
 /**
  * Provera leta: agent (na Nikovom Macu) sakuplja činjenice u crm_letovi[<LET>_<DATUM>], kod računa nalaz,
@@ -13,6 +14,11 @@ import { proceni } from "../pravila/eu261.ts";
  * Dok agent nije gotov (Mac ugašen), predmet se u ovom prolazu preskače — nastavlja se kad rezultat stigne.
  */
 const TIPOVI = ["delay", "cancellation", "denied_boarding"];
+
+/** Forma ne pita broj leta: posao za agenta ide po ruti i datumu (npr. RUTA_BCN-BEG_2026-08-28). */
+export const kljucRute = (c: any) => (c.let?.od && c.let?.do && c.let?.datum ? `RUTA_${c.let.od}-${c.let.do}_${c.let.datum}` : null);
+/** Prevozilac iz podataka ili iz teksta rute sa forme („… (BEG); Wizz Air; direct“). */
+export const prevozilacIz = (c: any) => c.let?.prevozilac ?? (String(c.let?.ruta_opis ?? "").split(";")[1]?.trim() || null);
 
 export const kljucLeta = (c: any) => (c.let?.broj && c.let?.datum ? `${String(c.let.broj).replace(/\s+/g, "").toUpperCase()}_${c.let.datum}` : null);
 
@@ -27,13 +33,53 @@ export default async function provera(ctx: Kontekst) {
   const revizije: Record<string, { neslaganja: number; hesevi: string[] }> = (await ctx.servisi.baza.sistem("revizije")) ?? {};
   let promenjeno = false;
 
-  for (const c of ctx.predmeti.svi()) {
-    if (!((c.status === "NEW" && TIPOVI.includes(c.tip)) || c.status === "VERIFIED")) continue;
-    const kljuc = kljucLeta(c);
-    if (!kljuc || !c.let?.od || !c.let?.do) {
-      ctx.zadatak({ ref: c.ref, vrsta: "fale_podaci_leta", opis: "Nema broja leta, datuma ili rute — tražiti boarding kartu (šablon D)" });
+  for (const c0 of ctx.predmeti.svi()) {
+    let c = c0;
+    // klijent je na naš upit poslao kartu sa brojem leta → provera kreće tek sada
+    const posleKlijenta = c.status === "CLIENT_REPLIED" && c.let?.pronalazenje?.stanje === "ceka_klijenta" && !!c.let?.broj && !c.provera_kod;
+    if (!((c.status === "NEW" && TIPOVI.includes(c.tip)) || c.status === "VERIFIED" || posleKlijenta)) continue;
+    if (!c.let?.od || !c.let?.do || !c.let?.datum) {
+      ctx.zadatak({ ref: c.ref, vrsta: "fale_podaci_leta", opis: "Nema datuma ili rute leta — tražiti boarding kartu (šablon D)" });
       continue;
     }
+
+    // forma ne pita broj leta: agent ga pronalazi iz rute, datuma i prevozioca
+    if (!c.let?.broj) {
+      if (c.let?.pronalazenje?.stanje === "ceka_klijenta") continue; // mejl traži broj od klijenta (pisac)
+      const rk = kljucRute(c)!;
+      const lr = ctx.letovi[rk];
+      if (!lr) {
+        if (!r.auto) {
+          r.predlog(`${c.ref}: agent bi pronašao broj leta (${rk})`);
+          continue;
+        }
+        const p = await ctx.red.dodaj({ vrsta: "provera-leta", ref: rk, kljuc: "pronadji", ulaz: { let_kljuc: rk, pronadji_broj: true, let: { ...c.let, prevozilac: prevozilacIz(c) }, tip: c.tip, predmeti: [c.ref] }, opis: `Broj leta i činjenice: ${c.let.od}→${c.let.do} ${c.let.datum}` });
+        if (p.stanje === "greska") ctx.zadatak({ ref: c.ref, ko: "sistem", vrsta: "provera_leta_neuspesna", opis: `Agent nije uspeo da pronađe let ${rk} — ručna provera` });
+        else r.napomena(`${c.ref}: čeka agenta (traži broj leta ${rk})`);
+        continue;
+      }
+      if (!r.auto) {
+        r.predlog(`${c.ref}: primenio bih pronađen let (${rk})`);
+        continue;
+      }
+      const pr = lr.pronalazenje ?? {};
+      const broj = brojLeta(lr.let ?? pr.broj);
+      if (pr.jednoznacno === false || !broj || !lr.cinjenice) {
+        const kandidati = (pr.kandidati ?? []).map((k: any) => ({ broj: brojLeta(k.broj) ?? String(k.broj ?? ""), polazak: k.polazak ?? null })).filter((k: any) => k.broj);
+        ctx.predmeti.azuriraj(c.ref, (x) => { x.let = { ...x.let, pronalazenje: { stanje: "ceka_klijenta", kandidati, napomena: pr.napomena ?? null, vreme: ctx.sad } }; });
+        ctx.predmeti.log(c.ref, `provera (agent): broj leta nije jednoznačan (${kandidati.map((k: any) => k.broj).join(", ") || "let nije pronađen"}) — tražimo dokumenta, let se čita sa karte`);
+        r.uradjeno(`${c.ref}: let nije jednoznačan → mejl traži dokumenta`);
+        continue;
+      }
+      ctx.predmeti.azuriraj(c.ref, (x) => {
+        x.let = { ...x.let, broj, prevozilac: x.let?.prevozilac ?? prevozilacIz(x), kljuc_cinjenica: rk, pronalazenje: { stanje: "pronadjen", kandidati: pr.kandidati ?? null, vreme: ctx.sad } };
+      });
+      ctx.predmeti.log(c.ref, `provera (agent): broj leta pronađen — ${broj} (${c.let.od}→${c.let.do} ${c.let.datum})`);
+      r.uradjeno(`${c.ref}: broj leta pronađen — ${broj}`);
+      c = ctx.predmeti.ucitaj(c.ref);
+    }
+
+    const kljuc = c.let?.kljuc_cinjenica ?? kljucLeta(c)!;
     const let_ = ctx.letovi[kljuc];
 
     if (!let_?.cinjenice) {
@@ -82,7 +128,7 @@ export default async function provera(ctx: Kontekst) {
     }
     if (!r.auto) continue;
 
-    if (ctx.predmeti.ucitaj(c.ref).status === "NEW") {
+    if (["NEW", "CLIENT_REPLIED"].includes(ctx.predmeti.ucitaj(c.ref).status)) {
       if (rez.nalaz === "HUMAN_REVIEW") {
         ctx.predmeti.status(c.ref, "HUMAN_REVIEW");
         ctx.zadatak({ ref: c.ref, vrsta: "odluka_human_review", opis: `Provera: ${rez.human_review.join("; ")}` });

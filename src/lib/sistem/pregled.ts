@@ -52,7 +52,8 @@ export function korakPredmeta(c: any): NonNullable<PredmetV1["korak"]> {
     case "NEW":
       if (c.tip === "other") return k(null, "Nije kašnjenje ni otkazivanje — pitati klijenta (C)", "ti");
       if (!c.sistem?.primljeno) return k(2, "Prijem predmeta", "sistem");
-      if (!c.let?.broj || !c.let?.datum || !c.let?.od || !c.let?.do) return k(3, "Fali broj leta ili ruta — tražiti boarding kartu", "ti");
+      if (!c.let?.datum || !c.let?.od || !c.let?.do) return k(3, "Fali datum ili ruta leta — tražiti boarding kartu", "ti");
+      if (!c.let?.broj) return c.let?.pronalazenje?.stanje === "ceka_klijenta" ? k(6, "Let nije jednoznačan — mejl traži dokumenta (let se čita sa karte)", "sistem") : k(3, "Agent traži broj leta i proverava let", "agent");
       if (!c.provera_kod) return k(3, "Agent proverava let", "agent");
       return k(4, "Pravila EU261 računaju nalaz", "sistem");
     case "VERIFIED":
@@ -65,6 +66,11 @@ export function korakPredmeta(c: any): NonNullable<PredmetV1["korak"]> {
     case "AWAITING_DOCS":
       return fajlova ? k(10, "Agent čita dokumenta", "agent") : k(8, "Čekamo dokumenta od klijenta", "klijent");
     case "CLIENT_REPLIED":
+      if (c.let?.pronalazenje?.stanje === "ceka_klijenta" && !c.provera_kod) {
+        if (c.let?.broj) return k(3, "Broj leta dobijen — agent proverava let", "agent");
+        if (fajlova && !c.dokumenta_pregled) return k(10, "Agent čita kartu i dokumenta", "agent");
+        return k(9, "Klijent pisao — broj leta i dalje fali", "ti");
+      }
       if (fajlova && !c.dokumenta_pregled) return k(10, "Agent čita dokumenta", "agent");
       return k(9, fajlova ? "Klijent pisao — pročitaj odgovor" : "Klijent pisao bez priloga — pročitaj", "ti");
     case "DOCS_RECEIVED":

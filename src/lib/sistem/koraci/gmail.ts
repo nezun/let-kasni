@@ -10,7 +10,7 @@ import type { PorukaGmail } from "../servisi.ts";
  */
 const dmy = (iso: string) => `${iso.slice(8, 10)}.${iso.slice(5, 7)}.`;
 const CEKA_KLIJENTA = ["SENT", "AWAITING_DOCS", "POA_SENT"];
-const PRVI_MEJL = ["A-delay", "A-cancel", "A-portal"];
+const PRVI_MEJL = ["A-delay", "A-cancel", "A-portal", "D-dokumenta"];
 
 const emailoviKlijenta = (c: any) =>
   [c.putnik?.email, c.kontakt_email, ...(c.saputnici ?? []).map((s: any) => s?.email)].filter(Boolean).map((e: string) => e.toLowerCase());
