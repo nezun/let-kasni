@@ -7,8 +7,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { TokPredmeta } from "@/components/pregled/tok-predmeta";
 import type { UlogaPregleda } from "@/lib/pregled/pristup";
-import type { Faza, IndeksV1, NaPotezu, PotpisV1, PredmetV1, StanjePotpisa, ZadatakV1 } from "@/lib/pregled/types";
+import type { Faza, IndeksV1, KorakV1, NaPotezu, PotpisV1, PredmetV1, StanjePotpisa, ZadatakV1 } from "@/lib/pregled/types";
 
 type BadgeVariant = "default" | "outline" | "muted" | "info" | "warning" | "success" | "danger" | "violet";
 
@@ -34,6 +35,15 @@ const koPrikaz: Record<ZadatakV1["ko"], { label: string; variant: BadgeVariant }
   niko: { label: "Tim", variant: "warning" },
   advokat: { label: "Advokat", variant: "success" },
   sistem: { label: "Sistem", variant: "muted" },
+};
+
+const koKorakPrikaz: Record<KorakV1["ko"], { label: string; variant: BadgeVariant }> = {
+  ti: { label: "na tebi", variant: "warning" },
+  klijent: { label: "čeka klijenta", variant: "info" },
+  sistem: { label: "sistem", variant: "muted" },
+  agent: { label: "agent na Macu", variant: "violet" },
+  advokat: { label: "advokat", variant: "success" },
+  niko: { label: "—", variant: "outline" },
 };
 
 const stanjePrikaz: Record<StanjePotpisa, { label: string; variant: BadgeVariant }> = {
@@ -117,6 +127,22 @@ export function PregledPredmeta({
   const [upit, setUpit] = useState("");
   const [faza, setFaza] = useState<"sve" | Faza>("sve");
   const [naPotezu, setNaPotezu] = useState<"svi" | NaPotezu>("svi");
+  const [tab, setTab] = useState("predmeti");
+  const [refIstorije, setRefIstorije] = useState<string | null>(null);
+  const [izabran, setIzabran] = useState<string | null>(null);
+  const [tokOtvoren, setTokOtvoren] = useState(false);
+  const izabranPredmet = izabran ? (indeks.predmeti.find((p) => p.ref === izabran) ?? null) : null;
+
+  function otvoriTok(ref: string | null) {
+    setIzabran(ref);
+    setTokOtvoren(true);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  const dogadjaji = useMemo(
+    () => (indeks.dogadjaji ?? []).filter((d) => !refIstorije || d.ref === refIstorije).slice(0, 200),
+    [indeks.dogadjaji, refIstorije],
+  );
 
   const predmeti = useMemo(() => {
     const q = upit.trim().toLowerCase();
@@ -177,8 +203,23 @@ export function PregledPredmeta({
                 {indeks.sistem.agenti_cekaju} · greške {indeks.sistem.greske}
               </span>
             ) : null}
+            <button type="button" onClick={() => (tokOtvoren && !izabran ? setTokOtvoren(false) : otvoriTok(null))} className="mt-1 block text-[var(--accent)] underline sm:ml-auto">
+              Tok sistema (svi koraci)
+            </button>
           </p>
         </div>
+
+        {tokOtvoren ? (
+          <TokPredmeta
+            predmet={izabranPredmet}
+            dogadjaji={izabran ? (indeks.dogadjaji ?? []).filter((d) => d.ref === izabran) : []}
+            zadaci={izabran ? (indeks.zadaci ?? []).filter((z) => z.ref === izabran && (uloga === "tim" || z.ko === "advokat")) : []}
+            onZatvori={() => {
+              setTokOtvoren(false);
+              setIzabran(null);
+            }}
+          />
+        ) : null}
 
         <div className="mb-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
           <SummaryCard label="Otvoreni predmeti" value={String(ukupno.otvorenih)} hint={`od ${ukupno.predmeta} ukupno`} />
@@ -188,7 +229,7 @@ export function PregledPredmeta({
           <SummaryCard label="Procena, otvoreni" value={eur(ukupno.procena_eur)} hint="pre odobrenja iznosa" />
         </div>
 
-        <Tabs defaultValue="predmeti">
+        <Tabs value={tab} onValueChange={setTab}>
           <TabsList>
             <TabsTrigger value="predmeti">Predmeti</TabsTrigger>
             <TabsTrigger value="potpisivanje">
@@ -199,6 +240,15 @@ export function PregledPredmeta({
               <TabsTrigger value="zadaci">
                 Zadaci
                 {zadaci.length > 0 ? <Badge variant="warning">{zadaci.length}</Badge> : null}
+              </TabsTrigger>
+            ) : null}
+            {indeks.dogadjaji ? <TabsTrigger value="desavanja">Dešavanja</TabsTrigger> : null}
+            {indeks.posta ? (
+              <TabsTrigger value="posta">
+                Pošta (staging)
+                {indeks.posta.some((m) => m.stanje === "draft") ? (
+                  <Badge variant="warning">{indeks.posta.filter((m) => m.stanje === "draft").length}</Badge>
+                ) : null}
               </TabsTrigger>
             ) : null}
           </TabsList>
@@ -248,6 +298,7 @@ export function PregledPredmeta({
                 <TableHeader>
                   <TableRow className="hover:bg-transparent">
                     <TableHead>Predmet</TableHead>
+                    <TableHead>Korak</TableHead>
                     <TableHead>Let</TableHead>
                     <TableHead>Faza</TableHead>
                     <TableHead>Na potezu</TableHead>
@@ -265,13 +316,48 @@ export function PregledPredmeta({
                     return (
                       <TableRow key={p.ref}>
                         <TableCell className="min-w-52">
-                          <div className="font-semibold text-[var(--ink)]">
+                          <button
+                            type="button"
+                            onClick={() => otvoriTok(p.ref)}
+                            className="text-left font-semibold text-[var(--ink)] underline decoration-dotted underline-offset-4 hover:text-[var(--accent)]"
+                            title="Prikaži tok predmeta"
+                          >
                             {p.putnici.map((x) => x.ime).join(", ")}
-                          </div>
+                          </button>
                           <div className="mt-0.5 flex items-center gap-1.5 text-xs text-[var(--muted)]">
                             {p.ref}
                             {p.putnici.length > 1 ? <span>· {p.putnici.length} putnika</span> : null}
                             {p.putnici.some((x) => x.maloletan) ? <Badge variant="outline">maloletni</Badge> : null}
+                          </div>
+                        </TableCell>
+                        <TableCell className="min-w-56">
+                          {p.korak ? (
+                            <>
+                              <div className="flex items-center gap-1.5">
+                                <Badge variant={koKorakPrikaz[p.korak.ko].variant}>
+                                  {p.korak.broj ? `${p.korak.broj} / ${p.korak.ukupno}` : "van toka"}
+                                </Badge>
+                                <span className="text-xs text-[var(--muted)]">{koKorakPrikaz[p.korak.ko].label}</span>
+                              </div>
+                              <div className="mt-1 text-sm text-[var(--ink)]">{p.korak.naziv}</div>
+                            </>
+                          ) : (
+                            <div className="text-sm text-[var(--muted)]">—</div>
+                          )}
+                          <div className="mt-0.5 flex items-center gap-2 text-xs text-[var(--muted)]">
+                            {p.status}
+                            {indeks.dogadjaji ? (
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setRefIstorije(p.ref);
+                                  setTab("desavanja");
+                                }}
+                                className="text-[var(--accent)] underline"
+                              >
+                                istorija
+                              </button>
+                            ) : null}
                           </div>
                         </TableCell>
                         <TableCell className="whitespace-nowrap">
@@ -306,7 +392,7 @@ export function PregledPredmeta({
                   })}
                   {predmeti.length === 0 ? (
                     <TableRow>
-                      <TableCell colSpan={9} className="py-10 text-center text-[var(--muted)]">
+                      <TableCell colSpan={10} className="py-10 text-center text-[var(--muted)]">
                         Nema predmeta za izabrane filtere.
                       </TableCell>
                     </TableRow>
@@ -455,6 +541,100 @@ export function PregledPredmeta({
               </Table>
             </Card>
           </TabsContent>
+
+          {indeks.dogadjaji ? (
+            <TabsContent value="desavanja">
+              <Card>
+                <CardContent className="flex flex-wrap items-center gap-3 pt-5 text-sm">
+                  {refIstorije ? (
+                    <>
+                      <span>
+                        Istorija: <strong>{putniciPoRef.get(refIstorije) ?? refIstorije}</strong>{" "}
+                        <span className="text-[var(--muted)]">({refIstorije})</span>
+                      </span>
+                      <button type="button" onClick={() => setRefIstorije(null)} className="text-[var(--accent)] underline">
+                        prikaži sve predmete
+                      </button>
+                    </>
+                  ) : (
+                    <span className="text-[var(--muted)]">Sva dešavanja, najnovija gore. Za jedan predmet: „istorija“ u tabeli predmeta.</span>
+                  )}
+                </CardContent>
+                <Table>
+                  <TableHeader>
+                    <TableRow className="hover:bg-transparent">
+                      <TableHead>Vreme</TableHead>
+                      <TableHead>Predmet</TableHead>
+                      <TableHead>Šta se desilo</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {dogadjaji.map((d, i) => (
+                      <TableRow key={`${d.ref}-${d.vreme}-${i}`}>
+                        <TableCell className="whitespace-nowrap tabular-nums">{d.vreme_prikaz ?? d.vreme}</TableCell>
+                        <TableCell className="min-w-44">
+                          <div className="font-medium">{putniciPoRef.get(d.ref) ?? d.ref}</div>
+                          <div className="text-xs text-[var(--muted)]">{d.ref}</div>
+                        </TableCell>
+                        <TableCell className="min-w-72 text-[var(--ink)]">{d.poruka}</TableCell>
+                      </TableRow>
+                    ))}
+                    {dogadjaji.length === 0 ? (
+                      <TableRow>
+                        <TableCell colSpan={3} className="py-10 text-center text-[var(--muted)]">
+                          Još nema dešavanja.
+                        </TableCell>
+                      </TableRow>
+                    ) : null}
+                  </TableBody>
+                </Table>
+              </Card>
+            </TabsContent>
+          ) : null}
+
+          {indeks.posta ? (
+            <TabsContent value="posta">
+              <Card>
+                <CardContent className="pt-5 text-sm text-[var(--muted)]">
+                  Na stagingu se mejlovi nikome ne šalju. Draft „pošalješ“ komandom{" "}
+                  <code className="rounded bg-slate-100 px-1">node scripts/sistem/alati/staging-posta.mjs --posalji &lt;id&gt;</code>.
+                </CardContent>
+                <Table>
+                  <TableHeader>
+                    <TableRow className="hover:bg-transparent">
+                      <TableHead>Vreme</TableHead>
+                      <TableHead>Stanje</TableHead>
+                      <TableHead>Za</TableHead>
+                      <TableHead>Naslov</TableHead>
+                      <TableHead>ID</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {indeks.posta.map((m) => (
+                      <TableRow key={m.id}>
+                        <TableCell className="whitespace-nowrap tabular-nums">{m.vreme_prikaz ?? m.vreme}</TableCell>
+                        <TableCell className="whitespace-nowrap">
+                          <Badge variant={m.stanje === "draft" ? "warning" : m.automatski ? "info" : "success"}>
+                            {m.stanje === "draft" ? "Draft — čeka tebe" : m.automatski ? "Poslat automatski" : "Poslat"}
+                          </Badge>
+                        </TableCell>
+                        <TableCell className="whitespace-nowrap">{m.za.join(", ")}</TableCell>
+                        <TableCell className="min-w-72 text-[var(--ink)]">{m.naslov}</TableCell>
+                        <TableCell className="whitespace-nowrap font-mono text-xs text-[var(--muted)]">{m.id.slice(8, 16)}</TableCell>
+                      </TableRow>
+                    ))}
+                    {indeks.posta.length === 0 ? (
+                      <TableRow>
+                        <TableCell colSpan={5} className="py-10 text-center text-[var(--muted)]">
+                          Još nema mejlova.
+                        </TableCell>
+                      </TableRow>
+                    ) : null}
+                  </TableBody>
+                </Table>
+              </Card>
+            </TabsContent>
+          ) : null}
         </Tabs>
       </div>
     </main>

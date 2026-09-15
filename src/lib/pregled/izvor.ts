@@ -3,7 +3,7 @@ import { readFile } from "node:fs/promises";
 import { crmKlijent, jeCrmPodesen } from "@/lib/crm/baza";
 import { citajDriveJson } from "@/lib/drive";
 import { getEnv } from "@/lib/env";
-import { jeIndeksV1, type IndeksV1, type PredmetV1, type SistemV1, type ZadatakV1 } from "@/lib/pregled/types";
+import { jeIndeksV1, type DogadjajV1, type IndeksV1, type PostaV1, type PredmetV1, type SistemV1, type ZadatakV1 } from "@/lib/pregled/types";
 
 export type RezultatIndeksa =
   | { ok: true; indeks: IndeksV1; izvor: "crm" | "drive" | "lokalno" }
@@ -15,18 +15,28 @@ let kes: { rezultat: Extract<RezultatIndeksa, { ok: true }>; istice: number } | 
 /** Pregled uživo iz CRM baze: red `pregled` računa orkestrator, novi claim-ovi ga dobijaju sa forme. */
 async function izCrmBaze(): Promise<IndeksV1> {
   const k = crmKlijent();
-  const [predmetiUpit, sistemUpit] = await Promise.all([
-    k.from("crm_predmeti").select("ref,status,pregled,azurirano").order("azurirano", { ascending: false }),
-    k.from("crm_sistem").select("kljuc,vrednost").in("kljuc", ["zadaci", "sistem"]),
+  const [predmetiUpit, sistemUpit, dogadjajiUpit] = await Promise.all([
+    k.from("crm_predmeti").select("ref,status,pregled,azurirano,test:podaci->test").order("azurirano", { ascending: false }),
+    k.from("crm_sistem").select("kljuc,vrednost").in("kljuc", ["zadaci", "sistem", "posta_staging"]),
+    k.from("crm_dogadjaji").select("ref,vreme,poruka").order("vreme", { ascending: false }).limit(400),
   ]);
 
   if (predmetiUpit.error) throw new Error(`CRM predmeti: ${predmetiUpit.error.message}`);
   if (sistemUpit.error) throw new Error(`CRM sistem: ${sistemUpit.error.message}`);
 
-  const predmeti = (predmetiUpit.data ?? [])
-    .filter((r) => r.pregled && typeof r.pregled === "object")
-    .map((r) => r.pregled as PredmetV1);
+  // predmeti označeni kao test (stari probni podaci) se ne prikazuju
+  const redovi = (predmetiUpit.data ?? []).filter((r) => (r as { test?: unknown }).test !== true);
+  const predmeti = redovi.filter((r) => r.pregled && typeof r.pregled === "object").map((r) => r.pregled as PredmetV1);
+  const vidljivi = new Set(predmeti.map((p) => p.ref));
   const sistem = Object.fromEntries((sistemUpit.data ?? []).map((r) => [r.kljuc, r.vrednost]));
+  const dogadjaji: DogadjajV1[] = (dogadjajiUpit.data ?? []).filter((d) => vidljivi.has(d.ref)).map((d) => ({ ref: d.ref, vreme: String(d.vreme), poruka: d.poruka }));
+  type ZapisPoste = { id: string; vreme: string; to?: string[]; subject?: string; poslat?: string; automatski?: boolean };
+  const posta: PostaV1[] | undefined = Array.isArray(sistem.posta_staging)
+    ? (sistem.posta_staging as ZapisPoste[])
+        .map((z) => ({ id: z.id, vreme: z.poslat ?? z.vreme, za: z.to ?? [], naslov: z.subject ?? "", stanje: z.poslat ? ("poslat" as const) : ("draft" as const), automatski: !!z.automatski }))
+        .sort((a, b) => b.vreme.localeCompare(a.vreme))
+        .slice(0, 100)
+    : undefined;
   const otvoreni = predmeti.filter((p) => p.faza !== "zatvoreno");
   const najnovije = (predmetiUpit.data ?? []).map((r) => String(r.azurirano)).sort().at(-1);
 
@@ -45,6 +55,8 @@ async function izCrmBaze(): Promise<IndeksV1> {
     predmeti: predmeti.sort((a, b) => a.ref.localeCompare(b.ref)),
     zadaci: Array.isArray(sistem.zadaci) ? (sistem.zadaci as ZadatakV1[]) : [],
     sistem: sistem.sistem ? (sistem.sistem as SistemV1) : undefined,
+    dogadjaji,
+    posta,
   };
 }
 

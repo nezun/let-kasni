@@ -53,6 +53,20 @@ export default async function PregledPredmetaPage(props: { params: Params }) {
     );
   }
 
+  const prikaz = (iso: string) => {
+    const d = beogradskiDelovi(new Date(iso));
+    return `${d.dan}.${d.mesec}. ${d.sat}:${d.minut}`;
+  };
+  // istorija i pošta samo za tim; advokati vide predmete, potpise i svoje zadatke
+  const indeks =
+    pristup.uloga === "tim"
+      ? {
+          ...rezultat.indeks,
+          dogadjaji: rezultat.indeks.dogadjaji?.map((d) => ({ ...d, vreme_prikaz: prikaz(d.vreme) })),
+          posta: rezultat.indeks.posta?.map((m) => ({ ...m, vreme_prikaz: prikaz(m.vreme) })),
+        }
+      : { ...rezultat.indeks, dogadjaji: undefined, posta: undefined };
+
   const g = beogradskiDelovi(new Date(rezultat.indeks.generisano));
   const generisano = `${g.dan}.${g.mesec}.${g.godina}. u ${g.sat}:${g.minut}`;
   const s = rezultat.indeks.sistem ? beogradskiDelovi(new Date(rezultat.indeks.sistem.poslednji_prolaz)) : null;
@@ -60,7 +74,7 @@ export default async function PregledPredmetaPage(props: { params: Params }) {
 
   return (
     <PregledPredmeta
-      indeks={rezultat.indeks}
+      indeks={indeks}
       uloga={pristup.uloga}
       danas={danas}
       generisano={generisano}

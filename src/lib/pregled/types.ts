@@ -23,6 +23,32 @@ export interface PotpisV1 {
   provajder: { naziv: string; status: string; audit_trail?: boolean } | null;
 }
 
+/** Gde je predmet u toku (14 koraka, STAGING.md) i ko je na potezu. broj null = van redovnog toka (ručna provera, nema osnova). */
+export interface KorakV1 {
+  broj: number | null;
+  ukupno: number;
+  naziv: string;
+  ko: "ti" | "klijent" | "sistem" | "agent" | "advokat" | "niko";
+}
+
+export interface DogadjajV1 {
+  ref: string;
+  vreme: string;
+  poruka: string;
+  vreme_prikaz?: string;
+}
+
+/** Staging pošta (draftovi i automatski mejlovi koji nikome ne idu) — samo tim. */
+export interface PostaV1 {
+  id: string;
+  vreme: string;
+  za: string[];
+  naslov: string;
+  stanje: "draft" | "poslat";
+  automatski: boolean;
+  vreme_prikaz?: string;
+}
+
 export interface PredmetV1 {
   ref: string;
   status: string;
@@ -50,6 +76,7 @@ export interface PredmetV1 {
   sledeci_korak: string | null;
   potpisi: PotpisV1[];
   drive_folder: string | null;
+  korak?: KorakV1 | null;
   kreirano: string | null;
   azurirano: string | null;
 }
@@ -87,6 +114,9 @@ export interface IndeksV1 {
   /** Opciono (dodaje orkestrator): otvoreni zadaci i stanje poslednjeg prolaza. */
   zadaci?: ZadatakV1[];
   sistem?: SistemV1;
+  /** Samo za tim: istorija (crm_dogadjaji) i staging pošta. */
+  dogadjaji?: DogadjajV1[];
+  posta?: PostaV1[];
 }
 
 export function jeIndeksV1(value: unknown): value is IndeksV1 {

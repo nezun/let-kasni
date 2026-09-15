@@ -209,7 +209,7 @@ function praviGmail(): Gmail {
  */
 function gmailUBazi(baza: Baza, citanje: Gmail | null): Gmail {
   const KLJUC = "posta_staging";
-  type Zapis = { id: string; threadId: string; vreme: string; from: string | null; to: string[]; cc: string[]; subject: string; body: string; prilozi: string[]; poslat?: string };
+  type Zapis = { id: string; threadId: string; vreme: string; from: string | null; to: string[]; cc: string[]; subject: string; body: string; prilozi: string[]; poslat?: string; automatski?: boolean };
   const ucitaj = async () => ((await baza.sistem(KLJUC)) ?? []) as Zapis[];
   return {
     ima: () => true,
@@ -226,7 +226,7 @@ function gmailUBazi(baza: Baza, citanje: Gmail | null): Gmail {
       const lista = await ucitaj();
       const id = `staging-${randomUUID()}`;
       const sada = new Date().toISOString();
-      lista.push({ id, threadId: id, vreme: sada, from, to, cc, subject, body, prilozi: [], poslat: sada });
+      lista.push({ id, threadId: id, vreme: sada, from, to, cc, subject, body, prilozi: [], poslat: sada, automatski: true });
       await baza.upisiSistem(KLJUC, lista.slice(-200));
       return { messageId: id };
     },

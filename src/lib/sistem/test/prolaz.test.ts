@@ -288,6 +288,7 @@ test("7. agent pročitao dokumenta sigurno → ugovor i poziv za potpis → draf
   assert.ok(g, "drugi mejl je odgovor u istom threadu");
   assert.ok(g.body.includes("https://staging.letkasni.rs/predmet/v2."), "link za potpis u mejlu");
   assert.equal((g.prilozi ?? []).length, 0, "bez PDF-a u prilogu — potpis je na linku");
+  assert.deepEqual([x.pregled.korak.broj, x.pregled.korak.ko], [12, "ti"], "CRM: korak 12 od 14, na tebi");
 });
 
 test("8. Niko poslao link → POA_SENT; klijent potpisao → POA_SIGNED i jedan dnevni pregled za advokate", async () => {

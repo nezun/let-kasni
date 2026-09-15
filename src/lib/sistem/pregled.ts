@@ -42,6 +42,50 @@ function sledeciKorak(c: any, potpisi: PredmetV1["potpisi"]) {
   }
 }
 
+const UKUPNO = 14;
+const k = (broj: number | null, naziv: string, ko: NonNullable<PredmetV1["korak"]>["ko"]) => ({ broj, ukupno: UKUPNO, naziv, ko });
+
+/** Korak u toku predmeta (isti koraci kao dijagram u STAGING.md) i ko je sada na potezu. */
+export function korakPredmeta(c: any): NonNullable<PredmetV1["korak"]> {
+  const fajlova = (c.dokumenta_fajlovi ?? []).length;
+  switch (c.status) {
+    case "NEW":
+      if (c.tip === "other") return k(null, "Nije kašnjenje ni otkazivanje — pitati klijenta (C)", "ti");
+      if (!c.sistem?.primljeno) return k(2, "Prijem predmeta", "sistem");
+      if (!c.provera_kod) return k(3, "Agent proverava let", "agent");
+      return k(4, "Pravila EU261 računaju nalaz", "sistem");
+    case "VERIFIED":
+      return k(5, "Revizor proverava izvore", "agent");
+    case "REVIEWED":
+      return c.nalaz === "ELIGIBLE" ? k(6, "Pravi se mejl koji traži dokumenta", "sistem") : k(null, "Moguć osnov — odluka pre mejla", "ti");
+    case "DRAFTED":
+      return k(7, "Pošalji mejl iz draftova", "ti");
+    case "SENT":
+    case "AWAITING_DOCS":
+      return fajlova ? k(10, "Agent čita dokumenta", "agent") : k(8, "Čekamo dokumenta od klijenta", "klijent");
+    case "CLIENT_REPLIED":
+      if (fajlova && !c.dokumenta_pregled) return k(10, "Agent čita dokumenta", "agent");
+      return k(9, fajlova ? "Klijent pisao — pročitaj odgovor" : "Klijent pisao bez priloga — pročitaj", "ti");
+    case "DOCS_RECEIVED":
+    case "POA_GENERATED":
+      return k(11, "Ugovor i link za potpis se prave", "sistem");
+    case "POA_DRAFTED":
+      return k(12, "Pošalji mejl sa linkom za potpis", "ti");
+    case "POA_SENT":
+      return k(13, "Klijent potpisuje ugovor", "klijent");
+    case "POA_SIGNED":
+      return k(14, "Potpisano — ide u dnevni mejl advokatima", "sistem");
+    case "LAWYER":
+      return k(14, "Kod advokata", "advokat");
+    case "HUMAN_REVIEW":
+      return k(null, "Ručna provera — odluka je tvoja", "ti");
+    case "NOT_ELIGIBLE":
+      return k(null, "Nema osnova", c.poslednji_kontakt ? "niko" : "ti");
+    default:
+      return k(null, c.status === "LOST" ? "Klijent se nije javio" : "Zatvoreno", "niko");
+  }
+}
+
 export function izracunajPregled(c: any, sada: Date): PredmetV1 {
   const t: Record<string, string> = c.istorija_statusa ?? {};
   const putnici = [c.putnik, ...(c.saputnici ?? [])].filter((p: any) => p?.ime_prezime);
@@ -86,6 +130,7 @@ export function izracunajPregled(c: any, sada: Date): PredmetV1 {
     sledeci_korak: sledeciKorak(c, potpisi),
     potpisi,
     drive_folder: c.drive_folder ?? null,
+    korak: korakPredmeta(c),
     kreirano: c.kreirano ?? null,
     azurirano: c.azurirano ?? null,
   };
