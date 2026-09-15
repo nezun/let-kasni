@@ -3,17 +3,23 @@ import { getEnv } from "@/lib/env";
 /**
  * signNow — samo ono što sajt radi: link za potpis u portalu (embedded invite link, važi najviše 45 min).
  * Dokument i poziv pravi pipeline (scripts/potpis/signnow.mjs → createEmbeddedRequest).
- * Env: SIGNNOW_ENV (sandbox | production), SIGNNOW_BASIC_TOKEN, SIGNNOW_USERNAME, SIGNNOW_PASSWORD.
+ * Env: SIGNNOW_API_KEY (API ključ iz signNow API Dashboard, ide kao Bearer) ili SIGNNOW_BASIC_TOKEN + SIGNNOW_USERNAME + SIGNNOW_PASSWORD;
+ * SIGNNOW_ENV (sandbox | production) — sa API ključem podrazumevano production.
  */
 let kes: { token: string; istice: number } | null = null;
 
-const baza = () => (getEnv("SIGNNOW_ENV") === "production" ? "https://api.signnow.com" : "https://api-eval.signnow.com");
+const baza = () =>
+  (getEnv("SIGNNOW_ENV") ?? (getEnv("SIGNNOW_API_KEY") ? "production" : "sandbox")) === "production"
+    ? "https://api.signnow.com"
+    : "https://api-eval.signnow.com";
 
 export function jeSignNowPodesen() {
-  return Boolean(getEnv("SIGNNOW_BASIC_TOKEN") && getEnv("SIGNNOW_USERNAME") && getEnv("SIGNNOW_PASSWORD"));
+  return Boolean(getEnv("SIGNNOW_API_KEY") || (getEnv("SIGNNOW_BASIC_TOKEN") && getEnv("SIGNNOW_USERNAME") && getEnv("SIGNNOW_PASSWORD")));
 }
 
 async function token() {
+  const apiKljuc = getEnv("SIGNNOW_API_KEY");
+  if (apiKljuc) return apiKljuc;
   if (kes && kes.istice > Date.now() + 60_000) return kes.token;
   const odgovor = await fetch(`${baza()}/oauth2/token`, {
     method: "POST",
