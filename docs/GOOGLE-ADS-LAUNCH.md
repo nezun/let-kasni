@@ -1,6 +1,6 @@
 # Google Ads launch readiness
 
-Status: code-ready on `codex/google-ads-measurement`; production remains disabled until the launch blockers below are cleared.
+Status: v0.2.0 is code-ready on `codex/google-ads-measurement` and approved for release; production measurement remains disabled until the open launch blockers below are cleared.
 
 ## Current state
 
@@ -8,7 +8,7 @@ Status: code-ready on `codex/google-ads-measurement`; production remains disable
 | --- | --- | --- | --- |
 | GA4 | Direct `gtag.js`, consent-gated | Preserved; receives the new safe journey events | Local regression passed |
 | GTM | Not present | Optional `NEXT_PUBLIC_GTM_ID`, loaded only after advertising consent | Preview configured; draft not published |
-| Google Ads conversion | Not present | Primary `Lead - successful claim submit` action plus `lead_submit` GTM tag and claim transaction ID | Draft configured; production release pending |
+| Google Ads conversion | Not present | Primary `Lead - successful claim submit` action plus `lead_submit` GTM tag and claim transaction ID | Draft configured; production deploy pending |
 | Consent Mode v2 | Not present | Denied-by-default signals for all four v2 consent types, updated from the existing consent cookie | Code-ready |
 | Attribution | Not persisted | First paid touch stored for 90 days after advertising consent | Code-ready |
 | Claim payload | No Google attribution | Allowlisted attribution stored in `original_input_snapshot.attribution` | Code-ready |
@@ -177,6 +177,8 @@ Google's current setup distinguishes manual code/event conversions from URL page
 
 ## Campaign configuration sheet
 
+This is a paused planning draft, not approval to create or activate a campaign. Keywords and negative keywords are intentionally not defined here and require the owner's active review.
+
 | Setting | Value |
 | --- | --- |
 | Campaign | `SEARCH_RS_CORE` |
@@ -197,12 +199,12 @@ Google's current setup distinguishes manual code/event conversions from URL page
 
 Do not start paid traffic until all are cleared:
 
-1. Explicitly authorize the production release of the approved PP 1.3 and measurement branch.
+1. **Cleared 2026-09-15:** production release of approved PP 1.3 and measurement v0.2.0 is authorized.
 2. Configure durable Supabase claim persistence in Vercel Production and pass `REQUIRE_SUPABASE=1 npm run production:check`. The `/tmp` fallback is not atomic or durable across serverless instances and cannot guarantee one claim UUID/transaction ID under retries or concurrent submissions.
 3. Run one controlled successful claim in GTM Preview and confirm the Ads conversion tag fires exactly once with the claim UUID as transaction ID. Page-load and pre-submit negative checks already pass.
 4. Publish GTM only after that positive Preview QA, then add the existing GTM ID to Vercel Production as part of the approved release.
 5. Run one controlled production submission and confirm exactly one Ads conversion with no GA4/Meta regression.
-6. Keep `SEARCH_RS_CORE` paused until items 1-5 pass.
+6. Keep `SEARCH_RS_CORE` paused until open items 2-5 pass. Campaign, keyword and negative-keyword work requires a separate owner-reviewed step.
 
 ## Nice to have
 
@@ -273,6 +275,8 @@ Passed locally on `codex/google-ads-measurement`:
 - The Serbian form completed end to end; the English landing preserved campaign parameters into `/en/check-flight`.
 - Existing workflow, privacy, Meta, email, content, locale, lint and TypeScript checks passed.
 - The optimized Next.js production build passed and generated all 331 static pages.
+- The final Google Ads measurement suite passes all 25 tests, including consent denial, admin-route blocking, attribution origin/age validation, interrupted-submit recovery and exact-once delivery.
+- The full v0.2.0 release gate passed after the final security, performance and maintainability fixes.
 
 Passed against the real Vercel Preview and GTM draft on `f2d35e2`:
 
@@ -284,7 +288,7 @@ Passed against the real Vercel Preview and GTM draft on `f2d35e2`:
 - The mock GCLID/UTM URL loaded successfully and remained attached through the English focused-flow navigation.
 - Follow-up deployment `3e536b3` rendered PP 1.3 in Serbian and English, showed “Meta i Google oglasa” in the advertising choice, invalidated the earlier PP 1.2 consent cookie and kept GTM blocked after optional tracking was rejected.
 
-Not yet testable until Google Ads billing onboarding and the release blockers are cleared:
+Not yet testable until the remaining release blockers are cleared:
 
 - receipt of the direct Google Ads conversion using its real Conversion ID and Label;
 - GA4 DebugView and Google Ads diagnostics after the GA4/Ads account link;
