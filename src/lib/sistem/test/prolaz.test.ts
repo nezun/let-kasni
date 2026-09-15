@@ -142,15 +142,15 @@ const portal: Portal = {
 };
 
 const SABLONI: Record<string, string> = {
-  "A-portal": "<!-- test -->\nSubject: AVIO-NAKNADA ZA {{vrsta}} LET {{let}} {{od}} - {{do}}\n\n{{oslovljavanje}} {{vokativ}},\n\nVaš {{let_opis}}:\n\n{{nalaz_tacke}}\n\nPostoji osnov{{iznos_blok}}.\n\n{{link}}\n\nPodrška letkasni.rs\n",
-  "A-delay": "Subject: AVIO-NAKNADA ZA POMEREN LET {{let}} {{od}} - {{do}}\n\n{{oslovljavanje}} {{vokativ}},\n\nKasnio {{kasnjenje}}. Pošaljite nam pasoš i boarding kartu.\n\nPodrška letkasni.rs\n",
-  "D-dokumenta": "Subject: AVIO-NAKNADA ZA LET {{od}} - {{do}}\n\n{{oslovljavanje}} {{vokativ}},\n\nZa let {{prevozilac_opis}}{{od}} - {{do}} pošaljite nam boarding kartu, ličnu kartu i {{obavestenje}}.\n\nPodrška letkasni.rs\n",
-  "G-potpis": "Subject: Re: {{postojeci_naslov}}\n\n{{oslovljavanje}} {{vokativ}},\n\nUgovor{{za_koga}} za potpis:\n\n{{link}}\n\nPodrška letkasni.rs\n",
-  "B-nema-osnova": "Subject: AVIO-NAKNADA ZA LET {{od}} - {{do}}\n\n{{oslovljavanje}} {{vokativ}},\n\nNema osnova, jer {{razlog}}.\n\n{{nega_pasus}}\n\nPodrška letkasni.rs\n",
+  "A-portal": "<!-- test -->\nSubject: AVIO-NAKNADA ZA {{vrsta}} LET {{let}} {{od}} - {{do}}\n\n{{oslovljavanje}} {{vokativ}},\n\nVaš {{let_opis}}:\n\n{{nalaz_tacke}}\n\nPostoji osnov{{iznos_blok}}.\n\n{{link}}\n\nPodrška Letkasni.rs\n",
+  "A-delay": "Subject: AVIO-NAKNADA ZA POMEREN LET {{let}} {{od}} - {{do}}\n\n{{oslovljavanje}} {{vokativ}},\n\nKasnio {{kasnjenje}}. Pošaljite nam pasoš i boarding kartu.\n\nPodrška Letkasni.rs\n",
+  "D-dokumenta": "Subject: AVIO-NAKNADA ZA LET {{od}} - {{do}}\n\n{{oslovljavanje}} {{vokativ}},\n\nZa let {{prevozilac_opis}}{{od}} - {{do}} pošaljite nam boarding kartu, ličnu kartu i {{obavestenje}}.\n\nPodrška Letkasni.rs\n",
+  "G-potpis": "Subject: Re: {{postojeci_naslov}}\n\n{{oslovljavanje}} {{vokativ}},\n\nUgovor{{za_koga}} za potpis:\n\n{{link}}\n\nPodrška Letkasni.rs\n",
+  "B-nema-osnova": "Subject: AVIO-NAKNADA ZA LET {{od}} - {{do}}\n\n{{oslovljavanje}} {{vokativ}},\n\nNema osnova, jer {{razlog}}.\n\n{{nega_pasus}}\n\nPodrška Letkasni.rs\n",
   "B-nega-pasus": "Pravo na brigu na aerodromu.\n",
-  "E-followup": "Subject: Re: {{postojeci_naslov}}\n\nDobar dan {{vokativ}},\n\n{{sledeci_korak}}\n\nTim letkasni.rs\n",
-  "C-other": "Subject: AVIO-NAKNADA ZA LET {{od}} - {{do}}\n\n{{oslovljavanje}} {{vokativ}},\n\nOpišite šta se desilo.\n\nPodrška letkasni.rs\n",
-  "G-ugovor": "Subject: Re: {{postojeci_naslov}}\n\n{{oslovljavanje}} {{vokativ}},\n\nU prilogu ugovor{{za_koga}}.{{maloletni_pasus}}\n\nPodrška letkasni.rs\n",
+  "E-followup": "Subject: Re: {{postojeci_naslov}}\n\nDobar dan {{vokativ}},\n\n{{sledeci_korak}}\n\nTim Letkasni.rs\n",
+  "C-other": "Subject: AVIO-NAKNADA ZA LET {{od}} - {{do}}\n\n{{oslovljavanje}} {{vokativ}},\n\nOpišite šta se desilo.\n\nPodrška Letkasni.rs\n",
+  "G-ugovor": "Subject: Re: {{postojeci_naslov}}\n\n{{oslovljavanje}} {{vokativ}},\n\nU prilogu ugovor{{za_koga}}.{{maloletni_pasus}}\n\nPodrška Letkasni.rs\n",
 };
 const sabloni: Sabloni = { mejl: async (ime) => SABLONI[ime] ?? assert.fail(`nema šablona ${ime}`), ugovor: async () => new TextEncoder().encode("docx") };
 

@@ -122,7 +122,7 @@ export default async function advokati(ctx: Kontekst) {
     ...(ctx.konfig.pregledLinkAdvokati ? ["Pregled svih predmeta:", ctx.konfig.pregledLinkAdvokati, ""] : []),
     "Za pitanja: kontakt@letkasni.rs",
     "",
-    "Tim letkasni.rs",
+    "Tim Letkasni.rs",
   ].join("\n");
   const naslov = `LetKasni — dnevni pregled predmeta ${dmy(ctx.danas)}`;
 

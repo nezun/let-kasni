@@ -12,6 +12,7 @@ import { napraviPoziveZaPotpis, pripremiUgovorZaPotpis } from "@/lib/ugovor/prip
 import { pripremiPotpisLetkasni } from "@/lib/ugovor/potpis-letkasni";
 import { ucitajSablone } from "@/lib/ugovor/sabloni";
 
+import { tekstUHtml } from "./html";
 import type { Konfig } from "./konfig";
 import type { Baza, Drive, Gmail, Posao, PorukaGmail, Potpis, Portal, Prilog, RedPredmeta, Sabloni, Servisi } from "./servisi";
 
@@ -139,7 +140,15 @@ function mimePoruka({ from, to, cc = [], subject, body, prilozi = [], inReplyTo 
   if (cc.length) r.push(`Cc: ${cc.join(", ")}`);
   r.push(`Subject: ${kodiranaRec(subject)}`);
   if (inReplyTo) r.push(`In-Reply-To: ${inReplyTo}`, `References: ${references ? `${references} ${inReplyTo}` : inReplyTo}`);
-  r.push("MIME-Version: 1.0", `Content-Type: multipart/mixed; boundary="${granica}"`, "", `--${granica}`, 'Content-Type: text/plain; charset="UTF-8"', "Content-Transfer-Encoding: base64", "", prelomi(Buffer.from(body, "utf8").toString("base64")));
+  // tekst + HTML (Gmail prikazuje HTML: prave numerisane liste); običan tekst ostaje za klijente bez HTML-a
+  const alt = `${granica}-alt`;
+  r.push(
+    "MIME-Version: 1.0", `Content-Type: multipart/mixed; boundary="${granica}"`, "",
+    `--${granica}`, `Content-Type: multipart/alternative; boundary="${alt}"`, "",
+    `--${alt}`, 'Content-Type: text/plain; charset="UTF-8"', "Content-Transfer-Encoding: base64", "", prelomi(Buffer.from(body.replace(/\*([^*\n]+)\*/g, "$1"), "utf8").toString("base64")),
+    `--${alt}`, 'Content-Type: text/html; charset="UTF-8"', "Content-Transfer-Encoding: base64", "", prelomi(Buffer.from(tekstUHtml(body), "utf8").toString("base64")),
+    `--${alt}--`,
+  );
   for (const p of prilozi) {
     r.push(`--${granica}`, `Content-Type: ${p.mime}; name="${kodiranaRec(p.ime)}"`, `Content-Disposition: attachment; filename="${kodiranaRec(p.ime)}"; filename*=UTF-8''${encodeURIComponent(p.ime)}`, "Content-Transfer-Encoding: base64", "", prelomi(Buffer.from(p.bajtovi).toString("base64")));
   }

@@ -68,7 +68,7 @@ export function lintDraft(c: any, d: Draft) {
     if (m[1] === "Poštovani" && pol === "ž" && imena.length === 1) greske.push("„Poštovani“ za žensko ime.");
     if (m[1] === "Poštovana" && pol === "m") greske.push("„Poštovana“ za muško ime.");
   }
-  if (!/(Podrška letkasni\.rs|Tim letkasni\.rs)\s*$/.test(telo)) greske.push("Potpis mora biti „Podrška letkasni.rs“ ili „Tim letkasni.rs“ na kraju.");
+  if (!/(Podrška Letkasni\.rs|Tim Letkasni\.rs)\s*$/.test(telo)) greske.push("Potpis mora biti „Podrška Letkasni.rs“ ili „Tim Letkasni.rs“ na kraju.");
   if (c.ref && telo.includes(c.ref)) greske.push("Ref/broj predmeta u tekstu ka klijentu.");
 
   const konv = /^(Re: )?AVIO-NAKNADA ZA (POMEREN LET [A-Z0-9]{2} ?\d{1,4} [A-Z]{3} - [A-Z]{3}|OTKAZAN LET [A-Z0-9]{2} ?\d{1,4} [A-Z]{3} - [A-Z]{3}|LET [A-Z]{3} - [A-Z]{3})/;
