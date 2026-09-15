@@ -113,3 +113,18 @@ export async function driveUpisiFajl(roditeljId: string, ime: string, sadrzaj: U
   });
   return ((await response.json()) as { id: string }).id;
 }
+
+/** ID fajla sa datim imenom u folderu; null ako ga nema. */
+export async function driveNadjiFajl(roditeljId: string, ime: string) {
+  const q = [`name = '${navodnici(ime)}'`, `'${navodnici(roditeljId)}' in parents`, "trashed = false"].join(" and ");
+  const lista = (await (
+    await zahtev(`${api}/files?${new URLSearchParams({ q, fields: "files(id)", pageSize: "2" })}`)
+  ).json()) as { files: Array<{ id: string }> };
+  return lista.files[0]?.id ?? null;
+}
+
+/** Sadržaj fajla sa Drive-a (binarno). */
+export async function citajDriveBin(fileId: string) {
+  const response = await zahtev(`${api}/files/${encodeURIComponent(fileId)}?alt=media`);
+  return new Uint8Array(await response.arrayBuffer());
+}

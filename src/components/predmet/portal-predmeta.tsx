@@ -214,8 +214,9 @@ export function PortalPredmeta({ token, predmet }: { token: string; predmet: Pre
                   <span>Potvrđujem da su podaci tačni i saglasan/saglasna sam da letkasni.rs i VGA EU CONSULTING DOO obrađuju ove podatke radi ostvarivanja naknade za navedeni let.</span>
                 </label>
                 <button type="submit" disabled={radi} className="self-start rounded-lg bg-[var(--accent)] px-5 py-2.5 text-sm font-semibold text-white disabled:opacity-60">
-                  {radi ? "Čuvam…" : "Sačuvaj podatke"}
+                  {radi ? "Pripremam ugovor…" : "Sačuvaj podatke i nastavi na potpis"}
                 </button>
+                <p className="text-xs text-[var(--muted)]">Ugovor pravimo odmah — potpis Vam se otvara u istom koraku, za nekoliko sekundi.</p>
               </form>
             </CardContent>
           </Card>
@@ -244,8 +245,8 @@ export function PortalPredmeta({ token, predmet }: { token: string; predmet: Pre
               <CardDescription>Ugovorom o ustupanju potraživanja postupak prema avio-kompaniji preuzimamo mi, bez troška i rizika za Vas.</CardDescription>
             </CardHeader>
             <CardContent className="text-sm leading-6 text-[var(--ink)]">
-              {predmet.faza === "podaci" ? <p className="text-[var(--muted)]">Ugovor pripremamo čim sačuvate podatke putnika.</p> : null}
-              {predmet.faza === "ceka_ugovor" ? <p>Pripremamo ugovor za potpis. To obično traje nekoliko minuta — stranica se sama osvežava.</p> : null}
+              {predmet.faza === "podaci" ? <p className="text-[var(--muted)]">Ugovor pripremamo čim sačuvate podatke putnika — obično za nekoliko sekundi.</p> : null}
+              {predmet.faza === "ceka_ugovor" ? <p>Pripremamo ugovor za potpis. Stranica se sama osvežava — ako potraje, javićemo Vam se mejlom.</p> : null}
               {predmet.faza === "potpis_mejlom" ? <p>Ugovor ćemo Vam poslati mejlom.</p> : null}
               {predmet.faza === "potpisano" ? <p className="font-medium text-emerald-800">Ugovor je potpisan. Hvala! Dalje vodimo postupak mi i javljamo Vam se mejlom.</p> : null}
               {predmet.faza === "potpis" ? (

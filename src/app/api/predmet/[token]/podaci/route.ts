@@ -4,9 +4,13 @@ import { jeCrmPodesen } from "@/lib/crm/baza";
 import { sacuvajPodatkePortala, type PutnikPortala } from "@/lib/crm/portal";
 import { proveriTokenDokumenata } from "@/lib/pipeline/token";
 import { isRateLimited } from "@/lib/rate-limit";
+import { getSiteUrl } from "@/lib/site-url";
+import { jePripremaMoguca, pripremiUgovorZaPotpis } from "@/lib/ugovor/priprema";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
+// ugovor za svakog putnika + otprema u signNow: nekoliko sekundi po putniku
+export const maxDuration = 60;
 
 const imeOblik = /^[\p{L}][\p{L} .'-]{1,78}[\p{L}.]$/u;
 
@@ -70,5 +74,22 @@ export async function POST(request: Request, context: { params: Promise<{ token:
   }
 
   console.info("Portal: podaci putnika primljeni.", JSON.stringify({ ref: pristup.ref, putnika: provera.putnici.length }));
-  return NextResponse.json({ ok: true });
+
+  // Odmah pravimo ugovor i poziv za potpis, da klijent iz „Sačuvaj podatke“ ide pravo na potpis.
+  // Ako bilo šta ne uspe, predmet ostaje u fazi „pripremamo ugovor“ i pipeline ga preuzima.
+  if (!jePripremaMoguca()) {
+    return NextResponse.json({ ok: true, potpis: false });
+  }
+
+  const priprema = await pripremiUgovorZaPotpis(pristup.ref, getSiteUrl()).catch((greska: unknown) => ({
+    ok: false as const,
+    razlog: "signnow" as const,
+    poruka: greska instanceof Error ? greska.message : String(greska),
+  }));
+
+  if (!priprema.ok && priprema.razlog !== "nije_eligible" && priprema.razlog !== "vec_pripremljen") {
+    console.error("Portal: ugovor nije pripremljen.", JSON.stringify({ ref: pristup.ref, razlog: priprema.razlog, poruka: priprema.poruka?.slice(0, 200) }));
+  }
+
+  return NextResponse.json({ ok: true, potpis: priprema.ok });
 }

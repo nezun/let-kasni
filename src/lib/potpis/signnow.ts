@@ -47,3 +47,62 @@ export async function linkZaPotpis(dokumentId: string, zahtevId: string) {
   if (!odgovor.ok || !j.data?.link) throw new Error(`signNow link nije napravljen (${odgovor.status}).`);
   return j.data.link;
 }
+
+async function api(putanja: string, opcije: RequestInit = {}) {
+  const odgovor = await fetch(`${baza()}${putanja}`, {
+    ...opcije,
+    headers: { authorization: `Bearer ${await token()}`, ...(opcije.headers ?? {}) },
+    cache: "no-store",
+  });
+  if (!odgovor.ok) throw new Error(`signNow ${opcije.method ?? "GET"} ${putanja}: ${odgovor.status} ${(await odgovor.text()).slice(0, 200)}`);
+  return odgovor;
+}
+
+/**
+ * Otprema ugovor (.docx) kroz /document/fieldextract: signNow iz nevidljivog text taga
+ * ({{t:s;…;o:"Putnik";…}}, vidi lib/ugovor/docx.ts) sam pravi polje za potpis iznad linije putnika.
+ * Ako polja nema, dokument nije upotrebljiv za potpis — bolje greška nego potpis na pogrešnom mestu.
+ */
+export async function otpremiUgovor(docx: Uint8Array, naziv: string) {
+  const forma = new FormData();
+  forma.append("file", new Blob([docx as BlobPart], { type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" }), naziv);
+  const dokumentId = ((await (await api("/document/fieldextract", { method: "POST", body: forma })).json()) as { id: string }).id;
+
+  const d = (await (await api(`/document/${encodeURIComponent(dokumentId)}`)).json()) as { fields?: Array<{ type?: string }> };
+  if (!(d.fields ?? []).some((f) => f.type === "signature")) throw new Error("signNow nije prepoznao polje za potpis u ugovoru");
+  return dokumentId;
+}
+
+/**
+ * Poziv za potpis u portalu (embedded signing), bez mejla i bez signNow naloga za klijenta.
+ * Link se pravi tek kad klijent klikne „Pregledaj i potpiši“ (linkZaPotpis, važi najviše 45 min).
+ */
+export async function napraviEmbeddedPoziv(opcije: { ref: string; putnik: string; email: string; dokumentId: string; redirectUri?: string }) {
+  const [ime, ...prezime] = String(opcije.putnik).split(" ");
+  const odgovor = (await (
+    await api(`/v2/documents/${encodeURIComponent(opcije.dokumentId)}/embedded-invites`, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({
+        name_formula: `Ugovor o ustupanju — ${opcije.ref} — ${opcije.putnik}`,
+        invites: [
+          {
+            email: opcije.email,
+            role: "Putnik",
+            order: 1,
+            auth_method: "other",
+            first_name: ime,
+            last_name: prezime.join(" ") || ime,
+            ...(opcije.redirectUri
+              ? { redirect_uri: opcije.redirectUri, decline_redirect_uri: opcije.redirectUri, close_redirect_uri: opcije.redirectUri, redirect_target: "self" }
+              : {}),
+          },
+        ],
+      }),
+    })
+  ).json()) as { data?: Array<{ id?: string }> };
+
+  const zahtevId = odgovor.data?.[0]?.id;
+  if (!zahtevId) throw new Error("signNow embedded invite bez ID-ja");
+  return { dokumentId: opcije.dokumentId, zahtevId };
+}
