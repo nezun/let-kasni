@@ -387,3 +387,17 @@ test("13. forma bez broja leta: agent pronađe jedini let tog dana; kad ih je vi
   assert.ok(!/W6 41|broj leta/i.test(d.body), "mejl ne pita za tačan let i ne nabraja letove");
   assert.ok(!/postoji osnov|EUR/i.test(d.body), "bez tvrdnje o osnovu i bez iznosa");
 });
+
+test("14. let bez stvarnog vremena (star let): bez revizora, mejl traži dokumenta", async () => {
+  saForme("E2E-V", "Marko Marković", "v@example.com", { broj: "W6 4124", datum: "2026-03-08", od: "BGY", do: "BEG" });
+  await prolaz();
+  agentZavrsi("provera-leta", (p) => {
+    if (p.ref === "W64124_2026-03-08") letovi[p.ref] = { izvori: {}, cinjenice: { tip: "delay", od: "BGY", do: "BEG", prevozilac: "W6", uzrok: "nepoznat", okidaci: [], kasnjenje: { izvori_stvarno: 0 } } };
+  });
+  await prolaz();
+  assert.equal(c("E2E-V").podaci.nalaz, "POTENTIALLY_ELIGIBLE");
+  assert.ok(!posloviZa("revizija").some((p) => p.ref === "W64124_2026-03-08"), "revizor se ne pokreće");
+  assert.equal(c("E2E-V").status, "DRAFTED");
+  const d = [...draftovi.values()].find((x) => x.to.includes("v@example.com"));
+  assert.ok(d?.body.includes("boarding kartu") && !/postoji osnov|EUR/i.test(d.body), "traži dokumenta, bez tvrdnje o osnovu");
+});

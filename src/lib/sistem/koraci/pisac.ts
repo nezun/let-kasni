@@ -69,6 +69,13 @@ async function izaberi(ctx: Kontekst, c: any): Promise<Plan | null> {
   const b = osnovno(c);
   const z = (vrsta: string, opis: string): Plan => ({ zadatak: { ref: c.ref, vrsta, opis } });
 
+  // mejl koji traži dokumenta, bez tvrdnje o osnovu (let nije jednoznačan ili nije potvrđen)
+  const planDokumenta = async (): Promise<Plan> => {
+    const prevozilac = c.let?.prevozilac ?? (String(c.let?.ruta_opis ?? "").split(";")[1]?.trim() || "");
+    const t = await sablon(ctx, "D-dokumenta");
+    return { sablon: "D-dokumenta", subject: popuni(t.subject, b), telo: sredi(popuni(t.telo, { ...b, prevozilac_opis: prevozilac ? `${prevozilac} ` : "" })), noviStatus: "DRAFTED" };
+  };
+
   // Prvi mejl traži dokumenta (pasoš, boarding karta); link za potpis ide tek posle dokumenata (G-potpis).
   if (c.status === "REVIEWED" && c.nalaz === "ELIGIBLE" && ["delay", "cancellation"].includes(c.tip)) {
     const ime = c.tip === "delay" ? "A-delay" : "A-cancel";
@@ -79,8 +86,12 @@ async function izaberi(ctx: Kontekst, c: any): Promise<Plan | null> {
     const t = await sablon(ctx, ime);
     return { sablon: ime, subject: popuni(t.subject, b), telo: popuni(t.telo, { ...b, kasnjenje: c.kasnjenje_dolazak_min != null ? `${hm(c.kasnjenje_dolazak_min)} u dolasku na krajnje odredište` : "" }), noviStatus: "DRAFTED" };
   }
-  if (c.status === "REVIEWED" && c.nalaz === "POTENTIALLY_ELIGIBLE")
-    return z("odluka_potencijalno", `Nalaz POTENTIALLY_ELIGIBLE (${(c.provera_kod?.sta_fali ?? []).join("; ") || "?"}) — A-delay ili D-nema-leta bira čovek`);
+  // moguć osnov, ali let nije potvrđen (npr. nema stvarnog vremena) → mejl traži dokumenta, bez tvrdnje o osnovu
+  if (c.status === "REVIEWED" && c.nalaz === "POTENTIALLY_ELIGIBLE") {
+    if (vec("D-dokumenta")) return null;
+    if (!c.let?.od || !c.let?.do || !c.let?.datum) return z("odluka_potencijalno", `Nalaz POTENTIALLY_ELIGIBLE (${(c.provera_kod?.sta_fali ?? []).join("; ") || "?"}) — fali ruta ili datum`);
+    return planDokumenta();
+  }
 
   if (c.status === "NOT_ELIGIBLE" && c.revizija === "SLAZEM_SE" && c.provera_kod && !c.poslednji_kontakt) {
     if (vec("B-nema-osnova")) return null;
@@ -91,13 +102,12 @@ async function izaberi(ctx: Kontekst, c: any): Promise<Plan | null> {
     return { sablon: "B-nema-osnova", subject: popuni(t.subject, b), telo: sredi(popuni(t.telo, { ...b, razlog, nega_pasus: nega })), noviStatus: null };
   }
 
-  // agent nije mogao jednoznačno da odredi let → tražimo dokumenta; tačan let se čita sa karte (bez tvrdnje o osnovu)
+
+  // agent nije mogao jednoznačno da odredi let → tražimo dokumenta; tačan let se čita sa karte
   if (c.status === "NEW" && c.let?.pronalazenje?.stanje === "ceka_klijenta" && !c.let?.broj) {
     if (vec("D-dokumenta")) return null;
     if (!c.let?.od || !c.let?.do || !c.let?.datum) return z("draft_fale_podaci", "D-dokumenta: fali ruta ili datum");
-    const prevozilac = c.let?.prevozilac ?? (String(c.let?.ruta_opis ?? "").split(";")[1]?.trim() || "");
-    const t = await sablon(ctx, "D-dokumenta");
-    return { sablon: "D-dokumenta", subject: popuni(t.subject, b), telo: sredi(popuni(t.telo, { ...b, prevozilac_opis: prevozilac ? `${prevozilac} ` : "" })), noviStatus: "DRAFTED" };
+    return planDokumenta();
   }
 
   if (c.status === "NEW" && c.tip === "other") {

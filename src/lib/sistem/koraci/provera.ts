@@ -137,6 +137,15 @@ export default async function provera(ctx: Kontekst) {
       ctx.predmeti.status(c.ref, "VERIFIED");
     }
 
+    // bez stvarnog vremena leta (npr. star let) revizor nema šta da potvrdi; mejl klijentu ne tvrdi osnov, samo traži dokumenta
+    if (rez.nalaz === "POTENTIALLY_ELIGIBLE" && !rez.kasnjenje && c.tip === "delay") {
+      ctx.predmeti.azuriraj(c.ref, (x) => { x.revizija = "PRESKOCENA_BEZ_VREMENA"; });
+      ctx.predmeti.status(c.ref, "REVIEWED");
+      ctx.predmeti.log(c.ref, "provera (kod): izvori nemaju stvarno vreme dolaska — revizija preskočena, traže se dokumenta");
+      r.uradjeno(`${c.ref}: let bez stvarnog vremena → REVIEWED (bez revizije)`);
+      continue;
+    }
+
     // ── revizija ──
     const rev = ctx.letovi[`${kljuc}-revizija`];
     const stat = (revizije[kljuc] ??= { neslaganja: 0, hesevi: [] });
