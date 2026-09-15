@@ -128,3 +128,51 @@ export async function citajDriveBin(fileId: string) {
   const response = await zahtev(`${api}/files/${encodeURIComponent(fileId)}?alt=media`);
   return new Uint8Array(await response.arrayBuffer());
 }
+
+export interface DriveFajl {
+  id: string;
+  name: string;
+  mimeType: string;
+  md5Checksum?: string;
+  size?: string;
+  createdTime?: string;
+}
+
+/** Svi fajlovi i folderi direktno u folderu (bez obrisanih). */
+export async function driveLista(folderId: string) {
+  const out: DriveFajl[] = [];
+  let pageToken: string | undefined;
+  do {
+    const upit = new URLSearchParams({
+      q: `'${navodnici(folderId)}' in parents and trashed = false`,
+      fields: "nextPageToken,files(id,name,mimeType,md5Checksum,size,createdTime)",
+      pageSize: "1000",
+      ...(pageToken ? { pageToken } : {}),
+    });
+    const j = (await (await zahtev(`${api}/files?${upit}`)).json()) as { files: DriveFajl[]; nextPageToken?: string };
+    out.push(...j.files);
+    pageToken = j.nextPageToken;
+  } while (pageToken);
+  return out;
+}
+
+export async function driveZameni(fileId: string, sadrzaj: Uint8Array | string, mime: string) {
+  await zahtev(`${upload}/files/${encodeURIComponent(fileId)}?uploadType=media`, {
+    method: "PATCH",
+    headers: { "content-type": mime },
+    body: sadrzaj as BodyInit,
+  });
+}
+
+export async function driveKopiraj(fileId: string, roditeljId: string, ime: string) {
+  const r = await zahtev(`${api}/files/${encodeURIComponent(fileId)}/copy?fields=id`, {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ name: ime, parents: [roditeljId] }),
+  });
+  return ((await r.json()) as { id: string }).id;
+}
+
+export async function drivePremesti(fileId: string, odId: string, doId: string) {
+  await zahtev(`${api}/files/${encodeURIComponent(fileId)}?${new URLSearchParams({ addParents: doId, removeParents: odId, fields: "id" })}`, { method: "PATCH" });
+}

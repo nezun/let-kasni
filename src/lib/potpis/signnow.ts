@@ -106,3 +106,37 @@ export async function napraviEmbeddedPoziv(opcije: { ref: string; putnik: string
   if (!zahtevId) throw new Error("signNow embedded invite bez ID-ja");
   return { dokumentId: opcije.dokumentId, zahtevId };
 }
+
+/** Stanje potpisa: potpis na dokumentu je jedini dokaz; odbijanje i istek se čitaju iz poziva. */
+export async function stanjePotpisa(dokumentId: string) {
+  const d = (await (await api(`/document/${encodeURIComponent(dokumentId)}`)).json()) as {
+    signatures?: Array<{ created?: string | number }>;
+    field_invites?: Array<{ status?: string }>;
+  };
+  const potpis = (d.signatures ?? [])[0];
+  if (potpis) return { stanje: "potpisano" as const, potpisano: new Date(Number(potpis.created) * 1000).toISOString() };
+  const status = d.field_invites?.[0]?.status;
+  if (status === "declined") return { stanje: "odbijeno" as const, potpisano: null };
+  if (status === "expired") return { stanje: "isteklo" as const, potpisano: null };
+  return { stanje: "poslato" as const, potpisano: null };
+}
+
+export async function preuzmiPotpisanPdf(dokumentId: string) {
+  return new Uint8Array(await (await api(`/document/${encodeURIComponent(dokumentId)}/download?type=collapsed`)).arrayBuffer());
+}
+
+export async function preuzmiAuditTrail(dokumentId: string) {
+  return new Uint8Array(await (await api(`/document/${encodeURIComponent(dokumentId)}/historyfull`)).arrayBuffer());
+}
+
+/** PDF iz .docx: signNow ga renderuje pri otpremi; dokument se posle preuzimanja briše. */
+export async function pdfIzDocx(docx: Uint8Array, naziv: string) {
+  const forma = new FormData();
+  forma.append("file", new Blob([docx as BlobPart], { type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" }), naziv);
+  const id = ((await (await api("/document", { method: "POST", body: forma })).json()) as { id: string }).id;
+  try {
+    return await preuzmiPotpisanPdf(id);
+  } finally {
+    await api(`/document/${encodeURIComponent(id)}`, { method: "DELETE" }).catch(() => undefined);
+  }
+}

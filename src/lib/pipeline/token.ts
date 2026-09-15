@@ -14,6 +14,15 @@ function potpis(tajna: string, poruka: string) {
  * v1.<REF>.<ističe>.<potpis> — stariji format, i dalje važi.
  * Ista tajna na obe strane (DOKUMENTA_TAJNA, ≥ 32 znaka). Link ne otkriva ništa o klijentu.
  */
+/** Lični link klijenta (isti format kao pipeline lib/link.mjs); null ako tajna nije podešena. */
+export function napraviTokenDokumenata(ref: string, dana = 45) {
+  const tajna = getEnv("DOKUMENTA_TAJNA");
+  if (!tajna || tajna.length < 32) return null;
+  const istice = Math.floor(Date.now() / 1000) + dana * 86400;
+  const r = Buffer.from(ref, "utf8").toString("base64url");
+  return `v2.${r}.${istice}.${potpis(tajna, `v2.${r}.${istice}`)}`;
+}
+
 export function proveriTokenDokumenata(token: string): { ref: string; istice: Date } | null {
   const tajna = getEnv("DOKUMENTA_TAJNA");
 

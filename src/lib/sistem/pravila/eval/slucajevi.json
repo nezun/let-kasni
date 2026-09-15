@@ -1,0 +1,162 @@
+{
+  "_opis": "Eval set za pravila EU261. Prvi deo su stvarni letovi koje smo ručno proverili (flights/*.json, stanje 14.09.2026), drugi deo su sintetički slučajevi iz SOP-a. Kad se SOP menja, ovde se menja očekivanje i piše zašto.",
+  "slucajevi": [
+    {
+      "id": "JU9138-2026-08-23",
+      "izvor": "flights/JU9138_2026-08-23.json — LK-02, LK-05, LK-08, B7EA4510, D91B2E60",
+      "cinjenice": { "tip": "delay", "od": "BEG", "do": "DLM", "prevozilac": "JU", "uzrok": "tehnicki",
+        "kasnjenje": { "sta": ["2026-08-23T09:50+03:00", "2026-08-23T09:42+03:00", "2026-08-23T09:37+03:00"], "sletanje": ["2026-08-23T15:46+03:00"], "izvori_stvarno": 2 } },
+      "ocekivano": { "nalaz": "ELIGIBLE", "iznos_eur": 250, "kasnjenje_min_od": 356 }
+    },
+    {
+      "id": "JU9139-2026-08-23",
+      "izvor": "flights/JU9139_2026-08-23.json — LK-01, LK-09, A94513D9; polazak iz Turske, ECAA prevozilac",
+      "cinjenice": { "tip": "delay", "od": "DLM", "do": "BEG", "prevozilac": "JU", "uzrok": "nepoznat",
+        "kasnjenje": { "procena_min": [366, 366], "izvori_stvarno": 2 } },
+      "ocekivano": { "nalaz": "ELIGIBLE", "iznos_eur": 250 }
+    },
+    {
+      "id": "JU557-2026-08-31",
+      "izvor": "flights/JU557_2026-08-31.json — E093C1CD; tracker je merio prema naknadnom redu letenja, ovde je STA sa karte",
+      "cinjenice": { "tip": "delay", "od": "CHQ", "do": "BEG", "prevozilac": "JU", "uzrok": "nepoznat",
+        "kasnjenje": { "sta": ["2026-08-31T11:20+02:00"], "sletanje": ["2026-08-31T18:03+02:00"], "izvori_stvarno": 2 } },
+      "ocekivano": { "nalaz": "ELIGIBLE", "iznos_eur": 250, "kasnjenje_min_od": 403 }
+    },
+    {
+      "id": "W64116-2026-08-24",
+      "izvor": "flights/W64116_2026-08-24.json — LK-11 Ljiljana; 184 min na gejtu, granični pojas",
+      "cinjenice": { "tip": "delay", "od": "BCN", "do": "BEG", "prevozilac": "W6", "uzrok": "nepoznat",
+        "kasnjenje": { "sta": ["2026-08-25T01:35+02:00"], "vrata": ["2026-08-25T04:39+02:00"], "izvori_stvarno": 2 } },
+      "ocekivano": { "nalaz": "POTENTIALLY_ELIGIBLE", "iznos_eur": 400, "granicno": true }
+    },
+    {
+      "id": "W64116-2026-08-28",
+      "izvor": "flights/W64116_2026-08-28.json — 35AE86E8 Marko; gejt 166 min, ispod praga ali u pojasu",
+      "cinjenice": { "tip": "delay", "od": "BCN", "do": "BEG", "prevozilac": "W6", "uzrok": "nepoznat",
+        "kasnjenje": { "sta": ["2026-08-29T00:55+02:00"], "vrata": ["2026-08-29T03:41+02:00"], "izvori_stvarno": 2 } },
+      "ocekivano": { "nalaz": "HUMAN_REVIEW", "granicno": true }
+    },
+    {
+      "id": "W64115-2026-08-21",
+      "izvor": "flights/W64115_2026-08-21.json — LK-12, 1DCCC7E4, 77479974, E3D9B6DA; jedan izvor, niska sigurnost",
+      "cinjenice": { "tip": "delay", "od": "BEG", "do": "BCN", "prevozilac": "W6", "uzrok": "nepoznat",
+        "kasnjenje": { "procena_min": [185, 188], "izvori_stvarno": 1 } },
+      "ocekivano": { "nalaz": "POTENTIALLY_ELIGIBLE", "iznos_eur": 400, "granicno": true }
+    },
+    {
+      "id": "4Y519-2026-08-01",
+      "izvor": "flights/4Y519_2026-08-01-uzrok.md — LK-04; otkazivanje <7 dana, zamenski JU595 stigao +2h04. Advokat vodi kao ELIGIBLE; pravila traže potvrdu on-block jer je margina 4 min.",
+      "cinjenice": { "tip": "cancellation", "od": "PMI", "do": "BEG", "prevozilac": "4Y", "uzrok": "nepoznat",
+        "otkazivanje": { "obavesten_dana_pre": 1, "alternativa_polazak_ranije_min": 0, "alternativa_dolazak_kasnije_min": 124, "izvori_stvarno": 2 } },
+      "ocekivano": { "nalaz": "POTENTIALLY_ELIGIBLE", "iznos_eur": 200, "granicno": true }
+    },
+    {
+      "id": "LK-06-other-LHR",
+      "izvor": "cases/LK-06 — Problem: other, BEG→LHR",
+      "cinjenice": { "tip": "other", "od": "BEG", "do": "LHR" },
+      "ocekivano": { "nalaz": "HUMAN_REVIEW" }
+    },
+    {
+      "id": "SOP-hurgada-air-serbia",
+      "izvor": "SOP STEP 1: Hurgada→BEG Air Serbia = DA",
+      "cinjenice": { "tip": "delay", "od": "HRG", "do": "BEG", "prevozilac": "JU", "kasnjenje": { "procena_min": [240, 250], "izvori_stvarno": 2 } },
+      "ocekivano": { "nalaz": "ELIGIBLE", "iznos_eur": 400 }
+    },
+    {
+      "id": "SOP-antalija-turkish",
+      "izvor": "SOP STEP 1: Antalija→BEG Turkish = NE",
+      "cinjenice": { "tip": "delay", "od": "AYT", "do": "BEG", "prevozilac": "TK", "kasnjenje": { "procena_min": [300, 310], "izvori_stvarno": 2 } },
+      "ocekivano": { "nalaz": "NOT_ELIGIBLE" }
+    },
+    {
+      "id": "SOP-toronto-newyork",
+      "izvor": "SOP STEP 1: potpuno van ECAA = NE",
+      "cinjenice": { "tip": "delay", "od": "YYZ", "do": "JFK", "prevozilac": "AF", "kasnjenje": { "procena_min": [300, 310], "izvori_stvarno": 2 } },
+      "ocekivano": { "nalaz": "NOT_ELIGIBLE" }
+    },
+    {
+      "id": "SOP-inbound-nepoznat-prevozilac",
+      "izvor": "Nepoznat operativni prevozilac kod ulaska u ECAA se ne pogađa",
+      "cinjenice": { "tip": "delay", "od": "HRG", "do": "BEG", "prevozilac": "ZZ", "kasnjenje": { "procena_min": [300, 310], "izvori_stvarno": 2 } },
+      "ocekivano": { "nalaz": "HUMAN_REVIEW" }
+    },
+    {
+      "id": "SOP-dubai-600",
+      "izvor": "Polazak iz ECAA, >3500 km van EU = 600 €",
+      "cinjenice": { "tip": "delay", "od": "BEG", "do": "DXB", "prevozilac": "EK", "uzrok": "tehnicki", "kasnjenje": { "procena_min": [260, 270], "izvori_stvarno": 2 } },
+      "ocekivano": { "nalaz": "ELIGIBLE", "iznos_eur": 600 }
+    },
+    {
+      "id": "SOP-polazak-kasnio-dolazak-ispod",
+      "izvor": "Pravilo br. 1: polazak +3h20, dolazak 2h38 = ispod praga",
+      "cinjenice": { "tip": "delay", "od": "BCN", "do": "BEG", "prevozilac": "W6", "kasnjenje": { "sta": ["2026-08-29T00:55+02:00"], "vrata": ["2026-08-29T03:33+02:00"], "izvori_stvarno": 2 } },
+      "ocekivano": { "nalaz": "NOT_ELIGIBLE" }
+    },
+    {
+      "id": "SOP-samo-sletanje-sece-prag",
+      "izvor": "Samo sletanje 2h55: +12 min procena vrata seče 180 → granično",
+      "cinjenice": { "tip": "delay", "od": "BEG", "do": "BCN", "prevozilac": "W6", "kasnjenje": { "sta": ["2026-08-21T10:00+02:00"], "sletanje": ["2026-08-21T12:55+02:00"], "izvori_stvarno": 2 } },
+      "ocekivano": { "nalaz": "HUMAN_REVIEW", "granicno": true }
+    },
+    {
+      "id": "SOP-jedan-izvor",
+      "izvor": "ELIGIBLE traži dva nezavisna izvora za stvarno vreme",
+      "cinjenice": { "tip": "delay", "od": "BEG", "do": "DLM", "prevozilac": "JU", "kasnjenje": { "procena_min": [300, 300], "izvori_stvarno": 1 } },
+      "ocekivano": { "nalaz": "POTENTIALLY_ELIGIBLE", "iznos_eur": 250 }
+    },
+    {
+      "id": "SOP-bez-podataka",
+      "izvor": "Pravilo br. 2: samoprijava iz forme nije izvor",
+      "cinjenice": { "tip": "delay", "od": "BEG", "do": "DLM", "prevozilac": "JU" },
+      "ocekivano": { "nalaz": "POTENTIALLY_ELIGIBLE" }
+    },
+    {
+      "id": "SOP-vreme-vanredno",
+      "izvor": "STEP 5: ozbiljne vremenske prilike → review, ne odbijanje",
+      "cinjenice": { "tip": "delay", "od": "BEG", "do": "DLM", "prevozilac": "JU", "uzrok": "vreme", "kasnjenje": { "procena_min": [300, 300], "izvori_stvarno": 2 } },
+      "ocekivano": { "nalaz": "HUMAN_REVIEW" }
+    },
+    {
+      "id": "SOP-carrier-tvrdi",
+      "izvor": "STEP 5: 'extraordinary circumstances' iz mejla prevozioca nije dokaz",
+      "cinjenice": { "tip": "delay", "od": "BEG", "do": "DLM", "prevozilac": "JU", "uzrok": "carrier_tvrdi_vanredne", "kasnjenje": { "procena_min": [300, 300], "izvori_stvarno": 2 } },
+      "ocekivano": { "nalaz": "HUMAN_REVIEW" }
+    },
+    {
+      "id": "SOP-otkazano-14-dana",
+      "izvor": "STEP 4B: obavešten 14+ dana pre",
+      "cinjenice": { "tip": "cancellation", "od": "BEG", "do": "BCN", "prevozilac": "W6", "otkazivanje": { "obavesten_dana_pre": 20 } },
+      "ocekivano": { "nalaz": "NOT_ELIGIBLE" }
+    },
+    {
+      "id": "SOP-otkazano-5-dana-alternativa-3h",
+      "izvor": "STEP 4B: <7 dana, alternativa +3h u dolasku → pravo, pun iznos jer je >3h za kategoriju 2? ne: BCN 1528 km, kat. 2 granica umanjenja 180 → 180 je umanjeno",
+      "cinjenice": { "tip": "cancellation", "od": "BEG", "do": "BCN", "prevozilac": "W6", "uzrok": "nepoznat", "otkazivanje": { "obavesten_dana_pre": 5, "alternativa_polazak_ranije_min": 30, "alternativa_dolazak_kasnije_min": 200, "izvori_stvarno": 2 } },
+      "ocekivano": { "nalaz": "ELIGIBLE", "iznos_eur": 400 }
+    },
+    {
+      "id": "SOP-otkazano-10-dana-u-granicama",
+      "izvor": "STEP 4B: 7–14 dana, alternativa 1h ranije i 3h kasnije → izuzetak",
+      "cinjenice": { "tip": "cancellation", "od": "BEG", "do": "BCN", "prevozilac": "W6", "otkazivanje": { "obavesten_dana_pre": 10, "alternativa_polazak_ranije_min": 60, "alternativa_dolazak_kasnije_min": 180, "izvori_stvarno": 2 } },
+      "ocekivano": { "nalaz": "NOT_ELIGIBLE" }
+    },
+    {
+      "id": "SOP-denied-overbooking",
+      "izvor": "STEP 4C: overbooking, bez STEP 5",
+      "cinjenice": { "tip": "denied_boarding", "od": "BEG", "do": "ARN", "prevozilac": "JU", "uzrok": "vreme", "uskracivanje": { "dobrovoljno": false, "opravdan_razlog": false } },
+      "ocekivano": { "nalaz": "ELIGIBLE", "iznos_eur": 400 }
+    },
+    {
+      "id": "SOP-cirih",
+      "izvor": "Švajcarska → HUMAN_REVIEW",
+      "cinjenice": { "tip": "delay", "od": "ZRH", "do": "BEG", "prevozilac": "JU", "kasnjenje": { "procena_min": [300, 300], "izvori_stvarno": 2 } },
+      "ocekivano": { "nalaz": "HUMAN_REVIEW" }
+    },
+    {
+      "id": "SOP-okidac-wet-lease",
+      "izvor": "Obavezan HUMAN_REVIEW: wet-lease",
+      "cinjenice": { "tip": "delay", "od": "BEG", "do": "DLM", "prevozilac": "JU", "okidaci": ["wet_lease"], "kasnjenje": { "procena_min": [300, 300], "izvori_stvarno": 2 } },
+      "ocekivano": { "nalaz": "HUMAN_REVIEW" }
+    }
+  ]
+}
