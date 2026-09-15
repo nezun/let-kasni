@@ -1,19 +1,14 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import type { ReactNode } from "react";
-import { useState } from "react";
 
+import { idiNaFormu } from "@/components/claim-start-card";
 import { trackEvent } from "@/lib/analytics";
 import { getMetaEventId, trackMetaEvent } from "@/lib/meta";
 
 type Locale = "sr" | "en";
 
-const ClaimModal = dynamic(
-  () => import("@/components/claim-modal").then((mod) => mod.ClaimModal),
-  { ssr: false },
-);
-
+/** Dugme u tekstu (blog, cornerstone): vodi na formu u aplikaciji za klijente. */
 export function ClaimInlineCtaButton({
   children,
   className,
@@ -25,9 +20,7 @@ export function ClaimInlineCtaButton({
   eventLabel: string;
   locale: Locale;
 }) {
-  const [isClaimModalOpen, setIsClaimModalOpen] = useState(false);
-
-  function openClaimModal() {
+  function otvoriFormu() {
     trackEvent("begin_checkout", {
       event_category: "claim",
       event_label: eventLabel,
@@ -42,22 +35,12 @@ export function ClaimInlineCtaButton({
       },
       getMetaEventId(),
     );
-    setIsClaimModalOpen(true);
+    idiNaFormu(locale);
   }
 
   return (
-    <>
-      <button type="button" onClick={openClaimModal} className={className}>
-        {children}
-      </button>
-
-      {isClaimModalOpen ? (
-        <ClaimModal
-          isOpen={isClaimModalOpen}
-          locale={locale}
-          onClose={() => setIsClaimModalOpen(false)}
-        />
-      ) : null}
-    </>
+    <button type="button" onClick={otvoriFormu} className={className}>
+      {children}
+    </button>
   );
 }

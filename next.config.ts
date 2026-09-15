@@ -13,11 +13,14 @@ const consolidationRedirects = consolidations.flatMap(group =>
 
 const nextConfig: NextConfig = {
   allowedDevOrigins: ["127.0.0.1"],
-  // PDF ugovora pravi Chromium u serverskoj funkciji (src/lib/ugovor/pdf.ts): paketi ostaju van bundle-a,
-  // a Chromium binarni fajl i font Arimo moraju da budu uz funkcije koje prave ili potpisuju ugovor.
-  serverExternalPackages: ["@sparticuz/chromium", "puppeteer-core"],
-  outputFileTracingIncludes: {
-    "/api/**/*": ["./node_modules/@sparticuz/chromium/bin/**", "./node_modules/@fontsource/arimo/files/arimo-latin*-normal.woff2"],
+  // Multi-zone: formu (/proveri-let, /en/check-flight) i stranu za potpis ugovora (/predmet) služi aplikacija
+  // za klijente (letkasni-crm, apps/prijava). PRIJAVA_URL je njena adresa; bez nje sajt ništa ne prosleđuje.
+  async rewrites() {
+    const prijava = process.env.PRIJAVA_URL?.replace(/\/$/, "");
+    if (!prijava) return [];
+    return ["/proveri-let", "/en/check-flight", "/claim/submit", "/predmet/:path*", "/api/predmet/:path*", "/prijava-static/:path*"].map(
+      (source) => ({ source, destination: `${prijava}${source}` }),
+    );
   },
   async redirects() {
     return [
@@ -87,34 +90,6 @@ const nextConfig: NextConfig = {
             value:
               "camera=(), microphone=(), geolocation=(), browsing-topics=()",
           },
-        ],
-      },
-      {
-        // Pregled predmeta je dostupan preko tajnog linka: ne indeksira se i ključ
-        // iz URL-a ne sme da ode kao referrer na spoljne sajtove.
-        source: "/pregled/:path*",
-        headers: [
-          { key: "X-Robots-Tag", value: "noindex, nofollow, noarchive" },
-          { key: "Referrer-Policy", value: "no-referrer" },
-          { key: "Cache-Control", value: "private, no-store" },
-        ],
-      },
-      {
-        // Link za slanje dokumenata nosi potpisan token u URL-u — isto pravilo kao pregled.
-        source: "/dokumenta/:path*",
-        headers: [
-          { key: "X-Robots-Tag", value: "noindex, nofollow, noarchive" },
-          { key: "Referrer-Policy", value: "no-referrer" },
-          { key: "Cache-Control", value: "private, no-store" },
-        ],
-      },
-      {
-        // Portal klijenta (podaci, dokumenta, potpis) — lični link sa tokenom.
-        source: "/predmet/:path*",
-        headers: [
-          { key: "X-Robots-Tag", value: "noindex, nofollow, noarchive" },
-          { key: "Referrer-Policy", value: "no-referrer" },
-          { key: "Cache-Control", value: "private, no-store" },
         ],
       },
     ];
