@@ -124,12 +124,15 @@ test("emits exactly one lead_submit for the same successful claim ID", () => {
   const testModule = { exports: {} };
   const window = {
     dataLayer: [],
-    gtag: (...args) => gtagCalls.push(args),
     location: { pathname: "/proveri-let" },
     sessionStorage: {
       getItem: (key) => sessionValues.get(key) ?? null,
       setItem: (key, value) => sessionValues.set(key, value),
     },
+  };
+  window.gtag = (...args) => {
+    gtagCalls.push(args);
+    window.dataLayer.push(args);
   };
 
   vm.runInNewContext(compiled, {
@@ -148,8 +151,9 @@ test("emits exactly one lead_submit for the same successful claim ID", () => {
   assert.equal(testModule.exports.trackLeadSubmitOnce(input), false);
   assert.equal(window.dataLayer.length, 1);
   assert.equal(gtagCalls.length, 1);
-  assert.equal(window.dataLayer[0].event, "lead_submit");
-  assert.equal(window.dataLayer[0].transaction_id, input.claimId);
+  assert.equal(gtagCalls[0][0], "event");
+  assert.equal(gtagCalls[0][1], "lead_submit");
+  assert.equal(gtagCalls[0][2].transaction_id, input.claimId);
 });
 
 test("tracking wiring is consent-gated, success-gated and PII-minimized", () => {

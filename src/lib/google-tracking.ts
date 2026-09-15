@@ -55,20 +55,24 @@ export function trackGoogleJourneyEvent(
   if (typeof window === "undefined") return false;
 
   const clean = cleanParams(params);
-  let delivered = false;
+  const analyticsAllowed = hasAnalyticsConsent();
+  const marketingAllowed = hasMarketingConsent();
 
-  if (hasAnalyticsConsent() && typeof window.gtag === "function") {
+  if (
+    (analyticsAllowed || marketingAllowed) &&
+    typeof window.gtag === "function"
+  ) {
     window.gtag("event", eventName, clean);
-    delivered = true;
+    return true;
   }
 
-  if (hasMarketingConsent()) {
+  if (marketingAllowed) {
     window.dataLayer = window.dataLayer ?? [];
     window.dataLayer.push({ event: eventName, ...clean });
-    delivered = true;
+    return true;
   }
 
-  return delivered;
+  return false;
 }
 
 function trackOnce(
