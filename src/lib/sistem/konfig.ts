@@ -12,6 +12,8 @@ export interface Konfig {
   koraci: Record<ImeKoraka, Rezim>;
   /** Staging: čita pravi Gmail (samo čitanje — odgovori klijenata za probu toka), a draftove drži u bazi. */
   gmailCitanje: boolean;
+  /** letkasni = naš potpis na portalu (PDF pravi server); signnow = spoljni potpis, kao rezerva */
+  potpis: "letkasni" | "signnow";
   sajtUrl: string;
   ignorisiEmailove: string[];
   naseAdrese: string[];
@@ -48,6 +50,7 @@ export function ucitajKonfig(env: Env = process.env): Konfig {
     ime,
     koraci,
     gmailCitanje: ime === "prod" || env.SISTEM_GMAIL_CITANJE === "pravo",
+    potpis: env.SISTEM_POTPIS === "signnow" ? "signnow" : "letkasni",
     sajtUrl: (env.NEXT_PUBLIC_SITE_URL ?? "https://letkasni.rs").replace(/\/$/, ""),
     ignorisiEmailove: lista(env.CRM_IGNORISI_EMAILOVE),
     naseAdrese: lista(env.SISTEM_NASE_ADRESE ?? "kontakt@letkasni.rs,podrska@mail.letkasni.rs,marinkovic.niko@gmail.com"),

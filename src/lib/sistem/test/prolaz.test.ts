@@ -134,7 +134,10 @@ function sajtPripremaUgovor(ref: string) {
 }
 const portal: Portal = {
   pripremi: async (ref) => { sajtPripremaUgovor(ref); return { ok: true }; },
-  pozivi: async (ref, predmet) => [predmet.putnik, ...(predmet.saputnici ?? [])].map((p: any, i: number) => ({ putnik: p.ime_prezime, dokument_id: `doc-${ref}-${i}`, zahtev_id: `z${i}`, drive_id: null })),
+  pozivi: async (ref, predmet) =>
+    [predmet.putnik, ...(predmet.saputnici ?? [])].map((p: any, i: number) => ({
+      putnik: p.ime_prezime, stanje: "poslato", provajder: "letkasni", kanal: "portal", zahtev_id: `z-${ref}-${i}`, dokument_id: `pdf-${ref}-${i}`, pdf_id: `pdf-${ref}-${i}`, pdf_sha256: "a".repeat(64), podaci_sha256: "b".repeat(64), potpisnik: p.ime_prezime, poslato: null,
+    })),
   link,
 };
 
@@ -283,7 +286,7 @@ test("7. agent pročitao dokumenta sigurno → ugovor i poziv za potpis → draf
   const x = c("E2E-A");
   assert.equal(x.status, "POA_DRAFTED");
   assert.equal(x.podaci.putnik.rodjena, "1985-04-12", "datum rođenja sa dokumenta");
-  assert.deepEqual(x.podaci.potpisivanje.map((z: any) => [z.putnik, z.stanje, z.kanal]), [["Marko Marković", "poslato", "portal"]]);
+  assert.deepEqual(x.podaci.potpisivanje.map((z: any) => [z.putnik, z.stanje, z.kanal, z.provajder]), [["Marko Marković", "poslato", "portal", "letkasni"]]);
   const g = [...draftovi.values()].find((d) => d.to.includes("marko@example.com") && d.subject.startsWith("Re: "));
   assert.ok(g, "drugi mejl je odgovor u istom threadu");
   assert.ok(g.body.includes("https://staging.letkasni.rs/predmet/v2."), "link za potpis u mejlu");
@@ -297,9 +300,21 @@ test("8. Niko poslao link → POA_SENT; klijent potpisao → POA_SIGNED i jedan 
   await prolaz();
   assert.equal(c("E2E-A").status, "POA_SENT");
   assert.equal(c("E2E-A").podaci.potpisivanje[0].poslato, "2026-09-15");
-  potpisi.set("doc-E2E-A-0", "potpisano");
+  // klijent potpiše na portalu: sajt (src/lib/ugovor/potpis-letkasni.ts) upiše potpis, dokument i POA_SIGNED
+  const r = c("E2E-A");
+  const pdfId = await upisi(await putanja("ugovori", "E2E-A"), "Marković Marko — Ugovor potpisan elektronski.pdf", "%PDF potpisan", "application/pdf");
+  predmeti.set("E2E-A", {
+    ...r, status: "POA_SIGNED", verzija: r.verzija + 1, izvor_izmene: "portal",
+    podaci: {
+      ...r.podaci, status: "POA_SIGNED",
+      potpisivanje: r.podaci.potpisivanje.map((z: any) => ({ ...z, stanje: "potpisano", potpisano: "2026-09-15", potpisan_pdf: pdfId })),
+      dokumenta_fajlovi: [...r.podaci.dokumenta_fajlovi, { id: pdfId, ime: "Marković Marko — Ugovor potpisan elektronski.pdf", md5: null, izvor: "potpis", dodato: "2026-09-15" }],
+    },
+  });
   await prolaz();
   assert.equal(c("E2E-A").status, "POA_SIGNED");
+  assert.ok(c("E2E-A").podaci.potpisivanje[0].u_folderu, "potpisan ugovor predat u folder za advokate");
+  assert.ok(Object.values(c("E2E-A").podaci.drive_prilozi).includes("Marković Marko — Ugovor potpisan elektronski.pdf"));
   const zaAdvokate = poslato.filter((d) => d.to.includes("advokat@example.com"));
   assert.equal(zaAdvokate.length, 1, "jedan automatski poslat mejl");
   assert.ok(![...draftovi.values()].some((d) => d.to.includes("advokat@example.com")), "advokatima ne ide draft");

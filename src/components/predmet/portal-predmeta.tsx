@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { OtpremanjeDokumenataKartica } from "@/components/dokumenta/otpremanje-dokumenata";
+import { PotpisUgovora } from "@/components/predmet/potpis-ugovora";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -250,9 +251,14 @@ export function PortalPredmeta({ token, predmet }: { token: string; predmet: Pre
               {predmet.faza === "ceka_ugovor" ? <p>Pripremamo ugovor za potpis. Stranica se sama osvežava — ako potraje, javićemo Vam se mejlom.</p> : null}
               {predmet.faza === "potpis_mejlom" ? <p>Ugovor ćemo Vam poslati mejlom.</p> : null}
               {predmet.faza === "potpisano" ? <p className="font-medium text-emerald-800">Ugovor je potpisan. Hvala! Dalje vodimo postupak mi i javljamo Vam se mejlom.</p> : null}
-              {predmet.faza === "potpis" ? (
+              {(predmet.faza === "potpis" || predmet.faza === "potpisano") && predmet.potpisi.some((z) => z.provajder === "letkasni") ? (
+                <div className="mt-3">
+                  <PotpisUgovora token={token} potpisi={predmet.potpisi.filter((z) => z.provajder === "letkasni")} putnici={predmet.putnici} letOpis={letOpis} />
+                </div>
+              ) : null}
+              {predmet.faza === "potpis" && predmet.potpisi.some((z) => z.provajder !== "letkasni") ? (
                 <ul className="flex flex-col gap-2">
-                  {predmet.potpisi.map((z) => (
+                  {predmet.potpisi.filter((z) => z.provajder !== "letkasni").map((z) => (
                     <li key={z.putnik} className="flex items-center justify-between gap-3 rounded-lg border border-[var(--border)] px-3 py-2">
                       <span>{z.putnik}</span>
                       {z.stanje === "potpisano" ? (

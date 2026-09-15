@@ -13,6 +13,10 @@ export interface PotpisPortala {
   putnik: string;
   stanje: "poslato" | "potpisano" | "odbijeno" | string;
   mozePotpis: boolean;
+  /** "letkasni" = naš potpis na portalu; "signnow" = spoljni potpis */
+  provajder: string;
+  potpisnik: string | null;
+  potpisano: string | null;
 }
 
 export type FazaPortala = "podaci" | "ceka_ugovor" | "potpis" | "potpis_mejlom" | "potpisano" | "kod_tima";
@@ -87,7 +91,12 @@ export async function ucitajPredmetPortala(ref: string): Promise<PredmetPortala 
       .map((z) => ({
         putnik: String(z.putnik),
         stanje: String(z.stanje),
-        mozePotpis: z.stanje === "poslato" && z.provajder === "signnow" && !!z.dokument_id && !!z.zahtev_id,
+        provajder: String(z.provajder ?? ""),
+        potpisnik: typeof z.potpisnik === "string" ? z.potpisnik : null,
+        potpisano: typeof z.potpisano === "string" ? z.potpisano : null,
+        mozePotpis:
+          z.stanje === "poslato" &&
+          ((z.provajder === "signnow" && !!z.dokument_id && !!z.zahtev_id) || (z.provajder === "letkasni" && !!z.pdf_id && data.status === "POA_SENT")),
       })),
   };
 }
@@ -172,4 +181,15 @@ export async function oznaciDogadjajPotpisa(dokumentId: string, dogadjaj: string
     .eq("verzija", red.verzija)
     .select("ref");
   return Boolean(izmenjeno?.length);
+}
+
+/** PDF ugovora za portal: nepotpisan (za pregled) ili potpisan (za preuzimanje). Samo naš potpis. */
+export async function ugovorZaPutnika(ref: string, putnik: string) {
+  const { data, error } = await crmKlijent().from("crm_predmeti").select("podaci").eq("ref", ref).maybeSingle();
+  if (error || !data) return null;
+  const z = ((data.podaci as Podaci).potpisivanje ?? []).find((x) => x.kanal === "portal" && x.provajder === "letkasni" && x.putnik === putnik);
+  if (!z) return null;
+  const potpisan = z.stanje === "potpisano" && typeof z.potpisan_pdf === "string";
+  const id = potpisan ? (z.potpisan_pdf as string) : typeof z.pdf_id === "string" ? z.pdf_id : null;
+  return id ? { id, potpisan } : null;
 }

@@ -9,6 +9,7 @@ import { napraviTokenDokumenata } from "@/lib/pipeline/token";
 import { jeSignNowPodesen, pdfIzDocx, planSignNow, preuzmiAuditTrail, preuzmiPotpisanPdf, stanjePotpisa } from "@/lib/potpis/signnow";
 import { napraviUgovor } from "@/lib/ugovor/docx";
 import { napraviPoziveZaPotpis, pripremiUgovorZaPotpis } from "@/lib/ugovor/priprema";
+import { pripremiPotpisLetkasni } from "@/lib/ugovor/potpis-letkasni";
 import { ucitajSablone } from "@/lib/ugovor/sabloni";
 
 import type { Konfig } from "./konfig";
@@ -255,7 +256,12 @@ const praviPotpis = (): Potpis => ({
 
 const praviPortal = (konfig: Konfig): Portal => ({
   pripremi: (ref) => pripremiUgovorZaPotpis(ref, konfig.sajtUrl),
-  pozivi: (ref, predmet) => napraviPoziveZaPotpis(ref, predmet, konfig.sajtUrl),
+  pozivi: async (ref, predmet) =>
+    konfig.potpis === "signnow"
+      ? (await napraviPoziveZaPotpis(ref, predmet, konfig.sajtUrl)).map((z) => ({
+          putnik: z.putnik, stanje: "poslato", provajder: "signnow", kanal: "portal", dokument_id: z.dokument_id, zahtev_id: z.zahtev_id, ...(z.drive_id ? { drive_id: z.drive_id } : {}), poslato: null,
+        }))
+      : pripremiPotpisLetkasni(ref, predmet),
   link: (ref) => {
     const token = napraviTokenDokumenata(ref);
     return token ? `${konfig.sajtUrl}/predmet/${token}` : null;
@@ -309,9 +315,13 @@ export function napraviServise(konfig: Konfig): Servisi {
         const aliasi = await praviGmail().aliasi();
         return aliasi.includes(konfig.posta.od) ? `čitanje radi, alias ${konfig.posta.od} podešen` : `čitanje radi, alias ${konfig.posta.od} nije podešen`;
       });
-      await probaj("signnow", async () => {
-        if (!jeSignNowPodesen()) throw new Error("API ključ nije podešen");
-        return planSignNow();
+      await probaj("potpis", async () => {
+        if (konfig.potpis === "letkasni") {
+          if (!getEnv("UGOVOR_SABLONI_DRIVE_FOLDER_ID")) throw new Error("šabloni ugovora nisu podešeni");
+          return "naš potpis na portalu (PDF pravi server)";
+        }
+        if (!jeSignNowPodesen()) throw new Error("signNow API ključ nije podešen");
+        return `signNow · ${await planSignNow()}`;
       });
       return rez;
     },

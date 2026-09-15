@@ -3,6 +3,8 @@ import { driveFolder, driveUpisiFajl, jeDrivePodesen } from "@/lib/drive";
 import { getEnv } from "@/lib/env";
 import { jeSignNowPodesen, napraviEmbeddedPoziv, otpremiUgovor } from "@/lib/potpis/signnow";
 
+import { pripremiPotpisLetkasni } from "./potpis-letkasni";
+
 import { napraviUgovor, nazivUgovora, type LetUgovora, type PutnikUgovora } from "./docx";
 import { jeUgovorPodesen, ucitajSablone } from "./sabloni";
 
@@ -47,7 +49,7 @@ function putnikIz(p: Record<string, unknown> | undefined, ref: string, i: number
 }
 
 export function jePripremaMoguca() {
-  return jeUgovorPodesen() && jeSignNowPodesen() && jeDrivePodesen();
+  return jeUgovorPodesen() && jeDrivePodesen() && (getEnv("SISTEM_POTPIS") !== "signnow" || jeSignNowPodesen());
 }
 
 /** Ugovor na Drive („<sistem>/ugovori/<REF>/“) — trag šta je tačno poslato na potpis. Nije obavezno. */
@@ -106,6 +108,18 @@ export async function pripremiUgovorZaPotpis(ref: string, sajtUrl: string | null
   // Ista provera kao u pipeline-u: ugovor se pravi samo kad je nalaz potvrđen revizijom.
   if (podaci.nalaz !== "ELIGIBLE" || podaci.revizija !== "SLAZEM_SE") return { ok: false, razlog: "nije_eligible" };
 
+  // naš potpis (podrazumevano) ili signNow (SISTEM_POTPIS=signnow)
+  if (getEnv("SISTEM_POTPIS") !== "signnow") {
+    let zapisi;
+    try {
+      zapisi = await pripremiPotpisLetkasni(ref, podaci);
+    } catch (greska) {
+      const poruka = greska instanceof Error ? greska.message : String(greska);
+      return { ok: false, razlog: /nepotpun|placeholder|maloletan|grada/.test(poruka) ? "nepotpuno" : "signnow", poruka };
+    }
+    return upisiPripremu(ref, data, podaci, zapisi);
+  }
+
   let zahtevi: ZahtevZaPotpis[];
   try {
     zahtevi = await napraviPoziveZaPotpis(ref, podaci, sajtUrl);
@@ -114,38 +128,42 @@ export async function pripremiUgovorZaPotpis(ref: string, sajtUrl: string | null
     return { ok: false, razlog: /nepotpun|placeholder|maloletan|grada/.test(poruka) ? "nepotpuno" : "signnow", poruka };
   }
 
+  return upisiPripremu(
+    ref,
+    data,
+    podaci,
+    zahtevi.map((z) => ({ putnik: z.putnik, stanje: "poslato", provajder: "signnow", kanal: "portal", dokument_id: z.dokument_id, zahtev_id: z.zahtev_id, ...(z.drive_id ? { drive_id: z.drive_id } : {}), poslato: new Date().toISOString().slice(0, 10) })),
+  );
+}
+
+/** Upis pripremljenog ugovora u predmet → POA_SENT (klijent je na portalu, potpis mu se odmah otvara). */
+async function upisiPripremu(
+  ref: string,
+  data: { verzija: number; pregled: unknown },
+  podaci: Podaci,
+  zapisi: Array<Record<string, unknown> & { putnik: string }>,
+): Promise<RezultatPripreme> {
   const sada = new Date().toISOString();
   const novi: Podaci = {
     ...podaci,
     status: "POA_SENT",
     portal: { ...(podaci.portal ?? {}), ugovor_pripremljen: sada, potpis_kanal: "portal", pripremio: "sajt" },
     potpisivanje: [
-      ...(podaci.potpisivanje ?? []).filter((z) => !zahtevi.some((n) => n.putnik === z.putnik)),
-      ...zahtevi.map((z) => ({
-        putnik: z.putnik,
-        stanje: "poslato",
-        provajder: "signnow",
-        kanal: "portal",
-        dokument_id: z.dokument_id,
-        zahtev_id: z.zahtev_id,
-        ...(z.drive_id ? { drive_id: z.drive_id } : {}),
-        poslato: sada.slice(0, 10),
-      })),
+      ...(podaci.potpisivanje ?? []).filter((z) => !zapisi.some((n) => n.putnik === z.putnik)),
+      ...zapisi.map((z) => ({ ...z, poslato: sada.slice(0, 10) })),
     ],
   };
   const pregled =
     data.pregled && typeof data.pregled === "object"
       ? { ...(data.pregled as Record<string, unknown>), status: "POA_SENT", sledeci_korak: "Klijent potpisuje ugovor u portalu" }
       : data.pregled;
-
-  const { data: izmenjeno, error: greska } = await k
+  const { data: izmenjeno, error: greska } = await crmKlijent()
     .from("crm_predmeti")
     .update({ status: "POA_SENT", podaci: novi, pregled, verzija: data.verzija + 1, izvor_izmene: "portal" })
     .eq("ref", ref)
     .eq("verzija", data.verzija)
     .select("ref");
-
   if (greska) return { ok: false, razlog: "baza", poruka: greska.message };
   if (!izmenjeno?.length) return { ok: false, razlog: "konflikt" };
-  return { ok: true, potpisa: zahtevi.length };
+  return { ok: true, potpisa: zapisi.length };
 }

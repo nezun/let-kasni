@@ -15,7 +15,17 @@ export default async function potpis(ctx: Kontekst) {
   const novaDokumenta = new Set<string>();
 
   for (const c of ctx.predmeti.svi()) {
-    const otvoreni = (c.potpisivanje ?? []).filter((z: any) => z.provajder && z.provajder !== "email" && ["poslato", "otvoreno"].includes(z.stanje) && z.dokument_id);
+    // naš potpis: sajt ga upisuje u trenutku potpisa; ovde samo potpisan ugovor ide u folder za advokate
+    const nasiPotpisani = (c.potpisivanje ?? []).filter((z: any) => z.provajder === "letkasni" && z.stanje === "potpisano" && !z.u_folderu);
+    if (nasiPotpisani.length && r.auto) {
+      ctx.predmeti.azuriraj(c.ref, (x) => {
+        for (const z of x.potpisivanje) if (z.provajder === "letkasni" && z.stanje === "potpisano") z.u_folderu = ctx.danas;
+      });
+      ctx.predmeti.log(c.ref, `potpis: potpisano (letkasni) — ${nasiPotpisani.map((z: any) => z.putnik).join(", ")}`);
+      novaDokumenta.add(c.ref);
+      r.uradjeno(`${c.ref}: potpisan ugovor (naš potpis) → folder za advokate`);
+    }
+    const otvoreni = (c.potpisivanje ?? []).filter((z: any) => z.provajder && !["email", "letkasni"].includes(z.provajder) && ["poslato", "otvoreno"].includes(z.stanje) && z.dokument_id);
     for (const z of otvoreni) {
       if (!r.auto) {
         r.predlog(`${c.ref}: proverio bih ${z.provajder} potpis za ${z.putnik}`);

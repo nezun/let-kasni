@@ -134,6 +134,17 @@ export function spojiSaBazom(nase: Predmet, izBaze: Predmet): Predmet {
   };
   novi.putnik = prenesi(novi.putnik ?? {}, izBaze.putnik);
   novi.saputnici = (izBaze.saputnici ?? []).map((s: any, i: number) => prenesi({ ...(novi.saputnici?.[i] ?? {}) }, s));
+  // naš potpis upisuje sajt u trenutku potpisa: potpisani zapisi, dokumenta i POA_SIGNED iz baze imaju prednost
+  const potpisaniUBazi = (izBaze.potpisivanje ?? []).filter((z: any) => z.provajder === "letkasni" && z.stanje === "potpisano");
+  if (potpisaniUBazi.length) {
+    novi.potpisivanje = (novi.potpisivanje ?? []).map((z: any) => potpisaniUBazi.find((n: any) => n.zahtev_id === z.zahtev_id) ?? z);
+    const ids = new Set((novi.dokumenta_fajlovi ?? []).map((f: any) => f.id));
+    novi.dokumenta_fajlovi = [...(novi.dokumenta_fajlovi ?? []), ...(izBaze.dokumenta_fajlovi ?? []).filter((f: any) => !ids.has(f.id))];
+    if (izBaze.status === "POA_SIGNED" && novi.status === "POA_SENT") {
+      novi.status = "POA_SIGNED";
+      novi.istorija_statusa = { ...(novi.istorija_statusa ?? {}), ...(izBaze.istorija_statusa ?? {}) };
+    }
+  }
   if (izBaze.portal?.pripremio === "sajt") {
     const sajta = (izBaze.potpisivanje ?? []).filter((z: any) => z.kanal === "portal");
     const zadrzani = (nase.potpisivanje ?? []).filter((z: any) => z.stanje !== "poslato" || !sajta.some((n: any) => n.dokument_id === z.dokument_id));

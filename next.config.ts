@@ -2,6 +2,12 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   allowedDevOrigins: ["127.0.0.1"],
+  // PDF ugovora pravi Chromium u serverskoj funkciji (src/lib/ugovor/pdf.ts): paketi ostaju van bundle-a,
+  // a Chromium binarni fajl i font Arimo moraju da budu uz funkcije koje prave ili potpisuju ugovor.
+  serverExternalPackages: ["@sparticuz/chromium", "puppeteer-core"],
+  outputFileTracingIncludes: {
+    "/api/**/*": ["./node_modules/@sparticuz/chromium/bin/**", "./node_modules/@fontsource/arimo/files/arimo-latin*-normal.woff2"],
+  },
   async redirects() {
     return [
       {

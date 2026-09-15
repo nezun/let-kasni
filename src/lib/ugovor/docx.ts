@@ -1,5 +1,7 @@
 import JSZip from "jszip";
 
+import { docxUHtml } from "./docx-html";
+
 import GRADOVI from "./gradovi.json";
 
 /**
@@ -223,8 +225,8 @@ export function nazivUgovora(ime: string) {
   return `${delovi.slice(1).join(" ")} ${delovi[0]} - Ugovor o ustupanju.docx`;
 }
 
-/** Popunjen .docx ugovora za jednog putnika, sa potpisom direktorke i signNow tagom. */
-export async function napraviUgovor(p: PutnikUgovora, let_: LetUgovora, sabloni: SabloniUgovora): Promise<Uint8Array> {
+/** Šablon popunjen podacima putnika, sa mestom za potpis direktorke (sentinel) i putnika (tag). */
+async function popuni(p: PutnikUgovora, let_: LetUgovora, sabloni: SabloniUgovora) {
   const relacija = ruta(let_.od, let_.do, let_.ruta_opis);
   if (!let_.broj || !let_.datum || !let_.prevozilac || !relacija) throw new Error("nepotpuni podaci o letu");
   if (!p.ime_prezime || !p.rodjena || !p.adresa) throw new Error(`${p.ime_prezime || "putnik"}: nepotpuni podaci`);
@@ -238,7 +240,28 @@ export async function napraviUgovor(p: PutnikUgovora, let_: LetUgovora, sabloni:
   const ostali = [...doc.matchAll(/\{\{([A-Z_]+)\}\}/g)].map((m) => m[1]);
   if (ostali.length) throw new Error(`nepopunjeni placeholderi: ${[...new Set(ostali)].join(", ")}`);
 
-  doc = belaPodlogaPotpisa(ubaciSentinel(ubaciTagPotpisaPutnika(doc)));
+  return { zip, doc: belaPodlogaPotpisa(ubaciSentinel(ubaciTagPotpisaPutnika(doc))) };
+}
+
+/**
+ * HTML ugovora za PDF (naš potpis, bez signNow-a). `potpisPutnika` je data:image/png nacrtanog potpisa;
+ * bez njega na mestu potpisa ostaje prazno polje iste visine, pa potpisan i nepotpisan PDF imaju isti raspored.
+ */
+export async function ugovorHtml(p: PutnikUgovora, let_: LetUgovora, sabloni: SabloniUgovora, potpisPutnika: string | null = null) {
+  const { zip, doc } = await popuni(p, let_, sabloni);
+  const styles = await zip.file("word/styles.xml")!.async("string");
+  const footer = zip.file("word/footer1.xml") ? await zip.file("word/footer1.xml")!.async("string") : "";
+  const direktorka = `data:image/png;base64,${Buffer.from(sabloni.potpis).toString("base64")}`;
+  return docxUHtml(doc, styles, footer, (t) => {
+    if (t.includes(SENTINEL)) return t.replace(SENTINEL, `<img class="potpis-slika" src="${direktorka}" alt="">`);
+    if (t.includes(TAG_POTPISA_PUTNIKA)) return potpisPutnika ? `<img class="potpis-slika" src="${potpisPutnika}" alt="Potpis putnika">` : `<span class="potpis-prazno"></span>`;
+    return null;
+  });
+}
+
+/** Popunjen .docx ugovora za jednog putnika, sa potpisom direktorke i signNow tagom. */
+export async function napraviUgovor(p: PutnikUgovora, let_: LetUgovora, sabloni: SabloniUgovora): Promise<Uint8Array> {
+  const { zip, doc } = await popuni(p, let_, sabloni);
 
   const { w, h } = pngDim(sabloni.potpis);
   zip.file("word/media/vedrana-zunic.png", sabloni.potpis);
