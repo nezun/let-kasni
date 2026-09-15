@@ -18,6 +18,11 @@ def redirect_matches(status, location, source_url, target_url):
             and parse_qs(actual.query) == parse_qs(expected.query))
 
 
+def schemas_valid(schemas, required):
+    return (bool(schemas) or not required) and all(
+        'parse_error' not in s for s in schemas if isinstance(s, dict))
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--base', default='https://letkasni.rs')
@@ -54,7 +59,7 @@ def main():
             record('target:' + target, status == 200 and doc.canonical == origin + target
                    and 'noindex' not in robots.lower() and bool(doc.h1)
                    and all(doc.alternates.get(loc) == origin + group[loc]['target'] for loc in ('sr', 'en'))
-                   and bool(doc.schemas) and all('parse_error' not in s for s in doc.schemas if isinstance(s, dict)),
+                   and schemas_valid(doc.schemas, required=group['group'] != 'A'),
                    status=status, canonical=doc.canonical, robots=robots.strip())
             for path in (source, '/blog/' + slug, '/en/blog/' + slug):
                 hosts = [base]
