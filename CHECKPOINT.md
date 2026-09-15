@@ -14,19 +14,18 @@ Canonical handoff file for future local and Codex Cloud sessions.
 ## Generated Status
 
 <!-- BEGIN:generated-status -->
-Generated at: `2026-09-15T11:14:31.664Z`
+Generated at: `2026-09-15T11:15:25.888Z`
 
 Branch: `codex/google-ads-measurement`
 
 Remote: `https://github.com/nezun/let-kasni.git`
 
-Latest local commit: `21feeef docs: record PP 1.3 preview verification`
+Latest local commit: `6493556 docs: record Google Ads conversion setup`
 
 Worktree status:
 
 ```text
-M CHECKPOINT.md
- M docs/GOOGLE-ADS-LAUNCH.md
+clean
 ```
 
 Useful commands:
