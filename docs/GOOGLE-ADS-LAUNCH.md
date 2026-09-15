@@ -100,7 +100,7 @@ The form payload can contain:
 
 The server accepts only these fields, caps values at 500 characters and stores them only when the authoritative `lk_consent` cookie grants advertising measurement. URL query strings are removed from landing/referrer values to avoid accidental PII persistence.
 
-For Supabase claims the object is available at `original_input_snapshot.attribution`. For the local fallback it is also present on the claim record. CRM/offline use is intentionally deferred.
+For both Supabase and local claims the object is available only at `originalInputSnapshot.attribution` (stored as `original_input_snapshot.attribution` in Supabase). Treat it as untrusted browser-supplied measurement metadata, never as proof of ad provenance. CRM/offline use is intentionally deferred and must add downstream validation before it can affect revenue decisions or offline conversion imports.
 
 ## Environment variable
 

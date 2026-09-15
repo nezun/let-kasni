@@ -150,6 +150,98 @@ function loadAttributionClient({
   return { exports: testModule.exports, storageValues };
 }
 
+function loadConsentClient({ storageThrows = false } = {}) {
+  const source = readFileSync(
+    new URL("../src/lib/consent.ts", import.meta.url),
+    "utf8",
+  )
+    .replace(
+      /import \{[\s\S]*?\} from "@\/lib\/consent-cookie";/,
+      "const { getCookieHeaderValue, parseTrackingConsentValue, serializeTrackingConsentCookie, trackingConsentCookieMaxAge, trackingConsentCookieName, trackingConsentNoticeVersion } = globalThis.__consentCookie;",
+    )
+    .replace(
+      'import { attributionStorageKey } from "@/lib/attribution-core";',
+      "const { attributionStorageKey } = globalThis.__attributionCore;",
+    );
+
+  const makeStorage = (entries) => {
+    const values = new Map(entries);
+    return {
+      get length() {
+        if (storageThrows) throw new Error("storage unavailable");
+        return values.size;
+      },
+      key(index) {
+        if (storageThrows) throw new Error("storage unavailable");
+        return [...values.keys()][index] ?? null;
+      },
+      getItem(key) {
+        if (storageThrows) throw new Error("storage unavailable");
+        return values.get(key) ?? null;
+      },
+      setItem(key, value) {
+        if (storageThrows) throw new Error("storage unavailable");
+        values.set(key, value);
+      },
+      removeItem(key) {
+        if (storageThrows) throw new Error("storage unavailable");
+        values.delete(key);
+      },
+      values,
+    };
+  };
+
+  const localStorage = makeStorage([
+    [attributionStorageKey, "paid-touch"],
+    ["_gcl_au", "google-cookie-mirror"],
+    ["unrelated-local", "keep"],
+  ]);
+  const sessionStorage = makeStorage([
+    ["letkasni-google-event:lead_submit:claim-1", "1"],
+    ["unrelated-session", "keep"],
+  ]);
+  const cookieWrites = [];
+  const document = {
+    documentElement: { dataset: {} },
+    get cookie() {
+      return "_gcl_au=a; _gac_test=b; _fbp=c; _fbc=d; unrelated=e";
+    },
+    set cookie(value) {
+      cookieWrites.push(value);
+    },
+  };
+  const window = {
+    localStorage,
+    sessionStorage,
+    dispatchEvent() {},
+  };
+  const testModule = { exports: {} };
+
+  vm.runInNewContext(compileCommonJs(source), {
+    module: testModule,
+    exports: testModule.exports,
+    window,
+    document,
+    Event,
+    __consentCookie: {
+      getCookieHeaderValue: () => null,
+      parseTrackingConsentValue: () => null,
+      serializeTrackingConsentCookie: () => "",
+      trackingConsentCookieMaxAge: 1,
+      trackingConsentCookieName: "lk_consent",
+      trackingConsentNoticeVersion: "1.3",
+    },
+    __attributionCore: { attributionStorageKey },
+  });
+
+  return {
+    exports: testModule.exports,
+    localStorage,
+    sessionStorage,
+    cookieWrites,
+  };
+}
+
 test("captures allowlisted click IDs and campaign parameters without URL query PII", () => {
   const result = getAttributionFromPage(
     "https://letkasni.rs/?gclid=TEST_GCLID_123&utm_source=google&utm_medium=cpc&utm_campaign=SEARCH_RS_CORE&utm_term=naknada-test&email=private%40example.com",
@@ -211,6 +303,20 @@ test("forwards attribution through the focused-flow navigation", () => {
       "https://letkasni.rs/?gclid=TEST&utm_source=google&utm_medium=cpc&untrusted=x",
     ),
     "/proveri-let?step=2&issue=delay&gclid=TEST&utm_source=google&utm_medium=cpc",
+  );
+});
+
+test("does not forward campaign parameters before advertising consent", () => {
+  const denied = loadAttributionClient({ marketing: false });
+  assert.equal(
+    denied.exports.withCurrentAttributionParameters("/proveri-let"),
+    "/proveri-let",
+  );
+
+  const granted = loadAttributionClient({ marketing: true });
+  assert.equal(
+    granted.exports.withCurrentAttributionParameters("/proveri-let"),
+    "/proveri-let?gclid=TEST&utm_medium=cpc",
   );
 });
 
@@ -304,6 +410,10 @@ test("stores attribution once in the original claim audit snapshot", () => {
     claimsSource,
     /const normalizedInputSnapshot = \{\s*\.\.\.inputWithoutAttribution,/,
   );
+  assert.match(
+    claimsSource,
+    /const claim: ClaimRecord = \{\s*\.\.\.inputWithoutAttribution,/,
+  );
   assert.match(claimsSource, /originalInputSnapshot: \{ \.\.\.input \}/);
 });
 
@@ -389,6 +499,37 @@ test("clears attribution without marketing consent and fails closed when storage
   assert.equal(unavailable.exports.captureCurrentAttribution(), undefined);
 });
 
+test("advertising revocation clears Google, Meta, attribution, and conversion-dedupe storage", () => {
+  const runtime = loadConsentClient();
+  runtime.exports.clearOptionalTrackingCookies({
+    analytics: false,
+    advertising: true,
+  });
+
+  assert.equal(runtime.localStorage.values.has(attributionStorageKey), false);
+  assert.equal(runtime.localStorage.values.has("_gcl_au"), false);
+  assert.equal(runtime.localStorage.values.get("unrelated-local"), "keep");
+  assert.equal(
+    runtime.sessionStorage.values.has(
+      "letkasni-google-event:lead_submit:claim-1",
+    ),
+    false,
+  );
+  assert.equal(
+    runtime.sessionStorage.values.get("unrelated-session"),
+    "keep",
+  );
+  for (const name of ["_gcl_au", "_gac_test", "_fbp", "_fbc"]) {
+    assert.ok(runtime.cookieWrites.some((value) => value.startsWith(`${name}=`)));
+  }
+  assert.doesNotThrow(() => {
+    loadConsentClient({ storageThrows: true }).exports.clearOptionalTrackingCookies({
+      analytics: false,
+      advertising: true,
+    });
+  });
+});
+
 test("emits exactly one lead_submit for the same successful claim ID", () => {
   const runtime = loadGoogleTracking({ analytics: true, marketing: true });
   const input = {
@@ -467,6 +608,14 @@ test("deduplicates claim_start by page and still delivers when session storage i
       locale: "sr",
     }),
     true,
+  );
+  assert.equal(
+    unavailable.exports.trackLeadSubmitOnce({
+      claimId: "00000000-0000-4000-8000-000000000002",
+      source: "inline_form",
+      locale: "sr",
+    }),
+    false,
   );
   assert.equal(unavailable.gtagCalls.length, 1);
 });

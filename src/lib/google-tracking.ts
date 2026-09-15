@@ -23,6 +23,8 @@ declare global {
   }
 }
 
+const deliveredEventKeys = new Set<string>();
+
 function cleanParams(params: GoogleJourneyParams) {
   return Object.fromEntries(
     Object.entries(params).flatMap(([key, value]) => {
@@ -81,14 +83,16 @@ function trackOnce(
   params: GoogleJourneyParams,
 ) {
   const storageKey = `letkasni-google-event:${key}`;
+  if (deliveredEventKeys.has(storageKey)) return false;
   try {
     if (window.sessionStorage.getItem(storageKey)) return false;
   } catch {
-    // The in-memory flow guards still prevent render-driven duplicates.
+    // The in-memory guard below still prevents render-driven duplicates.
   }
 
   const delivered = trackGoogleJourneyEvent(eventName, params);
   if (delivered) {
+    deliveredEventKeys.add(storageKey);
     try {
       window.sessionStorage.setItem(storageKey, "1");
     } catch {

@@ -119,20 +119,36 @@ function expireCookie(name: string) {
   document.cookie = `${name}=; Max-Age=0; Path=/; SameSite=Lax; Secure`;
 }
 
-function clearAdvertisingLocalStorage() {
+function removeStorageKeys(
+  storage: Storage,
+  shouldRemove: (name: string) => boolean,
+) {
+  for (let index = storage.length - 1; index >= 0; index -= 1) {
+    const name = storage.key(index);
+    if (name && shouldRemove(name)) storage.removeItem(name);
+  }
+}
+
+function clearAdvertisingStorage() {
   try {
-    for (const name of Object.keys(window.localStorage)) {
-      if (name.startsWith("_gcl")) window.localStorage.removeItem(name);
-    }
+    removeStorageKeys(window.localStorage, (name) => name.startsWith("_gcl"));
     window.localStorage.removeItem(attributionStorageKey);
   } catch {
     // The advertising choice remains denied when storage is unavailable.
+  }
+
+  try {
+    removeStorageKeys(window.sessionStorage, (name) =>
+      name.startsWith("letkasni-google-event:"),
+    );
+  } catch {
+    // Continue clearing cookies even if session storage is unavailable.
   }
 }
 
 export function clearOptionalTrackingCookies(options: { analytics: boolean; advertising: boolean }) {
   if (typeof document === "undefined") return;
-  if (options.advertising) clearAdvertisingLocalStorage();
+  if (options.advertising) clearAdvertisingStorage();
   const names = document.cookie.split(";").map((item) => item.trim().split("=", 1)[0]).filter(Boolean);
   for (const name of names) {
     if (

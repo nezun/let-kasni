@@ -79,6 +79,8 @@ export function getAttributionForSubmission() {
 }
 
 export function withCurrentAttributionParameters(destination: string) {
-  if (typeof window === "undefined") return destination;
+  if (typeof window === "undefined" || !hasMarketingConsent()) {
+    return destination;
+  }
   return appendAttributionParameters(destination, window.location.href);
 }

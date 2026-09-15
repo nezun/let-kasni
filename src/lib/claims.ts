@@ -61,7 +61,7 @@ async function buildClaimRecord(
   };
 
   const claim: ClaimRecord = {
-    ...input,
+    ...inputWithoutAttribution,
     id: randomUUID(),
     idempotencyKey,
     verdict: verdict.bucket,
