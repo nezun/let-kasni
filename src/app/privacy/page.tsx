@@ -28,7 +28,7 @@ export default function PrivacyPage() {
         <div className="space-y-4">
           <h1 className="text-4xl font-bold tracking-[-0.03em] text-[var(--ink)]">Politika privatnosti</h1>
           <p className="max-w-3xl text-sm font-semibold leading-7 text-[var(--ink)]">letkasni.rs / {controllerName}</p>
-          <p className="text-xs font-medium uppercase tracking-[0.2em] text-[var(--muted)]/80">PP 1.2 | Važi od 10.09.2026.</p>
+          <p className="text-xs font-medium uppercase tracking-[0.2em] text-[var(--muted)]/80">PP 1.3 | Važi od 15.09.2026.</p>
         </div>
 
         <Section title="Ukratko">
@@ -145,7 +145,7 @@ export default function PrivacyPage() {
           <p><Link className="font-semibold text-[var(--ink)] underline" href="/email-offers">Upravljanje e-mail ponudama</Link></p>
           <h3 className="font-bold text-[var(--ink)]">12.3. Kolačići i merenje oglašavanja</h3>
           <p>Neophodne tehnologije koristimo za rad sajta, bezbednost i pamćenje vašeg izbora. Neobaveznu analitiku i oglašavanje birate odvojeno u Podešavanjima privatnosti; odbijanje ne sprečava slanje zahteva.</p>
-          <p>Kada su ove funkcije uključene i pristanete na odgovarajuću kategoriju, Google Analytics može se koristiti za analitiku, a Meta Pixel za merenje oglašavanja. Ne aktiviraju se pre tog izbora. Uz izbor oglašavanja, Meta Conversions API može serverski primiti dozvoljene tehničke podatke o događaju, kao i hešovane vrednosti kontakta kada je takva obrada obuhvaćena vašim izborom. Hešovanje ne čini te podatke anonimnim: mogu služiti povezivanju događaja sa korisnikom platforme. Bankovni podaci, identifikacioni dokumenti, zdravstveni podaci, sadržina podnesaka i podaci maloletnih putnika ne šalju se tim alatima.</p>
+          <p>Kada su ove funkcije uključene i pristanete na odgovarajuću kategoriju, Google Analytics može se koristiti za analitiku, a Meta Pixel i Google Tag Manager / Google Ads za merenje oglašavanja. Ne aktiviraju se pre tog izbora. Google Ads tada može primiti identifikator klika, tehničke podatke o uspešnoj prijavi i nasumični broj predmeta kao identifikator transakcije, bez imena, e-maila, telefona ili sadržine predmeta. Uz izbor oglašavanja, Meta Conversions API može serverski primiti dozvoljene tehničke podatke o događaju, kao i hešovane vrednosti kontakta kada je takva obrada obuhvaćena vašim izborom. Hešovanje ne čini te podatke anonimnim: mogu služiti povezivanju događaja sa korisnikom platforme. Bankovni podaci, identifikacioni dokumenti, zdravstveni podaci, sadržina podnesaka i podaci maloletnih putnika ne šalju se tim alatima.</p>
           <p>Izbor oglašavanja ne predstavlja pristanak na e-mail ponude, niti prijava za ponude aktivira analitiku ili oglašavanje. Izbor menjate ili povlačite preko Podešavanja privatnosti u podnožju. Posle povlačenja zaustavljamo novo odgovarajuće slanje i uklanjamo ili onemogućavamo neobavezne kolačiće koje tehnički kontrolišemo. Podatke koje je treća strana već zakonito primila ne možemo samim klikom retroaktivno izbrisati; možete ostvariti prava opisana u članu 9.</p>
           <h3 className="font-bold text-[var(--ink)]">12.4. Dokaz izbora</h3>
           <p>Čuvamo odvojenu evidenciju prijave i odjave za direktni marketing i evidenciju izbora neobaveznih tehnologija. Promena ove Politike ne uključuje prethodne korisnike automatski u novu marketinšku svrhu.</p>

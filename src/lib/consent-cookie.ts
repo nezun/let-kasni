@@ -8,7 +8,7 @@ export type ConsentCookieValue = {
 
 export const trackingConsentCookieName = "lk_consent";
 export const trackingConsentCookieMaxAge = 60 * 60 * 24 * 365;
-export const trackingConsentNoticeVersion = "privacy-1.2-2026-09-10";
+export const trackingConsentNoticeVersion = "privacy-1.3-2026-09-15";
 
 export function parseTrackingConsentValue(
   value: string | null | undefined,

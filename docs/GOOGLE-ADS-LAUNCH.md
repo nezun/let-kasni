@@ -23,6 +23,7 @@ Status: code-ready on `codex/google-ads-measurement`; production remains disable
 - Created Google Ads account `460-732-8439` for LetKasni with billing country Serbia, Serbia Time and EUR. No campaign or spend was activated.
 - Linked GA4 property `letkasni` (`534756949`) to Ads account `460-732-8439` with auto-tagging enabled.
 - Linked the Search Console domain property `letkasni.rs` to the production GA4 web stream.
+- Prepared bilingual Privacy Policy 1.3 and consent-detail wording that explicitly names Google Tag Manager / Google Ads, explains the limited conversion payload and forces a fresh choice through a new consent-notice version. This copy is not in production until the branch is approved and released.
 - Ads onboarding now requires a payment profile and payment method before the account UI exposes conversion-action setup. No billing data was entered automatically.
 
 ## Actual tracking flow
@@ -193,13 +194,12 @@ Google's current setup distinguishes manual code/event conversions from URL page
 
 Do not start paid traffic until all are cleared:
 
-1. Add the approved Google Ads wording to the consent/privacy package if required, then add the existing GTM ID to Vercel Production. It is currently scoped only to the Ads preview branch.
+1. Business/legal review approves the prepared bilingual Privacy Policy 1.3 and advertising-choice wording. The current production wording names Meta but not Google Ads.
 2. Finish the Google Ads payment profile. The account is configured in EUR but conversion-action setup remains inaccessible until billing onboarding is submitted.
 3. Create the direct Google Ads `Lead` conversion action and configure its GTM tag with the real Conversion ID/Label.
-4. Business/legal review approves Google Ads advertising measurement under the existing advertising choice. The current banner detail and Privacy Policy name Meta but not Google Ads; update the wording and consent notice version before production enablement if review requires it.
-5. Publish GTM only after the Ads tag passes Preview QA.
-6. A controlled production submission confirms exactly one Ads conversion and no GA4/Meta regression.
-7. The Search campaign remains paused until items 1-6 pass.
+4. Publish GTM only after the Ads tag passes Preview QA, then add the existing GTM ID to Vercel Production.
+5. A controlled production submission confirms exactly one Ads conversion and no GA4/Meta regression.
+6. The Search campaign remains paused until items 1-5 pass.
 
 ## Nice to have
 
