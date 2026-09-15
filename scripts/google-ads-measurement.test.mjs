@@ -121,7 +121,7 @@ test("emits exactly one lead_submit for the same successful claim ID", () => {
   }).outputText;
   const sessionValues = new Map();
   const gtagCalls = [];
-  const module = { exports: {} };
+  const testModule = { exports: {} };
   const window = {
     dataLayer: [],
     gtag: (...args) => gtagCalls.push(args),
@@ -132,7 +132,11 @@ test("emits exactly one lead_submit for the same successful claim ID", () => {
     },
   };
 
-  vm.runInNewContext(compiled, { module, exports: module.exports, window });
+  vm.runInNewContext(compiled, {
+    module: testModule,
+    exports: testModule.exports,
+    window,
+  });
   const input = {
     claimId: "00000000-0000-4000-8000-000000000001",
     source: "focused_claim_flow",
@@ -140,8 +144,8 @@ test("emits exactly one lead_submit for the same successful claim ID", () => {
     providerStatus: "manual_review",
   };
 
-  assert.equal(module.exports.trackLeadSubmitOnce(input), true);
-  assert.equal(module.exports.trackLeadSubmitOnce(input), false);
+  assert.equal(testModule.exports.trackLeadSubmitOnce(input), true);
+  assert.equal(testModule.exports.trackLeadSubmitOnce(input), false);
   assert.equal(window.dataLayer.length, 1);
   assert.equal(gtagCalls.length, 1);
   assert.equal(window.dataLayer[0].event, "lead_submit");
