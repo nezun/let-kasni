@@ -7,11 +7,18 @@ export function proxy(request: NextRequest) {
 
   requestHeaders.set("x-site-locale", locale);
 
-  return NextResponse.next({
+  const odgovor = NextResponse.next({
     request: {
       headers: requestHeaders,
     },
   });
+
+  // ceo staging (staging.letkasni.rs) ostaje van pretrage, bez obzira na putanju
+  if (request.headers.get("host")?.startsWith("staging.")) {
+    odgovor.headers.set("X-Robots-Tag", "noindex, nofollow, noarchive");
+  }
+
+  return odgovor;
 }
 
 export const config = {
