@@ -26,6 +26,123 @@ const {
 
 const capturedAt = "2026-09-15T08:00:00.000Z";
 
+function compileCommonJs(source) {
+  return ts.transpileModule(source, {
+    compilerOptions: {
+      module: ts.ModuleKind.CommonJS,
+      target: ts.ScriptTarget.ES2022,
+    },
+  }).outputText;
+}
+
+function loadGoogleTracking({
+  analytics = false,
+  marketing = false,
+  withGtag = true,
+  storageThrows = false,
+} = {}) {
+  const source = readFileSync(
+    new URL("../src/lib/google-tracking.ts", import.meta.url),
+    "utf8",
+  ).replace(
+    'import { hasAnalyticsConsent, hasMarketingConsent } from "@/lib/consent";',
+    "const { hasAnalyticsConsent, hasMarketingConsent } = globalThis.__consent;",
+  );
+  const sessionValues = new Map();
+  const gtagCalls = [];
+  const testModule = { exports: {} };
+  const window = {
+    dataLayer: [],
+    location: { pathname: "/proveri-let" },
+    sessionStorage: {
+      getItem(key) {
+        if (storageThrows) throw new Error("storage unavailable");
+        return sessionValues.get(key) ?? null;
+      },
+      setItem(key, value) {
+        if (storageThrows) throw new Error("storage unavailable");
+        sessionValues.set(key, value);
+      },
+    },
+  };
+  if (withGtag) {
+    window.gtag = (...args) => {
+      gtagCalls.push(args);
+      window.dataLayer.push(args);
+    };
+  }
+
+  vm.runInNewContext(compileCommonJs(source), {
+    module: testModule,
+    exports: testModule.exports,
+    window,
+    __consent: {
+      hasAnalyticsConsent: () => analytics,
+      hasMarketingConsent: () => marketing,
+    },
+  });
+
+  return { exports: testModule.exports, gtagCalls, sessionValues, window };
+}
+
+function loadAttributionClient({
+  marketing = true,
+  storedValue,
+  pageUrl = "https://letkasni.rs/?gclid=TEST&utm_medium=cpc",
+  referrer = "https://www.google.com/search?q=private",
+  storageThrows = false,
+} = {}) {
+  const source = readFileSync(
+    new URL("../src/lib/attribution.ts", import.meta.url),
+    "utf8",
+  )
+    .replace(
+      /import \{[\s\S]*?\} from "@\/lib\/attribution-core";/,
+      "const { appendAttributionParameters, attributionStorageKey, getAttributionFromPage, mergeAttribution, sanitizeClaimAttribution } = globalThis.__attributionCore;",
+    )
+    .replace(
+      'import { hasMarketingConsent } from "@/lib/consent";',
+      "const { hasMarketingConsent } = globalThis.__consent;",
+    );
+  const storageValues = new Map();
+  if (storedValue !== undefined) {
+    storageValues.set("letkasni-attribution-v1", storedValue);
+  }
+  const localStorage = {
+    getItem(key) {
+      if (storageThrows) throw new Error("storage unavailable");
+      return storageValues.get(key) ?? null;
+    },
+    setItem(key, value) {
+      if (storageThrows) throw new Error("storage unavailable");
+      storageValues.set(key, value);
+    },
+    removeItem(key) {
+      if (storageThrows) throw new Error("storage unavailable");
+      storageValues.delete(key);
+    },
+  };
+  const testModule = { exports: {} };
+  const window = { localStorage, location: { href: pageUrl } };
+
+  vm.runInNewContext(compileCommonJs(source), {
+    module: testModule,
+    exports: testModule.exports,
+    window,
+    document: { referrer },
+    __attributionCore: {
+      appendAttributionParameters,
+      attributionStorageKey: "letkasni-attribution-v1",
+      getAttributionFromPage,
+      mergeAttribution,
+      sanitizeClaimAttribution,
+    },
+    __consent: { hasMarketingConsent: () => marketing },
+  });
+
+  return { exports: testModule.exports, storageValues };
+}
+
 test("captures allowlisted click IDs and campaign parameters without URL query PII", () => {
   const result = getAttributionFromPage(
     "https://letkasni.rs/?gclid=TEST_GCLID_123&utm_source=google&utm_medium=cpc&utm_campaign=SEARCH_RS_CORE&utm_term=naknada-test&email=private%40example.com",
@@ -105,41 +222,105 @@ test("server sanitizer accepts only bounded structured attribution", () => {
   assert.equal("email" in (result ?? {}), false);
 });
 
-test("emits exactly one lead_submit for the same successful claim ID", () => {
-  const source = readFileSync(
-    new URL("../src/lib/google-tracking.ts", import.meta.url),
-    "utf8",
-  ).replace(
-    'import { hasAnalyticsConsent, hasMarketingConsent } from "@/lib/consent";',
-    "const hasAnalyticsConsent = () => true; const hasMarketingConsent = () => true;",
+test("rejects invalid and non-web attribution URLs", () => {
+  assert.equal(getAttributionFromPage("not a URL", "", capturedAt), null);
+  assert.equal(
+    sanitizeClaimAttribution({
+      initial_landing_page: "javascript:alert(1)",
+      captured_at: capturedAt,
+    }),
+    undefined,
   );
-  const compiled = ts.transpileModule(source, {
-    compilerOptions: {
-      module: ts.ModuleKind.CommonJS,
-      target: ts.ScriptTarget.ES2022,
-    },
-  }).outputText;
-  const sessionValues = new Map();
-  const gtagCalls = [];
-  const testModule = { exports: {} };
-  const window = {
-    dataLayer: [],
-    location: { pathname: "/proveri-let" },
-    sessionStorage: {
-      getItem: (key) => sessionValues.get(key) ?? null,
-      setItem: (key, value) => sessionValues.set(key, value),
-    },
-  };
-  window.gtag = (...args) => {
-    gtagCalls.push(args);
-    window.dataLayer.push(args);
-  };
+  assert.equal(
+    sanitizeClaimAttribution({ initial_landing_page: "https://letkasni.rs/" }),
+    undefined,
+  );
+});
 
-  vm.runInNewContext(compiled, {
-    module: testModule,
-    exports: testModule.exports,
-    window,
+test("keeps organic first touch and handles an empty attribution history", () => {
+  const first = getAttributionFromPage(
+    "https://letkasni.rs/blog",
+    "https://example.com/",
+    capturedAt,
+  );
+  const second = getAttributionFromPage(
+    "https://letkasni.rs/privacy",
+    "https://letkasni.rs/blog",
+    "2026-09-15T08:05:00.000Z",
+  );
+
+  assert.ok(first);
+  assert.ok(second);
+  assert.deepEqual(mergeAttribution(null, first), first);
+  assert.deepEqual(mergeAttribution(first, second), first);
+});
+
+test("does not forward attribution to external or invalid destinations", () => {
+  assert.equal(
+    appendAttributionParameters(
+      "https://example.com/claim",
+      "https://letkasni.rs/?gclid=TEST",
+    ),
+    "https://example.com/claim",
+  );
+  assert.equal(
+    appendAttributionParameters("not a valid url", "not a valid current url"),
+    "not a valid url",
+  );
+});
+
+test("returns fresh stored attribution and evicts expired or malformed values", () => {
+  const fresh = {
+    gclid: "FRESH",
+    initial_landing_page: "https://letkasni.rs/",
+    captured_at: new Date(Date.now() - 1_000).toISOString(),
+  };
+  const freshRuntime = loadAttributionClient({
+    storedValue: JSON.stringify(fresh),
   });
+  assert.equal(freshRuntime.exports.getStoredAttribution()?.gclid, "FRESH");
+
+  for (const storedValue of [
+    JSON.stringify({ ...fresh, captured_at: "2020-01-01T00:00:00.000Z" }),
+    JSON.stringify({ ...fresh, captured_at: "2999-01-01T00:00:00.000Z" }),
+    "{malformed",
+  ]) {
+    const runtime = loadAttributionClient({ storedValue });
+    assert.equal(runtime.exports.getStoredAttribution(), undefined);
+    assert.equal(runtime.storageValues.has("letkasni-attribution-v1"), false);
+  }
+});
+
+test("captures a consented paid touch and strips query data before storage", () => {
+  const runtime = loadAttributionClient();
+  const captured = runtime.exports.captureCurrentAttribution();
+
+  assert.equal(captured?.gclid, "TEST");
+  assert.equal(captured?.initial_landing_page, "https://letkasni.rs/");
+  assert.equal(captured?.referrer, "https://www.google.com/search");
+  assert.equal(
+    JSON.parse(runtime.storageValues.get("letkasni-attribution-v1")).gclid,
+    "TEST",
+  );
+});
+
+test("clears attribution without marketing consent and fails closed when storage is unavailable", () => {
+  const storedValue = JSON.stringify({
+    gclid: "OLD",
+    initial_landing_page: "https://letkasni.rs/",
+    captured_at: new Date().toISOString(),
+  });
+  const denied = loadAttributionClient({ marketing: false, storedValue });
+  assert.equal(denied.exports.captureCurrentAttribution(), undefined);
+  assert.equal(denied.storageValues.has("letkasni-attribution-v1"), false);
+
+  const unavailable = loadAttributionClient({ storageThrows: true });
+  assert.equal(unavailable.exports.getStoredAttribution(), undefined);
+  assert.equal(unavailable.exports.captureCurrentAttribution(), undefined);
+});
+
+test("emits exactly one lead_submit for the same successful claim ID", () => {
+  const runtime = loadGoogleTracking({ analytics: true, marketing: true });
   const input = {
     claimId: "00000000-0000-4000-8000-000000000001",
     source: "focused_claim_flow",
@@ -147,13 +328,77 @@ test("emits exactly one lead_submit for the same successful claim ID", () => {
     providerStatus: "manual_review",
   };
 
-  assert.equal(testModule.exports.trackLeadSubmitOnce(input), true);
-  assert.equal(testModule.exports.trackLeadSubmitOnce(input), false);
-  assert.equal(window.dataLayer.length, 1);
-  assert.equal(gtagCalls.length, 1);
-  assert.equal(gtagCalls[0][0], "event");
-  assert.equal(gtagCalls[0][1], "lead_submit");
-  assert.equal(gtagCalls[0][2].transaction_id, input.claimId);
+  assert.equal(runtime.exports.trackLeadSubmitOnce(input), true);
+  assert.equal(runtime.exports.trackLeadSubmitOnce(input), false);
+  assert.equal(runtime.window.dataLayer.length, 1);
+  assert.equal(runtime.gtagCalls.length, 1);
+  assert.equal(runtime.gtagCalls[0][0], "event");
+  assert.equal(runtime.gtagCalls[0][1], "lead_submit");
+  assert.equal(runtime.gtagCalls[0][2].transaction_id, input.claimId);
+});
+
+test("suppresses journey events without consent", () => {
+  const runtime = loadGoogleTracking({ withGtag: true });
+  assert.equal(
+    runtime.exports.trackGoogleJourneyEvent("phone_click", {
+      event_category: "contact",
+    }),
+    false,
+  );
+  assert.equal(runtime.gtagCalls.length, 0);
+  assert.equal(runtime.window.dataLayer.length, 0);
+});
+
+test("uses the dataLayer fallback when marketing consent exists before gtag", () => {
+  const runtime = loadGoogleTracking({ marketing: true, withGtag: false });
+  assert.equal(
+    runtime.exports.trackGoogleJourneyEvent("whatsapp_click", {
+      event_category: "contact",
+      event_label: "site_whatsapp",
+    }),
+    true,
+  );
+  assert.equal(runtime.window.dataLayer.length, 1);
+  assert.equal(runtime.window.dataLayer[0].event, "whatsapp_click");
+});
+
+test("updates all Google consent signals and bounds event parameters", () => {
+  const runtime = loadGoogleTracking({ analytics: true, marketing: true });
+  runtime.exports.updateGoogleConsent({ analytics: false, marketing: true });
+  runtime.exports.trackGoogleJourneyEvent("lead_submit", {
+    event_category: "claim",
+    provider_status: undefined,
+    transaction_id: "X".repeat(250),
+  });
+
+  assert.equal(runtime.gtagCalls[0][0], "consent");
+  assert.equal(runtime.gtagCalls[0][1], "update");
+  assert.equal(runtime.gtagCalls[0][2].analytics_storage, "denied");
+  assert.equal(runtime.gtagCalls[0][2].ad_storage, "granted");
+  assert.equal(runtime.gtagCalls[0][2].ad_user_data, "granted");
+  assert.equal(runtime.gtagCalls[0][2].ad_personalization, "granted");
+  assert.equal(runtime.gtagCalls[1][2].transaction_id.length, 200);
+  assert.equal("provider_status" in runtime.gtagCalls[1][2], false);
+});
+
+test("deduplicates claim_start by page and still delivers when session storage is unavailable", () => {
+  const normal = loadGoogleTracking({ analytics: true });
+  assert.equal(normal.exports.trackClaimStartOnce("inline_form", "sr"), true);
+  assert.equal(normal.exports.trackClaimStartOnce("inline_form", "sr"), false);
+
+  const unavailable = loadGoogleTracking({
+    analytics: true,
+    storageThrows: true,
+  });
+  assert.equal(
+    unavailable.exports.trackLeadSubmitOnce({
+      claimId: "00000000-0000-4000-8000-000000000002",
+      source: "inline_form",
+      locale: "sr",
+    }),
+    true,
+  );
+  assert.equal(unavailable.gtagCalls.length, 1);
 });
 
 test("tracking wiring is consent-gated, success-gated and PII-minimized", () => {

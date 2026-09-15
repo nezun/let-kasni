@@ -34,6 +34,9 @@ function cleanValue(value: string | null | undefined) {
 function cleanPageUrl(value: string, baseOrigin?: string) {
   try {
     const parsed = new URL(value, baseOrigin);
+    if (parsed.protocol !== "http:" && parsed.protocol !== "https:") {
+      return undefined;
+    }
     parsed.search = "";
     parsed.hash = "";
     return parsed.toString().slice(0, maximumValueLength);
