@@ -144,7 +144,7 @@ const portal: Portal = {
 const SABLONI: Record<string, string> = {
   "A-portal": "<!-- test -->\nSubject: AVIO-NAKNADA ZA {{vrsta}} LET {{let}} {{od}} - {{do}}\n\n{{oslovljavanje}} {{vokativ}},\n\nVaš {{let_opis}}:\n\n{{nalaz_tacke}}\n\nPostoji osnov{{iznos_blok}}.\n\n{{link}}\n\nPodrška letkasni.rs\n",
   "A-delay": "Subject: AVIO-NAKNADA ZA POMEREN LET {{let}} {{od}} - {{do}}\n\n{{oslovljavanje}} {{vokativ}},\n\nKasnio {{kasnjenje}}. Pošaljite nam pasoš i boarding kartu.\n\nPodrška letkasni.rs\n",
-  "D-dokumenta": "Subject: AVIO-NAKNADA ZA LET {{od}} - {{do}}\n\n{{oslovljavanje}} {{vokativ}},\n\nZa let {{prevozilac_opis}}{{od}} - {{do}} pošaljite nam boarding kartu i ličnu kartu.\n\nPodrška letkasni.rs\n",
+  "D-dokumenta": "Subject: AVIO-NAKNADA ZA LET {{od}} - {{do}}\n\n{{oslovljavanje}} {{vokativ}},\n\nZa let {{prevozilac_opis}}{{od}} - {{do}} pošaljite nam boarding kartu, ličnu kartu i {{obavestenje}}.\n\nPodrška letkasni.rs\n",
   "G-potpis": "Subject: Re: {{postojeci_naslov}}\n\n{{oslovljavanje}} {{vokativ}},\n\nUgovor{{za_koga}} za potpis:\n\n{{link}}\n\nPodrška letkasni.rs\n",
   "B-nema-osnova": "Subject: AVIO-NAKNADA ZA LET {{od}} - {{do}}\n\n{{oslovljavanje}} {{vokativ}},\n\nNema osnova, jer {{razlog}}.\n\n{{nega_pasus}}\n\nPodrška letkasni.rs\n",
   "B-nega-pasus": "Pravo na brigu na aerodromu.\n",

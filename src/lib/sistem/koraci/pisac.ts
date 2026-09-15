@@ -73,7 +73,12 @@ async function izaberi(ctx: Kontekst, c: any): Promise<Plan | null> {
   const planDokumenta = async (): Promise<Plan> => {
     const prevozilac = c.let?.prevozilac ?? (String(c.let?.ruta_opis ?? "").split(";")[1]?.trim() || "");
     const t = await sablon(ctx, "D-dokumenta");
-    return { sablon: "D-dokumenta", subject: popuni(t.subject, b), telo: sredi(popuni(t.telo, { ...b, prevozilac_opis: prevozilac ? `${prevozilac} ` : "" })), noviStatus: "DRAFTED" };
+    // kod kašnjenja se nikad ne pominje otkazivanje (lint, CLAUDE.md pravilo 4)
+    const obavestenje =
+      c.tip === "cancellation" ? "obaveštenje avio-kompanije o otkazivanju leta, ukoliko ste ga dobili"
+      : c.tip === "denied_boarding" ? "obaveštenje avio-kompanije o uskraćenom ukrcavanju, ukoliko ste ga dobili"
+      : "obaveštenje avio-kompanije o kašnjenju leta, ukoliko ste ga dobili";
+    return { sablon: "D-dokumenta", subject: popuni(t.subject, b), telo: sredi(popuni(t.telo, { ...b, obavestenje, prevozilac_opis: prevozilac ? `${prevozilac} ` : "" })), noviStatus: "DRAFTED" };
   };
 
   // Prvi mejl traži dokumenta (pasoš, boarding karta); link za potpis ide tek posle dokumenata (G-potpis).
