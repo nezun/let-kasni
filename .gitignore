@@ -51,3 +51,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 .gstack/
+
+# Private GSC exports, audit snapshots and browser evidence stay local.
+/seo-audit-output/

@@ -4,6 +4,9 @@ import { PrivacyServiceOverview } from "@/components/privacy-service-overview";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { siteOperator } from "@/lib/site-operator";
+import { legalMetadata } from "@/lib/legal-metadata";
+
+export const metadata = legalMetadata("privacy", "en");
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (

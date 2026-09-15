@@ -4,6 +4,115 @@ Canonical handoff file for future local and Codex Cloud sessions.
 
 ## Start Here
 
+### SEO release authorized, 2026-09-15
+
+- Owner approved steps 4 and 5: deploy the prepared Phase 1 + Phase 3A package
+  and monitor the result. Earlier LOCAL ONLY entries below describe preparation,
+  not the current authorization. No additional content batches are approved.
+- Release preparation uses the inherited `codex/seo-recovery` branch. The initial
+  session guard reported its known uncommitted SEO package; preserve and commit
+  that reviewed package before running the unchanged clean-tree release gate.
+- Private GSC exports and detailed evidence stay local under ignored
+  `seo-audit-output/`; never add that directory to the public repository.
+- Added `scripts/seo-release-monitor.py` and three redirect-contract tests.
+  The monitor is read-only and does not assert Google indexing from HTTP status.
+  Live browser output can be isolated with `SEO_BROWSER_OUTPUT`.
+- GSC browser access initially blocked because the Mac was locked. User notified;
+  technical deploy checks can proceed independently. Confirm actual GSC access
+  before claiming refreshed index/performance data.
+- Deployment result is recorded in the local release report after live gates.
+
+### SEO Recovery Phase 3A, 2026-09-15
+
+- Read `seo-audit-output/phase3a-summary.md`, `phase3a-merge-results.csv` and
+  `docs/SEO-CONSOLIDATION-RUNBOOK.md`. LOCAL ONLY; no commit, push, deployment
+  or indexing request. Inherited Phase 1/2 work remains preserved and uncommitted.
+- Implemented only six approved concepts in both languages: general delay,
+  crew duty time, separate tickets, same-booking connections, arrival/door time,
+  and overnight hotel care. Targets were improved before redirects were added.
+- Twelve canonical sources plus 24 historical aliases redirect in one hop (308)
+  to final localized targets, including query and www checks. Active lists,
+  routing and sitemap exclude the sources; raw content definitions are retained.
+- Sitemap 294 -> 282; technically indexable self-canonical URLs 296 -> 284.
+  Crawl: 343 URLs, zero broken internal links; incoming source-document edges
+  38 -> 0. These are local technical results, not Google indexing/ranking gains.
+- Five target articles bypass generic runtime appendices and use focused
+  topic-coverage QA instead of padding to a word count. Other 264 localized
+  content records and inherited Phase 1 identity/legal/utility protections remain
+  unchanged. Main delay guide retains its 15-section outline and legal boundaries.
+- Full verify PASS: 29 unit tests, content/link/benchmark/locale checks, ESLint,
+  TypeScript and production build (319 routes). Browser: 24 target viewport
+  checks + four SR/EN form transitions PASS; final guide copy rechecked in
+  four viewports. No actual claim/contact submission or provider delivery test.
+- Visual follow-up: mobile contact-modal logo partly covered by the fixed header;
+  shared modal/header styles were not modified. Keep this separate from SEO scope.
+- Ground handling remains HUMAN_REVIEW pending verified causation distinctions.
+  No airline Tier 3, country/regional, new-page, noindex or 410 work authorized.
+  The remaining Phase 2 merge proposals are not approved for automatic execution.
+- Build AND start with `NEXT_PUBLIC_SITE_URL=https://letkasni.rs` for canonical
+  QA. Read the runbook for repeatable audit, browser, CSV and report generation.
+- Next recommended work: shared boilerplate in one separately approved family,
+  then airline Tier 1 strengthening. Production release requires explicit approval
+  and the normal clean-commit/release-gate workflow; do not bypass inherited dirt.
+
+### SEO Recovery Phase 2, 2026-09-15
+
+- Read `seo-audit-output/PHASE2-REPORT.md` and the main
+  `final-seo-consolidation-proposal.csv`. Analysis only; no additional website,
+  redirect, sitemap or content changes in Phase 2. Phase 1 changes remain dirty
+  and preserved on `codex/seo-recovery`; nothing deployed.
+- Native GSC data: Web, 2026-04-29 through 2026-09-12; max/6m/90d/28d exports.
+  All 171 reported page metrics mapped to 144 current URLs; 296 canonical URLs
+  covered (294 sitemap plus two English legal pages).
+- 156 exact-page query/day exports saved. Google HTTP 429 blocked 15 low-volume
+  remaining URLs (22 impressions, zero clicks). A later retry also refused;
+  do not hammer the endpoint. Missing detail stays unknown. No API credentials.
+- Proposal: sitemap KEEP_STRONG 6, KEEP_IMPROVE 184, conditional MERGE_301 30,
+  HUMAN_REVIEW 74, NOINDEX_KEEP 0, REMOVE_410 0. Projected sitemap 264 includes
+  all unresolved pages. Review backlog reduced from 136, not eliminated.
+- Locked: no automatic execution of matrix. Every merge requires human approval
+  and a useful, verified target integrating the preservation brief FIRST.
+  Keep UK/Turkey/UAE/Israel regimes distinct; no generic carrier-to-home redirects.
+  Backlinks UNKNOWN. Similarity and no reported traffic alone cannot delete pages.
+- Reproduce: `python3 scripts/seo-performance-import.py`, then
+  `python3 scripts/seo-consolidation-proposal.py`, then
+  `python3 scripts/seo-phase2-check.py`. Read `PHASE2-SETUP.md` for API setup.
+- Offline checks passed with source limitations; new API script syntax and ESLint
+  passed. Live API auth untested; full application build not repeated in Phase 2.
+- Next work only after approval: edit targets bilingually, approve explicit
+  redirect subset, update links/metadata/sitemap and run normal release gate.
+  70 airline + four airport URLs need concrete business/utility evidence.
+
+### SEO Recovery, 2026-09-15
+
+- Current task branch: `codex/seo-recovery`, based on `origin/main` `cad98a8`.
+- Read `seo-audit-output/REPORT.md` and `seo-audit-output/README.md` for the
+  completed audit, all URL decisions, evidence and repeatable commands.
+- Used the three native GSC CSV exports in `../GSC-EXPORT-2026-09-15/`: 57 crawled,
+  8 canonical, 2 historical 404. Public baseline and local candidate each cover
+  320 URLs, including all 294 sitemap entries. Never invent Google-selected
+  canonical values from those CSVs; that field is absent.
+- Prepared homepage WebSite/operator schema, legal metadata/canonicals in SR/EN,
+  noindex on four token utility pages, and JSON-LD escaping. No new redirects,
+  article deletion, blanket noindex, legal-body changes or tracking changes.
+- Locked decision: high text similarity is a review signal, not evidence enough
+  for mass consolidation. Editorial/route/airline ambiguity stays HUMAN_REVIEW.
+- Next work: review candidate decisions, obtain article-specific research and
+  performance evidence before consolidation; deploy this technical patch only
+  when explicitly requested, using the normal release gate.
+- Manual work: after approved deploy, optionally request homepage reindexing;
+  no mass request for all excluded articles. No production changes made here.
+- Verification: workflow/privacy/email tests, Meta/content/link/benchmark/locale
+  checks, lint and build TypeScript passed. Build enumerated 331 routes. Full
+  `seo-recovery-check.py` passed: same 294 sitemap URLs, all 200/self-canonical,
+  no accidental noindex, valid JSON-LD, no bad internal destinations, identical
+  visible sitemap content, legal hreflang, utility noindex and historical redirects.
+- Build must use `NEXT_PUBLIC_SITE_URL=https://letkasni.rs` for production-canonical
+  QA; the existing environment-free fallback is a local development URL.
+- Browser QA passed initial SR/EN claim transitions from homepage through delay
+  selection to flight-details inputs, with optional cookies rejected. No real
+  claim was submitted. Evidence: `seo-audit-output/browser-qa.md`.
+
 1. Read `AGENTS.md`.
 2. Read this `CHECKPOINT.md`.
 3. Run `npm run session:start` to verify a clean, synchronized canonical checkout.

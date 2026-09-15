@@ -217,7 +217,6 @@ export const cornerstonePages: CornerstonePage[] = [
       position: "center",
     },
     childArticleIds: [
-      "flight-delay-compensation",
       "bad-weather-flight-delay",
       "technical-fault-flight-compensation",
       "previous-flight-rotation-delay",
@@ -250,9 +249,7 @@ export const cornerstonePages: CornerstonePage[] = [
       "belgrade-eu-flight-delay-compensation",
       "eu-serbia-flight-delay-compensation",
       "serbia-eu-non-eu-airline-delay",
-      "connecting-flight-delay-one-booking",
       "long-haul-flight-delay-300-600",
-      "tarmac-delay-door-open-time",
       "codeshare-operating-carrier-flight-delay",
       "package-holiday-flight-delay-compensation",
       "group-booking-flight-delay-compensation",
@@ -260,7 +257,6 @@ export const cornerstonePages: CornerstonePage[] = [
       "airline-changed-delay-reason",
       "connecting-delay-minimum-connection-time",
       "flight-delay-assistance-thresholds",
-      "overnight-flight-delay-hotel-transfer-proof",
       "airport-closure-flight-delay-compensation",
       "deicing-flight-delay-compensation",
       "extra-costs-after-flight-delay",
@@ -307,10 +303,8 @@ export const cornerstonePages: CornerstonePage[] = [
       "smartwings-flight-delay-compensation",
       "corendon-airlines-flight-delay-compensation",
       "tunisair-flight-delay-compensation",
-      "separate-tickets-after-delay",
       "baggage-loading-flight-delay",
       "aircraft-cleaning-flight-delay",
-      "crew-duty-time-flight-delay",
       "no-meal-voucher-flight-delay-receipts",
       "family-with-children-flight-delay-care",
       "serbia-united-kingdom-flight-delay-compensation",
@@ -343,7 +337,7 @@ export const cornerstonePages: CornerstonePage[] = [
         "Glavni vodič za naknadu zbog kašnjenja leta: uslovi, iznosi, rute iz Srbije, vanredne okolnosti, dokazi i postupak.",
       eyebrow: "Glavni vodič",
       excerpt:
-        "Ako ste na krajnju destinaciju stigli tri sata ili više kasnije, verovatno imate pravo na fiksnu naknadu. Ovaj vodič objašnjava kada kašnjenje vredi proveriti, koliki iznos može pripadati putniku i kako odvojiti osnovani zahtev od situacija koje aviokompanija može opravdati.",
+        "Ako je let obuhvaćen EU261, dolazak najmanje tri sata kasnije može dati pravo na naknadu do 600 evra po putniku, uz ostale uslove. Za Srbiju/ECAA pravni osnov proverava se zasebno. Vodič razdvaja fiksnu naknadu od hrane, hotela i drugih troškova čekanja.",
       ctaLabel: "Proveri kašnjenje",
       languageLabel: "English version",
       sections: [
@@ -414,7 +408,7 @@ export const cornerstonePages: CornerstonePage[] = [
         "The main guide to flight delay compensation: eligibility, amounts, Serbia routes, extraordinary circumstances, evidence and claim procedure.",
       eyebrow: "Main guide",
       excerpt:
-        "If you reached your final destination three hours or more late, you may be entitled to fixed compensation. This guide explains when a delay is worth checking, what amount may apply and how to separate a strong claim from situations the airline can justify.",
+        "If EU261 covers your flight, arrival at least three hours late may qualify for compensation up to EUR 600 per passenger, subject to the other conditions. Serbia/ECAA needs a separate legal-basis check. This guide separates fixed compensation from meals, hotels and other waiting expenses.",
       ctaLabel: "Check delay",
       languageLabel: "Srpska verzija",
       sections: [
@@ -1375,7 +1369,7 @@ if (airPassengerRightsGuide) {
 const delayGuide = cornerstonePages.find((page) => page.id === "flight-delay-compensation");
 
 if (delayGuide) {
-  delayGuide.updatedAt = "2026-05-04";
+  delayGuide.updatedAt = "2026-09-15";
   delayGuide.sr.sections = [
     ...delayGuide.sr.sections,
     {
@@ -1665,12 +1659,12 @@ if (delayGuide) {
     {
       heading: "Kada kašnjenje leta daje pravo na naknadu",
       body: [
-        "Naknada za kašnjenje leta se ne procenjuje po tome koliko je putnik bio nervozan na aerodromu, niti po tome koliko je karta plaćena. Osnovno pitanje je da li ste na krajnju destinaciju stigli tri sata ili više kasnije od planiranog dolaska. Ako je polazak kasnio, ali je avion nadoknadio vreme u letu, slučaj može biti slabiji. Ako je prvi segment delovao kao manje kašnjenje, ali je zbog njega propala konekcija u jednoj rezervaciji, slučaj može biti mnogo jači.",
-        "Drugo pitanje je ruta. Evropska pravila najčešće pokrivaju letove koji polaze iz EU, letove koji dolaze u EU kada ih obavlja evropski prevoznik, i putovanja u jednoj rezervaciji gde se problem na jednom segmentu preliva na krajnju destinaciju. Za putnike iz Srbije posebno su važni letovi preko Beča, Frankfurta, Pariza, Rima, Amsterdama i drugih evropskih čvorišta, jer jedna booking referenca često menja celu procenu.",
+        "Prema EU261 i praksi Suda EU, dolazak na krajnju destinaciju najmanje tri sata kasnije može dati pravo na fiksnu naknadu od 250, 400 ili 600 evra po putniku, ako su ispunjeni uslovi pokrivenosti i odgovornosti. Cena karte ne određuje iznos. Ako je avion nadoknadio kašnjenje tokom leta, sam kasni polazak nije dovoljan. Ako ste zbog kraćeg kašnjenja propustili zaštićenu konekciju, bitan može biti kasniji dolazak na kraj putovanja.",
+        "Prvo proverite rutu i operativnog prevoznika. EU261 pokriva polaske iz EU i, uz propisane uslove, dolaske iz treće zemlje u EU kada let obavlja EU prevoznik. Presedanje u EU ili jedna booking referenca nisu sami po sebi dokaz da je svaka kombinovana ruta pokrivena. Za letove iz Srbije i ECAA posebno se utvrđuje pravni osnov; kasnija praksa Suda EU ne smatra se automatski obavezujućom po srpskom pravu.",
         "Treće pitanje je razlog kašnjenja. Tehnički kvar, kasna rotacija aviona, nedostatak posade i operativna organizacija često mogu biti u zoni odgovornosti aviokompanije. Loše vreme, zatvaranje aerodroma, ograničenja kontrole letenja i bezbednosni događaji mogu biti jača odbrana. Razlika nije u nazivu razloga, već u dokazima. Zato se ozbiljan zahtev ne zasniva na poruci iz aplikacije, već na vezi između rute, vremena, uzroka i posledice.",
       ],
       bullets: [
-        "Ključni prag je dolazak tri sata ili više kasnije.",
+        "U EU okviru ključni prag je dolazak najmanje tri sata kasnije, uz ostale uslove.",
         "Gleda se krajnja destinacija, naročito kod jedne rezervacije.",
         "Iznos zavisi od razdaljine, a ne od cene karte.",
         "Razlog kašnjenja mora biti konkretno proveren, ne samo prihvaćen.",
@@ -1721,7 +1715,8 @@ if (delayGuide) {
       heading: "Dolazak tri sata kasnije i stvarno vreme dolaska",
       body: [
         "Presudan prag je vreme dolaska na krajnju destinaciju, ne samo vreme poletanja. Ako je polazak kasnio četiri sata, ali je dolazak kasnio dva sata i pedeset minuta, fiksna naknada može biti sporna. Ako je prvi let kasnio manje, ali ste zbog njega propustili konekciju i stigli pet sati kasnije, slučaj može biti mnogo jači pravno.",
-        "Zato se u proceni traže planirano vreme dolaska, stvarno vreme sletanja, vreme otvaranja vrata kada je dostupno, screenshot iz aplikacije i poruke aviokompanije. Vodiči za prava putnika i zvanični EU izvori posebno naglašavaju dolazak, jer se upravo tu najčešće pravi greška. Putnik pamti čekanje na polasku, ali pravo na fiksnu naknadu najčešće zavisi od kraja putovanja.",
+        "U EU praksi dolazak znači otvaranje najmanje jednih vrata uz dozvolu putnicima da izađu, a ne samo dodir piste. Sačuvajte planirani dolazak, zabeleženo otvaranje vrata, vremensku zonu i izvor podatka. [Vreme dolaska i dokazivanje praga](/naknada-za-kasnjenje-leta/kasnjenje-leta-vreme-dolaska) objašnjavaju šta tražiti ako aplikacija prikazuje samo sletanje ili parking poziciju.",
+        "Ako i zamenski let kasni, napravite jednu vremensku liniju: prvobitni plan, prvo kašnjenje, ponuđenu zamenu i konačni dolazak. Nemojte porediti dolazak samo sa novim rasporedom pa izgubiti početno kašnjenje. Odvojeno zabeležite uzrok svakog poremećaja i troškove čekanja; dodatno kašnjenje nije automatski još jedna fiksna naknada.",
         "Ako ste [preusmereni na drugi aerodrom](/naknada-za-kasnjenje-leta/preusmeren-let-drugi-aerodrom-prava-putnika), nije dovoljno gledati samo vreme sletanja na alternativni aerodrom. Bitno je kada ste realno stigli do aerodroma ili destinacije iz rezervacije, ko je organizovao transfer i koliko je putovanje ukupno produženo. Zato preusmerenje često pripada temi kašnjenja, iako na prvi pogled deluje kao posebna situacija.",
       ],
     },
@@ -1797,12 +1792,12 @@ if (delayGuide) {
     {
       heading: "When a flight delay gives a right to compensation",
       body: [
-        "Flight delay compensation is not assessed by how stressful the airport wait felt or by how much the ticket cost. The core question is whether you reached the final destination three hours or more after the scheduled arrival time. If departure was late but the aircraft recovered time in the air, the claim can be weaker. If the first segment looked like a smaller delay but caused a missed connection under one booking, the case can be much stronger.",
-        "The second question is route coverage. European rules commonly cover flights departing from the EU, flights arriving in the EU when operated by a European carrier, and one-booking journeys where a problem on one segment affects arrival at the final destination. For travelers from Serbia, routes through Vienna, Frankfurt, Paris, Rome, Amsterdam and other European hubs matter because a single booking reference can change the assessment.",
+        "Under EU261 and CJEU case law, arriving at the final destination at least three hours late may give a right to fixed compensation of 250, 400 or 600 euros per passenger, subject to coverage and responsibility conditions. Ticket price does not determine the amount. If the aircraft recovered time in flight, a late departure alone is insufficient. If a shorter delay caused a missed protected connection, arrival at the end of the journey may be what matters.",
+        "First check the route and operating carrier. EU261 covers departures from the EU and, subject to its conditions, arrivals from a third country into the EU operated by an EU carrier. Connecting in the EU or having one booking reference does not by itself prove coverage for every combined route. Flights from Serbia and the ECAA framework require a separate legal-basis assessment; later CJEU case law is not assumed automatically binding under Serbian law.",
         "The third question is the cause of the delay. Technical faults, late aircraft rotation, crew shortage and operational organization can often sit within the airline's responsibility. Bad weather, airport closure, air traffic control restrictions and safety events can be stronger defenses. The difference is not the label, but the evidence connecting route, time, cause and consequence.",
       ],
       bullets: [
-        "The key threshold is arrival three hours or more late.",
+        "In the EU framework, the key threshold is arrival at least three hours late, subject to other conditions.",
         "Final destination matters, especially under one booking.",
         "The amount depends on distance, not ticket price.",
         "The delay reason must be checked specifically, not merely accepted.",
@@ -1853,7 +1848,8 @@ if (delayGuide) {
       heading: "The three-hour arrival rule and actual arrival time",
       body: [
         "The decisive threshold is arrival at the final destination, not departure delay alone. If departure was four hours late but arrival was two hours and fifty minutes late, fixed compensation can be disputed. If the first flight was less delayed but caused a missed connection and a five-hour late arrival, the case can be much stronger.",
-        "The assessment needs scheduled arrival, actual landing, door-opening time where available, app screenshots and airline messages. Passenger-rights guidance and official EU sources focus on arrival because this is where passengers often make mistakes. Passengers remember departure waiting, but fixed compensation usually depends on the end of the journey.",
+        "In EU case law, arrival means at least one door opening with permission for passengers to leave, not simply touchdown. Keep scheduled arrival, recorded door opening, the time zone and the data source. The [arrival-time and threshold evidence guide](/en/flight-delay-compensation/flight-delay-final-arrival-time) explains what to request when an app shows only landing or parking time.",
+        "If the replacement flight is also delayed, build one timeline: original schedule, first disruption, offered replacement and final arrival. Do not compare arrival only with the replacement schedule and lose the initial delay. Record each disruption's cause and waiting costs separately; another delay does not automatically mean another fixed compensation payment.",
         "If you were [diverted to another airport](/en/flight-delay-compensation/flight-diverted-different-airport-passenger-rights), it is not enough to look only at landing time at the alternative airport. The key question is when you actually reached the airport or destination in the booking, who arranged transfer and how much the journey was extended.",
       ],
     },

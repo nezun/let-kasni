@@ -355,7 +355,7 @@ export const articles = [
   {
     id: "separate-tickets-missed-connection",
     publishedAt: "2026-05-03",
-    updatedAt: "2026-05-03",
+    updatedAt: "2026-09-15",
     sr: {
       slug: "odvojene-karte-propustena-konekcija",
       title: "Odvojene karte i propuštena konekcija: najveći rizik koji putnici potcene",
@@ -375,7 +375,7 @@ export const articles = [
         {
           heading: "Kako proveriti šta imate",
           body: [
-            "Pogledajte booking reference. Ako svi segmenti imaju isti kod rezervacije, istu kartu ili su prikazani kao jedan itinerer kod jednog prodavca, moguće je da imate jedinstvenu rezervaciju. Ako imate dva potpuno odvojena koda, dve naplate i dva check-in procesa, rizik je verovatno odvojen.",
+            "Proverite elektronske karte, potvrdu kupovine i uslove prodaje zajedno. Jedan PNR ili prikaz svih letova u istom emailu nije sam po sebi konačan dokaz jedinstvene rezervacije; ni više rezervacionih kodova automatski ne dokazuje odvojene ugovore. Tražite potvrdu da li je prodat povezan prevoz ili self-transfer.",
             "Neki online posrednici prave kombinovana putovanja koja izgledaju kao jedna kupovina, ali u pozadini izdaju odvojene karte. Tada njihova garancija ili uslovi posrednika mogu biti važniji od standardnih prava prema aviokompaniji.",
             "Sačuvajte potvrdu kupovine i uslove. Ako piše self-transfer, separate tickets ili protected by agency guarantee, to su bitni signali. Self-transfer obično znači da sami preuzimate prtljag, ponovo se čekirate i snosite veći rizik ako prvi let zakasni."
           ]
@@ -383,7 +383,7 @@ export const articles = [
         {
           heading: "Šta ako prvi let kasni",
           body: [
-            "Ako prvi let kasni tri sata ili više na svom odredištu, možda možete tražiti naknadu za taj segment ako je pokriven evropskim pravilima i ako uzrok nije vanredan. Ali to ne znači automatski da će aviokompanija platiti novi transatlantski let koji ste odvojeno kupili.",
+            "Ako prvi let stigne najmanje tri sata kasnije, mogućnost [naknade za kašnjenje leta](/naknada-za-kasnjenje-leta) po pravilima EU proverava se za taj let, njegovu rutu i razlog. To ne znači automatsku refundaciju odvojeno kupljenog transatlantskog leta. Za domaći osnov Srbije/ECAA potrebna je zasebna provera, ne automatsko prenošenje kasnije prakse Suda EU.",
             "Ako kašnjenje prvog leta nije dostiglo prag, ali je bilo dovoljno da propustite drugu kartu, situacija je još teža. Iz ugla prve aviokompanije, ona je možda isporučila segment sa manjim kašnjenjem, dok je za Vas posledica ogromna zbog kratkog self-transfer vremena.",
             "Zato kod odvojenih karata dokazi treba da budu precizni: vreme dolaska, vreme izlaska iz aviona, vreme preuzimanja prtljaga, zatvaranje check-in-a za drugi let i svaka pomoć koju ste tražili."
           ]
@@ -399,9 +399,9 @@ export const articles = [
         {
           heading: "Kako ubuduće smanjiti rizik",
           body: [
-            "Najbolja automatizacija je u planiranju. Za self-transfer ostavite mnogo duži razmak, posebno ako menjate terminal, prelazite pasošku kontrolu, preuzimate prtljag ili putujete u sezoni. Sat i po na papiru često nije dovoljno ako prvi let kasni samo 40 minuta.",
+            "Za self-transfer planirajte preuzimanje i ponovnu predaju prtljaga, promenu terminala i eventualnu pasošku i bezbednosnu kontrolu. Sat i po između letova nije univerzalno bezbedan razmak: već 40 minuta prvog kašnjenja može ostaviti premalo vremena do zatvaranja prijave za sledeći let.",
             "Koristite jednu rezervaciju kad je drugi segment skup ili poslovno važan. Ako birate odvojene karte zbog cene, uračunajte cenu rizika: dodatni hotel, nova karta, izgubljen dan i stres. Jeftinija kombinacija nije uvek jeftinija ako nema zaštitu.",
-            "Za postojeći problem, pošaljite zahtev strukturisano: odvojeno naknada za prvi segment, odvojeno troškovi zbog propuštenog drugog leta, odvojeno zahtev posredniku ili osiguranju. Mešanje svega u jedan zahtev najčešće usporava odgovor.",
+            "Let Kasni u proveri odvaja naknadu za prvi segment, troškove zbog druge karte i eventualni zahtev posredniku ili osiguranju. Prava na brigu na prvom letu proveravaju se i kada gubitak odvojene konekcije nije pokriven. Za različite osnove čuvajte odvojene račune i odgovore; isplata drugog prevoznika ili osiguranja nije unapred garantovana.",
             "Ako tek kupujete karte, napravite jednostavno pravilo: što je dalje odredište skuplje, to manje ima smisla štedeti na rizično kratkoj odvojenoj konekciji. Ta odluka nije pravna, nego finansijska; cilj je da potencijalni gubitak ne bude veći od uštede.",
             "Ako ste već u problemu, ne čekajte da svi rokovi prođu. Isti dan prikupite potvrdu o kašnjenju prvog leta, cenu nove karte i odgovor posrednika. Kasnije je mnogo teže dokazati da je kupovina bila razumna i da niste imali bolju opciju."
           ]
@@ -427,7 +427,7 @@ export const articles = [
         {
           heading: "How to check what you have",
           body: [
-            "Look at the booking reference. If all segments have the same reservation code, the same ticket or appear as one itinerary with one seller, you may have a single booking. If you have two completely separate codes, two payments and two check-in processes, the risk is probably separate.",
+            "Check the e-tickets, purchase confirmation and sales terms together. One PNR or an email listing every flight is not conclusive proof of a single booking; multiple booking codes do not automatically prove separate contracts either. Ask whether the sale covers connected carriage or a self-transfer.",
             "Some online agencies create combined trips that look like one purchase but issue separate tickets in the background. In that case, the agency guarantee or its terms may matter more than standard airline rights.",
             "Save the purchase confirmation and terms. If it says self-transfer, separate tickets or protected by agency guarantee, those are important signals. Self-transfer usually means you collect baggage yourself, check in again and carry a higher risk if the first flight is delayed."
           ]
@@ -435,7 +435,7 @@ export const articles = [
         {
           heading: "What if the first flight is delayed",
           body: [
-            "If the first flight arrives three hours or more late at its own destination, you may be able to claim compensation for that segment if it is covered by European rules and the cause was not extraordinary. But that does not automatically mean the airline will pay for the separate transatlantic flight you lost.",
+            "If the first flight arrives at least three hours late, [flight delay compensation](/en/flight-delay-compensation) under EU rules is assessed for that flight, its route and cause. It does not automatically reimburse a separately purchased transatlantic flight. A Serbian/ECAA domestic-law basis requires separate assessment, not automatic application of later CJEU case law.",
             "If the first delay did not reach the threshold but was enough for you to miss the second ticket, the situation is even harder. From the first airline's perspective, it may have delivered its segment with a smaller delay, while the consequence for you was huge because of short self-transfer time.",
             "That is why evidence for separate-ticket cases must be precise: arrival time, time leaving the aircraft, baggage collection time, check-in closing time for the second flight and every request for help you made."
           ]
@@ -451,9 +451,9 @@ export const articles = [
         {
           heading: "How to reduce the risk next time",
           body: [
-            "The best automation is in planning. For self-transfer, leave a much longer gap, especially if you change terminal, pass passport control, collect baggage or travel in peak season. Ninety minutes on paper is often not enough if the first flight is only 40 minutes late.",
+            "For a self-transfer, allow for baggage collection and recheck, a terminal change and any passport and security controls. Ninety minutes between flights is not a universally safe connection: a 40-minute initial delay may leave too little time before check-in for the next flight closes.",
             "Use one booking when the second segment is expensive or business-critical. If you choose separate tickets because of price, include the cost of risk: extra hotel, new ticket, lost day and stress. The cheaper combination is not always cheaper if there is no protection.",
-            "For an existing problem, structure the claim: compensation for the first segment separately, costs caused by the missed second flight separately, and agency or insurance claim separately. Mixing everything into one request usually slows the answer."
+            "Let Kasni separates first-segment compensation, costs linked to the second ticket and any agency or insurance claim. Care rights on the first flight are assessed even when loss of the separate connection is not covered. Keep receipts and responses for each basis distinct; payment by another carrier or insurer is not guaranteed."
           ]
         }
       ],

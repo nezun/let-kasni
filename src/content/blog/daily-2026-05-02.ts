@@ -400,7 +400,7 @@ export const articles = [
   {
     id: "overnight-delay-hotel-rights",
     publishedAt: "2026-05-02",
-    updatedAt: "2026-05-02",
+    updatedAt: "2026-09-15",
     sr: {
       slug: "nocno-kasnjenje-leta-hotel-prava",
       title: "Noćno kašnjenje leta: hotel, transfer i računi koje treba sačuvati",
@@ -412,9 +412,9 @@ export const articles = [
         {
           heading: "Noćno čekanje otvara posebna prava",
           body: [
-            "Kada se kašnjenje ili otkazivanje protegne preko noći, problem više nije samo dolazak kasnije. Putnik mora negde da spava, jede, stigne do smeštaja i vrati se na aerodrom. Evropska pravila zato razlikuju fiksnu naknadu od prava na brigu.",
+            "Kada zbog poremećaja morate da prenoćite čekajući nastavak puta, tražite hotel i prevoz između aerodroma i smeštaja. To je pravo na brigu, odvojeno od [naknade za kašnjenje leta](/naknada-za-kasnjenje-leta). Sam dolazak na krajnju destinaciju kasno noću ne znači automatski da aviokompanija duguje hotel.",
             "Pravo na brigu može postojati i kada fiksna naknada nije sigurna. Na primer, ako je let otkazan zbog ozbiljnog nevremena, aviokompanija može osporavati 250, 400 ili 600 evra, ali i dalje mora razumno brinuti o putnicima dok čekaju nastavak puta.",
-            "Uobičajeni vodiči često pomenu meals and hotel accommodation, ali putnicima nedostaje praktičan deo: šta uraditi kada šalter ne radi, vaučera nema, a poslednji autobus do grada je već otišao."
+            "[Zvanični EU pregled prava putnika](https://europa.eu/youreurope/citizens/travel/passenger-rights/air/index_en.htm) opisuje smeštaj kada je noćenje neophodno i prevoz do njega. Prvo se proverava da li let potpada pod ta pravila. Za Srbiju/ECAA proverava se zaseban pravni osnov; kasnija praksa Suda EU ne prenosi se automatski na svaki let iz Srbije."
           ]
         },
         {
@@ -422,15 +422,17 @@ export const articles = [
           body: [
             "Ako je jasno da čekate do sledećeg dana, prvo tražite hotel, transfer i obroke od aviokompanije. Pitajte na gejtu, šalteru, u aplikaciji i preko korisničke podrške. Sačuvajte screenshotove i imena kanala preko kojih ste pokušali.",
             "Ako aviokompanija organizuje hotel, proverite i transfer. Soba bez prevoza nije potpuna pomoć ako je hotel daleko, javni prevoz više ne radi ili putujete sa decom, starijim osobama ili puno prtljaga.",
+            "Pre samostalne rezervacije zatražite pisanu potvrdu da smeštaj nije obezbeđen ili sačuvajte pokušaj kontakta bez odgovora. Ako je odgovor samo usmen, zabeležite vreme, mesto i ulogu zaposlenog. Objasnite zašto dalje čekanje nije bilo razumno, posebno kada se smeštaj rasprodaje ili je novi polazak rano ujutru.",
             "Ako dobijete vaučer koji realno ne pokriva osnovni obrok ili je restoran zatvoren, fotografišite situaciju. Kasnije će biti lakše objasniti zašto ste morali sami da platite razuman obrok ili vodu."
           ]
         },
         {
           heading: "Kada sami plaćate, plaćajte razumno",
           body: [
-            "Ako pomoći nema, putnik može platiti nužne troškove i tražiti refundaciju. Ključna reč je razumno. Standardan hotel, normalan obrok, transfer do smeštaja i nazad, osnovna higijena ili komunikacija mnogo se lakše brane nego luksuzni troškovi.",
+            "Ako pravo na brigu postoji, a pomoć nije pružena, traži se refundacija nužnih i razumnih troškova hotela, obroka i prevoza do smeštaja i nazad. Račun nije automatska garancija isplate svake kupovine. Izbegnite luksuzne dodatke i odvojite stavke koje nisu povezane sa čekanjem.",
             "Nije uvek realno pronaći najjeftiniji hotel u ponoć sa decom ili posle otkazivanja više letova. Ali treba moći objasniti zašto je trošak bio nužan u datim okolnostima. Račun bez objašnjenja je slabiji od računa uz kratku vremensku liniju.",
-            "Sačuvajte fiskalne račune, potvrde kartičnog plaćanja, booking potvrdu hotela i poruke aviokompanije. Ako račun nije na Vaše ime, zapišite ko je putovao i zašto je plaćeno jednom karticom."
+            "Sačuvajte fiskalne račune, potvrde kartičnog plaćanja, booking potvrdu hotela i poruke aviokompanije. Ako račun nije na Vaše ime, zapišite ko je putovao i zašto je plaćeno jednom karticom.",
+            "Uz račun za transfer navedite relaciju aerodrom–hotel, vreme vožnje i broj putnika. Sačuvajte dostupnost soba, radno vreme hotelskog prevoza i novi polazak ako objašnjavaju izbor. Dovoljno je kratko navesti posebnu potrebu deteta ili putnika, bez nepotrebne zdravstvene dokumentacije. Taksi kući po završenom putovanju nije isto što i transfer do hotela tokom čekanja."
           ]
         },
         {
@@ -470,9 +472,9 @@ export const articles = [
         {
           heading: "An overnight wait creates separate rights",
           body: [
-            "When a delay or cancellation stretches overnight, the problem is no longer only arriving late. The passenger needs somewhere to sleep, food, transport to accommodation and a return to the airport. European rules therefore separate fixed compensation from the right to care.",
+            "When disruption makes an overnight stay necessary while awaiting onward travel, ask for a hotel and transport between the airport and accommodation. This is care, separate from [flight delay compensation](/en/flight-delay-compensation). Reaching your final destination late at night does not automatically mean the airline owes a hotel.",
             "The right to care may exist even when fixed compensation is uncertain. For example, if a flight is cancelled because of severe weather, the airline may dispute 250, 400 or 600 euros, but it still has to reasonably care for passengers while they wait for onward travel.",
-            "Passenger-rights guides often mention meals and hotel accommodation, but passengers need the practical part: what to do when the desk is closed, no voucher is offered and the last bus to the city has already left."
+            "The [official EU passenger-rights overview](https://europa.eu/youreurope/citizens/travel/passenger-rights/air/index_en.htm) describes accommodation when an overnight stay is necessary and transport to it. First establish whether those rules cover the flight. Serbia/ECAA requires a separate legal-basis check; later CJEU case law is not automatically binding on every flight from Serbia."
           ]
         },
         {
@@ -480,15 +482,17 @@ export const articles = [
           body: [
             "If it is clear that you are waiting until the next day, first ask the airline for hotel accommodation, transfer and meals. Ask at the gate, service desk, in the app and through customer support. Keep screenshots and the channels you used.",
             "If the airline arranges a hotel, check the transfer too. A room without transport is incomplete help if the hotel is far away, public transport has stopped or you are traveling with children, older passengers or heavy luggage.",
+            "Before booking yourself, request written confirmation that accommodation is unavailable or save your unanswered contact attempt. For a verbal response, note the time, place and staff role. Explain why waiting longer was unreasonable, particularly when rooms are selling out or the new departure is early the next morning.",
             "If you receive a voucher that does not realistically cover a basic meal or the restaurant is closed, photograph the situation. Later it will be easier to explain why you had to pay yourself for a reasonable meal or water."
           ]
         },
         {
           heading: "If you pay yourself, pay reasonably",
           body: [
-            "If help is not provided, the passenger may pay necessary costs and request reimbursement. The key word is reasonable. A standard hotel, normal meal, transfer to and from accommodation, basic hygiene or communication are much easier to justify than luxury expenses.",
+            "Where a right to care exists but assistance is not provided, reimbursement can be requested for necessary and reasonable hotel, meal and airport-transfer costs. A receipt does not automatically guarantee payment for every purchase. Avoid luxury extras and separate items unrelated to the wait.",
             "It is not always realistic to find the cheapest hotel at midnight with children or after multiple flight cancellations. But you should be able to explain why the cost was necessary in the circumstances. A receipt without explanation is weaker than a receipt with a short timeline.",
-            "Keep fiscal receipts, card payment confirmations, hotel booking confirmation and airline messages. If the receipt is not in your name, write down who traveled and why one card paid for several people."
+            "Keep fiscal receipts, card payment confirmations, hotel booking confirmation and airline messages. If the receipt is not in your name, write down who traveled and why one card paid for several people.",
+            "For transfer receipts, state the airport–hotel route, journey time and passenger count. Save room availability, hotel-shuttle hours and the new departure when they explain your choice. Briefly describe a child's or passenger's particular need without unnecessary medical records. A taxi home after completing the journey is not the same as a hotel transfer while waiting."
           ]
         },
         {
