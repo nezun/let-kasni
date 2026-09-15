@@ -4,6 +4,138 @@ Canonical handoff file for future local and Codex Cloud sessions.
 
 ## Start Here
 
+### Retirement release approved, 2026-09-16
+
+- Owner explicitly approved deploy of the final scope below: airline and regional
+  pages removed, all general/scenario pages kept and recorded as suggestions only.
+- Re-fetched origin/main: still 49d0843, identical to the feature branch base.
+  Session-start dirty-tree guard identified only this known, approved package.
+  Preserve it, commit it, then run the unchanged clean-tree release gate.
+- Pre-landing review covers manifests, source removals, mappings, 404 UI, QA guards
+  and report scripts. No database, form/provider, landing or consent code changes.
+  GSC-enriched reports remain ignored, outside the public commit.
+- Release through a reviewed feature PR, passing CI, GitHub main and Vercel.
+  After deployment, run production gate and full retirement/redirect/browser
+  checks. Store release results under seo-audit-output/retirement-release/.
+  Keep DAILY BLOG paused and general-query suggestions published.
+
+### FINAL scope: general queries restored, 2026-09-15 (LOCAL ONLY)
+
+- This entry supersedes the broader removal decision below. Owner wants airline
+  and regional/route pages removed, but general/scenario articles KEPT for now.
+  Continue existing `codex/retire-airline-pseo`; all prior own work is preserved.
+- Restored 47 general articles / 94 localized URLs, their mappings, enhancements,
+  images and guide links from HEAD49d0843. Restored consolidation groups B/C/E/F;
+  all A-F now match the approved existing production consolidation policy.
+- Still removed: 46 airline + 16 regional articles = 124 canonical URLs and
+  248 aliases, 372 direct-404 paths. No airline or regional content revived.
+  Active content: 68 articles plus eight guides, bilingual; sitemap 158 URLs.
+- `src/content/seo-suggested-removals.json` is an explicit non-executing backlog:
+  47 IDs/94 paths, KEEP_PUBLISHED, applyRemoval=false, approvalRequired=true.
+  General reasons concern possible intent overlap/fragmentation/template reuse,
+  not proven penalties. Historical low traffic alone does not justify removal.
+  Backlinks remain UNKNOWN. Future removal needs new explicit owner approval.
+- All 152 retained localized content records match the original pre-retirement
+  structured snapshot exactly. No claim, provider, admin, landing or legal edits.
+  Three mixed daily batches have exact retained-ID QA allowlists (5, 2, 3).
+- Verify PASS: 37 tests, content QA/link graph/benchmark, locales, lint, TS/build
+  (195 static generation entries). HTTP audit: 907 PASS, 0 failures, including
+  all retired query variants, 158 live URLs and SR/EN alternates. All A-F redirect
+  monitor checks PASS (61). Browser: 12 PASS across SR/EN, desktop/mobile, covering
+  404 navigation, restored article rendering and form contact step; no submission.
+  The audit follows the existing schema contract: articles require JSON-LD;
+  unchanged main guides do not. Their metadata and hreflang are verified.
+- Final evidence and full map: `seo-audit-output/retirement-final/REPORT.md`,
+  `MAPA-I-POPIS.md`, `OSTAJE-158-URL.csv`, `UKLONJENO-124-STRANICE.csv`,
+  `SUGGESTED-FOR-REMOVAL-94-URL.csv`, `sitemap-local.xml`, HTTP/browser/redirect JSON.
+  GSC-enriched outputs stay ignored. Earlier retirement reports are historical.
+  Repeatable report generator: `python3 scripts/seo-retirement-report.py`.
+- Local tested preview: http://localhost:3003, PID28640 (verify before reuse).
+  No commit, push, deploy or GSC write. DAILY BLOG remains paused; not restarted.
+- ONLY next release prerequisite: owner's explicit deploy approval. Then review
+  final diff and follow clean-commit/main/Vercel gates. After live checks, extend
+  the existing read-only monitor with removal checks while retaining A-F, refresh
+  GSC access and assess retained pages over 7/14/28 days. Do not delete suggestions.
+
+### Programmatic scope confirmed and removed, 2026-09-15 (LOCAL ONLY)
+
+- Owner confirmed "specific flight" means route/country/airport and generated
+  scenario pages, and explicitly asked to remove them. The earlier scope blocker
+  is resolved. Continued existing `codex/retire-airline-pseo` dirty work intact;
+  session guard was run and identified only this checkpointed in-progress package.
+- Removed 126 additional live localized URLs (32 regional/route/airport, 94
+  scenarios): 63 bilingual articles. Each of the 12 remaining daily source batches
+  was checked against approved IDs before deletion. Their five inactive prior-merge
+  source definitions were removed too. Original core articles remain.
+- Added `src/content/seo-retired-programmatic.json`: 63 live article pairs plus
+  four previously redirected source pairs (B/C/E/F). Removed those four redirect
+  groups since their targets were deleted. Groups A/D remain valid permanent
+  redirects to the main delay guide and original missed-connection article.
+- Combined retirement: 218 formerly live localized pages + eight former source
+  paths = 226 canonical paths and 452 legacy aliases, 678 direct-404 URLs.
+  Sitemap 282 -> 190 -> 64. Remaining content: 21 original active articles plus
+  eight main guides, bilingual. The airport action plan is preserved.
+- Removed scenario-specific appendices and registrations. No claim/provider/admin
+  changes. 54/58 surviving localized records identical; only two main guides in
+  both locales had retired links removed and four sentences changed into direct
+  evidence/date-checking steps. Minimum content QA limits remain unchanged.
+- Eight retirement regression tests are in verify. Obsolete mixed-batch exception
+  was removed. DAILY BLOG still PAUSED (verified). Browser harness now uses group D
+  for form checks, since group E is gone. Historical phase-specific audit artifacts
+  are not fresh expected baselines for this larger owner-approved scope.
+- Private evidence: `seo-audit-output/retirement-programmatic/REPORT.md`,
+  `additional-programmatic-pages.csv` (126), `all-retired-urls.csv` (678),
+  `http-verification.json`, `browser/results.json`, `retained-redirects/latest.json`.
+  All GSC exports/reports remain ignored and must stay out of public git.
+- Verify PASS: 37 tests, content/link/benchmark/locales, lint, TS/build (101 routes).
+  HTTP: 1425 checks PASS. Remaining redirect checks: 21 PASS. Browser: eight SR/EN
+  desktop/mobile 404 + form-contact-transition checks PASS; no real submission.
+- Local preview updated on http://localhost:3003, PID 23730. Old preview PID15221
+  was stopped before starting this build. Verify process identity before reuse.
+- Nothing committed, pushed or deployed. Only remaining release prerequisite is
+  explicit deploy approval, then normal clean-commit/main/Vercel release gates.
+  After production verification, update existing read-only monitor expectations
+  to A/D plus both retirement manifests, verify www, and refresh GSC access.
+  No claim of Google removal, zero backlinks, or guaranteed ranking improvement.
+
+### Airline SEO retirement, 2026-09-15 (LOCAL ONLY)
+
+- Current branch `codex/retire-airline-pseo`, started through session guard from
+  synchronized `origin/main` `49d0843` (the prior Phase 1 + 3A release is live).
+- Owner explicitly requested ending airline-specific and specific-flight pSEO.
+  Definite airline scope implemented: 46 original articles / 92 localized
+  canonical URLs plus 184 legacy aliases now return 404 locally. Sitemap 282 ->
+  190. Seven airline-only source batches deleted; four carrier articles removed
+  from mixed 05-07 batch while its two duration articles are preserved.
+- Removed article/image registrations, parent/child mappings and airline-only
+  enhancement generator. No claim, provider, airline catalogue, admin, landing
+  or prior consolidation redirect changes. Remaining 184 localized content
+  records are byte-equivalent as parsed structured data to the before snapshot.
+- Native 404 chosen because no equivalent carrier-specific replacement exists;
+  no blanket redirects/noindex pages/robots blocking. Shared bilingual 404 view
+  provides header/footer and optional rights/claim navigation. Its UI renders via
+  Next RSC; HTTP audit checks the actual 404/noindex and browser QA checks the UI.
+- Manifest `src/content/seo-retired-airlines.json` plus six regression tests are
+  part of `npm run verify`. Content QA permits only the exact two surviving
+  mixed-batch IDs. DAILY BLOG was already PAUSED and remains paused.
+- Private report and full inventories: `seo-audit-output/retirement/REPORT.md`,
+  `canonical-pages-with-evidence.csv` (92), `all-retired-urls.csv` (276),
+  `other-pseo-scope-to-confirm.csv` (126). Keep all GSC evidence OUT of public git.
+  Runbook: `docs/SEO-RETIREMENT-RUNBOOK.md`.
+- Verify PASS: 35 tests, content/link/benchmark/locales, lint, TS/build (227 routes).
+  Retirement HTTP audit: 747 checks PASS; previous-release local monitor: 61 PASS;
+  browser: 8 SR/EN desktop/mobile checks PASS (404 UI + form contact step, no send).
+  Local production-build preview remains at http://localhost:3003 (PID 15221;
+  verify current process before stopping/reusing, and do not reuse stale builds).
+- BLOCKER / next work: owner has not clarified "specific flight". No public
+  flight-number/date SEO generator found; 32 regional/route/airport and 94 scenario
+  URLs remain untouched pending that decision. Async clarification was sent.
+- This new package is NOT deployed, committed or pushed. Obtain separate explicit
+  deploy approval and follow normal release gate. Prior phase's approval must not
+  be reused. After deployment, extend the existing read-only monitor with retirement
+  checks, verify www, then refresh GSC. Preserved GSC ends 2026-09-12; backlinks
+  UNKNOWN. Do not claim deletion from Google or guaranteed ranking improvements.
+
 ### SEO release authorized, 2026-09-15
 
 - Owner approved steps 4 and 5: deploy the prepared Phase 1 + Phase 3A package
@@ -123,60 +255,45 @@ Canonical handoff file for future local and Codex Cloud sessions.
 ## Generated Status
 
 <!-- BEGIN:generated-status -->
-Generated at: `2026-09-15T16:20:57.368Z`
+Generated at: `2026-09-15T21:54:56.287Z`
 
-Branch: `codex/seo-recovery`
+Branch: `codex/retire-airline-pseo`
 
 Remote: `https://github.com/nezun/let-kasni.git`
 
-Latest local commit: `cad98a8 Privacy Policy 1.2 and email consent controls (#29)`
+Latest local commit: `49d0843 SEO recovery: controlled SR/EN consolidation and technical safeguards (#30)`
 
 Worktree status:
 
 ```text
-M CHECKPOINT.md
- M next.config.ts
- M scripts/content-benchmark-review.mjs
+M AGENTS.md
+ M CHECKPOINT.md
+ M package.json
  M scripts/content-qa.mjs
- M src/app/email-offers/page.tsx
- M src/app/en/email-offers/page.tsx
- M src/app/en/marketing/confirm/page.tsx
- M src/app/en/page.tsx
- M src/app/en/privacy/page.tsx
- M src/app/en/terms/page.tsx
- M src/app/marketing/confirm/page.tsx
- M src/app/page.tsx
- M src/app/privacy/page.tsx
- M src/app/terms/page.tsx
- M src/components/blog-article-page.tsx
  M src/content/blog/daily-2026-05-02.ts
- M src/content/blog/daily-2026-05-03.ts
- M src/content/blog/daily-2026-05-04.ts
- M src/content/blog/daily-2026-05-08.ts
- M src/content/blog/missed-connection.ts
+ D src/content/blog/daily-2026-05-05.ts
+ M src/content/blog/daily-2026-05-07.ts
+ M src/content/blog/daily-2026-05-09.ts
+ D src/content/blog/daily-2026-05-15.ts
+ D src/content/blog/daily-2026-05-16.ts
+ D src/content/blog/daily-2026-05-17.ts
+ D src/content/blog/daily-2026-05-18.ts
+ D src/content/blog/daily-2026-05-19.ts
+ D src/content/blog/daily-2026-05-22.ts
+ D src/content/blog/daily-2026-05-23.ts
+ D src/content/blog/daily-2026-05-24.ts
+ M src/content/blog/index.ts
  M src/lib/blog-content-enhancements.ts
- M src/lib/blog.ts
  M src/lib/cornerstones.ts
-?? docs/SEO-CONSOLIDATION-RUNBOOK.md
-?? docs/content-research/seo-phase3a-controlled-consolidation.md
-?? scripts/gsc-performance-readonly.mjs
-?? scripts/seo-consolidation-proposal.py
-?? scripts/seo-focused-content-policy.mjs
-?? scripts/seo-performance-import.py
-?? scripts/seo-phase2-check.py
-?? scripts/seo-phase3a-browser.mjs
-?? scripts/seo-phase3a-check.py
-?? scripts/seo-phase3a-prepare.py
-?? scripts/seo-phase3a-report.py
-?? scripts/seo-recovery-audit.py
-?? scripts/seo-recovery-check.py
-?? scripts/seo-recovery-report.py
-?? scripts/seo-source-map.mjs
-?? seo-audit-output/
-?? src/components/site-identity-schema.tsx
-?? src/content/seo-consolidations.json
-?? src/content/seo-focused-targets.json
-?? src/lib/legal-metadata.ts
+?? docs/SEO-RETIREMENT-RUNBOOK.md
+?? scripts/seo-retirement-audit.py
+?? scripts/seo-retirement-browser.mjs
+?? scripts/seo-retirement-report.py
+?? scripts/seo-retirement.test.mjs
+?? src/app/not-found.tsx
+?? src/content/seo-retired-airlines.json
+?? src/content/seo-retired-programmatic.json
+?? src/content/seo-suggested-removals.json
 ```
 
 Useful commands:
@@ -185,7 +302,7 @@ Useful commands:
 - `npm run dev`: `next dev`
 - `npm run lint`: `eslint`
 - `npm run build`: `next build`
-- `npm run verify`: `npm run workflow:check && npm run privacy:check && npm run meta:check && npm run email:check && npm run content:qa && npm run content:links && npm run content:benchmark && npm run locales:check && npm run lint && npm run build`
+- `npm run verify`: `npm run workflow:check && npm run privacy:check && npm run meta:check && npm run email:check && npm run seo:retirement:check && npm run content:qa && npm run content:links && npm run content:benchmark && npm run locales:check && npm run lint && npm run build`
 - `npm run release:gate`: `bash scripts/release-gate.sh`
 - `npm run production:check`: `node scripts/check-production.mjs`
 - `npm run workflow:check`: `bash scripts/check-workflow-guards.sh`
