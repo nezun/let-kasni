@@ -116,6 +116,8 @@ export interface Potpis {
 export interface Portal {
   /** Isto što sajt radi posle „Sačuvaj podatke“: ugovori + pozivi za potpis → POA_SENT u bazi. */
   pripremi(ref: string): Promise<{ ok: boolean; razlog?: string; poruka?: string }>;
+  /** Ugovor + poziv za potpis za svakog putnika, iz podataka predmeta (posle dokumenata); ništa ne upisuje u bazu. */
+  pozivi(ref: string, predmet: Predmet): Promise<Array<{ putnik: string; dokument_id: string; zahtev_id: string; drive_id: string | null }>>;
   link(ref: string): string | null;
 }
 

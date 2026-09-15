@@ -16,12 +16,25 @@ na produkciju (letkasni.rs) prelazi tek kad Niko kaže, po spisku na dnu. **Prod
 | Agenti | Nikov Mac: `scripts/sistem/radnik.mjs --okruzenje test` | Mac: `radnik.mjs --okruzenje prod` (posle prelaska) |
 | signNow | isti nalog (Development mode, vodeni žig) | plaćeni plan pre prelaska |
 
-## Kako radi
-- **Server** (`src/lib/sistem/`): prijem, Gmail, prilozi, pravila EU261, dokumenta, portal, e-potpis, draftovi,
-  dnevni pregled za advokate, CRM pregled. Zove ga pg_cron na sat i Mac posle svakog završenog agenta.
-- **Mac** radi samo agente (Provera leta, Revizor, Dokumenta) iz tabele `crm_poslovi`. Kad je Mac ugašen, poslovi
-  čekaju; server te predmete preskače i nastavlja kad rezultat stigne. Posao prekinut usred rada vraća se u red.
-- **Klijent**: link iz mejla → portal → „Sačuvaj podatke“ → sajt odmah pravi ugovor i otvara potpis.
+## Kako radi — tok predmeta
+1. **Forma** na sajtu → predmet odmah u CRM bazi (NEW).
+2. **Server** dopuni predmet; **agent na Macu** sakupi činjenice o letu; **kod** izračuna nalaz (EU261); **Revizor** (agent) proveri izvore.
+3. ELIGIBLE → **draft A-delay / A-cancel koji traži pasoš i boarding kartu**. Niko ga šalje.
+4. Klijent odgovori mejlom sa dokumentima → Apps Script ih spusti na Drive („LetKasni prilozi/<thread>“) →
+   server ih uzme u predmet i u folder za advokate.
+5. **Agent Dokumenta** (Mac) pročita ime, datum rođenja i adresu. Sve sigurno → server napravi ugovor o ustupanju
+   i poziv za potpis u signNow-u (POA_GENERATED). Nesigurno ili razlika → zadatak za Nika (HUMAN_REVIEW).
+6. **Draft G-potpis** sa ličnim linkom za potpis (POA_DRAFTED). Niko ga šalje → POA_SENT.
+7. Klijent otvori link i potpiše (bez upisivanja podataka i bez naloga) → server preuzme potpisan PDF → POA_SIGNED,
+   PDF u folderu za advokate, dnevni pregled advokatima (jedan mejl dnevno, samo kad ima novog).
+
+Mac radi samo agente (tabela `crm_poslovi`). Kad je Mac ugašen, poslovi čekaju; server te predmete preskače i
+nastavlja kad rezultat stigne. Posao prekinut usred rada vraća se u red.
+
+**Staging i pošta:** draftovi idu u bazu, ne u Gmail. Pregled i „slanje“:
+`node scripts/sistem/alati/staging-posta.mjs [--pokazi <id> | --posalji <id>]` (pipeline repo). Odgovore klijenata i
+priloge staging samo čita iz pravog Gmaila i foldera „LetKasni prilozi“ (`SISTEM_GMAIL_CITANJE=pravo`) — ništa u
+njima ne menja. Za probu: odgovor sa priloga pošalji na kontakt@letkasni.rs sa adrese koja nije naša.
 
 ## Provera
 ```bash

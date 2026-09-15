@@ -33,13 +33,13 @@ export type RezultatPripreme =
 
 const str = (v: unknown) => (typeof v === "string" && v.trim() ? v.trim() : null);
 
-function putnikIz(p: Record<string, unknown> | undefined, ref: string, i: number): PutnikUgovora | null {
+function putnikIz(p: Record<string, unknown> | undefined, ref: string, i: number, adresaPodnosioca: string | null = null): PutnikUgovora | null {
   const ime = str(p?.ime_prezime);
   if (!ime) return null;
   return {
     ime_prezime: ime,
     rodjena: str(p?.rodjena),
-    adresa: str(p?.adresa),
+    adresa: str(p?.adresa) ?? adresaPodnosioca,
     maloletan: p?.maloletan === true,
     zakonski_zastupnik: str(p?.zakonski_zastupnik),
     claim_id: `${ref}-${String(i + 1).padStart(2, "0")}`,
@@ -58,6 +58,41 @@ async function sacuvajNaDrive(ref: string, naziv: string, docx: Uint8Array) {
   return driveUpisiFajl(folder, naziv, docx, MIME_DOCX);
 }
 
+export type ZahtevZaPotpis = { putnik: string; dokument_id: string; zahtev_id: string; drive_id: string | null };
+
+/**
+ * Ugovor za svakog putnika + poziv za potpis u signNow-u, iz podataka predmeta. Ne piše u bazu:
+ * poziva ga i serverski prolaz, posle dokumenata (src/lib/sistem/koraci/dokumenta.ts). Baca grešku.
+ */
+export async function napraviPoziveZaPotpis(ref: string, podaci: Podaci, sajtUrl: string | null): Promise<ZahtevZaPotpis[]> {
+  const email = str(podaci.putnik?.email);
+  const adresa = str(podaci.putnik?.adresa);
+  const putnici = [putnikIz(podaci.putnik, ref, 0), ...(podaci.saputnici ?? []).map((p, i) => putnikIz(p, ref, i + 1, adresa))].filter(
+    (p): p is PutnikUgovora => !!p,
+  );
+  if (!email || !putnici.length) throw new Error("nepotpuno: nema email klijenta ili putnika");
+  const let_: LetUgovora = {
+    broj: str(podaci.let?.broj),
+    datum: str(podaci.let?.datum),
+    prevozilac: str(podaci.let?.prevozilac),
+    od: str(podaci.let?.od),
+    do: str(podaci.let?.do),
+    ruta_opis: str(podaci.let?.ruta_opis),
+  };
+  const redirectUri = sajtUrl ? `${sajtUrl.replace(/\/$/, "")}/predmet/hvala` : undefined;
+  const sabloni = await ucitajSablone();
+  const zahtevi: ZahtevZaPotpis[] = [];
+  for (const p of putnici) {
+    const naziv = nazivUgovora(p.ime_prezime);
+    const docx = await napraviUgovor(p, let_, sabloni);
+    const dokumentId = await otpremiUgovor(docx, naziv);
+    const { zahtevId } = await napraviEmbeddedPoziv({ ref, putnik: p.ime_prezime, email, dokumentId, redirectUri });
+    const driveId = await sacuvajNaDrive(ref, naziv, docx).catch(() => null);
+    zahtevi.push({ putnik: p.ime_prezime, dokument_id: dokumentId, zahtev_id: zahtevId, drive_id: driveId });
+  }
+  return zahtevi;
+}
+
 export async function pripremiUgovorZaPotpis(ref: string, sajtUrl: string | null): Promise<RezultatPripreme> {
   if (!jePripremaMoguca()) return { ok: false, razlog: "nije_podeseno" };
 
@@ -71,34 +106,9 @@ export async function pripremiUgovorZaPotpis(ref: string, sajtUrl: string | null
   // Ista provera kao u pipeline-u: ugovor se pravi samo kad je nalaz potvrđen revizijom.
   if (podaci.nalaz !== "ELIGIBLE" || podaci.revizija !== "SLAZEM_SE") return { ok: false, razlog: "nije_eligible" };
 
-  const email = str(podaci.putnik?.email);
-  const putnici = [putnikIz(podaci.putnik, ref, 0), ...(podaci.saputnici ?? []).map((p, i) => putnikIz(p, ref, i + 1))].filter(
-    (p): p is PutnikUgovora => !!p,
-  );
-  if (!email || !putnici.length) return { ok: false, razlog: "nepotpuno" };
-
-  const let_: LetUgovora = {
-    broj: str(podaci.let?.broj),
-    datum: str(podaci.let?.datum),
-    prevozilac: str(podaci.let?.prevozilac),
-    od: str(podaci.let?.od),
-    do: str(podaci.let?.do),
-    ruta_opis: str(podaci.let?.ruta_opis),
-  };
-
-  const redirectUri = sajtUrl ? `${sajtUrl.replace(/\/$/, "")}/predmet/hvala` : undefined;
-  const zahtevi: Array<{ putnik: string; dokument_id: string; zahtev_id: string; drive_id: string | null }> = [];
-
+  let zahtevi: ZahtevZaPotpis[];
   try {
-    const sabloni = await ucitajSablone();
-    for (const p of putnici) {
-      const naziv = nazivUgovora(p.ime_prezime);
-      const docx = await napraviUgovor(p, let_, sabloni);
-      const dokumentId = await otpremiUgovor(docx, naziv);
-      const { zahtevId } = await napraviEmbeddedPoziv({ ref, putnik: p.ime_prezime, email, dokumentId, redirectUri });
-      const driveId = await sacuvajNaDrive(ref, naziv, docx).catch(() => null);
-      zahtevi.push({ putnik: p.ime_prezime, dokument_id: dokumentId, zahtev_id: zahtevId, drive_id: driveId });
-    }
+    zahtevi = await napraviPoziveZaPotpis(ref, podaci, sajtUrl);
   } catch (greska) {
     const poruka = greska instanceof Error ? greska.message : String(greska);
     return { ok: false, razlog: /nepotpun|placeholder|maloletan|grada/.test(poruka) ? "nepotpuno" : "signnow", poruka };

@@ -4,7 +4,8 @@ import { plusRadnihDana, radnihDanaOd, type Kontekst } from "../kontekst.ts";
 import type { Prilog } from "../servisi.ts";
 
 /**
- * Pisac (kod): draftovi iz šablona gde tekst ne traži procenu — A-portal/A-delay/A-cancel, B, C, E, G
+ * Pisac (kod): draftovi iz šablona gde tekst ne traži procenu — A-delay/A-cancel (traži dokumenta), B, C, E,
+ * G-potpis (link za potpis, posle dokumenata) i G-ugovor (PDF, kad e-potpis nije podešen)
  * (prepis pipeline koraci/pisac.mjs). Sve ostalo postaje zadatak za čoveka.
  * NIŠTA SE NE ŠALJE (CLAUDE.md pravilo 1): Gmail draft na Nikovom nalogu, Niko šalje.
  * Iznos samo ako je iznos_odobren (pravilo 3, lint).
@@ -58,7 +59,7 @@ function razlogB(c: any) {
 
 type Plan =
   | { zadatak: { ref: string; vrsta: string; opis: string } }
-  | { zadatak?: undefined; sablon: string; subject: string; telo: string; noviStatus: string | null; portal?: boolean; followup?: string; attach?: Array<{ id: string; naziv: string }> };
+  | { zadatak?: undefined; sablon: string; subject: string; telo: string; noviStatus: string | null; followup?: string; attach?: Array<{ id: string; naziv: string }> };
 
 async function izaberi(ctx: Kontekst, c: any): Promise<Plan | null> {
   // obrisan draft se ne pravi ponovo; E posle poslatog follow-upa sme ponovo (poslednji kontakt se pomerio)
@@ -66,22 +67,13 @@ async function izaberi(ctx: Kontekst, c: any): Promise<Plan | null> {
   const b = osnovno(c);
   const z = (vrsta: string, opis: string): Plan => ({ zadatak: { ref: c.ref, vrsta, opis } });
 
+  // Prvi mejl traži dokumenta (pasoš, boarding karta); link za potpis ide tek posle dokumenata (G-potpis).
   if (c.status === "REVIEWED" && c.nalaz === "ELIGIBLE" && ["delay", "cancellation"].includes(c.tip)) {
-    const portal = ctx.konfig.portal.ukljucen;
-    const ime = portal ? "A-portal" : c.tip === "delay" ? "A-delay" : "A-cancel";
+    const ime = c.tip === "delay" ? "A-delay" : "A-cancel";
     if (vec(ime)) return null;
     if (!c.let?.broj || !c.let?.od || !c.let?.do) return z("draft_fale_podaci", `${ime}: fali broj leta ili ruta`);
     if (c.tip === "delay" && c.kasnjenje_dolazak_min == null) return z("draft_fale_podaci", "A-delay: nema kašnjenja u dolasku");
     if (c.tip === "cancellation" && !c.let.prevozilac) return z("draft_fale_podaci", "A-cancel: nema prevozioca");
-    if (portal) {
-      const link = ctx.servisi.portal.link(c.ref);
-      if (!link) return z("portal_bez_tajne", "Portal je uključen, a tajna za lične linkove (DOKUMENTA_TAJNA) nije podešena");
-      const tp = await sablon(ctx, "A-portal");
-      const nalaz_tacke = c.tip === "delay"
-        ? `1. kasnio ${hm(c.kasnjenje_dolazak_min)} u dolasku na krajnje odredište\n2. da dostupne informacije ukazuju da razlog kašnjenja ne predstavlja osnov za isključivanje odgovornosti avio-prevoznika.`
-        : "1. otkazan\n2. da razlog otkazivanja ne predstavlja osnov za isključivanje odgovornosti avio-prevoznika.";
-      return { sablon: "A-portal", subject: popuni(tp.subject, { ...b, vrsta: c.tip === "delay" ? "POMEREN" : "OTKAZAN" }), telo: popuni(tp.telo, { ...b, nalaz_tacke, link }), noviStatus: "DRAFTED", portal: true };
-    }
     const t = await sablon(ctx, ime);
     return { sablon: ime, subject: popuni(t.subject, b), telo: popuni(t.telo, { ...b, kasnjenje: c.kasnjenje_dolazak_min != null ? `${hm(c.kasnjenje_dolazak_min)} u dolasku na krajnje odredište` : "" }), noviStatus: "DRAFTED" };
   }
@@ -109,11 +101,9 @@ async function izaberi(ctx: Kontekst, c: any): Promise<Plan | null> {
     if (rd >= 14) return z("predlog_lost", `${rd} radnih dana bez odgovora — predlog: LOST`);
     if (rd < 3 || (c.followup && c.followup > ctx.danas) || vec("E-followup", c.poslednji_kontakt)) return null;
     if (!c.gmail?.subject) return z("followup_bez_threada", "Follow-up je dospeo, a predmet nema naslov Gmail threada");
-    const linkP = c.portal?.link_napravljen ? ctx.servisi.portal.link(c.ref) : null;
+    const linkP = c.status === "POA_SENT" && c.portal?.potpis_kanal === "portal" ? ctx.servisi.portal.link(c.ref) : null;
     const korak = linkP
-      ? c.status === "POA_SENT"
-        ? `Ugovor Vas čeka za elektronski potpis na Vašem ličnom linku:\n\n${linkP}`
-        : `Naredni korak je da na Vašem ličnom linku upišete podatke, pošaljete dokumenta i potpišete ugovor:\n\n${linkP}`
+      ? `Ugovor Vas čeka za elektronski potpis na Vašem ličnom linku:\n\n${linkP}`
       : c.status === "POA_SENT" ? KORAK_E.POA_SENT : c.tip === "other" ? KORAK_E.C_SENT : KORAK_E.AWAITING_DOCS;
     const t = await sablon(ctx, "E-followup");
     return {
@@ -123,17 +113,29 @@ async function izaberi(ctx: Kontekst, c: any): Promise<Plan | null> {
   }
 
   if (c.status === "POA_GENERATED") {
-    if (c.portal?.potpis_kanal === "portal" || (c.portal?.podaci_poslati && !c.portal?.potpis_kanal)) return null;
-    if (vec("G-ugovor")) return null;
+    if (c.portal?.podaci_poslati && !c.portal?.potpis_kanal) return null;
     const putnici = [c.putnik, ...(c.saputnici ?? [])].filter((p: any) => p?.ime_prezime);
-    if (putnici.some((p: any) => p.maloletan)) return z("draft_g_maloletni", "Ugovor spreman, a među putnicima je maloletno lice — pasus za zastupnika piše čovek (G)");
     if (!c.gmail?.subject) return z("draft_g_bez_threada", "Ugovor spreman, a predmet nema naslov Gmail threada");
+    const za_koga = putnici.length > 1 ? " za sve putnike" : "";
+
+    // ugovor i poziv za potpis su napravljeni posle dokumenata → mejl sa linkom za potpis
+    if (c.portal?.potpis_kanal === "portal") {
+      if (vec("G-potpis")) return null;
+      const link = ctx.servisi.portal.link(c.ref);
+      if (!link) return z("potpis_bez_tajne", "Ugovor spreman, a tajna za lične linkove (DOKUMENTA_TAJNA) nije podešena");
+      const t = await sablon(ctx, "G-potpis");
+      return { sablon: "G-potpis", subject: `Re: ${c.gmail.subject.replace(/^(Re:\s*)+/i, "")}`, telo: sredi(popuni(t.telo, { ...b, za_koga, link })), noviStatus: "POA_DRAFTED" };
+    }
+
+    // bez e-potpisa: PDF u prilogu, klijent štampa i vraća
+    if (vec("G-ugovor")) return null;
+    if (putnici.some((p: any) => p.maloletan)) return z("draft_g_maloletni", "Ugovor spreman, a među putnicima je maloletno lice — pasus za zastupnika piše čovek (G)");
     const ugovori = (c.ugovori ?? []).filter((u: any) => u.pdf_id);
     if (ugovori.length < putnici.length) return z("draft_g_ugovor", "Ugovor nije napravljen za sve putnike");
     const t = await sablon(ctx, "G-ugovor");
     return {
       sablon: "G-ugovor", subject: `Re: ${c.gmail.subject.replace(/^(Re:\s*)+/i, "")}`,
-      telo: sredi(popuni(t.telo, { ...b, za_koga: putnici.length > 1 ? " za sve putnike" : "", maloletni_pasus: "" })),
+      telo: sredi(popuni(t.telo, { ...b, za_koga, maloletni_pasus: "" })),
       attach: ugovori.map((u: any) => ({ id: u.pdf_id, naziv: u.naziv })), noviStatus: "POA_DRAFTED",
     };
   }
@@ -171,7 +173,6 @@ async function napraviDraft(ctx: Kontekst, c: any, plan: Exclude<Plan, { zadatak
       x.sistem.draftovi = [...(x.sistem.draftovi ?? []), zapis];
       x.gmail ??= {};
       x.gmail.draft_id = zapis.draft_id;
-      if (plan.portal) x.portal = { ...(x.portal ?? {}), link_napravljen: ctx.sadDatum.toISOString() };
       if (plan.followup) x.followup = plan.followup;
     });
   } catch (e) {

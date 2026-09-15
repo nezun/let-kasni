@@ -10,7 +10,8 @@ export type ImeKoraka = (typeof KORACI)[number];
 export interface Konfig {
   ime: "staging" | "prod";
   koraci: Record<ImeKoraka, Rezim>;
-  portal: { ukljucen: boolean };
+  /** Staging: čita pravi Gmail (samo čitanje — odgovori klijenata za probu toka), a draftove drži u bazi. */
+  gmailCitanje: boolean;
   sajtUrl: string;
   ignorisiEmailove: string[];
   naseAdrese: string[];
@@ -45,7 +46,7 @@ export function ucitajKonfig(env: Env = process.env): Konfig {
   return {
     ime,
     koraci,
-    portal: { ukljucen: env.SISTEM_PORTAL !== "ne" },
+    gmailCitanje: ime === "prod" || env.SISTEM_GMAIL_CITANJE === "pravo",
     sajtUrl: (env.NEXT_PUBLIC_SITE_URL ?? "https://letkasni.rs").replace(/\/$/, ""),
     ignorisiEmailove: lista(env.CRM_IGNORISI_EMAILOVE),
     naseAdrese: lista(env.SISTEM_NASE_ADRESE ?? "kontakt@letkasni.rs,podrska@mail.letkasni.rs,marinkovic.niko@gmail.com"),

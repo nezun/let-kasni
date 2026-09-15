@@ -130,11 +130,16 @@ function sajtPripremaUgovor(ref: string) {
   };
   predmeti.set(ref, { ...r, status: "POA_SENT", podaci, verzija: r.verzija + 1, izvor_izmene: "portal" });
 }
-const portal: Portal = { pripremi: async (ref) => { sajtPripremaUgovor(ref); return { ok: true }; }, link };
+const portal: Portal = {
+  pripremi: async (ref) => { sajtPripremaUgovor(ref); return { ok: true }; },
+  pozivi: async (ref, predmet) => [predmet.putnik, ...(predmet.saputnici ?? [])].map((p: any, i: number) => ({ putnik: p.ime_prezime, dokument_id: `doc-${ref}-${i}`, zahtev_id: `z${i}`, drive_id: null })),
+  link,
+};
 
 const SABLONI: Record<string, string> = {
   "A-portal": "<!-- test -->\nSubject: AVIO-NAKNADA ZA {{vrsta}} LET {{let}} {{od}} - {{do}}\n\n{{oslovljavanje}} {{vokativ}},\n\nVaš {{let_opis}}:\n\n{{nalaz_tacke}}\n\nPostoji osnov{{iznos_blok}}.\n\n{{link}}\n\nPodrška letkasni.rs\n",
-  "A-delay": "Subject: AVIO-NAKNADA ZA POMEREN LET {{let}} {{od}} - {{do}}\n\n{{oslovljavanje}} {{vokativ}},\n\nKasnio {{kasnjenje}}.\n\nPodrška letkasni.rs\n",
+  "A-delay": "Subject: AVIO-NAKNADA ZA POMEREN LET {{let}} {{od}} - {{do}}\n\n{{oslovljavanje}} {{vokativ}},\n\nKasnio {{kasnjenje}}. Pošaljite nam pasoš i boarding kartu.\n\nPodrška letkasni.rs\n",
+  "G-potpis": "Subject: Re: {{postojeci_naslov}}\n\n{{oslovljavanje}} {{vokativ}},\n\nUgovor{{za_koga}} za potpis:\n\n{{link}}\n\nPodrška letkasni.rs\n",
   "B-nema-osnova": "Subject: AVIO-NAKNADA ZA LET {{od}} - {{do}}\n\n{{oslovljavanje}} {{vokativ}},\n\nNema osnova, jer {{razlog}}.\n\n{{nega_pasus}}\n\nPodrška letkasni.rs\n",
   "B-nega-pasus": "Pravo na brigu na aerodromu.\n",
   "E-followup": "Subject: Re: {{postojeci_naslov}}\n\nDobar dan {{vokativ}},\n\n{{sledeci_korak}}\n\nTim letkasni.rs\n",
@@ -144,7 +149,8 @@ const SABLONI: Record<string, string> = {
 const sabloni: Sabloni = { mejl: async (ime) => SABLONI[ime] ?? assert.fail(`nema šablona ${ime}`), ugovor: async () => new TextEncoder().encode("docx") };
 
 const servisi: Servisi = { baza, drive, gmail, potpis, portal, sabloni, sada: () => sat.v };
-const konfig = ucitajKonfig({ SISTEM_OKRUZENJE: "staging", PIPELINE_DRIVE_FOLDER_ID: "koren", SISTEM_ADVOKATI_ZA: "advokat@example.com", NEXT_PUBLIC_SITE_URL: "https://staging.letkasni.rs" });
+const priloziGmail = await drive.folder("LetKasni prilozi", "moj-drive");   // Apps Script spušta priloge iz Gmaila ovde
+const konfig = ucitajKonfig({ SISTEM_OKRUZENJE: "staging", PIPELINE_DRIVE_FOLDER_ID: "koren", SISTEM_PRILOZI_GMAIL_DRIVE_FOLDER_ID: priloziGmail, SISTEM_ADVOKATI_ZA: "advokat@example.com", NEXT_PUBLIC_SITE_URL: "https://staging.letkasni.rs" });
 const prolaz = async () => {
   const r = await pokreniProlaz(konfig, servisi, { izvor: "test" });
   assert.ok(r.ok, "prolaz mora da krene");
@@ -219,7 +225,7 @@ test("3. agent sakupio činjenice → nalaz iz koda, posao za Revizora", async (
   assert.equal(posloviZa("revizija").filter((p) => p.stanje === "ceka").length, 2);
 });
 
-test("4. Revizor se slaže → A-portal draft sa ličnim linkom, B za let bez osnova", async () => {
+test("4. Revizor se slaže → prvi mejl traži dokumenta (bez linka), B za let bez osnova", async () => {
   agentZavrsi("revizija", (p) => { letovi[`${p.ulaz.let_kljuc}-revizija`] = { zakljucak: "SLAZEM_SE", razlog: "izvori potvrđuju", hes_cinjenica: p.ulaz.hes, stavke: [] }; });
   await prolaz();
   assert.equal(c("E2E-A").status, "DRAFTED");
@@ -228,7 +234,7 @@ test("4. Revizor se slaže → A-portal draft sa ličnim linkom, B za let bez os
   const b = [...draftovi.values()].find((d) => d.to.includes("ana@example.com"));
   assert.equal(draftovi.size, 2);
   assert.match(a.subject, /^AVIO-NAKNADA ZA POMEREN LET JU 9138 BEG - DLM$/);
-  assert.ok(a.body.includes("https://staging.letkasni.rs/predmet/v2."), "link portala u draftu");
+  assert.ok(a.body.includes("pasoš") && !a.body.includes("/predmet/"), "traži dokumenta, bez linka za potpis");
   assert.ok(!/EUR|€/.test(a.body), "iznos nije odobren — nema EUR");
   assert.ok(!/otkaz/i.test(a.body));
   assert.match(b.body, /^Poštovana Ana,/);
@@ -243,55 +249,73 @@ test("5. Niko poslao draft → SENT → AWAITING_DOCS, follow-up zakazan", async
   assert.ok(c("E2E-A").podaci.followup > "2026-09-15");
 });
 
-test("6. klijent popunio portal, sajt odmah napravio ugovor → server samo beleži trag", async () => {
-  const r = c("E2E-A");
-  r.podaci.putnik = { ...r.podaci.putnik, rodjena: "1985-04-12", adresa: "Bulevar 1, Beograd", maloletan: false };
-  r.podaci.portal = { ...(r.podaci.portal ?? {}), podaci_poslati: sat.v.toISOString() };
-  sajtPripremaUgovor("E2E-A");
+test("6. klijent odgovorio sa dokumentima → prilozi sa Drive-a u predmet, posao za agenta; zaglavljen posao se vraća", async () => {
+  sat.v = new Date("2026-09-15T11:00:00Z");
+  const thread = c("E2E-A").podaci.sistem.draftovi[0].thread_id;
+  threadovi.set(thread, [...(threadovi.get(thread) ?? []), { id: "odgovor-1", threadId: thread, vreme: sat.v.toISOString(), od: "marko@example.com", za: ["kontakt@letkasni.rs"], naslov: "Re: AVIO-NAKNADA", prilozi: true, draft: false }]);
+  const folder = await drive.folder(thread, priloziGmail);
+  await upisi(folder, "a1b2c3_pasos.jpg", "slika pasosa", "image/jpeg");
+  await upisi(folder, "a1b2c3_boarding.pdf", "%PDF karta", "application/pdf");
+  await upisi(folder, "a1b2c3_META.txt", "od: marko@example.com", "text/plain");
   await prolaz();
-  assert.equal(c("E2E-A").status, "POA_SENT");
-  assert.ok(c("E2E-A").podaci.portal.zabelezeno);
-  assert.equal(dogadjaji.filter((d) => d.ref === "E2E-A" && d.poruka.startsWith("portal (sajt)")).length, 1);
-  await prolaz();
-  assert.equal(dogadjaji.filter((d) => d.ref === "E2E-A" && d.poruka.startsWith("portal (sajt)")).length, 1, "trag samo jednom");
-});
-
-test("7. predmet predat advokatu → tačno jedan dnevni pregled; bez novog ništa se ne šalje", async () => {
-  const s = c("E2E-S");
-  predmeti.set("E2E-S", { ...s, status: "LAWYER", podaci: { ...s.podaci, status: "LAWYER", prosledjeno_advokatu: "2026-09-15" }, verzija: s.verzija + 1, izvor_izmene: "rucno" });
-  const pre = draftovi.size;
-  await prolaz();
-  const zaAdvokate = [...draftovi.values()].filter((d) => d.to.includes("advokat@example.com"));
-  assert.equal(zaAdvokate.length, 1);
-  assert.match(zaAdvokate[0].body, /IZMENE OD POSLEDNJEG PREGLEDA \(1\)[\s\S]*predmet je predat advokatu/);
-  assert.ok(!/@example\.com/.test(zaAdvokate[0].body), "pregled za advokate bez email adresa klijenata");
-  await prolaz();
-  assert.equal(draftovi.size, pre + 1, "isti dan, ništa novo → nema drugog mejla");
-});
-
-test("8. novo posle današnjeg pregleda čeka sutra; sutra jedan mejl, prekosutra ništa", async () => {
-  await upisi(await putanja("uploads", "E2E-S"), "dopuna.pdf", "%PDF dopuna", "application/pdf");
-  const pre = draftovi.size;
-  await prolaz();
-  assert.equal(draftovi.size, pre, "danas je pregled već otišao");
-  sat.v = new Date("2026-09-16T10:00:00Z");
-  await prolaz();
-  assert.equal(draftovi.size, pre + 1);
-  sat.v = new Date("2026-09-17T10:00:00Z");
-  await prolaz();
-  assert.equal(draftovi.size, pre + 1, "nema ništa novo → ne šalje");
-});
-
-test("9. klijent poslao dokument kroz portal → posao za agenta; zaglavljen posao se vraća u red", async () => {
-  await upisi(await putanja("uploads", "E2E-A"), "pasos.jpg", "slika pasosa", "image/jpeg");
-  await prolaz();
-  assert.equal(c("E2E-A").podaci.dokumenta_fajlovi.length, 1);
-  const p = posloviZa("dokumenta").find((x) => x.ref === "E2E-A") ?? assert.fail("portal dokument pravi posao za agenta");
+  assert.equal(c("E2E-A").status, "CLIENT_REPLIED");
+  assert.deepEqual(c("E2E-A").podaci.dokumenta_fajlovi.map((f: any) => f.ime).sort(), ["a1b2c3_boarding.pdf", "a1b2c3_pasos.jpg"]);
+  assert.ok(c("E2E-A").podaci.drive_folder?.includes("Marko Marković"), "folder za advokate napravljen čim su stigla dokumenta");
+  const p = posloviZa("dokumenta").find((x) => x.ref === "E2E-A") ?? assert.fail("posao za agenta Dokumenta");
   assert.equal(p.stanje, "ceka");
   Object.assign(p, { stanje: "radi", pokusaja: 1, preuzeto: new Date(sat.v.getTime() - 2 * 3600_000).toISOString() });
   await prolaz();
   assert.equal(p.stanje, "ceka");
   assert.equal(p.pokusaja, 0);
+});
+
+test("7. agent pročitao dokumenta sigurno → ugovor i poziv za potpis → draft sa linkom za potpis", async () => {
+  agentZavrsi("dokumenta", (p) => {
+    p.izlaz = {
+      fajlovi: [{ fajl: "pasos.jpg", vrsta: "pasos", putnik: "Marko Marković" }, { fajl: "boarding.pdf", vrsta: "boarding", putnik: "Marko Marković" }],
+      putnici: [{ ime_prezime: "Marko Marković", ime_sigurno: true, rodjena: "1985-04-12", rodjena_sigurno: true, adresa: "Bulevar 1, Beograd", adresa_sigurno: true, maloletan: false }],
+      let_sa_karte: { broj: "JU 9138", datum: "2026-08-23", od: "BEG", do: "DLM" }, neslaganja: [], sta_fali: [],
+    };
+  });
+  await prolaz();
+  const x = c("E2E-A");
+  assert.equal(x.status, "POA_DRAFTED");
+  assert.equal(x.podaci.putnik.rodjena, "1985-04-12", "datum rođenja sa dokumenta");
+  assert.deepEqual(x.podaci.potpisivanje.map((z: any) => [z.putnik, z.stanje, z.kanal]), [["Marko Marković", "poslato", "portal"]]);
+  const g = [...draftovi.values()].find((d) => d.to.includes("marko@example.com") && d.subject.startsWith("Re: "));
+  assert.ok(g, "drugi mejl je odgovor u istom threadu");
+  assert.ok(g.body.includes("https://staging.letkasni.rs/predmet/v2."), "link za potpis u mejlu");
+  assert.equal((g.prilozi ?? []).length, 0, "bez PDF-a u prilogu — potpis je na linku");
+});
+
+test("8. Niko poslao link → POA_SENT; klijent potpisao → POA_SIGNED i jedan dnevni pregled za advokate", async () => {
+  const g = c("E2E-A").podaci.sistem.draftovi.find((d: any) => d.sablon === "G-potpis");
+  nikoSalje(g.draft_id);
+  await prolaz();
+  assert.equal(c("E2E-A").status, "POA_SENT");
+  assert.equal(c("E2E-A").podaci.potpisivanje[0].poslato, "2026-09-15");
+  potpisi.set("doc-E2E-A-0", "potpisano");
+  await prolaz();
+  assert.equal(c("E2E-A").status, "POA_SIGNED");
+  const zaAdvokate = [...draftovi.values()].filter((d) => d.to.includes("advokat@example.com"));
+  assert.equal(zaAdvokate.length, 1);
+  assert.match(zaAdvokate[0].body, /potpisan ugovor o ustupanju: Marko Marković/);
+  assert.ok(!/@example\.com/.test(zaAdvokate[0].body), "pregled za advokate bez email adresa klijenata");
+});
+
+test("9. dnevni pregled: isti dan ništa, sutra jedan mejl sa novim, prekosutra ništa", async () => {
+  const zaAdvokate = () => [...draftovi.values()].filter((d) => d.to.includes("advokat@example.com"));
+  const s = c("E2E-S");
+  predmeti.set("E2E-S", { ...s, status: "LAWYER", podaci: { ...s.podaci, status: "LAWYER", prosledjeno_advokatu: "2026-09-15" }, verzija: s.verzija + 1, izvor_izmene: "rucno" });
+  await prolaz();
+  assert.equal(zaAdvokate().length, 1, "danas je pregled već otišao");
+  sat.v = new Date("2026-09-16T10:00:00Z");
+  await prolaz();
+  assert.equal(zaAdvokate().length, 2);
+  assert.match(zaAdvokate()[1].body, /IZMENE OD POSLEDNJEG PREGLEDA \(1\)[\s\S]*predmet je predat advokatu/);
+  sat.v = new Date("2026-09-17T10:00:00Z");
+  await prolaz();
+  assert.equal(zaAdvokate().length, 2, "nema ništa novo → ne šalje");
 });
 
 test("10. dva prolaza u isto vreme: drugi odustaje", async () => {

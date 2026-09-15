@@ -67,6 +67,11 @@ export default async function gmail(ctx: Kontekst) {
         }
       } else if (d.sablon === "C-other") {
         if (c.status === "DRAFTED") ctx.predmeti.status(c.ref, "SENT");
+      } else if (d.sablon === "G-potpis") {
+        if (c.status === "POA_DRAFTED") ctx.predmeti.status(c.ref, "POA_SENT");
+        ctx.predmeti.azuriraj(c.ref, (x) => {
+          for (const z of x.potpisivanje ?? []) if (z.kanal === "portal" && z.stanje === "poslato") z.poslato = datum;
+        });
       } else if (d.sablon === "G-ugovor") {
         if (c.status === "POA_DRAFTED") ctx.predmeti.status(c.ref, "POA_SENT");
         const imena = [c.putnik, ...(c.saputnici ?? [])].filter((p: any) => p?.ime_prezime).map((p: any) => p.ime_prezime);
@@ -81,7 +86,7 @@ export default async function gmail(ctx: Kontekst) {
         x.poslednji_kontakt = datum;
         x.poslednji_kontakt_ko = "mi";
         if (d.sablon === "E-followup") x.followupi = (x.followupi ?? 0) + 1;
-        if ([...PRVI_MEJL, "C-other", "G-ugovor"].includes(d.sablon)) x.followup = plusRadnihDana(datum, 3);
+        if ([...PRVI_MEJL, "C-other", "G-ugovor", "G-potpis"].includes(d.sablon)) x.followup = plusRadnihDana(datum, 3);
       });
       ctx.predmeti.log(c.ref, `gmail (kod): Niko poslao ${d.sablon} ${dmy(datum)}`);
       r.uradjeno(`${c.ref}: poslat ${d.sablon}`);

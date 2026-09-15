@@ -135,7 +135,8 @@ export function PortalPredmeta({ token, predmet }: { token: string; predmet: Pre
     }
   }
 
-  const stanjePodataka = predmet.podaciPoslati ? "gotovo" : mozePodaci ? "sada" : "kasnije";
+  const potpisFaza = predmet.faza === "potpis" || predmet.faza === "potpisano";
+  const stanjePodataka = predmet.podaciPoslati || potpisFaza ? "gotovo" : mozePodaci ? "sada" : "kasnije";
   const stanjePotpisa = predmet.faza === "potpisano" ? "gotovo" : predmet.faza === "potpis" ? "sada" : "kasnije";
   const letOpis = [predmet.let.broj, predmet.let.od && predmet.let.do ? `${predmet.let.od} → ${predmet.let.do}` : null, datum(predmet.let.datum)].filter(Boolean).join(" · ");
 
@@ -148,7 +149,7 @@ export function PortalPredmeta({ token, predmet }: { token: string; predmet: Pre
           {letOpis ? <p className="mt-2 text-sm text-[var(--muted)]">Let {letOpis}</p> : null}
           <div className="mt-4 flex flex-wrap gap-4">
             <Korak broj={1} naslov="Podaci putnika" stanje={stanjePodataka} />
-            <Korak broj={2} naslov="Dokumenta" stanje={predmet.podaciPoslati ? "sada" : "kasnije"} />
+            <Korak broj={2} naslov="Dokumenta" stanje={potpisFaza ? "gotovo" : predmet.podaciPoslati ? "sada" : "kasnije"} />
             <Korak broj={3} naslov="Potpis ugovora" stanje={stanjePotpisa} />
           </div>
         </div>

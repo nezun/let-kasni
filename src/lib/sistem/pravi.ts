@@ -8,7 +8,7 @@ import { getEnv } from "@/lib/env";
 import { napraviTokenDokumenata } from "@/lib/pipeline/token";
 import { jeSignNowPodesen, pdfIzDocx, preuzmiAuditTrail, preuzmiPotpisanPdf, stanjePotpisa } from "@/lib/potpis/signnow";
 import { napraviUgovor } from "@/lib/ugovor/docx";
-import { pripremiUgovorZaPotpis } from "@/lib/ugovor/priprema";
+import { napraviPoziveZaPotpis, pripremiUgovorZaPotpis } from "@/lib/ugovor/priprema";
 import { ucitajSablone } from "@/lib/ugovor/sabloni";
 
 import type { Konfig } from "./konfig";
@@ -190,29 +190,37 @@ function praviGmail(): Gmail {
 }
 
 /**
- * Staging: „pošta“ ide u crm_sistem[posta_staging], nikad u pravi Gmail — klijenti na stagingu su izmišljeni.
- * Draft se smatra poslatim kad mu se u bazi upiše `poslat` (ručno ili iz testa).
+ * Staging: draftovi idu u crm_sistem[posta_staging], nikad u pravi Gmail — klijenti na stagingu su izmišljeni.
+ * „Slanje“ je upis `poslat` (scripts/sistem/alati/staging-posta.mjs). Odgovori klijenata se čitaju iz pravog
+ * Gmaila samo ako je uključeno čitanje (SISTEM_GMAIL_CITANJE=pravo) — samo čitanje, ništa se ne menja.
  */
-function gmailUBazi(baza: Baza): Gmail {
+function gmailUBazi(baza: Baza, citanje: Gmail | null): Gmail {
   const KLJUC = "posta_staging";
-  type Zapis = { id: string; vreme: string; from: string | null; to: string[]; cc: string[]; subject: string; body: string; prilozi: string[]; poslat?: string };
+  type Zapis = { id: string; threadId: string; vreme: string; from: string | null; to: string[]; cc: string[]; subject: string; body: string; prilozi: string[]; poslat?: string };
   const ucitaj = async () => ((await baza.sistem(KLJUC)) ?? []) as Zapis[];
   return {
     ima: () => true,
     aliasi: async () => ["kontakt@letkasni.rs"],
-    async napraviDraft({ from, to, cc = [], subject, body, prilozi = [] }) {
+    async napraviDraft({ from, to, cc = [], subject, body, prilozi = [], threadId = null }) {
       const lista = await ucitaj();
       const id = `staging-${randomUUID()}`;
-      lista.push({ id, vreme: new Date().toISOString(), from, to, cc, subject, body, prilozi: prilozi.map((p) => p.ime) });
+      const thread = threadId ?? id;
+      lista.push({ id, threadId: thread, vreme: new Date().toISOString(), from, to, cc, subject, body, prilozi: prilozi.map((p) => p.ime) });
       await baza.upisiSistem(KLJUC, lista.slice(-200));
-      return { draftId: id, messageId: null, threadId: null };
+      return { draftId: id, messageId: null, threadId: thread };
     },
     async postojiDraft(draftId) {
       const z = (await ucitaj()).find((x) => x.id === draftId);
       return !!z && !z.poslat;
     },
-    thread: async () => null,
-    pretrazi: async () => [],
+    async thread(threadId) {
+      const nase = (await ucitaj()).filter((z) => z.threadId === threadId && z.poslat).map((z): PorukaGmail => ({
+        id: z.id, threadId, vreme: z.poslat!, od: "kontakt@letkasni.rs", za: z.to, naslov: z.subject, prilozi: false, draft: false,
+      }));
+      const prave = threadId.startsWith("staging-") || !citanje ? [] : ((await citanje.thread(threadId)) ?? []);
+      return [...nase, ...prave];
+    },
+    pretrazi: async (q, max) => (citanje ? citanje.pretrazi(q, max) : []),
   };
 }
 
@@ -226,6 +234,7 @@ const praviPotpis = (): Potpis => ({
 
 const praviPortal = (konfig: Konfig): Portal => ({
   pripremi: (ref) => pripremiUgovorZaPotpis(ref, konfig.sajtUrl),
+  pozivi: (ref, predmet) => napraviPoziveZaPotpis(ref, predmet, konfig.sajtUrl),
   link: (ref) => {
     const token = napraviTokenDokumenata(ref);
     return token ? `${konfig.sajtUrl}/predmet/${token}` : null;
@@ -255,7 +264,7 @@ export function napraviServise(konfig: Konfig): Servisi {
   return {
     baza,
     drive: praviDrive(),
-    gmail: konfig.posta.klijenti === "gmail-api" ? praviGmail() : gmailUBazi(baza),
+    gmail: konfig.posta.klijenti === "gmail-api" ? praviGmail() : gmailUBazi(baza, konfig.gmailCitanje ? praviGmail() : null),
     potpis: praviPotpis(),
     portal: praviPortal(konfig),
     sabloni: praviSabloni(),

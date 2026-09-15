@@ -67,6 +67,22 @@ async function ugovor(ctx: Kontekst, c: any, dj: any, r: ReturnType<Kontekst["ko
     return;
   }
   try {
+    if (ctx.servisi.potpis.podesen()) {
+      // ugovor iz podataka sa dokumenata + poziv za potpis; link ide klijentu u sledećem mejlu (G-potpis)
+      const pozivi = await ctx.servisi.portal.pozivi(ref, ctx.predmeti.ucitaj(ref));
+      ctx.predmeti.azuriraj(ref, (x) => {
+        x.portal = { ...(x.portal ?? {}), potpis_kanal: "portal", pripremio: "server", ugovor_pripremljen: ctx.sadDatum.toISOString() };
+        x.potpisivanje = [
+          ...(x.potpisivanje ?? []).filter((z: any) => !pozivi.some((n) => n.putnik === z.putnik)),
+          ...pozivi.map((z) => ({ putnik: z.putnik, stanje: "poslato", provajder: "signnow", kanal: "portal", dokument_id: z.dokument_id, zahtev_id: z.zahtev_id, ...(z.drive_id ? { drive_id: z.drive_id } : {}), poslato: null })),
+        ];
+      });
+      ctx.predmeti.status(ref, "POA_GENERATED");
+      ctx.predmeti.log(ref, `dokumenta (kod): ugovor o ustupanju iz dokumenata i poziv za potpis — ${pozivi.map((z) => z.putnik).join(", ")}`);
+      await ctx.sacuvaj(ref);
+      r.uradjeno(`${ref}: ugovor i poziv za potpis → POA_GENERATED`);
+      return;
+    }
     const ugovori = await napraviUgovore(ctx, ref);
     ctx.predmeti.status(ref, "POA_GENERATED");
     ctx.predmeti.log(ref, `dokumenta (kod): ugovor o ustupanju generisan — ${ugovori.length} PDF`);
