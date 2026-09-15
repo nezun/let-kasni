@@ -3,6 +3,7 @@ import Module from "node:module";
 import { createRequire } from "node:module";
 import path from "node:path";
 import ts from "typescript";
+import { focusedTargetIds, focusedContentIssues } from "./seo-focused-content-policy.mjs";
 
 const root = process.cwd();
 const require = createRequire(import.meta.url);
@@ -428,7 +429,12 @@ function scoreRecord(record) {
   const minWords = guide ? (item.id === "flight-delay-compensation" ? 3000 : 2500) : 1000;
   const maxWords = guide ? (item.id === "flight-delay-compensation" ? 4500 : 3800) : 1800;
 
-  if (words >= minWords && words <= maxWords) {
+  if (!guide && focusedTargetIds.has(item.id)) {
+    const issues = focusedContentIssues(item, locale);
+    criteria.push(criterion("focused_topic_coverage", 15, issues.length ? 0 : 15,
+      issues.length ? "fail" : "pass",
+      issues.length ? issues.join("; ") : "Reviewed scenario, legal scope, evidence and action preserved; no word-count target"));
+  } else if (words >= minWords && words <= maxWords) {
     criteria.push(criterion("benchmark_depth", 15, 15, "pass", `${words} words within ${minWords}-${maxWords}`));
   } else if (words >= Math.floor(minWords * 0.9) && words <= Math.ceil(maxWords * 1.15)) {
     criteria.push(

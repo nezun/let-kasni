@@ -1,0 +1,32 @@
+[
+  {
+    "group": "A", "id": "flight-delay-compensation",
+    "sr": { "source": "/naknada-za-kasnjenje-leta/kasnjenje-leta-odsteta", "target": "/naknada-za-kasnjenje-leta" },
+    "en": { "source": "/en/flight-delay-compensation/flight-delay-compensation", "target": "/en/flight-delay-compensation" }
+  },
+  {
+    "group": "B", "id": "crew-duty-time-flight-delay",
+    "sr": { "source": "/naknada-za-kasnjenje-leta/kasnjenje-leta-zbog-radnog-vremena-posade", "target": "/naknada-za-kasnjenje-leta/nedostatak-posade-kasnjenje-leta-odsteta" },
+    "en": { "source": "/en/flight-delay-compensation/crew-duty-time-flight-delay-compensation", "target": "/en/flight-delay-compensation/crew-shortage-flight-delay-compensation" }
+  },
+  {
+    "group": "C", "id": "separate-tickets-after-delay",
+    "sr": { "source": "/naknada-za-kasnjenje-leta/odvojene-karte-kasnjenje-leta-propustena-konekcija", "target": "/naknada-za-propustenu-konekciju/odvojene-karte-propustena-konekcija" },
+    "en": { "source": "/en/flight-delay-compensation/separate-tickets-flight-delay-missed-connection", "target": "/en/missed-connection-compensation/separate-tickets-missed-connection-rights" }
+  },
+  {
+    "group": "D", "id": "connecting-flight-delay-one-booking",
+    "sr": { "source": "/naknada-za-kasnjenje-leta/kasnjenje-konekcije-jedna-rezervacija", "target": "/naknada-za-propustenu-konekciju/propustena-konekcija-ista-rezervacija" },
+    "en": { "source": "/en/flight-delay-compensation/connecting-flight-delay-one-booking", "target": "/en/missed-connection-compensation/missed-connection-same-booking" }
+  },
+  {
+    "group": "E", "id": "tarmac-delay-door-open-time",
+    "sr": { "source": "/naknada-za-kasnjenje-leta/kasnjenje-na-pisti-vreme-otvaranja-vrata", "target": "/naknada-za-kasnjenje-leta/kasnjenje-leta-vreme-dolaska" },
+    "en": { "source": "/en/flight-delay-compensation/tarmac-delay-door-open-time", "target": "/en/flight-delay-compensation/flight-delay-final-arrival-time" }
+  },
+  {
+    "group": "F", "id": "overnight-flight-delay-hotel-transfer-proof",
+    "sr": { "source": "/naknada-za-kasnjenje-leta/nocno-kasnjenje-leta-hotel-transfer-dokazi", "target": "/naknada-za-kasnjenje-leta/nocno-kasnjenje-leta-hotel-prava" },
+    "en": { "source": "/en/flight-delay-compensation/overnight-flight-delay-hotel-transfer-proof", "target": "/en/flight-delay-compensation/overnight-flight-delay-hotel-rights" }
+  }
+]

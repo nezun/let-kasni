@@ -1,9 +1,26 @@
 import type { NextConfig } from "next";
+import consolidations from "./src/content/seo-consolidations.json";
+
+const consolidationRedirects = consolidations.flatMap(group =>
+  ([group.sr, group.en]).flatMap(({ source, target }) => {
+    const slug = source.split("/").at(-1);
+    // Both historical handlers accepted either language's slug.
+    return [source, `/blog/${slug}`, `/en/blog/${slug}`].map(path => ({
+      source: path, destination: target, permanent: true as const,
+    }));
+  }),
+);
 
 const nextConfig: NextConfig = {
   allowedDevOrigins: ["127.0.0.1"],
   async redirects() {
     return [
+      ...consolidationRedirects.map(redirect => ({
+        ...redirect,
+        has: [{ type: "host" as const, value: "www.letkasni.rs" }],
+        destination: `https://letkasni.rs${redirect.destination}`,
+      })),
+      ...consolidationRedirects,
       {
         source: "/:path*",
         has: [

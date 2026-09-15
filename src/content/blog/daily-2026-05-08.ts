@@ -562,7 +562,7 @@ export const articles = [
   {
     id: "flight-delay-final-arrival-time",
     publishedAt: "2026-05-08",
-    updatedAt: "2026-05-08",
+    updatedAt: "2026-09-15",
     sr: {
       slug: "kasnjenje-leta-vreme-dolaska",
       title: "Kašnjenje leta i vreme dolaska: šta se stvarno računa",
@@ -574,7 +574,7 @@ export const articles = [
         {
           heading: "Polazak nije isto što i dolazak",
           body: [
-            "Putnici često misle da je dovoljno da let poleti tri sata kasnije. Za [naknadu za kašnjenje leta](/naknada-za-kasnjenje-leta) mnogo je važnije kada ste stigli na krajnju destinaciju. Avion može kasniti u polasku, ali nadoknaditi deo vremena u letu.",
+            "Za [naknadu za kašnjenje leta](/naknada-za-kasnjenje-leta) prema EU261 i praksi Suda EU bitan je dolazak na krajnju destinaciju najmanje tri sata kasnije, uz ostale uslove za naknadu. Kašnjenje u polasku samo po sebi nije dovoljno: avion može nadoknaditi deo vremena. Za Srbiju/ECAA zasebno se proverava pravni osnov; ovo nije tvrdnja da kasnija praksa Suda EU automatski obavezuje za svaki let iz Srbije.",
             "Suprotno tome, polazak može kasniti manje od tri sata, ali zbog propuštene konekcije ceo put može završiti mnogo kasnije. Zato treba gledati ukupno putovanje pod istom rezervacijom, a ne samo prvi segment koji je bio problematičan.",
           ],
           bullets: [
@@ -591,10 +591,18 @@ export const articles = [
           ],
         },
         {
+          heading: "Sletanje, parking i otvaranje vrata nisu isto",
+          body: [
+            "U predmetu [Germanwings, C-452/13](https://eur-lex.europa.eu/legal-content/EN/ALL/?uri=celex%3A62013CJ0452), Sud EU vezuje dolazak za otvaranje najmanje jednih vrata aviona, pod uslovom da je putnicima dozvoljeno da izađu. Dodir piste i dolazak na parking poziciju nisu isto vreme. Ne čeka se da poslednji putnik izađe ili da preuzmete prtljag.",
+            "Ako avion sleti 2 sata i 50 minuta posle planiranog dolaska, a vrata se uz dozvoljen izlazak otvore još 15 minuta kasnije, relevantno kašnjenje je 3 sata i 5 minuta. To može promeniti proveru praga, ali samo po sebi ne dokazuje primenu EU261 niti odgovornost prevoznika.",
+            "Čekanje u avionu može otvoriti i pitanje vode, obroka ili druge potrebne pomoći. To se proverava odvojeno od fiksne naknade; ne treba prenositi pravila neke druge države o čekanju na pisti na ovaj pravni okvir.",
+          ],
+        },
+        {
           heading: "Kako dokazati stvarno vreme dolaska",
           body: [
             "Korisni dokazi su aplikacija aviokompanije, email sa novim vremenom, fotografija table dolazaka, podaci aerodroma, poruke o prtljagu i sopstvena beleška kada su vrata aviona otvorena. Ne oslanjajte se samo na planirani red letenja.",
-            "Ako aviokompanija tvrdi da je dolazak bio ispod tri sata, tražite precizno vreme i osnov za tu tvrdnju. Razlika od nekoliko minuta može odlučiti slučaj, posebno kada je dolazak bio na samoj granici.",
+            "Ako aviokompanija tvrdi da je dolazak bio ispod tri sata, tražite precizno vreme i osnov za tu tvrdnju. Pitajte da li podatak predstavlja sletanje, parking ili prvo otvaranje vrata uz dozvoljen izlazak. Aplikacija može prikazivati samo sletanje. Zabeležite vremensku zonu, izvor i vreme beleške; fotografije, poruke i podaci aerodroma služe da se provere međusobno, ne kao automatski dokaz trenutka otvaranja vrata.",
           ],
         },
         {
@@ -608,7 +616,7 @@ export const articles = [
           heading: "Kako složiti zahtev oko vremena dolaska",
           body: [
             "U zahtevu napišite planirano vreme dolaska, stvarno vreme dolaska, izvor dokaza i da li je put bio jedna rezervacija. Ako postoji konekcija, navedite sve segmente i objasnite koji segment je izazvao zakašnjenje.",
-            "Ako je slučaj blizu tri sata, budite posebno precizni. Nemojte zaokruživati vreme na svoju štetu ili korist. Precizna vremenska linija je jača od opšte tvrdnje da je čekanje trajalo veoma dugo.",
+            "Ako je slučaj blizu tri sata, nemojte zaokruživati vreme na svoju štetu ili korist. Let Kasni upoređuje raspored, izvor vremena dolaska i primenljiv pravni okvir, pa tek onda procenjuje prag i razlog kašnjenja. Ako podaci protivreče jedni drugima, sačuvajte obe verzije umesto da izaberete povoljniju.",
           ],
         },
       ],
@@ -624,7 +632,7 @@ export const articles = [
         {
           heading: "Departure is not the same as arrival",
           body: [
-            "Passengers often think it is enough that the flight departed three hours late. For [flight delay compensation](/en/flight-delay-compensation), it is much more important when you reached the final destination. An aircraft may depart late but recover part of the time in flight.",
+            "For [flight delay compensation](/en/flight-delay-compensation) under EU261 and CJEU case law, arrival at the final destination at least three hours late matters, together with the other eligibility conditions. Departure delay alone is not enough: the aircraft may recover time. Serbia/ECAA needs a separate legal-basis check; this does not mean later CJEU rulings automatically bind every flight from Serbia.",
             "The opposite can also happen: departure may be under three hours late, but because of a missed connection the whole journey may end much later. Look at the total journey under the same booking, not only the first segment that caused trouble.",
           ],
           bullets: [
@@ -641,10 +649,18 @@ export const articles = [
           ],
         },
         {
+          heading: "Landing, parking and door opening are different times",
+          body: [
+            "In [Germanwings, C-452/13](https://eur-lex.europa.eu/legal-content/EN/ALL/?uri=celex%3A62013CJ0452), the CJEU links arrival to the opening of at least one aircraft door, provided passengers are permitted to leave. Touchdown and reaching the parking stand are different times. The test does not wait for the last passenger to leave or for baggage collection.",
+            "If touchdown is 2 hours 50 minutes after scheduled arrival and a door opens with permission to leave another 15 minutes later, the relevant delay is 3 hours 5 minutes. That can change the threshold assessment, but does not by itself establish EU261 coverage or carrier responsibility.",
+            "Waiting aboard may also raise a separate question about water, meals or other necessary assistance. Assess that separately from fixed compensation; do not import another country's tarmac-wait rules into this legal framework.",
+          ],
+        },
+        {
           heading: "How to prove actual arrival time",
           body: [
             "Useful evidence includes the airline app, email with new timing, arrivals-board photo, airport data, baggage messages and your own note of when the aircraft doors opened. Do not rely only on the scheduled timetable.",
-            "If the airline claims arrival was under three hours late, ask for the exact time and basis for that claim. A difference of a few minutes can decide the case, especially when arrival was right on the threshold.",
+            "If the airline claims arrival was under three hours late, ask for the exact time and its basis. Does the record mean touchdown, parking or first door opening with permission to leave? An app may show touchdown only. Note the time zone, source and when you recorded it; photos, messages and airport data help cross-check each other but do not automatically prove door-opening time.",
           ],
         },
         {
@@ -658,7 +674,7 @@ export const articles = [
           heading: "How to build the claim around arrival time",
           body: [
             "In the claim, state scheduled arrival time, actual arrival time, evidence source and whether the journey was one booking. If there is a connection, list all segments and explain which segment caused the late arrival.",
-            "If the case is close to three hours, be especially precise. Do not round the time for or against yourself. A precise timeline is stronger than a broad statement that the wait was very long.",
+            "If the case is close to three hours, do not round for or against yourself. Let Kasni compares the schedule, arrival-time source and applicable legal framework before assessing the threshold and cause. Where records conflict, keep both versions instead of choosing the more favourable one.",
           ],
         },
       ],

@@ -1,4 +1,5 @@
 import type { BlogArticle, BlogLocale, BlogSection } from "@/lib/blog";
+import focusedTargetIds from "@/content/seo-focused-targets.json";
 
 const parentGuideByArticle: Record<
   string,
@@ -692,7 +693,21 @@ function enEnhancementSections(article: BlogArticle): BlogSection[] {
   ];
 }
 
+const focusedTargets = new Set(focusedTargetIds);
+
 export function enhanceBlogArticle(article: BlogArticle): BlogArticle {
+  // These reviewed answers contain their own evidence and action sections.
+  if (focusedTargets.has(article.id)) {
+    const minutes = (sections: BlogSection[]) => Math.max(1, Math.ceil(
+      sections.flatMap(section => [section.heading, ...section.body, ...(section.bullets ?? [])])
+        .join(" ").split(/\s+/).length / 200,
+    ));
+    return {
+      ...article,
+      sr: { ...article.sr, readTime: `${minutes(article.sr.sections)} min čitanja` },
+      en: { ...article.en, readTime: `${minutes(article.en.sections)} min read` },
+    };
+  }
   return {
     ...article,
     sr: {

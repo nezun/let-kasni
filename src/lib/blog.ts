@@ -1,5 +1,6 @@
 import { articleImages, blogArticles as rawBlogArticles } from "@/content/blog";
 import { enhanceBlogArticle } from "@/lib/blog-content-enhancements";
+import consolidations from "@/content/seo-consolidations.json";
 
 export type BlogLocale = "sr" | "en";
 
@@ -33,7 +34,10 @@ export type BlogArticleImage = {
   position?: string;
 };
 
-export const blogArticles = rawBlogArticles.map(enhanceBlogArticle);
+const consolidatedArticleIds = new Set(consolidations.map(group => group.id));
+export const blogArticles = rawBlogArticles
+  .filter(article => !consolidatedArticleIds.has(article.id))
+  .map(enhanceBlogArticle);
 export { articleImages };
 
 export function getBlogArticles(locale: BlogLocale) {
