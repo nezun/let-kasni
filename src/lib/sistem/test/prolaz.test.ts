@@ -150,7 +150,7 @@ const SABLONI: Record<string, string> = {
 };
 const sabloni: Sabloni = { mejl: async (ime) => SABLONI[ime] ?? assert.fail(`nema šablona ${ime}`), ugovor: async () => new TextEncoder().encode("docx") };
 
-const servisi: Servisi = { baza, drive, gmail, potpis, portal, sabloni, sada: () => sat.v };
+const servisi: Servisi = { baza, drive, gmail, potpis, portal, sabloni, sada: () => sat.v, provere: async () => ({ google_drive: { ok: true, poruka: "test" } }) };
 const priloziGmail = await drive.folder("LetKasni prilozi", "moj-drive");   // Apps Script spušta priloge iz Gmaila ovde
 const konfig = ucitajKonfig({ SISTEM_OKRUZENJE: "staging", PIPELINE_DRIVE_FOLDER_ID: "koren", SISTEM_PRILOZI_GMAIL_DRIVE_FOLDER_ID: priloziGmail, SISTEM_ADVOKATI_ZA: "advokat@example.com", NEXT_PUBLIC_SITE_URL: "https://staging.letkasni.rs" });
 const prolaz = async () => {
@@ -344,4 +344,5 @@ test("12. CRM pregled: svaki predmet ima red, bez mejlova i ličnih brojeva", ()
   }
   assert.ok(Array.isArray(sistem.get("zadaci")));
   assert.equal(sistem.get("sistem").okruzenje, "staging");
+  assert.equal(sistem.get("sistem").provere.google_drive.ok, true, "provere pristupa upisane za CRM");
 });

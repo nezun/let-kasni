@@ -83,9 +83,14 @@ export async function pokreniProlaz(konfig: Konfig, servisi: Servisi, { suvo = f
     const pregled = ctx.korak("pregled");
     if (pregled.rezim !== "iskljuceno" && !suvo) {
       await baza.upisiSistem("zadaci", ocisti(ctx.zadaci));
+      const prethodno = ((await baza.sistem("sistem")) ?? {}) as { poslednji_cron?: string | null };
+      const provere = await servisi.provere().catch((e: unknown) => ({ provere: { ok: false, poruka: String(e instanceof Error ? e.message : e).slice(0, 160) } }));
       await baza.upisiSistem("sistem", {
         okruzenje: konfig.ime,
         poslednji_prolaz: servisi.sada().toISOString(),
+        poslednji_cron: izvor === "pg_cron" ? servisi.sada().toISOString() : (prethodno.poslednji_cron ?? null),
+        provere,
+        agenti_greske: ctx.red.svi().filter((p) => p.stanje === "greska").length,
         izvor,
         rezimi: konfig.koraci,
         agenti_cekaju: ctx.red.cekaju().length,

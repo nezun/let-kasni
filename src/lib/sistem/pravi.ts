@@ -6,7 +6,7 @@ import {
 } from "@/lib/drive";
 import { getEnv } from "@/lib/env";
 import { napraviTokenDokumenata } from "@/lib/pipeline/token";
-import { jeSignNowPodesen, pdfIzDocx, preuzmiAuditTrail, preuzmiPotpisanPdf, stanjePotpisa } from "@/lib/potpis/signnow";
+import { jeSignNowPodesen, pdfIzDocx, planSignNow, preuzmiAuditTrail, preuzmiPotpisanPdf, stanjePotpisa } from "@/lib/potpis/signnow";
 import { napraviUgovor } from "@/lib/ugovor/docx";
 import { napraviPoziveZaPotpis, pripremiUgovorZaPotpis } from "@/lib/ugovor/priprema";
 import { ucitajSablone } from "@/lib/ugovor/sabloni";
@@ -290,5 +290,30 @@ export function napraviServise(konfig: Konfig): Servisi {
     portal: praviPortal(konfig),
     sabloni: praviSabloni(),
     sada: () => new Date(),
+    async provere() {
+      const rez: Record<string, { ok: boolean; poruka: string }> = {};
+      const probaj = async (ime: string, fn: () => Promise<string>) => {
+        try {
+          rez[ime] = { ok: true, poruka: await fn() };
+        } catch (e) {
+          rez[ime] = { ok: false, poruka: String(e instanceof Error ? e.message : e).slice(0, 160) };
+        }
+      };
+      await probaj("google_drive", async () => {
+        if (!konfig.drive.sistem) throw new Error("folder sistema nije podešen");
+        await driveLista(konfig.drive.sistem);
+        return "Drive dostupan";
+      });
+      await probaj("gmail", async () => {
+        if (!konfig.gmailCitanje) return "ne koristi se (pošta u bazi)";
+        const aliasi = await praviGmail().aliasi();
+        return aliasi.includes(konfig.posta.od) ? `čitanje radi, alias ${konfig.posta.od} podešen` : `čitanje radi, alias ${konfig.posta.od} nije podešen`;
+      });
+      await probaj("signnow", async () => {
+        if (!jeSignNowPodesen()) throw new Error("API ključ nije podešen");
+        return planSignNow();
+      });
+      return rez;
+    },
   };
 }

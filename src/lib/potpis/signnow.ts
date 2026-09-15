@@ -107,6 +107,14 @@ export async function napraviEmbeddedPoziv(opcije: { ref: string; putnik: string
   return { dokumentId: opcije.dokumentId, zahtevId };
 }
 
+/** Plan signNow naloga (za CRM „Stanje sistema“). */
+export async function planSignNow() {
+  const j = (await (await api("/user")).json()) as { premium_access?: { subscription?: { expired_at?: number; plan?: { name?: string } } } };
+  const s = j.premium_access?.subscription;
+  const istice = s?.expired_at ? new Date(s.expired_at * 1000).toISOString().slice(0, 10) : null;
+  return `${s?.plan?.name ?? "nepoznat plan"}${istice ? `, ističe ${istice}` : ""}`;
+}
+
 /** Stanje potpisa: potpis na dokumentu je jedini dokaz; odbijanje i istek se čitaju iz poziva. */
 export async function stanjePotpisa(dokumentId: string) {
   const d = (await (await api(`/document/${encodeURIComponent(dokumentId)}`)).json()) as {

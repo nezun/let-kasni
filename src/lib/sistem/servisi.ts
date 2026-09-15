@@ -138,4 +138,6 @@ export interface Servisi {
   portal: Portal;
   sabloni: Sabloni;
   sada(): Date;
+  /** Provera pristupa (Google Drive, Gmail, signNow) za „Stanje sistema“ u CRM-u. */
+  provere(): Promise<Record<string, { ok: boolean; poruka: string }>>;
 }
