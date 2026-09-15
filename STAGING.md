@@ -14,7 +14,7 @@ na produkciju (letkasni.rs) prelazi tek kad Niko kaže, po spisku na dnu. **Prod
 | Režim koraka | sve `auto` | `predlog`, pa korak po korak na `auto` (`SISTEM_KORACI_AUTO`) |
 | Raspored | Supabase pg_cron na sat → `/api/sistem/prolaz` | isto, posle prelaska |
 | Agenti | Nikov Mac: `scripts/sistem/radnik.mjs --okruzenje test` | Mac: `radnik.mjs --okruzenje prod` (posle prelaska) |
-| signNow | isti nalog (Development mode, vodeni žig) | plaćeni plan pre prelaska |
+| E-potpis | naš potpis na portalu (PDF pravi server); signNow samo kao rezerva (`SISTEM_POTPIS=signnow`) | isto, posle Igorove potvrde |
 
 ## Kako radi — tok predmeta
 1. **Forma** na sajtu → predmet odmah u CRM bazi (NEW).
@@ -25,8 +25,10 @@ na produkciju (letkasni.rs) prelazi tek kad Niko kaže, po spisku na dnu. **Prod
 5. **Agent Dokumenta** (Mac) pročita ime, datum rođenja i adresu. Sve sigurno → server napravi ugovor o ustupanju
    i poziv za potpis u signNow-u (POA_GENERATED). Nesigurno ili razlika → zadatak za Nika (HUMAN_REVIEW).
 6. **Draft G-potpis** sa ličnim linkom za potpis (POA_DRAFTED). Niko ga šalje → POA_SENT.
-7. Klijent otvori link i potpiše (bez upisivanja podataka i bez naloga) → server preuzme potpisan PDF → POA_SIGNED,
-   PDF u folderu za advokate, dnevni pregled advokatima (jedan mejl dnevno, samo kad ima novog).
+7. Klijent otvori link i potpiše na portalu (pregled podataka, PDF ugovora, saglasnost, potpis prstom ili mišem) →
+   server napravi potpisan PDF sa stranom „Dokaz o elektronskom potpisu“ (vreme, IP, uređaj, SHA-256 pre i posle) →
+   Drive „ugovori/<REF>/“ + `crm_potpisi` (zapisi se samo dodaju) → POA_SIGNED → folder za advokate →
+   dnevni mejl advokatima (jedan dnevno, samo kad ima novog).
 
 Mac radi samo agente (tabela `crm_poslovi`). Kad je Mac ugašen, poslovi čekaju; server te predmete preskače i
 nastavlja kad rezultat stigne. Posao prekinut usred rada vraća se u red.
@@ -35,6 +37,12 @@ nastavlja kad rezultat stigne. Posao prekinut usred rada vraća se u red.
 `node scripts/sistem/alati/staging-posta.mjs [--pokazi <id> | --posalji <id>]` (pipeline repo). Odgovore klijenata i
 priloge staging samo čita iz pravog Gmaila i foldera „LetKasni prilozi“ (`SISTEM_GMAIL_CITANJE=pravo`) — ništa u
 njima ne menja. Za probu: odgovor sa priloga pošalji na kontakt@letkasni.rs sa adrese koja nije naša.
+
+## Naš elektronski potpis
+- PDF: `src/lib/ugovor/docx.ts` (Word šablon → HTML) + `src/lib/ugovor/pdf.ts` (Chromium u funkciji, font Arimo ugrađen).
+- Potpis: `src/lib/ugovor/potpis-letkasni.ts`, portal `src/components/predmet/potpis-ugovora.tsx`, API `/api/predmet/<token>/potpisi` i `/ugovor`.
+- Provera da server pravi PDF: `POST /api/sistem/proba-pdf` (Authorization: Bearer SISTEM_KLJUC).
+- Pre produkcije: Igor potvrđuje da je ovakav potpis dovoljan za ugovor o ustupanju.
 
 ## Provera
 ```bash
