@@ -9,6 +9,7 @@ import {
   trackingConsentNoticeVersion,
   type ConsentCookieValue,
 } from "@/lib/consent-cookie";
+import { attributionStorageKey } from "@/lib/attribution-core";
 
 export type TrackingConsent = ConsentCookieValue;
 
@@ -118,11 +119,30 @@ function expireCookie(name: string) {
   document.cookie = `${name}=; Max-Age=0; Path=/; SameSite=Lax; Secure`;
 }
 
+function clearAdvertisingLocalStorage() {
+  try {
+    for (const name of Object.keys(window.localStorage)) {
+      if (name.startsWith("_gcl")) window.localStorage.removeItem(name);
+    }
+    window.localStorage.removeItem(attributionStorageKey);
+  } catch {
+    // The advertising choice remains denied when storage is unavailable.
+  }
+}
+
 export function clearOptionalTrackingCookies(options: { analytics: boolean; advertising: boolean }) {
   if (typeof document === "undefined") return;
+  if (options.advertising) clearAdvertisingLocalStorage();
   const names = document.cookie.split(";").map((item) => item.trim().split("=", 1)[0]).filter(Boolean);
   for (const name of names) {
-    if ((options.analytics && (name === "_gid" || name.startsWith("_ga"))) || (options.advertising && (name === "_fbp" || name === "_fbc"))) {
+    if (
+      (options.analytics && (name === "_gid" || name.startsWith("_ga"))) ||
+      (options.advertising &&
+        (name === "_fbp" ||
+          name === "_fbc" ||
+          name.startsWith("_gcl") ||
+          name.startsWith("_gac")))
+    ) {
       expireCookie(name);
     }
   }

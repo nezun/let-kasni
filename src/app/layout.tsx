@@ -4,6 +4,7 @@ import { DM_Sans, JetBrains_Mono, Sora } from "next/font/google";
 import { Analytics } from "@/components/analytics";
 import { ConsentBanner } from "@/components/consent-banner";
 import { MetaPixel } from "@/components/meta-pixel";
+import { GoogleMeasurement } from "@/components/google-measurement";
 import { getSiteUrl } from "@/lib/site-url";
 import {
   getSocialPreviewImageUrl,
@@ -83,12 +84,13 @@ export default async function RootLayout({
         <script
           id="lk-consent-bootstrap"
           dangerouslySetInnerHTML={{
-            __html: `(()=>{try{const readCookie=()=>document.cookie.split(";").map((part)=>part.trim()).find((part)=>part.startsWith("lk_consent="))?.slice("lk_consent=".length);const valid=(value)=>{if(!value)return false;try{const parsed=JSON.parse(decodeURIComponent(value));return parsed?.v===3&&parsed.notice==="privacy-1.2-2026-09-10"&&typeof parsed.analytics==="boolean"&&typeof parsed.marketing==="boolean"&&typeof parsed.ts==="number"&&parsed.ts>0;}catch(_){return false;}};const cookieValue=readCookie();if(valid(cookieValue)){document.documentElement.dataset.consent="1";}}catch(_){}})();`,
+            __html: `(()=>{window.dataLayer=window.dataLayer||[];window.gtag=window.gtag||function(){window.dataLayer.push(arguments);};window.gtag('consent','default',{analytics_storage:'denied',ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied'});window.gtag('set','ads_data_redaction',true);try{const readCookie=()=>document.cookie.split(";").map((part)=>part.trim()).find((part)=>part.startsWith("lk_consent="))?.slice("lk_consent=".length);const parse=(value)=>{if(!value)return null;try{const parsed=JSON.parse(decodeURIComponent(value));return parsed?.v===3&&parsed.notice==="privacy-1.2-2026-09-10"&&typeof parsed.analytics==="boolean"&&typeof parsed.marketing==="boolean"&&typeof parsed.ts==="number"&&parsed.ts>0?parsed:null;}catch(_){return null;}};const consent=parse(readCookie());if(consent){document.documentElement.dataset.consent="1";window.gtag('consent','update',{analytics_storage:consent.analytics?'granted':'denied',ad_storage:consent.marketing?'granted':'denied',ad_user_data:consent.marketing?'granted':'denied',ad_personalization:consent.marketing?'granted':'denied'});}}catch(_){}})();`,
           }}
         />
       </head>
       <body className="min-h-full flex flex-col">
         <Analytics />
+        <GoogleMeasurement />
         <MetaPixel />
         <ConsentBanner locale={locale} />
         {children}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   AlertCircle,
   Calendar,
@@ -14,11 +14,16 @@ import {
 } from "lucide-react";
 
 import { trackEvent } from "@/lib/analytics";
+import { getAttributionForSubmission } from "@/lib/attribution";
 import { BrandLogo } from "@/components/brand-logo";
 import { MarketingSubscriptionCard } from "@/components/marketing-subscription-card";
 import { getTrackingConsent } from "@/lib/consent";
 import { isValidEmail } from "@/lib/email-validation";
 import { getMetaEventId, trackMetaEvent } from "@/lib/meta";
+import {
+  trackClaimStartOnce,
+  trackLeadSubmitOnce,
+} from "@/lib/google-tracking";
 import type { IssueType } from "@/lib/types";
 
 interface ClaimModalProps {
@@ -181,6 +186,7 @@ export function ClaimModal({
     issueType: seed?.issueType ?? initialState.issueType,
   }));
   const [submitState, setSubmitState] = useState<SubmitState>({ status: "idle" });
+  const submissionInFlightRef = useRef(false);
 
   useEffect(() => {
     if (!isOpen) {
@@ -193,6 +199,12 @@ export function ClaimModal({
       document.body.style.overflow = original;
     };
   }, [isOpen]);
+
+  useEffect(() => {
+    if (isOpen && step === "contact") {
+      trackClaimStartOnce("claim_modal", locale);
+    }
+  }, [isOpen, locale, step]);
 
   if (!isOpen) {
     return null;
@@ -253,6 +265,9 @@ export function ClaimModal({
       return;
     }
 
+    if (submissionInFlightRef.current) return;
+    submissionInFlightRef.current = true;
+
     setSubmitState({ status: "submitting" });
     const metaEventId = getMetaEventId();
 
@@ -277,6 +292,7 @@ export function ClaimModal({
           formStartedAt: String(formStartedAt),
           metaEventId,
           eventSourceUrl: window.location.href,
+          attribution: getAttributionForSubmission(),
         }),
       });
 
@@ -309,6 +325,12 @@ export function ClaimModal({
         reference: data.claim.id.slice(0, 8).toUpperCase(),
       });
       if (!data.reused) {
+        trackLeadSubmitOnce({
+          claimId: data.claim.id,
+          source: "modal_form",
+          locale,
+          providerStatus: data.claim.providerStatus,
+        });
         trackEvent("generate_lead", {
           event_category: "claim",
           event_label: "modal_form",
@@ -332,6 +354,8 @@ export function ClaimModal({
         status: "error",
         message: t.fallbackError,
       });
+    } finally {
+      submissionInFlightRef.current = false;
     }
   }
 

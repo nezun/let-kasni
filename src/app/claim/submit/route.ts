@@ -11,6 +11,7 @@ import {
   trackingConsentCookieName,
 } from "@/lib/consent-cookie";
 import type { ClaimInput, IssueType } from "@/lib/types";
+import { sanitizeClaimAttribution } from "@/lib/attribution-core";
 
 const minimumHumanSubmitMs = 2500;
 
@@ -78,6 +79,7 @@ function validateInput(body: unknown): ValidatedSubmission | null {
       typeof data.website === "string" && data.website.trim().length > 0
         ? data.website.trim()
         : undefined,
+    attribution: sanitizeClaimAttribution(data.attribution),
   };
 
   if (
@@ -135,7 +137,13 @@ export async function POST(request: Request) {
 
   const metadata = body as Record<string, unknown>;
 
-  const { input } = submission;
+  const marketingConsent = hasMarketingCookieConsent(request);
+  const input: ClaimInput = {
+    ...submission.input,
+    attribution: marketingConsent
+      ? submission.input.attribution
+      : undefined,
+  };
 
   const forwardedFor = request.headers.get("x-forwarded-for") ?? "unknown";
   const ip = forwardedFor.split(",")[0]?.trim() || "unknown";
@@ -160,7 +168,7 @@ export async function POST(request: Request) {
   });
   const providerSnapshot = claim.providerSnapshot;
 
-  if (!reused && hasMarketingCookieConsent(request)) {
+  if (!reused && marketingConsent) {
     const metaResult = await sendMetaLeadEvent(request, {
       eventId:
         typeof metadata.metaEventId === "string" ? metadata.metaEventId : undefined,
