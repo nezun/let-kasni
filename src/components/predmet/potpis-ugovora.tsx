@@ -224,7 +224,11 @@ function KarticaPutnika({ token, potpis, putnik, letOpis }: { token: string; pot
           >
             {radi ? "Potpisujem…" : "Potpiši ugovor"}
           </button>
-          {!saglasan || !png ? <p className="-mt-2 text-xs text-[var(--muted)]">Dugme se uključuje kad potvrdite saglasnost i potpišete se.</p> : null}
+          {radi ? (
+            <p className="-mt-2 text-xs text-[var(--muted)]">Pravimo potpisan ugovor — to traje do 20 sekundi. Ne zatvarajte stranicu.</p>
+          ) : !saglasan || !png ? (
+            <p className="-mt-2 text-xs text-[var(--muted)]">Dugme se uključuje kad potvrdite saglasnost i potpišete se.</p>
+          ) : null}
         </>
       ) : (
         <p className="text-sm text-[var(--muted)]">Ugovor još nije spreman za potpis.</p>
