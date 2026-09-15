@@ -7,13 +7,23 @@ Status: code-ready on `codex/google-ads-measurement`; production remains disable
 | Component | Before | After | Status |
 | --- | --- | --- | --- |
 | GA4 | Direct `gtag.js`, consent-gated | Preserved; receives the new safe journey events | Local regression passed |
-| GTM | Not present | Optional `NEXT_PUBLIC_GTM_ID`, loaded only after advertising consent | Needs real container ID |
-| Google Ads conversion | Not present | `lead_submit` data-layer contract with a claim transaction ID | Needs Ads/GTM UI setup |
+| GTM | Not present | Optional `NEXT_PUBLIC_GTM_ID`, loaded only after advertising consent | Preview configured; draft not published |
+| Google Ads conversion | Not present | `lead_submit` data-layer contract with a claim transaction ID | Blocked on Ads billing setup |
 | Consent Mode v2 | Not present | Denied-by-default signals for all four v2 consent types, updated from the existing consent cookie | Code-ready |
 | Attribution | Not persisted | First paid touch stored for 90 days after advertising consent | Code-ready |
 | Claim payload | No Google attribution | Allowlisted attribution stored in `original_input_snapshot.attribution` | Code-ready |
 | Meta Pixel/CAPI | Existing browser/server `Lead` deduplication | Unchanged | Existing checks passed |
 | SEO | Existing metadata, canonicals and routes | Unchanged | Existing checks and build passed |
+
+## External configuration completed (2026-09-15)
+
+- Created Google Tag Manager account `LetKasni` and Web container `GTM-WT3B2L8P` for `letkasni.rs`.
+- Added `NEXT_PUBLIC_GTM_ID=GTM-WT3B2L8P` in Vercel only for Preview branch `codex/google-ads-measurement`.
+- Created draft GTM items `DLV - transaction_id`, `CE - lead_submit` and `Conversion Linker - All Pages`. The container is intentionally unpublished.
+- Created Google Ads account `460-732-8439` for LetKasni with billing country Serbia, Serbia Time and EUR. No campaign or spend was activated.
+- Linked GA4 property `letkasni` (`534756949`) to Ads account `460-732-8439` with auto-tagging enabled.
+- Linked the Search Console domain property `letkasni.rs` to the production GA4 web stream.
+- Ads onboarding now requires a payment profile and payment method before the account UI exposes conversion-action setup. No billing data was entered automatically.
 
 ## Actual tracking flow
 
@@ -183,12 +193,13 @@ Google's current setup distinguishes manual code/event conversions from URL page
 
 Do not start paid traffic until all are cleared:
 
-1. A real GTM Web container ID is added to Vercel and the container is published.
-2. The direct Google Ads `Lead` conversion action and GTM tag are configured with the real Conversion ID/Label.
-3. Auto-tagging is confirmed on and the mock GCLID path passes in Tag Assistant.
+1. Add the approved Google Ads wording to the consent/privacy package if required, then add the existing GTM ID to Vercel Production. It is currently scoped only to the Ads preview branch.
+2. Finish the Google Ads payment profile. The account is configured in EUR but conversion-action setup remains inaccessible until billing onboarding is submitted.
+3. Create the direct Google Ads `Lead` conversion action and configure its GTM tag with the real Conversion ID/Label.
 4. Business/legal review approves Google Ads advertising measurement under the existing advertising choice. The current banner detail and Privacy Policy name Meta but not Google Ads; update the wording and consent notice version before production enablement if review requires it.
-5. A controlled production submission confirms exactly one Ads conversion and no GA4/Meta regression.
-6. The Search campaign remains paused until items 1-5 pass.
+5. Publish GTM only after the Ads tag passes Preview QA.
+6. A controlled production submission confirms exactly one Ads conversion and no GA4/Meta regression.
+7. The Search campaign remains paused until items 1-6 pass.
 
 ## Nice to have
 
@@ -259,9 +270,17 @@ Passed locally on `codex/google-ads-measurement`:
 - Existing workflow, privacy, Meta, email, content, locale, lint and TypeScript checks passed.
 - The optimized Next.js production build passed and generated all 331 static pages.
 
-Not yet testable without production account access:
+Passed against the real Vercel Preview and GTM draft on `f2d35e2`:
 
-- real GTM Preview / Tag Assistant delivery using the production container;
+- The branch deployment completed successfully with `GTM-WT3B2L8P` scoped only to that Preview branch.
+- Tag Assistant stayed disconnected before advertising consent and connected immediately after accept-all.
+- Tag Assistant found the existing direct GA4 tag `G-RVJ906DKVF` and the new GTM container, with no second GA4 configuration tag added through GTM.
+- `Conversion Linker - All Pages` fired on the consented preview.
+- Live Preview exposed a duplicate journey-event dispatch when both consent categories were granted. Commit `f2d35e2` removed the second push, the regression test now models the real `gtag` data-layer behavior, and Tag Assistant then showed one `claim_start` event on flow entry.
+- The mock GCLID/UTM URL loaded successfully and remained attached through the English focused-flow navigation.
+
+Not yet testable until Google Ads billing onboarding and the release blockers are cleared:
+
 - receipt of the direct Google Ads conversion using its real Conversion ID and Label;
 - GA4 DebugView and Google Ads diagnostics after the GA4/Ads account link;
 - one controlled production submission after deployment.
