@@ -39,7 +39,10 @@ function isIssueType(value: string): value is IssueType {
   ].includes(value);
 }
 
-function validateInput(body: unknown): ValidatedSubmission | null {
+function validateInput(
+  body: unknown,
+  requestOrigin: string,
+): ValidatedSubmission | null {
   if (!body || typeof body !== "object") {
     return null;
   }
@@ -79,7 +82,10 @@ function validateInput(body: unknown): ValidatedSubmission | null {
       typeof data.website === "string" && data.website.trim().length > 0
         ? data.website.trim()
         : undefined,
-    attribution: sanitizeClaimAttribution(data.attribution),
+    attribution: sanitizeClaimAttribution(data.attribution, {
+      allowedOrigins: [requestOrigin],
+      nowMs: Date.now(),
+    }),
   };
 
   if (
@@ -123,7 +129,7 @@ function validateInput(body: unknown): ValidatedSubmission | null {
 
 export async function POST(request: Request) {
   const body = await request.json().catch(() => null);
-  const submission = validateInput(body);
+  const submission = validateInput(body, new URL(request.url).origin);
 
   if (!submission) {
     return NextResponse.json(

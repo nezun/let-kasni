@@ -25,9 +25,16 @@ export type ClaimAttribution = Partial<
 const clickIdNames = ["gclid", "gbraid", "wbraid"] as const;
 const paidMediumPattern = /^(cpc|ppc|paid|paid[-_ ]?search|sem)$/i;
 const maximumValueLength = 500;
+export const attributionMaxAgeMs = 90 * 24 * 60 * 60 * 1000;
+const attributionFutureSkewMs = 5 * 60 * 1000;
+
+type AttributionSanitizeOptions = {
+  allowedOrigins?: readonly string[];
+  nowMs?: number;
+};
 
 function cleanValue(value: string | null | undefined) {
-  const trimmed = value?.trim();
+  const trimmed = value?.replace(/[\u0000-\u001F\u007F]/g, "").trim();
   return trimmed ? trimmed.slice(0, maximumValueLength) : undefined;
 }
 
@@ -37,6 +44,7 @@ function cleanPageUrl(value: string, baseOrigin?: string) {
     if (parsed.protocol !== "http:" && parsed.protocol !== "https:") {
       return undefined;
     }
+    if (parsed.username || parsed.password) return undefined;
     parsed.search = "";
     parsed.hash = "";
     return parsed.toString().slice(0, maximumValueLength);
@@ -88,6 +96,7 @@ export function getAttributionFromPage(
 
 export function sanitizeClaimAttribution(
   value: unknown,
+  options: AttributionSanitizeOptions = {},
 ): ClaimAttribution | undefined {
   if (!value || typeof value !== "object") return undefined;
 
@@ -103,6 +112,22 @@ export function sanitizeClaimAttribution(
       : undefined;
 
   if (!initialLandingPage || !capturedAt) return undefined;
+  const landingOrigin = new URL(initialLandingPage).origin;
+  if (
+    options.allowedOrigins &&
+    !options.allowedOrigins.includes(landingOrigin)
+  ) {
+    return undefined;
+  }
+  if (options.nowMs !== undefined) {
+    const capturedAtMs = Date.parse(capturedAt);
+    if (
+      capturedAtMs > options.nowMs + attributionFutureSkewMs ||
+      options.nowMs - capturedAtMs > attributionMaxAgeMs
+    ) {
+      return undefined;
+    }
+  }
 
   const attribution: Partial<Record<AttributionParameterName, string>> = {};
   for (const name of attributionParameterNames) {

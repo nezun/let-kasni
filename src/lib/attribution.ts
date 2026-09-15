@@ -2,6 +2,7 @@
 
 import {
   appendAttributionParameters,
+  attributionMaxAgeMs,
   attributionStorageKey,
   getAttributionFromPage,
   mergeAttribution,
@@ -9,8 +10,6 @@ import {
   type ClaimAttribution,
 } from "@/lib/attribution-core";
 import { hasMarketingConsent } from "@/lib/consent";
-
-const attributionMaxAgeMs = 90 * 24 * 60 * 60 * 1000;
 
 function isFresh(attribution: ClaimAttribution) {
   const capturedAt = Date.parse(attribution.captured_at);

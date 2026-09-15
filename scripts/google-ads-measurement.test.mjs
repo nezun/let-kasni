@@ -16,6 +16,7 @@ const attributionCoreModule = ts.transpileModule(attributionCoreSource, {
 }).outputText;
 const {
   appendAttributionParameters,
+  attributionMaxAgeMs,
   attributionStorageKey,
   getAttributionFromPage,
   hasPaidAttribution,
@@ -99,7 +100,7 @@ function loadAttributionClient({
   )
     .replace(
       /import \{[\s\S]*?\} from "@\/lib\/attribution-core";/,
-      "const { appendAttributionParameters, attributionStorageKey, getAttributionFromPage, mergeAttribution, sanitizeClaimAttribution } = globalThis.__attributionCore;",
+      "const { appendAttributionParameters, attributionMaxAgeMs, attributionStorageKey, getAttributionFromPage, mergeAttribution, sanitizeClaimAttribution } = globalThis.__attributionCore;",
     )
     .replace(
       'import { hasMarketingConsent } from "@/lib/consent";',
@@ -133,6 +134,7 @@ function loadAttributionClient({
     document: { referrer },
     __attributionCore: {
       appendAttributionParameters,
+      attributionMaxAgeMs,
       attributionStorageKey,
       getAttributionFromPage,
       mergeAttribution,
@@ -233,7 +235,58 @@ test("rejects invalid and non-web attribution URLs", () => {
     undefined,
   );
   assert.equal(
+    sanitizeClaimAttribution({
+      initial_landing_page: "https://user:secret@letkasni.rs/",
+      captured_at: capturedAt,
+    }),
+    undefined,
+  );
+  assert.equal(
     sanitizeClaimAttribution({ initial_landing_page: "https://letkasni.rs/" }),
+    undefined,
+  );
+});
+
+test("server validation binds attribution to the current site and a recent timestamp", () => {
+  const nowMs = Date.parse(capturedAt) + 60_000;
+  const valid = {
+    gclid: "TEST\u0000_GCLID",
+    initial_landing_page: "https://letkasni.rs/?private=value",
+    captured_at: capturedAt,
+  };
+
+  assert.equal(
+    sanitizeClaimAttribution(valid, {
+      allowedOrigins: ["https://letkasni.rs"],
+      nowMs,
+    })?.gclid,
+    "TEST_GCLID",
+  );
+  assert.equal(
+    sanitizeClaimAttribution(
+      { ...valid, initial_landing_page: "https://evil.example/" },
+      { allowedOrigins: ["https://letkasni.rs"], nowMs },
+    ),
+    undefined,
+  );
+  assert.equal(
+    sanitizeClaimAttribution(
+      {
+        ...valid,
+        captured_at: new Date(nowMs - attributionMaxAgeMs - 1).toISOString(),
+      },
+      { allowedOrigins: ["https://letkasni.rs"], nowMs },
+    ),
+    undefined,
+  );
+  assert.equal(
+    sanitizeClaimAttribution(
+      {
+        ...valid,
+        captured_at: new Date(nowMs + 5 * 60 * 1000 + 1).toISOString(),
+      },
+      { allowedOrigins: ["https://letkasni.rs"], nowMs },
+    ),
     undefined,
   );
 });
