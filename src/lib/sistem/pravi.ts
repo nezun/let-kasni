@@ -187,7 +187,9 @@ function praviGmail(): Gmail {
       return { messageId: m!.id };
     },
     async postojiDraft(draftId) {
-      return (await gmailZahtev(`/drafts/${draftId}?format=minimal`, {}, [404])) !== null;
+      // Gmail i posle slanja vraća isti draft id (200), ali poruka tada nosi SENT umesto DRAFT
+      const d = await gmailZahtev<{ message?: { labelIds?: string[] } }>(`/drafts/${draftId}?format=minimal`, {}, [404]);
+      return !!d?.message?.labelIds?.includes("DRAFT");
     },
     async thread(threadId) {
       const polja = "id,messages(id,threadId,internalDate,labelIds,payload(headers,parts(filename,parts(filename))))";
