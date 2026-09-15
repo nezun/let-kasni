@@ -1,10 +1,10 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import { trackEvent } from "@/lib/analytics";
 import { getAttributionForSubmission } from "@/lib/attribution";
-import { getTrackingConsent } from "@/lib/consent";
+import { getTrackingConsent, trackingConsentEvent } from "@/lib/consent";
 import {
   trackClaimStartOnce,
   trackLeadSubmitOnce,
@@ -134,8 +134,24 @@ export function ClaimIntakeForm({ locale = "sr" }: { locale?: "sr" | "en" }) {
     status: "idle",
   });
   const submissionInFlightRef = useRef(false);
+  const formInteractionRef = useRef(false);
   const t = formCopy[locale];
   const helperCopy = useMemo(() => t.helper, [t]);
+
+  useEffect(() => {
+    const trackStartedFormAfterConsent = () => {
+      if (formInteractionRef.current) {
+        trackClaimStartOnce("inline_form", locale);
+      }
+    };
+
+    window.addEventListener(trackingConsentEvent, trackStartedFormAfterConsent);
+    return () =>
+      window.removeEventListener(
+        trackingConsentEvent,
+        trackStartedFormAfterConsent,
+      );
+  }, [locale]);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -242,7 +258,10 @@ export function ClaimIntakeForm({ locale = "sr" }: { locale?: "sr" | "en" }) {
       <form
         className="lk-form-grid"
         onSubmit={handleSubmit}
-        onChangeCapture={() => trackClaimStartOnce("inline_form", locale)}
+        onChangeCapture={() => {
+          formInteractionRef.current = true;
+          trackClaimStartOnce("inline_form", locale);
+        }}
         autoComplete="on"
       >
         <label className="lk-form-label">

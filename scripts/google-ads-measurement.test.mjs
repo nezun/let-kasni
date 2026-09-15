@@ -188,5 +188,6 @@ test("tracking wiring is consent-gated, success-gated and PII-minimized", () => 
     assert.match(form, /getAttributionForSubmission\(\)/);
     assert.match(form, /trackLeadSubmitOnce/);
     assert.match(form, /if \(!data\.reused\)/);
+    assert.match(form, /addEventListener\(trackingConsentEvent/);
   }
 });

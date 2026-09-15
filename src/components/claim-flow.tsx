@@ -25,7 +25,7 @@ import {
   getAttributionForSubmission,
   withCurrentAttributionParameters,
 } from "@/lib/attribution";
-import { getTrackingConsent } from "@/lib/consent";
+import { getTrackingConsent, trackingConsentEvent } from "@/lib/consent";
 import { isValidEmail } from "@/lib/email-validation";
 import { getMetaEventId, trackMetaEvent } from "@/lib/meta";
 import {
@@ -473,9 +473,14 @@ function ClaimFlow({
   }, [step]);
 
   useEffect(() => {
-    if (step === 2) {
+    if (step !== 2) return;
+
+    const trackClaimStart = () =>
       trackClaimStartOnce(`${surface}_claim_flow`, locale);
-    }
+    trackClaimStart();
+    window.addEventListener(trackingConsentEvent, trackClaimStart);
+    return () =>
+      window.removeEventListener(trackingConsentEvent, trackClaimStart);
   }, [locale, step, surface]);
 
   function openDatePicker() {

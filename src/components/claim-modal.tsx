@@ -17,7 +17,7 @@ import { trackEvent } from "@/lib/analytics";
 import { getAttributionForSubmission } from "@/lib/attribution";
 import { BrandLogo } from "@/components/brand-logo";
 import { MarketingSubscriptionCard } from "@/components/marketing-subscription-card";
-import { getTrackingConsent } from "@/lib/consent";
+import { getTrackingConsent, trackingConsentEvent } from "@/lib/consent";
 import { isValidEmail } from "@/lib/email-validation";
 import { getMetaEventId, trackMetaEvent } from "@/lib/meta";
 import {
@@ -201,9 +201,13 @@ export function ClaimModal({
   }, [isOpen]);
 
   useEffect(() => {
-    if (isOpen && step === "contact") {
-      trackClaimStartOnce("claim_modal", locale);
-    }
+    if (!isOpen || step !== "contact") return;
+
+    const trackClaimStart = () => trackClaimStartOnce("claim_modal", locale);
+    trackClaimStart();
+    window.addEventListener(trackingConsentEvent, trackClaimStart);
+    return () =>
+      window.removeEventListener(trackingConsentEvent, trackClaimStart);
   }, [isOpen, locale, step]);
 
   if (!isOpen) {
