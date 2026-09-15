@@ -3,7 +3,7 @@
 ## Owner Decision
 
 This supersedes the previous broader local retirement proposal. The owner approved
-deployment of this final scope on 2026-09-16. Approval is not proof of deployment;
+deployment of this final scope on 2026-09-15. Approval is not proof of deployment;
 use the production release gate and its recorded commit verification as evidence.
 
 - KEEP REMOVED: 46 airline articles / 92 localized canonical URLs, plus 16

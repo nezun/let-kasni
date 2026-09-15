@@ -4,7 +4,7 @@ Canonical handoff file for future local and Codex Cloud sessions.
 
 ## Start Here
 
-### Retirement release approved, 2026-09-16
+### Retirement release approved, 2026-09-15
 
 - Owner explicitly approved deploy of the final scope below: airline and regional
   pages removed, all general/scenario pages kept and recorded as suggestions only.
