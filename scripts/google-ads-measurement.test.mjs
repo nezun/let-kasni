@@ -16,6 +16,7 @@ const attributionCoreModule = ts.transpileModule(attributionCoreSource, {
 }).outputText;
 const {
   appendAttributionParameters,
+  attributionStorageKey,
   getAttributionFromPage,
   hasPaidAttribution,
   mergeAttribution,
@@ -106,7 +107,7 @@ function loadAttributionClient({
     );
   const storageValues = new Map();
   if (storedValue !== undefined) {
-    storageValues.set("letkasni-attribution-v1", storedValue);
+    storageValues.set(attributionStorageKey, storedValue);
   }
   const localStorage = {
     getItem(key) {
@@ -132,7 +133,7 @@ function loadAttributionClient({
     document: { referrer },
     __attributionCore: {
       appendAttributionParameters,
-      attributionStorageKey: "letkasni-attribution-v1",
+      attributionStorageKey,
       getAttributionFromPage,
       mergeAttribution,
       sanitizeClaimAttribution,
@@ -287,7 +288,7 @@ test("returns fresh stored attribution and evicts expired or malformed values", 
   ]) {
     const runtime = loadAttributionClient({ storedValue });
     assert.equal(runtime.exports.getStoredAttribution(), undefined);
-    assert.equal(runtime.storageValues.has("letkasni-attribution-v1"), false);
+    assert.equal(runtime.storageValues.has(attributionStorageKey), false);
   }
 });
 
@@ -299,7 +300,7 @@ test("captures a consented paid touch and strips query data before storage", () 
   assert.equal(captured?.initial_landing_page, "https://letkasni.rs/");
   assert.equal(captured?.referrer, "https://www.google.com/search");
   assert.equal(
-    JSON.parse(runtime.storageValues.get("letkasni-attribution-v1")).gclid,
+    JSON.parse(runtime.storageValues.get(attributionStorageKey)).gclid,
     "TEST",
   );
 });
@@ -312,7 +313,7 @@ test("clears attribution without marketing consent and fails closed when storage
   });
   const denied = loadAttributionClient({ marketing: false, storedValue });
   assert.equal(denied.exports.captureCurrentAttribution(), undefined);
-  assert.equal(denied.storageValues.has("letkasni-attribution-v1"), false);
+  assert.equal(denied.storageValues.has(attributionStorageKey), false);
 
   const unavailable = loadAttributionClient({ storageThrows: true });
   assert.equal(unavailable.exports.getStoredAttribution(), undefined);
