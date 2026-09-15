@@ -95,3 +95,9 @@ alter table public.crm_letovi enable row level security;
 alter table public.crm_sistem enable row level security;
 
 revoke all on public.crm_predmeti, public.crm_dogadjaji, public.crm_letovi, public.crm_sistem from anon, authenticated;
+
+-- Projekti bez „Automatically expose new tables“ ne daju prava automatski: service role (pipeline i sajt) ih dobija izričito.
+grant usage on schema public to service_role;
+grant select, insert, update, delete on public.crm_predmeti, public.crm_dogadjaji, public.crm_letovi, public.crm_sistem to service_role;
+grant usage, select on all sequences in schema public to service_role;
+
