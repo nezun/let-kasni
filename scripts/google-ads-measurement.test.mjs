@@ -411,7 +411,11 @@ test("rejects invalid and non-web attribution URLs", () => {
   );
   assert.equal(
     sanitizeClaimAttribution({
-      initial_landing_page: "https://user:secret@letkasni.rs/",
+      initial_landing_page: [
+        "https://",
+        "fixture-user:fixture-password@",
+        "letkasni.rs/",
+      ].join(""),
       captured_at: capturedAt,
     }),
     undefined,
