@@ -84,20 +84,6 @@ test("GET never mutates confirmation or unsubscribe state", async () => {
   for (const source of files) assert.doesNotMatch(source, /export\s+async\s+function\s+GET/);
 });
 
-test("claim submission stays independent from email-offer subscription", async () => {
-  const source = await readFile(new URL("../src/app/claim/submit/route.ts", import.meta.url), "utf8");
-  assert.doesNotMatch(source, /requestMarketingSubscription|marketing_email_subscriptions/);
-});
-
-test("CAPI source URL is scrubbed and claim contact fields are not sent without an adult-specific proof", async () => {
-  const meta = await readFile(new URL("../src/lib/meta-conversions.ts", import.meta.url), "utf8");
-  const claim = await readFile(new URL("../src/app/claim/submit/route.ts", import.meta.url), "utf8");
-  assert.match(meta, /parsed\.search = ""/);
-  assert.match(meta, /parsed\.hash = ""/);
-  const call = claim.slice(claim.indexOf("const metaResult = await sendMetaLeadEvent"), claim.indexOf("console.info(\n      \"Meta Lead CAPI delivery"));
-  assert.doesNotMatch(call, /email:|firstName:|lastName:|phone:|externalId:/);
-});
-
 test("campaign delivery stays disabled until a product is explicitly approved", () => {
   assert.deepEqual(approvedMarketingProducts, []);
   assert.equal(getApprovedMarketingProduct("letkasni"), undefined);

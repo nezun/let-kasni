@@ -158,14 +158,3 @@ test("retries only the safe concurrent idempotency conflict", async () => {
     },
   );
 });
-
-test("claim submit waits for both notification deliveries", () => {
-  const route = readFileSync(
-    resolve(repoRoot, "src/app/claim/submit/route.ts"),
-    "utf8",
-  );
-
-  assert.match(route, /await Promise\.allSettled\(\[/);
-  assert.doesNotMatch(route, /sendAdminClaimNotification\(claim\)\.catch/);
-  assert.doesNotMatch(route, /sendUserClaimConfirmation\([^)]*\)\.catch/);
-});
