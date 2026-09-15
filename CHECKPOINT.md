@@ -14,27 +14,18 @@ Canonical handoff file for future local and Codex Cloud sessions.
 ## Generated Status
 
 <!-- BEGIN:generated-status -->
-Generated at: `2026-09-10T09:20:41.685Z`
+Generated at: `2026-09-15T10:02:31.544Z`
 
-Branch: `codex/privacy-marketing-consent`
+Branch: `codex/google-ads-measurement`
 
 Remote: `https://github.com/nezun/let-kasni.git`
 
-Latest local commit: `6661ce1 Complete marketing consent retention controls`
+Latest local commit: `ae1b35e fix(qa): ISSUE-003 — track claim start after consent`
 
 Worktree status:
 
 ```text
 M CHECKPOINT.md
- M docs/PRIVACY-MARKETING-CONSENT-2026-09-09.md
- M scripts/marketing-consent.test.mjs
- M scripts/meta-tracking-check.mjs
- M scripts/privacy-policy-check.mjs
- M src/app/en/privacy/page.tsx
- M src/app/layout.tsx
- M src/app/privacy/page.tsx
- M src/lib/consent-cookie.ts
- M src/lib/marketing-consent-store.ts
 ```
 
 Useful commands:
@@ -43,7 +34,7 @@ Useful commands:
 - `npm run dev`: `next dev`
 - `npm run lint`: `eslint`
 - `npm run build`: `next build`
-- `npm run verify`: `npm run workflow:check && npm run privacy:check && npm run meta:check && npm run email:check && npm run content:qa && npm run content:links && npm run content:benchmark && npm run locales:check && npm run lint && npm run build`
+- `npm run verify`: `npm run workflow:check && npm run privacy:check && npm run meta:check && npm run google-ads:check && npm run email:check && npm run content:qa && npm run content:links && npm run content:benchmark && npm run locales:check && npm run lint && npm run build`
 - `npm run release:gate`: `bash scripts/release-gate.sh`
 - `npm run production:check`: `node scripts/check-production.mjs`
 - `npm run workflow:check`: `bash scripts/check-workflow-guards.sh`
@@ -55,6 +46,8 @@ Useful commands:
 
 ## Current State
 
+- 2026-09-15: Google Ads online measurement is code-ready on `codex/google-ads-measurement`. The site now has an optional consent-gated GTM container, Consent Mode v2 defaults/updates, 90-day first-paid-touch capture for Google click IDs and UTMs, success-only deduplicated `lead_submit`, and secondary `claim_start`, phone and WhatsApp events. No production ID was invented and no deployment was attempted.
+- Attribution is allowlisted, query-stripped and stored with the existing claim input snapshot only when the server-verified advertising consent cookie permits it. GA4 remains direct, Meta Pixel/CAPI remains on its existing path, and no PII is added to GA4/GTM events. Exact UI setup and blockers are in `docs/GOOGLE-ADS-LAUNCH.md`.
 - 2026-09-10: the user explicitly authorized publishing the full PP 1.2 package before the marketing persistence/CRM integration is activated. PP 1.2 now uses the actual static publication date 10.09.2026. Marketing subscription remains fail-closed and hidden while Supabase and the required feature settings are absent; no campaign product is approved.
 - 2026-09-09: Privacy Policy 1.2 and the separate adult email-offer consent flow are implemented on `codex/privacy-marketing-consent`. The flow is fail-closed, uses double opt-in, separate consent/event/suppression tables, POST-only confirmation and unsubscribe, strict expiry/scope/product checks, and a central send gate with visible and one-click unsubscribe. The approved marketing-product registry is empty, so no sales campaign can run from this release.
 - PP 1.2 and the subscription UI must ship together. Production `/api/health` at `13d64ce652a4b1dcbc559c1a7759676e81a4aeab` reported `supabaseConfigured: false` on 2026-09-09, so the additive migration and durable consent storage cannot yet be verified. The release remains blocked and feature flags remain off.
@@ -93,6 +86,10 @@ Useful commands:
 
 ## Next Work
 
+- Create/select the real GTM Web container, add `NEXT_PUBLIC_GTM_ID` to Vercel Preview, create the Conversion Linker plus `lead_submit` Google Ads tag, and publish only after Tag Assistant shows one conversion per successful claim.
+- In Google Ads create `Lead - successful claim submit`, keep it Primary with Count `One`, enable auto-tagging, keep secondary journey events observational, and link the correct GA4 property to the Ads account.
+- Complete business/legal review of adding Google Ads to the advertising-measurement wording. If wording changes, update both SR/EN Privacy and banner copy together and bump the consent notice version before production tracking is enabled.
+- After Preview QA, deploy only with explicit release authorization and run one controlled production claim to verify GTM, Google Ads, GA4 and Meta together. Keep `SEARCH_RS_CORE` paused until this passes.
 - Configure a durable Supabase production project, confirm its region/account DPA/transfer basis, apply `202609091200_marketing_email_consent.sql`, and test pending -> confirmed -> withdrawn using only a controlled test address.
 - Confirm account-level DPA/transfer evidence for Vercel, Resend and the applicable Google contracting entity. Only then set the two marketing flags, token secret and `MARKETING_TRANSFER_REVIEW_VERSION=2026-09-09`; if publication occurs after 09.09.2026, update PP 1.2's static effective date to the actual deployment date.
 - After the immediate reliability release, add a durable email outbox plus Resend delivery/bounce webhooks once Supabase production persistence is configured; this is the remaining step that can recover emails after all in-request retries fail.
@@ -115,6 +112,8 @@ Useful commands:
 
 ## Manual Work Still Needed
 
+- Google-owned account configuration is manual: real GTM container ID, Google Ads Conversion ID/Label, auto-tagging, GA4-to-Ads linking, Tag Assistant Preview and one controlled production conversion.
+- Google Ads measurement wording still needs business/legal approval because the current detailed advertising copy names Meta but not Google Ads. The code stays environment-disabled until this and the account configuration are complete.
 - No manual email reliability step remains. A controlled production claim to `kontakt@letkasni.rs` was accepted by Resend for both admin and user messages; inbox routing can still be checked independently when needed.
 - Meta Business setup is still manual: Pixel/Dataset, domain verification, `Lead` event prioritization, Pixel ID, and server access token.
 - Phone matching remains intentionally unchanged and optional; this task did not add a phone requirement or alter phone collection.
@@ -128,6 +127,7 @@ Useful commands:
 
 ## Verification Log
 
+- 2026-09-15 Google Ads readiness: full `npm run verify` passed on `ae1b35e`, including 12 workflow checks, 12 privacy checks, Meta check, 7 Google Ads measurement tests, 5 email tests, content/link/benchmark checks, SR/EN locale alignment, lint, TypeScript and an optimized build of 331 pages. Local browser QA covered pre-consent, analytics-only, advertising-only, accept-all and revoke states; mock GCLID/UTM navigation; phone/WhatsApp events; SR end-to-end submission with stored attribution; and EN campaign-parameter navigation. QA found and fixed missing client exposure of `NEXT_PUBLIC_GTM_ID`, a lint-only test issue, and pre-consent `claim_start` replay.
 - 2026-09-10 release preparation: PP 1.2 publication date and consent-notice identifier were updated to 10.09.2026. A concurrent subscription-write finding was fixed with an atomic database upsert. Privacy checks (12 tests), lint, TypeScript and the 331-route production build passed before the final release gate.
 - 2026-09-09 privacy/marketing implementation: `npm run verify` passed, including 12 workflow checks, 10 privacy/marketing tests, 5 Resend tests, Meta checks, content checks, locale alignment, lint, TypeScript and a production build of 331 routes. SR/EN `/privacy` and `/email-offers` pages were checked locally at desktop and 375px mobile; the privacy page had no horizontal overflow, and rejecting optional tracking wrote the current v3 consent with GA and Meta disabled.
 - 2026-09-09 production preflight: public `/api/health` matched commit `13d64ce652a4b1dcbc559c1a7759676e81a4aeab`, reported `supabaseConfigured: false`, `metaCapiConfigured: true`, and `supportEmail: kontakt@letkasni.rs`. No deployment was attempted because durable consent storage and account-level transfer evidence are mandatory publication conditions.
