@@ -93,6 +93,34 @@ export function korakPredmeta(c: any): NonNullable<PredmetV1["korak"]> {
   }
 }
 
+/** Detalji za tab „Informacije“ u CRM-u — ono što advokatu treba, bez ličnih podataka. */
+function detalji(c: any): NonNullable<PredmetV1["detalji"]> {
+  const pk = c.provera_kod ?? null;
+  const kas = pk?.kasnjenje ?? null;
+  const dok = c.dokumenta ?? {};
+  return {
+    tip: c.tip ?? null,
+    ruta_opis: c.let?.ruta_opis ?? null,
+    konekcija: typeof c.let?.konekcija === "boolean" ? c.let.konekcija : null,
+    udaljenost_km: c.udaljenost_km ?? null,
+    kasnjenje: kas
+      ? { min: kas.minimalno ?? null, max: kas.maksimalno ?? null, mera: kas.mera ?? null }
+      : c.kasnjenje_dolazak_min != null ? { min: c.kasnjenje_dolazak_min, max: c.kasnjenje_dolazak_min, mera: null } : null,
+    polazak_kasnjenje_min: pk?.polazak_kasnjenje_min ?? null,
+    sigurnost: pk?.sigurnost ?? null,
+    granicno: !!pk?.granicno,
+    koraci: (pk?.koraci ?? []).map((x: any) => ({ korak: String(x.korak ?? ""), ishod: String(x.ishod ?? ""), obrazlozenje: String(x.obrazlozenje ?? "") })),
+    sta_fali: pk?.sta_fali ?? [],
+    razlozi_provere: pk?.human_review ?? [],
+    revizija: c.revizija ?? null,
+    let_utvrdjen: c.let?.pronalazenje?.stanje ?? null,
+    dokumenta: { licna_isprava: !!dok.pasos, boarding: !!dok.boarding, rezervacija: !!dok.rezervacija, obavestenje: !!dok.obavestenje, punomocje_potpisano: !!dok.punomocje_potpisano },
+    fajlova: (c.dokumenta_fajlovi ?? []).filter((f: any) => f?.izvor !== "potpis").length,
+    drive_folder_url: c.drive_folder_id ? `https://drive.google.com/drive/folders/${c.drive_folder_id}` : null,
+    provereno: pk?.izracunato ?? null,
+  };
+}
+
 export function izracunajPregled(c: any, sada: Date): PredmetV1 {
   const t: Record<string, string> = c.istorija_statusa ?? {};
   const putnici = [c.putnik, ...(c.saputnici ?? [])].filter((p: any) => p?.ime_prezime);
@@ -137,6 +165,7 @@ export function izracunajPregled(c: any, sada: Date): PredmetV1 {
     sledeci_korak: sledeciKorak(c, potpisi),
     potpisi,
     drive_folder: c.drive_folder ?? null,
+    detalji: detalji(c),
     korak: korakPredmeta(c),
     kreirano: c.kreirano ?? null,
     azurirano: c.azurirano ?? null,

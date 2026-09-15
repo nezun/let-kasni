@@ -76,6 +76,26 @@ export interface PredmetV1 {
   sledeci_korak: string | null;
   potpisi: PotpisV1[];
   drive_folder: string | null;
+  /** Tab „Informacije“ u CRM-u: let, kašnjenje, pravni osnov, dokumenta (bez ličnih podataka). */
+  detalji?: {
+    tip: string | null;
+    ruta_opis: string | null;
+    konekcija: boolean | null;
+    udaljenost_km: number | null;
+    kasnjenje: { min: number | null; max: number | null; mera: string | null } | null;
+    polazak_kasnjenje_min: number | null;
+    sigurnost: string | null;
+    granicno: boolean;
+    koraci: Array<{ korak: string; ishod: string; obrazlozenje: string }>;
+    sta_fali: string[];
+    razlozi_provere: string[];
+    revizija: string | null;
+    let_utvrdjen: string | null;
+    dokumenta: { licna_isprava: boolean; boarding: boolean; rezervacija: boolean; obavestenje: boolean; punomocje_potpisano: boolean };
+    fajlova: number;
+    drive_folder_url: string | null;
+    provereno: string | null;
+  } | null;
   korak?: KorakV1 | null;
   kreirano: string | null;
   azurirano: string | null;
