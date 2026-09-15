@@ -153,7 +153,7 @@ const SABLONI: Record<string, string> = {
 };
 const sabloni: Sabloni = { mejl: async (ime) => SABLONI[ime] ?? assert.fail(`nema šablona ${ime}`), ugovor: async () => new TextEncoder().encode("docx") };
 
-const servisi: Servisi = { baza, drive, gmail, potpis, portal, sabloni, sada: () => sat.v, provere: async () => ({ google_drive: { ok: true, poruka: "test" } }) };
+const servisi: Servisi = { baza, drive, gmail, internaPosta: gmail, potpis, portal, sabloni, sada: () => sat.v, provere: async () => ({ google_drive: { ok: true, poruka: "test" } }) };
 const priloziGmail = await drive.folder("LetKasni prilozi", "moj-drive");   // Apps Script spušta priloge iz Gmaila ovde
 const konfig = ucitajKonfig({ SISTEM_OKRUZENJE: "staging", PIPELINE_DRIVE_FOLDER_ID: "koren", SISTEM_PRILOZI_GMAIL_DRIVE_FOLDER_ID: priloziGmail, SISTEM_ADVOKATI_ZA: "advokat@example.com", NEXT_PUBLIC_SITE_URL: "https://staging.letkasni.rs" });
 const prolaz = async () => {
@@ -238,7 +238,7 @@ test("4. Revizor se slaže → prvi mejl traži dokumenta (bez linka), B za let 
   const a = [...draftovi.values()].find((d) => d.to.includes("marko@example.com"));
   const b = [...draftovi.values()].find((d) => d.to.includes("ana@example.com"));
   assert.equal(draftovi.size, 2);
-  assert.match(a.subject, /^AVIO-NAKNADA ZA POMEREN LET JU 9138 BEG - DLM$/);
+  assert.match(a.subject, /^\[STAGING\] AVIO-NAKNADA ZA POMEREN LET JU 9138 BEG - DLM$/, "staging draft nosi oznaku u naslovu");
   assert.ok(a.body.includes("pasoš") && !a.body.includes("/predmet/"), "traži dokumenta, bez linka za potpis");
   assert.ok(!/EUR|€/.test(a.body), "iznos nije odobren — nema EUR");
   assert.ok(!/otkaz/i.test(a.body));
@@ -287,7 +287,8 @@ test("7. agent pročitao dokumenta sigurno → ugovor i poziv za potpis → draf
   assert.equal(x.status, "POA_DRAFTED");
   assert.equal(x.podaci.putnik.rodjena, "1985-04-12", "datum rođenja sa dokumenta");
   assert.deepEqual(x.podaci.potpisivanje.map((z: any) => [z.putnik, z.stanje, z.kanal, z.provajder]), [["Marko Marković", "poslato", "portal", "letkasni"]]);
-  const g = [...draftovi.values()].find((d) => d.to.includes("marko@example.com") && d.subject.startsWith("Re: "));
+  const g = [...draftovi.values()].find((d) => d.to.includes("marko@example.com") && d.subject.includes("Re: "));
+  assert.equal(g?.subject.match(/\[STAGING\]/g)?.length, 1, "oznaka se ne ponavlja u odgovoru");
   assert.ok(g, "drugi mejl je odgovor u istom threadu");
   assert.ok(g.body.includes("https://staging.letkasni.rs/predmet/v2."), "link za potpis u mejlu");
   assert.equal((g.prilozi ?? []).length, 0, "bez PDF-a u prilogu — potpis je na linku");

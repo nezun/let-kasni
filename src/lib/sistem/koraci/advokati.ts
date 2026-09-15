@@ -127,7 +127,7 @@ export default async function advokati(ctx: Kontekst) {
   const naslov = `LetKasni — dnevni pregled predmeta ${dmy(ctx.danas)}`;
 
   try {
-    const g = ctx.servisi.gmail;
+    const g = ctx.servisi.internaPosta;
     const from = (await g.aliasi()).includes(k.od) ? k.od : null;
     const d = await g.posalji({ from, to: k.za, cc: k.cc, subject: naslov, body: telo });
     red.poslato.push(...red.dogadjaji.map((e: any) => e.id));

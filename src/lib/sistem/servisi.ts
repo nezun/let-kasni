@@ -134,6 +134,8 @@ export interface Servisi {
   baza: Baza;
   drive: Drive;
   gmail: Gmail;
+  /** Interna pošta (dnevni mejl advokatima): prod pravi Gmail, staging samo zapis u bazi — nikad pravo slanje sa staginga. */
+  internaPosta: Gmail;
   potpis: Potpis;
   portal: Portal;
   sabloni: Sabloni;

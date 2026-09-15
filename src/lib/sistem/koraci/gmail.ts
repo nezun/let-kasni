@@ -57,7 +57,7 @@ export default async function gmail(ctx: Kontekst) {
         Object.assign(x.sistem.draftovi[i], { poslat: poslata.vreme });
         x.gmail ??= {};
         x.gmail.client_thread ??= poslata.threadId;
-        x.gmail.subject ??= (poslata.naslov ?? "").replace(/^(Re:\s*)+/i, "") || null;
+        x.gmail.subject ??= (poslata.naslov ?? "").replace(/^(\s*(Re:|\[STAGING\])\s*)+/i, "") || null;
         x.gmail.draft_id = null;
       });
       if (PRVI_MEJL.includes(d.sablon)) {

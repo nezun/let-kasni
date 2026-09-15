@@ -292,6 +292,7 @@ export function napraviServise(konfig: Konfig): Servisi {
     baza,
     drive: praviDrive(),
     gmail: konfig.posta.klijenti === "gmail-api" ? praviGmail() : gmailUBazi(baza, konfig.gmailCitanje ? praviGmail() : null),
+    internaPosta: konfig.posta.advokati.transport === "gmail" ? praviGmail() : gmailUBazi(baza, null),
     potpis: praviPotpis(),
     portal: praviPortal(konfig),
     sabloni: praviSabloni(),

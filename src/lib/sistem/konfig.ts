@@ -55,7 +55,8 @@ export function ucitajKonfig(env: Env = process.env): Konfig {
     ignorisiEmailove: lista(env.CRM_IGNORISI_EMAILOVE),
     naseAdrese: lista(env.SISTEM_NASE_ADRESE ?? "kontakt@letkasni.rs,podrska@mail.letkasni.rs,marinkovic.niko@gmail.com"),
     posta: {
-      klijenti: ime === "prod" ? "gmail-api" : "baza",
+      // staging: SISTEM_POSTA_KLIJENTI=gmail → pravi Gmail draftovi (naslov sa [STAGING]); inače u bazu
+      klijenti: ime === "prod" || env.SISTEM_POSTA_KLIJENTI === "gmail" ? "gmail-api" : "baza",
       od: env.SISTEM_POSTA_OD ?? "kontakt@letkasni.rs",
       advokati: {
         transport: ime === "prod" ? "gmail" : "baza",

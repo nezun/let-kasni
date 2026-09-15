@@ -14,6 +14,8 @@ const dmy = (iso: string) => `${iso.slice(8, 10)}.${iso.slice(5, 7)}.${iso.slice
 const hm = (min: number) => `${Math.floor(min / 60)}:${String(min % 60).padStart(2, "0")}h`;
 const popuni = (s: string, v: Record<string, any>) => s.replace(/\{\{(\w+)\}\}/g, (m, k) => (v[k] ?? m));
 const sredi = (s: string) => s.replace(/\n{3,}/g, "\n\n").trim();
+/** Naslov postojećeg threada bez „Re:“ i bez staging oznake. */
+const osnovaNaslova = (s: string) => s.replace(/^(\s*(Re:|\[STAGING\])\s*)+/i, "");
 
 async function sablon(ctx: Kontekst, ime: string) {
   const t = (await ctx.servisi.sabloni.mejl(ime)).replace(/^<!--[\s\S]*?-->\s*/, "");
@@ -107,7 +109,7 @@ async function izaberi(ctx: Kontekst, c: any): Promise<Plan | null> {
       : c.status === "POA_SENT" ? KORAK_E.POA_SENT : c.tip === "other" ? KORAK_E.C_SENT : KORAK_E.AWAITING_DOCS;
     const t = await sablon(ctx, "E-followup");
     return {
-      sablon: "E-followup", subject: `Re: ${c.gmail.subject.replace(/^(Re:\s*)+/i, "")}`,
+      sablon: "E-followup", subject: `Re: ${osnovaNaslova(c.gmail.subject)}`,
       telo: popuni(t.telo, { ...b, sledeci_korak: korak }), noviStatus: null, followup: plusRadnihDana(ctx.danas, 3),
     };
   }
@@ -124,7 +126,7 @@ async function izaberi(ctx: Kontekst, c: any): Promise<Plan | null> {
       const link = ctx.servisi.portal.link(c.ref);
       if (!link) return z("potpis_bez_tajne", "Ugovor spreman, a tajna za lične linkove (DOKUMENTA_TAJNA) nije podešena");
       const t = await sablon(ctx, "G-potpis");
-      return { sablon: "G-potpis", subject: `Re: ${c.gmail.subject.replace(/^(Re:\s*)+/i, "")}`, telo: sredi(popuni(t.telo, { ...b, za_koga, link })), noviStatus: "POA_DRAFTED" };
+      return { sablon: "G-potpis", subject: `Re: ${osnovaNaslova(c.gmail.subject)}`, telo: sredi(popuni(t.telo, { ...b, za_koga, link })), noviStatus: "POA_DRAFTED" };
     }
 
     // bez e-potpisa: PDF u prilogu, klijent štampa i vraća
@@ -134,7 +136,7 @@ async function izaberi(ctx: Kontekst, c: any): Promise<Plan | null> {
     if (ugovori.length < putnici.length) return z("draft_g_ugovor", "Ugovor nije napravljen za sve putnike");
     const t = await sablon(ctx, "G-ugovor");
     return {
-      sablon: "G-ugovor", subject: `Re: ${c.gmail.subject.replace(/^(Re:\s*)+/i, "")}`,
+      sablon: "G-ugovor", subject: `Re: ${osnovaNaslova(c.gmail.subject)}`,
       telo: sredi(popuni(t.telo, { ...b, za_koga, maloletni_pasus: "" })),
       attach: ugovori.map((u: any) => ({ id: u.pdf_id, naziv: u.naziv })), noviStatus: "POA_DRAFTED",
     };
@@ -162,8 +164,10 @@ async function napraviDraft(ctx: Kontekst, c: any, plan: Exclude<Plan, { zadatak
     for (const a of plan.attach ?? []) prilozi.push({ ime: a.naziv, mime: "application/pdf", bajtovi: await ctx.servisi.drive.citaj(a.id) });
     const from = (await g.aliasi()).includes(od) ? od : null;
     if (!from) ctx.zadatak({ ko: "sistem", vrsta: "gmail_alias", opis: `Alias ${od} nije podešen u Gmailu („Send mail as“) — draftovi idu sa glavne adrese` });
+    // staging draft u pravom Gmailu nosi oznaku u naslovu, da se ne pomeša sa produkcijskim
+    const subject = ctx.konfig.ime === "prod" ? plan.subject : `[STAGING] ${plan.subject}`;
     const d = await g.napraviDraft({
-      from, to: [c.putnik.email], subject: plan.subject, body: plan.telo.trim(), prilozi,
+      from, to: [c.putnik.email], subject, body: plan.telo.trim(), prilozi,
       threadId: odgovor ? (c.gmail?.client_thread ?? null) : null,
       replyToMessageId: odgovor ? (c.gmail?.last_client_message ?? null) : null,
     });
