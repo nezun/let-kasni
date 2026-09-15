@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { LandingPage } from "@/components/landing-page";
+import { SiteIdentitySchema } from "@/components/site-identity-schema";
 import {
   getSocialPreviewImageUrl,
   socialPreview,
@@ -48,15 +49,18 @@ export const metadata: Metadata = {
 
 export default function EnglishPage() {
   return (
-    <LandingPage
-      locale="en"
-      variant="hero-compact"
-      testimonialsVariant="a"
-      formFieldTone="muted"
-      heroFlightPath
-      heroFlightPathVariant="with-visual"
-      ctaFlightPath
-      heroTextColorVariant="body-and-proof-white"
-    />
+    <>
+      <SiteIdentitySchema />
+      <LandingPage
+        locale="en"
+        variant="hero-compact"
+        testimonialsVariant="a"
+        formFieldTone="muted"
+        heroFlightPath
+        heroFlightPathVariant="with-visual"
+        ctaFlightPath
+        heroTextColorVariant="body-and-proof-white"
+      />
+    </>
   );
 }

@@ -3,6 +3,7 @@ import Module from "node:module";
 import { createRequire } from "node:module";
 import path from "node:path";
 import ts from "typescript";
+import { focusedTargetIds, focusedContentIssues } from "./seo-focused-content-policy.mjs";
 
 const root = process.cwd();
 const require = createRequire(import.meta.url);
@@ -521,6 +522,13 @@ function checkRuntimeContentDepth() {
     for (const locale of ["sr", "en"]) {
       const words = localizedArticleWords(article, locale);
 
+      if (focusedTargetIds.has(article.id)) {
+        for (const message of focusedContentIssues(article, locale)) {
+          addIssue({ type: "focused_content_preservation", file: "src/lib/blog.ts", article: article.id, locale, message });
+        }
+        continue;
+      }
+
       if (words < 1000 || words > 1800) {
         addIssue({
           type: "runtime_article_word_count",
@@ -623,6 +631,7 @@ function checkRuntimeBlogContentSkeleton() {
   const { blogArticles } = loadRuntimeContent();
 
   for (const article of blogArticles) {
+    if (focusedTargetIds.has(article.id)) continue;
     for (const locale of ["sr", "en"]) {
       const headings = article[locale].sections.map((section) => section.heading);
       const missingHeadings = requiredBlogContentSkeleton[locale].filter(
@@ -645,7 +654,7 @@ function checkRuntimeBlogContentSkeleton() {
   }
 
   const blogSource = read("src/lib/blog.ts");
-  if (!/blogArticles\s*=\s*rawBlogArticles\.map\(enhanceBlogArticle\)/.test(blogSource)) {
+  if (!/blogArticles\s*=\s*rawBlogArticles\s*(?:\.filter\(article => !consolidatedArticleIds\.has\(article\.id\)\)\s*)?\.map\(enhanceBlogArticle\)/.test(blogSource)) {
     addIssue({
       type: "blog_enhancement_pipeline_bypassed",
       file: "src/lib/blog.ts",

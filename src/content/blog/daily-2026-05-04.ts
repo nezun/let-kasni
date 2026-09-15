@@ -406,7 +406,7 @@ export const articles = [
   {
     id: "crew-shortage-flight-delay",
     publishedAt: "2026-05-04",
-    updatedAt: "2026-05-04",
+    updatedAt: "2026-09-15",
     sr: {
       slug: "nedostatak-posade-kasnjenje-leta-odsteta",
       title: "Nedostatak posade i crew time limit: da li aviokompanija odgovara",
@@ -418,6 +418,7 @@ export const articles = [
         {
           heading: "Zašto posada nije običan izgovor",
           body: [
+            "Istek radnog vremena i obavezni odmor posade jesu bezbednosna ograničenja, ali sami ne objašnjavaju zašto je let kasnio. Treba razdvojiti zabranu da ista posada nastavi rad od uzroka zbog kog nije bilo raspoložive zamene.",
             "Aviokompanije često koriste izraze crew shortage, crew sickness, crew rest, flight time limitation ili operational reasons. Putniku sve to zvuči kao unutrašnji problem kompanije, i često jeste. Za razliku od kontrole letenja ili zatvaranja aerodroma, raspored posade je deo organizacije prevoznika.",
             "To ne znači da je svaki slučaj automatski dobitan. Ako je posada istekla zbog prethodne vanredne okolnosti, na primer jakog nevremena ili zatvaranja aerodroma, kompanija će pokušati da veže ceo lanac za taj prvi razlog. Zato treba razdvojiti početni uzrok od toga kako je posada planirana i zamenjena."
           ],
@@ -447,7 +448,7 @@ export const articles = [
           heading: "Dokazi i praktičan zahtev",
           body: [
             "Sačuvajte poruke, screenshot aplikacije, fotografiju table polazaka, boarding pass i račune. Ako osoblje na gejtu kaže da posada nije dostupna, zapišite vreme i formulaciju. Ako pilot ili kabinsko osoblje objasni da su prešli duty time, to je važan detalj.",
-            "U zahtevu tražite fiksnu naknadu ako je dolazak bio tri sata ili više kasnije, ali i odvojeno tražite refundaciju troškova čekanja. Ne oslanjajte se samo na rečenicu 'nema posade'. Najbolji zahtev pokazuje vremensku liniju i pita šta je kompanija uradila da problem smanji."
+            "Za [naknadu za kašnjenje leta](/naknada-za-kasnjenje-leta) po pravilima EU proveravaju se najmanje tri sata kašnjenja na dolasku, obuhvat rute i odgovornost. Za zahtev po domaćem pravu Srbije/ECAA osnov se proverava zasebno; kasnija praksa Suda EU nije automatski obavezujuće pravilo za svaki let iz Srbije. Troškove čekanja odvojite od fiksne naknade."
           ],
         },
         {
@@ -458,10 +459,11 @@ export const articles = [
           ],
         },
         {
-          heading: "Kako automatizovati prvi filter",
+          heading: "Istek smene, zamenska posada i noćenje",
           body: [
-            "U intake procesu crew shortage treba tretirati kao signal za detaljniju proveru, ne kao automatsko odbijanje. Forma može odmah pitati da li je pomenuta posada, duty time, crew rest ili bolest posade, i zatim tražiti dolazak na krajnju destinaciju.",
-            "Ako su ruta i kašnjenje relevantni, sistem može pripremiti nacrt zahteva sa vremenskom linijom i pitanjima za kompaniju. Ljudski pregled tada ne kreće od praznog papira, već od strukturisanog fajla koji već odvaja interni razlog od mogućih vanrednih okolnosti. To skraćuje obradu bez agresivnog obećanja i smanjuje naknadno dopisivanje."
+            "Sačuvajte redosled obaveštenja: prvobitni uzrok, kada je najavljen istek smene, da li je tražena zamenska posada i koje je novo vreme polaska ponuđeno. Odmor se ne sme preskočiti radi nadoknade kašnjenja; pitanje je da li su postojale razumne alternative, ne da li je posada trebalo da prekrši bezbednosno pravilo.",
+            "Ako čekanje pređe u noćenje, zabeležite zahtev za hotel, odgovor, transfer i račune. Let Kasni može u istom dosijeu odvojiti dokaze o uzroku od troškova brige i zatražiti odgovor na obe stavke, bez obećanja da sama oznaka crew timeout znači pravo na odštetu.",
+            "[Presuda Suda EU C-156/22 i spojeni predmeti](https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=celex%3A62022CJ0156) odnosi se na iznenadno odsustvo neophodnog člana posade usled bolesti ili smrti. Ne rešava automatski svaki slučaj isteka radnog vremena posle spoljnog poremećaja."
           ],
         },
       ],
@@ -477,6 +479,7 @@ export const articles = [
         {
           heading: "Why crew is not just another excuse",
           body: [
+            "Duty-time limits and mandatory crew rest are safety constraints, but do not by themselves explain why a flight was delayed. Separate the reason the same crew could no longer work from the reason no replacement was available.",
             "Airlines often use phrases such as crew shortage, crew sickness, crew rest, flight time limitation or operational reasons. To passengers, this sounds like an internal airline problem, and often it is. Unlike air traffic control or airport closure, crew planning is part of the carrier's organization.",
             "That does not mean every case automatically wins. If crew timed out because of an earlier extraordinary circumstance, such as severe weather or airport closure, the airline will try to connect the whole chain to that first event. The initial cause and the later crew planning need to be separated."
           ],
@@ -506,7 +509,7 @@ export const articles = [
           heading: "Evidence and practical claim wording",
           body: [
             "Keep messages, app screenshots, departure-board photos, boarding pass and receipts. If gate staff say crew is unavailable, write down the time and wording. If the pilot or cabin crew explains that duty time has expired, that is an important detail.",
-            "In the claim, request fixed compensation if arrival was three hours or more late, but separately request reimbursement of waiting costs. Do not rely only on the phrase no crew. The strongest request shows the timeline and asks what the airline did to reduce the disruption."
+            "For [flight delay compensation](/en/flight-delay-compensation) under EU rules, check at least three hours of arrival delay, route coverage and responsibility. A claim under Serbian/ECAA domestic law needs a separate legal-basis check; later CJEU case law is not automatically binding for every flight from Serbia. Keep waiting costs separate from fixed compensation."
           ],
         },
         {
@@ -517,10 +520,11 @@ export const articles = [
           ],
         },
         {
-          heading: "How to automate the first filter",
+          heading: "Duty expiry, replacement crew and overnight care",
           body: [
-            "In the intake process, crew shortage should be treated as a signal for deeper review, not an automatic rejection. The form can immediately ask whether crew, duty time, crew rest or crew illness was mentioned, and then request arrival at the final destination.",
-            "If the route and delay are relevant, the system can prepare a draft claim with a timeline and questions for the airline. Human review then starts from a structured file that already separates an internal reason from possible extraordinary circumstances."
+            "Keep notices in order: the initial cause, when duty expiry was announced, whether replacement crew was sought and the proposed departure time. Rest must not be skipped to recover a delay; the question is whether reasonable alternatives existed, not whether crew should have broken a safety rule.",
+            "If the wait becomes overnight, record the hotel request, response, transfer and receipts. Let Kasni can separate cause evidence from care costs in the same file and request an answer on both, without promising that the label crew timeout alone establishes compensation.",
+            "The [CJEU judgment in C-156/22 and joined cases](https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=celex%3A62022CJ0156) addresses unexpected absence through illness or death of an essential crew member. It does not automatically decide every duty-time expiry following an external disruption."
           ],
         },
       ],
