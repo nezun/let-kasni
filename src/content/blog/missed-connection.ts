@@ -9,7 +9,7 @@ export const image = {
 export const article = {
     "id": "missed-connection",
     "publishedAt": "2026-04-17",
-    "updatedAt": "2026-04-17",
+    "updatedAt": "2026-09-15",
     "sr": {
       "slug": "propustena-konekcija-ista-rezervacija",
       "title": "Propuštena konekcija: kada se računa kao jedan slučaj",
@@ -23,14 +23,14 @@ export const article = {
           "body": [
             "Propuštena konekcija najčešće ima smisla za zahtev kada su segmenti puta kupljeni zajedno, pod jednom rezervacijom. Tada se put posmatra kao celina, a ne kao dva nepovezana leta.",
             "Ako ste sami kupili dve odvojene karte, aviokompanija sa prvog leta obično ne odgovara za drugi let na isti način. To je česta razlika između protected connection i self-transfer putovanja.",
-            "Zato je booking reference jedan od prvih dokaza. Ako su svi segmenti na istom itineraryju, analiza se radi kroz krajnju destinaciju. Ako su karte odvojene, prava mogu postojati samo za pojedinačni let koji je kasnio ili otkazan, ali propušteni sledeći let obično postaje teži za naplatu."
+            "Za [naknadu za propuštenu konekciju](/naknada-za-propustenu-konekciju) potrebni su originalne elektronske karte, potvrda rezervacije i uslovi kupovine. Jedan PNR jeste koristan signal, ali ne zamenjuje proveru da li je prodat jedinstven povezan prevoz ili odvojene karte."
           ]
         },
         {
           "heading": "Bitno je kašnjenje na finalnoj destinaciji",
           "body": [
             "Kod missed connection slučajeva presudno je koliko ste zakasnili na krajnju destinaciju. Prvi let može kasniti samo 45 minuta, ali ako zbog toga promašite jedini sledeći let i stignete dan kasnije, slučaj vredi proveriti.",
-            "U praksi se upoređuje planirani dolazak iz originalne rezervacije sa stvarnim dolaskom nakon preusmeravanja. Ako razlika prelazi tri sata, a uzrok je na strani aviokompanije, postoji realan osnov za zahtev.",
+            "Po pravilima EU poredi se planirani dolazak sa stvarnim dolaskom na krajnju destinaciju iz povezane rezervacije. Najmanje tri sata mogu otvoriti pitanje naknade ako su ispunjeni uslovi obuhvata i odgovornosti; prvi let ne mora sam kasniti tri sata. Za Srbiju/ECAA pravni osnov se proverava zasebno, bez automatskog prenošenja kasnije prakse Suda EU.",
             "Zato uvek beležite realno vreme dolaska na poslednji aerodrom iz rezervacije. Korisni su screenshot aplikacije, fotografija aerodromske table, email o novom letu i boarding pass za zamenski segment."
           ]
         },
@@ -43,9 +43,9 @@ export const article = {
           ]
         },
         {
-          "heading": "Preusmeravanje je obaveza, ne usluga",
+          "heading": "Tražite konkretno rešenje nastavka puta",
           "body": [
-            "Ako je konekcija propuštena u okviru iste rezervacije, aviokompanija treba da Vas prebaci do krajnje destinacije. To nije gest dobre volje, već praktično rešavanje puta koji ste već kupili.",
+            "Ako zbog poremećaja prvog leta propadne zaštićena konekcija, od prevoznika tražite konkretno rešenje nastavka puta do ugovorene destinacije. Koja prava na preusmeravanje ili povraćaj važe zavisi i od toga da li je let otkazan, kasni ili je ukrcavanje uskraćeno; ne smatra se svaka propuštena veza istim događajem.",
             "Novi let treba da bude pod uporedivim uslovima. Ako čekate duže, mogu se otvoriti i prava na obroke, osveženje, komunikaciju, hotel i transfer. Ako Vam kažu da sami kupite novu kartu, tražite pisano objašnjenje pre nego što platite.",
             "Ta prava postoje odvojeno od eventualne novčane naknade, pa ih ne treba mešati. Putnik može imati pravo na preusmeravanje i brigu čak i kada je fiksna odšteta sporna."
           ]
@@ -61,7 +61,8 @@ export const article = {
           "heading": "Dokazi za missed connection zahtev",
           "body": [
             "Sačuvajte kompletnu originalnu rezervaciju, boarding pass za sve segmente, novu kartu, potvrdu o propuštenoj konekciji ako je dobijete i poruke aviokompanije. Ako ste morali da platite hranu, hotel, transfer ili novu kartu, sačuvajte račune.",
-            "Najkorisnije je da se vidi veza između prvog poremećaja i finalnog kašnjenja: kada je prvi let stvarno stigao, kada je trebalo da poleti konekcija, koji zamenski let je ponuđen i kada ste na kraju stigli."
+            "Složite vremensku liniju: planirani dolazak prvog leta, sletanje i otvaranje vrata, zatvaranje gejta konekcije, ponuđeni zamenski let i stvarni konačni dolazak. Zabeležite vremensku zonu. Ako je drugi let kasnio iz nezavisnog razloga, taj događaj odvojite od posledice prvog kašnjenja.",
+            "Za svaki segment navedite broj leta i operativnog prevoznika, ne samo brend prodavca karte. Više prevoznika ne znači automatski da put nije povezan, ali ni da svi solidarno odgovaraju. Let Kasni proverava rezervaciju i uzročnu vezu pre određivanja kome se zahtev upućuje. Ako odgovor pokriva samo prvi segment, dopuna treba da traži procenu konačnog dolaska i preostalih stavki."
           ]
         },
         {
@@ -85,16 +86,16 @@ export const article = {
         {
           "heading": "The same reservation is the first question",
           "body": [
-            "A missed connection most often makes sense for a claim when road segments are purchased together under one reservation. Then the road is seen as a whole, and not as two unrelated flights.",
+            "A missed-connection claim is assessed differently when flight segments were purchased together under one booking. The connected journey can then be considered as a whole, rather than as unrelated flights.",
             "If you bought two separate tickets yourself, the airline from the first flight usually does not respond to the second flight in the same way. This is often the difference between protected connection and self-transfer travel.",
-            "That is why booking references is one of the first proofs. If all segments are on the same itinerary, the analysis is done through the final destination. If the tickets are separate, rights may only exist for the individual flight that was delayed or cancelled, but a missed next flight usually becomes more difficult to collect."
+            "For [missed connection compensation](/en/missed-connection-compensation), keep the original e-tickets, booking confirmation and purchase terms. A single PNR is a useful signal, but does not replace checking whether connected carriage or separate tickets were sold."
           ]
         },
         {
           "heading": "The delay at the final destination is important",
           "body": [
             "In missed connection cases, it is crucial how late you are to your final destination. The first flight may be delayed by only 45 minutes, but if it causes you to miss the only subsequent flight and arrive a day later, the case is worth checking.",
-            "In practice, the planned arrival from the original reservation is compared with the actual arrival after rerouting. If the difference exceeds three hours, and the cause is on the side of the airline, there is a realistic basis for the claim.",
+            "Under EU rules, compare scheduled arrival with actual arrival at the final destination of the connected booking. At least three hours may support compensation if coverage and responsibility conditions are met; the first flight need not itself be three hours late. Serbian/ECAA legal grounds require separate assessment, without automatically importing later CJEU case law.",
             "That's why you always record the real time of arrival at the last airport from the reservation. A screenshot of the application, a photo of the airport board, an email about the new flight and a boarding pass for the replacement segment are useful."
           ]
         },
@@ -107,9 +108,9 @@ export const article = {
           ]
         },
         {
-          "heading": "Redirection is a liability, not a service",
+          "heading": "Ask for a concrete onward-travel solution",
           "body": [
-            "If a connection is missed within the same reservation, the airline should transfer you to your final destination. It's not a gesture of good will, but a practical solution to a road you've already bought.",
+            "If disruption to the first flight breaks a protected connection, ask the carrier for a concrete plan to reach the agreed destination. Rerouting or refund rights also depend on whether the flight was cancelled, delayed or boarding was denied; not every missed connection is the same event.",
             "The new flight should be under comparable conditions. If you wait longer, rights to meals, refreshments, communication, hotel and transfer can also be opened. If they tell you to buy a new ticket yourself, ask for a written explanation before paying.",
             "These rights exist separately from any monetary compensation, so they should not be mixed. A passenger may be entitled to diversion and care even when fixed compensation is in dispute."
           ]
@@ -125,7 +126,8 @@ export const article = {
           "heading": "Evidence for a missed connection claim",
           "body": [
             "Keep the complete original reservation, boarding pass for all segments, new ticket, missed connection confirmation if received and airline messages. If you had to pay for food, hotel, transfer or a new ticket, save the receipts.",
-            "It is most useful to see the relationship between the first disruption and the final delay: when the first flight actually arrived, when the connection was supposed to take off, what alternate flight was offered, and when you finally arrived."
+            "Build a timeline: scheduled first-flight arrival, landing and door opening, connecting-gate closure, offered replacement flight and actual final arrival. Record the time zone. If the second flight was delayed for an independent reason, separate that event from the consequence of the first delay.",
+            "For each segment identify the flight number and operating carrier, not only the ticket seller's brand. Multiple carriers do not automatically make a journey unconnected, nor make all carriers jointly liable. Let Kasni checks booking and causation before identifying the addressee. If a response covers only the first segment, the follow-up should request assessment of final arrival and the remaining items."
           ]
         },
         {

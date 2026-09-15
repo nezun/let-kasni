@@ -4,6 +4,115 @@ Canonical handoff file for future local and Codex Cloud sessions.
 
 ## Start Here
 
+### SEO release authorized, 2026-09-15
+
+- Owner approved steps 4 and 5: deploy the prepared Phase 1 + Phase 3A package
+  and monitor the result. Earlier LOCAL ONLY entries below describe preparation,
+  not the current authorization. No additional content batches are approved.
+- Release preparation uses the inherited `codex/seo-recovery` branch. The initial
+  session guard reported its known uncommitted SEO package; preserve and commit
+  that reviewed package before running the unchanged clean-tree release gate.
+- Private GSC exports and detailed evidence stay local under ignored
+  `seo-audit-output/`; never add that directory to the public repository.
+- Added `scripts/seo-release-monitor.py` and three redirect-contract tests.
+  The monitor is read-only and does not assert Google indexing from HTTP status.
+  Live browser output can be isolated with `SEO_BROWSER_OUTPUT`.
+- GSC browser access initially blocked because the Mac was locked. User notified;
+  technical deploy checks can proceed independently. Confirm actual GSC access
+  before claiming refreshed index/performance data.
+- Deployment result is recorded in the local release report after live gates.
+
+### SEO Recovery Phase 3A, 2026-09-15
+
+- Read `seo-audit-output/phase3a-summary.md`, `phase3a-merge-results.csv` and
+  `docs/SEO-CONSOLIDATION-RUNBOOK.md`. LOCAL ONLY; no commit, push, deployment
+  or indexing request. Inherited Phase 1/2 work remains preserved and uncommitted.
+- Implemented only six approved concepts in both languages: general delay,
+  crew duty time, separate tickets, same-booking connections, arrival/door time,
+  and overnight hotel care. Targets were improved before redirects were added.
+- Twelve canonical sources plus 24 historical aliases redirect in one hop (308)
+  to final localized targets, including query and www checks. Active lists,
+  routing and sitemap exclude the sources; raw content definitions are retained.
+- Sitemap 294 -> 282; technically indexable self-canonical URLs 296 -> 284.
+  Crawl: 343 URLs, zero broken internal links; incoming source-document edges
+  38 -> 0. These are local technical results, not Google indexing/ranking gains.
+- Five target articles bypass generic runtime appendices and use focused
+  topic-coverage QA instead of padding to a word count. Other 264 localized
+  content records and inherited Phase 1 identity/legal/utility protections remain
+  unchanged. Main delay guide retains its 15-section outline and legal boundaries.
+- Full verify PASS: 29 unit tests, content/link/benchmark/locale checks, ESLint,
+  TypeScript and production build (319 routes). Browser: 24 target viewport
+  checks + four SR/EN form transitions PASS; final guide copy rechecked in
+  four viewports. No actual claim/contact submission or provider delivery test.
+- Visual follow-up: mobile contact-modal logo partly covered by the fixed header;
+  shared modal/header styles were not modified. Keep this separate from SEO scope.
+- Ground handling remains HUMAN_REVIEW pending verified causation distinctions.
+  No airline Tier 3, country/regional, new-page, noindex or 410 work authorized.
+  The remaining Phase 2 merge proposals are not approved for automatic execution.
+- Build AND start with `NEXT_PUBLIC_SITE_URL=https://letkasni.rs` for canonical
+  QA. Read the runbook for repeatable audit, browser, CSV and report generation.
+- Next recommended work: shared boilerplate in one separately approved family,
+  then airline Tier 1 strengthening. Production release requires explicit approval
+  and the normal clean-commit/release-gate workflow; do not bypass inherited dirt.
+
+### SEO Recovery Phase 2, 2026-09-15
+
+- Read `seo-audit-output/PHASE2-REPORT.md` and the main
+  `final-seo-consolidation-proposal.csv`. Analysis only; no additional website,
+  redirect, sitemap or content changes in Phase 2. Phase 1 changes remain dirty
+  and preserved on `codex/seo-recovery`; nothing deployed.
+- Native GSC data: Web, 2026-04-29 through 2026-09-12; max/6m/90d/28d exports.
+  All 171 reported page metrics mapped to 144 current URLs; 296 canonical URLs
+  covered (294 sitemap plus two English legal pages).
+- 156 exact-page query/day exports saved. Google HTTP 429 blocked 15 low-volume
+  remaining URLs (22 impressions, zero clicks). A later retry also refused;
+  do not hammer the endpoint. Missing detail stays unknown. No API credentials.
+- Proposal: sitemap KEEP_STRONG 6, KEEP_IMPROVE 184, conditional MERGE_301 30,
+  HUMAN_REVIEW 74, NOINDEX_KEEP 0, REMOVE_410 0. Projected sitemap 264 includes
+  all unresolved pages. Review backlog reduced from 136, not eliminated.
+- Locked: no automatic execution of matrix. Every merge requires human approval
+  and a useful, verified target integrating the preservation brief FIRST.
+  Keep UK/Turkey/UAE/Israel regimes distinct; no generic carrier-to-home redirects.
+  Backlinks UNKNOWN. Similarity and no reported traffic alone cannot delete pages.
+- Reproduce: `python3 scripts/seo-performance-import.py`, then
+  `python3 scripts/seo-consolidation-proposal.py`, then
+  `python3 scripts/seo-phase2-check.py`. Read `PHASE2-SETUP.md` for API setup.
+- Offline checks passed with source limitations; new API script syntax and ESLint
+  passed. Live API auth untested; full application build not repeated in Phase 2.
+- Next work only after approval: edit targets bilingually, approve explicit
+  redirect subset, update links/metadata/sitemap and run normal release gate.
+  70 airline + four airport URLs need concrete business/utility evidence.
+
+### SEO Recovery, 2026-09-15
+
+- Current task branch: `codex/seo-recovery`, based on `origin/main` `cad98a8`.
+- Read `seo-audit-output/REPORT.md` and `seo-audit-output/README.md` for the
+  completed audit, all URL decisions, evidence and repeatable commands.
+- Used the three native GSC CSV exports in `../GSC-EXPORT-2026-09-15/`: 57 crawled,
+  8 canonical, 2 historical 404. Public baseline and local candidate each cover
+  320 URLs, including all 294 sitemap entries. Never invent Google-selected
+  canonical values from those CSVs; that field is absent.
+- Prepared homepage WebSite/operator schema, legal metadata/canonicals in SR/EN,
+  noindex on four token utility pages, and JSON-LD escaping. No new redirects,
+  article deletion, blanket noindex, legal-body changes or tracking changes.
+- Locked decision: high text similarity is a review signal, not evidence enough
+  for mass consolidation. Editorial/route/airline ambiguity stays HUMAN_REVIEW.
+- Next work: review candidate decisions, obtain article-specific research and
+  performance evidence before consolidation; deploy this technical patch only
+  when explicitly requested, using the normal release gate.
+- Manual work: after approved deploy, optionally request homepage reindexing;
+  no mass request for all excluded articles. No production changes made here.
+- Verification: workflow/privacy/email tests, Meta/content/link/benchmark/locale
+  checks, lint and build TypeScript passed. Build enumerated 331 routes. Full
+  `seo-recovery-check.py` passed: same 294 sitemap URLs, all 200/self-canonical,
+  no accidental noindex, valid JSON-LD, no bad internal destinations, identical
+  visible sitemap content, legal hreflang, utility noindex and historical redirects.
+- Build must use `NEXT_PUBLIC_SITE_URL=https://letkasni.rs` for production-canonical
+  QA; the existing environment-free fallback is a local development URL.
+- Browser QA passed initial SR/EN claim transitions from homepage through delay
+  selection to flight-details inputs, with optional cookies rejected. No real
+  claim was submitted. Evidence: `seo-audit-output/browser-qa.md`.
+
 1. Read `AGENTS.md`.
 2. Read this `CHECKPOINT.md`.
 3. Run `npm run session:start` to verify a clean, synchronized canonical checkout.
@@ -14,9 +123,9 @@ Canonical handoff file for future local and Codex Cloud sessions.
 ## Generated Status
 
 <!-- BEGIN:generated-status -->
-Generated at: `2026-09-14T14:34:27.049Z`
+Generated at: `2026-09-15T16:20:57.368Z`
 
-Branch: `codex/pregled-predmeta`
+Branch: `codex/seo-recovery`
 
 Remote: `https://github.com/nezun/let-kasni.git`
 
@@ -25,20 +134,49 @@ Latest local commit: `cad98a8 Privacy Policy 1.2 and email consent controls (#29
 Worktree status:
 
 ```text
-M .env.example
- M CHECKPOINT.md
+M CHECKPOINT.md
  M next.config.ts
- M package-lock.json
- M package.json
- M src/app/robots.ts
- M src/components/analytics.tsx
- M src/components/consent-banner.tsx
- M src/components/meta-pixel.tsx
-?? src/app/pregled/
-?? src/components/pregled/
-?? src/components/ui/
-?? src/lib/pregled/
-?? src/lib/utils.ts
+ M scripts/content-benchmark-review.mjs
+ M scripts/content-qa.mjs
+ M src/app/email-offers/page.tsx
+ M src/app/en/email-offers/page.tsx
+ M src/app/en/marketing/confirm/page.tsx
+ M src/app/en/page.tsx
+ M src/app/en/privacy/page.tsx
+ M src/app/en/terms/page.tsx
+ M src/app/marketing/confirm/page.tsx
+ M src/app/page.tsx
+ M src/app/privacy/page.tsx
+ M src/app/terms/page.tsx
+ M src/components/blog-article-page.tsx
+ M src/content/blog/daily-2026-05-02.ts
+ M src/content/blog/daily-2026-05-03.ts
+ M src/content/blog/daily-2026-05-04.ts
+ M src/content/blog/daily-2026-05-08.ts
+ M src/content/blog/missed-connection.ts
+ M src/lib/blog-content-enhancements.ts
+ M src/lib/blog.ts
+ M src/lib/cornerstones.ts
+?? docs/SEO-CONSOLIDATION-RUNBOOK.md
+?? docs/content-research/seo-phase3a-controlled-consolidation.md
+?? scripts/gsc-performance-readonly.mjs
+?? scripts/seo-consolidation-proposal.py
+?? scripts/seo-focused-content-policy.mjs
+?? scripts/seo-performance-import.py
+?? scripts/seo-phase2-check.py
+?? scripts/seo-phase3a-browser.mjs
+?? scripts/seo-phase3a-check.py
+?? scripts/seo-phase3a-prepare.py
+?? scripts/seo-phase3a-report.py
+?? scripts/seo-recovery-audit.py
+?? scripts/seo-recovery-check.py
+?? scripts/seo-recovery-report.py
+?? scripts/seo-source-map.mjs
+?? seo-audit-output/
+?? src/components/site-identity-schema.tsx
+?? src/content/seo-consolidations.json
+?? src/content/seo-focused-targets.json
+?? src/lib/legal-metadata.ts
 ```
 
 Useful commands:
@@ -59,12 +197,6 @@ Useful commands:
 
 ## Current State
 
-- 2026-09-14 (`codex/pregled-predmeta`, not merged): CRM database. Migration `supabase/migrations/202609141800_crm.sql` (crm_predmeti, crm_dogadjaji, crm_letovi, crm_sistem; RLS on, no policies, CHECK blocks passport/JMBG in `podaci`). Claim form inserts a NEW case via `src/lib/crm/prijem.ts` when `CRM_SUPABASE_URL` + `CRM_SUPABASE_SERVICE_ROLE_KEY` are set; `/pregled` reads CRM live (15 s cache), falling back to Drive index. Migration NOT applied anywhere yet — staging Supabase project still to be created by Niko.
-
-- 2026-09-14 (`codex/pregled-predmeta`, not merged): LetKasni pipeline handoff on top of `/pregled`. Shared Drive client `src/lib/drive.ts`; claim form hands new claims to Drive `prijem/` (`src/lib/pipeline/prijem.ts`, no-op without `PIPELINE_DRIVE_FOLDER_ID`); client document portal `/dokumenta/[token]` + `POST /api/dokumenta/[token]` (HMAC link from the pipeline, content-sniffed JPG/PNG/HEIC/WEBP/PDF up to 4 MB → Drive `uploads/<REF>/`, no tracking, noindex); signNow webhook `POST /api/potpis/signnow?kljuc=` (stores only document id + event in Drive `dogadjaji/`); `Zadaci` tab and system status on `/pregled`. Branch-scoped Preview env vars only; production env untouched.
-
-- 2026-09-14 staging (branch `codex/pregled-predmeta`, Vercel Preview only, production untouched): Resend delivery is now skipped on any non-production Vercel deployment (`VERCEL_ENV !== "production"`) unless `ALLOW_PREVIEW_EMAIL=1`, because Preview shares the production Resend API key. Preview-scoped, branch-scoped env vars carry the overview key and a Drive TEST index with invented cases (`Letkasni.rs / LetKasni — test / indeks.json`); production env vars were not changed. LetKasni operations are now run by Niko; Nemanja is no longer part of the workflow.
-- 2026-09-14 (branch `codex/pregled-predmeta`, not deployed): read-only case overview at `/pregled/<key>` for the team and lawyers. Data comes from the LetKasni pipeline index (`indeks.json`, schema 1) published to Google Drive (`Letkasni.rs / LetKasni — sistem`), read server-side with a personal-account OAuth refresh token; local dev can use `PREGLED_INDEKS_PATH`. Access is per-role secret keys in `PREGLED_KLJUCEVI` (`tim:…,advokati:…`, min 24 chars, timing-safe compare, 404 otherwise). The index intentionally carries no passport, JMBG, address, birth date, phone or email. The page is noindex (metadata + `X-Robots-Tag`), `Referrer-Policy: no-referrer`, excluded in robots.txt, and GA4/Meta Pixel plus the consent banner are disabled on `/pregled` so the key never reaches third parties. Tabs: Predmeti (filters by phase/owner, search) and Potpisivanje (per-passenger signing status; e-sign provider plan visible only to the team role). UI uses shadcn-style components in `src/components/ui` built on brand CSS variables (no shadcn global theme, to avoid clashing with `--muted`/`--accent`).
 - 2026-09-10: the user explicitly authorized publishing the full PP 1.2 package before the marketing persistence/CRM integration is activated. PP 1.2 now uses the actual static publication date 10.09.2026. Marketing subscription remains fail-closed and hidden while Supabase and the required feature settings are absent; no campaign product is approved.
 - 2026-09-09: Privacy Policy 1.2 and the separate adult email-offer consent flow are implemented on `codex/privacy-marketing-consent`. The flow is fail-closed, uses double opt-in, separate consent/event/suppression tables, POST-only confirmation and unsubscribe, strict expiry/scope/product checks, and a central send gate with visible and one-click unsubscribe. The approved marketing-product registry is empty, so no sales campaign can run from this release.
 - PP 1.2 and the subscription UI must ship together. Production `/api/health` at `13d64ce652a4b1dcbc559c1a7759676e81a4aeab` reported `supabaseConfigured: false` on 2026-09-09, so the additive migration and durable consent storage cannot yet be verified. The release remains blocked and feature flags remain off.
@@ -103,9 +235,6 @@ Useful commands:
 
 ## Next Work
 
-- Before any merge of `codex/pregled-predmeta`: choose production values for `PIPELINE_DRIVE_FOLDER_ID`, `DOKUMENTA_TAJNA`, `SIGNNOW_WEBHOOK_KLJUC` (leave empty to keep the handoff off). Preview shares production Supabase: do not submit the claim form on preview to test the handoff — test with the pipeline e2e (`scripts/sistem/test/e2e.mjs`).
-
-- Case overview (`codex/pregled-predmeta`): after the Google OAuth client exists, publish the index from the pipeline (`node scripts/drive/objavi-indeks.mjs`), set `PREGLED_KLJUCEVI`, `PREGLED_INDEKS_DRIVE_FILE_ID`, `GOOGLE_DRIVE_CLIENT_ID/SECRET/REFRESH_TOKEN` in Vercel, then release only with explicit authorization. E-sign decision (Nemanja, 13.09.2026): buy signNow Business now (SES, Draw only, manual send from dashboard, no API), trial Youtrust Plus and Eurosign in parallel; in 2–3 months add an API provider (Skribble Pro, Youtrust API or signNow API) behind a five-function SignatureProvider adapter (createRequest, getSigningUrl, getStatus, downloadSignedPdf, downloadAuditTrail). Until then the pipeline records manual e-sign status (`scripts/potpis.mjs`) into the index (`kanal: e_potpis`, provider name, audit-trail flag).
 - Configure a durable Supabase production project, confirm its region/account DPA/transfer basis, apply `202609091200_marketing_email_consent.sql`, and test pending -> confirmed -> withdrawn using only a controlled test address.
 - Confirm account-level DPA/transfer evidence for Vercel, Resend and the applicable Google contracting entity. Only then set the two marketing flags, token secret and `MARKETING_TRANSFER_REVIEW_VERSION=2026-09-09`; if publication occurs after 09.09.2026, update PP 1.2's static effective date to the actual deployment date.
 - After the immediate reliability release, add a durable email outbox plus Resend delivery/bounce webhooks once Supabase production persistence is configured; this is the remaining step that can recover emails after all in-request retries fail.

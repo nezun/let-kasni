@@ -17,6 +17,7 @@ import {
   getCornerstoneHref,
 } from "@/lib/cornerstones";
 import { formatDisplayDate } from "@/lib/date-format";
+import focusedTargetIds from "@/content/seo-focused-targets.json";
 
 const copy = {
   sr: {
@@ -224,6 +225,9 @@ export function BlogArticlePageView({
 }) {
   const t = copy[locale];
   const localized = article[locale];
+  const focused = focusedTargetIds.includes(article.id);
+  const processIndex = focused ? Math.min(5, localized.sections.length - 1) : 5;
+  const contextImageIndex = focused ? Math.min(7, localized.sections.length - 2) : 7;
   const mainGuide = getCornerstoneForArticle(article);
   const alternateHref = getAlternateArticleCornerstoneHref(article, locale);
   const currentHref = getArticleCornerstoneHref(article, locale);
@@ -251,7 +255,7 @@ export function BlogArticlePageView({
     <main className="min-h-screen bg-white pt-16 text-[#0A0F1E]">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
       />
       <SiteHeader locale={locale} alternateHref={alternateHref} />
 
@@ -321,12 +325,12 @@ export function BlogArticlePageView({
                         <ArticleEvidenceVisual locale={locale} />
                       </div>
                     ) : null}
-                    {index === 5 ? (
+                    {index === processIndex ? (
                       <div className="mt-7">
                         <ArticleProcessVisual locale={locale} />
                       </div>
                     ) : null}
-                    {index === 7 ? (
+                    {index === contextImageIndex ? (
                       <div className="mt-8">
                         <ArticleContextImage article={article} />
                       </div>

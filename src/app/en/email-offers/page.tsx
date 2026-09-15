@@ -1,6 +1,12 @@
 import { MarketingManagePanel } from "@/components/marketing-action-panel";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Manage email offers | letkasni.rs",
+  robots: { index: false, follow: true },
+};
 
 export default async function EmailOffersPage({ searchParams }: { searchParams: Promise<{ token?: string }> }) {
   const { token } = await searchParams;

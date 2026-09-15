@@ -1,5 +1,8 @@
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { legalMetadata } from "@/lib/legal-metadata";
+
+export const metadata = legalMetadata("terms", "en");
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
