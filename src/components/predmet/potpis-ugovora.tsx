@@ -87,7 +87,11 @@ function PoljeZaPotpis({ onPromena, obrisi }: { onPromena: (png: string | null) 
       className="h-44 w-full cursor-crosshair rounded-xl border-2 border-dashed border-[var(--border)] bg-white sm:h-52"
       style={{ touchAction: "none" }}
       onPointerDown={(e) => {
-        e.currentTarget.setPointerCapture(e.pointerId);
+        try {
+          e.currentTarget.setPointerCapture(e.pointerId);
+        } catch {
+          // neki pregledači (stariji iOS) ne dozvoljavaju capture — crtanje radi i bez njega
+        }
         crta.current = true;
         poslednja.current = tacka(e);
       }}
