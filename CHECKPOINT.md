@@ -14,13 +14,13 @@ Canonical handoff file for future local and Codex Cloud sessions.
 ## Generated Status
 
 <!-- BEGIN:generated-status -->
-Generated at: `2026-09-15T10:48:36.335Z`
+Generated at: `2026-09-15T11:14:31.664Z`
 
 Branch: `codex/google-ads-measurement`
 
 Remote: `https://github.com/nezun/let-kasni.git`
 
-Latest local commit: `3e536b3 feat(consent): disclose Google Ads measurement`
+Latest local commit: `21feeef docs: record PP 1.3 preview verification`
 
 Worktree status:
 
@@ -47,10 +47,12 @@ Useful commands:
 
 ## Current State
 
+- 2026-09-15: The user explicitly approved bilingual Privacy Policy 1.3. Google Ads billing onboarding and advertiser verification are complete; no campaign or spend was created.
+- 2026-09-15: Native Google Ads conversion `Lead - successful claim submit` is configured as Primary, EUR 0, Count One, 30-day click-through window, data-driven attribution and enhanced conversions off. Conversion ID `18452620232`; label `VnU-CKD6zfgcEMjH8t5E`.
+- 2026-09-15: GTM draft now contains five changes: `DLV - transaction_id`, `CE - lead_submit`, `Conversion Linker - All Pages`, `Google Tag AW-18452620232`, and `Lead - successful claim submit`. The conversion tag uses the claim UUID transaction ID and fires only on `CE - lead_submit`; the container remains unpublished.
 - 2026-09-15: External Preview measurement setup is active but intentionally unpublished. GTM account `LetKasni`, Web container `GTM-WT3B2L8P`, Vercel Preview env, `DLV - transaction_id`, `CE - lead_submit`, and `Conversion Linker - All Pages` are configured. Tag Assistant verified consent gating, the existing direct GA4 tag and one firing of the Conversion Linker.
-- 2026-09-15: Google Ads account `460-732-8439` is configured for LetKasni with Serbia, Serbia Time and EUR, linked to GA4 property `534756949`, and auto-tagging enabled. No campaign or spend exists. Google blocks the normal account/conversion UI until a payment profile and payment method are submitted.
 - 2026-09-15: Real Preview QA found that a `gtag` event plus a second explicit object push could duplicate journey events under accept-all consent. Commit `f2d35e2` now emits one data-layer message per journey event; the updated regression test and live Tag Assistant check both pass.
-- 2026-09-15: Bilingual Privacy Policy 1.3 and consent-detail copy now explicitly name Google Tag Manager / Google Ads, describe the limited conversion payload, and use consent notice `privacy-1.3-2026-09-15` so existing choices are requested again on release. Business/legal approval and production release are still pending.
+- 2026-09-15: Bilingual Privacy Policy 1.3 and consent-detail copy now explicitly name Google Tag Manager / Google Ads, describe the limited conversion payload, and use consent notice `privacy-1.3-2026-09-15` so existing choices are requested again on release. PP 1.3 is approved; production release authorization is still pending.
 - 2026-09-15: Google Ads online measurement is code-ready on `codex/google-ads-measurement`. The site now has an optional consent-gated GTM container, Consent Mode v2 defaults/updates, 90-day first-paid-touch capture for Google click IDs and UTMs, success-only deduplicated `lead_submit`, and secondary `claim_start`, phone and WhatsApp events. The real GTM ID is enabled only on the feature-branch Preview; Production remains unchanged.
 - Attribution is allowlisted, query-stripped and stored with the existing claim input snapshot only when the server-verified advertising consent cookie permits it. GA4 remains direct, Meta Pixel/CAPI remains on its existing path, and no PII is added to GA4/GTM events. Exact UI setup and blockers are in `docs/GOOGLE-ADS-LAUNCH.md`.
 - 2026-09-10: the user explicitly authorized publishing the full PP 1.2 package before the marketing persistence/CRM integration is activated. PP 1.2 now uses the actual static publication date 10.09.2026. Marketing subscription remains fail-closed and hidden while Supabase and the required feature settings are absent; no campaign product is approved.
@@ -91,10 +93,8 @@ Useful commands:
 
 ## Next Work
 
-- Finish the Google Ads payment profile for account `460-732-8439`; this is the current external blocker and must be completed by the user because it involves billing identity and a payment method.
-- After billing onboarding, create `Lead - successful claim submit`, keep it Primary with Count `One`, then add the real Conversion ID/Label to the draft GTM Google Ads Conversion Tracking tag.
-- Re-run GTM Preview with one controlled successful claim. Publish GTM and add `GTM-WT3B2L8P` to Vercel Production only after exactly one Ads conversion is observed and the legal wording decision is resolved.
-- Obtain business/legal approval for the prepared PP 1.3 Google Ads wording before production tracking is enabled.
+- Obtain explicit release authorization for the approved PP 1.3 and measurement branch.
+- Run GTM Preview with one controlled successful claim. Publish GTM and add `GTM-WT3B2L8P` to Vercel Production only after exactly one Ads conversion is observed.
 - After Preview QA, deploy only with explicit release authorization and run one controlled production claim to verify GTM, Google Ads, GA4 and Meta together. Keep `SEARCH_RS_CORE` paused until this passes.
 - Configure a durable Supabase production project, confirm its region/account DPA/transfer basis, apply `202609091200_marketing_email_consent.sql`, and test pending -> confirmed -> withdrawn using only a controlled test address.
 - Confirm account-level DPA/transfer evidence for Vercel, Resend and the applicable Google contracting entity. Only then set the two marketing flags, token secret and `MARKETING_TRANSFER_REVIEW_VERSION=2026-09-09`; if publication occurs after 09.09.2026, update PP 1.2's static effective date to the actual deployment date.
@@ -118,9 +118,8 @@ Useful commands:
 
 ## Manual Work Still Needed
 
-- User action is required in Google Ads account `460-732-8439` to create/select the payment profile and payment method. Do not automate or guess billing identity/card details.
-- Google-owned configuration still pending after billing: create the direct conversion action, copy its Conversion ID/Label into GTM, run one controlled conversion, then publish the container.
-- Prepared PP 1.3 Google Ads wording still needs business/legal approval. Production stays unchanged and GTM remains Preview-only until approval and account setup are complete.
+- Google-owned configuration is complete through the direct conversion action and GTM draft. One controlled successful Preview conversion is still required before publishing the container.
+- PP 1.3 is approved, but production stays unchanged until the user explicitly authorizes the release.
 - No manual email reliability step remains. A controlled production claim to `kontakt@letkasni.rs` was accepted by Resend for both admin and user messages; inbox routing can still be checked independently when needed.
 - Meta Business setup is still manual: Pixel/Dataset, domain verification, `Lead` event prioritization, Pixel ID, and server access token.
 - Phone matching remains intentionally unchanged and optional; this task did not add a phone requirement or alter phone collection.
@@ -134,6 +133,7 @@ Useful commands:
 
 ## Verification Log
 
+- 2026-09-15 Google Ads conversion Preview: Tag Assistant connected only after advertising consent and found direct GA4 `G-RVJ906DKVF`, GTM `GTM-WT3B2L8P`, and Ads `AW-18452620232`. `Conversion Linker - All Pages` and `Google Tag AW-18452620232` each fired once; `Lead - successful claim submit` correctly did not fire on page load or before a successful claim. Positive successful-submit verification is intentionally pending because no fake CRM claim was created.
 - 2026-09-15 PP 1.3 Preview QA: Vercel deployment `AhPkmBfAShY2Go8VFeuB7LXXm8Zp` for `3e536b3` reached Ready. The prior PP 1.2 consent cookie was rejected, the banner requested a new choice, the advertising detail named Meta and Google, `/privacy` rendered PP 1.3 dated 15.09.2026 with the limited Google Ads payload disclosure, and rejecting optional tracking kept GTM inactive. All verification stages through lint passed; the final permitted network build passed and generated 331 pages.
 - 2026-09-15 real Preview QA: Vercel deployment `8ps2NiPdvcxydpK4F9GXkMcVDEWh` for `f2d35e2` reached Ready. Tag Assistant connected only after advertising consent, found `GTM-WT3B2L8P` plus direct GA4 `G-RVJ906DKVF`, fired the Conversion Linker, and showed one `claim_start` after the duplicate-dispatch fix. The full verification chain passed through lint; the initial sandboxed build could not fetch Google Fonts, and a permitted rerun of `npm run build` passed with all 331 pages.
 - 2026-09-15 Google Ads readiness: full `npm run verify` passed on `ae1b35e`, including 12 workflow checks, 12 privacy checks, Meta check, 7 Google Ads measurement tests, 5 email tests, content/link/benchmark checks, SR/EN locale alignment, lint, TypeScript and an optimized build of 331 pages. Local browser QA covered pre-consent, analytics-only, advertising-only, accept-all and revoke states; mock GCLID/UTM navigation; phone/WhatsApp events; SR end-to-end submission with stored attribution; and EN campaign-parameter navigation. QA found and fixed missing client exposure of `NEXT_PUBLIC_GTM_ID`, a lint-only test issue, and pre-consent `claim_start` replay.

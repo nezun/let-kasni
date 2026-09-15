@@ -8,7 +8,7 @@ Status: code-ready on `codex/google-ads-measurement`; production remains disable
 | --- | --- | --- | --- |
 | GA4 | Direct `gtag.js`, consent-gated | Preserved; receives the new safe journey events | Local regression passed |
 | GTM | Not present | Optional `NEXT_PUBLIC_GTM_ID`, loaded only after advertising consent | Preview configured; draft not published |
-| Google Ads conversion | Not present | `lead_submit` data-layer contract with a claim transaction ID | Blocked on Ads billing setup |
+| Google Ads conversion | Not present | Primary `Lead - successful claim submit` action plus `lead_submit` GTM tag and claim transaction ID | Draft configured; production release pending |
 | Consent Mode v2 | Not present | Denied-by-default signals for all four v2 consent types, updated from the existing consent cookie | Code-ready |
 | Attribution | Not persisted | First paid touch stored for 90 days after advertising consent | Code-ready |
 | Claim payload | No Google attribution | Allowlisted attribution stored in `original_input_snapshot.attribution` | Code-ready |
@@ -19,12 +19,13 @@ Status: code-ready on `codex/google-ads-measurement`; production remains disable
 
 - Created Google Tag Manager account `LetKasni` and Web container `GTM-WT3B2L8P` for `letkasni.rs`.
 - Added `NEXT_PUBLIC_GTM_ID=GTM-WT3B2L8P` in Vercel only for Preview branch `codex/google-ads-measurement`.
-- Created draft GTM items `DLV - transaction_id`, `CE - lead_submit` and `Conversion Linker - All Pages`. The container is intentionally unpublished.
+- Created draft GTM items `DLV - transaction_id`, `CE - lead_submit`, `Conversion Linker - All Pages`, Ads base tag `Google Tag AW-18452620232`, and conversion tag `Lead - successful claim submit`. The container is intentionally unpublished.
 - Created Google Ads account `460-732-8439` for LetKasni with billing country Serbia, Serbia Time and EUR. No campaign or spend was activated.
 - Linked GA4 property `letkasni` (`534756949`) to Ads account `460-732-8439` with auto-tagging enabled.
 - Linked the Search Console domain property `letkasni.rs` to the production GA4 web stream.
-- Prepared bilingual Privacy Policy 1.3 and consent-detail wording that explicitly names Google Tag Manager / Google Ads, explains the limited conversion payload and forces a fresh choice through a new consent-notice version. This copy is not in production until the branch is approved and released.
-- Ads onboarding now requires a payment profile and payment method before the account UI exposes conversion-action setup. No billing data was entered automatically.
+- Prepared bilingual Privacy Policy 1.3 and consent-detail wording that explicitly names Google Tag Manager / Google Ads, explains the limited conversion payload and forces a fresh choice through a new consent-notice version. The user approved PP 1.3 on 2026-09-15; this copy is not in production until the branch is explicitly released.
+- The user completed Google Ads billing onboarding and advertiser verification. The account remains without a campaign or spend.
+- Created the native Google Ads conversion `Lead - successful claim submit`: category `Submit lead form`, Primary, fixed value EUR 0, Count `One`, 30-day click-through window, data-driven attribution, enhanced conversions off. Conversion ID `18452620232`; label `VnU-CKD6zfgcEMjH8t5E`.
 
 ## Actual tracking flow
 
@@ -127,13 +128,13 @@ The existing `NEXT_PUBLIC_GA_MEASUREMENT_ID` remains the only GA4 configuration.
    - Name: `CE - lead_submit`
    - Event name: `lead_submit`
 6. After creating the Google Ads `Lead` conversion action, create a **Google Ads Conversion Tracking** tag:
-   - Conversion ID: exact value supplied by Google Ads
-   - Conversion Label: exact value supplied by Google Ads
+   - Conversion ID: `18452620232`
+   - Conversion Label: `VnU-CKD6zfgcEMjH8t5E`
    - Transaction ID: `{{DLV - transaction_id}}`
    - Trigger: `CE - lead_submit`
-7. Do not create a GA4 Configuration/Google tag in GTM. GA4 is already loaded directly by the application.
-8. Use Preview mode and Tag Assistant. Confirm the Conversion Linker fires on a consented landing page and the Ads conversion tag fires once only after a successful submission.
-9. Publish the container only after Preview QA passes.
+7. Create one Ads-only **Google tag** with Tag ID `AW-18452620232` and trigger `Initialization - All Pages`. Do not add the GA4 destination/configuration to GTM because GA4 is already loaded directly by the application.
+8. Use Preview mode and Tag Assistant. Confirm the Conversion Linker and Ads Google tag each fire once on a consented landing page and the Ads conversion tag fires once only after a successful submission.
+9. Publish the container only after the controlled successful-submit Preview QA passes.
 
 Google recommends setting consent defaults before measurement commands and updating them on the page where the choice occurs. It also recommends Conversion Linker on landing pages so ad click data survives until conversion. Sources: [Consent Mode setup](https://developers.google.com/tag-platform/security/guides/consent), [Conversion Linker](https://support.google.com/tagmanager/answer/7549390?hl=en).
 
@@ -161,7 +162,7 @@ The current Google flow requires Analytics Editor/Admin and Google Ads Admin per
    - Name: `Lead - successful claim submit`
    - Category: `Submit lead form`
    - Action optimization: `Primary`
-   - Value: `Do not use a value` initially
+   - Value: fixed `EUR 0` (the current setup UI requires a value mode)
    - Count: `One`
    - Click-through window: `30 days`
    - Enhanced conversions: `Off` for this phase
@@ -194,12 +195,11 @@ Google's current setup distinguishes manual code/event conversions from URL page
 
 Do not start paid traffic until all are cleared:
 
-1. Business/legal review approves the prepared bilingual Privacy Policy 1.3 and advertising-choice wording. The current production wording names Meta but not Google Ads.
-2. Finish the Google Ads payment profile. The account is configured in EUR but conversion-action setup remains inaccessible until billing onboarding is submitted.
-3. Create the direct Google Ads `Lead` conversion action and configure its GTM tag with the real Conversion ID/Label.
-4. Publish GTM only after the Ads tag passes Preview QA, then add the existing GTM ID to Vercel Production.
-5. A controlled production submission confirms exactly one Ads conversion and no GA4/Meta regression.
-6. The Search campaign remains paused until items 1-5 pass.
+1. Explicitly authorize the production release of the approved PP 1.3 and measurement branch.
+2. Run one controlled successful claim in GTM Preview and confirm the Ads conversion tag fires exactly once with the claim UUID as transaction ID. Page-load and pre-submit negative checks already pass.
+3. Publish GTM only after that positive Preview QA, then add the existing GTM ID to Vercel Production as part of the approved release.
+4. Run one controlled production submission and confirm exactly one Ads conversion with no GA4/Meta regression.
+5. Keep `SEARCH_RS_CORE` paused until items 1-4 pass.
 
 ## Nice to have
 
