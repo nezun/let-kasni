@@ -103,7 +103,7 @@ export async function pripremiPotpisLetkasni(ref: string, podaci: any): Promise<
 const esc = (s: unknown) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
 function dokazHtml(d: { ref: string; p: PutnikUgovora; l: LetUgovora; potpisnik: string; email: string | null; poslato: string | null; vreme: Date; ip: string; ua: string; z: any; slikaSha: string; potpis: string }) {
-  const beograd = new Intl.DateTimeFormat("sr-RS", { timeZone: "Europe/Belgrade", dateStyle: "long", timeStyle: "medium" }).format(d.vreme);
+  const beograd = new Intl.DateTimeFormat("sr-Latn-RS", { timeZone: "Europe/Belgrade", dateStyle: "long", timeStyle: "medium" }).format(d.vreme);
   const red = (sr: string, en: string, v: string, mono = false) =>
     `<tr><td style="padding:5px 8px;border:0.5pt solid #d3d8e2;width:34%;color:#374151"><b>${sr}</b><br><span style="font-size:7.5pt">${en}</span></td><td style="padding:5px 8px;border:0.5pt solid #d3d8e2;${mono ? "font-family:monospace;font-size:7.5pt;word-break:break-all" : ""}">${v}</td></tr>`;
   return `<section style="page-break-before:always;font-size:9pt">
