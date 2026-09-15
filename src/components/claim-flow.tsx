@@ -448,6 +448,7 @@ function ClaimFlow({
   const [submitError, setSubmitError] = useState("");
   const [formStartedAt] = useState(() => Date.now());
   const submissionInFlightRef = useRef(false);
+  const submissionAttemptIdRef = useRef<string | null>(null);
 
   const isFocused = surface === "focused";
   const stepTwoReady = Boolean(
@@ -773,6 +774,9 @@ function ClaimFlow({
             setSubmitting(true);
             setSubmitError("");
             const metaEventId = getMetaEventId();
+            const submissionAttemptId =
+              submissionAttemptIdRef.current ?? crypto.randomUUID();
+            submissionAttemptIdRef.current = submissionAttemptId;
             try {
               const response = await fetch("/claim/submit", {
                 method: "POST",
@@ -795,11 +799,13 @@ function ClaimFlow({
                   metaEventId,
                   eventSourceUrl: window.location.href,
                   attribution: getAttributionForSubmission(),
+                  submissionAttemptId,
                 }),
               });
               const data = (await response.json()) as {
                 ok?: boolean;
                 reused?: boolean;
+                conversionRecoveryEligible?: boolean;
                 claim?: {
                   id: string;
                   providerStatus: string;
@@ -830,7 +836,7 @@ function ClaimFlow({
                   },
                   metaEventId,
                 );
-              } else {
+              } else if (data.conversionRecoveryEligible) {
                 trackRecoveredLeadSubmitOnce({
                   claimId: data.claim.id,
                   source: "focused_claim_flow",
@@ -838,6 +844,7 @@ function ClaimFlow({
                   providerStatus: data.claim.providerStatus,
                 });
               }
+              submissionAttemptIdRef.current = null;
             } catch {
               setSubmitError(t.submitError);
             } finally {

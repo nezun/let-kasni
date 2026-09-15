@@ -12,6 +12,10 @@ import {
 } from "@/lib/consent-cookie";
 import type { ClaimInput, IssueType } from "@/lib/types";
 import { sanitizeClaimAttribution } from "@/lib/attribution-core";
+import {
+  isConversionRecoveryEligible,
+  sanitizeSubmissionAttemptId,
+} from "@/lib/conversion-recovery";
 
 const minimumHumanSubmitMs = 2500;
 
@@ -86,6 +90,7 @@ function validateInput(
       allowedOrigins: [requestOrigin],
       nowMs: Date.now(),
     }),
+    submissionAttemptId: sanitizeSubmissionAttemptId(data.submissionAttemptId),
   };
 
   if (
@@ -172,6 +177,11 @@ export async function POST(request: Request) {
     skipProvider: submission.skipProvider,
     providerSkipReason: submission.providerSkipReason,
   });
+  const conversionRecoveryEligible = isConversionRecoveryEligible(
+    reused,
+    input.submissionAttemptId,
+    claim.originalInputSnapshot,
+  );
   const providerSnapshot = claim.providerSnapshot;
 
   if (!reused && marketingConsent) {
@@ -269,6 +279,7 @@ export async function POST(request: Request) {
   return NextResponse.json({
     ok: true,
     reused,
+    conversionRecoveryEligible,
     claim: {
       id: claim.id,
       verdictTitle: claim.verdictTitle,

@@ -39,7 +39,7 @@ Google Ads click
 -> GTM Google Ads Conversion Tracking tag
 ```
 
-`lead_submit` is never emitted for a button click, validation error, failed request, reused claim or React rerender. A session-scoped key using the claim UUID prevents repeat delivery from the same browser flow.
+`lead_submit` is never emitted for a button click, validation error, failed request, historical reused claim or React rerender. A server-matched per-attempt UUID allows one Ads-only recovery event when the same interrupted submission retries; a session-scoped key using the claim UUID prevents repeat delivery from the same browser flow.
 
 ## Event contract
 
@@ -54,7 +54,7 @@ Existing GA4 `begin_checkout` and `generate_lead` events remain in place for con
 
 No name, email, phone, PNR, passport data, document data or legal free text is sent through the new GA4/GTM events.
 
-If a successful claim response is lost and the idempotent retry returns the existing claim, the browser pushes an Ads-only recovery event to GTM with the same claim UUID. Google Ads uses that transaction ID to deduplicate a conversion already received; GA4 and Meta do not receive a second lead event.
+If a successful claim response is lost and the same browser-form attempt retries with its server-matched attempt UUID, the browser pushes an Ads-only recovery event to GTM with the same claim UUID. Historical duplicates are not eligible. Google Ads uses the claim transaction ID to deduplicate a conversion already received; GA4 and Meta do not receive a second lead event.
 
 ## Files changed
 
@@ -237,7 +237,7 @@ In Tag Assistant/Data Layer verify:
 
 - `claim_start` once on meaningful flow entry;
 - no `lead_submit` on click, invalid form or failed request;
-- `lead_submit` once after HTTP success and never for a reused claim;
+- `lead_submit` once after HTTP success; a reused claim is eligible only for the server-matched Ads-only interrupted-submit recovery path;
 - `transaction_id` equals the returned claim UUID;
 - phone and WhatsApp links emit their secondary events.
 

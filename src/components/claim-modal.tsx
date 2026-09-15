@@ -188,6 +188,7 @@ export function ClaimModal({
   }));
   const [submitState, setSubmitState] = useState<SubmitState>({ status: "idle" });
   const submissionInFlightRef = useRef(false);
+  const submissionAttemptIdRef = useRef<string | null>(null);
 
   useEffect(() => {
     if (!isOpen) {
@@ -275,6 +276,9 @@ export function ClaimModal({
 
     setSubmitState({ status: "submitting" });
     const metaEventId = getMetaEventId();
+    const submissionAttemptId =
+      submissionAttemptIdRef.current ?? crypto.randomUUID();
+    submissionAttemptIdRef.current = submissionAttemptId;
 
     try {
       const response = await fetch("/claim/submit", {
@@ -298,6 +302,7 @@ export function ClaimModal({
           metaEventId,
           eventSourceUrl: window.location.href,
           attribution: getAttributionForSubmission(),
+          submissionAttemptId,
         }),
       });
 
@@ -305,6 +310,7 @@ export function ClaimModal({
         | {
             ok: true;
             reused: boolean;
+            conversionRecoveryEligible: boolean;
             claim: {
               id: string;
               verdictTitle: string;
@@ -352,7 +358,7 @@ export function ClaimModal({
           },
           metaEventId,
         );
-      } else {
+      } else if (data.conversionRecoveryEligible) {
         trackRecoveredLeadSubmitOnce({
           claimId: data.claim.id,
           source: "modal_form",
@@ -360,6 +366,7 @@ export function ClaimModal({
           providerStatus: data.claim.providerStatus,
         });
       }
+      submissionAttemptIdRef.current = null;
       setStep("success");
     } catch {
       setSubmitState({

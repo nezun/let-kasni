@@ -135,6 +135,7 @@ export function ClaimIntakeForm({ locale = "sr" }: { locale?: "sr" | "en" }) {
     status: "idle",
   });
   const submissionInFlightRef = useRef(false);
+  const submissionAttemptIdRef = useRef<string | null>(null);
   const formInteractionRef = useRef(false);
   const t = formCopy[locale];
   const helperCopy = useMemo(() => t.helper, [t]);
@@ -160,6 +161,9 @@ export function ClaimIntakeForm({ locale = "sr" }: { locale?: "sr" | "en" }) {
     submissionInFlightRef.current = true;
     setSubmitState({ status: "submitting" });
     const metaEventId = getMetaEventId();
+    const submissionAttemptId =
+      submissionAttemptIdRef.current ?? crypto.randomUUID();
+    submissionAttemptIdRef.current = submissionAttemptId;
 
     try {
       const response = await fetch("/claim/submit", {
@@ -176,6 +180,7 @@ export function ClaimIntakeForm({ locale = "sr" }: { locale?: "sr" | "en" }) {
           metaEventId,
           eventSourceUrl: window.location.href,
           attribution: getAttributionForSubmission(),
+          submissionAttemptId,
         }),
       });
 
@@ -183,6 +188,7 @@ export function ClaimIntakeForm({ locale = "sr" }: { locale?: "sr" | "en" }) {
         | {
             ok: true;
             reused: boolean;
+            conversionRecoveryEligible: boolean;
             claim: {
               id: string;
               verdictTitle: string;
@@ -237,7 +243,7 @@ export function ClaimIntakeForm({ locale = "sr" }: { locale?: "sr" | "en" }) {
           },
           metaEventId,
         );
-      } else {
+      } else if (data.conversionRecoveryEligible) {
         trackRecoveredLeadSubmitOnce({
           claimId: data.claim.id,
           source: "inline_form",
@@ -245,6 +251,7 @@ export function ClaimIntakeForm({ locale = "sr" }: { locale?: "sr" | "en" }) {
           providerStatus: data.claim.providerStatus,
         });
       }
+      submissionAttemptIdRef.current = null;
     } catch {
       setSubmitState({
         status: "error",

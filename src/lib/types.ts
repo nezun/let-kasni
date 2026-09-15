@@ -23,6 +23,7 @@ export interface ClaimInput {
   phone?: string;
   website?: string;
   attribution?: ClaimAttribution;
+  submissionAttemptId?: string;
 }
 
 export type FlightProviderStatus =

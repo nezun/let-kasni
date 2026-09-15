@@ -1,3 +1,8 @@
 export function allowsOptionalTracking(pathname: string | null | undefined) {
-  return pathname !== "/admin" && !pathname?.startsWith("/admin/");
+  return (
+    typeof pathname === "string" &&
+    pathname.length > 0 &&
+    pathname !== "/admin" &&
+    !pathname.startsWith("/admin/")
+  );
 }

@@ -44,6 +44,22 @@ const optionalTrackingPathModule = ts.transpileModule(optionalTrackingPathSource
 const { allowsOptionalTracking } = await import(
   `data:text/javascript;base64,${Buffer.from(optionalTrackingPathModule).toString("base64")}`
 );
+const conversionRecoverySource = readFileSync(
+  new URL("../src/lib/conversion-recovery.ts", import.meta.url),
+  "utf8",
+);
+const conversionRecoveryModule = ts.transpileModule(conversionRecoverySource, {
+  compilerOptions: {
+    module: ts.ModuleKind.ESNext,
+    target: ts.ScriptTarget.ES2022,
+  },
+}).outputText;
+const {
+  isConversionRecoveryEligible,
+  sanitizeSubmissionAttemptId,
+} = await import(
+  `data:text/javascript;base64,${Buffer.from(conversionRecoveryModule).toString("base64")}`
+);
 const {
   appendAttributionParameters,
   attributionMaxAgeMs,
@@ -458,6 +474,8 @@ test("server validation binds attribution to the current site and a recent times
 });
 
 test("blocks all optional measurement on admin routes", () => {
+  assert.equal(allowsOptionalTracking(null), false);
+  assert.equal(allowsOptionalTracking(undefined), false);
   assert.equal(allowsOptionalTracking("/"), true);
   assert.equal(allowsOptionalTracking("/en/check-flight"), true);
   assert.equal(allowsOptionalTracking("/admin"), false);
@@ -465,20 +483,44 @@ test("blocks all optional measurement on admin routes", () => {
   assert.equal(allowsOptionalTracking("/administrator"), true);
 });
 
-test("stores attribution once in the original claim audit snapshot", () => {
+test("stores measurement audit metadata only in the original claim snapshot", () => {
   assert.match(
     claimsSource,
-    /const inputWithoutAttribution = \{ \.\.\.input \};\s*delete inputWithoutAttribution\.attribution;/,
+    /const inputWithoutAuditMetadata = \{ \.\.\.input \};\s*delete inputWithoutAuditMetadata\.attribution;\s*delete inputWithoutAuditMetadata\.submissionAttemptId;/,
   );
   assert.match(
     claimsSource,
-    /const normalizedInputSnapshot = \{\s*\.\.\.inputWithoutAttribution,/,
+    /const normalizedInputSnapshot = \{\s*\.\.\.inputWithoutAuditMetadata,/,
   );
   assert.match(
     claimsSource,
-    /const claim: ClaimRecord = \{\s*\.\.\.inputWithoutAttribution,/,
+    /const claim: ClaimRecord = \{\s*\.\.\.inputWithoutAuditMetadata,/,
   );
   assert.match(claimsSource, /originalInputSnapshot: \{ \.\.\.input \}/);
+});
+
+test("allows Ads recovery only for the same server-recorded submit attempt", () => {
+  const attemptId = "aaaaaaaa-bbbb-4ccc-8ddd-eeeeeeeeeeee";
+  assert.equal(sanitizeSubmissionAttemptId(attemptId.toUpperCase()), attemptId);
+  assert.equal(sanitizeSubmissionAttemptId("not-a-uuid"), undefined);
+  assert.equal(
+    isConversionRecoveryEligible(true, attemptId, {
+      submissionAttemptId: attemptId,
+    }),
+    true,
+  );
+  assert.equal(
+    isConversionRecoveryEligible(true, attemptId, {
+      submissionAttemptId: "11111111-2222-4333-8444-555555555555",
+    }),
+    false,
+  );
+  assert.equal(
+    isConversionRecoveryEligible(false, attemptId, {
+      submissionAttemptId: attemptId,
+    }),
+    false,
+  );
 });
 
 test("keeps organic first touch and handles an empty attribution history", () => {
@@ -759,6 +801,7 @@ test("tracking wiring is consent-gated, success-gated and PII-minimized", () => 
     assert.match(form, /trackLeadSubmitOnce/);
     assert.match(form, /trackRecoveredLeadSubmitOnce/);
     assert.match(form, /if \(!data\.reused\)/);
+    assert.match(form, /else if \(data\.conversionRecoveryEligible\)/);
     assert.match(form, /addEventListener\(trackingConsentEvent/);
   }
 });
