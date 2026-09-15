@@ -559,12 +559,14 @@ test("advertising revocation clears Google, Meta, attribution, and conversion-de
   for (const name of ["_gcl_au", "_gac_test", "_fbp", "_fbc"]) {
     assert.ok(runtime.cookieWrites.some((value) => value.startsWith(`${name}=`)));
   }
+  const unavailable = loadConsentClient({ storageThrows: true });
   assert.doesNotThrow(() => {
-    loadConsentClient({ storageThrows: true }).exports.clearOptionalTrackingCookies({
+    unavailable.exports.clearOptionalTrackingCookies({
       analytics: false,
       advertising: true,
     });
   });
+  assert.equal(unavailable.wasMemoryCleared(), true);
 });
 
 test("shared conversion-dedupe memory can be cleared on consent withdrawal", () => {

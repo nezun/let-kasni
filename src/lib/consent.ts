@@ -145,10 +145,10 @@ function clearAdvertisingStorage() {
     removeStorageKeys(window.sessionStorage, (name) =>
       name.startsWith(googleEventStoragePrefix),
     );
-    clearDeliveredGoogleEvents();
   } catch {
     // Continue clearing cookies even if session storage is unavailable.
   }
+  clearDeliveredGoogleEvents();
 }
 
 export function clearOptionalTrackingCookies(options: { analytics: boolean; advertising: boolean }) {
