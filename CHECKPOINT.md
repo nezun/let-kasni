@@ -14,26 +14,19 @@ Canonical handoff file for future local and Codex Cloud sessions.
 ## Generated Status
 
 <!-- BEGIN:generated-status -->
-Generated at: `2026-09-15T10:46:14.810Z`
+Generated at: `2026-09-15T10:48:36.335Z`
 
 Branch: `codex/google-ads-measurement`
 
 Remote: `https://github.com/nezun/let-kasni.git`
 
-Latest local commit: `f60987a docs: record live Google Ads setup and blockers`
+Latest local commit: `3e536b3 feat(consent): disclose Google Ads measurement`
 
 Worktree status:
 
 ```text
 M CHECKPOINT.md
  M docs/GOOGLE-ADS-LAUNCH.md
- M scripts/meta-tracking-check.mjs
- M scripts/privacy-policy-check.mjs
- M src/app/en/privacy/page.tsx
- M src/app/layout.tsx
- M src/app/privacy/page.tsx
- M src/components/consent-banner.tsx
- M src/lib/consent-cookie.ts
 ```
 
 Useful commands:
@@ -141,6 +134,7 @@ Useful commands:
 
 ## Verification Log
 
+- 2026-09-15 PP 1.3 Preview QA: Vercel deployment `AhPkmBfAShY2Go8VFeuB7LXXm8Zp` for `3e536b3` reached Ready. The prior PP 1.2 consent cookie was rejected, the banner requested a new choice, the advertising detail named Meta and Google, `/privacy` rendered PP 1.3 dated 15.09.2026 with the limited Google Ads payload disclosure, and rejecting optional tracking kept GTM inactive. All verification stages through lint passed; the final permitted network build passed and generated 331 pages.
 - 2026-09-15 real Preview QA: Vercel deployment `8ps2NiPdvcxydpK4F9GXkMcVDEWh` for `f2d35e2` reached Ready. Tag Assistant connected only after advertising consent, found `GTM-WT3B2L8P` plus direct GA4 `G-RVJ906DKVF`, fired the Conversion Linker, and showed one `claim_start` after the duplicate-dispatch fix. The full verification chain passed through lint; the initial sandboxed build could not fetch Google Fonts, and a permitted rerun of `npm run build` passed with all 331 pages.
 - 2026-09-15 Google Ads readiness: full `npm run verify` passed on `ae1b35e`, including 12 workflow checks, 12 privacy checks, Meta check, 7 Google Ads measurement tests, 5 email tests, content/link/benchmark checks, SR/EN locale alignment, lint, TypeScript and an optimized build of 331 pages. Local browser QA covered pre-consent, analytics-only, advertising-only, accept-all and revoke states; mock GCLID/UTM navigation; phone/WhatsApp events; SR end-to-end submission with stored attribution; and EN campaign-parameter navigation. QA found and fixed missing client exposure of `NEXT_PUBLIC_GTM_ID`, a lint-only test issue, and pre-consent `claim_start` replay.
 - 2026-09-10 release preparation: PP 1.2 publication date and consent-notice identifier were updated to 10.09.2026. A concurrent subscription-write finding was fixed with an atomic database upsert. Privacy checks (12 tests), lint, TypeScript and the 331-route production build passed before the final release gate.

@@ -278,6 +278,7 @@ Passed against the real Vercel Preview and GTM draft on `f2d35e2`:
 - `Conversion Linker - All Pages` fired on the consented preview.
 - Live Preview exposed a duplicate journey-event dispatch when both consent categories were granted. Commit `f2d35e2` removed the second push, the regression test now models the real `gtag` data-layer behavior, and Tag Assistant then showed one `claim_start` event on flow entry.
 - The mock GCLID/UTM URL loaded successfully and remained attached through the English focused-flow navigation.
+- Follow-up deployment `3e536b3` rendered PP 1.3 in Serbian and English, showed “Meta i Google oglasa” in the advertising choice, invalidated the earlier PP 1.2 consent cookie and kept GTM blocked after optional tracking was rejected.
 
 Not yet testable until Google Ads billing onboarding and the release blockers are cleared:
 
