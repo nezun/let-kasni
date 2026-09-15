@@ -105,11 +105,13 @@ export function sanitizeClaimAttribution(
     typeof input.initial_landing_page === "string"
       ? cleanPageUrl(input.initial_landing_page)
       : undefined;
-  const capturedAt =
-    typeof input.captured_at === "string" &&
-    Number.isFinite(Date.parse(input.captured_at))
-      ? input.captured_at
-      : undefined;
+  const capturedAtMs =
+    typeof input.captured_at === "string"
+      ? Date.parse(input.captured_at)
+      : Number.NaN;
+  const capturedAt = Number.isFinite(capturedAtMs)
+    ? new Date(capturedAtMs).toISOString()
+    : undefined;
 
   if (!initialLandingPage || !capturedAt) return undefined;
   const landingOrigin = new URL(initialLandingPage).origin;
@@ -120,7 +122,6 @@ export function sanitizeClaimAttribution(
     return undefined;
   }
   if (options.nowMs !== undefined) {
-    const capturedAtMs = Date.parse(capturedAt);
     if (
       capturedAtMs > options.nowMs + attributionFutureSkewMs ||
       options.nowMs - capturedAtMs > attributionMaxAgeMs

@@ -84,6 +84,10 @@ function trackOnce(
   key: string,
   eventName: GoogleJourneyEvent,
   params: GoogleJourneyParams,
+  deliver: (
+    name: GoogleJourneyEvent,
+    values: GoogleJourneyParams,
+  ) => boolean = trackGoogleJourneyEvent,
 ) {
   const storageKey = `${googleEventStoragePrefix}${key}`;
   if (hasDeliveredGoogleEvent(storageKey)) return false;
@@ -93,7 +97,7 @@ function trackOnce(
     // The in-memory guard below still prevents render-driven duplicates.
   }
 
-  const delivered = trackGoogleJourneyEvent(eventName, params);
+  const delivered = deliver(eventName, params);
   if (delivered) {
     markGoogleEventDelivered(storageKey);
     try {
@@ -129,4 +133,29 @@ export function trackLeadSubmitOnce(input: {
     provider_status: input.providerStatus,
     transaction_id: input.claimId,
   });
+}
+
+export function trackRecoveredLeadSubmitOnce(input: {
+  claimId: string;
+  source: string;
+  locale: "sr" | "en";
+  providerStatus?: string;
+}) {
+  return trackOnce(
+    `lead_submit:${input.claimId}`,
+    "lead_submit",
+    {
+      event_category: "claim",
+      event_label: input.source,
+      form_locale: input.locale,
+      provider_status: input.providerStatus,
+      transaction_id: input.claimId,
+    },
+    (eventName, params) => {
+      if (typeof window === "undefined" || !hasMarketingConsent()) return false;
+      window.dataLayer = window.dataLayer ?? [];
+      window.dataLayer.push({ event: eventName, ...cleanParams(params) });
+      return true;
+    },
+  );
 }

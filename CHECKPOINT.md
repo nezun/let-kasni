@@ -103,6 +103,7 @@ Useful commands:
 - After Meta Test Events and privacy/consent review pass, run `npm run release:gate` and deploy only with explicit release authorization.
 - Complete a real Meta Test Events submission with disposable data and verify the new `fbc`, `fbp`, IP, name, country, and `external_id` fields in Events Manager.
 - Configure durable Supabase persistence in Vercel production and rerun the production gate with `REQUIRE_SUPABASE=1`.
+- Treat durable Supabase claim persistence as a hard Google Ads launch blocker: the Vercel `/tmp` fallback cannot atomically deduplicate concurrent submissions into one claim UUID and one Ads transaction ID.
 - The root layout still reads the existing `x-site-locale` request header for the `<html lang>` attribute; the consent change deliberately adds no `cookies()` read to the layout. A separate locale-layout refactor would be needed if static ISR output is required.
 - Use this canonical workflow for every future LetKasni task and deploy.
 - Audit the legacy dirty folders in a separate task without resetting or deleting their local work.

@@ -23,6 +23,7 @@ import { getMetaEventId, trackMetaEvent } from "@/lib/meta";
 import {
   trackClaimStartOnce,
   trackLeadSubmitOnce,
+  trackRecoveredLeadSubmitOnce,
 } from "@/lib/google-tracking";
 import type { IssueType } from "@/lib/types";
 
@@ -351,6 +352,13 @@ export function ClaimModal({
           },
           metaEventId,
         );
+      } else {
+        trackRecoveredLeadSubmitOnce({
+          claimId: data.claim.id,
+          source: "modal_form",
+          locale,
+          providerStatus: data.claim.providerStatus,
+        });
       }
       setStep("success");
     } catch {

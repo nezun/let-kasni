@@ -31,6 +31,19 @@ const trackingKeysModule = ts.transpileModule(trackingKeysSource, {
 const trackingKeys = await import(
   `data:text/javascript;base64,${Buffer.from(trackingKeysModule).toString("base64")}`
 );
+const optionalTrackingPathSource = readFileSync(
+  new URL("../src/lib/optional-tracking-path.ts", import.meta.url),
+  "utf8",
+);
+const optionalTrackingPathModule = ts.transpileModule(optionalTrackingPathSource, {
+  compilerOptions: {
+    module: ts.ModuleKind.ESNext,
+    target: ts.ScriptTarget.ES2022,
+  },
+}).outputText;
+const { allowsOptionalTracking } = await import(
+  `data:text/javascript;base64,${Buffer.from(optionalTrackingPathModule).toString("base64")}`
+);
 const {
   appendAttributionParameters,
   attributionMaxAgeMs,
@@ -435,6 +448,21 @@ test("server validation binds attribution to the current site and a recent times
     ),
     undefined,
   );
+  assert.equal(
+    sanitizeClaimAttribution(
+      { ...valid, captured_at: "2026-09-15T08:00:00Z" },
+      { allowedOrigins: ["https://letkasni.rs"], nowMs },
+    )?.captured_at,
+    capturedAt,
+  );
+});
+
+test("blocks all optional measurement on admin routes", () => {
+  assert.equal(allowsOptionalTracking("/"), true);
+  assert.equal(allowsOptionalTracking("/en/check-flight"), true);
+  assert.equal(allowsOptionalTracking("/admin"), false);
+  assert.equal(allowsOptionalTracking("/admin/claims/claim-id"), false);
+  assert.equal(allowsOptionalTracking("/administrator"), true);
 });
 
 test("stores attribution once in the original claim audit snapshot", () => {
@@ -668,10 +696,32 @@ test("deduplicates claim_start by page and still delivers when session storage i
   assert.equal(unavailable.gtagCalls.length, 1);
 });
 
+test("recovers a reused claim for Ads without duplicating GA4 delivery", () => {
+  const runtime = loadGoogleTracking({ analytics: true, marketing: true });
+  const input = {
+    claimId: "00000000-0000-4000-8000-000000000003",
+    source: "inline_form",
+    locale: "sr",
+    providerStatus: "live_match",
+  };
+
+  assert.equal(runtime.exports.trackRecoveredLeadSubmitOnce(input), true);
+  assert.equal(runtime.exports.trackRecoveredLeadSubmitOnce(input), false);
+  assert.equal(runtime.gtagCalls.length, 0);
+  assert.equal(runtime.window.dataLayer.length, 1);
+  assert.equal(runtime.window.dataLayer[0].event, "lead_submit");
+  assert.equal(
+    runtime.window.dataLayer[0].transaction_id,
+    "00000000-0000-4000-8000-000000000003",
+  );
+});
+
 test("tracking wiring is consent-gated, success-gated and PII-minimized", () => {
   const read = (path) => readFileSync(new URL(`../${path}`, import.meta.url), "utf8");
   const layout = read("src/app/layout.tsx");
   const measurement = read("src/components/google-measurement.tsx");
+  const analytics = read("src/components/analytics.tsx");
+  const metaPixel = read("src/components/meta-pixel.tsx");
   const tracking = read("src/lib/google-tracking.ts");
   const route = read("src/app/claim/submit/route.ts");
   const forms = [
@@ -692,6 +742,10 @@ test("tracking wiring is consent-gated, success-gated and PII-minimized", () => 
 
   assert.match(measurement, /consent\?\.marketing/);
   assert.match(measurement, /NEXT_PUBLIC_GTM_ID|getGoogleTagManagerId/);
+  assert.match(layout, /location\.pathname!=="\/admin"/);
+  for (const source of [measurement, analytics, metaPixel]) {
+    assert.match(source, /allowsOptionalTracking\(pathname\)/);
+  }
   assert.match(
     read("src/lib/env.ts"),
     /process\.env\.NEXT_PUBLIC_GTM_ID\?\.trim\(\)/,
@@ -703,6 +757,7 @@ test("tracking wiring is consent-gated, success-gated and PII-minimized", () => 
   for (const form of forms) {
     assert.match(form, /getAttributionForSubmission\(\)/);
     assert.match(form, /trackLeadSubmitOnce/);
+    assert.match(form, /trackRecoveredLeadSubmitOnce/);
     assert.match(form, /if \(!data\.reused\)/);
     assert.match(form, /addEventListener\(trackingConsentEvent/);
   }

@@ -54,6 +54,8 @@ Existing GA4 `begin_checkout` and `generate_lead` events remain in place for con
 
 No name, email, phone, PNR, passport data, document data or legal free text is sent through the new GA4/GTM events.
 
+If a successful claim response is lost and the idempotent retry returns the existing claim, the browser pushes an Ads-only recovery event to GTM with the same claim UUID. Google Ads uses that transaction ID to deduplicate a conversion already received; GA4 and Meta do not receive a second lead event.
+
 ## Files changed
 
 | File | Purpose |
@@ -196,10 +198,11 @@ Google's current setup distinguishes manual code/event conversions from URL page
 Do not start paid traffic until all are cleared:
 
 1. Explicitly authorize the production release of the approved PP 1.3 and measurement branch.
-2. Run one controlled successful claim in GTM Preview and confirm the Ads conversion tag fires exactly once with the claim UUID as transaction ID. Page-load and pre-submit negative checks already pass.
-3. Publish GTM only after that positive Preview QA, then add the existing GTM ID to Vercel Production as part of the approved release.
-4. Run one controlled production submission and confirm exactly one Ads conversion with no GA4/Meta regression.
-5. Keep `SEARCH_RS_CORE` paused until items 1-4 pass.
+2. Configure durable Supabase claim persistence in Vercel Production and pass `REQUIRE_SUPABASE=1 npm run production:check`. The `/tmp` fallback is not atomic or durable across serverless instances and cannot guarantee one claim UUID/transaction ID under retries or concurrent submissions.
+3. Run one controlled successful claim in GTM Preview and confirm the Ads conversion tag fires exactly once with the claim UUID as transaction ID. Page-load and pre-submit negative checks already pass.
+4. Publish GTM only after that positive Preview QA, then add the existing GTM ID to Vercel Production as part of the approved release.
+5. Run one controlled production submission and confirm exactly one Ads conversion with no GA4/Meta regression.
+6. Keep `SEARCH_RS_CORE` paused until items 1-5 pass.
 
 ## Nice to have
 
@@ -245,6 +248,7 @@ In Tag Assistant/Data Layer verify:
 - Advertising only: GTM and Meta load; GA4 remains blocked.
 - Accept all: GA4, GTM and Meta load.
 - Revoke: future events are denied and optional first-party tracking storage is cleared.
+- Admin routes: `/admin` and `/admin/...` keep GA4, GTM and Meta blocked even if the browser previously granted optional tracking on the public site.
 
 ### E. Regression
 

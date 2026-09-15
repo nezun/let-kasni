@@ -8,6 +8,7 @@ import { getTrackingConsent, trackingConsentEvent } from "@/lib/consent";
 import {
   trackClaimStartOnce,
   trackLeadSubmitOnce,
+  trackRecoveredLeadSubmitOnce,
 } from "@/lib/google-tracking";
 import { getMetaEventId, trackMetaEvent } from "@/lib/meta";
 import type { IssueType } from "@/lib/types";
@@ -236,6 +237,13 @@ export function ClaimIntakeForm({ locale = "sr" }: { locale?: "sr" | "en" }) {
           },
           metaEventId,
         );
+      } else {
+        trackRecoveredLeadSubmitOnce({
+          claimId: data.claim.id,
+          source: "inline_form",
+          locale,
+          providerStatus: data.claim.providerStatus,
+        });
       }
     } catch {
       setSubmitState({

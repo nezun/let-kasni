@@ -31,6 +31,7 @@ import { getMetaEventId, trackMetaEvent } from "@/lib/meta";
 import {
   trackClaimStartOnce,
   trackLeadSubmitOnce,
+  trackRecoveredLeadSubmitOnce,
 } from "@/lib/google-tracking";
 
 export type HeroFormVariant = "focused" | "embedded";
@@ -829,6 +830,13 @@ function ClaimFlow({
                   },
                   metaEventId,
                 );
+              } else {
+                trackRecoveredLeadSubmitOnce({
+                  claimId: data.claim.id,
+                  source: "focused_claim_flow",
+                  locale,
+                  providerStatus: data.claim.providerStatus,
+                });
               }
             } catch {
               setSubmitError(t.submitError);

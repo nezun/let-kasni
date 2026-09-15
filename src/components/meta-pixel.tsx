@@ -7,23 +7,26 @@ import Script from "next/script";
 import { hasMarketingConsent, trackingConsentEvent } from "@/lib/consent";
 import { getMetaPixelId } from "@/lib/env";
 import { getMetaEventId, trackMetaEvent } from "@/lib/meta";
+import { allowsOptionalTracking } from "@/lib/optional-tracking-path";
 
 export function MetaPixel() {
   const pixelId = getMetaPixelId();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const measurementAllowed = allowsOptionalTracking(pathname);
   const skippedInitialPageView = useRef(false);
   const [hasConsent, setHasConsent] = useState(false);
 
   useEffect(() => {
-    const syncConsent = () => setHasConsent(hasMarketingConsent());
+    const syncConsent = () =>
+      setHasConsent(measurementAllowed && hasMarketingConsent());
     syncConsent();
     window.addEventListener(trackingConsentEvent, syncConsent);
     return () => window.removeEventListener(trackingConsentEvent, syncConsent);
-  }, []);
+  }, [measurementAllowed]);
 
   useEffect(() => {
-    if (!pixelId || !pathname || !hasConsent) {
+    if (!pixelId || !pathname || !measurementAllowed || !hasConsent) {
       return;
     }
 
@@ -41,9 +44,9 @@ export function MetaPixel() {
       },
       getMetaEventId(),
     );
-  }, [hasConsent, pathname, pixelId, searchParams]);
+  }, [hasConsent, measurementAllowed, pathname, pixelId, searchParams]);
 
-  if (!pixelId || !hasConsent) {
+  if (!measurementAllowed || !pixelId || !hasConsent) {
     return null;
   }
 

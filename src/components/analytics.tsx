@@ -7,23 +7,26 @@ import Script from "next/script";
 import { trackPageView } from "@/lib/analytics";
 import { hasAnalyticsConsent, trackingConsentEvent } from "@/lib/consent";
 import { getAnalyticsMode, getGoogleAnalyticsId, getPlausibleDomain } from "@/lib/env";
+import { allowsOptionalTracking } from "@/lib/optional-tracking-path";
 
 export function Analytics() {
   const mode = getAnalyticsMode();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const measurementAllowed = allowsOptionalTracking(pathname);
   const skippedInitialPageView = useRef(false);
   const [hasConsent, setHasConsent] = useState(false);
 
   useEffect(() => {
-    const syncConsent = () => setHasConsent(hasAnalyticsConsent());
+    const syncConsent = () =>
+      setHasConsent(measurementAllowed && hasAnalyticsConsent());
     syncConsent();
     window.addEventListener(trackingConsentEvent, syncConsent);
     return () => window.removeEventListener(trackingConsentEvent, syncConsent);
-  }, []);
+  }, [measurementAllowed]);
 
   useEffect(() => {
-    if (mode !== "ga4" || !pathname || !hasConsent) {
+    if (mode !== "ga4" || !pathname || !measurementAllowed || !hasConsent) {
       return;
     }
 
@@ -35,9 +38,9 @@ export function Analytics() {
     const query = searchParams?.toString();
     const url = `${window.location.origin}${pathname}${query ? `?${query}` : ""}`;
     trackPageView(url);
-  }, [hasConsent, mode, pathname, searchParams]);
+  }, [hasConsent, measurementAllowed, mode, pathname, searchParams]);
 
-  if (!hasConsent) {
+  if (!measurementAllowed || !hasConsent) {
     return null;
   }
 

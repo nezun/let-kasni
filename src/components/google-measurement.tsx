@@ -18,6 +18,7 @@ import {
   trackGoogleJourneyEvent,
   updateGoogleConsent,
 } from "@/lib/google-tracking";
+import { allowsOptionalTracking } from "@/lib/optional-tracking-path";
 
 function isWhatsAppLink(anchor: HTMLAnchorElement) {
   try {
@@ -34,13 +35,15 @@ export function GoogleMeasurement() {
   const gtmId = getGoogleTagManagerId();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const measurementAllowed = allowsOptionalTracking(pathname);
   const [consent, setConsent] = useState<TrackingConsent | null>(null);
 
   useEffect(() => {
     const syncConsent = () => {
-      const current = getTrackingConsent();
+      const current = measurementAllowed ? getTrackingConsent() : null;
       updateGoogleConsent(current);
       setConsent(current);
+      if (!measurementAllowed) return;
       if (current?.marketing) captureCurrentAttribution();
       else clearStoredAttribution();
     };
@@ -48,14 +51,15 @@ export function GoogleMeasurement() {
     syncConsent();
     window.addEventListener(trackingConsentEvent, syncConsent);
     return () => window.removeEventListener(trackingConsentEvent, syncConsent);
-  }, []);
+  }, [measurementAllowed]);
 
   useEffect(() => {
-    if (consent?.marketing) captureCurrentAttribution();
-  }, [consent?.marketing, pathname, searchParams]);
+    if (measurementAllowed && consent?.marketing) captureCurrentAttribution();
+  }, [consent?.marketing, measurementAllowed, pathname, searchParams]);
 
   useEffect(() => {
     const trackContactClick = (event: MouseEvent) => {
+      if (!measurementAllowed) return;
       const target = event.target;
       if (!(target instanceof Element)) return;
       const anchor = target.closest("a");
@@ -76,9 +80,9 @@ export function GoogleMeasurement() {
 
     document.addEventListener("click", trackContactClick, true);
     return () => document.removeEventListener("click", trackContactClick, true);
-  }, []);
+  }, [measurementAllowed]);
 
-  if (!gtmId || !consent?.marketing) return null;
+  if (!measurementAllowed || !gtmId || !consent?.marketing) return null;
 
   return (
     <Script id="google-tag-manager" strategy="afterInteractive">
