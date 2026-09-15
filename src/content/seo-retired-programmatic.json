@@ -1,0 +1,136 @@
+{
+  "reason": "Owner-approved retirement of regional, country, route and airport programmatic pages; general scenario articles are retained.",
+  "status": 404,
+  "retainedBatchArticles": {
+    "src/content/blog/daily-2026-05-02.ts": [
+      "bad-weather-flight-delay",
+      "technical-fault-flight-compensation",
+      "previous-flight-rotation-delay",
+      "overnight-delay-hotel-rights",
+      "self-rerouting-new-ticket"
+    ],
+    "src/content/blog/daily-2026-05-07.ts": [
+      "two-hour-flight-delay-rights",
+      "three-hour-flight-delay-compensation"
+    ],
+    "src/content/blog/daily-2026-05-09.ts": [
+      "connecting-flight-delay-one-booking",
+      "long-haul-flight-delay-300-600",
+      "tarmac-delay-door-open-time"
+    ]
+  },
+  "articles": [
+    {
+      "id": "belgrade-eu-flight-delay-compensation",
+      "family": "regional_route_airport_articles",
+      "previouslyRedirected": false,
+      "sr": "/naknada-za-kasnjenje-leta/beograd-eu-kasnjenje-leta-naknada",
+      "en": "/en/flight-delay-compensation/belgrade-eu-flight-delay-compensation"
+    },
+    {
+      "id": "belgrade-flight-delay-compensation",
+      "family": "regional_route_airport_articles",
+      "previouslyRedirected": false,
+      "sr": "/naknada-za-kasnjenje-leta/beograd-kasnjenje-leta-naknada",
+      "en": "/en/flight-delay-compensation/belgrade-flight-delay-compensation"
+    },
+    {
+      "id": "eu-serbia-flight-delay-compensation",
+      "family": "regional_route_airport_articles",
+      "previouslyRedirected": false,
+      "sr": "/naknada-za-kasnjenje-leta/eu-srbija-kasnjenje-leta-naknada",
+      "en": "/en/flight-delay-compensation/eu-serbia-flight-delay-compensation"
+    },
+    {
+      "id": "nis-flight-delay-compensation",
+      "family": "regional_route_airport_articles",
+      "previouslyRedirected": false,
+      "sr": "/naknada-za-kasnjenje-leta/nis-kasnjenje-leta-naknada",
+      "en": "/en/flight-delay-compensation/nis-flight-delay-compensation"
+    },
+    {
+      "id": "serbia-austria-flight-delay-compensation",
+      "family": "regional_route_airport_articles",
+      "previouslyRedirected": false,
+      "sr": "/naknada-za-kasnjenje-leta/srbija-austrija-kasnjenje-leta-naknada",
+      "en": "/en/flight-delay-compensation/serbia-austria-flight-delay-compensation"
+    },
+    {
+      "id": "serbia-eu-flight-delay-compensation",
+      "family": "regional_route_airport_articles",
+      "previouslyRedirected": false,
+      "sr": "/naknada-za-kasnjenje-leta/srbija-eu-kasnjenje-leta-naknada",
+      "en": "/en/flight-delay-compensation/serbia-eu-flight-delay-compensation"
+    },
+    {
+      "id": "serbia-eu-non-eu-airline-delay",
+      "family": "regional_route_airport_articles",
+      "previouslyRedirected": false,
+      "sr": "/naknada-za-kasnjenje-leta/srbija-eu-non-eu-aviokompanija-kasnjenje",
+      "en": "/en/flight-delay-compensation/serbia-eu-non-eu-airline-delay"
+    },
+    {
+      "id": "serbia-eu-transit-routes",
+      "family": "regional_route_airport_articles",
+      "previouslyRedirected": false,
+      "sr": "/naknada-za-propustenu-konekciju/let-iz-srbije-preko-eu-prava-putnika",
+      "en": "/en/missed-connection-compensation/flight-from-serbia-via-eu-passenger-rights"
+    },
+    {
+      "id": "serbia-france-flight-delay-compensation",
+      "family": "regional_route_airport_articles",
+      "previouslyRedirected": false,
+      "sr": "/naknada-za-kasnjenje-leta/srbija-francuska-kasnjenje-leta-naknada",
+      "en": "/en/flight-delay-compensation/serbia-france-flight-delay-compensation"
+    },
+    {
+      "id": "serbia-germany-flight-delay-compensation",
+      "family": "regional_route_airport_articles",
+      "previouslyRedirected": false,
+      "sr": "/naknada-za-kasnjenje-leta/srbija-nemacka-kasnjenje-leta-naknada",
+      "en": "/en/flight-delay-compensation/serbia-germany-flight-delay-compensation"
+    },
+    {
+      "id": "serbia-israel-flight-delay-compensation",
+      "family": "regional_route_airport_articles",
+      "previouslyRedirected": false,
+      "sr": "/naknada-za-kasnjenje-leta/srbija-izrael-kasnjenje-leta-naknada",
+      "en": "/en/flight-delay-compensation/serbia-israel-flight-delay-compensation"
+    },
+    {
+      "id": "serbia-italy-flight-delay-compensation",
+      "family": "regional_route_airport_articles",
+      "previouslyRedirected": false,
+      "sr": "/naknada-za-kasnjenje-leta/srbija-italija-kasnjenje-leta-naknada",
+      "en": "/en/flight-delay-compensation/serbia-italy-flight-delay-compensation"
+    },
+    {
+      "id": "serbia-netherlands-flight-delay-compensation",
+      "family": "regional_route_airport_articles",
+      "previouslyRedirected": false,
+      "sr": "/naknada-za-kasnjenje-leta/srbija-holandija-kasnjenje-leta-naknada",
+      "en": "/en/flight-delay-compensation/serbia-netherlands-flight-delay-compensation"
+    },
+    {
+      "id": "serbia-turkey-flight-delay-compensation",
+      "family": "regional_route_airport_articles",
+      "previouslyRedirected": false,
+      "sr": "/naknada-za-kasnjenje-leta/srbija-turska-kasnjenje-leta-naknada",
+      "en": "/en/flight-delay-compensation/serbia-turkey-flight-delay-compensation"
+    },
+    {
+      "id": "serbia-united-arab-emirates-flight-delay-compensation",
+      "family": "regional_route_airport_articles",
+      "previouslyRedirected": false,
+      "sr": "/naknada-za-kasnjenje-leta/srbija-ujedinjeni-arapski-emirati-kasnjenje-leta-naknada",
+      "en": "/en/flight-delay-compensation/serbia-united-arab-emirates-flight-delay-compensation"
+    },
+    {
+      "id": "serbia-united-kingdom-flight-delay-compensation",
+      "family": "regional_route_airport_articles",
+      "previouslyRedirected": false,
+      "sr": "/naknada-za-kasnjenje-leta/srbija-ujedinjeno-kraljevstvo-kasnjenje-leta-naknada",
+      "en": "/en/flight-delay-compensation/serbia-united-kingdom-flight-delay-compensation"
+    }
+  ]
+}
