@@ -41,6 +41,16 @@ export default async function prijem(ctx: Kontekst) {
   const r = ctx.korak("prijem");
   if (r.rezim === "iskljuceno") return;
 
+  // 0. ruta pročitana iz teksta forme mora biti od poznatih aerodroma (npr. „Wizz AIR“ nije aerodrom)
+  for (const c of ctx.predmeti.svi()) {
+    if (c.status !== "NEW" || !c.let?.ruta_opis) continue;
+    if (aerodrom(String(c.let.od ?? "")).poznat && aerodrom(String(c.let.do ?? "")).poznat) continue;
+    const [od, doo] = rutaIzTeksta(c.let.ruta_opis);
+    if (!r.auto || (od === (c.let.od ?? null) && doo === (c.let.do ?? null))) continue;
+    ctx.predmeti.azuriraj(c.ref, (x) => { x.let = { ...x.let, od, do: doo }; });
+    ctx.predmeti.log(c.ref, `prijem (kod): ruta iz forme ispravljena na ${od ?? "?"} → ${doo ?? "?"}`);
+  }
+
   // 1. claim-ovi koje je forma upisala direktno u bazu
   for (const c of ctx.predmeti.svi()) {
     if (c.sistem?.primljeno) continue;

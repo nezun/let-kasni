@@ -176,7 +176,8 @@ export default async function dokumenta(ctx: Kontekst) {
   if (r.rezim === "iskljuceno") return;
 
   for (const c of ctx.predmeti.svi().filter((x) => STATUSI.includes(x.status) && (!["POA_GENERATED", "POA_SIGNED"].includes(x.status) || x.portal))) {
-    const fajlovi = c.dokumenta_fajlovi ?? [];
+    // naši potpisani ugovori i dokazi o potpisu nisu dokumenta klijenta — agent ih ne čita (i ne košta)
+    const fajlovi = (c.dokumenta_fajlovi ?? []).filter((f: any) => f.izvor !== "potpis");
     if (!fajlovi.length) continue;
     const kljuc = kljucDokumenata(fajlovi);
     if (c.dokumenta_pregled?.primenjeno === kljuc) continue;

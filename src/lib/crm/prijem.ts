@@ -1,4 +1,5 @@
 import { crmKlijent, jeCrmPodesen } from "@/lib/crm/baza";
+import { status as aerodrom } from "@/lib/sistem/pravila/udaljenost";
 import { getEnv } from "@/lib/env";
 import type { PredmetV1 } from "@/lib/pregled/types";
 import type { ClaimRecord } from "@/lib/types";
@@ -39,7 +40,8 @@ export async function upisiClaimUCrm(claim: ClaimRecord, locale: "sr" | "en"): P
   }
 
   const ref = refIzClaima(claim.id);
-  const kodovi = claim.route.toUpperCase().match(/\b[A-Z]{3}\b/g) ?? [];
+  // samo poznati aerodromi — „Wizz Air“ u tekstu rute ne sme da postane odredište „AIR“
+  const kodovi = (claim.route.toUpperCase().match(/\b[A-Z]{3}\b/g) ?? []).filter((k) => aerodrom(k).poznat);
   const od = kodovi[0] ?? null;
   const doo = kodovi.length > 1 ? kodovi[kodovi.length - 1] : null;
   const broj = brojLeta(claim.flightNumber);

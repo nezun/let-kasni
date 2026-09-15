@@ -1,10 +1,13 @@
-import { NextResponse } from "next/server";
+import { after, NextResponse } from "next/server";
 
 import { createOrReuseClaim } from "@/lib/claims";
 import { isValidEmail } from "@/lib/email-validation";
 import { sendAdminClaimNotification, sendUserClaimConfirmation } from "@/lib/notifications";
 import { predajClaimPipelineu } from "@/lib/pipeline/prijem";
 import { upisiClaimUCrm } from "@/lib/crm/prijem";
+import { ucitajKonfig } from "@/lib/sistem/konfig";
+import { napraviServise } from "@/lib/sistem/pravi";
+import { pokreniProlaz } from "@/lib/sistem/prolaz";
 import { isRateLimited } from "@/lib/rate-limit";
 import { sendMetaLeadEvent } from "@/lib/meta-conversions";
 import {
@@ -259,6 +262,14 @@ export async function POST(request: Request) {
     const crm = await upisiClaimUCrm(claim, submission.locale);
     if (crm.upisano || !crm.razlog.startsWith("CRM_SUPABASE")) {
       console.info("CRM intake.", JSON.stringify({ claimId: claim.id, ...crm }));
+    }
+    // Nov predmet odmah ide u prolaz sistema (prijem, posao za agenta), posle odgovora klijentu.
+    if (crm.upisano && process.env.SISTEM_KLJUC) {
+      after(async () => {
+        const konfig = ucitajKonfig();
+        const rez = await pokreniProlaz(konfig, napraviServise(konfig), { izvor: "forma" }).catch((e: unknown) => ({ ok: false, razlog: String(e instanceof Error ? e.message : e) }));
+        console.info("Sistem: prolaz posle forme.", JSON.stringify({ ok: rez.ok, razlog: "razlog" in rez ? rez.razlog : undefined }));
+      });
     }
 
     // Rezervni put: predaja LetKasni pipeline-u preko Drive-a („prijem/“). Bez PIPELINE_DRIVE_FOLDER_ID ne radi ništa.

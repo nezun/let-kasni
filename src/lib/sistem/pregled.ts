@@ -52,6 +52,7 @@ export function korakPredmeta(c: any): NonNullable<PredmetV1["korak"]> {
     case "NEW":
       if (c.tip === "other") return k(null, "Nije kašnjenje ni otkazivanje — pitati klijenta (C)", "ti");
       if (!c.sistem?.primljeno) return k(2, "Prijem predmeta", "sistem");
+      if (!c.let?.broj || !c.let?.datum || !c.let?.od || !c.let?.do) return k(3, "Fali broj leta ili ruta — tražiti boarding kartu", "ti");
       if (!c.provera_kod) return k(3, "Agent proverava let", "agent");
       return k(4, "Pravila EU261 računaju nalaz", "sistem");
     case "VERIFIED":
