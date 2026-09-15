@@ -1,6 +1,11 @@
 "use client";
 
 import { hasAnalyticsConsent, hasMarketingConsent } from "@/lib/consent";
+import {
+  googleEventStoragePrefix,
+  hasDeliveredGoogleEvent,
+  markGoogleEventDelivered,
+} from "@/lib/google-tracking-keys";
 
 export type GoogleJourneyEvent =
   | "claim_start"
@@ -22,8 +27,6 @@ declare global {
     gtag?: (...args: unknown[]) => void;
   }
 }
-
-const deliveredEventKeys = new Set<string>();
 
 function cleanParams(params: GoogleJourneyParams) {
   return Object.fromEntries(
@@ -82,8 +85,8 @@ function trackOnce(
   eventName: GoogleJourneyEvent,
   params: GoogleJourneyParams,
 ) {
-  const storageKey = `letkasni-google-event:${key}`;
-  if (deliveredEventKeys.has(storageKey)) return false;
+  const storageKey = `${googleEventStoragePrefix}${key}`;
+  if (hasDeliveredGoogleEvent(storageKey)) return false;
   try {
     if (window.sessionStorage.getItem(storageKey)) return false;
   } catch {
@@ -92,7 +95,7 @@ function trackOnce(
 
   const delivered = trackGoogleJourneyEvent(eventName, params);
   if (delivered) {
-    deliveredEventKeys.add(storageKey);
+    markGoogleEventDelivered(storageKey);
     try {
       window.sessionStorage.setItem(storageKey, "1");
     } catch {

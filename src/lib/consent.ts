@@ -10,6 +10,10 @@ import {
   type ConsentCookieValue,
 } from "@/lib/consent-cookie";
 import { attributionStorageKey } from "@/lib/attribution-core";
+import {
+  clearDeliveredGoogleEvents,
+  googleEventStoragePrefix,
+} from "@/lib/google-tracking-keys";
 
 export type TrackingConsent = ConsentCookieValue;
 
@@ -139,8 +143,9 @@ function clearAdvertisingStorage() {
 
   try {
     removeStorageKeys(window.sessionStorage, (name) =>
-      name.startsWith("letkasni-google-event:"),
+      name.startsWith(googleEventStoragePrefix),
     );
+    clearDeliveredGoogleEvents();
   } catch {
     // Continue clearing cookies even if session storage is unavailable.
   }

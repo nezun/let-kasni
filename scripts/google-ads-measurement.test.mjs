@@ -18,6 +18,19 @@ const claimsSource = readFileSync(
   new URL("../src/lib/claims.ts", import.meta.url),
   "utf8",
 );
+const trackingKeysSource = readFileSync(
+  new URL("../src/lib/google-tracking-keys.ts", import.meta.url),
+  "utf8",
+);
+const trackingKeysModule = ts.transpileModule(trackingKeysSource, {
+  compilerOptions: {
+    module: ts.ModuleKind.ESNext,
+    target: ts.ScriptTarget.ES2022,
+  },
+}).outputText;
+const trackingKeys = await import(
+  `data:text/javascript;base64,${Buffer.from(trackingKeysModule).toString("base64")}`
+);
 const {
   appendAttributionParameters,
   attributionMaxAgeMs,
@@ -50,12 +63,18 @@ function loadGoogleTracking({
   const source = readFileSync(
     new URL("../src/lib/google-tracking.ts", import.meta.url),
     "utf8",
-  ).replace(
-    'import { hasAnalyticsConsent, hasMarketingConsent } from "@/lib/consent";',
-    "const { hasAnalyticsConsent, hasMarketingConsent } = globalThis.__consent;",
-  );
+  )
+    .replace(
+      'import { hasAnalyticsConsent, hasMarketingConsent } from "@/lib/consent";',
+      "const { hasAnalyticsConsent, hasMarketingConsent } = globalThis.__consent;",
+    )
+    .replace(
+      /import \{[\s\S]*?\} from "@\/lib\/google-tracking-keys";/,
+      "const { googleEventStoragePrefix, hasDeliveredGoogleEvent, markGoogleEventDelivered } = globalThis.__trackingKeys;",
+    );
   const sessionValues = new Map();
   const gtagCalls = [];
+  const deliveredKeys = new Set();
   const testModule = { exports: {} };
   const window = {
     dataLayer: [],
@@ -85,6 +104,11 @@ function loadGoogleTracking({
     __consent: {
       hasAnalyticsConsent: () => analytics,
       hasMarketingConsent: () => marketing,
+    },
+    __trackingKeys: {
+      googleEventStoragePrefix: trackingKeys.googleEventStoragePrefix,
+      hasDeliveredGoogleEvent: (key) => deliveredKeys.has(key),
+      markGoogleEventDelivered: (key) => deliveredKeys.add(key),
     },
   });
 
@@ -162,6 +186,10 @@ function loadConsentClient({ storageThrows = false } = {}) {
     .replace(
       'import { attributionStorageKey } from "@/lib/attribution-core";',
       "const { attributionStorageKey } = globalThis.__attributionCore;",
+    )
+    .replace(
+      /import \{[\s\S]*?\} from "@\/lib\/google-tracking-keys";/,
+      "const { clearDeliveredGoogleEvents, googleEventStoragePrefix } = globalThis.__trackingKeys;",
     );
 
   const makeStorage = (entries) => {
@@ -201,6 +229,7 @@ function loadConsentClient({ storageThrows = false } = {}) {
     ["unrelated-session", "keep"],
   ]);
   const cookieWrites = [];
+  let clearedMemory = false;
   const document = {
     documentElement: { dataset: {} },
     get cookie() {
@@ -232,6 +261,12 @@ function loadConsentClient({ storageThrows = false } = {}) {
       trackingConsentNoticeVersion: "1.3",
     },
     __attributionCore: { attributionStorageKey },
+    __trackingKeys: {
+      clearDeliveredGoogleEvents: () => {
+        clearedMemory = true;
+      },
+      googleEventStoragePrefix: trackingKeys.googleEventStoragePrefix,
+    },
   });
 
   return {
@@ -239,6 +274,7 @@ function loadConsentClient({ storageThrows = false } = {}) {
     localStorage,
     sessionStorage,
     cookieWrites,
+    wasMemoryCleared: () => clearedMemory,
   };
 }
 
@@ -519,6 +555,7 @@ test("advertising revocation clears Google, Meta, attribution, and conversion-de
     runtime.sessionStorage.values.get("unrelated-session"),
     "keep",
   );
+  assert.equal(runtime.wasMemoryCleared(), true);
   for (const name of ["_gcl_au", "_gac_test", "_fbp", "_fbc"]) {
     assert.ok(runtime.cookieWrites.some((value) => value.startsWith(`${name}=`)));
   }
@@ -528,6 +565,15 @@ test("advertising revocation clears Google, Meta, attribution, and conversion-de
       advertising: true,
     });
   });
+});
+
+test("shared conversion-dedupe memory can be cleared on consent withdrawal", () => {
+  const key = `${trackingKeys.googleEventStoragePrefix}lead_submit:claim-shared`;
+  assert.equal(trackingKeys.hasDeliveredGoogleEvent(key), false);
+  trackingKeys.markGoogleEventDelivered(key);
+  assert.equal(trackingKeys.hasDeliveredGoogleEvent(key), true);
+  trackingKeys.clearDeliveredGoogleEvents();
+  assert.equal(trackingKeys.hasDeliveredGoogleEvent(key), false);
 });
 
 test("emits exactly one lead_submit for the same successful claim ID", () => {
