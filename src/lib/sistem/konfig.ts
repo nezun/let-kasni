@@ -19,7 +19,8 @@ export interface Konfig {
     /** gmail-api = Gmail draft na Nikovom nalogu; baza = zapis u crm_sistem (staging, izmišljeni klijenti) */
     klijenti: "gmail-api" | "baza";
     od: string;
-    advokati: { transport: "gmail-api" | "baza"; za: string[]; cc: string[]; od: string; dnevnoOdSata: number };
+    /** gmail = automatski poslat mejl sa kontakt@letkasni.rs; baza = zapis u crm_sistem (staging) */
+    advokati: { transport: "gmail" | "baza"; za: string[]; cc: string[]; od: string; dnevnoOdSata: number };
   };
   drive: { sistem: string | null; advokati: string | null; dokumentaKlijenata: string | null; priloziGmail: string | null };
   agenti: { rokMin: number; maxPokusaja: number };
@@ -54,7 +55,7 @@ export function ucitajKonfig(env: Env = process.env): Konfig {
       klijenti: ime === "prod" ? "gmail-api" : "baza",
       od: env.SISTEM_POSTA_OD ?? "kontakt@letkasni.rs",
       advokati: {
-        transport: ime === "prod" ? "gmail-api" : "baza",
+        transport: ime === "prod" ? "gmail" : "baza",
         za: lista(env.SISTEM_ADVOKATI_ZA),
         cc: lista(env.SISTEM_ADVOKATI_CC),
         od: env.SISTEM_POSTA_OD ?? "kontakt@letkasni.rs",

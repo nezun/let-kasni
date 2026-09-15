@@ -12,7 +12,7 @@ import { napraviPoziveZaPotpis, pripremiUgovorZaPotpis } from "@/lib/ugovor/prip
 import { ucitajSablone } from "@/lib/ugovor/sabloni";
 
 import type { Konfig } from "./konfig";
-import type { Baza, Drive, Gmail, Posao, PorukaGmail, Potpis, Portal, RedPredmeta, Sabloni, Servisi } from "./servisi";
+import type { Baza, Drive, Gmail, Posao, PorukaGmail, Potpis, Portal, Prilog, RedPredmeta, Sabloni, Servisi } from "./servisi";
 
 /** Prave implementacije servisa za serverski prolaz: Supabase (CRM), Google Drive i Gmail, signNow. */
 
@@ -128,7 +128,28 @@ async function gmailZahtev<T>(putanja: string, init: RequestInit = {}, dozvoli: 
   return (await r.json()) as T;
 }
 
-/** Pravi SAMO draftove. Slanje ne postoji u ovom modulu (CLAUDE.md pravilo 1). */
+function mimePoruka({ from, to, cc = [], subject, body, prilozi = [], inReplyTo = null, references = null }: {
+  from: string | null; to: string[]; cc?: string[]; subject: string; body: string; prilozi?: Prilog[]; inReplyTo?: string | null; references?: string | null;
+}) {
+  const granica = `----letkasni-${randomUUID()}`;
+  const r: string[] = [];
+  if (from) r.push(`From: ${from}`);
+  r.push(`To: ${to.join(", ")}`);
+  if (cc.length) r.push(`Cc: ${cc.join(", ")}`);
+  r.push(`Subject: ${kodiranaRec(subject)}`);
+  if (inReplyTo) r.push(`In-Reply-To: ${inReplyTo}`, `References: ${references ? `${references} ${inReplyTo}` : inReplyTo}`);
+  r.push("MIME-Version: 1.0", `Content-Type: multipart/mixed; boundary="${granica}"`, "", `--${granica}`, 'Content-Type: text/plain; charset="UTF-8"', "Content-Transfer-Encoding: base64", "", prelomi(Buffer.from(body, "utf8").toString("base64")));
+  for (const p of prilozi) {
+    r.push(`--${granica}`, `Content-Type: ${p.mime}; name="${kodiranaRec(p.ime)}"`, `Content-Disposition: attachment; filename="${kodiranaRec(p.ime)}"; filename*=UTF-8''${encodeURIComponent(p.ime)}`, "Content-Transfer-Encoding: base64", "", prelomi(Buffer.from(p.bajtovi).toString("base64")));
+  }
+  r.push(`--${granica}--`, "");
+  return Buffer.from(r.join("\r\n"), "utf8").toString("base64url");
+}
+
+/**
+ * Klijentima pravi SAMO draftove (CLAUDE.md pravilo 1). `posalji` postoji isključivo za internu poštu —
+ * dnevni pregled advokatima (koraci/advokati.ts).
+ */
 function praviGmail(): Gmail {
   return {
     ima: jeDrivePodesen,
@@ -147,21 +168,13 @@ function praviGmail(): Gmail {
           references = zaglavlje(orig, "References");
         }
       }
-      const granica = `----letkasni-${randomUUID()}`;
-      const r: string[] = [];
-      if (from) r.push(`From: ${from}`);
-      r.push(`To: ${to.join(", ")}`);
-      if (cc.length) r.push(`Cc: ${cc.join(", ")}`);
-      r.push(`Subject: ${kodiranaRec(subject)}`);
-      if (inReplyTo) r.push(`In-Reply-To: ${inReplyTo}`, `References: ${references ? `${references} ${inReplyTo}` : inReplyTo}`);
-      r.push("MIME-Version: 1.0", `Content-Type: multipart/mixed; boundary="${granica}"`, "", `--${granica}`, 'Content-Type: text/plain; charset="UTF-8"', "Content-Transfer-Encoding: base64", "", prelomi(Buffer.from(body, "utf8").toString("base64")));
-      for (const p of prilozi) {
-        r.push(`--${granica}`, `Content-Type: ${p.mime}; name="${kodiranaRec(p.ime)}"`, `Content-Disposition: attachment; filename="${kodiranaRec(p.ime)}"; filename*=UTF-8''${encodeURIComponent(p.ime)}`, "Content-Transfer-Encoding: base64", "", prelomi(Buffer.from(p.bajtovi).toString("base64")));
-      }
-      r.push(`--${granica}--`, "");
-      const message = { raw: Buffer.from(r.join("\r\n"), "utf8").toString("base64url"), ...(threadId ? { threadId } : {}) };
+      const message = { raw: mimePoruka({ from, to, cc, subject, body, prilozi, inReplyTo, references }), ...(threadId ? { threadId } : {}) };
       const d = await gmailZahtev<{ id: string; message?: { id?: string; threadId?: string } }>("/drafts", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ message }) });
       return { draftId: d!.id, messageId: d!.message?.id ?? null, threadId: d!.message?.threadId ?? null };
+    },
+    async posalji({ from, to, cc = [], subject, body }) {
+      const m = await gmailZahtev<{ id: string }>("/messages/send", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ raw: mimePoruka({ from, to, cc, subject, body }) }) });
+      return { messageId: m!.id };
     },
     async postojiDraft(draftId) {
       return (await gmailZahtev(`/drafts/${draftId}?format=minimal`, {}, [404])) !== null;
@@ -208,6 +221,14 @@ function gmailUBazi(baza: Baza, citanje: Gmail | null): Gmail {
       lista.push({ id, threadId: thread, vreme: new Date().toISOString(), from, to, cc, subject, body, prilozi: prilozi.map((p) => p.ime) });
       await baza.upisiSistem(KLJUC, lista.slice(-200));
       return { draftId: id, messageId: null, threadId: thread };
+    },
+    async posalji({ from, to, cc = [], subject, body }) {
+      const lista = await ucitaj();
+      const id = `staging-${randomUUID()}`;
+      const sada = new Date().toISOString();
+      lista.push({ id, threadId: id, vreme: sada, from, to, cc, subject, body, prilozi: [], poslat: sada });
+      await baza.upisiSistem(KLJUC, lista.slice(-200));
+      return { messageId: id };
     },
     async postojiDraft(draftId) {
       const z = (await ucitaj()).find((x) => x.id === draftId);

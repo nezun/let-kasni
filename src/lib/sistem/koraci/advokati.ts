@@ -4,10 +4,10 @@ import { createHash } from "node:crypto";
 import type { Kontekst } from "../kontekst.ts";
 
 /**
- * Dnevni pregled za advokate: JEDAN mejl dnevno (od `dnevnoOdSata`), i to samo kad ima nečeg novog.
- * Izmene se izvode iz razlike snimaka stanja (predmet predat advokatu, nova dokumenta kod predmeta posle
- * potpisa, potpisan ugovor), skupljaju se u red i idu zajedno sa spiskom svih predmeta kod advokata.
- * Staging: mejl ide u bazu (crm_sistem), ne u Gmail. Prod: Gmail draft sa kontakt@letkasni.rs.
+ * Dnevni mejl advokatima: JEDAN automatski poslat mejl dnevno (od `dnevnoOdSata`), samo kad ima nečeg novog.
+ * Izmene se izvode iz razlike snimaka stanja (potpisan ugovor, nova dokumenta posle potpisa, predmet predat
+ * advokatu) i idu zajedno sa spiskom svih predmeta kod advokata — uz svaki predmet link ka njegovom Drive folderu.
+ * Interna pošta, ne klijentu. Staging: mejl se samo upiše u bazu (crm_sistem), nikome ne ide.
  */
 const dmy = (iso: string) => `${iso.slice(8, 10)}.${iso.slice(5, 7)}.${iso.slice(0, 4)}.`;
 const hm = (min: number) => `${Math.floor(min / 60)}h${String(min % 60).padStart(2, "0")}`;
@@ -46,9 +46,12 @@ export function razlika(stari: Snimak | null, novi: Snimak) {
   return out;
 }
 
+const folder = (c: any) => (c.drive_folder_id ? `https://drive.google.com/drive/folders/${c.drive_folder_id}` : null);
+
 function opisPredmeta(c: any) {
   return [
     naziv(c),
+    `  Folder: ${folder(c) ?? "još nema dokumenata"}`,
     `  Let: ${c.let?.broj ?? "?"}, ${c.let?.od ?? "?"} – ${c.let?.do ?? "?"}, ${c.let?.datum ? dmy(c.let.datum) : "?"}${c.let?.prevozilac ? ` (${c.let.prevozilac})` : ""}`,
     `  Putnika: ${imena(c).length}${c.kasnjenje_dolazak_min != null ? ` · kašnjenje u dolasku: ${hm(c.kasnjenje_dolazak_min)}` : ""}${c.iznos_eur ? ` · po putniku: ${c.iznos_eur} EUR` : ""}`,
   ].join("\n");
@@ -113,9 +116,9 @@ export default async function advokati(ctx: Kontekst) {
     ...Object.entries(poRef).map(([ref, ee]) => `${opisPredmeta(po[ref])}\n${ee.map((e) => `  – ${OPIS[e.tip]?.(e) ?? e.tip}`).join("\n")}\n`),
     `SVI PREDMETI KOD ADVOKATA (${kodAdvokata.length})`,
     "",
-    ...kodAdvokata.map((c) => `- ${naziv(c)}${c.prosledjeno_advokatu ? ` · predato ${dmy(c.prosledjeno_advokatu)}` : ""}`),
+    ...kodAdvokata.map((c) => `- ${naziv(c)}${c.prosledjeno_advokatu ? ` · predato ${dmy(c.prosledjeno_advokatu)}` : ""}${folder(c) ? `\n  ${folder(c)}` : ""}`),
     "",
-    ...(ctx.konfig.drive.advokati ? ["Dokumenti su u folderu za advokate:", `https://drive.google.com/drive/folders/${ctx.konfig.drive.advokati}`, ""] : []),
+    ...(ctx.konfig.drive.advokati ? ["Svi predmeti:", `https://drive.google.com/drive/folders/${ctx.konfig.drive.advokati}`, ""] : []),
     ...(ctx.konfig.pregledLinkAdvokati ? ["Pregled svih predmeta:", ctx.konfig.pregledLinkAdvokati, ""] : []),
     "Za pitanja: kontakt@letkasni.rs",
     "",
@@ -126,13 +129,13 @@ export default async function advokati(ctx: Kontekst) {
   try {
     const g = ctx.servisi.gmail;
     const from = (await g.aliasi()).includes(k.od) ? k.od : null;
-    const d = await g.napraviDraft({ from, to: k.za, cc: k.cc, subject: naslov, body: telo });
+    const d = await g.posalji({ from, to: k.za, cc: k.cc, subject: naslov, body: telo });
     red.poslato.push(...red.dogadjaji.map((e: any) => e.id));
     red.poslato = red.poslato.slice(-2000);
     red.dogadjaji = [];
     red.poslednje_slanje = ctx.danas;
     await baza.upisiSistem("advokati_red", red);
-    r.uradjeno(`dnevni pregled za advokate (${k.transport}, draft ${d.draftId}): ${Object.keys(poRef).join(", ")}`);
+    r.uradjeno(`dnevni mejl advokatima poslat (${k.transport}, ${d.messageId}): ${Object.keys(poRef).join(", ")}`);
   } catch (e) {
     r.greska(`pregled za advokate: ${String(e instanceof Error ? e.message : e).slice(0, 200)}`);
   }

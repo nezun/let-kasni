@@ -87,6 +87,7 @@ const uFolderu = (parent: string) => [...fajlovi.values()].filter((f) => f.paren
 
 // ── lažni Gmail ───────────────────────────────────────────────────────────
 const draftovi = new Map<string, any>();
+const poslato: any[] = [];   // automatski poslati mejlovi (samo interna pošta)
 const threadovi = new Map<string, PorukaGmail[]>();
 const gmail: Gmail = {
   ima: () => true,
@@ -97,6 +98,7 @@ const gmail: Gmail = {
     draftovi.set(id, { ...d, threadId });
     return { draftId: id, messageId: `m${brojac}`, threadId };
   },
+  posalji: async (m) => { poslato.push(m); return { messageId: `poslato${poslato.length}` }; },
   postojiDraft: async (id) => draftovi.has(id),
   thread: async (t) => threadovi.get(t) ?? [],
   pretrazi: async (q) => [...threadovi.entries()].filter(([, ms]) => ms.some((m) => q.includes(m.od))).map(([t]) => t),
@@ -297,14 +299,16 @@ test("8. Niko poslao link → POA_SENT; klijent potpisao → POA_SIGNED i jedan 
   potpisi.set("doc-E2E-A-0", "potpisano");
   await prolaz();
   assert.equal(c("E2E-A").status, "POA_SIGNED");
-  const zaAdvokate = [...draftovi.values()].filter((d) => d.to.includes("advokat@example.com"));
-  assert.equal(zaAdvokate.length, 1);
+  const zaAdvokate = poslato.filter((d) => d.to.includes("advokat@example.com"));
+  assert.equal(zaAdvokate.length, 1, "jedan automatski poslat mejl");
+  assert.ok(![...draftovi.values()].some((d) => d.to.includes("advokat@example.com")), "advokatima ne ide draft");
   assert.match(zaAdvokate[0].body, /potpisan ugovor o ustupanju: Marko Marković/);
+  assert.match(zaAdvokate[0].body, /Marko Marković[\s\S]*Folder: https:\/\/drive\.google\.com\/drive\/folders\/f\d+/, "link ka folderu predmeta");
   assert.ok(!/@example\.com/.test(zaAdvokate[0].body), "pregled za advokate bez email adresa klijenata");
 });
 
 test("9. dnevni pregled: isti dan ništa, sutra jedan mejl sa novim, prekosutra ništa", async () => {
-  const zaAdvokate = () => [...draftovi.values()].filter((d) => d.to.includes("advokat@example.com"));
+  const zaAdvokate = () => poslato.filter((d) => d.to.includes("advokat@example.com"));
   const s = c("E2E-S");
   predmeti.set("E2E-S", { ...s, status: "LAWYER", podaci: { ...s.podaci, status: "LAWYER", prosledjeno_advokatu: "2026-09-15" }, verzija: s.verzija + 1, izvor_izmene: "rucno" });
   await prolaz();

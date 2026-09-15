@@ -99,6 +99,8 @@ export interface Gmail {
   ima(): boolean;
   aliasi(): Promise<string[]>;
   napraviDraft(d: { from: string | null; to: string[]; cc?: string[]; subject: string; body: string; prilozi?: Prilog[]; threadId?: string | null; replyToMessageId?: string | null }): Promise<{ draftId: string; messageId: string | null; threadId: string | null }>;
+  /** Stvarno slanje — SAMO interna pošta (dnevni pregled advokatima), nikad klijentu (CLAUDE.md pravilo 1). */
+  posalji(m: { from: string | null; to: string[]; cc?: string[]; subject: string; body: string }): Promise<{ messageId: string }>;
   postojiDraft(draftId: string): Promise<boolean>;
   thread(threadId: string): Promise<PorukaGmail[] | null>;
   pretrazi(q: string, max?: number): Promise<string[]>;
