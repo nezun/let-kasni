@@ -47,8 +47,9 @@ await expectPage("/en", ["<title>letkasni.rs</title>", "Flight delayed 3+ hours"
 await expectPage("/proveri-let?step=2&issue=delay", ["Detalji Vašeg leta"]);
 await expectPage("/en/check-flight?step=2&issue=delay", ["Your flight details"]);
 
-for (const path of ["/", "/en", "/terms", "/privacy", "/en/terms", "/en/privacy"]) {
-  await expectPage(path, ["VGA EU CONSULTING DOO NIŠ", "Bulevar Nemanjića 1", "113473442", "21873446"]);
+// Operator details live on the legal pages, not in the shared footer.
+for (const path of ["/terms", "/privacy", "/en/terms", "/en/privacy"]) {
+  await expectPage(path, ["VGA EU CONSULTING DOO", "Bulevar Nemanjića 1", "113473442", "21873446"]);
 }
 
 const healthResponse = await request("/api/health");
