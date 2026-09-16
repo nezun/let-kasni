@@ -60,190 +60,6 @@ const parentGuideByArticle: Record<
     sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
     en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
   },
-  "wizz-air-flight-delay-compensation": {
-    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
-    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
-  },
-  "air-serbia-flight-delay-compensation": {
-    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
-    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
-  },
-  "lufthansa-flight-delay-compensation": {
-    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
-    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
-  },
-  "austrian-airlines-flight-delay-compensation": {
-    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
-    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
-  },
-  "turkish-airlines-flight-delay-compensation": {
-    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
-    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
-  },
-  "ryanair-flight-delay-compensation": {
-    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
-    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
-  },
-  "easyjet-flight-delay-compensation": {
-    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
-    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
-  },
-  "klm-flight-delay-compensation": {
-    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
-    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
-  },
-  "air-france-flight-delay-compensation": {
-    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
-    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
-  },
-  "swiss-flight-delay-compensation": {
-    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
-    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
-  },
-  "pegasus-flight-delay-compensation": {
-    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
-    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
-  },
-  "lot-polish-flight-delay-compensation": {
-    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
-    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
-  },
-  "aegean-flight-delay-compensation": {
-    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
-    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
-  },
-  "ita-airways-flight-delay-compensation": {
-    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
-    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
-  },
-  "flydubai-flight-delay-compensation": {
-    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
-    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
-  },
-  "qatar-airways-flight-delay-compensation": {
-    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
-    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
-  },
-  "eurowings-flight-delay-compensation": {
-    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
-    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
-  },
-  "croatia-airlines-flight-delay-compensation": {
-    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
-    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
-  },
-  "vueling-flight-delay-compensation": {
-    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
-    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
-  },
-  "bulgaria-air-flight-delay-compensation": {
-    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
-    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
-  },
-  "tarom-flight-delay-compensation": {
-    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
-    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
-  },
-  "norwegian-flight-delay-compensation": {
-    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
-    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
-  },
-  "air-cairo-flight-delay-compensation": {
-    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
-    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
-  },
-  "air-montenegro-flight-delay-compensation": {
-    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
-    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
-  },
-  "ajet-flight-delay-compensation": {
-    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
-    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
-  },
-  "arkia-flight-delay-compensation": {
-    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
-    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
-  },
-  "china-southern-flight-delay-compensation": {
-    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
-    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
-  },
-  "hainan-airlines-flight-delay-compensation": {
-    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
-    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
-  },
-  "serbia-united-kingdom-flight-delay-compensation": {
-    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
-    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
-  },
-  "serbia-united-arab-emirates-flight-delay-compensation": {
-    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
-    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
-  },
-  "serbia-israel-flight-delay-compensation": {
-    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
-    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
-  },
-  "serbia-france-flight-delay-compensation": {
-    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
-    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
-  },
-  "serbia-italy-flight-delay-compensation": {
-    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
-    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
-  },
-  "serbia-netherlands-flight-delay-compensation": {
-    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
-    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
-  },
-  "airbaltic-flight-delay-compensation": {
-    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
-    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
-  },
-  "iberia-flight-delay-compensation": {
-    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
-    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
-  },
-  "luxair-flight-delay-compensation": {
-    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
-    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
-  },
-  "condor-flight-delay-compensation": {
-    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
-    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
-  },
-  "freebird-flight-delay-compensation": {
-    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
-    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
-  },
-  "brussels-airlines-flight-delay-compensation": {
-    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
-    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
-  },
-  "egyptair-flight-delay-compensation": {
-    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
-    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
-  },
-  "etihad-airways-flight-delay-compensation": {
-    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
-    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
-  },
-  "sas-flight-delay-compensation": {
-    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
-    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
-  },
-  "smartwings-flight-delay-compensation": {
-    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
-    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
-  },
-  "corendon-airlines-flight-delay-compensation": {
-    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
-    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
-  },
-  "tunisair-flight-delay-compensation": {
-    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
-    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
-  },
   "two-hour-flight-delay-rights": {
     sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
     en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
@@ -276,18 +92,6 @@ const parentGuideByArticle: Record<
     sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
     en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
   },
-  "belgrade-eu-flight-delay-compensation": {
-    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
-    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
-  },
-  "eu-serbia-flight-delay-compensation": {
-    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
-    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
-  },
-  "serbia-eu-non-eu-airline-delay": {
-    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
-    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
-  },
   "connecting-flight-delay-one-booking": {
     sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
     en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
@@ -297,30 +101,6 @@ const parentGuideByArticle: Record<
     en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
   },
   "tarmac-delay-door-open-time": {
-    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
-    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
-  },
-  "serbia-eu-flight-delay-compensation": {
-    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
-    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
-  },
-  "serbia-germany-flight-delay-compensation": {
-    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
-    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
-  },
-  "serbia-austria-flight-delay-compensation": {
-    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
-    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
-  },
-  "serbia-turkey-flight-delay-compensation": {
-    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
-    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
-  },
-  "belgrade-flight-delay-compensation": {
-    sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
-    en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
-  },
-  "nis-flight-delay-compensation": {
     sr: { title: "Naknada za kašnjenje leta", href: "/naknada-za-kasnjenje-leta" },
     en: { title: "Flight delay compensation", href: "/en/flight-delay-compensation" },
   },
@@ -420,10 +200,6 @@ const parentGuideByArticle: Record<
     sr: { title: "Naknada za propuštenu konekciju", href: "/naknada-za-propustenu-konekciju" },
     en: { title: "Missed connection compensation", href: "/en/missed-connection-compensation" },
   },
-  "serbia-eu-transit-routes": {
-    sr: { title: "Naknada za propuštenu konekciju", href: "/naknada-za-propustenu-konekciju" },
-    en: { title: "Missed connection compensation", href: "/en/missed-connection-compensation" },
-  },
   "denied-boarding-overbooking": {
     sr: { title: "Overbooking naknada", href: "/overbooking-naknada" },
     en: { title: "Overbooking compensation", href: "/en/overbooking-compensation" },
@@ -459,43 +235,6 @@ const defaultParentGuide = {
   en: { title: "Air passenger rights", href: "/en/air-passenger-rights" },
 };
 
-const airlineDelayArticleIds = new Set([
-  "wizz-air-flight-delay-compensation",
-  "air-serbia-flight-delay-compensation",
-  "lufthansa-flight-delay-compensation",
-  "austrian-airlines-flight-delay-compensation",
-  "turkish-airlines-flight-delay-compensation",
-  "ryanair-flight-delay-compensation",
-  "easyjet-flight-delay-compensation",
-  "klm-flight-delay-compensation",
-  "air-france-flight-delay-compensation",
-  "swiss-flight-delay-compensation",
-  "pegasus-flight-delay-compensation",
-  "lot-polish-flight-delay-compensation",
-  "aegean-flight-delay-compensation",
-  "ita-airways-flight-delay-compensation",
-  "flydubai-flight-delay-compensation",
-  "qatar-airways-flight-delay-compensation",
-  "eurowings-flight-delay-compensation",
-  "croatia-airlines-flight-delay-compensation",
-  "vueling-flight-delay-compensation",
-  "bulgaria-air-flight-delay-compensation",
-  "tarom-flight-delay-compensation",
-  "norwegian-flight-delay-compensation",
-  "airbaltic-flight-delay-compensation",
-  "iberia-flight-delay-compensation",
-  "luxair-flight-delay-compensation",
-  "condor-flight-delay-compensation",
-  "freebird-flight-delay-compensation",
-  "brussels-airlines-flight-delay-compensation",
-  "egyptair-flight-delay-compensation",
-  "etihad-airways-flight-delay-compensation",
-  "sas-flight-delay-compensation",
-  "smartwings-flight-delay-compensation",
-  "corendon-airlines-flight-delay-compensation",
-  "tunisair-flight-delay-compensation",
-]);
-
 const delayScenarioArticleIds = new Set([
   "two-hour-flight-delay-rights",
   "three-hour-flight-delay-compensation",
@@ -505,30 +244,15 @@ const delayScenarioArticleIds = new Set([
   "flight-delay-reason-evidence",
   "meal-voucher-flight-delay",
   "flight-delay-final-arrival-time",
-  "belgrade-eu-flight-delay-compensation",
-  "eu-serbia-flight-delay-compensation",
-  "serbia-eu-non-eu-airline-delay",
   "connecting-flight-delay-one-booking",
   "long-haul-flight-delay-300-600",
   "tarmac-delay-door-open-time",
-  "serbia-eu-flight-delay-compensation",
-  "serbia-germany-flight-delay-compensation",
-  "serbia-austria-flight-delay-compensation",
-  "serbia-turkey-flight-delay-compensation",
-  "belgrade-flight-delay-compensation",
-  "nis-flight-delay-compensation",
   "separate-tickets-after-delay",
   "baggage-loading-flight-delay",
   "aircraft-cleaning-flight-delay",
   "crew-duty-time-flight-delay",
   "no-meal-voucher-flight-delay-receipts",
   "family-with-children-flight-delay-care",
-  "serbia-united-kingdom-flight-delay-compensation",
-  "serbia-united-arab-emirates-flight-delay-compensation",
-  "serbia-israel-flight-delay-compensation",
-  "serbia-france-flight-delay-compensation",
-  "serbia-italy-flight-delay-compensation",
-  "serbia-netherlands-flight-delay-compensation",
   "security-screening-flight-delay",
   "baggage-offload-flight-delay",
   "aircraft-fueling-flight-delay",
@@ -555,42 +279,6 @@ function parentReference(article: BlogArticle, locale: BlogLocale) {
   }
 
   return `[${parent.title}](${parent.href})`;
-}
-
-function srAirlineDelaySections(article: BlogArticle): BlogSection[] {
-  if (!airlineDelayArticleIds.has(article.id)) {
-    return [];
-  }
-
-  return [
-    {
-      heading: "Podaci leta i vremenska linija",
-      body: [
-        `Za ${article.sr.title.toLowerCase()} najkorisnije je da slučaj odmah pretvorite u mali skup podataka, a ne u dugu žalbu. Unesite broj leta, datum, aerodrom polaska, krajnju destinaciju, planirano vreme dolaska, stvarno vreme dolaska, razlog koji je aviokompanija navela i troškove koje ste imali. Kada su ti podaci na jednom mestu, mnogo je lakše videti da li je slučaj za fiksnu naknadu, refundaciju troškova ili samo za dodatno objašnjenje.`,
-        "Ovakav redosled smanjuje ručni rad i greške. Ako se kasnije šalje dopuna, ne piše se sve iz početka: dodaje se samo novi dokaz, odgovor aviokompanije ili račun. To je posebno važno kod aviokompanija koje koriste kratke generičke odgovore, jer uredan fajl odmah pokazuje šta nije odgovoreno.",
-        "Za ponovljive provere najbolje je čuvati isti format za svaki let: osnovni podaci, razlog kašnjenja, vremenska linija, troškovi i status odgovora. Tako se više putnika ili više letova mogu uporediti bez kopiranja haotičnih beleški iz emaila, aplikacije i fotografija, bez naknadnog nagađanja.",
-        "Kod letova preko čvorišta posebno zapišite da li je problem nastao na prvom segmentu ili na nastavku puta, jer to često menja dokaz o krajnjem dolasku.",
-      ],
-    },
-  ];
-}
-
-function enAirlineDelaySections(article: BlogArticle): BlogSection[] {
-  if (!airlineDelayArticleIds.has(article.id)) {
-    return [];
-  }
-
-  return [
-    {
-      heading: "Flight data and timeline",
-      body: [
-        `For ${article.en.title.toLowerCase()}, the most useful step is to turn the case into a small data set instead of a long complaint. Record the flight number, date, departure airport, final destination, scheduled arrival, actual arrival, reason given by the airline and costs incurred. Once those facts are in one place, it is much easier to see whether the case is about fixed compensation, expense reimbursement or only a request for a better explanation.`,
-        "This order reduces manual work and mistakes. If a follow-up is needed later, you do not write everything again: you add only the new proof, airline reply or receipt. That matters with airlines that use short generic answers, because a structured file shows immediately what was not answered.",
-        "For repeatable checks, keep the same format for every flight: core details, delay reason, timeline, costs and response status. That allows several passengers or several flights to be compared without copying scattered notes from email, apps and photos.",
-        "On hub journeys, record whether the problem started on the first segment or the onward leg, because that often changes the evidence for final arrival.",
-      ],
-    },
-  ];
 }
 
 function srDelayScenarioSections(article: BlogArticle): BlogSection[] {
@@ -714,7 +402,6 @@ export function enhanceBlogArticle(article: BlogArticle): BlogArticle {
       ...article.sr,
       sections: [
         ...article.sr.sections,
-        ...srAirlineDelaySections(article),
         ...srDelayScenarioSections(article),
         ...srEnhancementSections(article),
       ],
@@ -724,7 +411,6 @@ export function enhanceBlogArticle(article: BlogArticle): BlogArticle {
       ...article.en,
       sections: [
         ...article.en.sections,
-        ...enAirlineDelaySections(article),
         ...enDelayScenarioSections(article),
         ...enEnhancementSections(article),
       ],

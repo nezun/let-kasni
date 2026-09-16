@@ -46,7 +46,8 @@ globalThis.fetch = async (input, init = {}) => {
     return new Response("server error", { status: 500 });
   }
 
-  const identity = scenario === "missing-operator" ? "" : "VGA EU CONSULTING DOO NIŠ Bulevar Nemanjića 1 113473442 21873446";
+  const legalPage = ["/terms", "/privacy", "/en/terms", "/en/privacy"].includes(route);
+  const identity = scenario === "missing-operator" || !legalPage ? "" : "VGA EU CONSULTING DOO Bulevar Nemanjića 1 113473442 21873446";
   const retired = scenario === "retired-operator" ? "Expatwise LLC" : "";
   return new Response(pages[route] ? `${pages[route]} ${identity} ${retired}` : "not found", {
     status: pages[route] ? 200 : 404,

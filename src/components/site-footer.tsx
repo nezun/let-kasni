@@ -453,13 +453,6 @@ export function SiteFooter({
         </div>
 
         <div className="border-t border-white/8 pt-5 text-xs text-[#8E9BB0]">
-          <p className="mb-3 leading-6">
-            {locale === "en" ? "Website owner and operator" : "Vlasnik i operator sajta"}: {siteOperator.name}
-            <br />
-            {siteOperator.address}, {siteOperator.country[locale]}
-            <br />
-            {locale === "en" ? "Tax ID (PIB)" : "PIB"}: {siteOperator.pib} · {locale === "en" ? "Registration number" : "Matični broj"}: {siteOperator.mb}
-          </p>
           {t.copyright}
         </div>
       </div>

@@ -1,0 +1,244 @@
+{
+  "status": "SUGGESTED_FOR_REMOVAL_NOT_APPROVED",
+  "applyRemoval": false,
+  "currentAction": "KEEP_PUBLISHED",
+  "reason": "Review possible intent overlap, fragmented coverage and repeated scenario templates. These are review hypotheses, not proof of low quality or a penalty. Historical low traffic alone is insufficient to remove a page; backlinks remain unverified. Review unique value and current performance before improving, merging or removing any page.",
+  "approvalRequired": true,
+  "articles": [
+    {
+      "id": "air-traffic-control-slot-delay",
+      "sr": "/naknada-za-kasnjenje-leta/kasnjenje-leta-zbog-slotova-kontrole-letenja",
+      "en": "/en/flight-delay-compensation/air-traffic-control-slot-delay-compensation"
+    },
+    {
+      "id": "aircraft-cleaning-flight-delay",
+      "sr": "/naknada-za-kasnjenje-leta/kasnjenje-leta-zbog-ciscenja-aviona",
+      "en": "/en/flight-delay-compensation/aircraft-cleaning-flight-delay-compensation"
+    },
+    {
+      "id": "aircraft-fueling-flight-delay",
+      "sr": "/naknada-za-kasnjenje-leta/kasnjenje-leta-zbog-goriva-naknada",
+      "en": "/en/flight-delay-compensation/aircraft-fueling-flight-delay-compensation"
+    },
+    {
+      "id": "airline-bankruptcy-passenger-rights",
+      "sr": "/naknada-za-otkazan-let/bankrot-aviokompanije-otkazan-let-prava",
+      "en": "/en/flight-cancellation-compensation/airline-bankruptcy-cancelled-flight-rights"
+    },
+    {
+      "id": "airline-changed-delay-reason",
+      "sr": "/naknada-za-kasnjenje-leta/aviokompanija-menja-razlog-kasnjenja-leta",
+      "en": "/en/flight-delay-compensation/airline-changed-flight-delay-reason"
+    },
+    {
+      "id": "airport-closure-flight-delay-compensation",
+      "sr": "/naknada-za-kasnjenje-leta/zatvoren-aerodrom-kasnjenje-leta-naknada",
+      "en": "/en/flight-delay-compensation/airport-closure-flight-delay-compensation"
+    },
+    {
+      "id": "airport-strike-flight-rights",
+      "sr": "/naknada-za-strajk-aviokompanije/aerodromski-strajk-kasnjenje-leta-prava",
+      "en": "/en/airline-strike-compensation/airport-strike-flight-delay-rights"
+    },
+    {
+      "id": "bad-weather-flight-delay",
+      "sr": "/naknada-za-kasnjenje-leta/kasnjenje-leta-zbog-loseg-vremena",
+      "en": "/en/flight-delay-compensation/flight-delay-bad-weather-compensation"
+    },
+    {
+      "id": "baggage-loading-flight-delay",
+      "sr": "/naknada-za-kasnjenje-leta/kasnjenje-leta-zbog-utovara-prtljaga",
+      "en": "/en/flight-delay-compensation/baggage-loading-flight-delay-compensation"
+    },
+    {
+      "id": "baggage-offload-flight-delay",
+      "sr": "/naknada-za-kasnjenje-leta/skidanje-prtljaga-kasnjenje-leta-naknada",
+      "en": "/en/flight-delay-compensation/baggage-offload-flight-delay-compensation"
+    },
+    {
+      "id": "bird-strike-flight-delay",
+      "sr": "/naknada-za-kasnjenje-leta/udar-ptice-kasnjenje-leta-odsteta",
+      "en": "/en/flight-delay-compensation/bird-strike-flight-delay-compensation"
+    },
+    {
+      "id": "cancellation-under-14-days",
+      "sr": "/naknada-za-otkazan-let/otkazan-let-manje-od-14-dana-prava",
+      "en": "/en/flight-cancellation-compensation/flight-cancelled-less-than-14-days-rights"
+    },
+    {
+      "id": "codeshare-operating-carrier-flight-delay",
+      "sr": "/naknada-za-kasnjenje-leta/codeshare-let-kasnjenje-operativni-prevoznik",
+      "en": "/en/flight-delay-compensation/codeshare-flight-delay-operating-carrier"
+    },
+    {
+      "id": "connecting-delay-minimum-connection-time",
+      "sr": "/naknada-za-kasnjenje-leta/minimalno-vreme-presedanja-kasnjenje-konekcije",
+      "en": "/en/flight-delay-compensation/minimum-connection-time-flight-delay"
+    },
+    {
+      "id": "crew-shortage-flight-delay",
+      "sr": "/naknada-za-kasnjenje-leta/nedostatak-posade-kasnjenje-leta-odsteta",
+      "en": "/en/flight-delay-compensation/crew-shortage-flight-delay-compensation"
+    },
+    {
+      "id": "deicing-flight-delay-compensation",
+      "sr": "/naknada-za-kasnjenje-leta/odledjivanje-aviona-kasnjenje-leta-naknada",
+      "en": "/en/flight-delay-compensation/deicing-flight-delay-compensation"
+    },
+    {
+      "id": "delayed-flight-airport-action-plan",
+      "sr": "/naknada-za-kasnjenje-leta/kasnjenje-leta-sta-raditi-na-aerodromu",
+      "en": "/en/flight-delay-compensation/delayed-flight-airport-action-plan"
+    },
+    {
+      "id": "destination-weather-flight-delay",
+      "sr": "/naknada-za-kasnjenje-leta/vreme-na-destinaciji-kasnjenje-leta-naknada",
+      "en": "/en/flight-delay-compensation/destination-weather-flight-delay-compensation"
+    },
+    {
+      "id": "extra-costs-after-flight-delay",
+      "sr": "/naknada-za-kasnjenje-leta/dodatni-troskovi-posle-kasnjenja-leta",
+      "en": "/en/flight-delay-compensation/extra-costs-after-flight-delay"
+    },
+    {
+      "id": "family-with-children-flight-delay-care",
+      "sr": "/naknada-za-kasnjenje-leta/kasnjenje-leta-sa-decom-pravo-na-brigu",
+      "en": "/en/flight-delay-compensation/flight-delay-with-children-family-care"
+    },
+    {
+      "id": "five-hour-flight-delay-refund",
+      "sr": "/naknada-za-kasnjenje-leta/kasnjenje-leta-5-sati-refundacija",
+      "en": "/en/flight-delay-compensation/5-hour-flight-delay-refund"
+    },
+    {
+      "id": "flight-delay-after-boarding",
+      "sr": "/naknada-za-kasnjenje-leta/kasnjenje-leta-posle-ukrcavanja",
+      "en": "/en/flight-delay-compensation/flight-delay-after-boarding"
+    },
+    {
+      "id": "flight-delay-assistance-thresholds",
+      "sr": "/naknada-za-kasnjenje-leta/kasnjenje-leta-pragovi-obrok-voda",
+      "en": "/en/flight-delay-compensation/flight-delay-assistance-thresholds"
+    },
+    {
+      "id": "flight-delay-final-arrival-time",
+      "sr": "/naknada-za-kasnjenje-leta/kasnjenje-leta-vreme-dolaska",
+      "en": "/en/flight-delay-compensation/flight-delay-final-arrival-time"
+    },
+    {
+      "id": "flight-delay-reason-evidence",
+      "sr": "/naknada-za-kasnjenje-leta/razlog-kasnjenja-leta-dokazi",
+      "en": "/en/flight-delay-compensation/flight-delay-reason-evidence"
+    },
+    {
+      "id": "four-hour-flight-delay-rights",
+      "sr": "/naknada-za-kasnjenje-leta/kasnjenje-leta-4-sata-prava-putnika",
+      "en": "/en/flight-delay-compensation/4-hour-flight-delay-passenger-rights"
+    },
+    {
+      "id": "ground-handling-flight-delay",
+      "sr": "/naknada-za-kasnjenje-leta/kasnjenje-leta-zbog-zemaljskog-opsluzivanja-naknada",
+      "en": "/en/flight-delay-compensation/ground-handling-flight-delay-compensation"
+    },
+    {
+      "id": "group-booking-flight-delay-compensation",
+      "sr": "/naknada-za-kasnjenje-leta/grupna-rezervacija-kasnjenje-leta-naknada",
+      "en": "/en/flight-delay-compensation/group-booking-flight-delay-compensation"
+    },
+    {
+      "id": "lightning-strike-aircraft-delay",
+      "sr": "/naknada-za-kasnjenje-leta/udar-groma-u-avion-kasnjenje-prava",
+      "en": "/en/flight-delay-compensation/lightning-strike-aircraft-delay-rights"
+    },
+    {
+      "id": "long-haul-flight-delay-300-600",
+      "sr": "/naknada-za-kasnjenje-leta/dugi-let-kasnjenje-300-600-evra",
+      "en": "/en/flight-delay-compensation/long-haul-flight-delay-300-600-eur"
+    },
+    {
+      "id": "meal-voucher-flight-delay",
+      "sr": "/naknada-za-kasnjenje-leta/vaucer-za-hranu-kasnjenje-leta",
+      "en": "/en/flight-delay-compensation/meal-voucher-flight-delay"
+    },
+    {
+      "id": "medical-emergency-flight-delay",
+      "sr": "/naknada-za-kasnjenje-leta/medicinski-hitan-slucaj-kasnjenje-leta",
+      "en": "/en/flight-delay-compensation/medical-emergency-flight-delay-rights"
+    },
+    {
+      "id": "missed-flight-security-queue",
+      "sr": "/naknada-za-uskraceno-ukrcavanje/propusten-let-zbog-reda-na-kontroli",
+      "en": "/en/denied-boarding-compensation/missed-flight-security-queue-rights"
+    },
+    {
+      "id": "night-flight-ban-curfew",
+      "sr": "/naknada-za-kasnjenje-leta/nocna-zabrana-letova-curfew-prava-putnika",
+      "en": "/en/flight-delay-compensation/night-flight-ban-curfew-passenger-rights"
+    },
+    {
+      "id": "no-meal-voucher-flight-delay-receipts",
+      "sr": "/naknada-za-kasnjenje-leta/kasnjenje-leta-bez-vaucera-za-obrok-racuni",
+      "en": "/en/flight-delay-compensation/flight-delay-no-meal-voucher-receipts"
+    },
+    {
+      "id": "overnight-delay-hotel-rights",
+      "sr": "/naknada-za-kasnjenje-leta/nocno-kasnjenje-leta-hotel-prava",
+      "en": "/en/flight-delay-compensation/overnight-flight-delay-hotel-rights"
+    },
+    {
+      "id": "package-holiday-flight-delay-compensation",
+      "sr": "/naknada-za-kasnjenje-leta/paket-aranzman-kasnjenje-leta-naknada",
+      "en": "/en/flight-delay-compensation/package-holiday-flight-delay-compensation"
+    },
+    {
+      "id": "previous-flight-rotation-delay",
+      "sr": "/naknada-za-kasnjenje-leta/kasnjenje-prethodnog-leta-rotacija-aviona",
+      "en": "/en/flight-delay-compensation/previous-flight-rotation-delay-compensation"
+    },
+    {
+      "id": "rerouting-another-airline-flight-delay",
+      "sr": "/naknada-za-kasnjenje-leta/preusmeravanje-druga-aviokompanija-kasnjenje-leta",
+      "en": "/en/flight-delay-compensation/rerouting-another-airline-flight-delay"
+    },
+    {
+      "id": "runway-congestion-flight-delay",
+      "sr": "/naknada-za-kasnjenje-leta/kasnjenje-leta-zbog-guzve-na-pisti-naknada",
+      "en": "/en/flight-delay-compensation/runway-congestion-flight-delay-compensation"
+    },
+    {
+      "id": "security-screening-flight-delay",
+      "sr": "/naknada-za-kasnjenje-leta/bezbednosna-provera-kasnjenje-leta-naknada",
+      "en": "/en/flight-delay-compensation/security-screening-flight-delay-compensation"
+    },
+    {
+      "id": "self-rerouting-new-ticket",
+      "sr": "/naknada-za-kasnjenje-leta/samostalno-kupljen-novi-let-refundacija",
+      "en": "/en/flight-delay-compensation/bought-new-flight-yourself-reimbursement"
+    },
+    {
+      "id": "separate-tickets-missed-connection",
+      "sr": "/naknada-za-propustenu-konekciju/odvojene-karte-propustena-konekcija",
+      "en": "/en/missed-connection-compensation/separate-tickets-missed-connection-rights"
+    },
+    {
+      "id": "technical-fault-flight-compensation",
+      "sr": "/naknada-za-kasnjenje-leta/tehnicki-kvar-aviona-odsteta",
+      "en": "/en/flight-delay-compensation/technical-fault-flight-compensation"
+    },
+    {
+      "id": "three-hour-flight-delay-compensation",
+      "sr": "/naknada-za-kasnjenje-leta/kasnjenje-leta-3-sata-odsteta",
+      "en": "/en/flight-delay-compensation/3-hour-flight-delay-compensation"
+    },
+    {
+      "id": "two-hour-flight-delay-rights",
+      "sr": "/naknada-za-kasnjenje-leta/kasnjenje-leta-2-sata-prava-putnika",
+      "en": "/en/flight-delay-compensation/2-hour-flight-delay-passenger-rights"
+    },
+    {
+      "id": "voluntary-denied-boarding-voucher",
+      "sr": "/overbooking-naknada/dobrovoljno-odustajanje-od-leta-vaucer",
+      "en": "/en/overbooking-compensation/voluntary-denied-boarding-voucher-rights"
+    }
+  ]
+}
