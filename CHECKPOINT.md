@@ -4,6 +4,25 @@ Canonical handoff file for future local and Codex Cloud sessions.
 
 ## Start Here
 
+### GA4 narrow shared-setting approval completed, 2026-09-16
+
+- Owner approved ONLY History + Site search OFF. Saved and reopened existing
+  letkasni.rs stream 14595479044 / G-RVJ906DKVF: both OFF; other Enhanced
+  Measurement families unchanged ON, redaction unchanged. No production code/env,
+  GTM publish, Meta change, campaign/spend or new Preview claim.
+- Fresh local REAL SDK capture 2026-09-16T10:55:54.396Z with collector blocked:
+  two clean manual pageviews, no search/extra History PV, one UUID Lead despite
+  four calls; scroll clean, private-route opt-out true. Two legacy events were
+  deliberately requested. Reduced proof: docs/GA4-SDK-ISOLATED-QA-AFTER-2026-09-16.json.
+  Measurement regression rerun PASS 37/37. No application source changed.
+- Overall BLOCKED remains: other automatic families/full hydrated GA4 checks,
+  isolated approved Meta QA access, Preview email/storage/downstream isolation
+  and fresh end-to-end claim. No broad toggle authority or release approval.
+- Canonical logo/footer edits preserved; existing PR31 worktree session resume
+  passed at 8ed5469 with origin/main e7dc38c. Historical entries below are not
+  current shared-setting state. Next: finish remaining safe isolated checks;
+  platform QA cannot proceed without approved isolated access/side-effect routing.
+
 ### GA4 protection / isolated Meta QA, 2026-09-16 — BLOCKED / PREVIEW ONLY
 
 - Latest authority: finish minimal GA4/Meta checks and prepare release, NOT deploy
@@ -312,13 +331,13 @@ Canonical handoff file for future local and Codex Cloud sessions.
 ## Generated Status
 
 <!-- BEGIN:generated-status -->
-Generated at: `2026-09-16T10:41:54.597Z`
+Generated at: `2026-09-16T10:57:15.770Z`
 
 Branch: `codex/google-ads-measurement`
 
 Remote: `https://github.com/nezun/let-kasni.git`
 
-Latest local commit: `ec122d3 docs: prepare measurement candidate and explicit release blockers`
+Latest local commit: `8ed5469 test: capture real GA4 SDK privacy blockers with isolated transport`
 
 Worktree status:
 
@@ -326,8 +345,7 @@ Worktree status:
 M CHECKPOINT.md
  M docs/GOOGLE-ADS-LAUNCH.md
  M docs/GOOGLE-ADS-RELEASE-CANDIDATE-2026-09-16.md
-?? docs/GA4-SDK-ISOLATED-QA-2026-09-16.json
-?? scripts/ga4-sdk-isolated-fixture.mjs
+?? docs/GA4-SDK-ISOLATED-QA-AFTER-2026-09-16.json
 ```
 
 Useful commands:

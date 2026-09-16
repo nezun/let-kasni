@@ -1,0 +1,66 @@
+{
+  "testedAt": "2026-09-16T10:55:54.396Z",
+  "measurementId": "G-RVJ906DKVF",
+  "streamId": "14595479044",
+  "scope": "isolated localhost real SDK; collector transport blocked; no Preview/backend acceptance",
+  "settings": {
+    "history": false,
+    "siteSearch": false,
+    "scroll": true,
+    "outbound": true,
+    "formInteractions": true,
+    "video": true,
+    "fileDownloads": true
+  },
+  "privateOptOut": true,
+  "hits": [
+    {
+      "event": "page_view",
+      "transaction": null,
+      "privateMarkerPresent": false,
+      "dl": "http://127.0.0.1:3016/?utm_source=google&utm_medium=cpc&utm_campaign=SEARCH_RS_CORE",
+      "dr": "",
+      "dt": "LetKasni | /"
+    },
+    {
+      "event": "scroll",
+      "transaction": null,
+      "privateMarkerPresent": false,
+      "dl": "http://127.0.0.1:3016/?utm_source=google&utm_medium=cpc&utm_campaign=SEARCH_RS_CORE",
+      "dr": "",
+      "dt": "LetKasni | /"
+    },
+    {
+      "event": "page_view",
+      "transaction": null,
+      "privateMarkerPresent": false,
+      "dl": "http://127.0.0.1:3016/en",
+      "dr": "",
+      "dt": "LetKasni | /en"
+    },
+    {
+      "event": "lead_submit",
+      "transaction": "00000000-0000-4000-8000-000000000006",
+      "privateMarkerPresent": false,
+      "dl": "http://127.0.0.1:3016/en",
+      "dr": "",
+      "dt": "LetKasni | /en"
+    },
+    {
+      "event": "generate_lead",
+      "transaction": null,
+      "privateMarkerPresent": false,
+      "dl": "http://127.0.0.1:3016/en",
+      "dr": "",
+      "dt": "LetKasni | /en"
+    },
+    {
+      "event": "generate_lead",
+      "transaction": null,
+      "privateMarkerPresent": false,
+      "dl": "http://127.0.0.1:3016/en",
+      "dr": "",
+      "dt": "LetKasni | /en"
+    }
+  ]
+}

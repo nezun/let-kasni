@@ -20,7 +20,7 @@ No merge/main change, production environment change/deploy, GTM publish, product
 
 | Control | Status | Evidence / limit |
 | --- | --- | --- |
-| GA4_URL_PRIVACY | BLOCKED | Application-controlled SDK hits inspected locally are clean. Real SDK automatic search sends a fake marker in search_term, and History sends an extra raw-URL/referrer pageview. Required shared settings still enabled; owner approval needed. |
+| GA4_URL_PRIVACY | PARTIAL PASS | Owner-approved History + Site search OFF persisted. Fresh real-SDK capture: two clean manual pageviews, no search/extra History hit, one UUID Lead. Other automatic families/full hydrated behavior remain unverified. |
 | GOOGLE_ADS_PREVIEW | BLOCKED | Earlier `838c996` Preview resolved the fresh UUID and fired once. No positive canary for `333bb9d`; do not transfer earlier PASS to new code. |
 | META_LOCAL_INTEGRATION | PASS | Actual submit route, actual CAPI implementation and actual browser helper execute with external storage/email/API mocked. One new route acceptance -> one CAPI Lead; browser helper uses matching Lead/eventID. Reused route acceptance sends no further CAPI/email. |
 | META_LIVE_PREVIEW | BLOCKED | No approved isolated test dataset/Pixel and test credential access found. Production dataset must not be reused for browser QA without explicit authority. |
@@ -48,15 +48,19 @@ GA4 display URL retains only exact approved values: sources `google/facebook/ins
 
 Same-origin approved public referrers retain origin/path without query; unknown/private/external referrer paths retain only the origin. Document title is not read into application-controlled GA4 payloads.
 
-## External configuration — inspected, NOT changed
+## External configuration — two approved GA4 settings changed
 
-### GA4 shared stream: owner approval required
+### GA4 shared stream: History + Site search OFF, saved and verified
+
+**Latest state supersedes the historical inspection/proposal below.** Owner approved ONLY History + Site search OFF. Saved in stream 14595479044 and reopened the editor: History checkbox 0, Site search OFF; Page loads, Scrolls, Outbound clicks, Form interactions, Video engagement and File downloads unchanged ON. Redaction unchanged. This shared Google setting affects existing stream behavior; no production website code/env or GTM publication occurred.
+
+Fresh real-SDK capture at `2026-09-16T10:55:54.396Z`: initial and SPA manual pageviews exactly once per transition, no `view_search_results`, no extra automatic History pageview, one `lead_submit` UUID despite four helper calls (two initial, two delayed). All six inspected GA4 hits have no private marker in URL/body; scroll clean. Two separate legacy `generate_lead` hits were deliberately requested, not duplicates of the UUID Lead. Private-route opt-out became true; no private-route collector hit appeared at inspection. Collector transport blocked throughout; no real claim/backend/platform acceptance. Evidence: [after settings capture](GA4-SDK-ISOLATED-QA-AFTER-2026-09-16.json). Outbound/form/video/download privacy and full hydrated revoke/return behavior remain unverified. The broader proposal below is NOT approved/applied; any further shared-setting change needs new authority.
 
 Browser freshly verified property `letkasni` **534756949**, account **392752906**, stream `letkasni.rs` **14595479044**, measurement **G-RVJ906DKVF**. Legacy Replit stream **14595763317** was not selected or changed.
 
-Current Enhanced Measurement: Page loads ON, History page changes ON, Scrolls ON, Outbound clicks ON, Site search ON, Form interactions ON, Video engagement ON, File downloads ON. Email data redaction active, query-key redaction inactive.
+Historical initial Enhanced Measurement: Page loads ON, History page changes ON, Scrolls ON, Outbound clicks ON, Site search ON, Form interactions ON, Video engagement ON, File downloads ON. Email data redaction active, query-key redaction inactive.
 
-**Exact proposed shared-setting change, not applied:**
+**Historical broader proposal, superseded by the two-setting approval above:**
 
 1. Admin -> Data streams -> `letkasni.rs` -> Enhanced measurement -> Configure.
 2. Page views -> Advanced: uncheck **Page changes based on browser history events**. Keep Page loads (disabled/mandatory option) unchanged; candidate code suppresses config-generated pageviews and sends its own sanitized initial/navigation pageviews.
@@ -129,7 +133,7 @@ Proposed version name (not created/published): **LetKasni PP1.3 + Ads Lead — a
 
 **Now: BLOCKED, not READY_FOR_RELEASE_APPROVAL.**
 
-1. Obtain approval of the exact shared GA4 changes above and approved isolated Meta QA access. Keep production website/GTM unpublished and paid traffic prohibited.
+1. Two approved GA4 changes and scoped local real-SDK repeat are complete. Verify remaining automatic families without changing their settings, and obtain approved isolated Meta QA access. Keep production website/GTM unpublished and paid traffic prohibited.
 2. Isolate Preview operational email/storage/webhook side effects, execute real SDK local privacy checks, then one controlled synthetic Preview claim on the exact candidate with the exact GTM draft. Test false validation, normal/recovery UUID paths, all consent states/admin transition, refresh/Back, no duplicate GA4, actual Meta Test Events/dedup evidence. Record any unverified platform step honestly.
 3. Rerun full `npm run verify` and remote checks, freeze candidate HEAD/deployment and exported GTM draft. Present this exact package for NEW release approval. Any code change creates a new candidate requiring relevant repeat QA.
 4. Only after explicit production/GTM/canary approval: clean-tree `npm run release:gate`, reviewed PR landing to GitHub main, Vercel deployment traceable to that merge SHA. Preserve main's SEO and unrelated owner changes. Configure production `NEXT_PUBLIC_GTM_ID` only with explicit environment authority, then publish the exact approved GTM version according to the approved order; do not publish an untested later workspace.
@@ -145,7 +149,7 @@ Proposed version name (not created/published): **LetKasni PP1.3 + Ads Lead — a
 
 ## Blockers by decision boundary
 
-**Measurement:** shared GA4 setting authority + real SDK collector proof; isolated Meta dataset/access + platform evidence; safe Preview email/storage routing and fresh single-claim end-to-end QA.
+**Measurement:** remaining automatic-family/full hydrated GA4 privacy checks; isolated Meta dataset/access + platform evidence; safe Preview email/storage routing and fresh single-claim end-to-end QA. History + Site search authority and scoped collector proof are complete.
 
 **Release:** measurement gates above, exact candidate/draft freeze and new explicit production/GTM/canary approval. Local passing tests alone do not authorize release.
 

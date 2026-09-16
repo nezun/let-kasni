@@ -1,12 +1,12 @@
 # Google Ads launch readiness
 
-Status: **BLOCKED / DO_NOT_PUBLISH**. GA4 application URL protection and isolated runtime integration tests are implemented on PR #31. The current measurement suite is **37/37**, and the full local verification/build passed (195 static-generation entries). Real Google SDK local capture confirmed clean inspected manual hits but **automatic search and History still leak fake markers; History also duplicates SPA pageviews**. No marker was transmitted to Google. Shared Enhanced Measurement settings need explicit owner approval; isolated Meta QA dataset/access is missing. The new candidate has NOT passed live end-to-end Preview QA. Earlier UUID Preview proof remains historical. Latest authority prohibits production deployment, GTM publish and paid traffic. See [release package and blockers](GOOGLE-ADS-RELEASE-CANDIDATE-2026-09-16.md) and [earlier Preview evidence](GOOGLE-ADS-PREVIEW-QA-2026-09-16.md).
+Status: **BLOCKED / DO_NOT_PUBLISH**. Owner-approved History + Site search OFF were saved/reopened in the existing stream; all other automatic families remain ON. Fresh isolated REAL SDK repeat shows clean inspected initial/SPA/Lead/legacy/scroll hits, no search or extra History pageview, one UUID Lead despite repeated calls. Collector transport blocked; no marker sent to Google. Measurement rerun **37/37**. Remaining automatic-family/full hydrated GA4 checks, isolated Meta QA dataset/access and safe Preview operational routing are unresolved; no fresh end-to-end claim for this candidate. Earlier Preview proof remains historical. No production website code/env, GTM publication, Meta configuration or paid action changed. See [release package and blockers](GOOGLE-ADS-RELEASE-CANDIDATE-2026-09-16.md), [after-settings evidence](GA4-SDK-ISOLATED-QA-AFTER-2026-09-16.json) and [earlier Preview evidence](GOOGLE-ADS-PREVIEW-QA-2026-09-16.md).
 
 ## Current state
 
 | Component | Before | After | Status |
 | --- | --- | --- | --- |
-| GA4 | Direct `gtag.js`, consent-gated | Direct architecture retained; sanitized application context and manual pageviews | Local isolated regression passed; Enhanced Measurement/live SDK validation blocked |
+| GA4 | Direct `gtag.js`, consent-gated | Direct architecture retained; sanitized application context and manual pageviews | History + Search OFF; scoped real SDK repeat PASS; other automatic families/live QA pending |
 | GTM | Not present | Optional `NEXT_PUBLIC_GTM_ID`, loaded only after advertising consent | Preview configured; draft not published |
 | Google Ads conversion | Not present | Primary `Lead - successful claim submit` action plus `lead_submit` GTM tag and claim transaction ID | Draft configured; production deploy pending |
 | Consent Mode v2 | Not present | Denied-by-default signals for all four v2 consent types, updated from the existing consent cookie | Code-ready |
