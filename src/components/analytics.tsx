@@ -1,20 +1,19 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import Script from "next/script";
 
-import { trackPageView } from "@/lib/analytics";
+import { syncAnalytics } from "@/lib/analytics";
 import { hasAnalyticsConsent, trackingConsentEvent } from "@/lib/consent";
 import { getAnalyticsMode, getGoogleAnalyticsId, getPlausibleDomain } from "@/lib/env";
 import { allowsOptionalTracking } from "@/lib/optional-tracking-path";
 
-export function Analytics() {
+export function Analytics({ publicPaths }: { publicPaths: readonly string[] }) {
   const mode = getAnalyticsMode();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const measurementAllowed = allowsOptionalTracking(pathname);
-  const skippedInitialPageView = useRef(false);
   const [hasConsent, setHasConsent] = useState(false);
 
   useEffect(() => {
@@ -26,19 +25,8 @@ export function Analytics() {
   }, [measurementAllowed]);
 
   useEffect(() => {
-    if (mode !== "ga4" || !pathname || !measurementAllowed || !hasConsent) {
-      return;
-    }
-
-    if (!skippedInitialPageView.current) {
-      skippedInitialPageView.current = true;
-      return;
-    }
-
-    const query = searchParams?.toString();
-    const url = `${window.location.origin}${pathname}${query ? `?${query}` : ""}`;
-    trackPageView(url);
-  }, [hasConsent, measurementAllowed, mode, pathname, searchParams]);
+    if (mode === "ga4") syncAnalytics(publicPaths);
+  }, [hasConsent, measurementAllowed, mode, pathname, publicPaths, searchParams]);
 
   if (!measurementAllowed || !hasConsent) {
     return null;
@@ -71,15 +59,6 @@ export function Analytics() {
           src={`https://www.googletagmanager.com/gtag/js?id=${measurementId}`}
           strategy="lazyOnload"
         />
-        <Script id="ga4-init" strategy="lazyOnload">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            window.gtag = gtag;
-            gtag('js', new Date());
-            gtag('config', '${measurementId}');
-          `}
-        </Script>
       </>
     );
   }

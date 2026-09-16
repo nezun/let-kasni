@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { DM_Sans, JetBrains_Mono, Sora } from "next/font/google";
 import { Analytics } from "@/components/analytics";
+import { analyticsPublicPaths } from "@/lib/analytics-public-paths";
 import { ConsentBanner } from "@/components/consent-banner";
 import { MetaPixel } from "@/components/meta-pixel";
 import { GoogleMeasurement } from "@/components/google-measurement";
@@ -90,7 +91,7 @@ export default async function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col">
-        <Analytics />
+        <Analytics publicPaths={analyticsPublicPaths} />
         <GoogleMeasurement />
         <MetaPixel />
         <ConsentBanner locale={locale} />
