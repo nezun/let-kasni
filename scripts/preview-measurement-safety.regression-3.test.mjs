@@ -12,7 +12,7 @@ const source = ts.transpileModule(readFileSync(new URL("../src/app/api/health/ro
 }).outputText;
 
 async function health(environment, configured) {
-  const module = { exports: {} };
+  const loadedModule = { exports: {} };
   const env = {
     getAnalyticsMode: () => "ga4", getSupportEmail: () => "qa@example.invalid",
     getMetaConversionsApiToken: () => undefined, getMetaPixelId: () => undefined,
@@ -22,14 +22,14 @@ async function health(environment, configured) {
     getResendAdminToEmail: () => configured ? "TEST_PRIVATE_RECIPIENT@example.invalid" : undefined,
   };
   vm.runInNewContext(source, {
-    module, exports: module.exports, process: { env: { VERCEL_ENV: environment } }, Date,
+    module: loadedModule, exports: loadedModule.exports, process: { env: { VERCEL_ENV: environment } }, Date,
     require: (name) => {
       if (name === "@/lib/env") return env;
       if (name === "next/server") return { NextResponse: { json: (body, options) => Response.json(body, options) } };
       throw new Error(`Unexpected health dependency ${name}`);
     },
   });
-  const response = await module.exports.GET();
+  const response = await loadedModule.exports.GET();
   assert.equal(response.headers.get("cache-control"), "no-store");
   return response.json();
 }

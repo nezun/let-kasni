@@ -4,6 +4,26 @@
 
 ## Candidate and scope
 
+- **Latest pass supersedes the historical candidate/status entries below.**
+  Application descendant `2903eddd4641a657e09b785bea1b2aef06c70270` adds only
+  Preview email diagnostics (no credentials/addresses or behavior change).
+  Measurement implementation remains `333bb9d`; new health regressions bring
+  CI measurement coverage to 39 tests. Full local verify passed.
+- Actual SDK: all four consent modes and revoke/private-route/return PASS;
+  positive form metadata clean. Automatic click/file_download FAIL with synthetic
+  private link/file marker. History + Site search are already saved OFF; only
+  Outbound clicks + File downloads need the next scoped setting fix and repeat.
+  This further change is NOT saved. No video embed found in source.
+- Latest owner authority covers safe remaining fixes, but not production deploy/
+  env/GTM publication or persistent production Meta credentials. Current
+  task-scoped Chrome access timed out and protected Preview redirects to SSO.
+  No bypass or new successful Preview claim. One denied-consent hydrated local
+  fake claim passed in a new isolated QA directory, not a Vercel/GTM canary.
+- Current proof, status table, exact IDs and next actions:
+  [final scoped QA](GOOGLE-ADS-FINAL-QA-2026-09-16.md),
+  [real SDK scenarios](GA4-SDK-SCENARIOS-QA-2026-09-16.json).
+  Historical platform/candidate proofs below do not clear current blockers.
+
 - PR: https://github.com/nezun/let-kasni/pull/31
 - Branch: `codex/google-ads-measurement`
 - Exact application candidate: `333bb9d64826926862dd56bf96cdc03bb42c6473`.

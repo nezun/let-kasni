@@ -4,6 +4,38 @@ Canonical handoff file for future local and Codex Cloud sessions.
 
 ## Start Here
 
+### Remaining measurement QA, 2026-09-16 — BLOCKED / NO PRODUCTION
+
+- Latest owner authority: autonomously finish all safe remaining work; leave
+  critical/security/production-risk actions in the report. This does not authorize
+  production deploy/env, GTM publish, paid traffic or production Meta credentials.
+- PR31 still on codex/google-ads-measurement, origin/main e7dc38c. Minimal additive
+  application commit 2903edd adds Preview-only email-configuration booleans to
+  /api/health; no recipients/keys or notification/storage behavior changes.
+  Measurement architecture remains the 333bb9d candidate. Two new real-route
+  health regressions bring the existing CI measurement suite to 39/39.
+- Real SDK repeat: all four consent combinations and revoke/private-route/return
+  PASS; clean manual PV/Lead/legacy/scroll, one UUID Lead. Positive static form
+  metadata/input-marker tests clean. Automatic click/file_download FAIL: synthetic
+  private marker appears in link_url/file_name. All collector transport blocked.
+  No video embed found in current source; not a positive platform video test.
+  Evidence: docs/GA4-SDK-SCENARIOS-QA-2026-09-16.json. Repeatable orchestration:
+  scripts/ga4-sdk-browser-qa.mjs with existing gstack browser, no cookie import.
+- History + Site search remain the only two saved shared-stream changes. Safe
+  next fix is only Outbound clicks + File downloads OFF followed by SDK repeat;
+  it is NOT saved. Task-scoped native Chrome access timed out; broad private
+  Gmail/CRM capture was rejected and was not retried/bypassed. Headless Preview
+  /api/health redirects to Vercel SSO; no protection bypass or new Preview claim.
+- Full local verify PASS (39 measurement, workflow/privacy/email/retirement,
+  content/links/benchmark/locales, lint/TS/build). Isolated Meta platform access
+  and remote email/storage safety remain unresolved; no new credentials created.
+- Local hydrated app is tested separately in a new empty temporary QA directory,
+  with email, Meta, Supabase, provider and optional tracking disabled; this cannot
+  substitute for Vercel + GTM end-to-end acceptance. Current evidence/limitations
+  and exact operational actions: docs/GOOGLE-ADS-FINAL-QA-2026-09-16.md.
+- Preserve unrelated canonical logo/footer edits. All older approval/37-test/
+  pending-auto-family entries below are historical, superseded by this entry.
+
 ### GA4 narrow shared-setting approval completed, 2026-09-16
 
 - Owner approved ONLY History + Site search OFF. Saved and reopened existing
@@ -331,13 +363,13 @@ Canonical handoff file for future local and Codex Cloud sessions.
 ## Generated Status
 
 <!-- BEGIN:generated-status -->
-Generated at: `2026-09-16T10:57:15.770Z`
+Generated at: `2026-09-16T11:31:39.469Z`
 
 Branch: `codex/google-ads-measurement`
 
 Remote: `https://github.com/nezun/let-kasni.git`
 
-Latest local commit: `8ed5469 test: capture real GA4 SDK privacy blockers with isolated transport`
+Latest local commit: `2903edd fix(qa): expose Preview-only email isolation booleans with regressions`
 
 Worktree status:
 
@@ -345,7 +377,12 @@ Worktree status:
 M CHECKPOINT.md
  M docs/GOOGLE-ADS-LAUNCH.md
  M docs/GOOGLE-ADS-RELEASE-CANDIDATE-2026-09-16.md
-?? docs/GA4-SDK-ISOLATED-QA-AFTER-2026-09-16.json
+ M scripts/ga4-sdk-isolated-fixture.mjs
+ M scripts/preview-measurement-safety.regression-3.test.mjs
+?? docs/GA4-SDK-AUTO-EVENTS-QA-2026-09-16.json
+?? docs/GA4-SDK-SCENARIOS-QA-2026-09-16.json
+?? docs/GOOGLE-ADS-FINAL-QA-2026-09-16.md
+?? scripts/ga4-sdk-browser-qa.mjs
 ```
 
 Useful commands:
