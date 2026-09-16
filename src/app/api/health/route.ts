@@ -4,6 +4,8 @@ import {
   getAnalyticsMode,
   getMetaConversionsApiToken,
   getMetaPixelId,
+  getResendAdminToEmail,
+  getResendApiKey,
   getSupportEmail,
   isAdminPasswordConfigured,
   isMarketingSubscriptionsEnabled,
@@ -30,6 +32,14 @@ export async function GET() {
         marketingSubscriptionsEnabled: isMarketingSubscriptionsEnabled(),
         supportEmail: getSupportEmail(),
       },
+      // Preview-only booleans let QA verify email isolation without reading keys
+      // or test-recipient addresses. No email/database behavior is changed.
+      ...(process.env.VERCEL_ENV === "preview" ? {
+        previewQa: {
+          claimEmailTransportConfigured: Boolean(getResendApiKey()),
+          adminClaimEmailRecipientConfigured: Boolean(getResendAdminToEmail()),
+        },
+      } : {}),
     },
     {
       status: 200,
