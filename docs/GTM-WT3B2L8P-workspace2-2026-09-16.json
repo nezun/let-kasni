@@ -1,0 +1,251 @@
+{
+    "exportFormatVersion": 2,
+    "exportTime": "2026-09-16 12:10:26",
+    "containerVersion": {
+        "path": "accounts/6376980479/containers/264196113/versions/0",
+        "accountId": "6376980479",
+        "containerId": "264196113",
+        "containerVersionId": "0",
+        "container": {
+            "path": "accounts/6376980479/containers/264196113",
+            "accountId": "6376980479",
+            "containerId": "264196113",
+            "name": "letkasni.rs",
+            "publicId": "GTM-WT3B2L8P",
+            "usageContext": [
+                "WEB"
+            ],
+            "fingerprint": "1789467809950",
+            "tagManagerUrl": "https://tagmanager.google.com/#/container/accounts/6376980479/containers/264196113/workspaces?apiLink=container",
+            "features": {
+                "supportUserPermissions": true,
+                "supportEnvironments": true,
+                "supportWorkspaces": true,
+                "supportGtagConfigs": false,
+                "supportBuiltInVariables": true,
+                "supportClients": false,
+                "supportFolders": true,
+                "supportTags": true,
+                "supportTemplates": true,
+                "supportTriggers": true,
+                "supportVariables": true,
+                "supportVersions": true,
+                "supportZones": true,
+                "supportTransformations": false
+            },
+            "tagIds": [
+                "GTM-WT3B2L8P"
+            ]
+        },
+        "tag": [
+            {
+                "accountId": "6376980479",
+                "containerId": "264196113",
+                "tagId": "5",
+                "name": "Conversion Linker - All Pages",
+                "type": "gclidw",
+                "parameter": [
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enableCrossDomain",
+                        "value": "false"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enableUrlPassthrough",
+                        "value": "false"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enableCookieOverrides",
+                        "value": "false"
+                    }
+                ],
+                "fingerprint": "1789468427246",
+                "firingTriggerId": [
+                    "2147479553"
+                ],
+                "tagFiringOption": "ONCE_PER_EVENT",
+                "monitoringMetadata": {
+                    "type": "MAP"
+                },
+                "consentSettings": {
+                    "consentStatus": "NOT_SET"
+                }
+            },
+            {
+                "accountId": "6376980479",
+                "containerId": "264196113",
+                "tagId": "7",
+                "name": "Lead - successful claim submit",
+                "type": "awct",
+                "parameter": [
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enableNewCustomerReporting",
+                        "value": "false"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enableConversionLinker",
+                        "value": "true"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "orderId",
+                        "value": "{{DLV - transaction_id}}"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enableProductReporting",
+                        "value": "false"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enableShippingData",
+                        "value": "false"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "conversionId",
+                        "value": "18452620232"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "conversionLabel",
+                        "value": "VnU-CKD6zfgcEMjH8t5E"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "rdp",
+                        "value": "false"
+                    }
+                ],
+                "fingerprint": "1789470514949",
+                "firingTriggerId": [
+                    "4"
+                ],
+                "monitoringMetadata": {
+                    "type": "MAP"
+                },
+                "consentSettings": {
+                    "consentStatus": "NOT_SET"
+                }
+            },
+            {
+                "accountId": "6376980479",
+                "containerId": "264196113",
+                "tagId": "8",
+                "name": "Google Tag AW-18452620232",
+                "type": "googtag",
+                "parameter": [
+                    {
+                        "type": "TEMPLATE",
+                        "key": "tagId",
+                        "value": "AW-18452620232"
+                    }
+                ],
+                "fingerprint": "1789470570489",
+                "firingTriggerId": [
+                    "2147479573"
+                ],
+                "tagFiringOption": "ONCE_PER_EVENT",
+                "monitoringMetadata": {
+                    "type": "MAP"
+                },
+                "consentSettings": {
+                    "consentStatus": "NOT_SET"
+                }
+            }
+        ],
+        "trigger": [
+            {
+                "accountId": "6376980479",
+                "containerId": "264196113",
+                "triggerId": "4",
+                "name": "CE - lead_submit",
+                "type": "CUSTOM_EVENT",
+                "customEventFilter": [
+                    {
+                        "type": "EQUALS",
+                        "parameter": [
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg0",
+                                "value": "{{_event}}"
+                            },
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg1",
+                                "value": "lead_submit"
+                            }
+                        ]
+                    }
+                ],
+                "fingerprint": "1789468222592"
+            }
+        ],
+        "variable": [
+            {
+                "accountId": "6376980479",
+                "containerId": "264196113",
+                "variableId": "3",
+                "name": "DLV - transaction_id",
+                "type": "v",
+                "parameter": [
+                    {
+                        "type": "INTEGER",
+                        "key": "dataLayerVersion",
+                        "value": "2"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "setDefaultValue",
+                        "value": "false"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "name",
+                        "value": "eventModel.transaction_id"
+                    }
+                ],
+                "fingerprint": "1789550903079",
+                "formatValue": {}
+            }
+        ],
+        "builtInVariable": [
+            {
+                "accountId": "6376980479",
+                "containerId": "264196113",
+                "type": "PAGE_URL",
+                "name": "Page URL"
+            },
+            {
+                "accountId": "6376980479",
+                "containerId": "264196113",
+                "type": "PAGE_HOSTNAME",
+                "name": "Page Hostname"
+            },
+            {
+                "accountId": "6376980479",
+                "containerId": "264196113",
+                "type": "PAGE_PATH",
+                "name": "Page Path"
+            },
+            {
+                "accountId": "6376980479",
+                "containerId": "264196113",
+                "type": "REFERRER",
+                "name": "Referrer"
+            },
+            {
+                "accountId": "6376980479",
+                "containerId": "264196113",
+                "type": "EVENT",
+                "name": "Event"
+            }
+        ],
+        "fingerprint": "1789560626556",
+        "tagManagerUrl": "https://tagmanager.google.com/#/versions/accounts/6376980479/containers/264196113/versions/0?apiLink=version"
+    }
+}

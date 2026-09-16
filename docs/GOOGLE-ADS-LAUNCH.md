@@ -1,16 +1,16 @@
 # Google Ads launch readiness
 
-Status: **BLOCKED / DO_NOT_PUBLISH**. History + Site search OFF were saved/reopened in the existing stream; other automatic families remain ON. Real SDK tests pass all four consent combinations and revoke/private-route/return, with two clean manual pageviews and one UUID Lead. Positive automatic form tests are clean, but **outbound click and file_download include the synthetic private URL marker**. Collector transport was blocked; no marker was sent to Google. Measurement tests **39/39**, full local verify passed. Task-scoped authenticated Google/Vercel browser access is currently unavailable; protected Preview redirects to Vercel login. Fresh Preview Lead, safe remote email routing and isolated Meta platform QA remain blocked. A Preview-only health diagnostic now reports email-configuration booleans without credentials/addresses. No production code/env deploy, GTM publication, Meta configuration or advertising occurred. See [current final QA and exact next actions](GOOGLE-ADS-FINAL-QA-2026-09-16.md), [SDK scenarios](GA4-SDK-SCENARIOS-QA-2026-09-16.json), [release package](GOOGLE-ADS-RELEASE-CANDIDATE-2026-09-16.md) and [historical Preview evidence](GOOGLE-ADS-PREVIEW-QA-2026-09-16.md).
+Status: **GOOGLE_ADS_PREVIEW PASS / GA4_URL_PRIVACY PASS / RELEASE BLOCKED / DO_NOT_PUBLISH**. Chrome access restored. History, Site search, Outbound clicks and File downloads are now saved/reopened OFF in the existing GA4 stream; Forms/Scrolls/Video/Page loads unchanged. Real SDK four-consent/private/revoke repeat PASS, including positive click/download suppression. One fresh isolated Vercel Preview claim produced UUID `6138eaa7-011f-45a5-9459-239405a1e6fa`, a Succeeded Ads Lead tag exactly once after hard refresh/Back, and one clean direct GA4 Lead hit. Preview-only email transport disabled and health verified before submission. Measurement tests **39/39**; full verify and all four remote checks pass for tested `ad12ca3`. Production website code/env, Meta and paid advertising unchanged; shared GA4 automatic measurement settings did change. GTM unpublished. Remaining release blocker: no approved isolated Meta dataset/CAPI QA access; durable production storage and production canary remain separate paid-launch gates. See [current final QA](GOOGLE-ADS-FINAL-QA-2026-09-16.md), [current SDK proof](GA4-SDK-SCENARIOS-AFTER-2026-09-16.json), [release package](GOOGLE-ADS-RELEASE-CANDIDATE-2026-09-16.md) and [historical Preview evidence](GOOGLE-ADS-PREVIEW-QA-2026-09-16.md).
 
 ## Current state
 
 | Component | Before | After | Status |
 | --- | --- | --- | --- |
-| GA4 | Direct `gtag.js`, consent-gated | Direct architecture retained; sanitized application context and manual pageviews | History + Search OFF; scoped real SDK repeat PASS; other automatic families/live QA pending |
+| GA4 | Direct `gtag.js`, consent-gated | Direct architecture retained; sanitized application context and manual pageviews | History/Search/Outbound/Downloads OFF; real SDK repeat and fresh Preview clean Lead PASS |
 | GTM | Not present | Optional `NEXT_PUBLIC_GTM_ID`, loaded only after advertising consent | Preview configured; draft not published |
 | Google Ads conversion | Not present | Primary `Lead - successful claim submit` action plus `lead_submit` GTM tag and claim transaction ID | Draft configured; production deploy pending |
-| Consent Mode v2 | Not present | Denied-by-default signals for all four v2 consent types, updated from the existing consent cookie | Code-ready |
-| Attribution | Not persisted | First paid touch stored for 90 days after advertising consent | Code-ready |
+| Consent Mode v2 | Not present | Denied-by-default signals for all four v2 consent types, updated from the existing consent cookie | Real SDK/integration permutations PASS; Preview Lead current Granted/default Denied |
+| Attribution | Not persisted | First paid touch stored for 90 days after advertising consent | Automated contract PASS; fake gclid/UTMs preserved through fresh Preview navigation |
 | Claim payload | No Google attribution | Allowlisted attribution stored in `original_input_snapshot.attribution` | Code-ready |
 | Meta Pixel/CAPI | Existing browser/server `Lead` deduplication | Unchanged | Isolated route/browser transport integration passed; live QA blocked |
 | SEO | Existing metadata, canonicals and routes | Unchanged | Existing checks and build passed |
@@ -19,7 +19,7 @@ Status: **BLOCKED / DO_NOT_PUBLISH**. History + Site search OFF were saved/reope
 
 - Created Google Tag Manager account `LetKasni` and Web container `GTM-WT3B2L8P` for `letkasni.rs`.
 - Added `NEXT_PUBLIC_GTM_ID=GTM-WT3B2L8P` in Vercel only for Preview branch `codex/google-ads-measurement`.
-- Created draft GTM items `DLV - transaction_id`, `CE - lead_submit`, `Conversion Linker - All Pages`, Ads base tag `Google Tag AW-18452620232`, and conversion tag `Lead - successful claim submit`. The container is intentionally unpublished.
+- Created draft GTM items `DLV - transaction_id`, `CE - lead_submit`, `Conversion Linker - All Pages`, Ads base tag `Google Tag AW-18452620232`, and conversion tag `Lead - successful claim submit`. These five tracking items are intentionally unpublished. The export selector confirms the existing published baseline is version 1 Empty Container, not the measurement release.
 - Created Google Ads account `460-732-8439` for LetKasni with billing country Serbia, Serbia Time and EUR. No campaign or spend was activated.
 - Linked GA4 property `letkasni` (`534756949`) to Ads account `460-732-8439` with auto-tagging enabled.
 - Linked the Search Console domain property `letkasni.rs` to the production GA4 web stream.

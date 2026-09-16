@@ -4,6 +4,43 @@ Canonical handoff file for future local and Codex Cloud sessions.
 
 ## Start Here
 
+### Google Preview completed; isolated Meta release gate remains, 2026-09-16
+
+- Supersedes older access/automatic-event/Preview blockers below. Google setup
+  and GA4 URL privacy PASS, full release BLOCKED only on isolated Meta platform
+  QA plus later explicit release approval. NO production/main/env deploy, GTM
+  publication, Meta access/config change or paid advertising.
+- Fresh authenticated health at 12:02:25.532Z: ad12ca352bc2a150efaaaf3057a5a70013933530,
+  dpl_4yR44ySVcomCnHyhNvaK56rSP8R5; both Preview email booleans false, Supabase/
+  Meta CAPI/provider/subscriptions off. Existing application tree unchanged since
+  2903edd; docs/SDK-assertion descendants only. Toolbar deployment reference is
+  not authoritative; backend health pins the serving alias.
+- ONE obvious fake Preview claim accepted: UUID 6138eaa7-011f-45a5-9459-239405a1e6fa.
+  GTM event 73 lead_submit, DLV eventModel.transaction_id string matches UUID,
+  Ads Lead Succeeded/Fired 1 time after hard refresh and browser Back. Linker/AW
+  base tag once per load. Console 0. Existing banner, all four default Denied,
+  Lead update/current Granted. Fake gclid and UTMs survived landing -> form.
+- Actual direct GA4 Lead hit once: same UUID, safe title and sanitized dl/dr;
+  no name/email/phone/gclid/free-form term in inspected hit. Separate legacy
+  generate_lead retained, not a second Primary Ads action. No GA4 tag in GTM.
+- GA4 stream 14595479044 saved/reopened History/Search/Outbound/Downloads OFF;
+  Page loads/Forms/Scrolls/Video unchanged. Shared GA4 behavior changed, NOT
+  production website code/env. Real SDK positive suppression + all4/private/
+  revoke PASS: docs/GA4-SDK-SCENARIOS-AFTER-2026-09-16.json.
+- Tested ad12ca3 all four remote checks PASS. Final exact IDs/current evidence:
+  docs/GOOGLE-ADS-FINAL-QA-2026-09-16.md. No more Preview claims allowed here.
+- Actual GTM workspace export saved 12:10:26Z in docs/GTM-WT3B2L8P-workspace2-2026-09-16.json,
+  sha256 f776ac715d9a71ec070aaf6a4dc3912faed052ca5a9bda6ef201b1ad38504e1d.
+  Draft version 0, existing published rollback version 1 Empty Container verified.
+  node scripts/gtm-export-check.mjs PASS; read-only/no import or publish. Full
+  npm run verify PASS including build after public-font network access permitted.
+- Real Meta platform QA remains BLOCKED: only active production dataset found,
+  no approved isolated QA dataset/Preview CAPI access; local actual-route/helper
+  integration PASS. Do not silently create credentials/copy production tokens.
+  Durable production storage remains the separate programmer/paid-launch gate.
+  Preserve canonical dirty logo/footer changes. Current detailed release package
+  is docs/GOOGLE-ADS-RELEASE-CANDIDATE-2026-09-16.md.
+
 ### Chrome resumed: GA4 privacy fixed and Preview email isolated, 2026-09-16
 
 - Native Chrome app control works; browser-provider inventory/tab creation still
@@ -385,20 +422,23 @@ Canonical handoff file for future local and Codex Cloud sessions.
 ## Generated Status
 
 <!-- BEGIN:generated-status -->
-Generated at: `2026-09-16T11:56:34.040Z`
+Generated at: `2026-09-16T12:13:47.618Z`
 
 Branch: `codex/google-ads-measurement`
 
 Remote: `https://github.com/nezun/let-kasni.git`
 
-Latest local commit: `b4da893 test(measurement): automate isolated SDK scenarios and document launch blockers`
+Latest local commit: `ad12ca3 test(ga4): verify saved automatic link-event suppression`
 
 Worktree status:
 
 ```text
 M CHECKPOINT.md
- M scripts/ga4-sdk-browser-qa.mjs
-?? docs/GA4-SDK-SCENARIOS-AFTER-2026-09-16.json
+ M docs/GOOGLE-ADS-FINAL-QA-2026-09-16.md
+ M docs/GOOGLE-ADS-LAUNCH.md
+ M docs/GOOGLE-ADS-RELEASE-CANDIDATE-2026-09-16.md
+?? docs/GTM-WT3B2L8P-workspace2-2026-09-16.json
+?? scripts/gtm-export-check.mjs
 ```
 
 Useful commands:

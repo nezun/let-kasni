@@ -1,146 +1,164 @@
 # LetKasni Google measurement — final scoped QA, 2026-09-16
 
-**BLOCKED / DO_NOT_PUBLISH / NO_PAID_TRAFFIC**
+**GOOGLE_ADS_PREVIEW=PASS / GA4_URL_PRIVACY=PASS / RELEASE=BLOCKED / DO_NOT_PUBLISH / NO_PAID_TRAFFIC**
 
-This is a measurement QA report, not a production release or a blanket site audit.
-No production deployment/env change, GTM publication, campaign/spend, billing,
-Meta configuration/credential change, real customer test or CRM architecture change.
-PR: https://github.com/nezun/let-kasni/pull/31, branch `codex/google-ads-measurement`.
+Google-side measurement is configured and a fresh protected Vercel Preview Lead
+was verified. The complete release remains blocked on isolated Meta platform QA.
+This is not approval to merge main, deploy production, publish GTM or activate ads.
+
+PR: https://github.com/nezun/let-kasni/pull/31
+Branch: `codex/google-ads-measurement`.
 
 ## Assets and configuration
 
-These Google/Meta assets were verified earlier in this task. Authenticated UI
-access could not be refreshed in the latest pass; do not treat this as a new live
-inspection of every setting.
+GA4 stream/settings and GTM draft/runtime were freshly inspected in Chrome in
+this pass. Ads account/action/auto-tagging/link below were verified earlier in
+this same task; they were not changed or independently reverified today.
 
 | Asset | Non-secret identity/configuration |
 | --- | --- |
-| Google Ads | LetKasni, customer `460-732-8439`; auto-tagging ON; existing GA4 link verified earlier |
+| Google Ads | LetKasni, customer `460-732-8439`; auto-tagging ON; existing correct GA4 link |
 | GA4 | `letkasni`, property `534756949`, account `392752906`; stream letkasni.rs `14595479044`; `G-RVJ906DKVF` |
 | GTM Web | letkasni.rs, account `6376980479`, numeric container `264196113`, `GTM-WT3B2L8P`, workspace `2` |
-| Primary online conversion | `Lead - successful claim submit`, action `7769128224`; Primary / One / no monetary value / data-driven / 30-day click |
+| Primary conversion | `Lead - successful claim submit`, action `7769128224`; Primary / One / no monetary value / data-driven / 30-day click |
 | Conversion ID / label | `18452620232` / `VnU-CKD6zfgcEMjH8t5E` |
 
 Website uses `NEXT_PUBLIC_GTM_ID=GTM-WT3B2L8P`, existing direct GA4
 `NEXT_PUBLIC_GA_MEASUREMENT_ID=G-RVJ906DKVF`, `NEXT_PUBLIC_ANALYTICS_MODE=ga4`.
-Ads ID/label are GTM tag configuration, not invented website environment keys.
-Exact successful backend event is `lead_submit`; Transaction ID is v2 DLV
-`eventModel.transaction_id`, the claim UUID. Never trigger on submit click/start.
-Conversion Linker, AW Google tag, Lead tag, DLV and CE trigger remain five draft
-items, **unpublished**. No Enhanced Conversions PII.
+Ads ID/label belong in GTM, not invented website environment keys.
+Exact successful backend event: `lead_submit`. DLV v2:
+`eventModel.transaction_id`, the accepted claim UUID.
+The five-item GTM workspace is **unpublished**. No Enhanced Conversions PII.
 
-## Completed / blocked
+## Status controls
 
 | Control | Status | Evidence / limitation |
 | --- | --- | --- |
-| Ads account ready; auto-tagging; GA4 linked | DONE earlier | Correct account/property, not reverified in latest access-blocked pass |
-| Lead action; ID/label obtained | DONE earlier | Actual existing Primary/One website action, no duplicate action |
-| Linker; Lead tag; successful-event trigger | DONE draft | Unpublished five-item workspace; exact UUID variable verified earlier |
-| History + Site search OFF | DONE | Saved/reopened earlier; fresh actual SDK no search/extra History PV |
-| Four consent combinations | DONE local SDK | None/marketing: zero GA4 collector hits. Analytics/both: two manual PV, one UUID Lead; all four consent signals captured |
-| Revoke/private-route/return | DONE local SDK | Opt-out true while denied/private, no extra private hit; clean public PV on reconsent |
-| GA4 duplication/privacy | PARTIAL | Manual initial/SPA/Lead clean and once; automatic outbound/download privacy FAIL |
-| Hydrated actual backend form | DONE local only | One fake claim, isolated disk storage, external email/Meta/Supabase/provider disabled; consent denied |
-| Existing Meta regression | DONE local integration | Actual route/CAPI/browser helpers with mocked external boundaries; matching IDs, no reused-claim replay |
-| Real Meta platform dedup | BLOCKED | Only active production dataset found; no approved isolated QA access. No token copied/created |
-| Fresh Vercel Preview / Tag Assistant | BLOCKED | Preview `/api/health` redirects to Vercel login/SSO; task-scoped native Chrome attempts time out |
-| Fresh Preview Lead tag exactly once | BLOCKED | Zero new Preview claims for current candidate. Prior `838c996` positive evidence is historical |
-| GTM published / ready to publish | NOT DONE | Do not publish: fresh Preview and privacy gates are still open |
-| Local checks | DONE | Full verify passed: 39 measurement, 12 workflow, 12 privacy, 5 email, 8 retirement; content/links/benchmark/locales, lint, TS/build |
+| Ads account; auto-tagging; GA4 link | DONE earlier | Existing correct assets; no duplicate account/property/action |
+| Lead action; Conversion ID/Label | DONE earlier | Primary/One website action with neutral value |
+| Conversion Linker; Google tag; Lead tag | DONE draft | Freshly inspected; actual Preview execution; no GA4 tag in GTM |
+| GA4_URL_PRIVACY | PASS | Four automatic URL-bearing settings saved OFF; positive real-SDK suppression repeat and actual clean Preview Lead hit |
+| CONSENT_AND_ADMIN | PASS local SDK/integration | All four consent modes + revoke/private/return; actual Preview Lead default Denied/update+current Granted for all four signals |
+| GOOGLE_ADS_PREVIEW | PASS | One fresh backend-confirmed fake claim; UUID resolved as string; Lead tag Succeeded/Fired 1 time after hard refresh + Back |
+| GA4 duplication checked | DONE scoped | One direct destination and one Lead hit; separate legacy generate_lead retained, not a second Primary Ads conversion |
+| META_LOCAL_INTEGRATION | PASS | Actual route/CAPI/browser helpers tested with external boundaries mocked; matching event IDs; no reuse replay |
+| META_LIVE_PREVIEW | BLOCKED | No approved isolated Pixel/dataset + Preview CAPI test access; production Meta deliberately not reused |
+| Preview email isolation | DONE | Preview-branch-only empty-value override; fresh health confirms email transport and admin recipient false |
+| RELEASE_CHECKS | PASS tested candidate | 39 measurement, 12 workflow, 12 privacy, 5 email, 8 retirement; content/links/benchmark/locales/lint/TS/build; all four remote checks |
+| RELEASE_APPROVAL | NOT_REQUESTED | Full package not ready while isolated Meta platform gate remains |
+| PRODUCTION_DEPLOY / GTM_PUBLISH | NOT_DONE | Expressly prohibited; draft ready but not yet release-cleared |
+| PAID_TRAFFIC | NOT_AUTHORIZED | No campaigns/budgets/keywords/negatives/spend |
 
-## Test evidence
+## Fresh Vercel Preview evidence
 
-### Actual Google SDK, collector blocked
+Test URL:
 
-At `2026-09-16T11:21:31.182Z`, repeatable runner executed all four consent modes
-plus revoke/private/return using actual compiled tracking modules and real
-`gtag/js?id=G-RVJ906DKVF`. Local URL:
+`https://let-kasni-git-codex-goog-2c8116-audiblelover2018-1361s-projects.vercel.app/?gclid=TEST_GCLID_FINAL_20260916&utm_source=google&utm_medium=cpc&utm_campaign=SEARCH_RS_CORE&utm_term=test-google-ads`
 
-`http://127.0.0.1:3016/?qa_consent=analytics&utm_source=google&utm_medium=cpc&utm_campaign=SEARCH_RS_CORE&q=TEST_PRIVATE_MARKER_20260916&email=TEST_PRIVATE_MARKER_20260916%40example.com`
+At `2026-09-16T12:02:25.532Z`, authenticated `/api/health` confirmed:
+- SHA `ad12ca352bc2a150efaaaf3057a5a70013933530`;
+- deployment `dpl_4yR44ySVcomCnHyhNvaK56rSP8R5`;
+- Supabase/local-admin fallback/Meta CAPI/marketing subscriptions false;
+- flight provider off; GA4 mode;
+- Preview email transport false; admin claim email recipient false.
 
-CSP and transport hooks precede SDK loading; no-referrer blocks fake private
-URLs in script request referrers. No marker was sent to Google; no Ads/Meta SDK,
-application backend/email or real identity was used. SDK batches were parsed
-line-by-line after the actual flush delay. No cookie/client/session IDs retained.
+Before this deployment a branch-specific `RESEND_API_KEY` whitespace override
+was saved ONLY for Preview branch `codex/google-ads-measurement`.
+Existing `getEnv` trims it to undefined, disabling both notification transports.
+No production secret was read, rotated, copied or changed. No direct Notion/CRM
+webhook exists in the actual submit route. Preview fallback storage is not durable
+production storage and is not represented as such.
 
-Observed `page_view` twice and `lead_submit` once with the same fake UUID called
-twice; separate deliberately requested legacy `generate_lead` is not the Ads
-conversion. `scroll`, static local `form_start`/`form_submit` metadata clean;
-input marker not captured. Positive reserved `.invalid` outbound/file links
-produce **click and file_download with the private marker in link_url/file_name**.
-This is a synthetic demonstrated collection risk, not evidence that real
-customer data was sent. Video embeddings are absent in current source, not a
-positive video measurement validation.
+One obvious fake claim only: QA / TEST ONLY, reserved example.com test address,
+no phone, reservation/documents or real passenger details. The disabled submit
+button remained disabled for an invalid email; that state created no Lead.
+Normal landing -> focused form navigation retained the fake gclid and UTMs in
+the URL. Consent was granted through the existing banner, not overridden.
 
-Primary proof: [SDK scenarios](GA4-SDK-SCENARIOS-QA-2026-09-16.json).
-Supporting [automatic-family capture](GA4-SDK-AUTO-EVENTS-QA-2026-09-16.json) and
-[earlier after-two-settings capture](GA4-SDK-ISOLATED-QA-AFTER-2026-09-16.json).
+Backend UI acknowledgement: “Podaci su primljeni. Javićemo Vam se sa rezultatom provere.”
+GTM event **73 lead_submit**: DLV transaction string
+**6138eaa7-011f-45a5-9459-239405a1e6fa**.
+Lead tag **Succeeded**; summary **Fired 1 time**, including after hard refresh
+and browser History -> Back. Linker and AW Google tag fired once per page load
+(seven loads during this debugging session), not on Lead alone.
+Tag Assistant Console **(0)**. No GTM configuration changes were needed.
 
-### Hydrated local form, denied consent
+Consent at Lead: `ad_storage`, `analytics_storage`, `ad_user_data`,
+`ad_personalization` all default **Denied**, update and current **Granted**.
+Four individual consent permutations/private/revoke cases are positively
+covered by the isolated SDK/integration tests, not claimed as four separate
+fresh Preview submissions.
 
-New empty QA directory `/private/tmp/letkasni-local-qa.oma3Cv`, production build
-served on localhost:3017, no existing local claims reused. Health confirmed
-Supabase/Meta CAPI off, provider off, marketing subscriptions off, both Preview
-email booleans false. No direct Notion/CRM webhook in actual submit route.
+Actual GA4 hit details: exactly one `lead_submit` to `G-RVJ906DKVF`,
+with the same UUID, `gcs=G111`, form locale sr and provider_skipped_budget.
+Page location:
+`https://let-kasni-git-codex-goog-2c8116-audiblelover2018-1361s-projects.vercel.app/proveri-let?utm_source=google&utm_medium=cpc&utm_campaign=SEARCH_RS_CORE`.
+Referrer: Preview origin + /. Safe title: `LetKasni | /proveri-let`.
+No test name/email/phone, fake click ID or free-form term in this inspected hit.
+One separate existing `generate_lead` hit is intentional legacy tracking.
+No duplicate GA4 destination introduced.
 
-Start URL:
-`http://127.0.0.1:3017/?gclid=TEST_GCLID_123&utm_source=google&utm_medium=cpc&utm_campaign=SEARCH_RS_CORE&utm_term=test-google-ads`
+Deployment precision: the connected popup's Vercel toolbar showed a different
+injected toolbar deployment reference. The authenticated backend health above
+pins the serving alias; `git diff 2903edd..ad12ca3 -- src package.json package-lock.json next.config.ts`
+is empty. Application tracking/source/config tree has therefore not changed
+between those descendants. Do not infer deployment identity from the toolbar.
 
-Rejected optional cookies; navigated to `/proveri-let?step=2&issue=delay`.
-Incomplete/invalid contact state disabled submit and produced no Lead. ONE fake
-claim POST `/claim/submit` returned 200 and inline successful acceptance message.
-At `2026-09-16T11:30:30.201Z`, isolated file contained exactly one claim UUID
-`bfe49b2a-4fcb-403d-b667-466c9b179fb2`, still one after refresh/Back. Zero tracking
-scripts/resources/dataLayer events on the final page, as expected with consent
-denied. Attribution parameters disappear from navigation URL; marketing-denied
-attribution must not be persisted. This does **not** verify marketing-granted
-Vercel attribution or a live GTM conversion. Screenshot inspected locally:
-`.gstack/qa-reports/screenshots/local-claim-accepted.png` (only obvious fake data).
-No local-app console error observed; Vercel SSO errors are separate historical
-browser log entries, not application errors.
+Fake gclid + Tag Assistant Succeeded proves wiring/runtime execution, NOT a
+conversion attributed in Ads to a real paid interaction. No own ad was clicked.
 
-## Minimal remaining operational actions
+## GA4 shared setting fix and actual SDK repeat
 
-1. Restore task-scoped authenticated Google/Vercel browser access. Broad private
-   Gmail/CRM capture was rejected; no bypass, protection disabling or cookie/token
-   extraction. This is an access blocker, not an instruction to weaken security.
-2. In the same GA4 stream, set only **Outbound clicks + File downloads OFF** and
-   repeat the positive SDK scenarios. History/Search are already OFF. Keep clean
-   tested Forms/Scrolls and unrelated settings unchanged. Latest owner authority
-   covers safe remaining fixes, but this setting has **not** been saved.
-3. On the latest PR Preview verify `/api/health` exact deployed SHA and Preview
-   email booleans, Supabase/Meta/provider/subscription configuration. False email
-   transport plus isolated storage is needed before a new fake claim; booleans
-   do not certify all downstream routing when transport is enabled.
-4. Complete fresh GTM Preview / Tag Assistant with one isolated fake successful
-   claim, exact UUID Lead once, failed validation/no Lead, granted attribution
-   across internal navigation, four consent states, refresh/Back and clean GA4.
-5. Real Meta platform QA requires approved isolated dataset/secure test access.
-   Creating persistent credentials/access or copying production token is risky
-   and is left unexecuted. `META_TEST_EVENT_CODE` alone does not isolate browser
-   Pixel data. Production dataset `2347588039400204` is not a QA dataset.
-6. Freeze current PR SHA/Preview and tested GTM draft only after these gates pass.
-   Production website deploy/GTM publish/canary remain expressly prohibited by
-   this task; do not transfer earlier release approval to an untested candidate.
+Saved/reopened stream 14595479044: History changes OFF, Site search OFF,
+Outbound clicks OFF, File downloads OFF. The last two were safely saved in
+this pass under the owner's authority to finish remaining fixes.
+Page loads, Forms, Scrolls and Video remain unchanged ON; redaction unchanged.
+These are shared GA4 settings, so production measurement behavior changed for
+those automatic families; **production website code/environment did not change**.
 
-**Next exact state: BLOCKED_PENDING_ACCESS_AND_PREVIEW_QA**, not
-READY_FOR_PR31_DEPLOY / READY_FOR_GTM_PUBLISH / READY_FOR_PRODUCTION_CANARY /
-READY_TO_BUILD_PAUSED_SEARCH_CAMPAIGN. No demonstrated additional tracking-code
-fix is required yet for the two Google automatic-family issues; fix shared
-settings first and retest. Durable production storage remains a separate paid
-launch blocker; no database/CRM work was performed here.
+At `2026-09-16T11:51:35.911Z` the existing real SDK fixture repeated all four
+consent modes and revoke/private/return: PASS. Positive form/input-marker checks
+clean. Actual positive outbound/file clicks now produce zero corresponding hits:
+**PASS_SUPPRESSED**, asserted by optional `--expect-auto-link-events-off`.
+Collector transport was blocked before SDK loading: no private marker sent to
+Google. Video embeds absent in current source; no positive video test claimed.
+
+Current proof: [after-settings SDK scenarios](GA4-SDK-SCENARIOS-AFTER-2026-09-16.json).
+Earlier failing captures are historical before-settings evidence, not open failures.
+Earlier denied-consent localhost and older Preview canaries remain historical;
+the current fresh Preview claim above supplies the new Google runtime evidence.
+
+## Genuine remaining blockers / exact next state
+
+**BLOCKED_PENDING_ISOLATED_META_QA**, not full READY_FOR_RELEASE_APPROVAL.
+The Google-specific measurement gate is complete; no demonstrated additional
+Google code fix is required.
+
+1. Meta live QA needs an approved isolated QA Pixel/dataset and Preview-only CAPI
+   test access. Only active production dataset `2347588039400204` was found in
+   business `2535168546914445`. No new persistent access/token was created;
+   no production Meta dataset/token/campaign was changed. `test_event_code`
+   alone does not isolate browser Pixel audience events.
+2. Actual [GTM draft export](GTM-WT3B2L8P-workspace2-2026-09-16.json) is now saved
+   and verified with `node scripts/gtm-export-check.mjs`; draft version 0 is not
+   published. Existing Empty Container version 1 was verified in the selector.
+   After the Meta gate: freeze final candidate and revalidate export, seek ONE explicit
+   release approval for code/env/GTM/canary together. None is executed here.
+3. Before paid traffic, durable/atomic production claim storage must independently
+   be verified/resolved in the separate programmer workstream. No database work
+   or claim deletion happened here. Production canary and owner-reviewed
+   keywords/negatives remain later gates.
 
 ## Repeatability / automation
 
-Two new health-contract tests run in the existing unchanged CI, bringing
-measurement checks to 39. Real SDK scenario orchestration is now reusable:
-start `node scripts/ga4-sdk-isolated-fixture.mjs`, then run
-`LETKASNI_QA_BROWSE_BINARY=/absolute/path/to/existing/browse node scripts/ga4-sdk-browser-qa.mjs`.
-Use only the isolated owned browser; never import real cookies or deploy the
-fixture. Automatic-family FAIL remains explicit even when consent assertions
-pass. Run `npm run verify` for local regression/build verification.
+39 measurement checks run in unchanged CI. Repeat privacy QA with the existing
+isolated owned browser, no real cookies:
 
-Authenticated settings, protected Preview and Meta platform evidence still
-require safe access/human security approval. Next automation improvement: a
-secure isolated Preview fixture/environment plus GTM draft export contract,
-so future canaries repeat without touching production customer operations.
+`node scripts/ga4-sdk-isolated-fixture.mjs`, then
+`LETKASNI_QA_BROWSE_BINARY=/absolute/path/to/existing/browse node scripts/ga4-sdk-browser-qa.mjs docs/GA4-SDK-SCENARIOS-AFTER-2026-09-16.json --expect-auto-link-events-off`.
+
+Never deploy the fixture. Stop its local server/browser afterwards.
+Read-only GTM export validation: `node scripts/gtm-export-check.mjs [export.json]`.
+Run `npm run verify` for regressions/build. Future improvement: approved isolated
+Meta Preview environment and an exported-GTM contract artifact; mock/static checks
+must never substitute for real platform acceptance/dedup evidence.
