@@ -1,6 +1,6 @@
 # Google Ads launch readiness
 
-Status: v0.2.0 is code-ready on `codex/google-ads-measurement` and approved for release; production measurement remains disabled until the open launch blockers below are cleared.
+Status: **NEED_CODE_FIX / DO_NOT_PUBLISH** after the 2026-09-16 controlled Preview QA. The Ads tag fired once, but its transaction-ID variable was undefined. The latest task explicitly prohibits production code deployment, superseding the earlier release approval. See [Preview QA evidence](GOOGLE-ADS-PREVIEW-QA-2026-09-16.md).
 
 ## Current state
 
@@ -25,7 +25,7 @@ Status: v0.2.0 is code-ready on `codex/google-ads-measurement` and approved for 
 - Linked the Search Console domain property `letkasni.rs` to the production GA4 web stream.
 - Prepared bilingual Privacy Policy 1.3 and consent-detail wording that explicitly names Google Tag Manager / Google Ads, explains the limited conversion payload and forces a fresh choice through a new consent-notice version. The user approved PP 1.3 on 2026-09-15; this copy is not in production until the branch is explicitly released.
 - The user completed Google Ads billing onboarding and advertiser verification. The account remains without a campaign or spend.
-- Created the native Google Ads conversion `Lead - successful claim submit`: category `Submit lead form`, Primary, fixed value EUR 0, Count `One`, 30-day click-through window, data-driven attribution, enhanced conversions off. Conversion ID `18452620232`; label `VnU-CKD6zfgcEMjH8t5E`.
+- Created the native Google Ads conversion `Lead - successful claim submit`: category `Submit lead form`, Primary, no monetary value (verified in the Ads UI), Count `One`, 30-day click-through window, data-driven attribution, enhanced conversions off. Conversion ID `18452620232`; label `VnU-CKD6zfgcEMjH8t5E`; conversion action ID `7769128224`.
 
 ## Actual tracking flow
 
@@ -199,12 +199,14 @@ This is a paused planning draft, not approval to create or activate a campaign. 
 
 Do not start paid traffic until all are cleared:
 
-1. **Cleared 2026-09-15:** production release of approved PP 1.3 and measurement v0.2.0 is authorized.
+1. The latest task prohibits production website deployment. Earlier PP 1.3 approval remains recorded, but it is not authority to deploy in this setup-only task.
 2. Configure durable Supabase claim persistence in Vercel Production and pass `REQUIRE_SUPABASE=1 npm run production:check`. The `/tmp` fallback is not atomic or durable across serverless instances and cannot guarantee one claim UUID/transaction ID under retries or concurrent submissions.
-3. Run one controlled successful claim in GTM Preview and confirm the Ads conversion tag fires exactly once with the claim UUID as transaction ID. Page-load and pre-submit negative checks already pass.
+3. **Failed gate 2026-09-16:** one controlled successful Preview claim produced one Ads tag firing, but `DLV - transaction_id` returned `undefined`. Normal `gtag` journey events expose the UUID under `eventModel.transaction_id`; the interrupted-submit recovery path uses a top-level object field. Resolve both event shapes without duplicate dispatch or stale UUID fallback, add a contract regression, then repeat the positive Preview QA. Do not merely change the DLV path and leave recovery incorrect.
 4. Publish GTM only after that positive Preview QA, then add the existing GTM ID to Vercel Production as part of the approved release.
 5. Run one controlled production submission and confirm exactly one Ads conversion with no GA4/Meta regression.
 6. Keep `SEARCH_RS_CORE` paused until open items 2-5 pass. Campaign, keyword and negative-keyword work requires a separate owner-reviewed step.
+7. Preview health reports `metaCapiConfigured=false`, and its browser has no Meta Pixel. Production reports `metaCapiConfigured=true`. The existing local Meta check is not end-to-end Preview Meta/CAPI proof; use a separately approved test-safe Meta configuration for regression QA without copying production secrets or altering production Meta tracking.
+8. The inspected GA4 Lead hit contains no contact PII, but `page_location` and `page_referrer` retain the full fake campaign query. Existing GA4 config/navigation behavior must be audited for URL-query PII protection before declaring privacy QA complete.
 
 ## Nice to have
 
