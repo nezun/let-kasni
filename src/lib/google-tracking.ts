@@ -73,7 +73,8 @@ export function trackGoogleJourneyEvent(
 
   if (marketingAllowed) {
     window.dataLayer = window.dataLayer ?? [];
-    window.dataLayer.push({ event: eventName, ...clean });
+    // Match the eventModel exposed by gtag, without dispatching a second event.
+    window.dataLayer.push({ event: eventName, ...clean, eventModel: clean });
     return true;
   }
 
@@ -154,7 +155,8 @@ export function trackRecoveredLeadSubmitOnce(input: {
     (eventName, params) => {
       if (typeof window === "undefined" || !hasMarketingConsent()) return false;
       window.dataLayer = window.dataLayer ?? [];
-      window.dataLayer.push({ event: eventName, ...cleanParams(params) });
+      const clean = cleanParams(params);
+      window.dataLayer.push({ event: eventName, ...clean, eventModel: clean });
       return true;
     },
   );

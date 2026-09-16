@@ -120,7 +120,8 @@ The existing `NEXT_PUBLIC_GA_MEASUREMENT_ID` remains the only GA4 configuration.
 2. Put its exact `GTM-...` ID into `NEXT_PUBLIC_GTM_ID` in Vercel Preview first.
 3. Create a Data Layer Variable:
    - Name: `DLV - transaction_id`
-   - Data Layer Variable Name: `transaction_id`
+   - Data Layer Variable Name: `eventModel.transaction_id`
+   - Both native `gtag` events and the Ads-only fallback/recovery object carry a fresh `eventModel.transaction_id`. Do not use a default-value fallback to a stale top-level UUID.
    - Version: 2
 4. Create a **Conversion Linker** tag:
    - Trigger: `All Pages`
