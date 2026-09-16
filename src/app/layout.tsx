@@ -77,6 +77,9 @@ export default async function RootLayout({
     <html
       lang={locale}
       className={`${sora.variable} ${dmSans.variable} ${jetBrainsMono.variable} h-full antialiased`}
+      // globals.css ima scroll-behavior: smooth (sidra na istoj strani); ovim Next pri prelasku na drugu
+      // stranu privremeno gasi glatko skrolovanje, pa nova strana kreće od vrha umesto da klizi odozdo
+      data-scroll-behavior="smooth"
       suppressHydrationWarning
     >
       <head>
