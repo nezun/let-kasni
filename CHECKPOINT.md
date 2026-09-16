@@ -4,6 +4,27 @@ Canonical handoff file for future local and Codex Cloud sessions.
 
 ## Start Here
 
+### Google Ads transaction-ID correction, 2026-09-16 — PREVIEW ONLY
+
+- User approved minimal PR #31 fix, regression and one additional fake Preview
+  submission. No production deployment, GTM publication or advertising allowed.
+- Existing feature worktree: `letkasni-ads-measurement`, branch
+  `codex/google-ads-measurement`; canonical checkout's unrelated logo/footer edits
+  preserved. Merged current main e7dc38c without reversing SEO retirement.
+- Fix commit 838c996 normalizes fallback/recovery to fresh `eventModel` while
+  preserving one dispatch. Existing GTM DLV now `eventModel.transaction_id`, v2,
+  no stale default. Container GTM-WT3B2L8P remains an unpublished five-item draft.
+- Ads tests 28/28, all other verification suites and lint passed locally. Local
+  build could not fetch Google Fonts; GitHub full verify passed in 56 seconds.
+- Preview deployment dpl_ECR4fu26sk6T87jTnhNBiPAejiyh confirmed fix SHA;
+  one approved repeat claim cce4529e-7aae-4961-bb0d-c282cdf5381b succeeded.
+  Native Ads tag resolved that UUID and fired exactly once after refresh/Back;
+  GA4 sent one Lead with no inspected contact PII, all four consent states correct.
+  Both Vercel Preview checks passed. GTM still unpublished; remaining URL-privacy
+  and test-safe Meta QA keep overall NEED_CODE_FIX / DO_NOT_PUBLISH. See
+  `docs/GOOGLE-ADS-PREVIEW-QA-2026-09-16.md` for first-test evidence and remaining
+  Meta Preview, GA4 URL-privacy and durable-production-storage blockers.
+
 ### Retirement release approved, 2026-09-15
 
 - Owner explicitly approved deploy of the final scope below: airline and regional
@@ -255,48 +276,20 @@ Canonical handoff file for future local and Codex Cloud sessions.
 ## Generated Status
 
 <!-- BEGIN:generated-status -->
-Generated at: `2026-09-16T09:25:19.209Z`
+Generated at: `2026-09-16T09:36:02.448Z`
 
 Branch: `codex/google-ads-measurement`
 
 Remote: `https://github.com/nezun/let-kasni.git`
 
-Latest local commit: `e5993f5 docs: record Google Ads Preview QA blockers`
+Latest local commit: `838c996 fix: align Google Ads transaction ID across GTM delivery paths`
 
 Worktree status:
 
 ```text
-M  AGENTS.md
-UU CHECKPOINT.md
-A  docs/SEO-RETIREMENT-RUNBOOK.md
-UU package.json
-M  scripts/check-production.mjs
-M  scripts/content-qa.mjs
-M  scripts/production-fetch-mock.mjs
-A  scripts/seo-retirement-audit.py
-A  scripts/seo-retirement-browser.mjs
-A  scripts/seo-retirement-report.py
-A  scripts/seo-retirement.test.mjs
-A  src/app/not-found.tsx
-M  src/components/site-footer.tsx
-M  src/content/blog/daily-2026-05-02.ts
-D  src/content/blog/daily-2026-05-05.ts
-M  src/content/blog/daily-2026-05-07.ts
-M  src/content/blog/daily-2026-05-09.ts
-D  src/content/blog/daily-2026-05-15.ts
-D  src/content/blog/daily-2026-05-16.ts
-D  src/content/blog/daily-2026-05-17.ts
-D  src/content/blog/daily-2026-05-18.ts
-D  src/content/blog/daily-2026-05-19.ts
-D  src/content/blog/daily-2026-05-22.ts
-D  src/content/blog/daily-2026-05-23.ts
-D  src/content/blog/daily-2026-05-24.ts
-M  src/content/blog/index.ts
-A  src/content/seo-retired-airlines.json
-A  src/content/seo-retired-programmatic.json
-A  src/content/seo-suggested-removals.json
-M  src/lib/blog-content-enhancements.ts
-M  src/lib/cornerstones.ts
+M CHECKPOINT.md
+ M docs/GOOGLE-ADS-LAUNCH.md
+ M docs/GOOGLE-ADS-PREVIEW-QA-2026-09-16.md
 ```
 
 Useful commands:

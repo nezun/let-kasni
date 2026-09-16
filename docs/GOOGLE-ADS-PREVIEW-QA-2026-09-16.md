@@ -1,6 +1,6 @@
 # Google Ads Preview QA — 2026-09-16
 
-Decision: **NEED_CODE_FIX / DO_NOT_PUBLISH**. No production code deploy, GTM publish, campaign, budget, keywords, billing or Meta changes were performed during this QA pass.
+Decision: **NEED_CODE_FIX / DO_NOT_PUBLISH** for remaining URL privacy / Meta QA. The transaction-ID failure below is historical and is now corrected and verified in the second pass. No production code deploy, GTM publish, campaign, budget, keywords, billing or Meta changes were performed.
 
 ## Assets and configuration
 
@@ -61,3 +61,51 @@ Only the browser's attribution store was inspected. Backend durable attribution 
 Repeatability: the existing automated Google Ads tests remain useful but missed the GTM field-path contract. Next automation improvement is an integration check that resolves the exported GTM conversion transaction variable against real `gtag`/recovery message shapes.
 
 Re-run after documenting this QA: Google Ads 25/25 passed; privacy 12/12 and PP 1.3 SR/EN passed; `meta:check` passed its source-presence check but explicitly reported Meta env unconfigured/runtime disabled. `git diff --check` passed. These checks do not clear the live Preview failures above. Only documentation was edited locally in this QA pass; no commit/push or code deployment was performed.
+
+## Approved transaction-ID correction and repeat test
+
+The owner explicitly approved the minimal fix, regression and one additional
+disposable Preview submission. This supersedes only follow-up items 1 and 3 above.
+
+- Fix: commit `838c99682eaed8206f8bcc5988b90d405bee8627`, PR #31 feature branch
+  only. Current main e7dc38c was merged without reversing SEO retirement; unrelated
+  canonical logo/footer edits were preserved.
+- GTM: edited the existing `DLV - transaction_id`, v2, to
+  `eventModel.transaction_id`, no default. Fallback/recovery code now includes a
+  fresh eventModel without a second conversion dispatch. No duplicate assets/tags.
+- New Preview health confirmed the exact fix SHA and deployment
+  `dpl_ECR4fu26sk6T87jTnhNBiPAejiyh` before submission.
+- Test URL: https://let-kasni-git-codex-goog-2c8116-audiblelover2018-1361s-projects.vercel.app/?gclid=TEST_GCLID_FIXED_20260916&utm_source=google&utm_medium=cpc&utm_campaign=SEARCH_RS_CORE&utm_term=test-google-ads
+- Exactly one additional claim: TEST/QA names, unique example.com email, no
+  phone or real customer data. BEG–LHR, direct, Air Serbia, 2026-09-15.
+- Claim UUID: `cce4529e-7aae-4961-bb0d-c282cdf5381b`.
+
+| Repeat check | Observed result |
+| --- | --- |
+| Validation | Required-choice error on step 1; before positive submission the Lead tag was Not Fired |
+| Backend success | Inline `Podaci su primljeni. Javićemo Vam se sa rezultatom provere.`; submit disabled |
+| GTM event / variable | One `lead_submit` (event 46); DLV return type string, value exactly the new claim UUID |
+| Native Ads tag | Succeeded; Display Variables as Values showed Transaction ID exactly that UUID, actual conversion ID `18452620232` / label `VnU-CKD6zfgcEMjH8t5E` |
+| Duplicate behavior | Summary Fired 1 time before and after form refresh and browser Back to landing; no extra Lead |
+| Browser dedup | Session storage delivery key for the new claim UUID returned `1` after refresh/Back |
+| Consent | All four defaults Denied, current/update Granted at Lead after test consent selection; withdrawal/grant QA did not create a Lead |
+| Attribution | New fake gclid plus google/cpc/SEARCH_RS_CORE/test-google-ads persisted in `letkasni-attribution-v1`; initial URL/referrer stored without query; navigation retained allowlisted URL parameters |
+| Linker / base | Fired 3 times before refresh/Back, 5 after the resulting page loads; no extra conversion |
+| GA4 | Existing on-page gtag config for `G-RVJ906DKVF`, no new GA4 GTM tag; one Lead hit with same `ep.transaction_id`, no inspected name/email/phone parameters |
+| Diagnostics | Tag Assistant Console (0); container quality Good |
+| Meta | Still NOT VERIFIED: fbq undefined, Preview metaCapiConfigured false; no Meta code/config change |
+| GA4 URL privacy | Still INCOMPLETE: fake query remains in GA4 dl/dr; no contact PII in this test but general URL leakage protection not cleared |
+| GTM publish | NOT DONE deliberately; five-item draft remains unpublished pending complete QA |
+
+Validation: Google Ads 28/28; all other workflow/privacy/email/SEO/content/locales
+suites and lint passed locally. Local build was network-blocked fetching Google
+Fonts, not a source compilation failure; GitHub full verify passed (56s), both
+Vercel Preview builds passed. No attributed paid-click report is claimed for a
+fake gclid. Durable backend attribution/storage remains unverified and unchanged.
+
+Automation: the three new tests run automatically inside `google-ads:check` and
+the existing verify CI, resolving the documented GTM variable path against normal,
+fallback and recovery messages and checking consent/exact-once/stale UUID behavior.
+Next: separately approve GA4 URL-privacy correction and safe Meta Preview QA, then
+complete the release gate, approved production deployment/GTM publication and
+production canary. Durable claim storage is a separate prerequisite before spend.

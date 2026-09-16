@@ -1,6 +1,6 @@
 # Google Ads launch readiness
 
-Status: **NEED_CODE_FIX / DO_NOT_PUBLISH** after the 2026-09-16 controlled Preview QA. The Ads tag fired once, but its transaction-ID variable was undefined. The latest task explicitly prohibits production code deployment, superseding the earlier release approval. See [Preview QA evidence](GOOGLE-ADS-PREVIEW-QA-2026-09-16.md).
+Status: **NEED_CODE_FIX / DO_NOT_PUBLISH**. The approved 2026-09-16 transaction-ID correction is verified on Preview: one Lead firing, correct fresh claim UUID, no extra Lead after refresh/Back, 28/28 automated Ads tests and all GitHub/Vercel checks passed. GA4 URL privacy and test-safe Meta Preview verification remain open; the full launch gate is not cleared. The latest task explicitly prohibits production code deployment, superseding earlier release approval. See [Preview QA evidence](GOOGLE-ADS-PREVIEW-QA-2026-09-16.md).
 
 ## Current state
 
@@ -202,7 +202,7 @@ Do not start paid traffic until all are cleared:
 
 1. The latest task prohibits production website deployment. Earlier PP 1.3 approval remains recorded, but it is not authority to deploy in this setup-only task.
 2. Configure durable Supabase claim persistence in Vercel Production and pass `REQUIRE_SUPABASE=1 npm run production:check`. The `/tmp` fallback is not atomic or durable across serverless instances and cannot guarantee one claim UUID/transaction ID under retries or concurrent submissions.
-3. **Failed gate 2026-09-16:** one controlled successful Preview claim produced one Ads tag firing, but `DLV - transaction_id` returned `undefined`. Normal `gtag` journey events expose the UUID under `eventModel.transaction_id`; the interrupted-submit recovery path uses a top-level object field. Resolve both event shapes without duplicate dispatch or stale UUID fallback, add a contract regression, then repeat the positive Preview QA. Do not merely change the DLV path and leave recovery incorrect.
+3. **Transaction-ID gate corrected and passed 2026-09-16:** commit `838c996` gives fallback/recovery a fresh `eventModel`, and the existing v2 DLV reads `eventModel.transaction_id`. Three new contract regressions cover normal/fallback/recovery, consent and stale UUID prevention. The approved second fake Preview claim resolved UUID `cce4529e-7aae-4961-bb0d-c282cdf5381b` in the native Ads tag, which succeeded exactly once before and after refresh/Back. Complete the remaining GA4 URL privacy and test-safe Meta verification before calling the entire measurement QA passed.
 4. Publish GTM only after that positive Preview QA, then add the existing GTM ID to Vercel Production as part of the approved release.
 5. Run one controlled production submission and confirm exactly one Ads conversion with no GA4/Meta regression.
 6. Keep `SEARCH_RS_CORE` paused until open items 2-5 pass. Campaign, keyword and negative-keyword work requires a separate owner-reviewed step.
