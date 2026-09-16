@@ -61,6 +61,12 @@ const eventFamilies = ["form_start", "form_submit", "click", "file_download"].ma
   const hits = automatic.hits.filter(h => h.event === event);
   return { event, status: !hits.length ? "NOT_OBSERVED" : hits.some(h => h.privateMarkerPresent) ? "FAIL" : "PASS", hits };
 });
+if (process.argv.includes("--expect-auto-link-events-off")) {
+  for (const family of eventFamilies.filter(f => ["click", "file_download"].includes(f.event))) {
+    assert.equal(family.hits.length, 0, `${family.event} must remain suppressed after the saved stream change`);
+    family.status = "PASS_SUPPRESSED";
+  }
+}
 scenarios.push({ mode: "automatic-families", eventFamilies });
 const report = { testedAt: new Date().toISOString(), scope: "localhost real Google SDK; collector blocked; no backend/platform acceptance", scenarios };
 const output = path.resolve(process.argv[2] ?? "docs/GA4-SDK-SCENARIOS-QA-2026-09-16.json");

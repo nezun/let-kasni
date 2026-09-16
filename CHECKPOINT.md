@@ -4,6 +4,28 @@ Canonical handoff file for future local and Codex Cloud sessions.
 
 ## Start Here
 
+### Chrome resumed: GA4 privacy fixed and Preview email isolated, 2026-09-16
+
+- Native Chrome app control works; browser-provider inventory/tab creation still
+  time out. Use task-scoped native app tabs, not cookie/token extraction.
+- Refreshed GA4 stream 14595479044 / G-RVJ906DKVF before edits (old tab was stale).
+  Saved only Outbound clicks + File downloads OFF and reopened editor: both OFF,
+  History checkbox 0, Site search OFF; Page loads/Forms/Scrolls/Video unchanged ON.
+- Actual SDK four-consent + revoke/private/return repeat PASS. Positive local form
+  metadata PASS, click/file_download PASS_SUPPRESSED after actual clicks. New proof:
+  docs/GA4-SDK-SCENARIOS-AFTER-2026-09-16.json. Runner adds explicit optional
+  suppression assertions; no old test weakened or website tracking source changed.
+- Authenticated Preview health b4da893 / dpl_8o6AR4m9aJNZPBJqwFnd6w9UmqKe available:
+  no Supabase/Meta CAPI/provider/marketing subscriptions, no admin email recipient,
+  but email transport initially ON. Saved a whitespace RESEND_API_KEY override
+  ONLY for Preview branch codex/google-ads-measurement (existing getEnv trims to
+  undefined); no production secret read/rotated/changed. Vercel confirmed saved
+  and new deployment needed. Verify new Preview health false before fake claim.
+- Next in progress: fresh branch Preview deployment, GTM draft/Tag Assistant,
+  one isolated fake successful claim with attribution and UUID exactly once.
+  No production/main deploy, GTM publish, new Meta access or paid actions.
+  Prior report/access and automatic-family failures below are historical.
+
 ### Remaining measurement QA, 2026-09-16 — BLOCKED / NO PRODUCTION
 
 - Latest owner authority: autonomously finish all safe remaining work; leave
@@ -363,26 +385,20 @@ Canonical handoff file for future local and Codex Cloud sessions.
 ## Generated Status
 
 <!-- BEGIN:generated-status -->
-Generated at: `2026-09-16T11:31:39.469Z`
+Generated at: `2026-09-16T11:56:34.040Z`
 
 Branch: `codex/google-ads-measurement`
 
 Remote: `https://github.com/nezun/let-kasni.git`
 
-Latest local commit: `2903edd fix(qa): expose Preview-only email isolation booleans with regressions`
+Latest local commit: `b4da893 test(measurement): automate isolated SDK scenarios and document launch blockers`
 
 Worktree status:
 
 ```text
 M CHECKPOINT.md
- M docs/GOOGLE-ADS-LAUNCH.md
- M docs/GOOGLE-ADS-RELEASE-CANDIDATE-2026-09-16.md
- M scripts/ga4-sdk-isolated-fixture.mjs
- M scripts/preview-measurement-safety.regression-3.test.mjs
-?? docs/GA4-SDK-AUTO-EVENTS-QA-2026-09-16.json
-?? docs/GA4-SDK-SCENARIOS-QA-2026-09-16.json
-?? docs/GOOGLE-ADS-FINAL-QA-2026-09-16.md
-?? scripts/ga4-sdk-browser-qa.mjs
+ M scripts/ga4-sdk-browser-qa.mjs
+?? docs/GA4-SDK-SCENARIOS-AFTER-2026-09-16.json
 ```
 
 Useful commands:
