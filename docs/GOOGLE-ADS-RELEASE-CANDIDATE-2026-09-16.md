@@ -20,7 +20,7 @@ No merge/main change, production environment change/deploy, GTM publish, product
 
 | Control | Status | Evidence / limit |
 | --- | --- | --- |
-| GA4_URL_PRIVACY | BLOCKED | Application context regressions pass with isolated transport. Real Google SDK/enhanced-event output remains unverified; shared settings still enabled. |
+| GA4_URL_PRIVACY | BLOCKED | Application-controlled SDK hits inspected locally are clean. Real SDK automatic search sends a fake marker in search_term, and History sends an extra raw-URL/referrer pageview. Required shared settings still enabled; owner approval needed. |
 | GOOGLE_ADS_PREVIEW | BLOCKED | Earlier `838c996` Preview resolved the fresh UUID and fired once. No positive canary for `333bb9d`; do not transfer earlier PASS to new code. |
 | META_LOCAL_INTEGRATION | PASS | Actual submit route, actual CAPI implementation and actual browser helper execute with external storage/email/API mocked. One new route acceptance -> one CAPI Lead; browser helper uses matching Lead/eventID. Reused route acceptance sends no further CAPI/email. |
 | META_LIVE_PREVIEW | BLOCKED | No approved isolated test dataset/Pixel and test credential access found. Production dataset must not be reused for browser QA without explicit authority. |
@@ -35,6 +35,7 @@ No merge/main change, production environment change/deploy, GTM publish, product
 - `src/lib/analytics.ts`: one initialized direct GA4 destination, `send_page_view:false`, one manual application pageview per transition, destination-scoped safe context and legacy events, supported per-measurement-ID opt-out on nonpublic paths/revocation.
 - `src/components/analytics.tsx` and `src/app/layout.tsx`: wire public paths and consent/navigation synchronization before application config/events. No second GA4/GTM tag or cookie banner.
 - `scripts/measurement-runtime.regression-2.test.mjs`: nine runtime regressions with isolated external boundaries; included in `google-ads:check`, therefore existing unchanged verify CI runs them automatically.
+- `scripts/ga4-sdk-isolated-fixture.mjs`: repeatable LOCAL diagnostic serving actual compiled application tracking modules and the real Google SDK; collector hooks/CSP are installed before SDK load. Never deploy/serve this fixture as website code. Reduced evidence is `docs/GA4-SDK-ISOLATED-QA-2026-09-16.json`.
 - `package.json`: adds the new regression file to the existing check. No dependency or CI workflow changes; existing tests were not changed/weakened.
 
 Google journey event/UUID recovery code, Meta Pixel/CAPI code, backend/persistence architecture, PP 1.3, SEO, public copy, campaigns and unrelated canonical checkout logo/footer changes were not modified.
@@ -64,7 +65,20 @@ Current Enhanced Measurement: Page loads ON, History page changes ON, Scrolls ON
 
 These settings are shared with current production, not branch scoped. **Explicit owner approval is required before saving them.** Merely using `send_page_view:false` does not disable History-based Enhanced Measurement. [Google manual pageview documentation](https://developers.google.com/analytics/devguides/collection/ga4/views), [configuration reference](https://developers.google.com/analytics/devguides/collection/ga4/reference/config), [data redaction limitations](https://support.google.com/analytics/answer/13544947).
 
-Before live QA, run real Google SDK outgoing-payload capture locally with collector transport isolated **before its first hit**: first pageview, SPA/history, legacy and Lead events, auto scroll/engagement, sensitive query/encoded/fragment/path/referrer, marker inside permitted UTM keys, private route transition, revoke/return. Assert markers absent from actual collector payload, not just helper/config arguments. Current Node harness models config-to-transport output; it is **not** the real Google SDK and does not clear this gate.
+Real SDK local test WAS executed after the Node tests. `node scripts/ga4-sdk-isolated-fixture.mjs` starts only localhost:3016. Its CSP denies connect/image/frame transport, hooks capture SDK attempts before first load and no-referrer prevents marker URLs leaking through SDK-script request referrers. The real `gtag/js?id=G-RVJ906DKVF` ran with actual application tracking modules. No collector/test marker was transmitted to Google; no claim, database, email, Meta or Ads tag was used. Local fixture/browser were stopped afterwards.
+
+Observed real collector attempts (batch lines parsed individually):
+
+- Initial manual page_view: sanitized URL with exact google/cpc/SEARCH_RS_CORE metadata, safe title, no fake private marker. Auto scroll context also clean.
+- SPA manual page_view: clean `/en` URL, safe title; fake marker in utm_campaign excluded from this hit.
+- `lead_submit`: exactly one attempt despite calling the same UUID twice; fake UUID `00000000-0000-4000-8000-000000000006`, clean inspected URL/title payload. One separate legacy `generate_lead` attempt, also clean. This is not backend/platform acceptance or a fresh Vercel canary.
+- **Automatic view_search_results FAIL:** its `ep.search_term` includes fake marker from `q` even though page_location is sanitized.
+- **Automatic History page_view FAIL:** extra pageview includes fake marker in dl/dr, including sensitive value inside utm_campaign. Email best-effort redaction masks email, not other values. This proves current stream behavior is NOT privacy-safe and creates duplicate SPA pageviews.
+- Admin fixture transition set the supported GA4 opt-out flag true; no additional collector attempt appeared at inspection. Full hydrated app/browser transition and revoke/return suite still pending.
+
+Full reduced evidence: [actual SDK collector attempts](GA4-SDK-ISOLATED-QA-2026-09-16.json). No cookie/client/session IDs are retained. The fixture is diagnostic/manual, not an unattended CI platform test.
+
+After approved shared-setting change, REPEAT real SDK capture before live QA: initial/SPA/legacy/Lead, scroll/engagement, sensitive query/encoded/fragment/path/referrer and allowed-UTM value, private route transition and revoke/return, link/form/video/file auto-event suppression. Outbound/download click was attempted with prevented external navigation but no collector event was observed, so no positive suppression/privacy proof is claimed for those families. Form/video behavior remains unverified. The Node harness models config-to-transport output; it is **not** the real SDK. Neither test clears the still-failing shared-stream gate.
 
 ### Meta assets and safety
 
@@ -137,4 +151,4 @@ Proposed version name (not created/published): **LetKasni PP1.3 + Ads Lead — a
 
 **Paid traffic:** production canary, durable/atomic production claim persistence (earlier health reported Supabase unconfigured; not changed/reopened here), owner-reviewed keywords/negatives and independent campaign/spend approval. This task creates no database/CRM/offline work.
 
-Automation: nine new regressions run in existing CI on every PR. Next improvement is a repeatable real-SDK collector-isolation fixture plus an exported-GTM contract artifact; neither a static check nor the current mock should replace platform canary evidence.
+Automation: nine new regressions run in existing CI on every PR, and the new real-SDK collector-isolation fixture makes local vendor-runtime diagnosis repeatable. Next improvement is scripted scenario/assertion orchestration around this fixture plus an exported-GTM contract artifact; neither a static check nor a mock replaces platform canary evidence.

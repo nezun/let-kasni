@@ -20,7 +20,10 @@ Canonical handoff file for future local and Codex Cloud sessions.
 - Fresh browser GA4 stream 14595479044 / property 534756949 / G-RVJ906DKVF:
   History and all seven Enhanced Measurement families ON; email redaction ON,
   query-key redaction OFF. Required shared settings need explicit owner approval.
-  Real SDK/automatic collector privacy is NOT proven by local modeled transport.
+  Actual SDK local collector-isolation fixture subsequently confirmed clean manual
+  initial/SPA/Lead/legacy/scroll contexts, one UUID Lead, but automatic search_term
+  and History dl/dr fake-marker leakage plus duplicate SPA PV. No marker sent to
+  Google; local fixture/browser stopped. Shared settings are a confirmed blocker.
 - Fresh browser Meta: Letkasni.rs portfolio 2535168546914445 has only active
   production dataset 2347588039400204 for letkasni.rs; other LetKasni portfolio
   2443133752879068 has no datasets. Approved isolated QA dataset/access missing.
@@ -35,6 +38,7 @@ Canonical handoff file for future local and Codex Cloud sessions.
   access, isolate Preview side effects, real SDK local privacy proof, one controlled
   Preview Lead and freeze exact candidate/draft for NEW release approval.
   Complete package: docs/GOOGLE-ADS-RELEASE-CANDIDATE-2026-09-16.md.
+  Reduced vendor-runtime proof: docs/GA4-SDK-ISOLATED-QA-2026-09-16.json.
 
 ### Google Ads transaction-ID correction, 2026-09-16 — PREVIEW ONLY
 
@@ -308,21 +312,22 @@ Canonical handoff file for future local and Codex Cloud sessions.
 ## Generated Status
 
 <!-- BEGIN:generated-status -->
-Generated at: `2026-09-16T10:34:54.618Z`
+Generated at: `2026-09-16T10:41:54.597Z`
 
 Branch: `codex/google-ads-measurement`
 
 Remote: `https://github.com/nezun/let-kasni.git`
 
-Latest local commit: `333bb9d fix: isolate GA4 URL context and verify measurement transports`
+Latest local commit: `ec122d3 docs: prepare measurement candidate and explicit release blockers`
 
 Worktree status:
 
 ```text
-M CHANGELOG.md
- M CHECKPOINT.md
+M CHECKPOINT.md
  M docs/GOOGLE-ADS-LAUNCH.md
-?? docs/GOOGLE-ADS-RELEASE-CANDIDATE-2026-09-16.md
+ M docs/GOOGLE-ADS-RELEASE-CANDIDATE-2026-09-16.md
+?? docs/GA4-SDK-ISOLATED-QA-2026-09-16.json
+?? scripts/ga4-sdk-isolated-fixture.mjs
 ```
 
 Useful commands:
