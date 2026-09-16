@@ -1,18 +1,18 @@
 # Google Ads launch readiness
 
-Status: **NEED_CODE_FIX / DO_NOT_PUBLISH**. The approved 2026-09-16 transaction-ID correction is verified on Preview: one Lead firing, correct fresh claim UUID, no extra Lead after refresh/Back, 28/28 automated Ads tests and all GitHub/Vercel checks passed. GA4 URL privacy and test-safe Meta Preview verification remain open; the full launch gate is not cleared. The latest task explicitly prohibits production code deployment, superseding earlier release approval. See [Preview QA evidence](GOOGLE-ADS-PREVIEW-QA-2026-09-16.md).
+Status: **BLOCKED / DO_NOT_PUBLISH**. GA4 application URL protection and isolated runtime integration tests are implemented on PR #31. The current measurement suite is **37/37**, and the full local verification/build passed (195 static-generation entries). Shared GA4 Enhanced Measurement settings need explicit owner approval; an isolated Meta QA dataset/access is missing. The new candidate has NOT passed live end-to-end Preview QA. Earlier UUID Preview proof remains historical, not proof for the new candidate. Latest authority prohibits production deployment, GTM publish and paid traffic. See [release package and blockers](GOOGLE-ADS-RELEASE-CANDIDATE-2026-09-16.md) and [earlier Preview evidence](GOOGLE-ADS-PREVIEW-QA-2026-09-16.md).
 
 ## Current state
 
 | Component | Before | After | Status |
 | --- | --- | --- | --- |
-| GA4 | Direct `gtag.js`, consent-gated | Preserved; receives the new safe journey events | Local regression passed |
+| GA4 | Direct `gtag.js`, consent-gated | Direct architecture retained; sanitized application context and manual pageviews | Local isolated regression passed; Enhanced Measurement/live SDK validation blocked |
 | GTM | Not present | Optional `NEXT_PUBLIC_GTM_ID`, loaded only after advertising consent | Preview configured; draft not published |
 | Google Ads conversion | Not present | Primary `Lead - successful claim submit` action plus `lead_submit` GTM tag and claim transaction ID | Draft configured; production deploy pending |
 | Consent Mode v2 | Not present | Denied-by-default signals for all four v2 consent types, updated from the existing consent cookie | Code-ready |
 | Attribution | Not persisted | First paid touch stored for 90 days after advertising consent | Code-ready |
 | Claim payload | No Google attribution | Allowlisted attribution stored in `original_input_snapshot.attribution` | Code-ready |
-| Meta Pixel/CAPI | Existing browser/server `Lead` deduplication | Unchanged | Existing checks passed |
+| Meta Pixel/CAPI | Existing browser/server `Lead` deduplication | Unchanged | Isolated route/browser transport integration passed; live QA blocked |
 | SEO | Existing metadata, canonicals and routes | Unchanged | Existing checks and build passed |
 
 ## External configuration completed (2026-09-15)

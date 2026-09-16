@@ -19,6 +19,8 @@ All notable changes to LetKasni are documented in this file.
 
 ### Fixed
 
+- Added scoped GA4 public-route URL/referrer/title protection before application-controlled pageviews and legacy events; live rollout requires approval of the shared Enhanced Measurement settings described in the release package.
+- Added isolated runtime tests for GA4 output context, Google consent/admin behavior and matching Meta browser/server Lead IDs without live data transmission.
 - Prevented duplicate journey events when analytics and advertising consent are both enabled.
 - Hardened attribution against foreign origins, credential-bearing URLs, stale or future timestamps, control characters and oversized values.
 - Preserved exact-once conversion behavior when browser session storage is unavailable and removed duplicate attribution data from normalized claim snapshots.

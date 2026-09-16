@@ -4,6 +4,38 @@ Canonical handoff file for future local and Codex Cloud sessions.
 
 ## Start Here
 
+### GA4 protection / isolated Meta QA, 2026-09-16 — BLOCKED / PREVIEW ONLY
+
+- Latest authority: finish minimal GA4/Meta checks and prepare release, NOT deploy
+  production, publish GTM, submit production claims, or create paid advertising.
+  This supersedes older deployment/production-test directions below.
+- Application candidate `333bb9d64826926862dd56bf96cdc03bb42c6473` on existing
+  `codex/google-ads-measurement` / PR #31. GA4 remains direct with safe public-route
+  context and manual application pageviews; Ads attribution/browser URL untouched.
+  Meta/UUID recovery/PP1.3/SEO/CRM code untouched. Canonical logo/footer edits preserved.
+- Full local verify PASS: measurement 37/37 (nine new isolated runtime checks),
+  workflow 12, privacy 12, email 5, retirement 8, content/links/benchmark/locales,
+  lint, TypeScript and build 195 entries. Initial restricted-network build could
+  not fetch fonts; authorized network-enabled full verify passed.
+- Fresh browser GA4 stream 14595479044 / property 534756949 / G-RVJ906DKVF:
+  History and all seven Enhanced Measurement families ON; email redaction ON,
+  query-key redaction OFF. Required shared settings need explicit owner approval.
+  Real SDK/automatic collector privacy is NOT proven by local modeled transport.
+- Fresh browser Meta: Letkasni.rs portfolio 2535168546914445 has only active
+  production dataset 2347588039400204 for letkasni.rs; other LetKasni portfolio
+  2443133752879068 has no datasets. Approved isolated QA dataset/access missing.
+  Local actual route/CAPI/browser-helper integration matches Lead event IDs;
+  platform visibility/dedup remains unverified. No production token copied.
+- GTM workspace2 / GTM-WT3B2L8P still five-item UNPUBLISHED draft; variable v2
+  eventModel.transaction_id and conversion ID/label/trigger freshly verified.
+- Zero new Preview claims: email/storage/downstream isolation not established,
+  and safe live Meta configuration missing. Prior UUID positive Preview PASS is
+  historical, not a PASS for this candidate. No production canary or paid action.
+- Next: obtain exact shared GA4 setting authority + approved isolated Meta QA
+  access, isolate Preview side effects, real SDK local privacy proof, one controlled
+  Preview Lead and freeze exact candidate/draft for NEW release approval.
+  Complete package: docs/GOOGLE-ADS-RELEASE-CANDIDATE-2026-09-16.md.
+
 ### Google Ads transaction-ID correction, 2026-09-16 — PREVIEW ONLY
 
 - User approved minimal PR #31 fix, regression and one additional fake Preview
@@ -276,20 +308,21 @@ Canonical handoff file for future local and Codex Cloud sessions.
 ## Generated Status
 
 <!-- BEGIN:generated-status -->
-Generated at: `2026-09-16T09:36:02.448Z`
+Generated at: `2026-09-16T10:34:54.618Z`
 
 Branch: `codex/google-ads-measurement`
 
 Remote: `https://github.com/nezun/let-kasni.git`
 
-Latest local commit: `838c996 fix: align Google Ads transaction ID across GTM delivery paths`
+Latest local commit: `333bb9d fix: isolate GA4 URL context and verify measurement transports`
 
 Worktree status:
 
 ```text
-M CHECKPOINT.md
+M CHANGELOG.md
+ M CHECKPOINT.md
  M docs/GOOGLE-ADS-LAUNCH.md
- M docs/GOOGLE-ADS-PREVIEW-QA-2026-09-16.md
+?? docs/GOOGLE-ADS-RELEASE-CANDIDATE-2026-09-16.md
 ```
 
 Useful commands:
@@ -311,7 +344,7 @@ Useful commands:
 ## Current State
 
 - 2026-09-15: The user explicitly approved bilingual Privacy Policy 1.3. Google Ads billing onboarding and advertiser verification are complete; no campaign or spend was created.
-- 2026-09-15: Native Google Ads conversion `Lead - successful claim submit` is configured as Primary, EUR 0, Count One, 30-day click-through window, data-driven attribution and enhanced conversions off. Conversion ID `18452620232`; label `VnU-CKD6zfgcEMjH8t5E`.
+- 2026-09-15: Native Google Ads conversion `Lead - successful claim submit` is configured as Primary, no monetary value (UI evidence supersedes the older EUR 0 note), Count One, 30-day click-through window, data-driven attribution and enhanced conversions off. Conversion ID `18452620232`; label `VnU-CKD6zfgcEMjH8t5E`.
 - 2026-09-15: GTM draft now contains five changes: `DLV - transaction_id`, `CE - lead_submit`, `Conversion Linker - All Pages`, `Google Tag AW-18452620232`, and `Lead - successful claim submit`. The conversion tag uses the claim UUID transaction ID and fires only on `CE - lead_submit`; the container remains unpublished.
 - 2026-09-15: External Preview measurement setup is active but intentionally unpublished. GTM account `LetKasni`, Web container `GTM-WT3B2L8P`, Vercel Preview env, `DLV - transaction_id`, `CE - lead_submit`, and `Conversion Linker - All Pages` are configured. Tag Assistant verified consent gating, the existing direct GA4 tag and one firing of the Conversion Linker.
 - 2026-09-15: Real Preview QA found that a `gtag` event plus a second explicit object push could duplicate journey events under accept-all consent. Commit `f2d35e2` now emits one data-layer message per journey event; the updated regression test and live Tag Assistant check both pass.
@@ -356,6 +389,8 @@ Useful commands:
 
 ## Next Work
 
+- Current Google measurement task: follow the BLOCKED / PREVIEW ONLY entry above.
+  Do NOT execute older production/GTM/Supabase/CRM instructions in this task.
 - Run GTM Preview with one controlled successful claim. Publish GTM and add `GTM-WT3B2L8P` to Vercel Production only after exactly one Ads conversion is observed.
 - After Preview QA, deploy the approved v0.2.0 release and run one controlled production claim to verify GTM, Google Ads, GA4 and Meta together. Keep `SEARCH_RS_CORE` paused until this passes; keywords and negative keywords require the owner's active review.
 - Configure a durable Supabase production project, confirm its region/account DPA/transfer basis, apply `202609091200_marketing_email_consent.sql`, and test pending -> confirmed -> withdrawn using only a controlled test address.
@@ -381,6 +416,9 @@ Useful commands:
 
 ## Manual Work Still Needed
 
+- Current release blockers and exact shared GA4 approval request are in
+  `docs/GOOGLE-ADS-RELEASE-CANDIDATE-2026-09-16.md`; older approvals below are
+  historical and do not authorize this candidate's deployment or GTM publish.
 - Google-owned configuration is complete through the direct conversion action and GTM draft. One controlled successful Preview conversion is still required before publishing the container.
 - PP 1.3 and the v0.2.0 release are approved; production stays unchanged until the release workflow reaches the deploy step.
 - No manual email reliability step remains. A controlled production claim to `kontakt@letkasni.rs` was accepted by Resend for both admin and user messages; inbox routing can still be checked independently when needed.
