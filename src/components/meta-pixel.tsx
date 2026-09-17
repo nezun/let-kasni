@@ -63,13 +63,17 @@ export function MetaPixel() {
       id="meta-pixel"
       strategy="afterInteractive"
       onReady={() => {
-        const allowed =
-          allowsOptionalTracking(window.location.pathname) && hasMarketingConsent();
-        setMetaTrackingConsent(allowed);
-        if (allowed && !initialPageViewSent.current) {
-          initialPageViewSent.current = true;
-          window.fbq?.("track", "PageView");
-        }
+        // Next invokes inline onReady before inserting/executing its script.
+        // Defer to the end of that task, then recheck current consent/path.
+        queueMicrotask(() => {
+          const allowed =
+            allowsOptionalTracking(window.location.pathname) && hasMarketingConsent();
+          setMetaTrackingConsent(allowed);
+          if (allowed && !initialPageViewSent.current && typeof window.fbq === "function") {
+            initialPageViewSent.current = true;
+            window.fbq?.("track", "PageView");
+          }
+        });
       }}
     >
       {`

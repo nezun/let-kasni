@@ -113,12 +113,13 @@ function pixelFixture({ marketing = true, pathname = "/", readyPath = pathname }
     "@/lib/env": { getMetaPixelId: () => "LOCAL_PIXEL_NOT_LIVE" },
   };
   const loadedModule = { exports: {} };
+  const microtasks = [];
   vm.runInNewContext(ts.transpileModule(readFileSync(new URL("../src/components/meta-pixel.tsx", import.meta.url), "utf8"), {
     compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022, jsx: ts.JsxEmit.ReactJSX, esModuleInterop: true },
-  }).outputText, { module: loadedModule, exports: loadedModule.exports, require: (name) => name in overrides ? overrides[name] : run.load(name), window: run.window });
+  }).outputText, { module: loadedModule, exports: loadedModule.exports, require: (name) => name in overrides ? overrides[name] : run.load(name), window: run.window, queueMicrotask: (callback) => microtasks.push(callback) });
   const script = loadedModule.exports.MetaPixel();
   run.window.location.pathname = readyPath;
-  return { ...run, script };
+  return { ...run, script, flush: () => { while (microtasks.length) microtasks.shift()(); } };
 }
 
 test("loaded Pixel receives revoke on admin transition without emitting a pageview", () => {
@@ -133,8 +134,11 @@ test("bootstrap starts revoked, disables automatic handlers, initializes once an
   assert.ok(run.script.props.children.includes("fbq('set', 'autoConfig', false"));
   assert.equal(run.script.props.children.includes("fbq('track'"), false);
   run.commands.length = 0;
+  vm.runInNewContext(run.script.props.children, { window: run.window, document: run.document, fbq: run.window.fbq });
   run.script.props.onReady(); run.script.props.onReady();
-  assert.equal(run.commands.filter(([command]) => command === "init").length, 0);
+  run.flush();
+  assert.equal(run.commands.filter(([command]) => command === "init").length, 1);
+  assert.deepEqual(run.commands[0], ["consent", "revoke"]);
   assert.equal(run.commands.filter(([command, event]) => command === "track" && event === "PageView").length, 1);
   assert.equal(run.commands.some(([command, event]) => command === "track" && event === "Lead"), false);
 });
@@ -145,6 +149,34 @@ test("a delayed ready callback cannot grant consent or queue a PageView after wi
     if (scenario === "withdrawn") run.consent.setTrackingConsent("denied");
     run.commands.length = 0;
     run.script.props.onReady();
+    run.flush();
     assert.deepEqual(run.commands, [["consent", "revoke"]]);
   }
+});
+
+test("Next inline onReady before script insertion cannot lose the initial PageView", () => {
+  const run = pixelFixture();
+  const sdk = run.window.fbq;
+  delete run.window.fbq;
+  run.commands.length = 0;
+  // Next 16.2.4 invokes inline onReady BEFORE appending/executing the script.
+  run.script.props.onReady();
+  assert.equal(run.commands.length, 0);
+  run.window.fbq = sdk;
+  vm.runInNewContext(run.script.props.children, { window: run.window, document: run.document, fbq: sdk });
+  run.flush();
+  assert.equal(run.commands.filter(([command, event]) => command === "track" && event === "PageView").length, 1);
+  assert.deepEqual(run.commands.at(-2), ["consent", "grant"]);
+});
+
+test("application events during denial are dropped and consent regrant does not replay a Lead", () => {
+  const run = fixture();
+  const meta = run.load("@/lib/meta");
+  run.consent.setTrackingConsent("granted");
+  meta.trackMetaEvent("Lead", {}, "local-meta-event-1");
+  run.consent.setTrackingConsent("denied");
+  meta.trackMetaEvent("Lead", {}, "local-meta-event-2");
+  run.consent.setTrackingConsent("granted");
+  assert.equal(run.commands.filter(([command, event]) => command === "track" && event === "Lead").length, 1);
+  assert.equal(run.commands.some((args) => JSON.stringify(args).includes("local-meta-event-2")), false);
 });
