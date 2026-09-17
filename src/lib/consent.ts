@@ -94,6 +94,10 @@ export function setTrackingConsent(value: TrackingConsentInput) {
           notice: trackingConsentNoticeVersion,
         };
 
+  // Stop an already-loaded SDK before cookie writes or the rejection click can
+  // reach its automatic handlers. Removing a React Script does not unload it.
+  if (!consent.marketing) setMetaTrackingConsent(false);
+
   clearOptionalTrackingCookies({
     analytics: !consent.analytics,
     advertising: !consent.marketing,
@@ -119,8 +123,22 @@ export function setTrackingConsent(value: TrackingConsentInput) {
   window.dispatchEvent(new Event(trackingConsentEvent));
 }
 
+export function setMetaTrackingConsent(granted: boolean) {
+  if (typeof window !== "undefined" && typeof window.fbq === "function") {
+    window.fbq("consent", granted ? "grant" : "revoke");
+  }
+}
+
 function expireCookie(name: string) {
-  document.cookie = `${name}=; Max-Age=0; Path=/; SameSite=Lax; Secure`;
+  const expiry = `${name}=; Max-Age=0; Path=/; SameSite=Lax; Secure`;
+  document.cookie = expiry;
+  // SDK cookies may use Domain=current host or a parent, not host-only scope.
+  // Only expire the allowlisted optional cookie names and root path. Browsers
+  // reject public-suffix domains; never attempt the single-label TLD.
+  const labels = window.location?.hostname?.split(".") ?? [];
+  for (let index = 0; index < labels.length - 1; index += 1) {
+    document.cookie = `${expiry}; Domain=${labels.slice(index).join(".")}`;
+  }
 }
 
 function removeStorageKeys(
@@ -173,6 +191,8 @@ export function clearTrackingConsent() {
   if (typeof window === "undefined") {
     return;
   }
+
+  setMetaTrackingConsent(false);
 
   try {
     window.localStorage.removeItem(trackingConsentKey);

@@ -3,7 +3,7 @@ import { resolve } from "node:path";
 
 const root = process.cwd();
 const checks = [
-  ["src/components/meta-pixel.tsx", "fbq('track', 'PageView')"],
+  ["src/components/meta-pixel.tsx", 'window.fbq?.("track", "PageView")'],
   ["src/components/meta-pixel.tsx", "hasMarketingConsent"],
   ["src/lib/meta.ts", "eventID"],
   ["src/lib/meta.ts", "hasMarketingConsent"],

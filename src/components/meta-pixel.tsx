@@ -4,7 +4,11 @@ import { useEffect, useRef, useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import Script from "next/script";
 
-import { hasMarketingConsent, trackingConsentEvent } from "@/lib/consent";
+import {
+  hasMarketingConsent,
+  setMetaTrackingConsent,
+  trackingConsentEvent,
+} from "@/lib/consent";
 import { getMetaPixelId } from "@/lib/env";
 import { getMetaEventId, trackMetaEvent } from "@/lib/meta";
 import { allowsOptionalTracking } from "@/lib/optional-tracking-path";
@@ -15,11 +19,15 @@ export function MetaPixel() {
   const searchParams = useSearchParams();
   const measurementAllowed = allowsOptionalTracking(pathname);
   const skippedInitialPageView = useRef(false);
+  const initialPageViewSent = useRef(false);
   const [hasConsent, setHasConsent] = useState(false);
 
   useEffect(() => {
-    const syncConsent = () =>
-      setHasConsent(measurementAllowed && hasMarketingConsent());
+    const syncConsent = () => {
+      const allowed = measurementAllowed && hasMarketingConsent();
+      setMetaTrackingConsent(allowed);
+      setHasConsent(allowed);
+    };
     syncConsent();
     window.addEventListener(trackingConsentEvent, syncConsent);
     return () => window.removeEventListener(trackingConsentEvent, syncConsent);
@@ -51,7 +59,19 @@ export function MetaPixel() {
   }
 
   return (
-    <Script id="meta-pixel" strategy="afterInteractive">
+    <Script
+      id="meta-pixel"
+      strategy="afterInteractive"
+      onReady={() => {
+        const allowed =
+          allowsOptionalTracking(window.location.pathname) && hasMarketingConsent();
+        setMetaTrackingConsent(allowed);
+        if (allowed && !initialPageViewSent.current) {
+          initialPageViewSent.current = true;
+          window.fbq?.("track", "PageView");
+        }
+      }}
+    >
       {`
         !function(f,b,e,v,n,t,s)
         {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -61,8 +81,9 @@ export function MetaPixel() {
         t.src=v;s=b.getElementsByTagName(e)[0];
         s.parentNode.insertBefore(t,s)}(window, document,'script',
         'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('consent', 'revoke');
+        fbq('set', 'autoConfig', false, ${JSON.stringify(pixelId)});
         fbq('init', ${JSON.stringify(pixelId)});
-        fbq('track', 'PageView');
       `}
     </Script>
   );
