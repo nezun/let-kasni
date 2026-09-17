@@ -1,6 +1,22 @@
 # Google measurement release preparation — 2026-09-16
 
-**GOOGLE_MEASUREMENT_READY / RELEASE_BLOCKED_PENDING_ISOLATED_META_QA / DO_NOT_PUBLISH / NO_PAID_TRAFFIC**
+**RELEASE_APPROVED_2026-09-17 / PREVIEW_QA_PASS / PRODUCTION_RELEASE_IN_PROGRESS / NO_PAID_TRAFFIC**
+
+## Current release authority — 2026-09-17
+
+Owner approved the controlled production release, exact GTM draft publication
+and production canary in this task. This does not authorize campaigns, budgets,
+spend, keywords, negatives, CRM/database changes or production Meta credential
+replacement. Isolated Meta and Google Preview QA passed on application source
+4b2054865817005c78b8be951f2dd03aad8bf52c; final documentation candidate 6c7f105
+has the identical application tree. A fresh clean-feature release gate passed.
+
+The investigation and status tables below are historical snapshots. In particular,
+the missing Meta access, consent failure and release-approval blockers are resolved;
+they are not current blockers. Publication/deployment/canary must still be proved
+live before recording completion. Durable atomic production storage remains a
+separate hard gate before paid traffic. Canonical logo/footer local changes stay
+untouched; release proceeds only via the approved clean PR31 to GitHub main.
 
 ## Current candidate and evidence
 

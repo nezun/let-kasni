@@ -1,5 +1,21 @@
 # Google Ads launch readiness
 
+## Current status — 2026-09-17
+
+**PREVIEW_QA_PASS / CONTROLLED_RELEASE_APPROVED / PRODUCTION_RELEASE_IN_PROGRESS / NO_PAID_TRAFFIC**
+
+Google and isolated Meta Preview QA passed on source4b20548, including one
+backend-confirmed Lead, native Ads tag once, matching Pixel/CAPI event IDs with
+Browser Processed / Server Deduplicated, same-page withdrawal and private-route
+blocking. Final application tree is unchanged in documentation candidate6c7f105.
+Owner now approved coordinated production code/GTM/canary, not advertising.
+Production completion must still be verified. Durable atomic claim persistence
+remains a separate paid-launch blocker; no database/CRM work is authorized here.
+
+Earlier status, UI values and QA counts below are historical. Actual Ads value
+mode is **no monetary value**, not EUR0; current suites are Google39 and Meta11.
+See META-QA-PREVIEW-2026-09-17.md and the release-candidate current-status header.
+
 Status: **GOOGLE_ADS_PREVIEW PASS / GA4_URL_PRIVACY PASS / RELEASE BLOCKED / DO_NOT_PUBLISH**. Chrome access restored. History, Site search, Outbound clicks and File downloads are now saved/reopened OFF in the existing GA4 stream; Forms/Scrolls/Video/Page loads unchanged. Real SDK four-consent/private/revoke repeat PASS, including positive click/download suppression. One fresh isolated Vercel Preview claim produced UUID `6138eaa7-011f-45a5-9459-239405a1e6fa`, a Succeeded Ads Lead tag exactly once after hard refresh/Back, and one clean direct GA4 Lead hit. Preview-only email transport disabled and health verified before submission. Measurement tests **39/39**; full verify and all four remote checks pass for tested `ad12ca3`. Production website code/env, Meta and paid advertising unchanged; shared GA4 automatic measurement settings did change. GTM unpublished. Remaining release blocker: no approved isolated Meta dataset/CAPI QA access; durable production storage and production canary remain separate paid-launch gates. See [current final QA](GOOGLE-ADS-FINAL-QA-2026-09-16.md), [current SDK proof](GA4-SDK-SCENARIOS-AFTER-2026-09-16.json), [release package](GOOGLE-ADS-RELEASE-CANDIDATE-2026-09-16.md) and [historical Preview evidence](GOOGLE-ADS-PREVIEW-QA-2026-09-16.md).
 
 ## Current state

@@ -4,6 +4,20 @@ Canonical handoff file for future local and Codex Cloud sessions.
 
 ## Start Here
 
+### Controlled production release approved, 2026-09-17
+
+- Owner authorized exact reviewed PR31 code/PP1.3, frozen GTM and production
+  canary; NOT campaigns/budgets/spend/keywords/negatives or database/CRM work.
+- Clean feature session resumed at6c7f105 from current origin/main e7dc38c.
+  Fresh full release:gate PASS; application tree identical to tested4b20548.
+  Canonical checkout's unrelated logo/footer edits are preserved and excluded.
+- Release is IN_PROGRESS, not deployed or launch-ready yet. Verify exact GTM
+  draft/current production premise before publishing, save only production
+  NEXT_PUBLIC_GTM_ID, land via GitHub main, then verify both locales and one
+  controlled production Lead. Never copy branch-only QA Meta/email env to prod.
+- Durable atomic claim storage remains a separate paid-launch blocker.
+- Previous no-production/approval-pending entries below are historical.
+
 ### Isolated Meta QA PASS / READY_FOR_APPROVAL, 2026-09-17
 
 - Actual tested source4b2054865817005c78b8be951f2dd03aad8bf52c;
