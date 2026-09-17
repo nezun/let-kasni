@@ -31,7 +31,7 @@ export default function PrivacyPage() {
         <div className="space-y-4">
           <h1 className="text-4xl font-bold tracking-[-0.03em] text-[var(--ink)]">Privacy Policy</h1>
           <p className="max-w-3xl text-sm font-semibold leading-7 text-[var(--ink)]">letkasni.rs / {controllerName}</p>
-          <p className="text-xs font-medium uppercase tracking-[0.2em] text-[var(--muted)]/80">PP 1.2 | Effective from 10 September 2026</p>
+          <p className="text-xs font-medium uppercase tracking-[0.2em] text-[var(--muted)]/80">PP 1.3 | Effective from 15 September 2026</p>
         </div>
 
         <Section title="At a glance">
@@ -148,7 +148,7 @@ export default function PrivacyPage() {
           <p><Link className="font-semibold text-[var(--ink)] underline" href="/en/email-offers">Manage email offers</Link></p>
           <h3 className="font-bold text-[var(--ink)]">12.3. Cookies and advertising measurement</h3>
           <p>We use necessary technologies to operate the website, provide security and remember your choices. You select optional analytics and advertising separately in Privacy Settings; refusing them does not prevent claim submission.</p>
-          <p>Where these features are enabled and you consent to the relevant category, Google Analytics may be used for analytics and Meta Pixel for advertising measurement. They are not activated before that choice. With advertising consent, Meta Conversions API may receive permitted technical event data server-side, and hashed contact values where that processing is covered by your choice. Hashing does not make this data anonymous: it may be used to match events to a platform user. Bank details, identity documents, health data, the content of legal submissions and minor passengers&apos; data are not sent to these tools.</p>
+          <p>Where these features are enabled and you consent to the relevant category, Google Analytics may be used for analytics, and Meta Pixel and Google Tag Manager / Google Ads for advertising measurement. They are not activated before that choice. Google Ads may then receive an ad-click identifier, technical data about a successful submission and the random claim number as a transaction identifier, without the name, email, phone number or contents of the claim. With advertising consent, Meta Conversions API may receive permitted technical event data server-side, and hashed contact values where that processing is covered by your choice. Hashing does not make this data anonymous: it may be used to match events to a platform user. Bank details, identity documents, health data, the content of legal submissions and minor passengers&apos; data are not sent to these tools.</p>
           <p>Choosing advertising is not consent to email offers, and subscribing to offers does not activate analytics or advertising. You may change or withdraw your choices through Privacy Settings in the footer. After withdrawal, we stop the relevant new transmissions and remove or disable optional cookies under our technical control. A click cannot retroactively erase data already lawfully received by a third party; you may exercise the rights described in Article 9.</p>
           <h3 className="font-bold text-[var(--ink)]">12.4. Evidence of your choice</h3>
           <p>We keep separate records of direct marketing subscriptions and withdrawals and of choices concerning optional technologies. Updating this Policy does not automatically enrol previous users in a new marketing purpose.</p>

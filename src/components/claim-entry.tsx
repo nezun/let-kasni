@@ -3,6 +3,7 @@
 import { HeroFlowStartCard } from "@/components/claim-flow";
 import { SiteHeader } from "@/components/site-header";
 import { trackEvent } from "@/lib/analytics";
+import { withCurrentAttributionParameters } from "@/lib/attribution";
 import { getMetaEventId, trackMetaEvent } from "@/lib/meta";
 import type { IssueType } from "@/lib/types";
 
@@ -27,7 +28,11 @@ export function HeaderWithClaimCta({
       content_category: "claim",
       form_locale: locale,
     }, getMetaEventId());
-    window.location.assign(locale === "en" ? "/en/check-flight" : "/proveri-let");
+    window.location.assign(
+      withCurrentAttributionParameters(
+        locale === "en" ? "/en/check-flight" : "/proveri-let",
+      ),
+    );
   }
 
   return (
@@ -79,7 +84,11 @@ export function ClaimCtaButton({
       content_category: "claim",
       form_locale: locale,
     }, getMetaEventId());
-    window.location.assign(locale === "en" ? "/en/check-flight" : "/proveri-let");
+    window.location.assign(
+      withCurrentAttributionParameters(
+        locale === "en" ? "/en/check-flight" : "/proveri-let",
+      ),
+    );
   }
 
   return (

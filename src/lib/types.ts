@@ -9,6 +9,9 @@ export type VerdictBucket =
   | "needs_manual_review"
   | "not_supported_yet";
 
+export type { ClaimAttribution } from "@/lib/attribution-core";
+import type { ClaimAttribution } from "@/lib/attribution-core";
+
 export interface ClaimInput {
   flightNumber: string;
   flightDate: string;
@@ -19,6 +22,8 @@ export interface ClaimInput {
   email: string;
   phone?: string;
   website?: string;
+  attribution?: ClaimAttribution;
+  submissionAttemptId?: string;
 }
 
 export type FlightProviderStatus =

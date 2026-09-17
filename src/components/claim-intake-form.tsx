@@ -1,9 +1,15 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import { trackEvent } from "@/lib/analytics";
-import { getTrackingConsent } from "@/lib/consent";
+import { getAttributionForSubmission } from "@/lib/attribution";
+import { getTrackingConsent, trackingConsentEvent } from "@/lib/consent";
+import {
+  trackClaimStartOnce,
+  trackLeadSubmitOnce,
+  trackRecoveredLeadSubmitOnce,
+} from "@/lib/google-tracking";
 import { getMetaEventId, trackMetaEvent } from "@/lib/meta";
 import type { IssueType } from "@/lib/types";
 
@@ -128,13 +134,36 @@ export function ClaimIntakeForm({ locale = "sr" }: { locale?: "sr" | "en" }) {
   const [submitState, setSubmitState] = useState<SubmitState>({
     status: "idle",
   });
+  const submissionInFlightRef = useRef(false);
+  const submissionAttemptIdRef = useRef<string | null>(null);
+  const formInteractionRef = useRef(false);
   const t = formCopy[locale];
   const helperCopy = useMemo(() => t.helper, [t]);
 
+  useEffect(() => {
+    const trackStartedFormAfterConsent = () => {
+      if (formInteractionRef.current) {
+        trackClaimStartOnce("inline_form", locale);
+      }
+    };
+
+    window.addEventListener(trackingConsentEvent, trackStartedFormAfterConsent);
+    return () =>
+      window.removeEventListener(
+        trackingConsentEvent,
+        trackStartedFormAfterConsent,
+      );
+  }, [locale]);
+
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (submissionInFlightRef.current) return;
+    submissionInFlightRef.current = true;
     setSubmitState({ status: "submitting" });
     const metaEventId = getMetaEventId();
+    const submissionAttemptId =
+      submissionAttemptIdRef.current ?? crypto.randomUUID();
+    submissionAttemptIdRef.current = submissionAttemptId;
 
     try {
       const response = await fetch("/claim/submit", {
@@ -150,6 +179,8 @@ export function ClaimIntakeForm({ locale = "sr" }: { locale?: "sr" | "en" }) {
           trackingConsent: getTrackingConsent(),
           metaEventId,
           eventSourceUrl: window.location.href,
+          attribution: getAttributionForSubmission(),
+          submissionAttemptId,
         }),
       });
 
@@ -157,6 +188,7 @@ export function ClaimIntakeForm({ locale = "sr" }: { locale?: "sr" | "en" }) {
         | {
             ok: true;
             reused: boolean;
+            conversionRecoveryEligible: boolean;
             claim: {
               id: string;
               verdictTitle: string;
@@ -189,6 +221,12 @@ export function ClaimIntakeForm({ locale = "sr" }: { locale?: "sr" | "en" }) {
       });
 
       if (!data.reused) {
+        trackLeadSubmitOnce({
+          claimId: data.claim.id,
+          source: "inline_form",
+          locale,
+          providerStatus: data.claim.providerStatus,
+        });
         trackEvent("generate_lead", {
           event_category: "claim",
           event_label: "inline_form",
@@ -205,12 +243,22 @@ export function ClaimIntakeForm({ locale = "sr" }: { locale?: "sr" | "en" }) {
           },
           metaEventId,
         );
+      } else if (data.conversionRecoveryEligible) {
+        trackRecoveredLeadSubmitOnce({
+          claimId: data.claim.id,
+          source: "inline_form",
+          locale,
+          providerStatus: data.claim.providerStatus,
+        });
       }
+      submissionAttemptIdRef.current = null;
     } catch {
       setSubmitState({
         status: "error",
         message: t.fallbackError,
       });
+    } finally {
+      submissionInFlightRef.current = false;
     }
   }
 
@@ -222,7 +270,15 @@ export function ClaimIntakeForm({ locale = "sr" }: { locale?: "sr" | "en" }) {
         <p>{t.body}</p>
       </div>
 
-      <form className="lk-form-grid" onSubmit={handleSubmit} autoComplete="on">
+      <form
+        className="lk-form-grid"
+        onSubmit={handleSubmit}
+        onChangeCapture={() => {
+          formInteractionRef.current = true;
+          trackClaimStartOnce("inline_form", locale);
+        }}
+        autoComplete="on"
+      >
         <label className="lk-form-label">
           <span>{t.flightNumber}</span>
           <input

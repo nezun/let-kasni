@@ -4,6 +4,7 @@
 
 - Privacy Policy 1.1, effective 08.09.2026, remains preserved in Git at production commit `13d64ce652a4b1dcbc559c1a7759676e81a4aeab` (`src/app/privacy/page.tsx` and `src/app/en/privacy/page.tsx`).
 - Privacy Policy 1.2 has the static publication date 10.09.2026.
+- Privacy Policy 1.3, approved for release on 15.09.2026, adds the Google Tag Manager / Google Ads measurement disclosure. The separate email-consent text remains independently versioned.
 - Privacy Policy versions and marketing-consent text versions are independent. The first email-consent text is version `1.0`, scope `vga_passenger_consumer_rights_v1`, purpose `direct_marketing_email`, controller MB `21873446`.
 
 ## Consent and unsubscribe model

@@ -48,8 +48,11 @@ async function buildClaimRecord(
   });
   const verdict = getConservativeVerdict(input, providerSnapshot);
   const now = new Date().toISOString();
+  const inputWithoutAuditMetadata = { ...input };
+  delete inputWithoutAuditMetadata.attribution;
+  delete inputWithoutAuditMetadata.submissionAttemptId;
   const normalizedInputSnapshot = {
-    ...input,
+    ...inputWithoutAuditMetadata,
     flightNumber:
       providerSnapshot.normalized?.flightNumber ??
       input.flightNumber.trim().toUpperCase(),
@@ -59,7 +62,7 @@ async function buildClaimRecord(
   };
 
   const claim: ClaimRecord = {
-    ...input,
+    ...inputWithoutAuditMetadata,
     id: randomUUID(),
     idempotencyKey,
     verdict: verdict.bucket,

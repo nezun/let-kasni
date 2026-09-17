@@ -21,9 +21,18 @@ import { BrandLogo } from "@/components/brand-logo";
 import { MarketingSubscriptionCard } from "@/components/marketing-subscription-card";
 import { AirportCombobox } from "@/components/airport-combobox";
 import { trackEvent } from "@/lib/analytics";
-import { getTrackingConsent } from "@/lib/consent";
+import {
+  getAttributionForSubmission,
+  withCurrentAttributionParameters,
+} from "@/lib/attribution";
+import { getTrackingConsent, trackingConsentEvent } from "@/lib/consent";
 import { isValidEmail } from "@/lib/email-validation";
 import { getMetaEventId, trackMetaEvent } from "@/lib/meta";
+import {
+  trackClaimStartOnce,
+  trackLeadSubmitOnce,
+  trackRecoveredLeadSubmitOnce,
+} from "@/lib/google-tracking";
 
 export type HeroFormVariant = "focused" | "embedded";
 export type ClaimFlowLocale = "sr" | "en";
@@ -438,6 +447,8 @@ function ClaimFlow({
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const [formStartedAt] = useState(() => Date.now());
+  const submissionInFlightRef = useRef(false);
+  const submissionAttemptIdRef = useRef<string | null>(null);
 
   const isFocused = surface === "focused";
   const stepTwoReady = Boolean(
@@ -462,6 +473,17 @@ function ClaimFlow({
     const timer = window.setTimeout(() => setStep(3), 1600);
     return () => window.clearTimeout(timer);
   }, [step]);
+
+  useEffect(() => {
+    if (step !== 2) return;
+
+    const trackClaimStart = () =>
+      trackClaimStartOnce(`${surface}_claim_flow`, locale);
+    trackClaimStart();
+    window.addEventListener(trackingConsentEvent, trackClaimStart);
+    return () =>
+      window.removeEventListener(trackingConsentEvent, trackClaimStart);
+  }, [locale, step, surface]);
 
   function openDatePicker() {
     const input = departureDateInputRef.current;
@@ -744,13 +766,17 @@ function ClaimFlow({
         <form
           onSubmit={async (event) => {
             event.preventDefault();
-            if (!contactReady || submitting) {
+            if (!contactReady || submitting || submissionInFlightRef.current) {
               return;
             }
 
+            submissionInFlightRef.current = true;
             setSubmitting(true);
             setSubmitError("");
             const metaEventId = getMetaEventId();
+            const submissionAttemptId =
+              submissionAttemptIdRef.current ?? crypto.randomUUID();
+            submissionAttemptIdRef.current = submissionAttemptId;
             try {
               const response = await fetch("/claim/submit", {
                 method: "POST",
@@ -772,17 +798,30 @@ function ClaimFlow({
                   trackingConsent: getTrackingConsent(),
                   metaEventId,
                   eventSourceUrl: window.location.href,
+                  attribution: getAttributionForSubmission(),
+                  submissionAttemptId,
                 }),
               });
               const data = (await response.json()) as {
                 ok?: boolean;
                 reused?: boolean;
+                conversionRecoveryEligible?: boolean;
+                claim?: {
+                  id: string;
+                  providerStatus: string;
+                };
               };
-              if (!response.ok || !data.ok) {
+              if (!response.ok || !data.ok || !data.claim) {
                 throw new Error("claim_submit_failed");
               }
               setSubmitted(true);
               if (!data.reused) {
+                trackLeadSubmitOnce({
+                  claimId: data.claim.id,
+                  source: "focused_claim_flow",
+                  locale,
+                  providerStatus: data.claim.providerStatus,
+                });
                 trackEvent("generate_lead", {
                   event_category: "claim",
                   event_label: "focused_claim_flow",
@@ -797,10 +836,19 @@ function ClaimFlow({
                   },
                   metaEventId,
                 );
+              } else if (data.conversionRecoveryEligible) {
+                trackRecoveredLeadSubmitOnce({
+                  claimId: data.claim.id,
+                  source: "focused_claim_flow",
+                  locale,
+                  providerStatus: data.claim.providerStatus,
+                });
               }
+              submissionAttemptIdRef.current = null;
             } catch {
               setSubmitError(t.submitError);
             } finally {
+              submissionInFlightRef.current = false;
               setSubmitting(false);
             }
           }}
@@ -1008,7 +1056,11 @@ export function HeroFlowStartCard({ locale }: { locale: ClaimFlowLocale }) {
           issue_type: issue,
         }, getMetaEventId());
         const path = locale === "en" ? "/en/check-flight" : "/proveri-let";
-        window.location.assign(`${path}?step=2&issue=${encodeURIComponent(issue)}`);
+        window.location.assign(
+          withCurrentAttributionParameters(
+            `${path}?step=2&issue=${encodeURIComponent(issue)}`,
+          ),
+        );
       }}
     />
   );

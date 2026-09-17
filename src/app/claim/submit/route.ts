@@ -11,6 +11,11 @@ import {
   trackingConsentCookieName,
 } from "@/lib/consent-cookie";
 import type { ClaimInput, IssueType } from "@/lib/types";
+import { sanitizeClaimAttribution } from "@/lib/attribution-core";
+import {
+  isConversionRecoveryEligible,
+  sanitizeSubmissionAttemptId,
+} from "@/lib/conversion-recovery";
 
 const minimumHumanSubmitMs = 2500;
 
@@ -38,7 +43,10 @@ function isIssueType(value: string): value is IssueType {
   ].includes(value);
 }
 
-function validateInput(body: unknown): ValidatedSubmission | null {
+function validateInput(
+  body: unknown,
+  requestOrigin: string,
+): ValidatedSubmission | null {
   if (!body || typeof body !== "object") {
     return null;
   }
@@ -78,6 +86,11 @@ function validateInput(body: unknown): ValidatedSubmission | null {
       typeof data.website === "string" && data.website.trim().length > 0
         ? data.website.trim()
         : undefined,
+    attribution: sanitizeClaimAttribution(data.attribution, {
+      allowedOrigins: [requestOrigin],
+      nowMs: Date.now(),
+    }),
+    submissionAttemptId: sanitizeSubmissionAttemptId(data.submissionAttemptId),
   };
 
   if (
@@ -121,7 +134,7 @@ function validateInput(body: unknown): ValidatedSubmission | null {
 
 export async function POST(request: Request) {
   const body = await request.json().catch(() => null);
-  const submission = validateInput(body);
+  const submission = validateInput(body, new URL(request.url).origin);
 
   if (!submission) {
     return NextResponse.json(
@@ -135,7 +148,13 @@ export async function POST(request: Request) {
 
   const metadata = body as Record<string, unknown>;
 
-  const { input } = submission;
+  const marketingConsent = hasMarketingCookieConsent(request);
+  const input: ClaimInput = {
+    ...submission.input,
+    attribution: marketingConsent
+      ? submission.input.attribution
+      : undefined,
+  };
 
   const forwardedFor = request.headers.get("x-forwarded-for") ?? "unknown";
   const ip = forwardedFor.split(",")[0]?.trim() || "unknown";
@@ -158,9 +177,14 @@ export async function POST(request: Request) {
     skipProvider: submission.skipProvider,
     providerSkipReason: submission.providerSkipReason,
   });
+  const conversionRecoveryEligible = isConversionRecoveryEligible(
+    reused,
+    input.submissionAttemptId,
+    claim.originalInputSnapshot,
+  );
   const providerSnapshot = claim.providerSnapshot;
 
-  if (!reused && hasMarketingCookieConsent(request)) {
+  if (!reused && marketingConsent) {
     const metaResult = await sendMetaLeadEvent(request, {
       eventId:
         typeof metadata.metaEventId === "string" ? metadata.metaEventId : undefined,
@@ -255,6 +279,7 @@ export async function POST(request: Request) {
   return NextResponse.json({
     ok: true,
     reused,
+    conversionRecoveryEligible,
     claim: {
       id: claim.id,
       verdictTitle: claim.verdictTitle,

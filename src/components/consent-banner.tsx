@@ -34,7 +34,7 @@ const copy = {
     analytics: "Analitika",
     analyticsBody: "Pomaže nam da razumemo posete i korišćenje sajta.",
     marketing: "Oglašavanje",
-    marketingBody: "Pomaže nam da merimo uspeh Meta oglasa.",
+    marketingBody: "Pomaže nam da merimo uspeh Meta i Google oglasa.",
   },
   en: {
     dialogLabel: "Cookie consent",
@@ -50,7 +50,7 @@ const copy = {
     analytics: "Analytics",
     analyticsBody: "Helps us understand visits and site usage.",
     marketing: "Advertising",
-    marketingBody: "Helps us measure Meta ad performance.",
+    marketingBody: "Helps us measure Meta and Google ad performance.",
   },
 } as const;
 

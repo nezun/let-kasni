@@ -61,6 +61,11 @@ export function getGoogleAnalyticsId() {
   return getEnv("NEXT_PUBLIC_GA_MEASUREMENT_ID") ?? "G-RVJ906DKVF";
 }
 
+export function getGoogleTagManagerId() {
+  const value = process.env.NEXT_PUBLIC_GTM_ID?.trim();
+  return value && /^GTM-[A-Z0-9]+$/.test(value) ? value : undefined;
+}
+
 export function getMetaPixelId() {
   const value = process.env.NEXT_PUBLIC_META_PIXEL_ID;
   const trimmed = value?.trim();
