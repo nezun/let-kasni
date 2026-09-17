@@ -4,6 +4,206 @@ Canonical handoff file for future local and Codex Cloud sessions.
 
 ## Start Here
 
+### NEED_CODE_FIX: real Meta SDK consent-withdrawal failure, 2026-09-17
+
+- Recovered exact QA Preview window; actual Google all4 default denied/update
+  granted/update denied verified; fake attribution captured and cleared on revoke.
+- Same-page existing Privacy settings Reject optional: consent analytics/marketing
+  FALSE (ts1789643367824), all4 Google DENIED, attribution removed, _fbp PERSISTS.
+  Cookie Store inspected metadata ONLY: QA hostname domain, root path, no value.
+- Resource timing strictly AFTER withdrawal shows ONE actual Meta request:
+  www.facebook.com /tr/ id2358413618029924 evSubscribedButtonClick. Not Google ping,
+  not platform processing proof. Exact click/SDK callback race not instrumented.
+- Code unchanged e99798f: MetaPixel only sets React hasConsent/returns null, no
+  explicit loaded fbq consent revoke/grant; expireCookie lacks Domain. Likely
+  mechanisms; exact cookie scope root cause not independently instrumented.
+- Required pre-claim gate FAIL, so NO new claim attempted; allowance UNUSED.
+  CAPI acceptance/Test Events/dedup/same-claim Google still NOT_VERIFIED.
+- Reloaded denied Preview safely: false/false, attributionCleared true, optional
+  resources0. Final state safe, NOT same-page revoke PASS. Release BLOCKED /
+  NEED_CODE_FIX. Minimal SDK revocation/scoped cookie fix documented, not applied
+  in this report-only platform QA; add real loaded-SDK/cookie regression, redeploy
+  Preview then rerun pre-claim gates before one live test. No more access needed.
+- No source/prod env/prod Meta/GTM/main/paid action. QA branch-only env and serving
+  dpl_GimL6AdSbFj4xFSZNvWpjBfAxjcX remain. QA report has exact repro/evidence limits.
+
+### Preview Ready; isolation/browser consent verified; Chrome control interrupted, 2026-09-17
+
+- New dpl_GimL6AdSbFj4xFSZNvWpjBfAxjcX Ready, serving alias health pins e99798f.
+  Supabase/local fallback OFF, provider OFF, subscriptions OFF, both Preview email
+  booleans FALSE, metaCapiConfigured TRUE. Pretty-print screenshot verified final
+  health field omitted by native AX length limit. QA env branch-only already saved.
+- QA Meta Test Events Website opened Preview with fake TEST_GCLID_META_QA_20260917
+  / TEST_META_QA_PREVIEW. Existing privacy UI Reject optional + reload: v3 PP1.3
+  analytics/marketing FALSE, resource counts Meta/GTM/GA4 all0. Accept all: both
+  TRUE, actual browser PageView resource QA Pixel 2358413618029924 only; existing
+  GTM-WT3B2L8P/direct G-RVJ906DKVF loaders present. Not platform Lead proof.
+- Repeated owner Chrome foreground changes interrupted further checks. Native
+  Window menu recovered known Preview twice with exact domain guard, interrupted
+  again. Targeted cua.listTabs({browser:'chrome',emit:false}) timed out/reset CUA.
+  NO active app binding now. Never auto getApp into private/token foreground.
+  Owner must leave QA Preview window foreground/unchanged and confirm reconnect.
+- No new successful claim/Lead attempted; allowance UNUSED. Remaining consent4/
+  revoke/admin/attribution/validation/one Lead/CAPI/Test Events/dedup/repeat/Google
+  checks NOT_VERIFIED. QA_ENVIRONMENT PASS limited to configuration/runtime
+  isolation, release BLOCKED. No main/prod/GTM publication/paid/source changes.
+
+### QA env securely saved; Preview redeploy building, 2026-09-17
+
+- Owner approved replacement issuance, then completed fresh Meta code in Chrome.
+  Meta Token created confirmed. Replacement copied natively into masked Vercel
+  field with fixed-controls-only inspection; no token/clipboard/code text read.
+  Earlier exposed QA tokens UI-revoked; production credentials untouched.
+- Batch Save partially saved token/test code, rejected public Pixel as Secret.
+  Duplicate retry returned already-exists. Refreshed and verified both Secret
+  rows exactly Preview / codex/google-ads-measurement. Pixel saved separately as
+  Config 2358413618029924, same branch ONLY, default Production removed. Refreshed
+  final list verifies all 3 rows. META_TEST_EVENT_CODE TEST65347 (Secret).
+- Redeploy Preview of e99798fa60deda4414262be2391760aeaee77353 with cache OFF.
+  New Vercel deployment GimL6AdSbFj4xFSZNvWpjBfAxjcX currently BUILDING.
+  Next: Ready -> pin serving health, email/storage/downstream OFF, QA Pixel only,
+  consent denied/granted/revoked/admin -> at most ONE synthetic claim (UNUSED).
+- Fresh measurement regression 39/39 PASS; frozen GTM export PASS/same SHA.
+  Real Meta delivery/API acceptance/dedup and same-claim Google regression remain
+  NOT_VERIFIED. No source/main/production/GTM publication/paid changes.
+
+### Replacement ready; final token issuance confirmation, 2026-09-17
+
+- Owner confirmed reconnect. Chrome connected but another Token created modal
+  remained; automatic initial output exposed that QA token. Never copied/used/
+  installed it. Completed another UI Revoke tokens confirmation for QA Employee
+  61594371304399 only, dialog closed/Generate enabled, no Graph debug proof.
+- CUA app binding app is ACTIVE. Do not getApp/reconnect/raw-emit/screenshot while
+  a token modal may exist. safeMetaUi emits fixed labels only. Current Meta wizard
+  final Generate token index 414 (refresh safe UI before click), QA app selected,
+  60 days, only ads_read. Final issuance requires action-time owner confirmation.
+- QA Test Events Website code TEST65347 obtained for Pixel 2358413618029924.
+  Vercel existing form prepared with 3 Secret rows, same exact Preview-branch
+  scope codex/google-ads-measurement: token EMPTY, public Pixel verified exactly,
+  test code verified exactly. Both non-secrets remasked. No Save performed.
+- After confirmation: Generate -> fixed-controls-only observation -> Copy ->
+  switch existing Vercel tab -> fresh masked-field/scope indices -> native super+v
+  -> Save branch-only. No clipboard/token text reads; no production credential.
+- No new claim/redeploy/main merge/production/GTM/paid actions. Claim allowance
+  UNUSED; actual Meta acceptance/dedup NOT_VERIFIED; release remains BLOCKED.
+
+### First QA token revoked; safe browser reconnect required, 2026-09-17
+
+- Owner account verification completed; Meta displayed Token created. Initial
+  Chrome reconnect automatically emitted this QA-only secret in a tool result.
+  Never reuse/reproduce it. It was not copied, installed or used for API calls.
+- Completed Done -> QA user 61594371304399 Revoke tokens -> confirmation naming
+  LetKasni QA — Preview only. Dialog closed, Generate token enabled; no persistent
+  success toast/Graph debug proof. Production user/token untouched.
+- Started replacement QA-app request; app dropdown opened, issuance unconfirmed.
+  Token-screen checks thereafter fixed labels only. Concurrent Chrome navigation
+  moved away from task; inventory timed out/reset CUA. Automatic review blocked
+  reconnect for possible private content/token emission; do not bypass.
+- Owner must foreground intended Meta settings with no token-value modal and
+  authorize safe reconnect. Do NOT repeat completed developer/password/account
+  verification. Finish minimal ads_read/60-day replacement then direct native
+  Copy/Paste into masked branch-only Vercel Secret input; never read token output.
+- No env Save/redeploy/new claim/source edit/main merge/production/GTM publish/ads.
+  One allowed synthetic claim remains UNUSED. Release BLOCKED, platform delivery
+  and dedup NOT_VERIFIED. Detailed security/evidence limits in Meta QA report.
+
+### QA app confirmed; Meta token account-verification gate, 2026-09-17
+
+- Owner completed password reauthentication. Created/verified QA application
+  LetKasni QA CAPI Preview 4666725866879719 in correct portfolio 2535168546914445,
+  Owned by Letkasni.rs, Unpublished. Do not ask for completed registration or
+  password/app-creation steps again.
+- No-use-case app had no token permissions. Added Measure ad performance data
+  with Marketing API only to QA app. Official panel says ads_read supports
+  Server-Side API web events. Restored QA Employee app role Test app ONLY;
+  temporary Develop app no longer granted. Saved/reloaded asset count 3:
+  QA app, QA Pixel 2358413618029924, linked QA dataset 1748562979704779.
+- Token request only ads_read, 60 days, no ads_management/business_management/
+  page scope. Generate token returned Account verification required / Verify
+  account. No confirmed issuance, Copy success/token read/copy or env Save.
+  Owner must finish this specific security check directly in Meta Business Suite.
+- Prepared UNSAVED Vercel Secret form only branch codex/google-ads-measurement;
+  default Production removed, global Preview/Development unselected. No actual
+  env changes/redeploy/new claim. Existing production app/user/token untouched.
+- Broad token-related AX inspection rejected by automatic review; not executed.
+  Continued only fixed controls/non-secret status. Concurrent Chrome navigation
+  caused rejected actions, not proof Verify account was clicked successfully.
+- Next: verify owner account check and token issuance/scope, transfer secret
+  directly into prepared masked field, add QA Pixel/test code branch-only, then
+  redeploy/isolation/consent/admin checks and at most ONE synthetic form claim.
+
+### Developer registration verified; Meta password reauthentication, 2026-09-17
+
+- Owner reported done; All apps UI now verified developer access, No apps yet,
+  enabled Create App. Do not ask for developer registration again.
+- Prepared LetKasni QA CAPI Preview, Create an app without a use case (no added
+  products/features/permissions), existing Letkasni.rs portfolio. Overview no
+  requirements/use cases. Create app opened Please re-enter your password.
+  Owner must enter password directly in Chrome and Submit; never in chat.
+  App creation NOT CONFIRMED; no app ID/token, Preview changes or new claim yet.
+- QA-only Employee/assets remain created. Next: after owner reauthentication,
+  verify actual app creation/portfolio ID, minimum app permission and real token
+  scope before branch-only env/redeploy and the one allowed synthetic claim.
+- Canonical session start still guards owner logo/footer edits; preserved. Feature
+  branch remains e99798f with only task-owned QA/checkpoint/release docs dirty.
+
+### QA Employee isolated; developer application/token gate, 2026-09-17
+
+- Supersedes the two historical pending-confirmation entries below. Owner
+  confirmed QA access and the displayed Non-discrimination policy; accepted that
+  policy and created Employee LetKasni QA — Preview only, 61594371304399.
+- Assigned only QA dataset Use events dataset (Manage OFF). Reload verified
+  exactly two linked QA assets: Pixel 2358413618029924 View Pixels and events
+  dataset asset 1748562979704779 Use events dataset. No production assets/Admin.
+  Pixel destination remains 2358413618029924; do not use the linked asset ID.
+- Generate token disabled; Installed apps empty; portfolio Apps empty and Create
+  new app ID disabled. Official developer apps page requires a new personal
+  Meta for Developers account. Register Continue accepts new Platform Terms/
+  Developer Policies; Verify account is a later step, not a verified OTP prompt.
+  Cancelled registration without acceptance. Owner must activate developer access
+  or provide an existing owned QA-only app. Never blindly connect production app,
+  reuse production token or change production-user permissions.
+- No token generated/read/copied, Preview env/redeploy, new claim, main merge,
+  production tracking change, Google/GTM change/publish or paid action. One new
+  synthetic claim allowance remains unused. Local regression 39/39 PASS is not
+  live Meta acceptance/dedup or a fresh Google Preview PASS. RELEASE BLOCKED.
+- Updated docs/META-QA-PREVIEW-2026-09-17.md and release-candidate addendum.
+  After developer access: minimum isolated QA app/token scope, secure branch-only
+  env, redeploy/isolation/consent/admin checks, then at most one end-to-end claim.
+
+### QA access approved; new business-wide Meta policy gate, 2026-09-17
+
+- Owner confirmed a separate QA Employee and minimal QA-only token/access.
+  Do not ask for that settled approval again.
+- Returning to the prepared system-user dialog exposed a new Non-discrimination
+  policy screen: I accept certifies all people acting as system users in the
+  Letkasni.rs business reviewed/will abide by Advertising Policies/applicable laws.
+  This business-wide certification was not accepted; specific owner confirmation
+  or direct acceptance is needed for this newly surfaced action only.
+- QA dataset 2358413618029924 remains created. NO new system user/token, Preview
+  env/redeploy, claim, production/main change, GTM publish or paid traffic.
+  See docs/META-QA-PREVIEW-2026-09-17.md continuation for exact gate evidence.
+
+### Isolated Meta dataset created; QA access confirmation pending, 2026-09-17
+
+- Resumed approved PR31 feature checkout at e99798fa60deda4414262be2391760aeaee77353;
+  session guard clean, origin/main e7dc38c. Canonical logo/footer owner edits preserved.
+- Owner confirmed Meta Business Tools Terms at creation. Exactly one dataset
+  LetKasni QA — Preview only, 2358413618029924, created in correct portfolio
+  2535168546914445. No ad account selected/connected; production dataset unchanged.
+- Existing Employee CAPI system user 61593330505838 has production Pixel/dataset
+  access and app permissions, so it is not reused, modified or assumed QA-scoped.
+  Separate Employee creation dialog inspected only; required action-time access
+  confirmation pending. No token generated/revealed/copied or permission granted.
+- Fresh local measurement regression PASS 39/39, not live Meta platform proof.
+  NO new claim (one permitted allowance remains unused), Preview env/redeploy,
+  main merge, production deploy/env, Google/GTM change/publish or paid traffic.
+- Current report docs/META-QA-PREVIEW-2026-09-17.md; release-candidate addendum
+  supersedes older missing-dataset authority blocker. RELEASE remains BLOCKED.
+  After specific access confirmation: verify minimum actual QA-only scope, secure
+  branch-only Preview env, redeploy/isolation/consent/admin checks, then one real
+  synthetic form end-to-end test and separate platform acceptance/dedup evidence.
+
 ### Google Preview completed; isolated Meta release gate remains, 2026-09-16
 
 - Supersedes older access/automatic-event/Preview blockers below. Google setup
@@ -422,23 +622,20 @@ Canonical handoff file for future local and Codex Cloud sessions.
 ## Generated Status
 
 <!-- BEGIN:generated-status -->
-Generated at: `2026-09-16T12:13:47.618Z`
+Generated at: `2026-09-17T11:12:31.625Z`
 
 Branch: `codex/google-ads-measurement`
 
 Remote: `https://github.com/nezun/let-kasni.git`
 
-Latest local commit: `ad12ca3 test(ga4): verify saved automatic link-event suppression`
+Latest local commit: `e99798f docs(ads): record fresh Preview lead and verified GTM export`
 
 Worktree status:
 
 ```text
 M CHECKPOINT.md
- M docs/GOOGLE-ADS-FINAL-QA-2026-09-16.md
- M docs/GOOGLE-ADS-LAUNCH.md
  M docs/GOOGLE-ADS-RELEASE-CANDIDATE-2026-09-16.md
-?? docs/GTM-WT3B2L8P-workspace2-2026-09-16.json
-?? scripts/gtm-export-check.mjs
+?? docs/META-QA-PREVIEW-2026-09-17.md
 ```
 
 Useful commands:

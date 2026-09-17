@@ -4,6 +4,73 @@
 
 ## Current candidate and evidence
 
+### Isolated Meta follow-up, 2026-09-17
+
+Owner confirmations for creation terms, separate QA access and the displayed
+Non-discrimination policy were completed. Created dataset **LetKasni QA — Preview
+only** `2358413618029924` and separate **Employee** system user `61594371304399`
+in portfolio `2535168546914445`, without an ad-account connection. After reload,
+only QA Pixel View Pixels and linked QA dataset Use events dataset partial access
+are assigned; no production assets or Admin permissions. Existing production
+CAPI user/app/token are not reused or modified.
+
+The actual blocker is now **QA CAPI application/token access**: Generate token is
+disabled; the portfolio has No apps added and Create a new app ID is disabled.
+The developer UI requires new personal Meta for Developers registration, with
+Platform Terms/Developer Policies acceptance and an upcoming Verify account step.
+That new account-wide action was cancelled without acceptance or verification.
+Continuation: owner developer activation is now verified complete in All apps.
+Prepared LetKasni QA CAPI Preview with no use case/products/permissions in the
+existing Letkasni.rs portfolio. Create app opened Meta's mandatory password
+reauthentication dialog, subsequently completed by the owner. App creation now
+verified: 4666725866879719, correct portfolio 2535168546914445, Unpublished.
+Added measurement API use case only to QA app; final QA user app role Test app
+only, token request only ads_read with 60-day expiry. Fresh assigned-asset reload
+shows only 3 QA assets (app/Pixel/linked dataset), no production/ad-account access.
+Owner subsequently completed account verification and Meta issued the first QA
+token. Chrome reconnect automatically exposed it in a tool result; it was never
+copied, installed or used. Completed the UI Revoke tokens confirmation for QA
+Employee 61594371304399 only; no persistent toast/Graph revocation proof captured.
+Replacement request started but issuance is not confirmed. Concurrent owner
+navigation and a timed-out inventory reset computer use; automatic review blocked
+reconnection because initial UI emission could reveal private content/secrets.
+Do not bypass that rejection. Owner later confirmed safe reconnect, which succeeded
+but still displayed another issued QA token; automatic initial emission exposed
+it too. Completed a second QA-only UI revocation; never copied/installed either.
+The replacement wizard is prepared with QA app, 60 days, ads_read only, final
+Generate enabled. Immediate remaining action is action-time confirmation for
+persistent API-token issuance, not account verification or browser reconnect.
+Branch-only Vercel Secret form now has all 3 rows prepared but UNSAVED: token
+empty, QA Pixel 2358413618029924, QA Test Events code TEST65347. Non-secret values
+verified individually and remasked. Keep active CUA binding; never raw-emit token UI.
+Subsequent owner approval/code completion issued the replacement. Transferred
+using native Copy/Paste directly into masked branch-only Vercel input, never raw
+token output/read. Final refreshed list verifies QA token/test-code Secret rows
+and public Pixel Config 2358413618029924, all Preview / codex/google-ads-measurement
+ONLY. Test code TEST65347. Batch save initially partially saved valid Secret rows;
+public Pixel required separate Config save. Production scopes were never saved.
+Preview redeploy GimL6AdSbFj4xFSZNvWpjBfAxjcX for e99798f is Ready, cache OFF.
+Alias health pins exact SHA/deployment; Supabase/local fallback/provider/subscriptions
+and both email booleans OFF, CAPI configured. Denied optional consent + reload has
+0 Meta/GTM/GA4 resources; granted consent shows only QA Pixel PageView 2358413618029924
+and existing GTM/direct GA4 loaders. Lead/platform processing still unverified.
+Subsequent recovered QA session confirmed all four Google default/update consent
+signals and allowlisted fake attribution. Real same-page withdrawal FAILED:
+all four Google values denied/attribution cleared, but _fbp persisted and one
+post-withdrawal www.facebook.com/tr/ request sent SubscribedButtonClick to QA Pixel
+2358413618029924. Wrapper/React gating does not explicitly stop loaded SDK;
+cookie expiry omits Domain. SDK callback race/cookie attribute mechanism not
+independently instrumented; see exact reproduction and minimal fix in QA report.
+Reloaded denied Preview: 0 optional resources, left safe. Do not equate this with
+same-page revoke PASS. NEED_CODE_FIX; no Lead attempted because pre-claim gate
+failed, one-claim allowance UNUSED. No source/GTM/production tracking change.
+Fresh local regression 39/39 PASS and frozen GTM export PASS, not platform proof.
+
+Current evidence and continuation:
+[isolated Meta QA](META-QA-PREVIEW-2026-09-17.md).
+**RELEASE remains BLOCKED**, not READY_FOR_RELEASE_APPROVAL. Existing coordinated
+release order, rollback and separate durable/atomic storage gate below remain.
+
 This current snapshot supersedes the earlier access/automatic-event/Preview
 blockers recorded in git history. It does not waive the separate Meta platform,
 release-approval, production-canary or durable-storage gates.
@@ -43,8 +110,8 @@ This proves runtime wiring, not real-paid-click Ads attribution.
 | GA4_URL_PRIVACY | PASS | History/Search/Outbound/Downloads saved OFF, positive SDK repeat and actual Preview clean Lead |
 | GOOGLE_ADS_PREVIEW | PASS | One new backend-confirmed UUID, tag exactly once after refresh/Back |
 | META_LOCAL_INTEGRATION | PASS | Actual route/CAPI/browser helpers with external boundaries mocked, matching IDs, no reuse replay |
-| META_LIVE_PREVIEW | BLOCKED | No approved isolated QA Pixel/dataset + Preview-only CAPI access |
-| CONSENT_AND_ADMIN | PASS local SDK/integration | All4/private/revoke; actual Preview Lead default Denied/update+current Granted |
+| META_LIVE_PREVIEW | FAIL pre-claim gate / RELEASE BLOCKED | Runtime isolation and QA PageView verified; same-page withdrawal sends SDK automatic event; no Lead/CAPI/Test Events/dedup test |
+| CONSENT_AND_ADMIN | FAIL real Meta withdrawal; local mocks PASS | Google all4 correct, attribution cleared; Meta _fbp persists and SubscribedButtonClick follows withdrawal; actual admin transition pending |
 | RELEASE_CHECKS | PASS tested candidate | 39 measurement tests, full verify/build; remote candidate all4 PASS; final descendant checks still must be read |
 | RELEASE_APPROVAL | NOT_REQUESTED | Not full READY_FOR_RELEASE_APPROVAL while Meta platform gate remains |
 | PRODUCTION_DEPLOY / GTM_PUBLISH | NOT_DONE | No main merge, production env/deploy, GTM publication or production claim |
