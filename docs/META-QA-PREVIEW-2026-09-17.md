@@ -2,6 +2,26 @@
 
 **RELEASE BLOCKED / NO PRODUCTION / NO GTM PUBLISH / NO PAID TRAFFIC**
 
+## Current continuation: consent fix implemented, real Preview QA pending
+
+Owner authorized the minimal implementation on the existing PR31 branch.
+`consent.ts` revokes the loaded Meta SDK synchronously before withdrawal/reset
+cookie cleanup, and expires only optional root cookies with host-only/current
+host/applicable parent domain attributes. `MetaPixel` also revokes on private
+routes; its bootstrap starts revoked and disables automatic SDK configuration.
+The guarded Next Script onReady grants and emits the initial PageView once only
+with current consent/public path. Explicit Lead/CAPI architecture is unchanged.
+
+Seven new application-runtime regressions PASS. The first four tests failed on
+the unchanged candidate, confirming missing revoke and domain cleanup. Full
+`npm run verify` PASS, including existing Google 39/39, lint, TypeScript and
+build195. Frozen GTM export checker PASS with unchanged SHA. These are local
+checks, NOT real Meta platform acceptance/dedup or a new browser PASS.
+
+Preview update and original consent repro verification are in progress. The
+single permitted new successful synthetic claim remains UNUSED. No production,
+main, production credentials, GTM publication or advertising action.
+
 ## Candidate and scope
 
 PR #31, branch `codex/google-ads-measurement`, candidate

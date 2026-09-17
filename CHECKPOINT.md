@@ -4,6 +4,24 @@ Canonical handoff file for future local and Codex Cloud sessions.
 
 ## Start Here
 
+### Meta consent fix implemented; Preview verification in progress, 2026-09-17
+
+- Owner authorized minimal implementation and remaining isolated QA, not production.
+- Explicit PR31 continuation; canonical logo/footer edits preserved. Task-owned
+  pre-fix evidence checkpointed in 64b6728; session resume clean, origin/main e7dc38c.
+- Revocation synchronously calls loaded fbq consent revoke before cookie cleanup;
+  privacy reset also revokes. Optional root cookies expire host-only/current and
+  parent domain scopes only. Required cookies and storage are preserved.
+- Meta bootstrap starts revoked, automatic SDK configuration is disabled, and
+  guarded onReady grants/emits initial PageView only with current advertising
+  consent/public path. Admin transitions revoke. CAPI and Google source untouched.
+- Seven new regressions PASS; first four failed before patch. Existing Google
+  39/39 PASS, full npm run verify PASS (lint/TypeScript/build195). Frozen GTM export
+  same SHA/PASS. Actual browser/platform verification remains in progress, not PASS.
+- ONE new synthetic claim allowance remains UNUSED. No main/production/env/GTM
+  publish/paid action. Need new serving Preview SHA then real consent gates,
+  same-claim Pixel/CAPI acceptance/Test Events/dedup/Google evidence.
+
 ### NEED_CODE_FIX: real Meta SDK consent-withdrawal failure, 2026-09-17
 
 - Recovered exact QA Preview window; actual Google all4 default denied/update
