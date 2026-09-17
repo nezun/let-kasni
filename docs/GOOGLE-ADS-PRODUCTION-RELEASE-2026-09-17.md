@@ -1,6 +1,6 @@
 # LetKasni production measurement release — 2026-09-17
 
-**RELEASE DONE_WITH_CONCERNS / READY_FOR_PRODUCTION_CANARY / NO_PAID_TRAFFIC**
+**RELEASE + PRODUCTION LEAD CANARY DONE_WITH_CONCERNS / NO_PAID_TRAFFIC**
 
 ## Done
 
@@ -34,21 +34,43 @@
 - Canonical user logo/footer edits preserved and excluded; no live ad/budget/
   keywords/negatives, Enhanced Conversions PII, CRM/database change or SEO rewrite.
 
-## Production successful Lead NOT VERIFIED
+## Production successful Lead VERIFIED — explicit new owner approval
 
-Prepared ONE obvious TEST PRODUCTION/CANARY PR31 submission to existing public
-kontakt address, no real customer data/phone. Automated safety reviewer rejected
-privacy-checkbox/submit action because earlier test scope was Preview-only.
-No API/headless/indirect retry or bypass. Native evidence: calls0/lead0/AdsLead0/
-MetaLead0, checkbox0 and submit disabled. No production test claim, email or CAPI
-Lead created. Prepared form abandoned via normal navigation. Final native denied
-cleanup interrupted by owner Chrome focus changes; not asserted as PASS.
+Owner explicitly answered "da" to the specific production TEST submission question,
+acknowledging TEST claim, notification emails and Google/Meta effects. This resolved
+the earlier Preview-only safety rejection; no action bypassed that restriction.
+ONE normal native-Chrome form submission used obvious TEST data, existing controlled
+kontakt address and blank phone. The single production allowance is now USED.
 
-Need a specific new owner approval for **ONE successful synthetic production
-submission on https://letkasni.rs to its existing kontakt address**, acknowledging
-a TEST claim, admin/user notification emails and Google/Meta measurement side
-effects, without campaigns/spend/real customer data. Then verify actualUUID,
-Ads exactly once, clean GA4, matching Meta/CAPI IDs and no refresh/back replay.
+- Test URL: https://letkasni.rs/?gclid=TEST_GCLID_PROD_CANARY_20260917&utm_source=google&utm_medium=cpc&utm_campaign=SEARCH_RS_CORE&utm_term=test-production-canary
+- Backend acknowledgment 2026-09-17T12:51:51.960Z: HTTP200, oktrue, reusedfalse,
+  privacytrue, calls1; claim UUID73ab9709-867a-4564-942a-a5c32133a558.
+  Attempt584d8119-ff3d-443b-89ea-c24e5741216a. Fake gclid/UTMs survived normal
+  landing-to-form navigation and are in the actual accepted backend payload.
+- All four consent signals Granted at submission; pre-submit lead_submit0.
+  Exactly ONE lead_submit with transaction_id equal to claim UUID.
+- Exactly ONE actual www.googleadservices.com/pagead/conversion/18452620232/
+  resource, label VnU-CKD6zfgcEMjH8t5E, oid equal to claim UUID.
+- Actual production Pixel2347588039400204 Browser Lead exactly ONE;
+  event ID43956832-de43-4cf2-aaaf-b2d0dda47322. Exact production deployment's
+  /claim/submit runtime log confirms Meta Lead CAPI delivery senttrue, matching
+  claim/event IDs. This is successful transport plus matching-ID evidence, not a
+  newly inspected production-platform Deduplicated status. Preview platform proof
+  below remains separate; production Meta test-code/credentials were not changed.
+- Direct GA4 G-RVJ906DKVF observed lead_submit1 and existing generate_lead1;
+  no obvious TEST contact markers/contact keys in inspected resource URLs.
+  One batched collector resource has no en URL field; page_view body/count was not
+  inspected. Two GA4 config entries were observed, so no blanket single-loader or
+  complete page-view duplication/PII-body assertion. GTM still has no GA4 tag.
+- Refresh: new document claim requests0 / lead_submit0 / AdsLead0 / MetaLead0.
+  Back: homepage requests0/Lead0. Forward: focused form requests0/Lead0/AdsLead0/
+  MetaLead0. Session UUID guard stayed "1" throughout. No second submission.
+- Runtime confirms admin/user TEST emails accepted by Resend, skippedfalse,
+  attempts1 each; this does not prove inbox delivery. IDs
+  01a0af6c-659d-70c8-83d3-5c2ef3357e59 / 01a0af6c-65a1-76e9-9e3d-45d70436e617.
+- Final native same-document privacy reset/reject: all four Denied,
+  attributionRemovedtrue, allowlisted optional cookie names[], current Lead0.
+  Prepared flow abandoned normally; actual TEST claim retained, not deleted.
 
 Actual earlier isolated Preview claim977a3a9d-8f16-4c9a-8fc7-5bff95fca1be passed
 HTTP200/reusedfalse/AdsSucceededFired1/no-refresh-back-forward-replay; sameMetaID
@@ -84,7 +106,8 @@ duplicated. No blanket single-loader or fully inspected network-body claim.
   Google OAuth refresh400 invalid_grant. Failed on previous e7dc38c too; public
   sitemap200/158 remains healthy. Needs owner reauthentication, not SEO rewrite.
 - Keywords/negative keywords remain owner-reviewed future work. No campaign
-  build/activation authorized here; next status READY_FOR_PRODUCTION_CANARY.
+  build/activation authorized here. Measurement canary is complete; paid readiness
+  remains NEED_CODE_FIX for durable atomic storage, outside this task's authority.
 
 ## Repeatable gates and rollback
 
@@ -93,7 +116,7 @@ export checker enforces3Ads-onlytags/1trigger/1DLV and frozen export hash
 f776ac715d9a71ec070aaf6a4dc3912faed052ca5a9bda6ef201b1ad38504e1d.
 Production gate pins live GitHub SHA and both locales/validation. Next automation
 improvement is an isolated synthetic canary plus durable persistence, not spend.
-Manual boundaries: specific production-test authority, DB approval/credentials,
+Manual boundaries: DB approval/credentials,
 GSC reauthentication and later keyword/negative review.
 
 No rollback needed. If a demonstrated critical regression appears, prefer GitHub

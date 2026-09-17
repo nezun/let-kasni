@@ -4,6 +4,30 @@ Canonical handoff file for future local and Codex Cloud sessions.
 
 ## Start Here
 
+### Production Lead canary completed under explicit new approval, 2026-09-17
+
+- Supersedes the production-canary BLOCKED entry below. Owner explicitly approved
+  ONE production TEST claim with email/measurement effects; allowance now USED.
+- Native normal form: HTTP200 oktrue reusedfalse privacytrue, acknowledgment
+  12:51:51.960Z; UUID73ab9709-867a-4564-942a-a5c32133a558. Fake attribution
+  persisted to actual payload. Attempt584d8119-ff3d-443b-89ea-c24e5741216a.
+- Successful lead_submit1 and actual Ads conversion1 with matching oidUUID and
+  exact18452620232/VnU-CKD6zfgcEMjH8t5E. All4Granted at Lead; pre-submit Lead0.
+- Production Pixel2347588039400204 BrowserLead1 event43956832-de43-4cf2-aaaf-b2d0dda47322;
+  scoped production Vercel runtime CAPI senttrue with same claim/event IDs.
+  No new production-platform dedup-status assertion; isolated Preview proof separate.
+- GA4 observed lead_submit1/legacygenerate_lead1, no obvious contacts in resource
+  URLs. Batched page-view body not inspected; config2 observed, not single-loader proof.
+- Refresh/Back/Forward requests0/Lead0 (refresh+forward Ads0/MetaLead0);
+  known session UUIDguard remains1. No second submit. Both TEST emails Resend accepted
+  attempts1, not asserted inbox delivery. TEST claim retained, not removed.
+- Final native privacy reset/reject all4Denied/attributionremoved/optional cookie
+  names[]/currentLead0. No code/env/Google/Meta config changed in this canary.
+- Production+GTM release and scoped canary DONE_WITH_CONCERNS. No ads/spend.
+  Paid launch still BLOCKED by non-durable non-atomic storage; GSC OAuth separately
+  invalid_grant. No DB/CRM redesign or credential/security work authorized here.
+- Detailed evidence: docs/GOOGLE-ADS-PRODUCTION-RELEASE-2026-09-17.md.
+
 ### Production release completed; successful production canary BLOCKED, 2026-09-17
 
 - Owner approved controlled PR31/PP1.3/GTM/canary release, NOT paid advertising.
@@ -729,18 +753,19 @@ Canonical handoff file for future local and Codex Cloud sessions.
 ## Generated Status
 
 <!-- BEGIN:generated-status -->
-Generated at: `2026-09-17T12:40:02.782Z`
+Generated at: `2026-09-17T12:57:47.260Z`
 
 Branch: `codex/production-release-evidence`
 
 Remote: `https://github.com/nezun/let-kasni.git`
 
-Latest local commit: `c37fdfd v0.2.0 feat: add consent-safe Google Ads measurement (#31)`
+Latest local commit: `9e8707b docs: record production release and exact remaining canary blockers`
 
 Worktree status:
 
 ```text
-clean
+M CHECKPOINT.md
+ M docs/GOOGLE-ADS-PRODUCTION-RELEASE-2026-09-17.md
 ```
 
 Useful commands:
