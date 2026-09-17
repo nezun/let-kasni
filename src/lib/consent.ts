@@ -125,6 +125,10 @@ export function setTrackingConsent(value: TrackingConsentInput) {
 
 export function setMetaTrackingConsent(granted: boolean) {
   if (typeof window !== "undefined" && typeof window.fbq === "function") {
+    const pixel = window.fbq as typeof window.fbq & { queue?: ArrayLike<unknown>[] };
+    // While the SDK loads, one queued revoke is enough. Multiple revokes can
+    // relock its queue when a later grant starts draining it.
+    if (!granted && pixel.queue?.some((command) => command[0] === "consent" && command[1] === "revoke")) return;
     window.fbq("consent", granted ? "grant" : "revoke");
   }
 }

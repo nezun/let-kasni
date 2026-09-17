@@ -96,13 +96,16 @@ test("analytics-only acceptance revokes advertising but retains analytics and re
   assert.equal(run.jar.has("required-session|"), true);
 });
 
-function pixelFixture({ marketing = true, pathname = "/", readyPath = pathname } = {}) {
+function pixelFixture({ marketing = true, pathname = "/", readyPath = pathname, sdkReady = true } = {}) {
   const run = fixture();
+  run.window.location.pathname = pathname;
+  if (sdkReady) run.window.fbq.callMethod = () => {};
   run.consent.setTrackingConsent(marketing ? "granted" : "denied");
   run.commands.length = 0;
   let effectIndex = 0;
   const overrides = {
     react: {
+      useCallback: (callback) => callback,
       useRef: (value) => ({ current: value }),
       useState: () => [marketing, () => {}],
       useEffect: (effect) => { if (effectIndex++ === 0) effect(); },
@@ -129,7 +132,7 @@ test("loaded Pixel receives revoke on admin transition without emitting a pagevi
 });
 
 test("bootstrap starts revoked, disables automatic handlers, initializes once and grants only in guarded ready callback", () => {
-  const run = pixelFixture();
+  const run = pixelFixture({ sdkReady: false });
   assert.ok(run.script.props.children.includes("fbq('consent', 'revoke')"));
   assert.ok(run.script.props.children.includes("fbq('set', 'autoConfig', false"));
   assert.equal(run.script.props.children.includes("fbq('track'"), false);
@@ -137,6 +140,11 @@ test("bootstrap starts revoked, disables automatic handlers, initializes once an
   vm.runInNewContext(run.script.props.children, { window: run.window, document: run.document, fbq: run.window.fbq });
   run.script.props.onReady(); run.script.props.onReady();
   run.flush();
+  assert.equal(run.commands.some(([command]) => command === "track"), false);
+  assert.equal(run.commands.some(([command, choice]) => command === "consent" && choice === "grant"), false);
+  run.window.fbq.callMethod = () => {};
+  run.window.dispatchEvent(new Event("letkasni:meta-pixel-ready"));
+  run.window.dispatchEvent(new Event("letkasni:meta-pixel-ready"));
   assert.equal(run.commands.filter(([command]) => command === "init").length, 1);
   assert.deepEqual(run.commands[0], ["consent", "revoke"]);
   assert.equal(run.commands.filter(([command, event]) => command === "track" && event === "PageView").length, 1);
@@ -155,7 +163,7 @@ test("a delayed ready callback cannot grant consent or queue a PageView after wi
 });
 
 test("Next inline onReady before script insertion cannot lose the initial PageView", () => {
-  const run = pixelFixture();
+  const run = pixelFixture({ sdkReady: false });
   const sdk = run.window.fbq;
   delete run.window.fbq;
   run.commands.length = 0;
@@ -165,8 +173,33 @@ test("Next inline onReady before script insertion cannot lose the initial PageVi
   run.window.fbq = sdk;
   vm.runInNewContext(run.script.props.children, { window: run.window, document: run.document, fbq: sdk });
   run.flush();
+  assert.equal(run.commands.some(([command]) => command === "track"), false);
+  run.window.fbq.callMethod = () => {};
+  run.window.dispatchEvent(new Event("letkasni:meta-pixel-ready"));
   assert.equal(run.commands.filter(([command, event]) => command === "track" && event === "PageView").length, 1);
   assert.deepEqual(run.commands.at(-2), ["consent", "grant"]);
+});
+
+test("withdrawal before external SDK ready emits no grant or stale PageView; later acceptance emits one current PageView", () => {
+  const run = pixelFixture({ sdkReady: false });
+  run.script.props.onReady(); run.flush();
+  run.consent.setTrackingConsent("denied");
+  run.window.fbq.callMethod = () => {};
+  run.window.dispatchEvent(new Event("letkasni:meta-pixel-ready"));
+  assert.equal(run.commands.some(([command, value]) => command === "consent" && value === "grant"), false);
+  assert.equal(run.commands.some(([command]) => command === "track"), false);
+  run.consent.setTrackingConsent("granted");
+  assert.equal(run.commands.filter(([command, event]) => command === "track" && event === "PageView").length, 1);
+  assert.equal(run.commands.some(([command, event]) => command === "track" && event === "Lead"), false);
+});
+
+test("a pending revoke is not queued twice by withdrawal and privacy reset", () => {
+  const run = fixture();
+  run.window.fbq.queue = [["consent", "revoke"]];
+  run.consent.setTrackingConsent("denied");
+  run.consent.clearTrackingConsent();
+  assert.equal(run.commands.length, 0);
+  assert.equal(run.window.fbq.queue.length, 1);
 });
 
 test("application events during denial are dropped and consent regrant does not replay a Lead", () => {

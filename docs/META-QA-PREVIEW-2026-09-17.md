@@ -4,6 +4,25 @@
 
 ## Current continuation: consent fix implemented, real Preview QA pending
 
+### Actual SDK readiness correction (not yet a platform PASS)
+
+Preview 19c1f48 / dpl_BX4SSthtYhJaVGiCxepvUJefCJzD remained isolated and
+denied-by-default. Grant loaded the SDK but no Meta PageView: init/grant/track
+were queued behind the initial revoke. Inspection of the current public Meta
+SDK confirms its queue stops draining when revoked; a grant queued behind that
+lock cannot unlock it. No claim was submitted.
+
+The loader now emits a readiness event from the external SDK script onload.
+Only the live SDK receives grant, after current consent/path checks, followed
+by one initial PageView. Pending revoke commands are not duplicated; pending
+navigation does not queue stale PageViews. Native SDK pushState PageViews are
+disabled because the application already controls route tracking/private paths.
+Eleven runtime regressions PASS for these loading/withdrawal/regrant cases.
+Fresh full `npm run verify` PASS (Google39, lint, TypeScript, build195). The first
+sandbox build could not fetch existing Google Fonts; the network-enabled full
+rerun passed without changing dependencies or fonts. Actual
+Preview consent gates and the single permitted lead still require verification.
+
 ### Preview caught Next inline Script ordering; correction verified locally
 
 The first patched Preview eb4c35d / dpl_2eUzDQpYimLrzDPxKTZDAnrVouDu was

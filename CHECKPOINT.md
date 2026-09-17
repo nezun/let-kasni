@@ -6,6 +6,16 @@ Canonical handoff file for future local and Codex Cloud sessions.
 
 ### Meta consent fix implemented; Preview verification in progress, 2026-09-17
 
+- Preview 19c1f48 / dpl_BX4SSthtYhJaVGiCxepvUJefCJzD: isolated, denied resource0;
+  Google grant PASS, SDK loaded but queued init/grant/PageView remained behind
+  revoke. Public SDK source confirms locked queue stops before queued grant.
+  Correction uses actual external SDK onload event/live grant, fresh consent/path,
+  no duplicate pending revoke or stale loading PageViews, SDK native history OFF.
+  Eleven runtime regressions and fresh full verify PASS (Google39/lint/TS/build195).
+  Sandbox font-fetch failure resolved by network-enabled rerun, no code changes.
+  Serving Preview repeat pending.
+  ONE new synthetic claim still UNUSED; no production or frozen Google changes.
+
 - First patched Preview eb4c35d / dpl_2eUzDQpYimLrzDPxKTZDAnrVouDu isolated;
   denied resources0. Google grant/loaders PASS; Meta SDK loaded but no PageView.
   Next16.2.4 inline onReady runs BEFORE script insertion; confirmed installed
