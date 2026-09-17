@@ -181,7 +181,19 @@ Do not broaden campaign value allowlists without tests.
 
 ## Genuine blockers and future release order
 
-**Now: BLOCKED_PENDING_ISOLATED_META_QA**, not full READY_FOR_RELEASE_APPROVAL.
+**Updated2026-09-17: isolated Meta QA PASS / READY_FOR_APPROVAL, no release performed.**
+
+The following missing-QA statement is historical and resolved. Actual source
+4b2054865817005c78b8be951f2dd03aad8bf52c /Preview
+dpl_ENeBH6P3MQAxp3mfm6Unz66jmapC passed the isolated SDK consent gates and ONE
+synthetic lead. Runtime CAPI senttrue; actual platform Browser Processed +Server
+Deduplicated same eventID0fd4b85a-22e5-453c-8dab-1cb794414449. Google Lead tag
+Succeeded/Fired1 with backend UUID977a3a9d-8f16-4c9a-8fc7-5bff95fca1be; refresh/
+back/forward no replay. Details/limitations: META-QA-PREVIEW-2026-09-17.md.
+GTM export unchanged, Meta11/Google39/fullverify PASS. No production/main/env/
+GTM publication/paid traffic. Require ONE separate combined production release/
+canary approval of the frozen reviewed source; paid-traffic prerequisites below
+remain separate. Do not replace production Meta env with QA values.
 
 1. Approved isolated QA Pixel/dataset and Preview-only CAPI test access are
    missing. Only active production dataset 2347588039400204 was found in

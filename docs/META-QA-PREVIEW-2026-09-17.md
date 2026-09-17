@@ -1,6 +1,86 @@
 # Isolated Meta Preview QA, 2026-09-17
 
-**RELEASE BLOCKED / NO PRODUCTION / NO GTM PUBLISH / NO PAID TRAFFIC**
+**ISOLATED QA PASS / READY_FOR_APPROVAL / NO PRODUCTION / NO GTM PUBLISH / NO PAID TRAFFIC**
+
+## Final real Preview result
+
+Tested source commit `4b2054865817005c78b8be951f2dd03aad8bf52c`, deployment
+`dpl_ENeBH6P3MQAxp3mfm6Unz66jmapC`. All four GitHub/Vercel checks SUCCESS.
+Subsequent final-report commits change documentation only; this source/deployment
+pair identifies the actual claim test, not an assertion that another claim ran.
+
+Test URL:
+`https://let-kasni-git-codex-goog-2c8116-audiblelover2018-1361s-projects.vercel.app/?gclid=TEST_GCLID_META_QA_20260917&utm_source=google&utm_medium=cpc&utm_campaign=TEST_META_QA_PREVIEW&utm_term=test-google-ads`
+
+The ONE permitted new synthetic successful claim is USED. Public UI hero choice
+and airport autocomplete led to `/proveri-let`, then contact submission; both email
+transports were disabled. Only obvious TEST names/example.com email were entered;
+no phone, PNR, documents or real customer data. No second submission was attempted.
+
+| Gate | Status | Sanitized real evidence |
+| --- | --- | --- |
+| QA_ENVIRONMENT | PASS | Serving SHA/deployment matched; both Preview email booleans false; isolated QA Pixel2358413618029924/CAPI; Supabase/fallback/provider/subscriptions off. |
+| META_BROWSER_DELIVERY | PASS | Fresh bootstrap ready-event/history-disable flags true, pixels=[2358413618029924], one initial PageView; one query-identifiable Lead resource, eventID0fd4b85a-22e5-453c-8dab-1cb794414449; platform Browser Processed. |
+| META_SERVER_ACCEPTANCE | PASS | Deployment-scoped runtime log at11:58:38.870Z: claimId977a3a9d-8f16-4c9a-8fc7-5bff95fca1be, same eventId, sent:true. Application implementation sets this only on a successful Graph2xx response; raw events_received/Graph exact status were not exposed. |
+| META_PLATFORM_DEDUP | PASS | Actual QA Test Events group: one Browser child Processed and one Server child Deduplicated, same eventID/time13:58:38. Screenshot in task proves grouping. Native AX initially appeared to show two Browser rows: the first is the group summary/header, not another child event. |
+| GOOGLE_REGRESSION | PASS | Actual lead_submit once; preserved generate_lead once; Tag Assistant Lead Succeeded/Fired1time, still1 after refresh/back/forward; DLV transaction_id equals backend UUID; native conversion18452620232 with labelVnU-CKD6zfgcEMjH8t5E and oid=UUID; all4 consent Granted at Lead. Google39/39, frozen export hash/check unchanged. |
+| RELEASE | READY_FOR_APPROVAL | Measurement QA complete for tested source; no authority inferred for main/production/GTM publication. This is not a paid-traffic authorization. |
+| PRODUCTION_DEPLOY | NOT_PERFORMED | No main merge/push or production env changes. |
+| GTM_PUBLISH | NOT_PERFORMED | Workspace draft untouched; only existing Preview/debug session operated. |
+| PAID_TRAFFIC | NOT_AUTHORIZED | No campaigns, budgets, keywords/negatives, billing or spend changes. |
+
+### Actual consent, attribution and duplicate controls
+
+- Denied fresh page: fbq undefined, optional resource count0, attribution absent.
+- Accepted fresh document: actual SDK bootstrap includes readiness event and
+  disablePushState=true, queue empty, QA Pixel initialized, PageView once.
+- SAME document withdrawal on new code: consent false/false,
+  ts1789645831215; _fbp/_fbc metadata list EMPTY; Meta /tr requests starting after
+  withdrawal0; all four Google signals denied; attribution removed. No manual
+  cookie deletion was used to establish this final PASS.
+- An older open debug document had old JavaScript despite the health endpoint
+  already serving the new deployment. Temporary document-title markers identified
+  the exact UI/DevTools pair; hard reload plus bootstrap flags pinned actual code.
+  Earlier ambiguous cookie results/control deletion belonged to that old document,
+  not this PASS. Do not infer serving page code from health SHA alone.
+- Granted consent on `/admin/login` still produced fbq undefined, optional
+  resources0 and all4 Google denied. No login or CRM/database work performed.
+- Empty issue selection, unselected airport values and incomplete contact/privacy
+  state prevented continuation/submission; pre-submit counts lead0/MetaLead0/
+  claimRequests0. Attribution preserved through actual public navigation.
+- Backend response: HTTP200, ok:true, reused:false, privacyConsent:true,
+  claim UUID977a3a9d-8f16-4c9a-8fc7-5bff95fca1be, attempt
+  cab88ecb-d137-41cd-aa9f-4429cc3bd318. Request attribution carried the fake gclid
+  and all supplied UTM values; fake metadata is not a real Ads click attribution proof.
+- Refresh: `/proveri-let`, new lead0/MetaLead0/claimRequests0; Back: `/`, all0;
+  Forward: `/proveri-let`, all0. Full Tag Assistant session still Lead Fired1time;
+  Linker/GoogleTag fired5times for page loads, not5 Leads. No backend resubmission.
+- GA4 wire destination analytics.google.com/g/collect G-RVJ906DKVF: one page_view,
+  one lead_submit and one legacy generate_lead; observed event params/query had no
+  obvious contact markers. Legacy event keys were fixed metadata/sanitized page
+  context. Two config/library entries under debug were observed, NOT proof of
+  duplicate events; do not call this a single-loader result. Full POST packet bodies
+  were not exported. No Enhanced Conversions/contact-field integration enabled.
+- Meta Test Events showed fixed content_name/content_category/form_locale only;
+  server user-data KEY names Country/Browser id/IP address/User agent, no real
+  values copied. Runtime confirms both user/admin claim emails skipped.
+
+### Repeatability and next owner decision
+
+Existing `npm run verify`/CI now includes11 Meta runtime regressions plus39 Google
+tests; frozen GTM export contract remains reproducible. Reuse the existing QA
+dataset/app/branch-only env and actual SDK readiness/consent checks; never schedule
+synthetic claims or copy QA credentials/Pixel into production. No resources/tokens
+were deleted in this final pass. No raw credential values are in this report.
+
+ONE next owner decision: approve a separately controlled production release of
+the frozen reviewed PR31 source, coordinated GTM/env changes and production
+canary (NOT campaigns/spend). Reconfirm exact release HEAD, production behavior
+and rollout order first. Earlier code/storage/paid-traffic prerequisites in the
+launch runbook remain applicable; no database architecture work was performed.
+
+The paragraphs below are dated implementation/reproduction HISTORY, not the final
+status. No local mock result is used as Meta platform proof.
 
 ## Current continuation: consent fix implemented, real Preview QA pending
 

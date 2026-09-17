@@ -4,6 +4,32 @@ Canonical handoff file for future local and Codex Cloud sessions.
 
 ## Start Here
 
+### Isolated Meta QA PASS / READY_FOR_APPROVAL, 2026-09-17
+
+- Actual tested source4b2054865817005c78b8be951f2dd03aad8bf52c;
+  dpl_ENeBH6P3MQAxp3mfm6Unz66jmapC Ready, all4 PR checks SUCCESS.
+  Both Preview email transports off; other isolation controls unchanged/off.
+- Fresh denied0optional; accepted actual new bootstrap/SDK PageView1; SAME page
+  revoke ts1789645831215 clears _fbp/_fbc, new Meta /tr0, Googleall4denied,
+  attributionremoved. Admin/login with stored grant: noSDK/optional0/all4denied.
+  Older open debug documents must hard-reload; health SHA alone is not page-code proof.
+- ONE allowed synthetic successful claim USED: HTTP200 oktrue reusedfalse,
+  UUID977a3a9d-8f16-4c9a-8fc7-5bff95fca1be; fake gclid/UTMs preserved.
+  Browser Lead eventID0fd4b85a-22e5-453c-8dab-1cb794414449 matches CAPI.
+  Runtime senttrue (Graph2xx), both emails skipped. Platform group Browser
+  childProcessed /Server childDeduplicated. Initial apparent second Browser row
+  is the group HEADER, verified native screenshot; NOT a second child event.
+- Google Lead native tagSucceeded/Fired1, UUID DLV verified, exactlabel/oid native
+  conversion request. All4 granted at Lead. Refresh/Back/Forward no new Lead/API;
+  session Lead remains1. GA4 page_view1/lead_submit1/legacygenerate_lead1,
+  observed fixed params/no obvious contact markers; debug loader/config2 noted,
+  not asserted single-loader. Google39/Meta11/fullverify PASS; GTM export unchanged.
+- Final QA report has exact evidence/limits. Documentation-only continuation commits
+  must not be described as another tested claim. No main/prod/env/Meta/GTMpublish/
+  paid action. Owner next decision: controlled combined production release/canary
+  of frozen reviewed candidate, not Ads activation. No new claim allowance remains.
+- Below entries are historical investigation/progress, not current BLOCKED status.
+
 ### Meta consent fix implemented; Preview verification in progress, 2026-09-17
 
 - Preview 19c1f48 / dpl_BX4SSthtYhJaVGiCxepvUJefCJzD: isolated, denied resource0;
