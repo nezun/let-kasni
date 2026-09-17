@@ -4,6 +4,39 @@ Canonical handoff file for future local and Codex Cloud sessions.
 
 ## Start Here
 
+### Production release completed; successful production canary BLOCKED, 2026-09-17
+
+- Owner approved controlled PR31/PP1.3/GTM/canary release, NOT paid advertising.
+  PR31 MERGED; exact main c37fdfd98b0f7704b679507d33b8f209e3f98ed4;
+  Vercel dpl_F4P36d2dinWNPgFTm7qgMgDEn32c Ready and live health matches.
+  Resulting main tree equals approved1ccabac/tested application4b20548.
+- GTM-WT3B2L8P version2 LIVE (five frozen Ads-only items). Added ONLY Production
+  NEXT_PUBLIC_GTM_ID; no QA Meta/email env copied. Existing Meta credentials and
+  Pixel2347588039400204/direct GA4G-RVJ906DKVF preserved. Version1 rollback kept.
+- Fresh full feature + clean-main production release gates PASS. Google39/Meta11
+  and full lint/TS/build195 PASS; main verify + both Vercel statuses SUCCESS.
+- SR/EN HTTP/UI/form-navigation/PP1.3/sitemap158/mobile375/no-console-errors PASS.
+  Denied default optional0; grant actual tags/all4Granted; headless same-page revoke
+  all4Denied/attrremoved. Native Chrome confirms actual production Pixel PageView.
+- Production TEST-contact submit was REJECTED by automated safety reviewer due
+  to earlier Preview-only restriction. No bypass/retry. Native evidence calls0,
+  lead0, AdsLead0, MetaLead0; checkbox0/submit disabled. NO production claim,
+  notification email or CAPI Lead. Full successful production canary NOT_VERIFIED.
+- Need specific new approval for ONE synthetic successful production submit to
+  existing kontakt address, acknowledging TEST claim + notification/measurement
+  effects. Next status READY_FOR_PRODUCTION_CANARY, NOT paid-launch-ready.
+- Hard paid-launch blocker: production Supabasefalse/non-durable non-atomic/tmp.
+  DB/CRM redesign/credential install not authorized in measurement task.
+- Separate PRE-EXISTING GSC workflow fails OAuth refresh400 invalid_grant
+  (run35220907307, also failed pre-release main). Reauthentication needed;
+  sitemap/SEO unchanged and healthy. No OAuth/GSC/SEO writes attempted.
+- Native final deny cleanup interrupted by owner Chrome focus changes; not
+  misreported as native positive revoke PASS. Prepared unsubmitted form abandoned
+  by normal browser navigation; do not send it without specific authorization.
+- Canonical unrelated brand-logo/site-footer local edits untouched/excluded.
+  Detailed handoff: docs/GOOGLE-ADS-PRODUCTION-RELEASE-2026-09-17.md.
+- All older no-production/approval-pending statements below are historical.
+
 ### Controlled production release approved, 2026-09-17
 
 - Owner authorized exact reviewed PR31 code/PP1.3, frozen GTM and production
@@ -696,20 +729,18 @@ Canonical handoff file for future local and Codex Cloud sessions.
 ## Generated Status
 
 <!-- BEGIN:generated-status -->
-Generated at: `2026-09-17T11:12:31.625Z`
+Generated at: `2026-09-17T12:40:02.782Z`
 
-Branch: `codex/google-ads-measurement`
+Branch: `codex/production-release-evidence`
 
 Remote: `https://github.com/nezun/let-kasni.git`
 
-Latest local commit: `e99798f docs(ads): record fresh Preview lead and verified GTM export`
+Latest local commit: `c37fdfd v0.2.0 feat: add consent-safe Google Ads measurement (#31)`
 
 Worktree status:
 
 ```text
-M CHECKPOINT.md
- M docs/GOOGLE-ADS-RELEASE-CANDIDATE-2026-09-16.md
-?? docs/META-QA-PREVIEW-2026-09-17.md
+clean
 ```
 
 Useful commands:
