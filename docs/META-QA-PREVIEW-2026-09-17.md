@@ -4,6 +4,23 @@
 
 ## Current continuation: consent fix implemented, real Preview QA pending
 
+### Preview caught Next inline Script ordering; correction verified locally
+
+The first patched Preview eb4c35d / dpl_2eUzDQpYimLrzDPxKTZDAnrVouDu was
+isolated: both email booleans FALSE, Supabase/local admin fallback/provider/
+subscriptions OFF, QA CAPI configured. Initial denied state: fbq undefined,
+optional resource count0, attribution absent. All four Google consent signals
+updated granted with the existing loaders; Meta SDK loaded but stayed revoked,
+no PageView resource. No claim attempted.
+
+Installed Next16.2.4 `dist/client/script.js` calls inline afterLoad/onReady BEFORE
+`document.body.appendChild(el)`. The ready callback thus ran before fbq existed.
+Added a regression recreating that order: FAILED on the first fix (0 PageView).
+The callback now queues a microtask, then checks current consent/public path/
+fbq again before grant and initial PageView. Nine Meta runtime regressions PASS;
+consent regrant also cannot replay an application Lead. Real Preview repeat and
+single successful claim remain pending. Original pre-fix evidence below is history.
+
 Owner authorized the minimal implementation on the existing PR31 branch.
 `consent.ts` revokes the loaded Meta SDK synchronously before withdrawal/reset
 cookie cleanup, and expires only optional root cookies with host-only/current

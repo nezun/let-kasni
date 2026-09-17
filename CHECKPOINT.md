@@ -6,6 +6,12 @@ Canonical handoff file for future local and Codex Cloud sessions.
 
 ### Meta consent fix implemented; Preview verification in progress, 2026-09-17
 
+- First patched Preview eb4c35d / dpl_2eUzDQpYimLrzDPxKTZDAnrVouDu isolated;
+  denied resources0. Google grant/loaders PASS; Meta SDK loaded but no PageView.
+  Next16.2.4 inline onReady runs BEFORE script insertion; confirmed installed
+  client/script.js. Regression failed (0 PV); ready callback now uses guarded
+  microtask. Nine Meta regressions PASS; no new claim. Next Preview repeat pending.
+
 - Owner authorized minimal implementation and remaining isolated QA, not production.
 - Explicit PR31 continuation; canonical logo/footer edits preserved. Task-owned
   pre-fix evidence checkpointed in 64b6728; session resume clean, origin/main e7dc38c.
