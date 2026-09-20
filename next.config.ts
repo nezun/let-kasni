@@ -73,6 +73,8 @@ const nextConfig: NextConfig = {
       {
         source: "/(.*)",
         headers: [
+          // CSP prvo kroz izveštavanje (tehnički DD 19.09.2026): ništa ne blokira; posle nedelju dana bez prijava u konzoli → Content-Security-Policy
+          { key: "Content-Security-Policy-Report-Only", value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://connect.facebook.net https://va.vercel-scripts.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; font-src 'self' data:; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://graph.facebook.com https://*.facebook.com https://vitals.vercel-insights.com https://va.vercel-scripts.com https://*.supabase.co; frame-ancestors 'none'; base-uri 'self'; form-action 'self'" },
           {
             key: "X-Frame-Options",
             value: "DENY",
