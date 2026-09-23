@@ -696,20 +696,22 @@ Canonical handoff file for future local and Codex Cloud sessions.
 ## Generated Status
 
 <!-- BEGIN:generated-status -->
-Generated at: `2026-09-17T11:12:31.625Z`
+Generated at: `2026-09-23T12:59:04.622Z`
 
-Branch: `codex/google-ads-measurement`
+Branch: `codex/email-signature-assets`
 
 Remote: `https://github.com/nezun/let-kasni.git`
 
-Latest local commit: `e99798f docs(ads): record fresh Preview lead and verified GTM export`
+Latest local commit: `2d9b58c Bezbednost: Next 16.3.5 (GHSA-2xp9-vwfh-vxw4 i ostale prijave), npm audit 0`
 
 Worktree status:
 
 ```text
-M CHECKPOINT.md
- M docs/GOOGLE-ADS-RELEASE-CANDIDATE-2026-09-16.md
-?? docs/META-QA-PREVIEW-2026-09-17.md
+M AGENTS.md
+ M CHECKPOINT.md
+ M package.json
+?? public/email-signature/
+?? scripts/check-email-signature-assets.mjs
 ```
 
 Useful commands:
@@ -718,7 +720,7 @@ Useful commands:
 - `npm run dev`: `next dev`
 - `npm run lint`: `eslint`
 - `npm run build`: `next build`
-- `npm run verify`: `npm run workflow:check && npm run privacy:check && npm run meta:check && npm run google-ads:check && npm run email:check && npm run seo:retirement:check && npm run content:qa && npm run content:links && npm run content:benchmark && npm run locales:check && npm run lint && npm run build`
+- `npm run verify`: `npm run workflow:check && npm run privacy:check && npm run meta:check && npm run google-ads:check && npm run email:check && npm run email-signature:check && npm run seo:retirement:check && npm run content:qa && npm run content:links && npm run content:benchmark && npm run locales:check && npm run lint && npm run build`
 - `npm run release:gate`: `bash scripts/release-gate.sh`
 - `npm run production:check`: `node scripts/check-production.mjs`
 - `npm run workflow:check`: `bash scripts/check-workflow-guards.sh`
@@ -730,6 +732,11 @@ Useful commands:
 
 ## Current State
 
+- 2026-09-23: The owner authorized production hosting for the Marko Jovanović
+  Gmail signature assets. The approved portrait, Letkasni logo, Instagram icon,
+  and Facebook icon are added as immutable versioned PNGs under
+  `/email-signature/v1/`; no application route, claim flow, tracking, or public
+  copy is changed by this release.
 - 2026-09-15: The user explicitly approved bilingual Privacy Policy 1.3. Google Ads billing onboarding and advertiser verification are complete; no campaign or spend was created.
 - 2026-09-15: Native Google Ads conversion `Lead - successful claim submit` is configured as Primary, no monetary value (UI evidence supersedes the older EUR 0 note), Count One, 30-day click-through window, data-driven attribution and enhanced conversions off. Conversion ID `18452620232`; label `VnU-CKD6zfgcEMjH8t5E`.
 - 2026-09-15: GTM draft now contains five changes: `DLV - transaction_id`, `CE - lead_submit`, `Conversion Linker - All Pages`, `Google Tag AW-18452620232`, and `Lead - successful claim submit`. The conversion tag uses the claim UUID transaction ID and fires only on `CE - lead_submit`; the container remains unpublished.
@@ -776,6 +783,9 @@ Useful commands:
 
 ## Next Work
 
+- Merge the reviewed email-signature asset commit to GitHub `main`, wait for the
+  Vercel production deployment, then run `npm run email-signature:check:production`
+  before installing the signature in Gmail.
 - Current Google measurement task: follow the BLOCKED / PREVIEW ONLY entry above.
   Do NOT execute older production/GTM/Supabase/CRM instructions in this task.
 - Run GTM Preview with one controlled successful claim. Publish GTM and add `GTM-WT3B2L8P` to Vercel Production only after exactly one Ads conversion is observed.
@@ -803,6 +813,10 @@ Useful commands:
 
 ## Manual Work Still Needed
 
+- After the hosted asset check passes, open the local Marko Jovanović signature
+  template, copy the rendered signature into Gmail settings, choose the correct
+  signature defaults, and send one external test message. Confirm the Instagram
+  and Facebook profile handles if they differ from the template assumptions.
 - Current release blockers and exact shared GA4 approval request are in
   `docs/GOOGLE-ADS-RELEASE-CANDIDATE-2026-09-16.md`; older approvals below are
   historical and do not authorize this candidate's deployment or GTM publish.
@@ -821,6 +835,12 @@ Useful commands:
 
 ## Verification Log
 
+- 2026-09-23 email signature assets: exact local PNG dimensions and SHA-256
+  values passed `npm run email-signature:check`; all four files returned HTTP 200
+  with `image/png` from a local Next server. The full verification chain passed
+  through ESLint. A normal production build then passed in the stable canonical
+  checkout; the earlier Turbopack `Operation not permitted` failure was isolated
+  to the host-managed `/private/tmp` worktree path, not the application change.
 - 2026-09-15 v0.2.0 ship gate: all 25 Google Ads measurement tests passed, together with privacy, Meta, email, content, link, benchmark, SR/EN locale, lint, TypeScript and optimized production-build checks. Security, performance, API, maintainability, design and adversarial review passes reported no remaining release-blocking code finding.
 - 2026-09-15 Google Ads conversion Preview: Tag Assistant connected only after advertising consent and found direct GA4 `G-RVJ906DKVF`, GTM `GTM-WT3B2L8P`, and Ads `AW-18452620232`. `Conversion Linker - All Pages` and `Google Tag AW-18452620232` each fired once; `Lead - successful claim submit` correctly did not fire on page load or before a successful claim. Positive successful-submit verification is intentionally pending because no fake CRM claim was created.
 - 2026-09-15 PP 1.3 Preview QA: Vercel deployment `AhPkmBfAShY2Go8VFeuB7LXXm8Zp` for `3e536b3` reached Ready. The prior PP 1.2 consent cookie was rejected, the banner requested a new choice, the advertising detail named Meta and Google, `/privacy` rendered PP 1.3 dated 15.09.2026 with the limited Google Ads payload disclosure, and rejecting optional tracking kept GTM inactive. All verification stages through lint passed; the final permitted network build passed and generated 331 pages.
