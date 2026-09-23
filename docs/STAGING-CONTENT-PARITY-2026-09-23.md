@@ -9,13 +9,13 @@
 - Radna grana: `codex/staging-content-parity`; cilj objave: grana `staging`, projekat `let-kasni-staging`.
 - Preneti su produkcioni sadržaj i pravila uklanjanja članaka, lista glavnih vodiča i njihovih linkova, footer, PP 1.3 na srpskom i engleskom, 404 strana i slike mejl potpisa.
 - Uklonjeno je 62 članka u oba jezika: 124 kanonske adrese i 248 starih blog adresa. Te adrese treba da vraćaju 404 kao na produkciji. Sačuvano je 68 aktivnih članaka, osam glavnih vodiča i šest grupa prethodnih preusmerenja. Sitemap ima 158 adresa.
-- Verzija obaveštenja o kolačićima marketinga usklađena je sa prenetom PP 1.3. Ova izmena ne uključuje nove tagove, ID-eve, kampanje ili servise praćenja.
+- Prenet je javni tekst PP 1.3. Postojeća zajednička verzija izbora kolačića (marketing + aplikacija prijave) ostaje nepromenjena dok se ne prenese ceo paket merenja. Ova izmena ne uključuje nove tagove, ID-eve, kampanje ili servise praćenja.
 
 ## Sačuvano ponašanje staginga
 
 Forma i portal ostaju u zasebnoj aplikaciji preko `PRIJAVA_URL`. Marketing ne vraća stari lokalni prijem prijava, admin ili CRM. Ostaju pristupna kapija, `noindex`, CSP Report-Only i postojeće verzije zavisnosti. Produkcioni kod, domeni, baze, poslovi, draftovi i poruke nisu menjani.
 
-Ovo je prenos određenog sadržaja, ne Git spajanje kojim bi se sve produkcione funkcionalnosti proglasile prenetim. Google Ads/GA4/Meta integracija produkcije sa izdvojenom aplikacijom prijave ostaje poseban korak. Tada treba uskladiti i proveriti verziju pristanka i ponašanje praćenja kroz obe aplikacije.
+Ovo je prenos određenog sadržaja, ne Git spajanje kojim bi se sve produkcione funkcionalnosti proglasile prenetim. Google Ads/GA4/Meta integracija produkcije sa izdvojenom aplikacijom prijave ostaje poseban korak. Tada treba istovremeno prebaciti verziju pristanka i proveriti praćenje kroz obe aplikacije. Proba u pregledaču otkrila je da promena verzije samo u marketingu ponovo prikazuje baner pri ulasku u formu, pa je ta promena vraćena pre završetka ovog koraka.
 
 ## Provere pre objave
 

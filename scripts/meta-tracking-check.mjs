@@ -15,7 +15,7 @@ const checks = [
   ["src/app/layout.tsx", "suppressHydrationWarning"],
   ["src/components/consent-banner.tsx", "data-consent-banner"],
   ["src/app/globals.css", "data-consent=\"1\""],
-  ["src/lib/consent-cookie.ts", "privacy-1.3-2026-09-15"],
+  ["src/lib/consent-cookie.ts", "privacy-1.2-2026-09-10"],
   ["src/components/consent-banner.tsx", "setTrackingConsent"],
   ["src/components/consent-banner.tsx", "marketing"],
   ["src/components/privacy-settings-button.tsx", "clearTrackingConsent"],
