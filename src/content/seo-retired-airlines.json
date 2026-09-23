@@ -1,0 +1,236 @@
+{
+  "reason": "Owner ended the airline-specific content experiment; no equivalent replacement page.",
+  "status": 404,
+  "articles": [
+    {
+      "id": "aegean-flight-delay-compensation",
+      "sr": "/naknada-za-kasnjenje-leta/aegean-kasnjenje-leta-naknada",
+      "en": "/en/flight-delay-compensation/aegean-flight-delay-compensation"
+    },
+    {
+      "id": "air-cairo-flight-delay-compensation",
+      "sr": "/naknada-za-kasnjenje-leta/air-cairo-kasnjenje-leta-naknada",
+      "en": "/en/flight-delay-compensation/air-cairo-flight-delay-compensation"
+    },
+    {
+      "id": "air-france-flight-delay-compensation",
+      "sr": "/naknada-za-kasnjenje-leta/air-france-kasnjenje-leta-odsteta",
+      "en": "/en/flight-delay-compensation/air-france-flight-delay-compensation"
+    },
+    {
+      "id": "air-montenegro-flight-delay-compensation",
+      "sr": "/naknada-za-kasnjenje-leta/air-montenegro-kasnjenje-leta-naknada",
+      "en": "/en/flight-delay-compensation/air-montenegro-flight-delay-compensation"
+    },
+    {
+      "id": "air-serbia-flight-delay-compensation",
+      "sr": "/naknada-za-kasnjenje-leta/air-serbia-kasnjenje-leta-odsteta",
+      "en": "/en/flight-delay-compensation/air-serbia-flight-delay-compensation"
+    },
+    {
+      "id": "airbaltic-flight-delay-compensation",
+      "sr": "/naknada-za-kasnjenje-leta/airbaltic-kasnjenje-leta-naknada",
+      "en": "/en/flight-delay-compensation/airbaltic-flight-delay-compensation"
+    },
+    {
+      "id": "ajet-flight-delay-compensation",
+      "sr": "/naknada-za-kasnjenje-leta/ajet-kasnjenje-leta-naknada",
+      "en": "/en/flight-delay-compensation/ajet-flight-delay-compensation"
+    },
+    {
+      "id": "arkia-flight-delay-compensation",
+      "sr": "/naknada-za-kasnjenje-leta/arkia-kasnjenje-leta-naknada",
+      "en": "/en/flight-delay-compensation/arkia-flight-delay-compensation"
+    },
+    {
+      "id": "austrian-airlines-flight-delay-compensation",
+      "sr": "/naknada-za-kasnjenje-leta/austrian-airlines-kasnjenje-leta-odsteta",
+      "en": "/en/flight-delay-compensation/austrian-airlines-flight-delay-compensation"
+    },
+    {
+      "id": "british-airways-flight-delay-compensation",
+      "sr": "/naknada-za-kasnjenje-leta/british-airways-kasnjenje-leta-naknada",
+      "en": "/en/flight-delay-compensation/british-airways-flight-delay-compensation"
+    },
+    {
+      "id": "brussels-airlines-flight-delay-compensation",
+      "sr": "/naknada-za-kasnjenje-leta/brussels-airlines-kasnjenje-leta-naknada",
+      "en": "/en/flight-delay-compensation/brussels-airlines-flight-delay-compensation"
+    },
+    {
+      "id": "bulgaria-air-flight-delay-compensation",
+      "sr": "/naknada-za-kasnjenje-leta/bulgaria-air-kasnjenje-leta-naknada",
+      "en": "/en/flight-delay-compensation/bulgaria-air-flight-delay-compensation"
+    },
+    {
+      "id": "china-southern-flight-delay-compensation",
+      "sr": "/naknada-za-kasnjenje-leta/china-southern-kasnjenje-leta-naknada",
+      "en": "/en/flight-delay-compensation/china-southern-flight-delay-compensation"
+    },
+    {
+      "id": "condor-flight-delay-compensation",
+      "sr": "/naknada-za-kasnjenje-leta/condor-kasnjenje-leta-naknada",
+      "en": "/en/flight-delay-compensation/condor-flight-delay-compensation"
+    },
+    {
+      "id": "corendon-airlines-flight-delay-compensation",
+      "sr": "/naknada-za-kasnjenje-leta/corendon-airlines-kasnjenje-leta-naknada",
+      "en": "/en/flight-delay-compensation/corendon-airlines-flight-delay-compensation"
+    },
+    {
+      "id": "croatia-airlines-flight-delay-compensation",
+      "sr": "/naknada-za-kasnjenje-leta/croatia-airlines-kasnjenje-leta-naknada",
+      "en": "/en/flight-delay-compensation/croatia-airlines-flight-delay-compensation"
+    },
+    {
+      "id": "easyjet-flight-delay-compensation",
+      "sr": "/naknada-za-kasnjenje-leta/easyjet-kasnjenje-leta-odsteta",
+      "en": "/en/flight-delay-compensation/easyjet-flight-delay-compensation"
+    },
+    {
+      "id": "egyptair-flight-delay-compensation",
+      "sr": "/naknada-za-kasnjenje-leta/egyptair-kasnjenje-leta-naknada",
+      "en": "/en/flight-delay-compensation/egyptair-flight-delay-compensation"
+    },
+    {
+      "id": "el-al-flight-delay-compensation",
+      "sr": "/naknada-za-kasnjenje-leta/el-al-kasnjenje-leta-naknada",
+      "en": "/en/flight-delay-compensation/el-al-flight-delay-compensation"
+    },
+    {
+      "id": "emirates-flight-delay-compensation",
+      "sr": "/naknada-za-kasnjenje-leta/emirates-kasnjenje-leta-naknada",
+      "en": "/en/flight-delay-compensation/emirates-flight-delay-compensation"
+    },
+    {
+      "id": "etihad-airways-flight-delay-compensation",
+      "sr": "/naknada-za-kasnjenje-leta/etihad-airways-kasnjenje-leta-naknada",
+      "en": "/en/flight-delay-compensation/etihad-airways-flight-delay-compensation"
+    },
+    {
+      "id": "eurowings-flight-delay-compensation",
+      "sr": "/naknada-za-kasnjenje-leta/eurowings-kasnjenje-leta-naknada",
+      "en": "/en/flight-delay-compensation/eurowings-flight-delay-compensation"
+    },
+    {
+      "id": "flydubai-flight-delay-compensation",
+      "sr": "/naknada-za-kasnjenje-leta/flydubai-kasnjenje-leta-naknada",
+      "en": "/en/flight-delay-compensation/flydubai-flight-delay-compensation"
+    },
+    {
+      "id": "freebird-flight-delay-compensation",
+      "sr": "/naknada-za-kasnjenje-leta/freebird-kasnjenje-leta-naknada",
+      "en": "/en/flight-delay-compensation/freebird-flight-delay-compensation"
+    },
+    {
+      "id": "hainan-airlines-flight-delay-compensation",
+      "sr": "/naknada-za-kasnjenje-leta/hainan-airlines-kasnjenje-leta-naknada",
+      "en": "/en/flight-delay-compensation/hainan-airlines-flight-delay-compensation"
+    },
+    {
+      "id": "iberia-flight-delay-compensation",
+      "sr": "/naknada-za-kasnjenje-leta/iberia-kasnjenje-leta-naknada",
+      "en": "/en/flight-delay-compensation/iberia-flight-delay-compensation"
+    },
+    {
+      "id": "ita-airways-flight-delay-compensation",
+      "sr": "/naknada-za-kasnjenje-leta/ita-airways-kasnjenje-leta-naknada",
+      "en": "/en/flight-delay-compensation/ita-airways-flight-delay-compensation"
+    },
+    {
+      "id": "klm-flight-delay-compensation",
+      "sr": "/naknada-za-kasnjenje-leta/klm-kasnjenje-leta-odsteta",
+      "en": "/en/flight-delay-compensation/klm-flight-delay-compensation"
+    },
+    {
+      "id": "kuwait-airways-flight-delay-compensation",
+      "sr": "/naknada-za-kasnjenje-leta/kuwait-airways-kasnjenje-leta-naknada",
+      "en": "/en/flight-delay-compensation/kuwait-airways-flight-delay-compensation"
+    },
+    {
+      "id": "lot-polish-flight-delay-compensation",
+      "sr": "/naknada-za-kasnjenje-leta/lot-polish-kasnjenje-leta-naknada",
+      "en": "/en/flight-delay-compensation/lot-polish-flight-delay-compensation"
+    },
+    {
+      "id": "lufthansa-flight-delay-compensation",
+      "sr": "/naknada-za-kasnjenje-leta/lufthansa-kasnjenje-leta-odsteta",
+      "en": "/en/flight-delay-compensation/lufthansa-flight-delay-compensation"
+    },
+    {
+      "id": "luxair-flight-delay-compensation",
+      "sr": "/naknada-za-kasnjenje-leta/luxair-kasnjenje-leta-naknada",
+      "en": "/en/flight-delay-compensation/luxair-flight-delay-compensation"
+    },
+    {
+      "id": "norwegian-flight-delay-compensation",
+      "sr": "/naknada-za-kasnjenje-leta/norwegian-kasnjenje-leta-naknada",
+      "en": "/en/flight-delay-compensation/norwegian-flight-delay-compensation"
+    },
+    {
+      "id": "pegasus-flight-delay-compensation",
+      "sr": "/naknada-za-kasnjenje-leta/pegasus-kasnjenje-leta-naknada",
+      "en": "/en/flight-delay-compensation/pegasus-flight-delay-compensation"
+    },
+    {
+      "id": "qatar-airways-flight-delay-compensation",
+      "sr": "/naknada-za-kasnjenje-leta/qatar-airways-kasnjenje-leta-naknada",
+      "en": "/en/flight-delay-compensation/qatar-airways-flight-delay-compensation"
+    },
+    {
+      "id": "ryanair-flight-delay-compensation",
+      "sr": "/naknada-za-kasnjenje-leta/ryanair-kasnjenje-leta-odsteta",
+      "en": "/en/flight-delay-compensation/ryanair-flight-delay-compensation"
+    },
+    {
+      "id": "sas-flight-delay-compensation",
+      "sr": "/naknada-za-kasnjenje-leta/sas-kasnjenje-leta-naknada",
+      "en": "/en/flight-delay-compensation/sas-flight-delay-compensation"
+    },
+    {
+      "id": "smartwings-flight-delay-compensation",
+      "sr": "/naknada-za-kasnjenje-leta/smartwings-kasnjenje-leta-naknada",
+      "en": "/en/flight-delay-compensation/smartwings-flight-delay-compensation"
+    },
+    {
+      "id": "sunexpress-flight-delay-compensation",
+      "sr": "/naknada-za-kasnjenje-leta/sunexpress-kasnjenje-leta-naknada",
+      "en": "/en/flight-delay-compensation/sunexpress-flight-delay-compensation"
+    },
+    {
+      "id": "swiss-flight-delay-compensation",
+      "sr": "/naknada-za-kasnjenje-leta/swiss-kasnjenje-leta-odsteta",
+      "en": "/en/flight-delay-compensation/swiss-flight-delay-compensation"
+    },
+    {
+      "id": "tarom-flight-delay-compensation",
+      "sr": "/naknada-za-kasnjenje-leta/tarom-kasnjenje-leta-naknada",
+      "en": "/en/flight-delay-compensation/tarom-flight-delay-compensation"
+    },
+    {
+      "id": "transavia-flight-delay-compensation",
+      "sr": "/naknada-za-kasnjenje-leta/transavia-kasnjenje-leta-naknada",
+      "en": "/en/flight-delay-compensation/transavia-flight-delay-compensation"
+    },
+    {
+      "id": "tunisair-flight-delay-compensation",
+      "sr": "/naknada-za-kasnjenje-leta/tunisair-kasnjenje-leta-naknada",
+      "en": "/en/flight-delay-compensation/tunisair-flight-delay-compensation"
+    },
+    {
+      "id": "turkish-airlines-flight-delay-compensation",
+      "sr": "/naknada-za-kasnjenje-leta/turkish-airlines-kasnjenje-leta-odsteta",
+      "en": "/en/flight-delay-compensation/turkish-airlines-flight-delay-compensation"
+    },
+    {
+      "id": "vueling-flight-delay-compensation",
+      "sr": "/naknada-za-kasnjenje-leta/vueling-kasnjenje-leta-naknada",
+      "en": "/en/flight-delay-compensation/vueling-flight-delay-compensation"
+    },
+    {
+      "id": "wizz-air-flight-delay-compensation",
+      "sr": "/naknada-za-kasnjenje-leta/wizz-air-kasnjenje-leta-odsteta",
+      "en": "/en/flight-delay-compensation/wizz-air-flight-delay-compensation"
+    }
+  ]
+}

@@ -26,11 +26,6 @@ export const images = {
     alt: "Passenger reviewing receipts and a replacement itinerary",
     position: "center",
   },
-  "serbia-eu-transit-routes": {
-    src: "https://images.unsplash.com/photo-1529074963764-98f45c47344b?auto=format&fit=crop&w=1600&q=82",
-    alt: "Passenger aircraft flying over a European route map",
-    position: "center",
-  },
 } satisfies Record<string, BlogArticleImage>;
 
 export const articles = [
@@ -638,127 +633,6 @@ export const articles = [
             "The request should include the original flight, disruption, what you asked from the airline, what was or was not offered, why you had to buy a new flight and the amount. Attach the invoice, boarding pass for the new flight and proof of payment.",
             "If travel was urgent, explain briefly: business event, medical appointment, returning to a child, missed same-booking connection. You do not need to exaggerate; a real reason why waiting was unacceptable is enough.",
             "The biggest mistake is buying the most expensive ticket without trying to contact the airline and later sending only the receipt. A stronger request shows that you first gave the airline a chance to perform, then chose a reasonable alternative because no help was provided."
-          ]
-        }
-      ],
-    },
-  },
-  {
-    id: "serbia-eu-transit-routes",
-    publishedAt: "2026-05-02",
-    updatedAt: "2026-05-02",
-    sr: {
-      slug: "let-iz-srbije-preko-eu-prava-putnika",
-      title: "Let iz Srbije preko EU: kada se primenjuju evropska prava putnika",
-      description: "Kako putnici iz Srbije da provere rute preko EU, ECAA i evropskih prevoznika kada kasni ili se otkaže let ka trećoj zemlji.",
-      excerpt: "Nije presudno da li ste državljanin Srbije ili EU. Za prava putnika najvažniji su polazni aerodrom, odredište, operativni prevoznik i da li su letovi u jednoj rezervaciji.",
-      category: "EU 261 i Srbija",
-      readTime: "8 min čitanja",
-      sections: [
-        {
-          heading: "Državljanstvo uglavnom nije glavno pitanje",
-          body: [
-            "Putnici iz Srbije često misle da evropska prava važe samo za državljane EU. U praksi je mnogo važnije gde let polazi, gde dolazi, koja aviokompanija upravlja letom i kako je putovanje kupljeno. Putnik može biti iz Srbije, ali ruta može biti u evropskom režimu zaštite.",
-            "Zato se svaki slučaj proverava kroz mapu puta. Let iz Beograda ka Parizu evropskim prevoznikom, let iz Beča ka Beogradu, ili putovanje Beograd-Frankfurt-New York u jednoj rezervaciji ne daju isti odgovor kao odvojene karte ili dolazni let neevropske kompanije.",
-            "Uobičajena objašnjenja često daju jednostavne tabele EU to EU, EU to non-EU i non-EU to EU. To je dobar početak, ali putniku iz Srbije treba objašnjenje šta se dešava kada je Srbija deo šire konekcije, a ne samo početna ili završna tačka."
-          ]
-        },
-        {
-          heading: "Polazak iz EU je najjednostavniji scenario",
-          body: [
-            "Ako let polazi iz aerodroma u EU, EEA ili drugom relevantnom evropskom okviru, zaštita je obično šira bez obzira na to koja aviokompanija leti. Zato let iz Beča, Budimpešte, Zagreba, Frankfurta ili Rima ka Srbiji ili trećoj zemlji treba proveriti odmah.",
-            "U tom scenariju nije presudno da li je prevoznik evropski ili neevropski. Važan je polazni aerodrom. Ako let iz EU kasni tri sata ili više na dolasku, otkazan je kasno ili je putniku uskraćeno ukrcavanje, može postojati osnov za zahtev.",
-            "Naravno, i dalje se proverava razlog poremećaja. Vanredne okolnosti, kao što su ozbiljno vreme ili bezbednosna ograničenja, mogu oslabiti fiksnu naknadu, ali ne brišu automatski brigu, informacije i razumne alternative."
-          ]
-        },
-        {
-          heading: "Dolazak u EU zavisi od prevoznika",
-          body: [
-            "Ako let polazi iz Srbije ili druge zemlje van EU i dolazi u EU, često je važno da li let operiše evropski prevoznik. Let Beograd-Pariz koji operiše evropska aviokompanija može se drugačije tretirati od leta koji operiše neevropski prevoznik.",
-            "Kod codeshare letova gledajte operating carrier, ne samo logo na karti. Možete kupiti kartu preko jedne kompanije, ali let stvarno obavlja druga. Za prava putnika najčešće je važna kompanija koja upravlja avionom na tom segmentu.",
-            "Sačuvajte boarding pass i potvrdu rezervacije jer često pokazuju i marketing carrier i operating carrier. Ako piše operated by, ta linija može biti presudna za proveru."
-          ]
-        },
-        {
-          heading: "Konekcije u jednoj rezervaciji menjaju računicu",
-          body: [
-            "Ako putujete iz Srbije preko EU ka trećoj zemlji, najvažnije pitanje je da li su svi segmenti u jednoj rezervaciji. Jedna rezervacija može značiti da se kašnjenje meri do krajnje destinacije, a ne samo do prvog evropskog aerodroma.",
-            "Primer: Beograd-Frankfurt-Toronto u jednoj rezervaciji i kašnjenje prvog segmenta koje dovede do dolaska u Toronto pet sati kasnije. Takav slučaj se ne posmatra isto kao dve odvojene karte Beograd-Frankfurt i Frankfurt-Toronto.",
-            "Odvojene karte su operativno rizične. Ako prvi let kasni i propustite drugi, zaštita može biti mnogo slabija, čak i ako ste putnički gledano imali jedan plan. Zato je kod zahteva važno iskreno navesti strukturu karata."
-          ]
-        },
-        {
-          heading: "Srbija, ECAA i praktična provera",
-          body: [
-            "Srbija je povezana sa evropskim avio-tržištem kroz širi ECAA kontekst, ali putniku ne pomaže mnogo opšta pravna skraćenica ako ne zna šta da proveri. Praktično, uvek krenite od rute, prevoznika, rezervacije i stvarnog kašnjenja.",
-            "Ako let uključuje EU aerodrom, evropskog prevoznika ili konekciju u jednoj rezervaciji, nemojte automatski odustati jer polazite iz Srbije. Isto tako, nemojte automatski računati na odštetu samo zato što je EU negde u ruti.",
-            "Najbolje je napraviti kratku tabelu: segment, polazak, dolazak, operativni prevoznik, planirano vreme, stvarno vreme i broj rezervacije. Ta tabela brzo otkriva koji deo puta je pravno i praktično najvažniji."
-          ]
-        },
-        {
-          heading: "Šta poslati na proveru",
-          body: [
-            "Za proveru pošaljite pun itinerary, boarding pass za sve segmente, poruke o kašnjenju ili otkazivanju, dokaz stvarnog dolaska i informaciju da li su karte kupljene zajedno. Bez tih podataka, odgovor može biti samo okviran.",
-            "Ako je aviokompanija već odbila zahtev, pošaljite i odbijenicu. Posebno je važno videti da li se poziva na rutu, prevoznika, vanredne okolnosti ili propušten rok. Svaki razlog se proverava drugačije.",
-            "Za putnike iz Srbije najkorisniji savet je jednostavan: ne prevodite slučaj odmah u pravne pojmove. Prvo složite činjenice putovanja. Kada su činjenice jasne, mnogo je lakše utvrditi da li EU 261, ECAA ili drugi okvir stvarno pomaže."
-          ]
-        }
-      ],
-    },
-    en: {
-      slug: "flight-from-serbia-via-eu-passenger-rights",
-      title: "Flight from Serbia via the EU: when European passenger rights apply",
-      description: "How travelers from Serbia can check routes via the EU, ECAA and European carriers when a flight to a third country is delayed or cancelled.",
-      excerpt: "It is usually not decisive whether you are Serbian or EU citizen. Passenger rights depend mainly on departure airport, destination, operating carrier and whether flights are under one booking.",
-      category: "EU 261 and Serbia",
-      readTime: "8 min read",
-      sections: [
-        {
-          heading: "Nationality is usually not the main question",
-          body: [
-            "Travelers from Serbia often think European rights apply only to EU citizens. In practice, it matters much more where the flight departs, where it arrives, which airline operates it and how the trip was purchased. The passenger may be Serbian while the route falls within a European protection framework.",
-            "That is why each case is checked through the route map. A flight from Belgrade to Paris on a European carrier, a flight from Vienna to Belgrade, or Belgrade-Frankfurt-New York under one booking do not produce the same answer as separate tickets or an inbound flight operated by a non-European airline.",
-            "Passenger-rights guides often show simple tables: EU to EU, EU to non-EU and non-EU to EU. That is a useful start, but travelers from Serbia need to understand what happens when Serbia is part of a wider connection, not only the start or end point."
-          ]
-        },
-        {
-          heading: "Departure from the EU is the simplest scenario",
-          body: [
-            "If the flight departs from an airport in the EU, EEA or another relevant European framework, protection is usually broader regardless of which airline operates it. A flight from Vienna, Budapest, Zagreb, Frankfurt or Rome to Serbia or a third country should therefore be checked immediately.",
-            "In that scenario, it is not decisive whether the carrier is European or non-European. The departure airport matters. If a flight from the EU arrives three hours or more late, is cancelled at short notice or boarding is denied, there may be a basis for a claim.",
-            "Of course, the reason for disruption is still checked. Extraordinary circumstances such as severe weather or safety restrictions may weaken fixed compensation, but they do not automatically remove care, information and reasonable alternatives."
-          ]
-        },
-        {
-          heading: "Arrival in the EU depends on the carrier",
-          body: [
-            "If the flight departs from Serbia or another non-EU country and arrives in the EU, it often matters whether the flight is operated by a European carrier. Belgrade-Paris operated by a European airline may be treated differently from a flight operated by a non-European carrier.",
-            "For codeshare flights, look at the operating carrier, not only the logo on the ticket. You may buy the ticket through one company while another actually operates the aircraft. Passenger rights usually focus on the company operating that segment.",
-            "Keep the boarding pass and booking confirmation because they often show both marketing carrier and operating carrier. If the ticket says operated by, that line can be decisive."
-          ]
-        },
-        {
-          heading: "Single-booking connections change the calculation",
-          body: [
-            "If you travel from Serbia via the EU to a third country, the most important question is whether all segments are under one booking. One booking may mean the delay is measured to the final destination, not only to the first European airport.",
-            "Example: Belgrade-Frankfurt-Toronto under one booking, where the first segment delay causes arrival in Toronto five hours late. That case is not assessed the same way as two separate tickets, Belgrade-Frankfurt and Frankfurt-Toronto.",
-            "Separate tickets are operationally risky. If the first flight is delayed and you miss the second, protection may be much weaker even if, from your perspective, it was one trip. That is why the claim must honestly state the ticket structure."
-          ]
-        },
-        {
-          heading: "Serbia, ECAA and practical checking",
-          body: [
-            "Serbia is connected to the European aviation market through the wider ECAA context, but a legal abbreviation does not help the passenger much unless they know what to check. Practically, always start with route, carrier, booking and actual delay.",
-            "If the trip includes an EU airport, a European carrier or a single-booking connection, do not automatically give up because you departed from Serbia. At the same time, do not automatically expect compensation only because the EU appears somewhere in the route.",
-            "The best first step is a short table: segment, departure, arrival, operating carrier, scheduled time, actual time and booking reference. That table quickly shows which part of the journey is legally and practically important."
-          ]
-        },
-        {
-          heading: "What to send for review",
-          body: [
-            "For review, send the full itinerary, boarding passes for all segments, messages about delay or cancellation, proof of actual arrival and information on whether tickets were bought together. Without those details, the answer can only be general.",
-            "If the airline already rejected the claim, send the refusal too. It is especially important to see whether it relies on route, carrier, extraordinary circumstances or deadline. Each reason is checked differently.",
-            "For travelers from Serbia, the most useful advice is simple: do not translate the case into legal terms immediately. First organize the travel facts. Once the facts are clear, it is much easier to determine whether EU 261, ECAA or another framework actually helps."
           ]
         }
       ],

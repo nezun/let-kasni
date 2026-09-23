@@ -23,21 +23,12 @@ import { article as claimTemplateEmailArticle, image as claimTemplateEmailImage 
 import { articles as daily20260502Articles, images as daily20260502Images } from "./daily-2026-05-02";
 import { articles as daily20260503Articles, images as daily20260503Images } from "./daily-2026-05-03";
 import { articles as daily20260504Articles, images as daily20260504Images } from "./daily-2026-05-04";
-import { articles as daily20260505Articles, images as daily20260505Images } from "./daily-2026-05-05";
 import { articles as daily20260507Articles, images as daily20260507Images } from "./daily-2026-05-07";
 import { articles as daily20260508Articles, images as daily20260508Images } from "./daily-2026-05-08";
 import { articles as daily20260509Articles, images as daily20260509Images } from "./daily-2026-05-09";
 import { articles as daily20260511Articles, images as daily20260511Images } from "./daily-2026-05-11";
 import { articles as daily20260514Articles, images as daily20260514Images } from "./daily-2026-05-14";
-import { articles as daily20260515Articles, images as daily20260515Images } from "./daily-2026-05-15";
-import { articles as daily20260516Articles, images as daily20260516Images } from "./daily-2026-05-16";
-import { articles as daily20260517Articles, images as daily20260517Images } from "./daily-2026-05-17";
-import { articles as daily20260518Articles, images as daily20260518Images } from "./daily-2026-05-18";
-import { articles as daily20260519Articles, images as daily20260519Images } from "./daily-2026-05-19";
 import { articles as daily20260520Articles, images as daily20260520Images } from "./daily-2026-05-20";
-import { articles as daily20260522Articles, images as daily20260522Images } from "./daily-2026-05-22";
-import { articles as daily20260523Articles, images as daily20260523Images } from "./daily-2026-05-23";
-import { articles as daily20260524Articles, images as daily20260524Images } from "./daily-2026-05-24";
 import { articles as daily20260525Articles, images as daily20260525Images } from "./daily-2026-05-25";
 
 import type { BlogArticle, BlogArticleImage } from "@/lib/blog";
@@ -66,21 +57,12 @@ export const blogArticles: BlogArticle[] = [
   useClaimServiceOrDiyArticle,
   claimTemplateEmailArticle,
   ...daily20260525Articles,
-  ...daily20260524Articles,
-  ...daily20260523Articles,
-  ...daily20260522Articles,
   ...daily20260520Articles,
-  ...daily20260519Articles,
-  ...daily20260518Articles,
-  ...daily20260517Articles,
-  ...daily20260516Articles,
-  ...daily20260515Articles,
   ...daily20260514Articles,
   ...daily20260511Articles,
   ...daily20260509Articles,
   ...daily20260508Articles,
   ...daily20260507Articles,
-  ...daily20260505Articles,
   ...daily20260504Articles,
   ...daily20260503Articles,
   ...daily20260502Articles,
@@ -110,21 +92,12 @@ export const articleImages: Record<string, BlogArticleImage> = {
   "use-claim-service-or-diy": useClaimServiceOrDiyImage,
   "claim-template-email": claimTemplateEmailImage,
   ...daily20260525Images,
-  ...daily20260524Images,
-  ...daily20260523Images,
-  ...daily20260522Images,
   ...daily20260520Images,
-  ...daily20260519Images,
-  ...daily20260518Images,
-  ...daily20260517Images,
-  ...daily20260516Images,
-  ...daily20260515Images,
   ...daily20260514Images,
   ...daily20260511Images,
   ...daily20260509Images,
   ...daily20260508Images,
   ...daily20260507Images,
-  ...daily20260505Images,
   ...daily20260504Images,
   ...daily20260503Images,
   ...daily20260502Images,

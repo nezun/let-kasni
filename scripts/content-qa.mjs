@@ -440,6 +440,7 @@ function getLocalizedBlock(articleBlock, locale) {
 
 function checkDailyArticleShape() {
   const contentDir = path.join(root, "src/content/blog");
+  const retainedBatches = JSON.parse(read("src/content/seo-retired-programmatic.json")).retainedBatchArticles;
   const dailyFiles = fs
     .readdirSync(contentDir)
     .filter((file) => /^daily-\d{4}-\d{2}-\d{2}\.ts$/.test(file))
@@ -449,14 +450,17 @@ function checkDailyArticleShape() {
     const source = read(file);
     const articleBlocks = splitArticleBlocks(source);
 
-    if (articleBlocks.length !== 6) {
+    const retainedIds = retainedBatches[file];
+    const actualIds = articleBlocks.map(block => block.match(/id: "([^"]+)"/)?.[1]);
+    const expectedCount = retainedIds?.length ?? 6;
+    if (articleBlocks.length !== expectedCount || (retainedIds && JSON.stringify(actualIds) !== JSON.stringify(retainedIds))) {
       addIssue({
         type: "daily_article_count",
         file,
-        expected: 6,
+        expected: retainedIds ?? 6,
         actual: articleBlocks.length,
-        message: `should contain exactly 6 daily articles, found ${articleBlocks.length}`,
-        suggestedFix: "Add or remove daily articles so the file contains exactly six bilingual articles.",
+        message: `should contain the approved batch of ${expectedCount} daily articles, found ${articleBlocks.length}`,
+        suggestedFix: retainedIds ? "Restore exactly the approved retained article IDs, without republishing retired pages." : "Add or remove daily articles so the file contains exactly six bilingual articles.",
       });
     }
 

@@ -113,6 +113,9 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 ## Blog SEO Architecture
 
+- Production content baseline synchronized to staging on 2026-09-23 from `5ea961725077c326a5a85b52fb7261ce22886a26`. Preserve the approved retirements in `src/content/seo-retired-airlines.json` and `src/content/seo-retired-programmatic.json`: 62 bilingual articles, 124 canonical paths return 404. Keep all 68 active articles, eight main guides and consolidation redirects A–F. `seo-suggested-removals.json` is a review backlog, not removal approval. Keep bulk publishing paused.
+- The user authorized this staging content synchronization. The marketing staging still routes forms to the separate customer app; do not restore the retired monolithic form/admin routes. Content parity does not establish conversion-measurement parity or production readiness.
+
 - Cornerstone pages are tier-one URLs directly below the domain, for example `/naknada-za-kasnjenje-leta` and `/en/flight-delay-compensation`.
 - Child blog articles must live under exactly one primary cornerstone parent, for example `/naknada-za-kasnjenje-leta/kasnjenje-leta-zbog-loseg-vremena`.
 - One blog article must have one primary parent, one canonical child URL, and one sitemap URL.

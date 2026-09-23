@@ -22,11 +22,13 @@
     "workflow:check": "bash scripts/check-workflow-guards.sh",
     "links:audit": "node scripts/public-link-audit.mjs",
     "content:qa:report": "node scripts/content-qa.mjs --report reports/content-qa-report.json",
-    "verify": "npm run workflow:check && npm run privacy:check && npm run meta:check && npm run email:check && npm run content:qa && npm run content:links && npm run content:benchmark && npm run locales:check && npm run lint && npm run build",
+    "verify": "npm run workflow:check && npm run privacy:check && npm run meta:check && npm run email:check && npm run seo:retirement:check && npm run email-signature:check && npm run content:qa && npm run content:links && npm run content:benchmark && npm run locales:check && npm run lint && npm run build",
     "seo:oauth-login": "node scripts/google-search-console.mjs oauth-login",
     "seo:submit-sitemap": "node scripts/google-search-console.mjs submit-sitemap",
     "seo:index-status": "node scripts/google-search-console.mjs index-status --blog-only",
-    "seo:index-status:all": "node scripts/google-search-console.mjs index-status"
+    "seo:index-status:all": "node scripts/google-search-console.mjs index-status",
+    "seo:retirement:check": "node --test scripts/seo-retirement.test.mjs",
+    "email-signature:check": "node scripts/check-email-signature-assets.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.10.2",

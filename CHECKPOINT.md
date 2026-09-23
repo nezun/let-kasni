@@ -4,6 +4,17 @@ Canonical handoff file for future local and Codex Cloud sessions.
 
 ## Start Here
 
+### Marketing content parity, 2026-09-23
+
+- User authorized production content -> staging as the first launch step. Source baseline: `origin/main` `5ea961725077c326a5a85b52fb7261ce22886a26`; original staging: `e5caac8f05d640f34dabe6f905cd99d2d3e2918f`.
+- Branch: `codex/staging-content-parity`. Target: `let-kasni-staging` / `staging.letkasni.rs` only. This is a scoped transfer of canonical production content, not a merge marking all production functionality integrated.
+- Exact production content, retirements, guide links, footer, PP1.3 SR/EN and signature assets copied. Consent notice on marketing aligned to PP1.3. No ad tags, tracking IDs, providers or campaign settings enabled.
+- Preserved: external customer-app rewrites, staging access gate, noindex, CSP report-only and newer Next dependencies. No old monolithic intake/admin restored; no CRM or claims data modified.
+- Automated guards: existing eight retirement tests and four approved signature asset checks now run in `npm run verify`. Existing content/link/benchmark/localization checks remain mandatory.
+- Next launch work: integrate production conversion measurement with the separate customer application, durable claim storage and verified backup restore before production cutover. Customer app still has its existing consent runtime; validate the shared notice/version and tracking across zones in that step. Content parity is not full functional or launch readiness.
+- Locked: production main/domains unchanged in this step; drafts still sent by Niko. Open Drive permissions accepted by owner. Daily bulk content publishing stays paused; suggestion manifests do not authorize removal.
+- Verification and deployment evidence: `docs/STAGING-CONTENT-PARITY-2026-09-23.md` and local pipeline `outputs/staging-content-sync-2026-09-23/`. Deployment and live comparisons pending at preparation time.
+
 ### SEO release authorized, 2026-09-15
 
 - Owner approved steps 4 and 5: deploy the prepared Phase 1 + Phase 3A package
@@ -123,60 +134,57 @@ Canonical handoff file for future local and Codex Cloud sessions.
 ## Generated Status
 
 <!-- BEGIN:generated-status -->
-Generated at: `2026-09-15T16:20:57.368Z`
+Generated at: `2026-09-23T19:11:14.768Z`
 
-Branch: `codex/seo-recovery`
+Branch: `codex/staging-content-parity`
 
 Remote: `https://github.com/nezun/let-kasni.git`
 
-Latest local commit: `cad98a8 Privacy Policy 1.2 and email consent controls (#29)`
+Latest local commit: `e5caac8 CSP samo kroz izveštavanje (Report-Only) — tehnički DD 19.09.2026`
 
 Worktree status:
 
 ```text
-M CHECKPOINT.md
- M next.config.ts
- M scripts/content-benchmark-review.mjs
+M AGENTS.md
+ M CHECKPOINT.md
+ M package.json
+ M scripts/check-production.mjs
  M scripts/content-qa.mjs
- M src/app/email-offers/page.tsx
- M src/app/en/email-offers/page.tsx
- M src/app/en/marketing/confirm/page.tsx
- M src/app/en/page.tsx
+ M scripts/meta-tracking-check.mjs
+ M scripts/privacy-policy-check.mjs
+ M scripts/production-fetch-mock.mjs
  M src/app/en/privacy/page.tsx
- M src/app/en/terms/page.tsx
- M src/app/marketing/confirm/page.tsx
- M src/app/page.tsx
+ M src/app/layout.tsx
  M src/app/privacy/page.tsx
- M src/app/terms/page.tsx
- M src/components/blog-article-page.tsx
+ M src/components/site-footer.tsx
  M src/content/blog/daily-2026-05-02.ts
- M src/content/blog/daily-2026-05-03.ts
- M src/content/blog/daily-2026-05-04.ts
- M src/content/blog/daily-2026-05-08.ts
- M src/content/blog/missed-connection.ts
+ D src/content/blog/daily-2026-05-05.ts
+ M src/content/blog/daily-2026-05-07.ts
+ M src/content/blog/daily-2026-05-09.ts
+ D src/content/blog/daily-2026-05-15.ts
+ D src/content/blog/daily-2026-05-16.ts
+ D src/content/blog/daily-2026-05-17.ts
+ D src/content/blog/daily-2026-05-18.ts
+ D src/content/blog/daily-2026-05-19.ts
+ D src/content/blog/daily-2026-05-22.ts
+ D src/content/blog/daily-2026-05-23.ts
+ D src/content/blog/daily-2026-05-24.ts
+ M src/content/blog/index.ts
  M src/lib/blog-content-enhancements.ts
- M src/lib/blog.ts
+ M src/lib/consent-cookie.ts
  M src/lib/cornerstones.ts
-?? docs/SEO-CONSOLIDATION-RUNBOOK.md
-?? docs/content-research/seo-phase3a-controlled-consolidation.md
-?? scripts/gsc-performance-readonly.mjs
-?? scripts/seo-consolidation-proposal.py
-?? scripts/seo-focused-content-policy.mjs
-?? scripts/seo-performance-import.py
-?? scripts/seo-phase2-check.py
-?? scripts/seo-phase3a-browser.mjs
-?? scripts/seo-phase3a-check.py
-?? scripts/seo-phase3a-prepare.py
-?? scripts/seo-phase3a-report.py
-?? scripts/seo-recovery-audit.py
-?? scripts/seo-recovery-check.py
-?? scripts/seo-recovery-report.py
-?? scripts/seo-source-map.mjs
-?? seo-audit-output/
-?? src/components/site-identity-schema.tsx
-?? src/content/seo-consolidations.json
-?? src/content/seo-focused-targets.json
-?? src/lib/legal-metadata.ts
+?? docs/SEO-RETIREMENT-RUNBOOK.md
+?? docs/STAGING-CONTENT-PARITY-2026-09-23.md
+?? public/email-signature/
+?? scripts/check-email-signature-assets.mjs
+?? scripts/seo-retirement-audit.py
+?? scripts/seo-retirement-browser.mjs
+?? scripts/seo-retirement-report.py
+?? scripts/seo-retirement.test.mjs
+?? src/app/not-found.tsx
+?? src/content/seo-retired-airlines.json
+?? src/content/seo-retired-programmatic.json
+?? src/content/seo-suggested-removals.json
 ```
 
 Useful commands:
@@ -185,7 +193,7 @@ Useful commands:
 - `npm run dev`: `next dev`
 - `npm run lint`: `eslint`
 - `npm run build`: `next build`
-- `npm run verify`: `npm run workflow:check && npm run privacy:check && npm run meta:check && npm run email:check && npm run content:qa && npm run content:links && npm run content:benchmark && npm run locales:check && npm run lint && npm run build`
+- `npm run verify`: `npm run workflow:check && npm run privacy:check && npm run meta:check && npm run email:check && npm run seo:retirement:check && npm run email-signature:check && npm run content:qa && npm run content:links && npm run content:benchmark && npm run locales:check && npm run lint && npm run build`
 - `npm run release:gate`: `bash scripts/release-gate.sh`
 - `npm run production:check`: `node scripts/check-production.mjs`
 - `npm run workflow:check`: `bash scripts/check-workflow-guards.sh`
@@ -196,6 +204,8 @@ Useful commands:
 <!-- END:generated-status -->
 
 ## Current State
+
+- Current task: authorized marketing content synchronization to staging; see the 2026-09-23 entry above. Older production instructions below are history, not authorization for this release.
 
 - 2026-09-10: the user explicitly authorized publishing the full PP 1.2 package before the marketing persistence/CRM integration is activated. PP 1.2 now uses the actual static publication date 10.09.2026. Marketing subscription remains fail-closed and hidden while Supabase and the required feature settings are absent; no campaign product is approved.
 - 2026-09-09: Privacy Policy 1.2 and the separate adult email-offer consent flow are implemented on `codex/privacy-marketing-consent`. The flow is fail-closed, uses double opt-in, separate consent/event/suppression tables, POST-only confirmation and unsubscribe, strict expiry/scope/product checks, and a central send gate with visible and one-click unsubscribe. The approved marketing-product registry is empty, so no sales campaign can run from this release.
@@ -234,6 +244,8 @@ Useful commands:
 - Always verify Serbian `/` and English `/en` together unless the user explicitly requests an exception.
 
 ## Next Work
+
+- Complete staging content parity checks and staging-only deployment; prepare conversion-measurement integration, durable intake and restore verification as the next launch package.
 
 - Configure a durable Supabase production project, confirm its region/account DPA/transfer basis, apply `202609091200_marketing_email_consent.sql`, and test pending -> confirmed -> withdrawn using only a controlled test address.
 - Confirm account-level DPA/transfer evidence for Vercel, Resend and the applicable Google contracting entity. Only then set the two marketing flags, token secret and `MARKETING_TRANSFER_REVIEW_VERSION=2026-09-09`; if publication occurs after 09.09.2026, update PP 1.2's static effective date to the actual deployment date.
