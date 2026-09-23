@@ -696,22 +696,18 @@ Canonical handoff file for future local and Codex Cloud sessions.
 ## Generated Status
 
 <!-- BEGIN:generated-status -->
-Generated at: `2026-09-23T12:59:04.622Z`
+Generated at: `2026-09-23T13:10:52.977Z`
 
-Branch: `codex/email-signature-assets`
+Branch: `codex/email-signature-release-record`
 
 Remote: `https://github.com/nezun/let-kasni.git`
 
-Latest local commit: `2d9b58c Bezbednost: Next 16.3.5 (GHSA-2xp9-vwfh-vxw4 i ostale prijave), npm audit 0`
+Latest local commit: `1254b75 Host versioned email signature assets (#34)`
 
 Worktree status:
 
 ```text
-M AGENTS.md
- M CHECKPOINT.md
- M package.json
-?? public/email-signature/
-?? scripts/check-email-signature-assets.mjs
+M CHECKPOINT.md
 ```
 
 Useful commands:
@@ -736,7 +732,8 @@ Useful commands:
   Gmail signature assets. The approved portrait, Letkasni logo, Instagram icon,
   and Facebook icon are added as immutable versioned PNGs under
   `/email-signature/v1/`; no application route, claim flow, tracking, or public
-  copy is changed by this release.
+  copy is changed by this release. PR #34 merged as production commit `1254b75`;
+  Vercel serves all four exact files and the full production release gate passed.
 - 2026-09-15: The user explicitly approved bilingual Privacy Policy 1.3. Google Ads billing onboarding and advertiser verification are complete; no campaign or spend was created.
 - 2026-09-15: Native Google Ads conversion `Lead - successful claim submit` is configured as Primary, no monetary value (UI evidence supersedes the older EUR 0 note), Count One, 30-day click-through window, data-driven attribution and enhanced conversions off. Conversion ID `18452620232`; label `VnU-CKD6zfgcEMjH8t5E`.
 - 2026-09-15: GTM draft now contains five changes: `DLV - transaction_id`, `CE - lead_submit`, `Conversion Linker - All Pages`, `Google Tag AW-18452620232`, and `Lead - successful claim submit`. The conversion tag uses the claim UUID transaction ID and fires only on `CE - lead_submit`; the container remains unpublished.
@@ -783,9 +780,9 @@ Useful commands:
 
 ## Next Work
 
-- Merge the reviewed email-signature asset commit to GitHub `main`, wait for the
-  Vercel production deployment, then run `npm run email-signature:check:production`
-  before installing the signature in Gmail.
+- No production engineering work remains for the Marko Jovanović signature.
+  A future optional improvement is a small config-driven generator for additional
+  employee signatures; keep each asset set on a new versioned public path.
 - Current Google measurement task: follow the BLOCKED / PREVIEW ONLY entry above.
   Do NOT execute older production/GTM/Supabase/CRM instructions in this task.
 - Run GTM Preview with one controlled successful claim. Publish GTM and add `GTM-WT3B2L8P` to Vercel Production only after exactly one Ads conversion is observed.
@@ -841,6 +838,11 @@ Useful commands:
   through ESLint. A normal production build then passed in the stable canonical
   checkout; the earlier Turbopack `Operation not permitted` failure was isolated
   to the host-managed `/private/tmp` worktree path, not the application change.
+- 2026-09-23 email signature production: PR #34 merged as `1254b75`; GitHub and
+  both Vercel checks passed. `npm run email-signature:check:production` verified
+  HTTP success, `image/png`, dimensions, and SHA-256 for all four public assets.
+  `npm run release:gate -- --production` then passed the complete suite, build,
+  live SR/EN routes, health SHA, and invalid-submit safety check.
 - 2026-09-15 v0.2.0 ship gate: all 25 Google Ads measurement tests passed, together with privacy, Meta, email, content, link, benchmark, SR/EN locale, lint, TypeScript and optimized production-build checks. Security, performance, API, maintainability, design and adversarial review passes reported no remaining release-blocking code finding.
 - 2026-09-15 Google Ads conversion Preview: Tag Assistant connected only after advertising consent and found direct GA4 `G-RVJ906DKVF`, GTM `GTM-WT3B2L8P`, and Ads `AW-18452620232`. `Conversion Linker - All Pages` and `Google Tag AW-18452620232` each fired once; `Lead - successful claim submit` correctly did not fire on page load or before a successful claim. Positive successful-submit verification is intentionally pending because no fake CRM claim was created.
 - 2026-09-15 PP 1.3 Preview QA: Vercel deployment `AhPkmBfAShY2Go8VFeuB7LXXm8Zp` for `3e536b3` reached Ready. The prior PP 1.2 consent cookie was rejected, the banner requested a new choice, the advertising detail named Meta and Google, `/privacy` rendered PP 1.3 dated 15.09.2026 with the limited Google Ads payload disclosure, and rejecting optional tracking kept GTM inactive. All verification stages through lint passed; the final permitted network build passed and generated 331 pages.
