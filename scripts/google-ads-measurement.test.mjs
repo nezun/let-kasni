@@ -14,10 +14,8 @@ const attributionCoreModule = ts.transpileModule(attributionCoreSource, {
     target: ts.ScriptTarget.ES2022,
   },
 }).outputText;
-const claimsSource = readFileSync(
-  new URL("../src/lib/claims.ts", import.meta.url),
-  "utf8",
-);
+// Forma i slanje prijave (claim-flow, claim-intake-form, claim-modal, lib/claims, /claim/submit) su od 18.09.2026. u
+// aplikaciji za prijave (letkasni-crm apps/prijava); njihovo merenje testira se tamo. Ovde ostaje merenje sajta.
 const trackingKeysSource = readFileSync(
   new URL("../src/lib/google-tracking-keys.ts", import.meta.url),
   "utf8",
@@ -484,23 +482,10 @@ test("blocks all optional measurement on admin routes", () => {
   assert.equal(allowsOptionalTracking("/en/check-flight"), true);
   assert.equal(allowsOptionalTracking("/admin"), false);
   assert.equal(allowsOptionalTracking("/admin/claims/claim-id"), false);
+  // stranice sa tajnim ključem ili tokenom u adresi (grana staging): bez ikakvog opcionog merenja
+  for (const put of ["/predmet/tok123", "/dokumenta/tok123", "/pregled/kljuc", "/predmet"]) assert.equal(allowsOptionalTracking(put), false, put);
+  assert.equal(allowsOptionalTracking("/predmeti-blog"), true, "slična putanja nije isključena");
   assert.equal(allowsOptionalTracking("/administrator"), true);
-});
-
-test("stores measurement audit metadata only in the original claim snapshot", () => {
-  assert.match(
-    claimsSource,
-    /const inputWithoutAuditMetadata = \{ \.\.\.input \};\s*delete inputWithoutAuditMetadata\.attribution;\s*delete inputWithoutAuditMetadata\.submissionAttemptId;/,
-  );
-  assert.match(
-    claimsSource,
-    /const normalizedInputSnapshot = \{\s*\.\.\.inputWithoutAuditMetadata,/,
-  );
-  assert.match(
-    claimsSource,
-    /const claim: ClaimRecord = \{\s*\.\.\.inputWithoutAuditMetadata,/,
-  );
-  assert.match(claimsSource, /originalInputSnapshot: \{ \.\.\.input \}/);
 });
 
 test("allows Ads recovery only for the same server-recorded submit attempt", () => {
@@ -769,12 +754,6 @@ test("tracking wiring is consent-gated, success-gated and PII-minimized", () => 
   const analytics = read("src/components/analytics.tsx");
   const metaPixel = read("src/components/meta-pixel.tsx");
   const tracking = read("src/lib/google-tracking.ts");
-  const route = read("src/app/claim/submit/route.ts");
-  const forms = [
-    read("src/components/claim-flow.tsx"),
-    read("src/components/claim-modal.tsx"),
-    read("src/components/claim-intake-form.tsx"),
-  ];
 
   for (const consentType of [
     "analytics_storage",
@@ -796,16 +775,7 @@ test("tracking wiring is consent-gated, success-gated and PII-minimized", () => 
     read("src/lib/env.ts"),
     /process\.env\.NEXT_PUBLIC_GTM_ID\?\.trim\(\)/,
   );
-  assert.match(route, /marketingConsent[\s\S]*submission\.input\.attribution/);
   assert.match(tracking, /trackOnce\(`lead_submit:\$\{input\.claimId\}`/);
   assert.doesNotMatch(tracking, /email|firstName|lastName|phoneNumber|passport|pnr/i);
 
-  for (const form of forms) {
-    assert.match(form, /getAttributionForSubmission\(\)/);
-    assert.match(form, /trackLeadSubmitOnce/);
-    assert.match(form, /trackRecoveredLeadSubmitOnce/);
-    assert.match(form, /if \(!data\.reused\)/);
-    assert.match(form, /else if \(data\.conversionRecoveryEligible\)/);
-    assert.match(form, /addEventListener\(trackingConsentEvent/);
-  }
 });

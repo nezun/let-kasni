@@ -7,26 +7,15 @@ const checks = [
   ["src/components/meta-pixel.tsx", "hasMarketingConsent"],
   ["src/lib/meta.ts", "eventID"],
   ["src/lib/meta.ts", "hasMarketingConsent"],
-  ["src/lib/meta-conversions.ts", 'event_name: "Lead"'],
-  ["src/lib/meta-conversions.ts", "getFbcFromUrl"],
-  ["src/lib/meta-conversions.ts", 'parsed.search = ""'],
-  ["src/lib/meta-conversions.ts", "external_id"],
-  ["src/lib/meta-conversions.ts", "userData.fn"],
-  ["src/lib/meta-conversions.ts", "userData.ln"],
-  ["src/lib/meta-conversions.ts", "userData.country"],
   ["src/lib/consent-cookie.ts", "trackingConsentCookieName"],
   ["src/lib/consent-cookie.ts", "trackingConsentCookieMaxAge"],
   ["src/lib/consent-cookie.ts", "parseTrackingConsentValue"],
   ["src/lib/consent.ts", "serializeTrackingConsentCookie"],
   ["src/app/layout.tsx", "lk-consent-bootstrap"],
   ["src/app/layout.tsx", "suppressHydrationWarning"],
-  ["src/app/claim/submit/route.ts", "hasMarketingCookieConsent"],
-  ["src/app/claim/submit/route.ts", "trackingConsentCookieName"],
   ["src/components/consent-banner.tsx", "data-consent-banner"],
   ["src/app/globals.css", "data-consent=\"1\""],
-  ["src/app/claim/submit/route.ts", "sendMetaLeadEvent"],
   ["src/lib/consent-cookie.ts", "privacy-1.3-2026-09-15"],
-  ["src/app/claim/submit/route.ts", "privacyConsent"],
   ["src/components/consent-banner.tsx", "setTrackingConsent"],
   ["src/components/consent-banner.tsx", "marketing"],
   ["src/components/privacy-settings-button.tsx", "clearTrackingConsent"],
@@ -62,13 +51,10 @@ if (layout.includes("cookies()")) {
 }
 
 const pixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID?.trim();
-const accessToken = process.env.META_CONVERSIONS_API_ACCESS_TOKEN?.trim();
 if (pixelId && !/^\d+$/.test(pixelId)) {
   errors.push("NEXT_PUBLIC_META_PIXEL_ID must contain only digits");
 }
-if (Boolean(pixelId) !== Boolean(accessToken)) {
-  errors.push("NEXT_PUBLIC_META_PIXEL_ID and META_CONVERSIONS_API_ACCESS_TOKEN must be configured together");
-}
+// Conversions API (Lead) šalje aplikacija za klijente (letkasni-crm, apps/prijava); sajt ima samo pixel.
 
 if (errors.length > 0) {
   console.error("Meta tracking check failed:");
@@ -79,7 +65,7 @@ if (errors.length > 0) {
 }
 
 console.log(
-  pixelId && accessToken
-    ? "Meta tracking code is present and production env is configured."
-    : "Meta tracking code is present. Meta env is not configured, so runtime tracking stays disabled.",
+  pixelId
+    ? "Meta pixel code is present and NEXT_PUBLIC_META_PIXEL_ID is configured."
+    : "Meta pixel code is present. NEXT_PUBLIC_META_PIXEL_ID is not configured, so runtime tracking stays disabled.",
 );

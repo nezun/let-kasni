@@ -1,9 +1,8 @@
 "use client";
 
-import { HeroFlowStartCard } from "@/components/claim-flow";
+import { ClaimStartCard, idiNaFormu } from "@/components/claim-start-card";
 import { SiteHeader } from "@/components/site-header";
 import { trackEvent } from "@/lib/analytics";
-import { withCurrentAttributionParameters } from "@/lib/attribution";
 import { getMetaEventId, trackMetaEvent } from "@/lib/meta";
 import type { IssueType } from "@/lib/types";
 
@@ -28,11 +27,7 @@ export function HeaderWithClaimCta({
       content_category: "claim",
       form_locale: locale,
     }, getMetaEventId());
-    window.location.assign(
-      withCurrentAttributionParameters(
-        locale === "en" ? "/en/check-flight" : "/proveri-let",
-      ),
-    );
+    idiNaFormu(locale);
   }
 
   return (
@@ -63,7 +58,7 @@ interface HeroClaimCardProps {
 }
 
 export function HeroClaimCard({ locale }: HeroClaimCardProps) {
-  return <HeroFlowStartCard locale={locale} />;
+  return <ClaimStartCard locale={locale} />;
 }
 
 export function ClaimCtaButton({
@@ -84,11 +79,7 @@ export function ClaimCtaButton({
       content_category: "claim",
       form_locale: locale,
     }, getMetaEventId());
-    window.location.assign(
-      withCurrentAttributionParameters(
-        locale === "en" ? "/en/check-flight" : "/proveri-let",
-      ),
-    );
+    idiNaFormu(locale);
   }
 
   return (

@@ -197,7 +197,7 @@ function metaRuntime({ marketing = true, configured = true, apiOk = true, transp
   return { sent, pixel, notifications, body, request, route: load("@/app/claim/submit/route"), browser: load("@/lib/meta") };
 }
 
-test("actual submit route plus browser helper produce one matching Lead ID, reuse sends no CAPI retry", async () => {
+test("actual submit route plus browser helper produce one matching Lead ID, reuse sends no CAPI retry", { skip: "slanje prijave je u aplikaciji za prijave (letkasni-crm apps/prijava) — test je tamo" }, async () => {
   const run = metaRuntime();
   const response = await run.route.POST(run.request());
   const accepted = await response.json();
@@ -221,7 +221,7 @@ test("actual submit route plus browser helper produce one matching Lead ID, reus
   assert.equal(run.notifications.length, 2);
 });
 
-test("Meta server/browser gates reject denied/stale consent and invalid submissions", async () => {
+test("Meta server/browser gates reject denied/stale consent and invalid submissions", { skip: "slanje prijave je u aplikaciji za prijave (letkasni-crm apps/prijava) — test je tamo" }, async () => {
   const run = metaRuntime({ marketing: false });
   assert.equal((await run.route.POST(run.request())).status, 200);
   run.browser.trackMetaEvent("Lead", {}, run.body.metaEventId);
@@ -234,7 +234,7 @@ test("Meta server/browser gates reject denied/stale consent and invalid submissi
   assert.equal(invalid.sent.length + invalid.notifications.length, 0);
 });
 
-test("Meta missing configuration and API/transport failure cannot break accepted claim response", async () => {
+test("Meta missing configuration and API/transport failure cannot break accepted claim response", { skip: "slanje prijave je u aplikaciji za prijave (letkasni-crm apps/prijava) — test je tamo" }, async () => {
   for (const options of [{ configured: false }, { apiOk: false }, { transportThrows: true }]) {
     const run = metaRuntime(options);
     assert.equal((await run.route.POST(run.request())).status, 200);

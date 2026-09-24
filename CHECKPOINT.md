@@ -4,6 +4,16 @@ Canonical handoff file for future local and Codex Cloud sessions.
 
 ## Start Here
 
+### Marketing content parity, 2026-09-23
+
+- User authorized production content -> staging as the first launch step. Source baseline: `origin/main` `5ea961725077c326a5a85b52fb7261ce22886a26`; original staging: `e5caac8f05d640f34dabe6f905cd99d2d3e2918f`.
+- Branch: `codex/staging-content-parity`. Target: `let-kasni-staging` / `staging.letkasni.rs` only. This is a scoped transfer of canonical production content, not a merge marking all production functionality integrated.
+- Exact production content, retirements, guide links, footer, PP1.3 SR/EN and signature assets copied. Public PP1.3 copied; existing shared cookie-notice version preserved across marketing and customer app until the measurement package ships together. No ad tags, tracking IDs, providers or campaign settings enabled.
+- Preserved: external customer-app rewrites, staging access gate, noindex, CSP report-only and newer Next dependencies. No old monolithic intake/admin restored; no CRM or claims data modified.
+- Automated guards: existing eight retirement tests and four approved signature asset checks now run in `npm run verify`. Existing content/link/benchmark/localization checks remain mandatory.
+- Next launch work: integrate production conversion measurement with the separate customer application, durable claim storage and verified backup restore before production cutover. Browser QA caught a repeated cookie banner when changing only marketing notice; preserve the shared existing version and migrate both zones together in the measurement step. Content parity is not full functional or launch readiness.
+- Locked: production main/domains unchanged in this step; drafts still sent by Niko. Open Drive permissions accepted by owner. Daily bulk content publishing stays paused; suggestion manifests do not authorize removal.
+- Verification and deployment evidence: `docs/STAGING-CONTENT-PARITY-2026-09-23.md` and local pipeline `outputs/staging-content-sync-2026-09-23/`. Deployment and live comparisons pending at preparation time.
 ### Controlled production release approved, 2026-09-17
 
 - Owner authorized exact reviewed PR31 code/PP1.3, frozen GTM and production
@@ -696,6 +706,13 @@ Canonical handoff file for future local and Codex Cloud sessions.
 ## Generated Status
 
 <!-- BEGIN:generated-status -->
+Generated at: `2026-09-23T19:11:14.768Z`
+
+Branch: `codex/staging-content-parity`
+
+Remote: `https://github.com/nezun/let-kasni.git`
+
+Latest local commit: `e5caac8 CSP samo kroz izveštavanje (Report-Only) — tehnički DD 19.09.2026`
 Generated at: `2026-09-23T13:10:52.977Z`
 
 Branch: `codex/email-signature-release-record`
@@ -707,6 +724,46 @@ Latest local commit: `1254b75 Host versioned email signature assets (#34)`
 Worktree status:
 
 ```text
+M AGENTS.md
+ M CHECKPOINT.md
+ M package.json
+ M scripts/check-production.mjs
+ M scripts/content-qa.mjs
+ M scripts/meta-tracking-check.mjs
+ M scripts/privacy-policy-check.mjs
+ M scripts/production-fetch-mock.mjs
+ M src/app/en/privacy/page.tsx
+ M src/app/layout.tsx
+ M src/app/privacy/page.tsx
+ M src/components/site-footer.tsx
+ M src/content/blog/daily-2026-05-02.ts
+ D src/content/blog/daily-2026-05-05.ts
+ M src/content/blog/daily-2026-05-07.ts
+ M src/content/blog/daily-2026-05-09.ts
+ D src/content/blog/daily-2026-05-15.ts
+ D src/content/blog/daily-2026-05-16.ts
+ D src/content/blog/daily-2026-05-17.ts
+ D src/content/blog/daily-2026-05-18.ts
+ D src/content/blog/daily-2026-05-19.ts
+ D src/content/blog/daily-2026-05-22.ts
+ D src/content/blog/daily-2026-05-23.ts
+ D src/content/blog/daily-2026-05-24.ts
+ M src/content/blog/index.ts
+ M src/lib/blog-content-enhancements.ts
+ M src/lib/consent-cookie.ts
+ M src/lib/cornerstones.ts
+?? docs/SEO-RETIREMENT-RUNBOOK.md
+?? docs/STAGING-CONTENT-PARITY-2026-09-23.md
+?? public/email-signature/
+?? scripts/check-email-signature-assets.mjs
+?? scripts/seo-retirement-audit.py
+?? scripts/seo-retirement-browser.mjs
+?? scripts/seo-retirement-report.py
+?? scripts/seo-retirement.test.mjs
+?? src/app/not-found.tsx
+?? src/content/seo-retired-airlines.json
+?? src/content/seo-retired-programmatic.json
+?? src/content/seo-suggested-removals.json
 M CHECKPOINT.md
 ```
 
@@ -716,6 +773,7 @@ Useful commands:
 - `npm run dev`: `next dev`
 - `npm run lint`: `eslint`
 - `npm run build`: `next build`
+- `npm run verify`: `npm run workflow:check && npm run privacy:check && npm run meta:check && npm run email:check && npm run seo:retirement:check && npm run email-signature:check && npm run content:qa && npm run content:links && npm run content:benchmark && npm run locales:check && npm run lint && npm run build`
 - `npm run verify`: `npm run workflow:check && npm run privacy:check && npm run meta:check && npm run google-ads:check && npm run email:check && npm run email-signature:check && npm run seo:retirement:check && npm run content:qa && npm run content:links && npm run content:benchmark && npm run locales:check && npm run lint && npm run build`
 - `npm run release:gate`: `bash scripts/release-gate.sh`
 - `npm run production:check`: `node scripts/check-production.mjs`
@@ -727,6 +785,8 @@ Useful commands:
 <!-- END:generated-status -->
 
 ## Current State
+
+- Current task: authorized marketing content synchronization to staging; see the 2026-09-23 entry above. Older production instructions below are history, not authorization for this release.
 
 - 2026-09-23: The owner authorized production hosting for the Marko Jovanović
   Gmail signature assets. The approved portrait, Letkasni logo, Instagram icon,
@@ -779,6 +839,8 @@ Useful commands:
 - Always verify Serbian `/` and English `/en` together unless the user explicitly requests an exception.
 
 ## Next Work
+
+- Complete staging content parity checks and staging-only deployment; prepare conversion-measurement integration, durable intake and restore verification as the next launch package.
 
 - No production engineering work remains for the Marko Jovanović signature.
   A future optional improvement is a small config-driven generator for additional

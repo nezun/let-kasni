@@ -13,6 +13,15 @@ const consolidationRedirects = consolidations.flatMap(group =>
 
 const nextConfig: NextConfig = {
   allowedDevOrigins: ["127.0.0.1"],
+  // Multi-zone: formu (/proveri-let, /en/check-flight) i stranu za potpis ugovora (/predmet) služi aplikacija
+  // za klijente (letkasni-crm, apps/prijava). PRIJAVA_URL je njena adresa; bez nje sajt ništa ne prosleđuje.
+  async rewrites() {
+    const prijava = process.env.PRIJAVA_URL?.replace(/\/$/, "");
+    if (!prijava) return [];
+    return ["/proveri-let", "/en/check-flight", "/claim/submit", "/predmet/:path*", "/api/predmet/:path*", "/prijava-static/:path*"].map(
+      (source) => ({ source, destination: `${prijava}${source}` }),
+    );
+  },
   async redirects() {
     return [
       ...consolidationRedirects.map(redirect => ({
@@ -64,6 +73,8 @@ const nextConfig: NextConfig = {
       {
         source: "/(.*)",
         headers: [
+          // CSP prvo kroz izveštavanje (tehnički DD 19.09.2026): ništa ne blokira; posle nedelju dana bez prijava u konzoli → Content-Security-Policy
+          { key: "Content-Security-Policy-Report-Only", value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://connect.facebook.net https://va.vercel-scripts.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; font-src 'self' data:; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://graph.facebook.com https://*.facebook.com https://vitals.vercel-insights.com https://va.vercel-scripts.com https://*.supabase.co; frame-ancestors 'none'; base-uri 'self'; form-action 'self'" },
           {
             key: "X-Frame-Options",
             value: "DENY",
