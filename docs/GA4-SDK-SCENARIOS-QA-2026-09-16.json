@@ -1,0 +1,646 @@
+{
+  "testedAt": "2026-09-16T11:21:31.182Z",
+  "scope": "localhost real Google SDK; collector blocked; no backend/platform acceptance",
+  "scenarios": [
+    {
+      "mode": "none",
+      "status": "PASS",
+      "sdkLoaded": true,
+      "consent": {
+        "analytics": false,
+        "marketing": false
+      },
+      "optOut": true,
+      "leadCommands": 0,
+      "consentCommands": [
+        [
+          "consent",
+          "default",
+          {
+            "analytics_storage": "denied",
+            "ad_storage": "denied",
+            "ad_user_data": "denied",
+            "ad_personalization": "denied"
+          }
+        ]
+      ],
+      "hits": []
+    },
+    {
+      "mode": "marketing",
+      "status": "PASS",
+      "sdkLoaded": true,
+      "consent": {
+        "analytics": false,
+        "marketing": true
+      },
+      "optOut": true,
+      "leadCommands": 1,
+      "consentCommands": [
+        [
+          "consent",
+          "default",
+          {
+            "analytics_storage": "denied",
+            "ad_storage": "granted",
+            "ad_user_data": "granted",
+            "ad_personalization": "granted"
+          }
+        ]
+      ],
+      "hits": []
+    },
+    {
+      "mode": "analytics",
+      "status": "PASS",
+      "sdkLoaded": true,
+      "consent": {
+        "analytics": true,
+        "marketing": false
+      },
+      "optOut": false,
+      "leadCommands": 1,
+      "consentCommands": [
+        [
+          "consent",
+          "default",
+          {
+            "analytics_storage": "granted",
+            "ad_storage": "denied",
+            "ad_user_data": "denied",
+            "ad_personalization": "denied"
+          }
+        ]
+      ],
+      "hits": [
+        {
+          "event": "page_view",
+          "privateMarkerPresent": false,
+          "params": {
+            "gcs": "G101",
+            "gcd": "13p3t3p3p5l1",
+            "dl": "http://127.0.0.1:3016/?utm_source=google&utm_medium=cpc&utm_campaign=SEARCH_RS_CORE",
+            "dr": "",
+            "dt": "LetKasni | /"
+          }
+        },
+        {
+          "event": "scroll",
+          "privateMarkerPresent": false,
+          "params": {
+            "gcs": "G101",
+            "gcd": "13p3t3p3p5l1",
+            "dl": "http://127.0.0.1:3016/?utm_source=google&utm_medium=cpc&utm_campaign=SEARCH_RS_CORE",
+            "dr": "",
+            "dt": "LetKasni | /"
+          }
+        },
+        {
+          "event": "page_view",
+          "privateMarkerPresent": false,
+          "params": {
+            "gcs": "G101",
+            "gcd": "13p3t3p3p5l1",
+            "dl": "http://127.0.0.1:3016/en",
+            "dr": "",
+            "dt": "LetKasni | /en"
+          }
+        },
+        {
+          "event": "lead_submit",
+          "privateMarkerPresent": false,
+          "params": {
+            "gcs": "G101",
+            "gcd": "13p3t3p3p5l1",
+            "dl": "http://127.0.0.1:3016/en",
+            "dr": "",
+            "dt": "LetKasni | /en",
+            "ep.event_category": "claim",
+            "ep.event_label": "inline_form",
+            "ep.form_locale": "en",
+            "ep.transaction_id": "00000000-0000-4000-8000-000000000006\r"
+          }
+        },
+        {
+          "event": "generate_lead",
+          "privateMarkerPresent": false,
+          "params": {
+            "gcs": "G101",
+            "gcd": "13p3t3p3p5l1",
+            "dl": "http://127.0.0.1:3016/en",
+            "dr": "",
+            "dt": "LetKasni | /en",
+            "ep.event_category": "claim",
+            "ep.event_label": "inline_form",
+            "ep.form_locale": "en"
+          }
+        }
+      ]
+    },
+    {
+      "mode": "both",
+      "status": "PASS",
+      "sdkLoaded": true,
+      "consent": {
+        "analytics": true,
+        "marketing": true
+      },
+      "optOut": false,
+      "leadCommands": 1,
+      "consentCommands": [
+        [
+          "consent",
+          "default",
+          {
+            "analytics_storage": "granted",
+            "ad_storage": "granted",
+            "ad_user_data": "granted",
+            "ad_personalization": "granted"
+          }
+        ]
+      ],
+      "hits": [
+        {
+          "event": "page_view",
+          "privateMarkerPresent": false,
+          "params": {
+            "gcs": "G111",
+            "gcd": "13t3t3t3t5l1",
+            "dl": "http://127.0.0.1:3016/?utm_source=google&utm_medium=cpc&utm_campaign=SEARCH_RS_CORE",
+            "dr": "",
+            "dt": "LetKasni | /"
+          }
+        },
+        {
+          "event": "scroll",
+          "privateMarkerPresent": false,
+          "params": {
+            "gcs": "G111",
+            "gcd": "13t3t3t3t5l1",
+            "dl": "http://127.0.0.1:3016/?utm_source=google&utm_medium=cpc&utm_campaign=SEARCH_RS_CORE",
+            "dr": "",
+            "dt": "LetKasni | /"
+          }
+        },
+        {
+          "event": "page_view",
+          "privateMarkerPresent": false,
+          "params": {
+            "gcs": "G111",
+            "gcd": "13t3t3t3t5l1",
+            "dl": "http://127.0.0.1:3016/en",
+            "dr": "",
+            "dt": "LetKasni | /en"
+          }
+        },
+        {
+          "event": "lead_submit",
+          "privateMarkerPresent": false,
+          "params": {
+            "gcs": "G111",
+            "gcd": "13t3t3t3t5l1",
+            "dl": "http://127.0.0.1:3016/en",
+            "dr": "",
+            "dt": "LetKasni | /en",
+            "ep.event_category": "claim",
+            "ep.event_label": "inline_form",
+            "ep.form_locale": "en",
+            "ep.transaction_id": "00000000-0000-4000-8000-000000000006\r"
+          }
+        },
+        {
+          "event": "generate_lead",
+          "privateMarkerPresent": false,
+          "params": {
+            "gcs": "G111",
+            "gcd": "13t3t3t3t5l1",
+            "dl": "http://127.0.0.1:3016/en",
+            "dr": "",
+            "dt": "LetKasni | /en",
+            "ep.event_category": "claim",
+            "ep.event_label": "inline_form",
+            "ep.form_locale": "en"
+          }
+        }
+      ]
+    },
+    {
+      "mode": "revoke-private-return",
+      "status": "PASS",
+      "revoked": {
+        "sdkLoaded": true,
+        "consent": {
+          "analytics": false,
+          "marketing": false
+        },
+        "optOut": true,
+        "leadCommands": 1,
+        "consentCommands": [
+          [
+            "consent",
+            "default",
+            {
+              "analytics_storage": "granted",
+              "ad_storage": "granted",
+              "ad_user_data": "granted",
+              "ad_personalization": "granted"
+            }
+          ],
+          [
+            "consent",
+            "update",
+            {
+              "analytics_storage": "denied",
+              "ad_storage": "denied",
+              "ad_user_data": "denied",
+              "ad_personalization": "denied"
+            }
+          ]
+        ],
+        "hits": [
+          {
+            "event": "page_view",
+            "privateMarkerPresent": false,
+            "params": {
+              "gcs": "G111",
+              "gcd": "13t3t3t3t5l1",
+              "dl": "http://127.0.0.1:3016/?utm_source=google&utm_medium=cpc&utm_campaign=SEARCH_RS_CORE",
+              "dr": "",
+              "dt": "LetKasni | /"
+            }
+          },
+          {
+            "event": "scroll",
+            "privateMarkerPresent": false,
+            "params": {
+              "gcs": "G111",
+              "gcd": "13t3t3t3t5l1",
+              "dl": "http://127.0.0.1:3016/?utm_source=google&utm_medium=cpc&utm_campaign=SEARCH_RS_CORE",
+              "dr": "",
+              "dt": "LetKasni | /"
+            }
+          },
+          {
+            "event": "page_view",
+            "privateMarkerPresent": false,
+            "params": {
+              "gcs": "G111",
+              "gcd": "13t3t3t3t5l1",
+              "dl": "http://127.0.0.1:3016/en",
+              "dr": "",
+              "dt": "LetKasni | /en"
+            }
+          },
+          {
+            "event": "lead_submit",
+            "privateMarkerPresent": false,
+            "params": {
+              "gcs": "G111",
+              "gcd": "13t3t3t3t5l1",
+              "dl": "http://127.0.0.1:3016/en",
+              "dr": "",
+              "dt": "LetKasni | /en",
+              "ep.event_category": "claim",
+              "ep.event_label": "inline_form",
+              "ep.form_locale": "en",
+              "ep.transaction_id": "00000000-0000-4000-8000-000000000006\r"
+            }
+          },
+          {
+            "event": "generate_lead",
+            "privateMarkerPresent": false,
+            "params": {
+              "gcs": "G111",
+              "gcd": "13t3t3t3t5l1",
+              "dl": "http://127.0.0.1:3016/en",
+              "dr": "",
+              "dt": "LetKasni | /en",
+              "ep.event_category": "claim",
+              "ep.event_label": "inline_form",
+              "ep.form_locale": "en"
+            }
+          }
+        ]
+      },
+      "privateState": {
+        "sdkLoaded": true,
+        "consent": {
+          "analytics": false,
+          "marketing": false
+        },
+        "optOut": true,
+        "leadCommands": 1,
+        "consentCommands": [
+          [
+            "consent",
+            "default",
+            {
+              "analytics_storage": "granted",
+              "ad_storage": "granted",
+              "ad_user_data": "granted",
+              "ad_personalization": "granted"
+            }
+          ],
+          [
+            "consent",
+            "update",
+            {
+              "analytics_storage": "denied",
+              "ad_storage": "denied",
+              "ad_user_data": "denied",
+              "ad_personalization": "denied"
+            }
+          ]
+        ],
+        "hits": [
+          {
+            "event": "page_view",
+            "privateMarkerPresent": false,
+            "params": {
+              "gcs": "G111",
+              "gcd": "13t3t3t3t5l1",
+              "dl": "http://127.0.0.1:3016/?utm_source=google&utm_medium=cpc&utm_campaign=SEARCH_RS_CORE",
+              "dr": "",
+              "dt": "LetKasni | /"
+            }
+          },
+          {
+            "event": "scroll",
+            "privateMarkerPresent": false,
+            "params": {
+              "gcs": "G111",
+              "gcd": "13t3t3t3t5l1",
+              "dl": "http://127.0.0.1:3016/?utm_source=google&utm_medium=cpc&utm_campaign=SEARCH_RS_CORE",
+              "dr": "",
+              "dt": "LetKasni | /"
+            }
+          },
+          {
+            "event": "page_view",
+            "privateMarkerPresent": false,
+            "params": {
+              "gcs": "G111",
+              "gcd": "13t3t3t3t5l1",
+              "dl": "http://127.0.0.1:3016/en",
+              "dr": "",
+              "dt": "LetKasni | /en"
+            }
+          },
+          {
+            "event": "lead_submit",
+            "privateMarkerPresent": false,
+            "params": {
+              "gcs": "G111",
+              "gcd": "13t3t3t3t5l1",
+              "dl": "http://127.0.0.1:3016/en",
+              "dr": "",
+              "dt": "LetKasni | /en",
+              "ep.event_category": "claim",
+              "ep.event_label": "inline_form",
+              "ep.form_locale": "en",
+              "ep.transaction_id": "00000000-0000-4000-8000-000000000006\r"
+            }
+          },
+          {
+            "event": "generate_lead",
+            "privateMarkerPresent": false,
+            "params": {
+              "gcs": "G111",
+              "gcd": "13t3t3t3t5l1",
+              "dl": "http://127.0.0.1:3016/en",
+              "dr": "",
+              "dt": "LetKasni | /en",
+              "ep.event_category": "claim",
+              "ep.event_label": "inline_form",
+              "ep.form_locale": "en"
+            }
+          }
+        ]
+      },
+      "returned": {
+        "sdkLoaded": true,
+        "consent": {
+          "analytics": true,
+          "marketing": false
+        },
+        "optOut": false,
+        "leadCommands": 1,
+        "consentCommands": [
+          [
+            "consent",
+            "default",
+            {
+              "analytics_storage": "granted",
+              "ad_storage": "granted",
+              "ad_user_data": "granted",
+              "ad_personalization": "granted"
+            }
+          ],
+          [
+            "consent",
+            "update",
+            {
+              "analytics_storage": "denied",
+              "ad_storage": "denied",
+              "ad_user_data": "denied",
+              "ad_personalization": "denied"
+            }
+          ],
+          [
+            "consent",
+            "update",
+            {
+              "analytics_storage": "granted",
+              "ad_storage": "denied",
+              "ad_user_data": "denied",
+              "ad_personalization": "denied"
+            }
+          ]
+        ],
+        "hits": [
+          {
+            "event": "page_view",
+            "privateMarkerPresent": false,
+            "params": {
+              "gcs": "G111",
+              "gcd": "13t3t3t3t5l1",
+              "dl": "http://127.0.0.1:3016/?utm_source=google&utm_medium=cpc&utm_campaign=SEARCH_RS_CORE",
+              "dr": "",
+              "dt": "LetKasni | /"
+            }
+          },
+          {
+            "event": "scroll",
+            "privateMarkerPresent": false,
+            "params": {
+              "gcs": "G111",
+              "gcd": "13t3t3t3t5l1",
+              "dl": "http://127.0.0.1:3016/?utm_source=google&utm_medium=cpc&utm_campaign=SEARCH_RS_CORE",
+              "dr": "",
+              "dt": "LetKasni | /"
+            }
+          },
+          {
+            "event": "page_view",
+            "privateMarkerPresent": false,
+            "params": {
+              "gcs": "G111",
+              "gcd": "13t3t3t3t5l1",
+              "dl": "http://127.0.0.1:3016/en",
+              "dr": "",
+              "dt": "LetKasni | /en"
+            }
+          },
+          {
+            "event": "lead_submit",
+            "privateMarkerPresent": false,
+            "params": {
+              "gcs": "G111",
+              "gcd": "13t3t3t3t5l1",
+              "dl": "http://127.0.0.1:3016/en",
+              "dr": "",
+              "dt": "LetKasni | /en",
+              "ep.event_category": "claim",
+              "ep.event_label": "inline_form",
+              "ep.form_locale": "en",
+              "ep.transaction_id": "00000000-0000-4000-8000-000000000006\r"
+            }
+          },
+          {
+            "event": "generate_lead",
+            "privateMarkerPresent": false,
+            "params": {
+              "gcs": "G111",
+              "gcd": "13t3t3t3t5l1",
+              "dl": "http://127.0.0.1:3016/en",
+              "dr": "",
+              "dt": "LetKasni | /en",
+              "ep.event_category": "claim",
+              "ep.event_label": "inline_form",
+              "ep.form_locale": "en"
+            }
+          },
+          {
+            "event": "page_view",
+            "privateMarkerPresent": false,
+            "params": {
+              "gcs": "G101",
+              "gcd": "13u3v3u3u5l1",
+              "dl": "http://127.0.0.1:3016/en",
+              "dr": "",
+              "dt": "LetKasni | /en"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "mode": "automatic-families",
+      "eventFamilies": [
+        {
+          "event": "form_start",
+          "status": "PASS",
+          "hits": [
+            {
+              "event": "form_start",
+              "privateMarkerPresent": false,
+              "params": {
+                "gcs": "G101",
+                "gcd": "13u3v3u3u5l1",
+                "dl": "http://127.0.0.1:3016/en",
+                "dr": "",
+                "dt": "LetKasni | /en",
+                "ep.form_id": "qa-form",
+                "ep.form_name": "qa-test-form",
+                "ep.form_destination": "http://127.0.0.1:3016/qa-form-endpoint",
+                "ep.first_field_id": "qa-name",
+                "ep.first_field_name": "test_name",
+                "ep.first_field_type": "text"
+              }
+            }
+          ]
+        },
+        {
+          "event": "form_submit",
+          "status": "PASS",
+          "hits": [
+            {
+              "event": "form_submit",
+              "privateMarkerPresent": false,
+              "params": {
+                "gcs": "G101",
+                "gcd": "13u3v3u3u5l1",
+                "dl": "http://127.0.0.1:3016/en",
+                "dr": "",
+                "dt": "LetKasni | /en",
+                "ep.form_id": "qa-form",
+                "ep.form_name": "qa-test-form",
+                "ep.form_destination": "http://127.0.0.1:3016/qa-form-endpoint"
+              }
+            }
+          ]
+        },
+        {
+          "event": "click",
+          "status": "FAIL",
+          "hits": [
+            {
+              "event": "click",
+              "privateMarkerPresent": true,
+              "params": {
+                "gcs": "G101",
+                "gcd": "13u3v3u3u5l1",
+                "dl": "http://127.0.0.1:3016/en",
+                "dr": "",
+                "dt": "LetKasni | /en",
+                "ep.link_id": "qa-outbound",
+                "ep.link_classes": "",
+                "ep.link_url": "https://example.invalid/private/TEST_PRIVATE_MARKER_20260916?token=TEST_PRIVATE_MARKER_20260916",
+                "ep.link_domain": "example.invalid",
+                "ep.outbound": "true"
+              }
+            },
+            {
+              "event": "click",
+              "privateMarkerPresent": true,
+              "params": {
+                "gcs": "G101",
+                "gcd": "13u3v3u3u5l1",
+                "dl": "http://127.0.0.1:3016/en",
+                "dr": "",
+                "dt": "LetKasni | /en",
+                "ep.link_id": "qa-download",
+                "ep.link_classes": "",
+                "ep.link_url": "https://example.invalid/private/TEST_PRIVATE_MARKER_20260916.pdf?token=TEST_PRIVATE_MARKER_20260916",
+                "ep.link_domain": "example.invalid",
+                "ep.outbound": "true"
+              }
+            }
+          ]
+        },
+        {
+          "event": "file_download",
+          "status": "FAIL",
+          "hits": [
+            {
+              "event": "file_download",
+              "privateMarkerPresent": true,
+              "params": {
+                "gcs": "G101",
+                "gcd": "13u3v3u3u5l1",
+                "dl": "http://127.0.0.1:3016/en",
+                "dr": "",
+                "dt": "LetKasni | /en",
+                "ep.link_id": "qa-download",
+                "ep.link_url": "https://example.invalid/private/TEST_PRIVATE_MARKER_20260916.pdf?token=TEST_PRIVATE_MARKER_20260916",
+                "ep.link_text": "Test download",
+                "ep.file_name": "/private/TEST_PRIVATE_MARKER_20260916.pdf",
+                "ep.file_extension": "pdf"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

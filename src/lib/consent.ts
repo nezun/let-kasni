@@ -9,6 +9,11 @@ import {
   trackingConsentNoticeVersion,
   type ConsentCookieValue,
 } from "@/lib/consent-cookie";
+import { attributionStorageKey } from "@/lib/attribution-core";
+import {
+  clearDeliveredGoogleEvents,
+  googleEventStoragePrefix,
+} from "@/lib/google-tracking-keys";
 
 export type TrackingConsent = ConsentCookieValue;
 
@@ -89,6 +94,10 @@ export function setTrackingConsent(value: TrackingConsentInput) {
           notice: trackingConsentNoticeVersion,
         };
 
+  // Stop an already-loaded SDK before cookie writes or the rejection click can
+  // reach its automatic handlers. Removing a React Script does not unload it.
+  if (!consent.marketing) setMetaTrackingConsent(false);
+
   clearOptionalTrackingCookies({
     analytics: !consent.analytics,
     advertising: !consent.marketing,
@@ -114,15 +123,69 @@ export function setTrackingConsent(value: TrackingConsentInput) {
   window.dispatchEvent(new Event(trackingConsentEvent));
 }
 
+export function setMetaTrackingConsent(granted: boolean) {
+  if (typeof window !== "undefined" && typeof window.fbq === "function") {
+    const pixel = window.fbq as typeof window.fbq & { queue?: ArrayLike<unknown>[] };
+    // While the SDK loads, one queued revoke is enough. Multiple revokes can
+    // relock its queue when a later grant starts draining it.
+    if (!granted && pixel.queue?.some((command) => command[0] === "consent" && command[1] === "revoke")) return;
+    window.fbq("consent", granted ? "grant" : "revoke");
+  }
+}
+
 function expireCookie(name: string) {
-  document.cookie = `${name}=; Max-Age=0; Path=/; SameSite=Lax; Secure`;
+  const expiry = `${name}=; Max-Age=0; Path=/; SameSite=Lax; Secure`;
+  document.cookie = expiry;
+  // SDK cookies may use Domain=current host or a parent, not host-only scope.
+  // Only expire the allowlisted optional cookie names and root path. Browsers
+  // reject public-suffix domains; never attempt the single-label TLD.
+  const labels = window.location?.hostname?.split(".") ?? [];
+  for (let index = 0; index < labels.length - 1; index += 1) {
+    document.cookie = `${expiry}; Domain=${labels.slice(index).join(".")}`;
+  }
+}
+
+function removeStorageKeys(
+  storage: Storage,
+  shouldRemove: (name: string) => boolean,
+) {
+  for (let index = storage.length - 1; index >= 0; index -= 1) {
+    const name = storage.key(index);
+    if (name && shouldRemove(name)) storage.removeItem(name);
+  }
+}
+
+function clearAdvertisingStorage() {
+  try {
+    removeStorageKeys(window.localStorage, (name) => name.startsWith("_gcl"));
+    window.localStorage.removeItem(attributionStorageKey);
+  } catch {
+    // The advertising choice remains denied when storage is unavailable.
+  }
+
+  try {
+    removeStorageKeys(window.sessionStorage, (name) =>
+      name.startsWith(googleEventStoragePrefix),
+    );
+  } catch {
+    // Continue clearing cookies even if session storage is unavailable.
+  }
+  clearDeliveredGoogleEvents();
 }
 
 export function clearOptionalTrackingCookies(options: { analytics: boolean; advertising: boolean }) {
   if (typeof document === "undefined") return;
+  if (options.advertising) clearAdvertisingStorage();
   const names = document.cookie.split(";").map((item) => item.trim().split("=", 1)[0]).filter(Boolean);
   for (const name of names) {
-    if ((options.analytics && (name === "_gid" || name.startsWith("_ga"))) || (options.advertising && (name === "_fbp" || name === "_fbc"))) {
+    if (
+      (options.analytics && (name === "_gid" || name.startsWith("_ga"))) ||
+      (options.advertising &&
+        (name === "_fbp" ||
+          name === "_fbc" ||
+          name.startsWith("_gcl") ||
+          name.startsWith("_gac")))
+    ) {
       expireCookie(name);
     }
   }
@@ -132,6 +195,8 @@ export function clearTrackingConsent() {
   if (typeof window === "undefined") {
     return;
   }
+
+  setMetaTrackingConsent(false);
 
   try {
     window.localStorage.removeItem(trackingConsentKey);

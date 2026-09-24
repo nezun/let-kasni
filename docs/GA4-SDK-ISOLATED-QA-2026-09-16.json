@@ -1,0 +1,65 @@
+{
+  "scope": "LOCAL_REAL_GOOGLE_SDK_COLLECTOR_ISOLATED",
+  "applicationCandidate": "333bb9d64826926862dd56bf96cdc03bb42c6473",
+  "stream": "G-RVJ906DKVF",
+  "transport": "CSP connect/img/frame none; capture hooks before SDK; no-referrer",
+  "adminDisabled": true,
+  "collectorAttempts": [
+    {
+      "event": "view_search_results",
+      "transaction": null,
+      "privateMarkerPresent": true,
+      "dl": "http://127.0.0.1:3016/?utm_source=google&utm_medium=cpc&utm_campaign=SEARCH_RS_CORE",
+      "dr": "",
+      "dt": "LetKasni | /"
+    },
+    {
+      "event": "page_view",
+      "transaction": null,
+      "privateMarkerPresent": false,
+      "dl": "http://127.0.0.1:3016/?utm_source=google&utm_medium=cpc&utm_campaign=SEARCH_RS_CORE",
+      "dr": "",
+      "dt": "LetKasni | /"
+    },
+    {
+      "event": "scroll",
+      "transaction": null,
+      "privateMarkerPresent": false,
+      "dl": "http://127.0.0.1:3016/?utm_source=google&utm_medium=cpc&utm_campaign=SEARCH_RS_CORE",
+      "dr": "",
+      "dt": "LetKasni | /"
+    },
+    {
+      "event": "page_view",
+      "transaction": null,
+      "privateMarkerPresent": false,
+      "dl": "http://127.0.0.1:3016/en",
+      "dr": "",
+      "dt": "LetKasni | /en"
+    },
+    {
+      "event": "lead_submit",
+      "transaction": "00000000-0000-4000-8000-000000000006",
+      "privateMarkerPresent": false,
+      "dl": "http://127.0.0.1:3016/en",
+      "dr": "",
+      "dt": "LetKasni | /en"
+    },
+    {
+      "event": "generate_lead",
+      "transaction": null,
+      "privateMarkerPresent": false,
+      "dl": "http://127.0.0.1:3016/en",
+      "dr": "",
+      "dt": "LetKasni | /en"
+    },
+    {
+      "event": "page_view",
+      "transaction": null,
+      "privateMarkerPresent": true,
+      "dl": "http://127.0.0.1:3016/en?email=(redacted)&q=TEST_PRIVATE_MARKER_20260916&utm_campaign=TEST_PRIVATE_MARKER_20260916",
+      "dr": "http://127.0.0.1:3016/?gclid=TEST_GCLID_123&utm_source=google&utm_medium=cpc&utm_campaign=SEARCH_RS_CORE&q=TEST_PRIVATE_MARKER_20260916&email=(redacted)",
+      "dt": "LetKasni | /en"
+    }
+  ]
+}

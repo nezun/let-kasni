@@ -4,6 +4,7 @@ import { useId, useState } from "react";
 import { ArrowRight, Ban, Clock3, Ellipsis } from "lucide-react";
 
 import { trackEvent } from "@/lib/analytics";
+import { withCurrentAttributionParameters } from "@/lib/attribution";
 import { getMetaEventId, trackMetaEvent } from "@/lib/meta";
 
 type Locale = "sr" | "en";
@@ -49,7 +50,8 @@ export function adresaForme(locale: Locale, problem?: Problem) {
 }
 
 export function idiNaFormu(locale: Locale, problem?: Problem) {
-  window.location.href = adresaForme(locale, problem);
+  // poreklo klika iz oglasa (gclid, utm…) ide sa korisnikom u formu — samo uz pristanak za marketing (attribution.ts)
+  window.location.href = withCurrentAttributionParameters(adresaForme(locale, problem));
 }
 
 /**

@@ -3,7 +3,7 @@ import { resolve } from "node:path";
 
 const root = process.cwd();
 const checks = [
-  ["src/components/meta-pixel.tsx", "fbq('track', 'PageView')"],
+  ["src/components/meta-pixel.tsx", 'window.fbq?.("track", "PageView")'],
   ["src/components/meta-pixel.tsx", "hasMarketingConsent"],
   ["src/lib/meta.ts", "eventID"],
   ["src/lib/meta.ts", "hasMarketingConsent"],
@@ -15,7 +15,7 @@ const checks = [
   ["src/app/layout.tsx", "suppressHydrationWarning"],
   ["src/components/consent-banner.tsx", "data-consent-banner"],
   ["src/app/globals.css", "data-consent=\"1\""],
-  ["src/lib/consent-cookie.ts", "privacy-1.2-2026-09-10"],
+  ["src/lib/consent-cookie.ts", "privacy-1.3-2026-09-15"],
   ["src/components/consent-banner.tsx", "setTrackingConsent"],
   ["src/components/consent-banner.tsx", "marketing"],
   ["src/components/privacy-settings-button.tsx", "clearTrackingConsent"],

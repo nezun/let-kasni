@@ -56,9 +56,13 @@ Before finishing, explain:
 - If the task cannot finish without user input, record the blocker and the safest next autonomous step in `CHECKPOINT.md` instead of relying on chat memory.
 
 <!-- BEGIN:nextjs-agent-rules -->
+
 # This is NOT the Next.js you know
 
-This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
 <!-- END:nextjs-agent-rules -->
 
 ## Deploy
@@ -115,6 +119,8 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 - Production content baseline synchronized to staging on 2026-09-23 from `5ea961725077c326a5a85b52fb7261ce22886a26`. Preserve the approved retirements in `src/content/seo-retired-airlines.json` and `src/content/seo-retired-programmatic.json`: 62 bilingual articles, 124 canonical paths return 404. Keep all 68 active articles, eight main guides and consolidation redirects A–F. `seo-suggested-removals.json` is a review backlog, not removal approval. Keep bulk publishing paused.
 - The user authorized this staging content synchronization. The marketing staging still routes forms to the separate customer app; do not restore the retired monolithic form/admin routes. Content parity does not establish conversion-measurement parity or production readiness.
+- The owner ended the airline-specific programmatic content experiment on 2026-09-15. Do not regenerate carrier landing pages or flight-number/date SEO pages without new explicit approval. The exact 46 retired article IDs and 92 canonical paths are recorded in `src/content/seo-retired-airlines.json`; `npm run seo:retirement:check` is part of the release gate. Retired pages have no equivalent replacement and return 404, not a blanket redirect to the homepage or main delay guide. Remove them from public lists and sitemaps, but never block their crawling in robots.txt. Airline catalogues, flight lookup, claim intake and factual airline mentions are NOT retired.
+- Final owner decision: keep regional/route/country/airport pages removed (16 bilingual articles, 32 canonical URLs in `src/content/seo-retired-programmatic.json`), but RESTORE and KEEP the 47 general/scenario articles (94 localized URLs). `src/content/seo-suggested-removals.json` is a non-executing review backlog, NOT approval to remove them. Keep all consolidation groups A-F and their original redirects. Active content is 68 articles plus eight main guides, bilingual; sitemap has 158 URLs. The three reduced mixed batches must contain exactly the retained IDs in the regional retirement manifest. Keep the daily bulk-publishing automation paused, and require new explicit approval before restarting publishing or removing any suggested page. All current retirement changes stay local until separate deploy approval.
 
 - Cornerstone pages are tier-one URLs directly below the domain, for example `/naknada-za-kasnjenje-leta` and `/en/flight-delay-compensation`.
 - Child blog articles must live under exactly one primary cornerstone parent, for example `/naknada-za-kasnjenje-leta/kasnjenje-leta-zbog-loseg-vremena`.

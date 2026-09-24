@@ -22,7 +22,7 @@ After GitHub `main` deploys through Vercel:
 npm run release:gate -- --production
 ```
 
-Read [docs/OPERATIONS-RUNBOOK.md](docs/OPERATIONS-RUNBOOK.md) for the full session, handoff, and release process. Do not deploy from sibling folders or local browser previews.
+Read [docs/OPERATIONS-RUNBOOK.md](docs/OPERATIONS-RUNBOOK.md) for the full session, handoff, and release process. Google Ads measurement setup, QA and launch blockers are in [docs/GOOGLE-ADS-LAUNCH.md](docs/GOOGLE-ADS-LAUNCH.md). Do not deploy from sibling folders or local browser previews.
 
 Ovaj app prati zaključani pravac iz `PLAN.autoplan.md`:
 
@@ -73,6 +73,7 @@ npm run session:start -- --new task-name
 npm run release:gate
 npm run production:check
 npm run meta:check
+npm run google-ads:check
 ```
 
 For a final production release decision, always use `npm run release:gate -- --production`; direct `production:check` is diagnostic-only and requires an explicit commit SHA or opt-out.
@@ -105,6 +106,7 @@ For a final production release decision, always use `npm run release:gate -- --p
 
 - Vlasnik i operator sajta je `VGA EU CONSULTING DOO NIŠ` (PIB `113473442`, MB `21873446`). Javni podaci su centralizovani u `src/lib/site-operator.ts`; futer i obe jezičke verzije pravnih stranica koriste isti izvor. Stare operator environment promenljive više ne menjaju javni identitet.
 - `NEXT_PUBLIC_GA_MEASUREMENT_ID` kada bude spreman GA4
+- `NEXT_PUBLIC_GTM_ID` za consent-gated Google Ads merenje; GA4 ostaje direktno u aplikaciji i ne dodaje se ponovo kroz GTM
 - Meta Ads tracking env ako želiš browser Pixel + server-side Conversions API:
   - `NEXT_PUBLIC_META_PIXEL_ID`
   - `META_CONVERSIONS_API_ACCESS_TOKEN` (samo server-side, nikad u browseru)
@@ -130,6 +132,7 @@ For a final production release decision, always use `npm run release:gate -- --p
 - `FLIGHT_PROVIDER_DAILY_LIMIT` ograničava dnevnu potrošnju provider poziva po server instanci
 - Provider odgovor razlikuje `live_match`, `no_match`, `timeout`, `provider_skipped_budget`, `outside_provider_window` i `unconfigured`
 - Meta Lead događaj se šalje i iz browsera i server-side sa istim `event_id`, tako da Meta može da deduplikuje događaj
+- Google Ads `lead_submit` se šalje tek posle uspešnog prijema novog zahteva, sa claim UUID kao `transaction_id`; attribution i GTM ostaju isključeni bez pristanka za oglašavanje
 - Email i telefon za Conversions API se šalju samo kao SHA-256 hash, dok access token ostaje server-side
 - Queue sada ima osnovne filtere po statusu, provider ishodu i verdict-u
 - `normalized_input_snapshot` sada stvarno koristi provider normalizaciju kada postoji
