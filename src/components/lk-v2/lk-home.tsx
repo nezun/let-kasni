@@ -96,22 +96,29 @@ export function LkHome({ locale }: { locale: LkLocale }) {
 
       <section className="lk-section lk-promo" id="promocija" aria-labelledby="lk-promo-title">
         <div className="lk-container">
-          <div className="lk-ui-card lk-ui-card--featured">
+          <div
+            className="lk-ui-card lk-ui-card--featured"
+            style={{ background: "var(--lk-ui-action)", borderColor: "var(--lk-ui-action)" }}
+          >
             <div className="lk-ui-card-body">
               <span className="lk-ui-badge lk-ui-badge--cyan">{t.promo.badge}</span>
-              <h2 id="lk-promo-title">
-                {t.promo.titleA}
-                <br />
-                {t.promo.titleB}
+              <h2 id="lk-promo-title" style={{ fontSize: "var(--lk-ui-text-h4)" }}>
+                {t.promo.titleA} {t.promo.titleB}
               </h2>
-              <p>
-                {t.promo.compareOtherLabel} <del>{t.promo.compareOtherPct}</del> · {t.promo.compareUsLabel}{" "}
-                <span className="lk-ui-badge lk-ui-badge--success">{t.promo.compareUsPct}</span>
+              <p style={{ fontSize: "var(--lk-ui-text-h3)", opacity: 0.85, margin: 0 }}>
+                {t.promo.compareOtherLabel} <del>{t.promo.compareOtherPct}</del>
               </p>
-              <ClaimInlineCtaButton locale={locale} eventLabel="promo_banner_cta" className="lk-ui-button lk-ui-button--lg">
+              <p style={{ fontSize: "var(--lk-ui-text-h1)", fontWeight: 700, color: "var(--lk-ui-color-cyan)", margin: 0 }}>
+                {t.promo.compareUsLabel} {t.promo.compareUsPct}
+              </p>
+              <ClaimInlineCtaButton
+                locale={locale}
+                eventLabel="promo_banner_cta"
+                className="lk-ui-button lk-ui-button--lg lk-ui-button--inverse"
+              >
                 {t.promo.button} <LkArrow />
               </ClaimInlineCtaButton>
-              <p>{t.promo.note}</p>
+              <p style={{ fontSize: "var(--lk-ui-text-caption)", opacity: 0.85, margin: 0 }}>{t.promo.note}</p>
             </div>
           </div>
         </div>
@@ -369,7 +376,7 @@ export function LkHome({ locale }: { locale: LkLocale }) {
               </article>
             ))}
           </div>
-          <div className="lk-feature-contact">
+          <div className="lk-benefits-actions">
             <a className="lk-ui-link" href={`tel:${contact.phone}`}>
               {contact.phoneDisplay}
             </a>
