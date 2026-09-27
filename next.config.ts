@@ -18,7 +18,8 @@ const nextConfig: NextConfig = {
   async rewrites() {
     const prijava = process.env.PRIJAVA_URL?.replace(/\/$/, "");
     if (!prijava) return [];
-    return ["/proveri-let", "/en/check-flight", "/claim/submit", "/predmet/:path*", "/api/predmet/:path*", "/prijava-static/:path*"].map(
+    // Otpremanje dokumenata nove forme (prijava v2): samo ove dve tačne putanje, ne /api/claim/* (tamo su i interne rute).
+    return ["/proveri-let", "/en/check-flight", "/claim/submit", "/api/claim/dokumenti", "/api/claim/dokumenti/deo", "/predmet/:path*", "/api/predmet/:path*", "/prijava-static/:path*"].map(
       (source) => ({ source, destination: `${prijava}${source}` }),
     );
   },
