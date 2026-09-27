@@ -1,0 +1,315 @@
+/* Dodaci uz novu verziju dizajna (v2) za ono što sajt ima, a statički original nema. Ručni fajl; učitava se posle
+   v2 CSS-a (src/styles/lk-v2/, npm run lk:sync). */
+
+/* „Podešavanja privatnosti“ u dnu footera: dugme koje izgleda kao susedni linkovi. */
+.lk-footer-bottom .lk-privacy-button {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: var(--ew-text-caption);
+  color: var(--ew-text-secondary);
+  text-align: left;
+  cursor: pointer;
+}
+
+.lk-footer-bottom .lk-privacy-button:hover {
+  color: var(--ew-action);
+}
+
+/* Sadržaj strane (lk-toc) prati čitanje: naslov sekcije koja se trenutno čita je istaknut (ScrollProgressToc). */
+.lk-toc nav a[aria-current="true"] {
+  color: var(--ew-action);
+  font-weight: 600;
+}
+
+/* Moduli u tekstu vodiča i članaka (pravila sadržaja iz AGENTS.md: brza provera odmah posle prvog H2 i 2–5 vizuala
+   raspoređenih kroz tekst). Original ih nema, pa su složeni od v2 tokena i postojećih v2 elemenata (ew-card, ew-badge,
+   lk-feature-checks, ew-field), da izgledaju kao deo istog dizajna. Komponente: src/components/lk-v2/lk-modules.tsx. */
+.lk-reading .lk-module {
+  margin: var(--ew-space-32) 0 var(--ew-space-8);
+}
+
+.lk-module-card {
+  background: var(--ew-surface-alt);
+  border-radius: var(--ew-radius-lg);
+  padding: var(--ew-space-32);
+}
+
+.lk-module-card.is-dark {
+  background: var(--ew-color-navy-deep);
+  color: var(--ew-color-white);
+}
+
+.lk-module .ew-badge {
+  margin-bottom: var(--ew-space-16);
+}
+
+.lk-content-page .lk-reading .lk-module h3 {
+  font-size: 1.5rem;
+  line-height: 1.2;
+  margin: 0 0 var(--ew-space-12);
+}
+
+.lk-reading .lk-module p {
+  margin: 0 0 var(--ew-space-16);
+  color: var(--ew-text-secondary);
+  line-height: 1.7;
+}
+
+.lk-reading .lk-module-card.is-dark h3,
+.lk-reading .lk-module-card.is-dark p,
+.lk-reading .lk-module-card.is-dark li {
+  color: var(--ew-color-white);
+}
+
+.lk-reading .lk-module-card.is-dark p {
+  opacity: 0.85;
+}
+
+.lk-reading .lk-module .lk-feature-checks {
+  padding: 0;
+  margin: var(--ew-space-20) 0 0;
+}
+
+.lk-reading .lk-module .lk-feature-checks li {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.lk-reading .lk-module-steps {
+  list-style: none;
+  padding: 0;
+  margin: var(--ew-space-24) 0 0;
+  display: grid;
+  gap: var(--ew-space-16);
+  counter-reset: lk-module-step;
+}
+
+.lk-reading .lk-module-steps li {
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr);
+  gap: var(--ew-space-12);
+  align-items: start;
+  margin: 0;
+  line-height: 1.6;
+  counter-increment: lk-module-step;
+}
+
+.lk-module-steps li::before {
+  content: counter(lk-module-step);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--ew-radius-pill);
+  background: var(--ew-action);
+  color: var(--ew-on-action);
+  font: 600 0.875rem/1 var(--ew-font-body);
+}
+
+.lk-module-card.is-dark .lk-module-steps li::before {
+  background: var(--ew-color-cyan);
+  color: var(--ew-color-navy);
+}
+
+.lk-module-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--ew-space-16);
+  margin-top: var(--ew-space-24);
+}
+
+.lk-module-grid.is-four {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.lk-module-tile {
+  background: var(--ew-surface);
+  border-radius: var(--ew-radius-md);
+  padding: var(--ew-space-20);
+  box-shadow: var(--ew-shadow-sm);
+}
+
+.lk-module-label {
+  display: block;
+  font-size: var(--ew-text-caption);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ew-action);
+}
+
+.lk-content-page .lk-reading .lk-module-tile h4 {
+  margin: var(--ew-space-8) 0;
+  font: 600 1.0625rem/1.3 var(--ew-font-heading);
+  color: var(--ew-color-navy-deep);
+}
+
+.lk-reading .lk-module-tile p {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.lk-module-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: var(--ew-space-24);
+  background: var(--ew-surface);
+  border-radius: var(--ew-radius-md);
+  overflow: hidden;
+  font-size: 0.9375rem;
+}
+
+.lk-module-table th,
+.lk-module-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--ew-border);
+  text-align: left;
+  vertical-align: top;
+}
+
+.lk-module-table tr:last-child th,
+.lk-module-table tr:last-child td {
+  border-bottom: 0;
+}
+
+.lk-module-table th {
+  font-weight: 600;
+  color: var(--ew-color-navy-deep);
+}
+
+.lk-module-table td {
+  color: var(--ew-text-secondary);
+}
+
+.lk-module-table td:last-child {
+  font: 600 1rem/1.4 var(--ew-font-heading);
+  color: var(--ew-action);
+  white-space: nowrap;
+}
+
+.lk-module-figure {
+  margin: var(--ew-space-32) 0;
+}
+
+.lk-module-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 8;
+  object-fit: cover;
+  border-radius: var(--ew-radius-lg);
+}
+
+.lk-module-check {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--ew-space-24);
+  align-items: center;
+  background: var(--ew-color-navy-deep);
+  color: var(--ew-color-white);
+  border-radius: var(--ew-radius-lg);
+  padding: var(--ew-space-32);
+}
+
+.lk-module-check::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--ew-color-cyan);
+  clip-path: polygon(100% 45%, 100% 100%, 78% 100%);
+  pointer-events: none;
+}
+
+.lk-module-check > * {
+  position: relative;
+  z-index: 1;
+}
+
+.lk-content-page .lk-reading .lk-module-check h3,
+.lk-reading .lk-module-check p {
+  color: var(--ew-color-white);
+}
+
+.lk-reading .lk-module-check p {
+  margin: 0;
+  opacity: 0.85;
+}
+
+.lk-module-check .ew-button {
+  background: var(--ew-color-cyan);
+  color: var(--ew-color-navy);
+  border-color: var(--ew-color-cyan);
+}
+
+.lk-module-check .ew-button:hover {
+  background: var(--ew-surface);
+  border-color: var(--ew-surface);
+}
+
+.lk-module-check .ew-button:focus-visible {
+  outline-color: var(--ew-color-white);
+}
+
+.lk-module-calc .lk-module-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--ew-space-16);
+  margin-top: var(--ew-space-24);
+}
+
+.lk-module-calc .ew-field {
+  max-width: none;
+}
+
+.lk-module-result {
+  margin-top: var(--ew-space-20);
+  background: var(--ew-surface);
+  border-radius: var(--ew-radius-md);
+  padding: var(--ew-space-20);
+}
+
+.lk-content-page .lk-reading .lk-module-result strong {
+  display: block;
+  margin: var(--ew-space-8) 0;
+  font: 600 1.375rem/1.25 var(--ew-font-heading);
+  color: var(--ew-color-navy-deep);
+}
+
+@media (max-width: 700px) {
+  .lk-module-card,
+  .lk-module-check {
+    padding: var(--ew-space-24);
+  }
+
+  .lk-module-grid,
+  .lk-module-grid.is-four,
+  .lk-module-calc .lk-module-fields {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .lk-module-check {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .lk-module-table {
+    font-size: 0.875rem;
+  }
+
+  .lk-module-table th,
+  .lk-module-table td {
+    padding: 12px;
+  }
+}
+
+/* Potvrda uspeha u panelu za e-mail ponude (v2 nema posebnu klasu za uspeh). */
+.lk-email-panel .lk-panel-ok {
+  color: var(--ew-success);
+  font-weight: 600;
+}

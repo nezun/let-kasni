@@ -208,8 +208,14 @@ const interlinkingAntiPatterns = [
 
 const publicShellChecks = [
   {
-    file: "src/components/landing-page.tsx",
-    headerPattern: /HeaderWithClaimCta/,
+    // početna nove verzije sajta (v2 iz transport-local); stara početna (landing-page.tsx) je uklonjena 27.09.2026
+    file: "src/app/page.tsx",
+    headerPattern: /SiteHeader/,
+    footerPattern: /SiteFooter/,
+  },
+  {
+    file: "src/app/en/page.tsx",
+    headerPattern: /SiteHeader/,
     footerPattern: /SiteFooter/,
   },
   {

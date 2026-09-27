@@ -1,4 +1,7 @@
 import { MarketingManagePanel } from "@/components/marketing-action-panel";
+import { copy } from "@/components/lk-v2/copy";
+import { LkEmailPanelContent } from "@/components/lk-v2/lk-email-panel-page";
+import { LkFrame } from "@/components/lk-v2/lk-page";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import type { Metadata } from "next";
@@ -10,5 +13,15 @@ export const metadata: Metadata = {
 
 export default async function EmailOffersPage({ searchParams }: { searchParams: Promise<{ token?: string }> }) {
   const { token } = await searchParams;
-  return <main className="min-h-screen bg-[var(--bg)] pt-32"><SiteHeader locale="sr" /><div className="mx-auto max-w-xl px-6 pb-20"><section className="space-y-5 rounded-3xl border border-[var(--line)] bg-white p-7 shadow-sm"><h1 className="text-3xl font-bold text-[var(--ink)]">Upravljanje e-mail ponudama</h1><MarketingManagePanel locale="sr" token={token} /></section></div><SiteFooter locale="sr" /></main>;
+  return (
+    <LkFrame locale="sr" kind="lk-content-page">
+      <SiteHeader locale="sr" alternateHref="/en/email-offers" />
+      <main id="main">
+        <LkEmailPanelContent locale="sr" title={copy.sr.emailOffersPage.manageTitle}>
+          <MarketingManagePanel locale="sr" token={token} />
+        </LkEmailPanelContent>
+      </main>
+      <SiteFooter locale="sr" />
+    </LkFrame>
+  );
 }

@@ -2,7 +2,11 @@ import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import ts from "typescript";
 
-const file = "src/components/landing-page.tsx";
+// Every landing variant keeps its SR/EN copy in one `copy` object; the v2 site copy is checked the same way.
+const files = [
+  // nova verzija sajta (v2 iz transport-local): header, footer i početna; stara početna je uklonjena 27.09.2026
+  "src/components/lk-v2/copy.ts",
+];
 
 function unwrapExpression(node) {
   if (
@@ -15,7 +19,7 @@ function unwrapExpression(node) {
   return node;
 }
 
-function parseLandingCopy(source, label) {
+function parseLandingCopy(source, label, file) {
   const sourceFile = ts.createSourceFile(
     file,
     source,
@@ -100,9 +104,9 @@ function localeText(parsed, locale) {
   return parsed.locales[locale].getText(parsed.sourceFile);
 }
 
-function assertPairedChange(beforeSource, afterSource, label) {
-  const before = parseLandingCopy(beforeSource, `${label} before`);
-  const after = parseLandingCopy(afterSource, `${label} after`);
+function assertPairedChange(beforeSource, afterSource, label, file) {
+  const before = parseLandingCopy(beforeSource, `${label} before`, file);
+  const after = parseLandingCopy(afterSource, `${label} after`, file);
   const srChanged = localeText(before, "sr") !== localeText(after, "sr");
   const enChanged = localeText(before, "en") !== localeText(after, "en");
 
@@ -113,7 +117,7 @@ function assertPairedChange(beforeSource, afterSource, label) {
   }
 }
 
-function gitFile(revision) {
+function gitFile(revision, file) {
   try {
     return execFileSync("git", ["show", `${revision}:${file}`], {
       encoding: "utf8",
@@ -135,23 +139,25 @@ function headAllowsLanguageOnlyChange() {
   }
 }
 
-const currentSource = readFileSync(file, "utf8");
-const current = parseLandingCopy(currentSource, "working tree");
-const srShape = collectShape(current.locales.sr, current.sourceFile);
-const enShape = collectShape(current.locales.en, current.sourceFile);
+for (const file of files) {
+  const currentSource = readFileSync(file, "utf8");
+  const current = parseLandingCopy(currentSource, "working tree", file);
+  const srShape = collectShape(current.locales.sr, current.sourceFile);
+  const enShape = collectShape(current.locales.en, current.sourceFile);
 
-if (JSON.stringify(srShape) !== JSON.stringify(enShape)) {
-  throw new Error("Serbian and English landing-copy structures do not match");
+  if (JSON.stringify(srShape) !== JSON.stringify(enShape)) {
+    throw new Error(`${file}: Serbian and English landing-copy structures do not match`);
+  }
+
+  const headSource = gitFile("HEAD", file);
+  if (headSource) {
+    assertPairedChange(headSource, currentSource, `${file} working tree vs HEAD`, file);
+  }
+
+  const parentSource = gitFile("HEAD^", file);
+  if (headSource && parentSource && !headAllowsLanguageOnlyChange()) {
+    assertPairedChange(parentSource, headSource, `${file} HEAD commit`, file);
+  }
 }
 
-const headSource = gitFile("HEAD");
-if (headSource) {
-  assertPairedChange(headSource, currentSource, "Working tree vs HEAD");
-}
-
-const parentSource = gitFile("HEAD^");
-if (headSource && parentSource && !headAllowsLanguageOnlyChange()) {
-  assertPairedChange(parentSource, headSource, "HEAD commit");
-}
-
-console.log("Landing locale check passed: SR and EN are structurally aligned and changed together.");
+console.log(`Landing locale check passed for ${files.length} files: SR and EN are structurally aligned and changed together.`);

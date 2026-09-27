@@ -1,0 +1,86 @@
+/* Most između Next sajta i nove verzije dizajna (v2 iz transport-local, CSS u src/styles/lk-v2/, generiše ga
+   npm run lk:sync). Ovaj fajl je ručni i sync ga ne dira.
+
+   v2 CSS je pisan za čist pregledač, a ovde važe Tailwind preflight (sloj base) i nekoliko opštih pravila iz
+   globals.css. Unutar omotača .lk-page zato vraćamo podrazumevane stilove pregledača za ono što preflight menja,
+   pa v2 CSS (bez sloja, jači od svakog sloja) izgleda isto kao na originalu. Tailwind klase i dalje rade. */
+
+@layer base {
+  .lk-page :where(*),
+  .lk-page :where(*)::before,
+  .lk-page :where(*)::after {
+    margin: revert;
+    padding: revert;
+    border: revert;
+    box-sizing: revert;
+  }
+
+  .lk-page :where(h1, h2, h3, h4, h5, h6) {
+    font-size: revert;
+    font-weight: revert;
+  }
+
+  .lk-page :where(small) {
+    font-size: revert;
+  }
+
+  .lk-page :where(ol, ul, menu) {
+    list-style: revert;
+  }
+
+  .lk-page :where(img, svg, video, canvas, audio, iframe, embed, object) {
+    display: revert;
+    vertical-align: revert;
+  }
+
+  .lk-page :where(img, video) {
+    max-width: revert;
+    height: revert;
+  }
+
+  .lk-page :where(button, input, select, optgroup, textarea) {
+    font: revert;
+    font-feature-settings: revert;
+    font-variation-settings: revert;
+    letter-spacing: revert;
+    color: revert;
+    border-radius: revert;
+    background-color: revert;
+    opacity: revert;
+  }
+
+  .lk-page :where(hr) {
+    height: revert;
+    color: revert;
+    border-top-width: revert;
+  }
+
+  .lk-page :where(table) {
+    text-indent: revert;
+    border-color: revert;
+    border-collapse: revert;
+  }
+
+  .lk-page :where(textarea) {
+    resize: revert;
+  }
+
+  .lk-page :where(input, textarea)::placeholder {
+    opacity: revert;
+    color: revert;
+  }
+}
+
+/* globals.css bez sloja skida boju i podvlačenje sa svih linkova; v2 za linkove bez svoje boje računa na
+   podrazumevani izgled (npr. „Pogledajte uslove usluge.“). Isti nivo specifičnosti, a ovaj fajl se učitava posle
+   globals.css i pre v2 CSS-a, pa v2 klase i dalje menjaju izgled linkova. */
+:where(.lk-page) a {
+  color: revert;
+  text-decoration: revert;
+}
+
+/* Omotač stoji u body (flex kolona iz layout.tsx) umesto na samom body kao na originalu. */
+.lk-page {
+  flex: 1 0 auto;
+  width: 100%;
+}

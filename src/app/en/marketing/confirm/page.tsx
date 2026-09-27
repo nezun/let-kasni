@@ -1,4 +1,7 @@
 import { MarketingConfirmPanel } from "@/components/marketing-action-panel";
+import { copy } from "@/components/lk-v2/copy";
+import { LkEmailPanelContent } from "@/components/lk-v2/lk-email-panel-page";
+import { LkFrame } from "@/components/lk-v2/lk-page";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import type { Metadata } from "next";
@@ -10,5 +13,15 @@ export const metadata: Metadata = {
 
 export default async function MarketingConfirmPage({ searchParams }: { searchParams: Promise<{ token?: string }> }) {
   const { token = "" } = await searchParams;
-  return <main className="min-h-screen bg-[var(--bg)] pt-32"><SiteHeader locale="en" /><div className="mx-auto max-w-xl px-6 pb-20"><section className="space-y-5 rounded-3xl border border-[var(--line)] bg-white p-7 shadow-sm"><h1 className="text-3xl font-bold text-[var(--ink)]">Confirm subscription</h1><MarketingConfirmPanel locale="en" token={token} /></section></div><SiteFooter locale="en" /></main>;
+  return (
+    <LkFrame locale="en" kind="lk-content-page">
+      <SiteHeader locale="en" alternateHref="/marketing/confirm" />
+      <main id="main">
+        <LkEmailPanelContent locale="en" title={copy.en.emailOffersPage.confirmTitle}>
+          <MarketingConfirmPanel locale="en" token={token} />
+        </LkEmailPanelContent>
+      </main>
+      <SiteFooter locale="en" />
+    </LkFrame>
+  );
 }

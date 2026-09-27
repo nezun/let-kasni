@@ -1,10 +1,15 @@
 import type { Metadata } from "next";
 
-import { LandingPage } from "@/components/landing-page";
+import { copy } from "@/components/lk-v2/copy";
+import { LkHome } from "@/components/lk-v2/lk-home";
+import { LkStickyCheck } from "@/components/lk-v2/lk-motion";
+import { LkFrame } from "@/components/lk-v2/lk-page";
+import { SiteFooter } from "@/components/site-footer";
+import { SiteHeader } from "@/components/site-header";
 import { SiteIdentitySchema } from "@/components/site-identity-schema";
 
 export const metadata: Metadata = {
-  title: "letkasni.rs",
+  title: "Letkasni.rs",
   alternates: {
     canonical: "/",
     languages: {
@@ -19,16 +24,15 @@ export default function Page() {
   return (
     <>
       <SiteIdentitySchema />
-      <LandingPage
-        locale="sr"
-        variant="hero-compact"
-        testimonialsVariant="a"
-        formFieldTone="muted"
-        heroFlightPath
-        heroFlightPathVariant="with-visual"
-        ctaFlightPath
-        heroTextColorVariant="body-and-proof-white"
-      />
+      {/* Nova verzija sajta (v2 iz transport-local), 26.09.2026: novi brend i UX, isti URL-ovi. */}
+      <LkFrame locale="sr">
+        <SiteHeader locale="sr" alternateHref="/en" />
+        <main id="main">
+          <LkHome locale="sr" />
+        </main>
+        <SiteFooter locale="sr" />
+        <LkStickyCheck t={copy.sr.sticky} />
+      </LkFrame>
     </>
   );
 }

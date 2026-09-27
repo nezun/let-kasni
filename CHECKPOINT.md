@@ -4,6 +4,75 @@ Canonical handoff file for future local and Codex Cloud sessions.
 
 ## Start Here
 
+### New site version from transport-local v2 (new brand and UX), 2026-09-27
+
+- Owner decisions:
+  - 2026-09-26: the static v2 site in `~/Documents/Letkasni pipeline/outputs/transport-local/site/letkasni/v2/` becomes the new staging version, with the URL structure kept ("menjamo brend i UX"). SR and EN change together. The fonts are Gilroy SemiBold for headings and Inter for text; Niko has a Gilroy web license (confirmed 2026-09-27). The consent banner and GTM/Consent Mode stay as they are.
+  - 2026-09-27: "Možeš commit na staging", "kompletiraj ceo novi dizajn na stagingu", "drži originalni dizajn 1:1, dodaj i zvezdice".
+- Whole marketing site is on v2. Every public page renders `LkFrame` (`src/components/lk-v2/lk-page.tsx`: CSS order, wrapper `ew-scope lk-page lk-version-2` plus the page kind, skip link) with the shared `SiteHeader`/`SiteFooter`, which now ARE the v2 header and footer. Pages:
+  - Home: `src/app/page.tsx` and `src/app/en/page.tsx` plus `lk-home.tsx`, with star ratings back.
+  - Main guides: `cornerstone-typography-preview.tsx` with the v2 hero and breadcrumb, CTA row, sticky left table of contents (`ScrollProgressToc`, rewritten to the v2 `lk-toc` markup with the current section highlighted), reading column, FAQ, "Detaljni vodiči" text cards and final CTA.
+  - The flight-delay guide adds the v2 delay landing sections above the same full guide text: hero with the issue form, what we check, amounts, documents and care while waiting. Steps and testimonials come after the text. It also has its own header menu (Kako radi / Uslovi za naknadu / Česta pitanja) and the sticky check bar.
+  - Articles: `blog-article-page.tsx` in the v2 article layout.
+  - Blog index: `blog-index-page.tsx` with search and pagination by 9 (`lk-blog-filter.tsx`), newest first. Topic filter stays `?tema=`, and all cards stay in the HTML.
+  - Legal pages: terms and privacy with the text unchanged (`lk-legal.tsx`).
+  - Email offers and marketing confirm, and 404.
+  - New v2 pages SR/EN: `/kontakt` + `/en/contact`, `/o-nama` + `/en/about`, `/faq` + `/en/faq` (`lk-pages.tsx`). They are in `analyticsPublicPaths` but not yet in the sitemap (new URLs; decide before production).
+- Kept on purpose because the build gate enforces the content rules:
+  - The in-body quick check right after the first H2 and the visuals at the same positions as before, restyled with v2 tokens (`lk-modules.tsx`, CSS in `src/styles/lk-v2-extra.css`).
+  - No `<aside>` and no automatic "Povezani tekstovi" cards on articles. The v2 article template has them, but content QA forbids related-card dumps.
+  - `ScrollProgressToc`, `InterlinkingScope` and `?tema=` stay. AGENTS.md now documents the v2 template and shell.
+- Other deviations from the original:
+  - Copy follows Niko's rules: "Letkasni.rs" spelling, no payout timelines in testimonials, current FAQ cost answer.
+  - Social icons have no links, because there are no profiles yet.
+  - The footer has "Podešavanja privatnosti".
+- Brand assets: `src/app/icon.svg` (the v2 `logo-mark.svg`), and a new `favicon.ico` and `apple-icon.png` rendered from it with headless Chromium. `manifest.ts` uses "Letkasni.rs" with navy `#011f4c`. The social preview image (`/social-preview`) still has the old design.
+- Removed as dead code: the old home `landing-page.tsx`, `claim-entry.tsx`, `brand-logo.tsx`, the `ClaimStartCard` UI (`adresaForme`/`idiNaFormu` stay) and unused legacy `.lk-*` CSS in `globals.css`. Test versions A/B/C are preserved only on the LOCAL branch `arhiva/home-test-abc` (commit 1013228, never pushed).
+- Automation:
+  - `npm run lk:sync` imports the design.
+  - `node scripts/lk-v2-shots.mjs <folder> [pages…]` screenshots our pages and the original side by side at 1440 and 375 with headless Chromium. It needs the dev server on 3107 and `python3 -m http.server 8880 --bind 127.0.0.1 --directory "<transport-local>/site"`.
+  - `locales:check`, `copy:rules` and content QA cover `src/components/lk-v2/copy.ts`, and content QA also covers the home shell.
+- Checked 2026-09-27: `npm run verify` passed; every page returns 200 locally (404 page 404). Side-by-side screenshots match the original layout at 1440 and 375 for home, delay guide, guide, article, blog, terms, contact, about, FAQ and email offers.
+- The form in steps (letkasni-crm apps/prijava, branch `prijava-v2`) is being built in the separate worktree `~/Documents/letkasni-crm-pravi-forma`. The CRM session reviews it, merges it into `razvoj` and deploys prijava-staging.
+- Dev notes:
+  - Turbopack in this worktree once kept serving a stale `globals.css`. Restart `npm run dev -- --port 3107` if CSS changes don't show.
+  - The browser pane doesn't paint while hidden, so use `scripts/lk-v2-shots.mjs` for visual checks. The sticky bar needs a visible browser.
+- Before production:
+  - Real social profile links.
+  - The social preview image in the new design.
+  - Sitemap entries for the new pages.
+  - Niko's confirmation that the testimonials are real clients who consented.
+  - A production release per AGENTS.md (release gate, main).
+
+### Home v2 test (new home page), 2026-09-25
+
+- Owner (Niko) asked for a TEST-ONLY new home page. Branch `home-v2` from `origin/main` a8c746a (main = staging a2e4272 + merge commit, identical tree). Nothing committed or pushed; commit/push only on Niko's word. Production `main`, Vercel `let-kasni` and its env are untouched.
+- Approved direction A "Brza provera + dokaz". After the first preview Niko said it lacked the "KLM vibe", so v2 now copies KLM.com's style: two-row white header with tabs, full-bleed photo hero with a navy text card, a white form card (8px radius, soft shadow) with field-like options and a 4px/48px button, a KLM-deals-style route list, a gray #F6F7F8 page background, a newsletter-style final banner and a navy footer. Font: Inter (next/font, home page only). Photos: Unsplash images already used on the blog.
+- Colors: ONLY Niko's two, navy `#002746` and blue `#009FD9` (sRGB; his screenshots were Display P3), plus white, neutral grays and the blue at reduced opacity. He rejected derived shades ("druga plava") on 2026-09-25. Buttons are blue with white text and turn navy on hover.
+- Iteration 3 (2026-09-25, Niko's reference blocks): the hero is solid navy (photo removed); header without a "Proveri let" tab and no active tab; Inter with opsz and tight tracking; pointer cursors; a gradient benefits strip; rounded blocks for amounts (bar chart, which replaced the route list), a phone mock-up with the steps, a qualitative "Sa Letkasni.rs / Samostalno" comparison (no success rates or timelines), and an airline-logo tiles card; the final CTA is a rays banner in #009FD9 (the reference was green, but Niko's color rule applies).
+- Iteration 4 (2026-09-25): a people section (collage of free-license Unsplash traveler photos, shown as passengers and not as staff, plus phone/email from `siteOperator`) and a testimonials block with initials instead of photos. OPEN: the three testimonials are the owner-published ones from the current production home, with payout timelines removed to follow the copy rule. Before production Niko must confirm they are real, that the clients consent, and that the shortened wording is OK.
+- Iteration 5 (2026-09-25): the hero has a traveler photo, floating status and amount cards, a count-up to 600 and a plane gliding along a dashed path (all motion-safe, desktop only). The form moved inside the navy hero, which takes about 62–68% of the viewport at 768–1080px heights, and the form stays fully visible on 360×740 and 375×812 phones. Header is one 64px row. Radii are two tokens, `rounded-control` 2px (Niko) and `rounded-card` 20px; there is one primary button everywhere; the final and sticky banners are navy so the blue button stays visible (the rays background is gone).
+- Iteration 6 (2026-09-25): buttons (and form options, chips and small icon squares, which share the token) use a 2px radius, and cards stay at 20px. Niko called the gradient benefits strip under the hero surplus, so it is removed along with its copy; the form card has no "Provera odštete" tab and is rounded on all four corners. After this, the navy hero takes 64% of 1440×900, and on 375×812 the form button ends at 652px.
+- Iteration 7 (2026-09-25; LOCAL ONLY, not deployed, because Niko asked to work locally for now and deploy later): the hero visual is a non-overlapping bento. On the left are two tiles, flight status (pulsing dot, BEG ✈ JFK with the plane gliding on a dashed line) and compensation up to €600 (count-up); on the right is the photo. The tiles are translucent on navy (`bg-white/[0.06]`, `border-white/10`) so the white form stays the strongest contrast, as Niko asked. The old floating cards and the plane path are removed, along with the `lk-float`/`lk-fly` tokens, which `lk-glide` replaces. "Kako radi" now sits directly under the hero at full width with three steps in columns (compact rows on phones). "Koliko možete da dobijete" and "Provera traje manje od 2 minuta" (the phone mock, now with a "Nastavi" button) share one row as two columns from lg up. Header nav order follows the page: Kako radi, Iznosi. An in-browser overlap check (text vs text, positioned boxes vs text, hero tiles) found nothing at 1920×1080, 1728×1000, 1440×900, 1366×768, 1280×720, 1024×768, 375×812 and 360×740. The navy share is 59–64% on large screens, 70% at 1366×768 and 73–78% at 1280×720 and 1024×768 (EN is taller), but the form button is visible without scrolling everywhere. The last staging preview (let-kasni-staging-1nswo8d1e) contains only iteration 6.
+- Iteration 7b (2026-09-25, local only): the amounts block uses Niko's gradient `linear-gradient(186deg, #e9ddd7 0%, #cde9ef 60%)`, sampled from his Display P3 image after sRGB conversion; the two-stop gradient reproduces his midtones within 1–2 RGB units. Secondary text in that block changed from gray `lk-muted` (3.7:1 on the gradient) to `text-lk-navy/75` (5.9:1). The blue start of the gradient headline and amounts has only about 2.3:1 there, while the navy part is fine. It is left as designed; if Niko wants more contrast, switch those to solid navy.
+- Iteration 7c (2026-09-25, local only): the form straddles the navy edge ("spusti ipak malo da ova forma seče plavu pozadinu"). The hero background is a hard-stop gradient ending `--lk-form-cut` above the section bottom (200px on phones, 100px from sm up). The form is the last element with no bottom padding, so about 54–58% of the form sits on navy at every size. A side effect is that navy now takes 48–57% of the viewport on laptops, including 1280×720 (it was 74%). The v2 header shows the full nav from lg (1024px); below that it uses the menu button, because at 768px the links and CTA wrapped onto two lines.
+- Iteration 7d (2026-09-25, local only): the comparison block "Uz nas je naplata jednostavnija" was redone after Niko's ReFly reference ("ovaj blok može bolje"). Rows are more compact (max 640px), icons sit in soft `rounded-card` tiles (blue plane on `lk-blue/10`, user icon on `lk-navy/6%`) instead of 2px squares and the logo badge, bars are pills (`rounded-full`), and the type is lighter. The reference's success-rate and weeks claims were deliberately not copied (copy rules: no unprovable claims or payout timelines). BrandLogo is no longer imported in landing-page-v2.
+- Iteration 7e (2026-09-25, local only): the comparison block uses semantic colors from Niko's reference ("zelena i narandžasta da simboliše gde je lakše"). Ours/easier is green (bar #5fb474, text #347d48); on your own/harder is orange (bar and icon #eb6518, text #c2530f) on peach #f8e5da. Text shades are darker for 4.5:1 contrast; the values live in the `compareTones` constant.
+- Iteration 7f (2026-09-25, local only): the people section ("ova sekcija isto može bolje") is now one split card on `lk-mist`: a single warm photo on the left (Unsplash, free license, photo-1647830097872-f0c3977b29a9, a father and toddler laughing at an airport gate) and the text, checks and contact on the right, with the contact on a white card. It replaced the three-photo collage: one photo was from a train station, one had a heavy cyan cast and one was cold gray.
+- Iteration 8 (2026-09-25, local only): Niko asked for a second version with an Expedia-style hero while keeping the current one. Test routes are `/pocetna-b` and `/en/home-b` (`noindex, nofollow`, canonical `/` or `/en`, not in the sitemap); the main version on `/` and `/en` is unchanged. `LandingPageV2` takes `hero="klm" | "expedia"` and `paths` (the header's logo, anchors and language switch stay on the test route). The Expedia hero has a full-width photo (Unsplash, free, photo-1647363377737-8d0ad7c2f494, a wing above clouds) with a navy gradient and a centered white headline. A wide white card cuts the bottom photo edge (`--lk-photo-cut` 132px on phones, 64px from sm up) and uses `ClaimTabsPanel` (src/components/home-v2/claim-tabs-panel.tsx): five tabs with two-tone icons. Tabs map to what the claim app accepts: delay (Kašnjenje, Propuštena veza), cancelled (Otkazan let), other (Odbijen ukrcaj, Drugo). Tabs follow the WAI-ARIA pattern (arrows, Home, End). Below them are the selected case's description (information, not a fake input), the same button, and the notes. Tracking stays `begin_checkout` / `InitiateCheckout` with `hero_card_cta` plus `issue_detail` and `hero_variant: "tabs"`. Copy check: "14 dana" in the cancellation description was flagged as a payout timeline, so it was rephrased to "nije na vreme obavestila" rather than loosening the check. Also fixed on both versions: at 768px the testimonials had three columns and the route text collided with the amount chip, so three columns now start at lg. `npm run verify` passed locally, including the build that lists `/pocetna-b` and `/en/home-b`.
+- Iteration 8b (2026-09-25, local only): in version B, flight and date fields replace the case description under the tabs, as Niko asked ("ispod bira koji je let i datum"). The fields are "Odakle ste leteli?" and "Krajnja destinacija" (text with a datalist of 46 common airports as `Grad (IATA)`, written by me from public IATA codes and not copied from letkasni-crm) and "Datum leta" (`type=date`, max today set on focus to avoid hydration drift). The button keeps the standard size; the fields are 48px so they line up. All fields are optional. On submit they go into the form URL as `from`, `to` and `date` (`/proveri-let?step=2&issue=…&from=Beograd (BEG)&to=…&date=YYYY-MM-DD`), and GA also gets `route_filled` and `date_filled`. BLOCKER / open decision for Niko: the claim app (letkasni-crm/apps/prijava, `src/app/proveri-let/page.tsx` and `en/check-flight`) reads only `step` and `issue`, so passengers must re-enter route and date in step 2. Step 2 needs departure airport, destination, direct/connection, date and airline; airports are stored as `Grad — Naziv (IATA)` from `src/data/airports.generated.ts` (1,838 airports). Before version B goes live, the claim app must read `from`, `to` and `date` (IATA taken from the parentheses, date validated) and prefill step 2. That work is in another repo and needs Niko's approval, as does reusing its airport list on the site (AGENTS.md: no imports from other LetKasni folders without explicit approval).
+- Iteration 9 (2026-09-25, local only): Niko asked for version C, home page only, built exclusively from the components of the design system in `Letkasni pipeline/outputs/eurowag-local` ("Eurowag Study System 1.1.0", a study reconstruction of eurowag.com's public frontend), with our content. Routes: `/pocetna-c` and `/en/home-c` (noindex, canonical `/` or `/en`). Code: `src/components/home-ew/landing-page-ew.tsx` (server), `ew-claim-form.tsx` (client: ew-card, ew-fieldset, ew-choice, ew-button, ew-checklist), `home-ew.css` (layout glue using only `--ew-*` tokens) and `ew/` (the copied library: tokens.css, primitives.css, components.css, Inter woff2), plus `public/ew/icons.svg` (the system's own 24-icon sprite). Deliberately NOT copied (see `src/components/home-ew/ew/README.md`): Gilroy-SemiBold (commercial font licensed to Eurowag, so headings use the token fallback Inter), original Eurowag icons, images, logos and brand blocks, and `components.js` (not needed; everything used works without script). Content comes from the same sources as the main version: `copy`, `airlines` and photos exported from landing-page-v2, `footerCopy` and `footerRightsLinks` from site-footer, and header text moved to the plain module `home-v2/header-copy.ts`. That move was needed because server components cannot read objects exported from a "use client" module; it caused a server error `navAria of undefined`. The palette stays the system's own (navy #00004b, action blue #006aec, cyan accents); theming it with our two colors means overriding a few `--ew-color-*` tokens if Niko wants that. Legal note: before any public release, confirm that using a visual system reconstructed from another company's site is acceptable. Checks: `npm run verify` passed (build lists /pocetna-c and /en/home-c); on a 375×812 phone the form button ends at 794px because the system header wraps its nav instead of using a menu button.
+- Iteration 9b (2026-09-25, local only): Niko rejected the first version C ("jako loše. ništa nisi iskoristio. koristi hero blokove, sajt je preuzak, tok nije jasan"). It was rebuilt from the system's brand blocks (the real Webflow sections from eurowag.com) instead of the generic `ew-*` library, following their home page flow: nav (with a working mobile menu panel), full-width `section-hero promo` (wing photo, badge, accent headline, CTA plus a "Kako radi" link, airline logo strip), stats (250/400/600/0%), navy steps, image-and-content (quick check; local team plus contact), a 4-card benefits grid (whyTitle, including the DIY comparison), a dark testimonials slider, FAQ (section-blue-2), navy final CTA and footer. CSS comes from `npm run ew:css` (`scripts/ew-scope-css.mjs`, with 4 node tests). It merges the needed Webflow bundles in cascade order (Webflow base → site CSS → per-page custom code; within each layer base rules first, then media groups) and dedupes. Every selector is scoped under `.lk-ewsite`, so nothing leaks to other pages. @font-face is dropped except the Webflow icon font (data URI); Gilroy and Inter go to `var(--lk-ew-font)`, filled by next/font Inter. Photos and brand motifs are removed; only 6 whitelisted UI SVGs go to `public/ew/site/`. `site/glue.css` (hand-written) only fixes the 3-step grid. Output: `src/components/home-ew/site/eurowag-blocks.css`, about 250 KB, committed as a generated file. Interactive parts are small client components with the original classes: ew-nav, ew-testimonials, ew-faq. The earlier merge bug (a mobile FAQ rule ordered before its base rule, causing 617px overflow on phones) is fixed by the layered order. `npm run verify` passed. NOTE: `Letkasni pipeline/outputs/eurowag-local` disappeared from disk around 23:21 (not deleted by the agent). The page does not need it at runtime, but `npm run ew:css` needs it back or `EW_BLOCKS_DIR` set to its new location.
+- Iteration 9c (2026-09-25, local only): the source folder was renamed to `Letkasni pipeline/outputs/transport-local` (a neutral "Transport Study System" with the same CSS files), and `scripts/ew-scope-css.mjs` now points there. The hero now uses the Eurowag Office block `hero-section-grey-beadcrumbs` (navy gradient variant, `hero-grid` with the original `#w-node-…` ids): badge, accent headline and a checklist on the left, and on the right a white claim form (`ew-hero-form.tsx`) replacing the video. The airline logos moved to the logos block below the hero. New version-C logo `ew-logo.tsx`: a navy square with a cyan "LK" plus "Letkasni", per Niko's request; BrandLogo elsewhere is unchanged. The phone layout is tightened in glue.css; the form button ends at 771 of 812 px on 375×812 and 542 of 900 on 1440×900.
+- Sticky banner (Niko's request, AirHelp-like pattern): appears at the bottom when the form scrolls out of view and hides at the final CTA. Its headline mentions delay only, not cancellation, per his copy rule.
+- Code: `src/components/home-v2/` (page, KLM-style header, form panel, sticky banner, shared styles); `/` and `/en` render `LandingPageV2`. The old `landing-page.tsx` stays for rollback. `HeaderWithClaimCta theme="v2"` renders `HeaderV2`; `SiteHeader` is untouched. Footer, logo and privacy button got opt-in v2 props (defaults unchanged, so other pages are unchanged). Niko (2026-09-25): "for now only the home page", so the "Letkasni.rs" footer copyright applies only under theme v2 and every other page is unchanged. Palette tokens `lk-*` in `globals.css`.
+- The form still only chooses the issue and opens the customer app (`/proveri-let?step=2&issue=…`), with the same `begin_checkout`/`InitiateCheckout` events. The app accepts no flight-number or date prefill, so KLM-style fields would need a change in `letkasni-crm/apps/prijava` first. Tracking (GTM/GA4/Consent Mode/Meta/GSC) is untouched.
+- Automation: `locales:check` now covers both landing files. New `npm run copy:rules` (in `verify`) enforces the owner's copy rules on the v2 copy: "Letkasni.rs" spelling, no payout timelines, no cancellation wording in delay copy. It has node:test coverage.
+- Deploy: CLI Preview on Vercel `let-kasni-staging` only (worktree `.vercel/project.json` = `prj_QYMZr5TIzdAE8Roq7uAuIRsHmAKE`). Trap: the main checkout's `.vercel/repo.json` links the PRODUCTION project, and worktrees live inside it. Staging Preview env has `STAGING_KLJUC` (gate), `PRIJAVA_URL` (prijava-staging) and `NEXT_PUBLIC_SITE_URL`, and no tracking IDs.
+- Deployed 2026-09-25 as Preview `https://let-kasni-staging-a1txf6apc-audiblelover2018-1361s-projects.vercel.app` (READY, target preview, no alias, so staging.letkasni.rs is unchanged). The remote build ran the full `npm run verify` and passed. Access: Vercel login, then the STAGING_KLJUC gate (`?staging=<key>` once per host; the key comes from `Letkasni pipeline/scripts/sistem/alati/linkovi.mjs --okruzenje test`).
+- Vercel Hobby BLOCKED CLI deploys from the git worktree: "commit author doesn't have permission" (TEAM_ACCESS_REQUIRED, author marinkovic-design). Deploy instead from a git-less export of the exact working tree (`git ls-files -co --exclude-standard` + rsync, plus a copy of `.vercel/project.json`), the same way earlier staging CLI deploys were done. Two BLOCKED attempts stay listed on the project; they are harmless and were not deleted.
+- Open owner questions: does 0% commission continue after the summer promo (copy still says 0%)? Are the old testimonials real (left out of v2)? Is the blue "K" a new logo? Other pages still use lowercase "letkasni.rs" (footer, titles, legal texts, OG siteName, social image). This is on hold per "only the home page for now", and the legal texts are versioned.
+
 ### Marketing content parity, 2026-09-23
 
 - User authorized production content -> staging as the first launch step. Source baseline: `origin/main` `5ea961725077c326a5a85b52fb7261ce22886a26`; original staging: `e5caac8f05d640f34dabe6f905cd99d2d3e2918f`.
@@ -706,65 +775,32 @@ Canonical handoff file for future local and Codex Cloud sessions.
 ## Generated Status
 
 <!-- BEGIN:generated-status -->
-Generated at: `2026-09-23T19:11:14.768Z`
+Generated at: `2026-09-25T13:53:28.904Z`
 
-Branch: `codex/staging-content-parity`
-
-Remote: `https://github.com/nezun/let-kasni.git`
-
-Latest local commit: `e5caac8 CSP samo kroz izveštavanje (Report-Only) — tehnički DD 19.09.2026`
-Generated at: `2026-09-23T13:10:52.977Z`
-
-Branch: `codex/email-signature-release-record`
+Branch: `home-v2`
 
 Remote: `https://github.com/nezun/let-kasni.git`
 
-Latest local commit: `1254b75 Host versioned email signature assets (#34)`
+Latest local commit: `a8c746a Prelazak na produkciju (24.09.2026): staging → main — forma i potpis u aplikaciji za prijave, GTM/Consent Mode zadržani`
 
 Worktree status:
 
 ```text
-M AGENTS.md
- M CHECKPOINT.md
- M package.json
- M scripts/check-production.mjs
- M scripts/content-qa.mjs
- M scripts/meta-tracking-check.mjs
- M scripts/privacy-policy-check.mjs
- M scripts/production-fetch-mock.mjs
- M src/app/en/privacy/page.tsx
- M src/app/layout.tsx
- M src/app/privacy/page.tsx
- M src/components/site-footer.tsx
- M src/content/blog/daily-2026-05-02.ts
- D src/content/blog/daily-2026-05-05.ts
- M src/content/blog/daily-2026-05-07.ts
- M src/content/blog/daily-2026-05-09.ts
- D src/content/blog/daily-2026-05-15.ts
- D src/content/blog/daily-2026-05-16.ts
- D src/content/blog/daily-2026-05-17.ts
- D src/content/blog/daily-2026-05-18.ts
- D src/content/blog/daily-2026-05-19.ts
- D src/content/blog/daily-2026-05-22.ts
- D src/content/blog/daily-2026-05-23.ts
- D src/content/blog/daily-2026-05-24.ts
- M src/content/blog/index.ts
- M src/lib/blog-content-enhancements.ts
- M src/lib/consent-cookie.ts
- M src/lib/cornerstones.ts
-?? docs/SEO-RETIREMENT-RUNBOOK.md
-?? docs/STAGING-CONTENT-PARITY-2026-09-23.md
-?? public/email-signature/
-?? scripts/check-email-signature-assets.mjs
-?? scripts/seo-retirement-audit.py
-?? scripts/seo-retirement-browser.mjs
-?? scripts/seo-retirement-report.py
-?? scripts/seo-retirement.test.mjs
-?? src/app/not-found.tsx
-?? src/content/seo-retired-airlines.json
-?? src/content/seo-retired-programmatic.json
-?? src/content/seo-suggested-removals.json
 M CHECKPOINT.md
+ M package.json
+ M scripts/check-landing-locales.mjs
+ M scripts/content-qa.mjs
+ M src/app/en/page.tsx
+ M src/app/globals.css
+ M src/app/page.tsx
+ M src/components/brand-logo.tsx
+ M src/components/claim-entry.tsx
+ M src/components/site-footer.tsx
+ M src/components/site-header.tsx
+?? .claude/
+?? scripts/check-home-copy-rules.mjs
+?? scripts/home-copy-rules.test.mjs
+?? src/components/home-v2/
 ```
 
 Useful commands:
@@ -773,8 +809,7 @@ Useful commands:
 - `npm run dev`: `next dev`
 - `npm run lint`: `eslint`
 - `npm run build`: `next build`
-- `npm run verify`: `npm run workflow:check && npm run privacy:check && npm run meta:check && npm run email:check && npm run seo:retirement:check && npm run email-signature:check && npm run content:qa && npm run content:links && npm run content:benchmark && npm run locales:check && npm run lint && npm run build`
-- `npm run verify`: `npm run workflow:check && npm run privacy:check && npm run meta:check && npm run google-ads:check && npm run email:check && npm run email-signature:check && npm run seo:retirement:check && npm run content:qa && npm run content:links && npm run content:benchmark && npm run locales:check && npm run lint && npm run build`
+- `npm run verify`: `npm run workflow:check && npm run privacy:check && npm run meta:check && npm run google-ads:check && npm run email:check && npm run email-signature:check && npm run seo:retirement:check && npm run content:qa && npm run content:links && npm run content:benchmark && npm run locales:check && npm run copy:rules && npm run lint && npm run build`
 - `npm run release:gate`: `bash scripts/release-gate.sh`
 - `npm run production:check`: `node scripts/check-production.mjs`
 - `npm run workflow:check`: `bash scripts/check-workflow-guards.sh`

@@ -1,6 +1,8 @@
 import { LegalOperatorContact } from "@/components/legal-operator-contact";
 import Link from "next/link";
 import { PrivacyServiceOverview } from "@/components/privacy-service-overview";
+import { LkLegalLayout, LkLegalSection } from "@/components/lk-v2/lk-legal";
+import { LkFrame } from "@/components/lk-v2/lk-page";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { siteOperator } from "@/lib/site-operator";
@@ -9,30 +11,40 @@ import { legalMetadata } from "@/lib/legal-metadata";
 export const metadata = legalMetadata("privacy", "en");
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <section className="space-y-4 rounded-3xl border border-[var(--line)] bg-white p-6 shadow-sm md:p-8">
-      <h2 className="text-xl font-bold tracking-[-0.02em] text-[var(--ink)]">{title}</h2>
-      <div className="space-y-4 text-sm leading-7 text-[var(--muted)]">{children}</div>
-    </section>
-  );
+  return <LkLegalSection title={title}>{children}</LkLegalSection>;
 }
 
 const listClassName = "list-disc space-y-2 pl-5";
 const controllerName = "VGA EU CONSULTING DOO";
+
+// Sadržaj strane: naslovi sekcija istim redom kao u dokumentu.
+const legalToc = [
+  "At a glance",
+  "1. Who is the controller",
+  "2. What data we process",
+  "3. Where we obtain data",
+  "4. Why we process data and on what basis",
+  "5. Who we share data with",
+  "6. Transfers of data to other countries",
+  "7. How long we keep data",
+  "8. Security",
+  "9. Your rights",
+  "10. Automation and claim assessment",
+  "11. Children and representation of another person",
+  "12. Offers for other products, marketing, cookies and similar technologies",
+  "13. Complaint to the Commissioner",
+  "14. Changes to this Policy",
+];
 
 export default function PrivacyPage() {
   const supportEmail = siteOperator.email.en;
   const supportPhone = siteOperator.phone;
 
   return (
-    <main className="min-h-screen bg-[var(--bg)] pt-32">
-      <SiteHeader locale="en" />
-      <div className="mx-auto max-w-5xl space-y-8 px-6 pb-16">
-        <div className="space-y-4">
-          <h1 className="text-4xl font-bold tracking-[-0.03em] text-[var(--ink)]">Privacy Policy</h1>
-          <p className="max-w-3xl text-sm font-semibold leading-7 text-[var(--ink)]">letkasni.rs / {controllerName}</p>
-          <p className="text-xs font-medium uppercase tracking-[0.2em] text-[var(--muted)]/80">PP 1.3 | Effective from 15 September 2026</p>
-        </div>
+    <LkFrame locale="en" kind="lk-content-page">
+      <SiteHeader locale="en" alternateHref="/privacy" />
+      <main id="main">
+        <LkLegalLayout locale="en" title="Privacy Policy" version={[<>letkasni.rs / {controllerName}</>, <>PP 1.3 | Effective from 15 September 2026</>]} toc={legalToc}>
 
         <Section title="At a glance">
           <p>The controller is {controllerName}. We do not sell your data.</p>
@@ -163,8 +175,9 @@ export default function PrivacyPage() {
           <p>We may update the Policy because of changes in law, technology or how we process data. We publish the version date on the website. If a change materially affects your right or introduces new processing that requires consent, we will inform you and obtain new consent where required.</p>
           <p>Publishing a new version does not replace consent to a new purpose, channel or another controller. We do not retroactively expand previous consents. We inform affected individuals of material changes, before new processing where required.</p>
         </Section>
-      </div>
-      <SiteFooter locale="en" supportEmail={supportEmail} />
-    </main>
+        </LkLegalLayout>
+      </main>
+      <SiteFooter locale="en" />
+    </LkFrame>
   );
 }

@@ -7,6 +7,8 @@ export const analyticsPublicPaths = [
   "/", "/en", "/blog", "/en/blog", "/privacy", "/en/privacy",
   "/terms", "/en/terms", "/email-offers", "/en/email-offers",
   "/proveri-let", "/en/check-flight",
+  // strane iz nove verzije sajta (v2): Kontakt, O nama, Česta pitanja
+  "/kontakt", "/en/contact", "/o-nama", "/en/about", "/faq", "/en/faq",
   ...cornerstonePages.flatMap((page) => [getCornerstoneHref(page, "sr"), getCornerstoneHref(page, "en")]),
   ...blogArticles.flatMap((article) => [getArticleCornerstoneHref(article, "sr"), getArticleCornerstoneHref(article, "en")]),
 ];

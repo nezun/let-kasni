@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useId, useMemo, useState } from "react";
 
 type Locale = "sr" | "en";
 
@@ -49,6 +49,7 @@ const copy = {
 
 export function DelayCompensationCalculator({ locale }: { locale: Locale }) {
   const t = copy[locale];
+  const id = useId();
   const [distance, setDistance] = useState<"short" | "medium" | "long">("medium");
   const [delay, setDelay] = useState<"under3" | "three" | "four">("four");
 
@@ -68,53 +69,51 @@ export function DelayCompensationCalculator({ locale }: { locale: Locale }) {
     return delay === "three" ? "300-600 EUR" : "600 EUR";
   }, [delay, distance]);
 
+  // Izgled iz v2 dizajna (ew-field, ew-label, ew-select u kartici modula); logika procene je ista kao ranije.
   return (
-    <div className="rounded-[16px] border border-[#BFD7FF] bg-[#EEF5FF] p-5">
-      <p className="text-[11px] font-black uppercase tracking-[0.14em] text-[#2470EB]">
-        {t.result}
-      </p>
-      <h3 className="mt-2 font-display text-[26px] font-black leading-[1.12] text-[#0B2E6F]">
-        {t.title}
-      </h3>
-      <p className="mt-3 text-sm leading-[1.7] text-[#41516B]">{t.body}</p>
+    <div className="lk-module lk-module-card lk-module-calc">
+      <span className="ew-badge">{t.result}</span>
+      <h3>{t.title}</h3>
+      <p>{t.body}</p>
 
-      <div className="mt-5 grid gap-4">
-        <label className="grid gap-2 text-sm font-black text-[#0A0F1E]">
-          {t.route}
+      <div className="lk-module-fields">
+        <div className="ew-field">
+          <label className="ew-label" htmlFor={`${id}-route`}>
+            {t.route}
+          </label>
           <select
+            id={`${id}-route`}
+            className="ew-select"
             value={distance}
             onChange={(event) => setDistance(event.target.value as typeof distance)}
-            className="rounded-lg border border-[#B4C7E7] bg-white px-3 py-3 text-sm font-bold"
           >
             <option value="short">{t.amounts.short}</option>
             <option value="medium">{t.amounts.medium}</option>
             <option value="long">{t.amounts.long}</option>
           </select>
-        </label>
+        </div>
 
-        <label className="grid gap-2 text-sm font-black text-[#0A0F1E]">
-          {t.delay}
+        <div className="ew-field">
+          <label className="ew-label" htmlFor={`${id}-delay`}>
+            {t.delay}
+          </label>
           <select
+            id={`${id}-delay`}
+            className="ew-select"
             value={delay}
             onChange={(event) => setDelay(event.target.value as typeof delay)}
-            className="rounded-lg border border-[#B4C7E7] bg-white px-3 py-3 text-sm font-bold"
           >
             <option value="under3">{t.amounts.under3}</option>
             <option value="three">{t.amounts.three}</option>
             <option value="four">{t.amounts.four}</option>
           </select>
-        </label>
-
+        </div>
       </div>
 
-      <div className="mt-5 rounded-xl bg-white p-4">
-        <p className="text-[12px] font-black uppercase tracking-[0.12em] text-[#8E9BB0]">
-          {t.result}
-        </p>
-        <p className="mt-2 text-[24px] font-black text-[#0A0F1E]">
-          {amount ? `${t.check}: ${amount}` : t.notLikely}
-        </p>
-        <p className="mt-2 text-sm leading-[1.65] text-[#66758B]">{t.care}</p>
+      <div className="lk-module-result" role="status">
+        <span className="lk-module-label">{t.result}</span>
+        <strong>{amount ? `${t.check}: ${amount}` : t.notLikely}</strong>
+        <p>{t.care}</p>
       </div>
     </div>
   );

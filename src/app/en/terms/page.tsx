@@ -1,3 +1,5 @@
+import { LkLegalLayout, LkLegalSection } from "@/components/lk-v2/lk-legal";
+import { LkFrame } from "@/components/lk-v2/lk-page";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { legalMetadata } from "@/lib/legal-metadata";
@@ -5,30 +7,44 @@ import { legalMetadata } from "@/lib/legal-metadata";
 export const metadata = legalMetadata("terms", "en");
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <section className="space-y-4 rounded-3xl border border-[var(--line)] bg-white p-6 shadow-sm md:p-8">
-      <h2 className="text-xl font-bold tracking-[-0.02em] text-[var(--ink)]">{title}</h2>
-      <div className="space-y-4 text-sm leading-7 text-[var(--muted)]">{children}</div>
-    </section>
-  );
+  return <LkLegalSection title={title}>{children}</LkLegalSection>;
 }
 
 const listClassName = "list-disc space-y-2 pl-5";
 const emailClassName = "font-medium text-[var(--ink)]";
 
+// Sadržaj strane: naslovi sekcija istim redom kao u dokumentu.
+const legalToc = [
+  "1. CONTRACTUAL RELATIONSHIP AND DEFINITIONS",
+  "2. ASSIGNMENT AND MANDATE/POWER OF ATTORNEY MODEL",
+  "3. PURSUIT OF THE CLAIM",
+  "4. SETTLEMENTS AND NON-MONETARY OFFERS",
+  "5. COSTS AND ECONOMIC RISK",
+  "6. FEE AND PROMOTIONAL PERIOD",
+  "7. INTEREST AND OTHER VGA INCOME",
+  "8. RECEIPT OF FUNDS AND PAYMENT TO THE PASSENGER",
+  "9. PAYMENT INFORMATION, BANK CHARGES AND PASSENGER INACTIVITY",
+  "10. DIRECT COMMUNICATION AND DIRECT PAYMENT TO THE PASSENGER",
+  "11. PASSENGER COOPERATION",
+  "12. MINOR PASSENGER",
+  "13. RIGHT OF WITHDRAWAL",
+  "14. TERMINATION AND AUTOMATIC REASSIGNMENT",
+  "15. PERSONAL DATA",
+  "16. CHANGES TO THESE TERMS",
+  "17. COMPLAINTS ABOUT THE letkasni.rs SERVICE",
+  "18. LIABILITY AND FORCE MAJEURE",
+  "19. GOVERNING LAW AND JURISDICTION",
+  "20. LANGUAGE VERSION",
+];
+
 export default function TermsPage() {
   const supportEmail = "office@letkasni.rs";
 
   return (
-    <main className="min-h-screen bg-[var(--bg)] pt-32">
-      <SiteHeader locale="en" />
-      <div className="mx-auto max-w-5xl space-y-8 px-6 pb-16">
-        <div className="space-y-4">
-          <h1 className="text-4xl font-bold tracking-[-0.03em] text-[var(--ink)]">Terms and Conditions</h1>
-          <p className="max-w-3xl text-sm font-semibold leading-7 text-[var(--ink)]">letkasni.rs</p>
-          <p className="max-w-3xl text-sm font-semibold leading-7 text-[var(--ink)]">VGA EU CONSULTING DOO</p>
-          <p className="text-xs font-medium uppercase tracking-[0.2em] text-[var(--muted)]/80">Version 1.4 | Effective from 9 September 2026</p>
-        </div>
+    <LkFrame locale="en" kind="lk-content-page">
+      <SiteHeader locale="en" alternateHref="/terms" />
+      <main id="main">
+        <LkLegalLayout locale="en" title="Terms and Conditions" version={[<>letkasni.rs</>, <>VGA EU CONSULTING DOO</>, <>Version 1.4 | Effective from 9 September 2026</>]} toc={legalToc}>
 
         <Section title="1. CONTRACTUAL RELATIONSHIP AND DEFINITIONS">
           <p>These Terms and Conditions (the “Terms”) govern the relationship between VGA EU CONSULTING DOO, Bulevar Nemanjića 1, 18000 Niš, Republic of Serbia, Tax ID 113473442, Registration No. 21873446 (“VGA”, the “Assignee”, “we”, “us”) and the natural person whose claim is pursued through letkasni.rs (the “Passenger”).</p>
@@ -208,8 +224,9 @@ export default function TermsPage() {
           <p>The English-language version is a translation of the Serbian version prepared for convenience and practical use.</p>
           <p>In the event of any discrepancy, ambiguity or difference in interpretation between the Serbian and English versions, the Serbian-language version shall prevail, unless mandatory law requires otherwise.</p>
         </Section>
-      </div>
-      <SiteFooter locale="en" supportEmail={supportEmail} />
-    </main>
+        </LkLegalLayout>
+      </main>
+      <SiteFooter locale="en" />
+    </LkFrame>
   );
 }

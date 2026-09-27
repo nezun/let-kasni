@@ -1,13 +1,25 @@
-import Link from "next/link";
-import { ChevronRight, Clock, FileCheck2, Route, TimerReset } from "lucide-react";
-
 import { ClaimInlineCtaButton } from "@/components/claim-inline-cta-button";
 import { DelayCompensationCalculator } from "@/components/delay-compensation-calculator";
 import { InlineRichText, InterlinkingScope } from "@/components/inline-rich-text";
+import { copy as lkCopy } from "@/components/lk-v2/copy";
+import { LkArrow } from "@/components/lk-v2/lk-icon";
+import { LkDelayTop, LkYourEuropeNote } from "@/components/lk-v2/lk-delay";
+import { LkSteps, LkTestimonials } from "@/components/lk-v2/lk-home";
+import { LkContentCard, LkFaqSection, LkFinalCta, LkInnerHero } from "@/components/lk-v2/lk-inner";
+import {
+  LkModuleCard,
+  LkModuleCheck,
+  LkModuleChecks,
+  LkModuleSteps,
+  LkModuleTable,
+  LkModuleTiles,
+} from "@/components/lk-v2/lk-modules";
+import { LkStickyCheck } from "@/components/lk-v2/lk-motion";
+import { LkFrame } from "@/components/lk-v2/lk-page";
 import { ScrollProgressToc } from "@/components/scroll-progress-toc";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import { getBlogArticleImage, type BlogLocale } from "@/lib/blog";
+import { type BlogLocale } from "@/lib/blog";
 import {
   getArticleCornerstoneHref,
   getAlternateCornerstoneHref,
@@ -16,40 +28,37 @@ import {
   type CornerstonePage,
 } from "@/lib/cornerstones";
 import { formatDisplayDate } from "@/lib/date-format";
-import { getSupportEmail } from "@/lib/env";
 
+// Šablon svih glavnih vodiča u izgledu nove verzije sajta (v2 iz transport-local, blokovi letkasni-pages: hero sa
+// putanjom, dugmad, sadržaj strane, tekst, česta pitanja, detaljni vodiči, završni poziv). Pravila sadržaja ostaju:
+// lepljivi sadržaj koji prati čitanje (ScrollProgressToc), brza provera odmah posle prvog H2 i vizuali raspoređeni
+// kroz tekst na istim mestima kao ranije.
 const copy = {
   sr: {
-    breadcrumb: "Prava putnika",
-    updated: "Ažurirano",
-    tocTitle: "U ovom vodiču",
+    tocTitle: "Sadržaj stranice",
     amountTitle: "Iznosi naknade po dužini rute",
     amountIntro:
       "Koristite tabelu kao brzu orijentaciju, a zatim proverite rutu, stvarni dolazak i razlog kašnjenja.",
     detailedGuides: "Detaljni vodiči",
-    detailedIntro:
-      "Kada znate konkretan razlog kašnjenja, otvorite vodič koji ulazi dublje u taj scenario.",
-    readMore: "Pročitaj vodič",
-    nextStep: "Proverite let",
+    nextStep: "BESPLATNA PROVERA",
+    quickCheckTitle: "Saznajte da li Vam pripada naknada i do 600 €.",
     nextStepBody:
       "Brza provera spaja podatke o letu, dužinu rute i osnovne dokaze radi utvrđivanja Vašeg prava.",
-    checkFlight: "Proveri naknadu",
+    checkFlight: "Proverite let",
+    timelineEyebrow: "VREMENSKA LINIJA",
   },
   en: {
-    breadcrumb: "Passenger rights",
-    updated: "Updated",
-    tocTitle: "In this guide",
+    tocTitle: "On this page",
     amountTitle: "Compensation amounts by route distance",
     amountIntro:
       "Use the table as quick orientation, then check route coverage, actual arrival and the delay reason.",
     detailedGuides: "Detailed guides",
-    detailedIntro:
-      "Once you know the concrete delay reason, open the guide that goes deeper into that scenario.",
-    readMore: "Read guide",
-    nextStep: "Check your flight",
+    nextStep: "FREE CHECK",
+    quickCheckTitle: "Find out if you are owed up to €600 in compensation.",
     nextStepBody:
       "The quick check combines flight details, route distance and basic evidence to assess your right.",
-    checkFlight: "Check compensation",
+    checkFlight: "Check your flight",
+    timelineEyebrow: "TIMELINE",
   },
 };
 
@@ -313,307 +322,86 @@ function isCancellationReplySection(page: CornerstonePage, heading: string, loca
   );
 }
 
-function ArrivalTimeline({
-  locale,
-}: {
-  locale: BlogLocale;
-}) {
+function ArrivalTimeline({ locale }: { locale: BlogLocale }) {
   const timeline = arrivalTimeline[locale];
 
   return (
-    <div className="mt-8 rounded-[18px] border border-[#CFE0FF] bg-[#F3F7FF] p-5 md:p-6">
-      <p className="text-[11px] font-black uppercase tracking-[0.14em] text-[#2470EB]">
-        {locale === "sr" ? "Vremenska linija" : "Timeline"}
-      </p>
-      <h3 className="mt-2 font-display text-[24px] font-black leading-[1.18] tracking-[-0.02em] text-[#101828] md:text-[28px]">
-        {timeline.title}
-      </h3>
-      <p className="mt-3 max-w-[760px] text-[16px] leading-[1.7] text-[#475467]">
-        {timeline.intro}
-      </p>
-
-      <div className="mt-6 grid gap-3 md:grid-cols-4">
-        {timeline.steps.map((step, index) => (
-          <div key={step.title} className="relative rounded-[14px] border border-white bg-white p-4 shadow-[0_12px_32px_rgba(16,24,40,0.05)]">
-            <div className="flex items-center gap-3">
-              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#2470EB] text-[13px] font-black text-white">
-                {index + 1}
-              </span>
-              <span className="text-[11px] font-black uppercase tracking-[0.12em] text-[#667085]">
-                {step.label}
-              </span>
-            </div>
-            <h4 className="mt-4 text-[17px] font-black leading-[1.25] text-[#101828]">
-              {step.title}
-            </h4>
-            <p className="mt-2 text-[14px] leading-[1.6] text-[#5D6B82]">
-              {step.body}
-            </p>
-          </div>
-        ))}
-      </div>
-    </div>
+    <LkModuleCard badge={copy[locale].timelineEyebrow} title={timeline.title}>
+      <p>{timeline.intro}</p>
+      <LkModuleTiles
+        four
+        items={timeline.steps.map((step, index) => ({
+          label: `${index + 1}. ${step.label}`,
+          title: step.title,
+          body: step.body,
+        }))}
+      />
+    </LkModuleCard>
   );
 }
 
-function AmountTable({
-  locale,
-}: {
-  locale: BlogLocale;
-}) {
+function AmountTable({ locale }: { locale: BlogLocale }) {
   const t = copy[locale];
 
   return (
-    <div className="mt-8 rounded-[18px] border border-[#E4E7EC] bg-white p-5 shadow-[0_16px_42px_rgba(16,24,40,0.05)] md:p-6">
-      <h3 className="font-display text-[24px] font-black leading-[1.18] tracking-[-0.02em] text-[#101828] md:text-[28px]">
-        {t.amountTitle}
-      </h3>
-      <p className="mt-3 max-w-[680px] text-[16px] leading-[1.7] text-[#475467]">
-        {t.amountIntro}
-      </p>
-      <div className="mt-6 overflow-x-auto rounded-[14px] border border-[#E4E7EC]">
-        <table className="w-full min-w-[640px] border-collapse text-left text-[15px]">
-          <tbody>
-            {amountRows[locale].map((row) => (
-              <tr key={row.join("-")} className="border-b border-[#EAECF0] last:border-b-0">
-                <th className="bg-[#F9FAFB] px-5 py-4 font-black text-[#101828]">
-                  {row[0]}
-                </th>
-                <td className="px-5 py-4 font-bold text-[#475467]">{row[1]}</td>
-                <td className="px-5 py-4 font-black text-[#1F5FD2]">{row[2]}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
+    <LkModuleCard title={t.amountTitle}>
+      <p>{t.amountIntro}</p>
+      <LkModuleTable rows={amountRows[locale]} />
+    </LkModuleCard>
   );
 }
 
-function ProfessionalHandlingVisual({
-  locale,
-}: {
-  locale: BlogLocale;
-}) {
+function ProfessionalHandlingVisual({ locale }: { locale: BlogLocale }) {
   const visual = professionalHandling[locale];
 
   return (
-    <div className="mt-8 overflow-hidden rounded-[18px] border border-[#D8E4FF] bg-[#0B1220] shadow-[0_22px_58px_rgba(16,24,40,0.14)]">
-      <div className="grid gap-0 md:grid-cols-[0.95fr_1.05fr]">
-        <div className="bg-[#2470EB] p-6 text-white md:p-8">
-          <p className="text-[11px] font-black uppercase tracking-[0.16em] text-white/75">
-            {visual.eyebrow}
-          </p>
-          <h3 className="mt-3 font-display text-[25px] font-black leading-[1.15] tracking-[-0.02em] md:text-[31px]">
-            {visual.title}
-          </h3>
-          <p className="mt-4 text-[16px] leading-[1.7] text-white/86">
-            {visual.intro}
-          </p>
-        </div>
-        <div className="p-6 md:p-8">
-          <ol className="space-y-4">
-            {visual.steps.map((step, index) => (
-              <li key={step} className="flex gap-4">
-                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white text-[13px] font-black text-[#1F5FD2]">
-                  {index + 1}
-                </span>
-                <span className="pt-1 text-[16px] font-bold leading-[1.55] text-white/86">
-                  {step}
-                </span>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </div>
-    </div>
+    <LkModuleCard dark badge={visual.eyebrow.toUpperCase()} title={visual.title}>
+      <p>{visual.intro}</p>
+      <LkModuleSteps items={visual.steps} />
+    </LkModuleCard>
   );
 }
 
-function GuideCaseFileVisual({
-  locale,
-}: {
-  locale: BlogLocale;
-}) {
+function GuideCaseFileVisual({ locale }: { locale: BlogLocale }) {
   const visual = guideCaseFile[locale];
 
   return (
-    <div className="mt-8 rounded-[18px] border border-[#D6E4FF] bg-[#F3F7FF] p-5 md:p-6">
-      <p className="text-[11px] font-black uppercase tracking-[0.14em] text-[#2470EB]">
-        {visual.eyebrow}
-      </p>
-      <h3 className="mt-2 font-display text-[24px] font-black leading-[1.18] tracking-[-0.02em] text-[#101828] md:text-[28px]">
-        {visual.title}
-      </h3>
-      <div className="mt-6 grid gap-3 md:grid-cols-2">
-        {visual.items.map((item) => (
-          <div key={item} className="rounded-[14px] border border-white bg-white p-4 text-[15px] font-bold leading-[1.55] text-[#344054] shadow-[0_10px_28px_rgba(16,24,40,0.04)]">
-            {item}
-          </div>
-        ))}
-      </div>
-    </div>
+    <LkModuleCard badge={visual.eyebrow.toUpperCase()} title={visual.title}>
+      <LkModuleChecks items={visual.items} />
+    </LkModuleCard>
   );
 }
 
-function CancellationDecisionVisual({
-  locale,
-}: {
-  locale: BlogLocale;
-}) {
+function CancellationDecisionVisual({ locale }: { locale: BlogLocale }) {
   const visual = cancellationDecision[locale];
-  const icons = [TimerReset, Route, FileCheck2, Clock];
 
   return (
-    <div className="mt-8 overflow-hidden rounded-[18px] border border-[#D0D7E2] bg-white shadow-[0_18px_46px_rgba(16,24,40,0.08)]">
-      <div className="grid gap-0 md:grid-cols-[0.9fr_1.1fr]">
-        <div className="bg-[#111827] p-6 text-white md:p-8">
-          <p className="text-[11px] font-black uppercase tracking-[0.16em] text-[#79B6FF]">
-            {visual.eyebrow}
-          </p>
-          <h3 className="mt-3 font-display text-[26px] font-black leading-[1.13] md:text-[32px]">
-            {visual.title}
-          </h3>
-          <p className="mt-4 text-[16px] leading-[1.7] text-white/76">
-            {visual.intro}
-          </p>
-        </div>
-        <div className="grid gap-px bg-[#E4E7EC] md:grid-cols-2">
-          {visual.rows.map((row, index) => {
-            const Icon = icons[index];
-
-            return (
-              <div key={row.label} className="bg-[#F9FAFB] p-5 md:p-6">
-                <div className="flex items-center gap-3">
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] bg-[#EAF2FF] text-[#1F5FD2]">
-                    <Icon className="h-5 w-5" />
-                  </span>
-                  <span className="text-[11px] font-black uppercase tracking-[0.14em] text-[#667085]">
-                    {row.label}
-                  </span>
-                </div>
-                <h4 className="mt-4 text-[18px] font-black leading-[1.22] text-[#101828]">
-                  {row.title}
-                </h4>
-                <p className="mt-2 text-[14px] leading-[1.62] text-[#5D6B82]">
-                  {row.body}
-                </p>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    </div>
+    <LkModuleCard dark badge={visual.eyebrow.toUpperCase()} title={visual.title}>
+      <p>{visual.intro}</p>
+      <LkModuleTiles items={visual.rows.map((row) => ({ label: row.label, title: row.title, body: row.body }))} />
+    </LkModuleCard>
   );
 }
 
-function CancellationReplyAuditVisual({
-  locale,
-}: {
-  locale: BlogLocale;
-}) {
+function CancellationReplyAuditVisual({ locale }: { locale: BlogLocale }) {
   const visual = cancellationReplyAudit[locale];
 
   return (
-    <div className="mt-8 rounded-[18px] border border-[#E4E7EC] bg-[#FFFDF7] p-5 shadow-[0_16px_42px_rgba(16,24,40,0.05)] md:p-6">
-      <div className="grid gap-6 md:grid-cols-[0.9fr_1.1fr] md:items-start">
-        <div>
-          <p className="text-[11px] font-black uppercase tracking-[0.14em] text-[#B54708]">
-            {visual.eyebrow}
-          </p>
-          <h3 className="mt-2 font-display text-[24px] font-black leading-[1.18] text-[#101828] md:text-[29px]">
-            {visual.title}
-          </h3>
-        </div>
-        <ol className="grid gap-3">
-          {visual.checks.map((check, index) => (
-            <li key={check} className="grid grid-cols-[40px_1fr] items-start gap-3 rounded-[14px] border border-[#FEDF89] bg-white p-4">
-              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#FFFAEB] text-[13px] font-black text-[#B54708]">
-                {index + 1}
-              </span>
-              <span className="pt-1 text-[15px] font-bold leading-[1.55] text-[#344054]">
-                {check}
-              </span>
-            </li>
-          ))}
-        </ol>
-      </div>
-    </div>
+    <LkModuleCard badge={visual.eyebrow.toUpperCase()} title={visual.title}>
+      <LkModuleSteps items={visual.checks} />
+    </LkModuleCard>
   );
 }
 
-function GuideQuickCheckBanner({
-  locale,
-}: {
-  locale: BlogLocale;
-}) {
+function GuideQuickCheckBanner({ locale }: { locale: BlogLocale }) {
   const t = copy[locale];
 
   return (
-    <div className="mt-8 relative overflow-hidden rounded-[18px] bg-[radial-gradient(circle_at_72%_20%,#61A5FF_0,#226CF0_30%,#14378E_56%,#B53771_100%)] p-6 text-white shadow-[0_22px_60px_rgba(36,112,235,0.22)] md:p-8">
-      <div className="relative z-10 grid gap-7 md:grid-cols-[minmax(0,0.95fr)_1.05fr] md:items-center">
-        <div>
-          <p className="text-[11px] font-black uppercase tracking-[0.16em] text-white/72">
-            {t.nextStep}
-          </p>
-          <h3 className="mt-3 max-w-[430px] font-display text-[27px] font-black leading-[1.14] md:text-[32px]">
-            {locale === "sr"
-              ? "Saznajte da li Vam pripada naknada i do 600 EUR."
-              : "Find out if you are owed up to EUR 600 in compensation."}
-          </h3>
-          <p className="mt-4 max-w-[440px] text-[15px] font-semibold leading-[1.65] text-white/78">
-            {t.nextStepBody}
-          </p>
-          <ClaimInlineCtaButton
-            locale={locale}
-            eventLabel="guide_quick_check_cta"
-            className="mt-6 inline-flex items-center justify-center rounded-[12px] border-2 border-white bg-white px-6 py-3.5 text-[14px] font-black text-[#1F5FD2] shadow-[0_14px_34px_rgba(2,8,23,0.22)] transition hover:bg-[#F3F7FF] focus:outline-none focus:ring-4 focus:ring-white/35"
-          >
-            {t.checkFlight}
-          </ClaimInlineCtaButton>
-        </div>
-        <div className="relative min-h-[190px] md:min-h-[230px]" aria-hidden="true">
-          <div className="absolute right-[5%] top-0 w-[58%] rotate-[5deg] rounded-[18px] bg-white p-4 text-[#172033] shadow-[0_24px_56px_rgba(2,8,23,0.28)]">
-            <div className="flex items-center justify-between border-b border-[#E3E8F4] pb-3">
-              <span className="rounded-full bg-[#EAF2FF] px-3 py-1 text-[10px] font-black text-[#2470EB]">
-                LK 261
-              </span>
-              <span className="text-[10px] font-black uppercase text-[#98A2B3]">
-                {locale === "sr" ? "ZA STRUČNU PROVERU" : "FOR EXPERT REVIEW"}
-              </span>
-            </div>
-            <div className="mt-5 grid grid-cols-[1fr_auto_1fr] items-center gap-3">
-              <div>
-                <p className="text-[11px] font-black uppercase text-[#98A2B3]">
-                  {locale === "sr" ? "Ruta" : "Route"}
-                </p>
-                <p className="mt-1 text-[24px] font-black text-[#111827]">BEG</p>
-              </div>
-              <div className="h-[2px] w-12 bg-[#D7E2F2]" />
-              <div className="text-right">
-                <p className="text-[11px] font-black uppercase text-[#98A2B3]">
-                  EU
-                </p>
-                <p className="mt-1 text-[24px] font-black text-[#111827]">€600</p>
-              </div>
-            </div>
-            <p className="mt-5 rounded-[12px] bg-[#FFF4E5] px-4 py-3 text-[14px] font-black text-[#C45700]">
-              {locale === "sr" ? "provera uslova" : "eligibility check"}
-            </p>
-          </div>
-          <div className="absolute bottom-2 left-[4%] w-[50%] -rotate-[8deg] rounded-[16px] bg-[#FF5B72] p-4 text-white shadow-[0_20px_48px_rgba(2,8,23,0.24)]">
-            <p className="text-[10px] font-black uppercase tracking-[0.12em] text-white/72">
-              {locale === "sr" ? "Poremećaj leta" : "Flight disruption"}
-            </p>
-            <div className="mt-7 h-2 w-24 rounded-full bg-white/80" />
-            <div className="mt-3 h-2 w-32 rounded-full bg-white/45" />
-            <div className="mt-6 inline-flex rounded-full bg-white/18 px-3 py-1 text-[12px] font-black">
-              Let Kasni
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <LkModuleCheck badge={t.nextStep} title={t.quickCheckTitle} body={t.nextStepBody}>
+      <ClaimInlineCtaButton locale={locale} eventLabel="guide_quick_check_cta" className="ew-button">
+        {t.checkFlight} <LkArrow />
+      </ClaimInlineCtaButton>
+    </LkModuleCheck>
   );
 }
 
@@ -625,186 +413,152 @@ export function CornerstoneTypographyPreview({
   locale: BlogLocale;
 }) {
   const t = copy[locale];
+  const inner = lkCopy[locale].inner;
   const localized = page[locale];
-  const supportEmail = getSupportEmail();
   const childArticles = getCornerstoneChildren(page, locale);
   const tocSections = localized.sections.map((section) => ({
     id: sectionId(section.heading),
     label: section.heading,
-  })).concat(
-    childArticles.length > 0
-      ? [{ id: "detaljni-vodici", label: t.detailedGuides }]
-      : [],
-  );
+  }));
   const currentHref = getCornerstoneHref(page, locale);
   const alternateHref = getAlternateCornerstoneHref(page, locale);
   const isCancellationGuide = page.id === "flight-cancellation-compensation";
+  // Vodič za kašnjenje ima poseban početak iz v2 dizajna (hero sa formom, iznosi, dokumenta, pomoć tokom čekanja),
+  // a ispod njega isti tekst vodiča kao ostali vodiči.
+  const isDelayGuide = page.id === "flight-delay-compensation";
+  const delay = lkCopy[locale].delayPage;
   const canUseGenericGuideVisuals =
     page.id !== "flight-delay-compensation" && !isCancellationGuide;
 
   return (
-    <main className="min-h-screen bg-[#F7F8FB] text-[#172033]">
-      <SiteHeader locale={locale} alternateHref={alternateHref} />
-
-      <article className="pt-16">
-        <header className="bg-white">
-          <div className="mx-auto grid max-w-[1180px] gap-10 px-6 pb-10 pt-10 lg:grid-cols-[minmax(0,680px)_420px] lg:pb-14 lg:pt-14">
-            <div className="self-center">
-              <nav className="flex items-center gap-2 text-[13px] font-bold text-[#667085]">
-                <Link href={locale === "sr" ? "/blog" : "/en/blog"} className="hover:text-[#1F5FD2]">
-                  Blog
-                </Link>
-                <ChevronRight className="h-4 w-4" />
-                <span>{t.breadcrumb}</span>
-              </nav>
-
-              <p className="mt-8 text-[12px] font-black uppercase tracking-[0.16em] text-[#2470EB]">
-                {localized.eyebrow}
-              </p>
-              <h1 className="mt-4 max-w-[720px] font-display text-[44px] font-black leading-[1.05] tracking-[-0.035em] text-[#101828] md:text-[60px]">
-                {localized.title}
-              </h1>
-              <p className="mt-6 max-w-[680px] text-[20px] leading-[1.65] text-[#475467]">
-                {localized.excerpt}
-              </p>
-
-              <div className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-2 text-[14px] font-bold text-[#667085]">
-                <span className="inline-flex items-center gap-2">
-                  <Clock className="h-4 w-4 text-[#2470EB]" />
-                  {t.updated}: {formatDisplayDate(page.updatedAt, locale)}
-                </span>
-              </div>
+    <LkFrame locale={locale} kind={isDelayGuide ? "lk-delay-page" : "lk-content-page"}>
+      <SiteHeader locale={locale} alternateHref={alternateHref} nav={isDelayGuide ? delay.nav : undefined} />
+      <main id="main">
+        {isDelayGuide ? (
+          <LkDelayTop locale={locale} />
+        ) : (
+          <>
+            <LkInnerHero
+              locale={locale}
+              crumbs={[{ label: localized.title }]}
+              badge={inner.guideBadge}
+              title={localized.title}
+              lead={localized.excerpt}
+            />
+            <div className="lk-container lk-guide-cta">
+              <ClaimInlineCtaButton locale={locale} eventLabel="guide_hero_cta" className="ew-button">
+                {inner.guideButton}
+              </ClaimInlineCtaButton>
+              <a className="ew-link" href="#sadrzaj">
+                {inner.guideMore}
+              </a>
             </div>
-
-            <div className="overflow-hidden rounded-[18px] bg-[#E7EEF8] shadow-[0_24px_70px_rgba(16,24,40,0.12)]">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={page.image.src}
-                alt={page.image.alt}
-                className="h-full min-h-[300px] w-full object-cover"
-                style={{ objectPosition: page.image.position ?? "center" }}
-              />
-            </div>
-          </div>
-        </header>
-
-        <ScrollProgressToc label={t.tocTitle} sections={tocSections} />
-
-        <section className="px-6 py-12 lg:py-16">
-          <div className="mx-auto max-w-[1040px]">
-            <div className="mx-auto max-w-[980px]">
+          </>
+        )}
+        {/* Klasa sa originala za tekstualne strane (naslovi i pasusi u lk-reading); na vodiču za kašnjenje važi samo za tekst. */}
+        <div className="lk-content-page">
+          <div className="lk-container lk-reading-layout">
+            <ScrollProgressToc label={t.tocTitle} navLabel={inner.tocAria} sections={tocSections}>
+              <ClaimInlineCtaButton locale={locale} eventLabel="guide_toc_cta" className="ew-button">
+                {inner.tocButton}
+              </ClaimInlineCtaButton>
+            </ScrollProgressToc>
+            <article className="lk-reading" id="sadrzaj">
               <InterlinkingScope currentHref={currentHref}>
-                <div className="space-y-14">
-                  {localized.sections.map((section, index) => (
-                    <section key={section.heading} id={sectionId(section.heading)} className="scroll-mt-36">
-                      <h2 className="font-display text-[34px] font-black leading-[1.16] tracking-[-0.025em] text-[#101828] md:text-[42px]">
-                        {section.heading}
-                      </h2>
-                      <div className="mt-6 space-y-6 text-[19px] leading-[1.78] text-[#344054]">
-                        {section.body.map((paragraph) => (
-                          <p key={paragraph}>
-                            <InlineRichText text={paragraph} locale={locale} />
-                          </p>
-                        ))}
-                      </div>
-                      {section.bullets ? (
-                        <ul className="mt-7 space-y-3 border-l-4 border-[#2470EB] bg-white py-2 pl-5 text-[17px] leading-[1.68] text-[#344054]">
-                          {section.bullets.map((bullet) => (
-                            <li key={bullet} className="flex gap-3">
-                              <span className="mt-[11px] h-1.5 w-1.5 shrink-0 rounded-full bg-[#2470EB]" />
-                              <span>{bullet}</span>
-                          </li>
+                {localized.sections.map((section, index) => (
+                  <section key={section.heading} id={sectionId(section.heading)} className="lk-reading-section">
+                    <h2>{section.heading}</h2>
+                    {section.body.map((paragraph) => (
+                      <p key={paragraph}>
+                        <InlineRichText text={paragraph} locale={locale} />
+                      </p>
+                    ))}
+                    {section.bullets ? (
+                      <ul>
+                        {section.bullets.map((bullet) => (
+                          <li key={bullet}>{bullet}</li>
                         ))}
                       </ul>
-                      ) : null}
-                      {index === 0 ? (
-                        <GuideQuickCheckBanner locale={locale} />
-                      ) : null}
-                      {isAmountSection(section.heading, locale) ? (
-                        <AmountTable locale={locale} />
-                      ) : null}
-                      {isProfessionalHandlingSection(section.heading, locale) ? (
-                        <ProfessionalHandlingVisual locale={locale} />
-                      ) : null}
-                      {canUseGenericGuideVisuals && index === 3 ? (
-                        <ProfessionalHandlingVisual locale={locale} />
-                      ) : null}
-                      {isArrivalSection(section.heading, locale) ? (
-                        <ArrivalTimeline locale={locale} />
-                      ) : null}
-                      {isCancellationDecisionSection(page, section.heading, locale) ? (
-                        <CancellationDecisionVisual locale={locale} />
-                      ) : null}
-                      {canUseGenericGuideVisuals && index === 7 ? (
-                        <GuideCaseFileVisual locale={locale} />
-                      ) : null}
-                      {isCancellationReplySection(page, section.heading, locale) ? (
-                        <CancellationReplyAuditVisual locale={locale} />
-                      ) : null}
-                      {isDocumentsSection(section.heading, locale) ? (
-                        <div className="mt-8 scroll-mt-36">
-                          <DelayCompensationCalculator locale={locale} />
-                        </div>
-                      ) : null}
-                    </section>
-                  ))}
-                </div>
+                    ) : null}
+                    {index === 0 ? (
+                      <GuideQuickCheckBanner locale={locale} />
+                    ) : null}
+                    {isAmountSection(section.heading, locale) ? (
+                      <AmountTable locale={locale} />
+                    ) : null}
+                    {isProfessionalHandlingSection(section.heading, locale) ? (
+                      <ProfessionalHandlingVisual locale={locale} />
+                    ) : null}
+                    {canUseGenericGuideVisuals && index === 3 ? (
+                      <ProfessionalHandlingVisual locale={locale} />
+                    ) : null}
+                    {isArrivalSection(section.heading, locale) ? (
+                      <ArrivalTimeline locale={locale} />
+                    ) : null}
+                    {isCancellationDecisionSection(page, section.heading, locale) ? (
+                      <CancellationDecisionVisual locale={locale} />
+                    ) : null}
+                    {canUseGenericGuideVisuals && index === 7 ? (
+                      <GuideCaseFileVisual locale={locale} />
+                    ) : null}
+                    {isCancellationReplySection(page, section.heading, locale) ? (
+                      <CancellationReplyAuditVisual locale={locale} />
+                    ) : null}
+                    {isDocumentsSection(section.heading, locale) ? (
+                      <DelayCompensationCalculator locale={locale} />
+                    ) : null}
+                  </section>
+                ))}
               </InterlinkingScope>
-
-              {childArticles.length > 0 ? (
-                <section id="detaljni-vodici" className="mt-16 scroll-mt-36">
-                  <h2 className="font-display text-[34px] font-black leading-[1.16] tracking-[-0.025em] text-[#101828] md:text-[42px]">
-                    {t.detailedGuides}
-                  </h2>
-                  <p className="mt-4 max-w-[680px] text-[18px] leading-[1.7] text-[#475467]">
-                    {t.detailedIntro}
-                  </p>
-                  <div className="mt-8 grid gap-6 md:grid-cols-2">
-                    {childArticles.slice(0, 8).map((article) => {
-                      const image = getBlogArticleImage(article.id);
-
-                      return (
-                        <Link
-                          key={article.id}
-                          href={getArticleCornerstoneHref(article, locale)}
-                          className="group overflow-hidden rounded-[16px] border border-[#E4E7EC] bg-white shadow-[0_16px_42px_rgba(16,24,40,0.06)] transition hover:-translate-y-0.5 hover:shadow-[0_24px_58px_rgba(16,24,40,0.12)]"
-                        >
-                          <div className="aspect-[16/9] overflow-hidden bg-[#E7EEF8]">
-                            {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img
-                              src={image.src}
-                              alt={image.alt}
-                              className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.04]"
-                              style={{ objectPosition: image.position ?? "center" }}
-                            />
-                          </div>
-                          <div className="p-5">
-                            <p className="text-[12px] font-black uppercase tracking-[0.12em] text-[#2470EB]">
-                              {article.localized.category}
-                            </p>
-                            <h3 className="mt-3 text-[21px] font-black leading-[1.22] tracking-[-0.018em] text-[#101828]">
-                              {article.localized.title}
-                            </h3>
-                            <p className="mt-3 text-[15px] leading-[1.65] text-[#667085]">
-                              {article.localized.excerpt}
-                            </p>
-                            <span className="mt-5 inline-flex items-center gap-2 text-[14px] font-black text-[#1F5FD2]">
-                              {t.readMore}
-                              <ChevronRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
-                            </span>
-                          </div>
-                        </Link>
-                      );
-                    })}
-                  </div>
-                </section>
-              ) : null}
-            </div>
+            </article>
           </div>
-        </section>
-      </article>
+        </div>
 
-      <SiteFooter locale={locale} supportEmail={supportEmail} />
-    </main>
+        {isDelayGuide ? (
+          <>
+            <LkSteps locale={locale} />
+            <LkTestimonials locale={locale} />
+          </>
+        ) : null}
+
+        {localized.faqs.length > 0 ? (
+          <LkFaqSection
+            id={isDelayGuide ? "faq" : undefined}
+            title={isDelayGuide ? delay.faqTitle : inner.faqTitle}
+            intro={isDelayGuide ? delay.faqIntro : undefined}
+            firstOpen={isDelayGuide}
+            items={localized.faqs.map((faq) => ({ q: faq.question, a: faq.answer }))}
+            note={isDelayGuide ? <LkYourEuropeNote locale={locale} /> : undefined}
+          />
+        ) : null}
+
+        {childArticles.length > 0 ? (
+          <section className="lk-section" id="detaljni-vodici">
+            <div className="lk-container">
+              <h2>{t.detailedGuides}</h2>
+              <div className="lk-article-grid">
+                {childArticles.slice(0, 8).map((article) => (
+                  <LkContentCard
+                    key={article.id}
+                    badge={article.localized.category}
+                    title={article.localized.title}
+                    href={getArticleCornerstoneHref(article, locale)}
+                    excerpt={article.localized.excerpt}
+                    date={formatDisplayDate(article.updatedAt, locale)}
+                    dateTime={article.updatedAt}
+                    readTime={article.localized.readTime}
+                    readLabel={inner.readArticle}
+                  />
+                ))}
+              </div>
+            </div>
+          </section>
+        ) : null}
+
+        <LkFinalCta locale={locale} />
+      </main>
+      <SiteFooter locale={locale} />
+      {isDelayGuide ? <LkStickyCheck t={lkCopy[locale].sticky} /> : null}
+    </LkFrame>
   );
 }

@@ -1,0 +1,132 @@
+/* GENERISANO: npm run lk:sync (scripts/lk-v2-sync.mjs) iz transport-local; ne menjati ručno. */
+/* Version 2: compact hero and overlapping horizontal search card. */
+.lk-version-2 .lk-v2-hero{background:none;overflow:visible}
+.lk-v2-banner{background:linear-gradient(45deg,var(--ew-color-navy-deep) 40%,var(--ew-color-blue-dark));color:var(--ew-color-white)}
+.lk-version-2 .lk-hero{display:block;padding:var(--ew-space-48) 0 112px;text-align:center}
+.lk-version-2 .lk-hero-copy{max-width:960px;margin:auto}
+.lk-version-2 .lk-hero h1{font-size:clamp(2.5rem,4.3vw,3.75rem);margin:var(--ew-space-20) 0 var(--ew-space-16)}
+.lk-version-2 .lk-hero .lk-promise{font-size:1.5rem;margin-bottom:var(--ew-space-16)}
+.lk-version-2 .lk-hero .lk-hero-description{max-width:740px;margin:0 auto var(--ew-space-20);font-size:var(--ew-text-label)}
+.lk-version-2 .lk-proof{justify-content:center}
+.lk-version-2 .lk-hero .lk-promo-note{max-width:none;margin:var(--ew-space-12) auto 0}
+.lk-v2-form-wrap{position:relative;margin-top:-64px;z-index:2}
+.lk-version-2 .lk-claim-card{padding:var(--ew-space-24) var(--ew-space-32)}
+.lk-version-2 .lk-form-intro{margin-bottom:var(--ew-space-12)}
+.lk-version-2 .lk-claim-card h2{font-size:1.5rem;margin-bottom:var(--ew-space-20)}
+.lk-version-2 #lk-issue-form{display:grid;grid-template-columns:minmax(0,1fr) 220px;gap:var(--ew-space-12) var(--ew-space-16);align-items:stretch}
+.lk-version-2 #lk-issue-form fieldset{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--ew-space-12);margin:0;min-width:0}
+.lk-version-2 .lk-choice{padding:var(--ew-space-12);min-height:64px;gap:var(--ew-space-8)}
+.lk-version-2 .lk-choice-icon{width:28px;height:28px}
+.lk-version-2 .lk-choice-icon .ew-icon{width:20px;height:20px}
+.lk-version-2 #lk-issue-form .lk-form-action{margin:0;grid-column:2;grid-row:1}
+.lk-version-2 #lk-issue-form .lk-form-note{grid-column:1/-1;margin:0;text-align:right}
+.lk-version-2 #lk-issue-error:not([hidden]){grid-column:1/-1;grid-row:2}
+.lk-version-2 #lk-details-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr)) 220px;gap:var(--ew-space-20);align-items:start}
+.lk-version-2 #lk-details-form .ew-field{margin:0}
+.lk-version-2 #lk-other-field:not([hidden]){grid-column:1/-1}
+.lk-version-2 #lk-details-form .lk-form-action{margin-top:24px}
+.lk-version-2 #lk-details-form .lk-form-note{grid-column:1/-1;margin:0}
+.lk-version-2 .lk-review{grid-template-columns:repeat(3,minmax(0,1fr))}
+.lk-version-2 #lk-restart{width:auto}
+@media(max-width:1100px){.lk-version-2 #lk-issue-form{grid-template-columns:1fr}.lk-version-2 #lk-issue-form .lk-form-action{grid-column:1;grid-row:auto;justify-self:end;width:auto;min-width:220px}.lk-version-2 #lk-issue-form .lk-form-note{text-align:right}.lk-version-2 #lk-details-form{grid-template-columns:1fr 1fr}.lk-version-2 #lk-details-form .lk-form-action{margin:0}}
+@media(max-width:700px){.lk-version-2 .lk-hero{padding:var(--ew-space-32) 0 var(--ew-space-96)}.lk-version-2 .lk-hero h1{font-size:2.5rem}.lk-version-2 .lk-hero .lk-promise{font-size:1.25rem}.lk-version-2 .lk-proof{gap:var(--ew-space-12)}.lk-version-2 .lk-claim-card{padding:var(--ew-space-24)}.lk-version-2 #lk-issue-form fieldset,.lk-version-2 #lk-details-form,.lk-version-2 .lk-review{grid-template-columns:1fr}.lk-version-2 .lk-choice{min-height:72px}.lk-version-2 #lk-issue-form .lk-form-action{width:100%}.lk-version-2 #lk-issue-form .lk-form-note{text-align:center}.lk-version-2 #lk-restart{width:100%}}
+.lk-version-2 .lk-hero .lk-promise{max-width:none;margin-inline:auto;text-align:center}
+
+/* Keep the first mobile action in the initial viewport. */
+.lk-version-2 .lk-hero{padding-top:var(--ew-space-32);padding-bottom:88px}
+.lk-version-2 .lk-v2-form-trust{margin-top:var(--ew-space-16);padding-top:var(--ew-space-16);border-top:1px solid var(--ew-border)}
+.lk-version-2 .lk-v2-form-trust .lk-proof{color:var(--ew-text);font-size:var(--ew-text-caption);gap:var(--ew-space-16)}
+.lk-version-2 .lk-v2-form-trust .lk-check{color:var(--ew-action)}
+.lk-version-2 .lk-v2-form-trust .lk-promo-note{text-align:center;margin:var(--ew-space-8) 0 0;font-size:11px;color:var(--ew-text-secondary)}
+@media(max-width:700px){
+ .lk-version-2 .lk-header .ew-header{min-height:64px;padding-block:var(--ew-space-8)}
+ .lk-version-2 .lk-hero{padding:var(--ew-space-20) 0 64px}
+ .lk-version-2 .lk-hero h1{font-size:clamp(1.75rem,7.4vw,2.125rem);margin:var(--ew-space-12) 0 var(--ew-space-8);line-height:1.08}
+ .lk-version-2 .lk-hero .lk-promise{font-size:1rem;line-height:1.4;margin-bottom:0}
+ .lk-version-2 .lk-hero .ew-badge{font-size:10px}
+ .lk-version-2 .lk-v2-form-wrap{margin-top:-40px}
+ .lk-version-2 .lk-claim-card{padding:var(--ew-space-16)}
+ .lk-version-2 .lk-form-intro{margin-bottom:var(--ew-space-8)}
+ .lk-version-2 .lk-form-intro .ew-badge{font-size:10px}
+ .lk-version-2 .lk-claim-card h2{font-size:1.25rem;line-height:1.15;margin-bottom:var(--ew-space-12)}
+ .lk-version-2 #lk-issue-form,.lk-version-2 #lk-issue-form fieldset{gap:var(--ew-space-8)}
+ .lk-version-2 .lk-choice{min-height:52px;padding:var(--ew-space-8) var(--ew-space-12)}
+ .lk-version-2 .lk-choice-copy{font-size:13px}
+ .lk-version-2 .lk-choice-copy small{font-size:10px;margin-top:2px}
+ .lk-version-2 #lk-issue-form .lk-form-action{min-height:48px;font-size:14px}
+ .lk-version-2 #lk-issue-form .lk-form-note{font-size:10px}
+ .lk-version-2 .lk-v2-form-trust{margin-top:var(--ew-space-12);padding-top:var(--ew-space-12)}
+ .lk-version-2 .lk-v2-form-trust .lk-proof{gap:var(--ew-space-8) var(--ew-space-12);font-size:10px}
+ .lk-version-2 .lk-v2-form-trust .lk-proof li{gap:4px}
+ .lk-version-2 .lk-v2-form-trust .lk-proof .ew-icon{width:14px;height:14px}
+ .lk-version-2 .lk-v2-form-trust .lk-promo-note{font-size:10px}
+}
+
+/* Existing button, container and brand tokens in a compact persistent CTA. */
+.lk-sticky-check{position:fixed;inset:auto 0 0;z-index:var(--ew-z-sticky);background:var(--ew-color-navy-deep);color:var(--ew-color-white);box-shadow:var(--ew-shadow-lg);padding:var(--ew-space-16) 0 calc(var(--ew-space-16) + env(safe-area-inset-bottom));transform:translateY(110%);visibility:hidden;transition:transform var(--ew-duration-slow) ease,visibility 0s var(--ew-duration-slow);pointer-events:none}
+.lk-sticky-check.is-visible{transform:translateY(0);visibility:visible;transition-delay:0s;pointer-events:auto}
+.lk-sticky-check-inner{display:flex;align-items:center;justify-content:space-between;gap:var(--ew-space-24)}
+.lk-sticky-check-copy p{margin:0;font:600 1.25rem/1.25 var(--ew-font-heading)}
+.lk-sticky-check-copy span{display:block;margin-top:4px;font-size:var(--ew-text-caption);color:var(--ew-color-white);opacity:.8}
+.lk-sticky-check .ew-button{flex:none;min-height:48px;background:var(--ew-color-cyan);color:var(--ew-color-navy);border-color:var(--ew-color-cyan)}
+.lk-sticky-check .ew-button:hover{background:var(--ew-surface);border-color:var(--ew-surface)}
+.lk-sticky-check .ew-button:focus-visible{outline-color:var(--ew-color-white)}
+@media(max-width:700px){.lk-sticky-check{padding:var(--ew-space-12) 0 calc(var(--ew-space-12) + env(safe-area-inset-bottom))}.lk-sticky-check-inner{gap:var(--ew-space-12)}.lk-sticky-check-copy p{font-size:14px;max-width:150px}.lk-sticky-check-copy span{display:none}.lk-sticky-check .ew-button{font-size:13px;padding:var(--ew-space-12);gap:var(--ew-space-8)}.lk-sticky-check .ew-icon{width:18px;height:18px}}
+@media(prefers-reduced-motion:reduce){.lk-sticky-check{transition:none}html{scroll-behavior:auto}}
+
+/* Catalog footer 8a5edab282-14: brand row, rail cards and link columns. */
+.lk-footer-v2 .ft-top-2{display:flex;align-items:center;justify-content:space-between;gap:var(--ew-space-24)}
+.lk-footer-v2 .ft-top-2 .lk-brand{margin:0}
+.lk-footer-v2 .ft-social-2{display:flex;gap:var(--ew-space-12)}
+.lk-footer-v2 .ft-social-link{display:flex;align-items:center;justify-content:center;width:44px;height:44px;color:var(--ew-color-navy);margin:0}
+.lk-footer-v2 .ft-social-link svg{width:32px;height:32px}
+.lk-footer-v2 .ft-divider{height:1px;background:var(--ew-border);margin:var(--ew-space-40) 0 var(--ew-space-48)}
+.lk-footer-v2 .ft-body{display:grid;grid-template-columns:minmax(260px,1fr) minmax(0,2fr);gap:var(--ew-space-48)}
+.lk-footer-v2 .ft-rail{display:flex;flex-direction:column;gap:var(--ew-space-24)}
+.lk-footer-v2 .ft-office,.lk-footer-v2 .ft-support-card{display:flex;flex-direction:column;align-items:flex-start;gap:var(--ew-space-16);border-radius:var(--ew-radius-lg);padding:var(--ew-space-24)}
+.lk-footer-v2 .ft-office{background:var(--ew-color-navy);color:var(--ew-color-cyan)}
+.lk-footer-v2 .ft-office>.ew-icon{width:40px;height:40px}
+.lk-footer-v2 .ft-office h3{color:var(--ew-color-cyan);margin:0;font-size:1.375rem}
+.lk-footer-v2 .ft-office p{color:var(--ew-color-white);opacity:.85;max-width:none}
+.lk-footer-v2 .ft-office .ew-button{background:var(--ew-color-cyan);color:var(--ew-color-navy);margin:0;font-weight:600}
+.lk-footer-v2 .ft-support-card{background:var(--ew-surface);gap:var(--ew-space-12)}
+.lk-footer-v2 .ft-support-eyebrow{font-size:var(--ew-text-caption);letter-spacing:.06em;color:var(--ew-text-secondary);font-weight:600}
+.lk-footer-v2 .ft-support-card a{margin:0;color:var(--ew-link)}
+.lk-footer-v2 a.ft-support-phone{font:600 1.5rem/1.2 var(--ew-font-heading);color:var(--ew-color-navy)}
+.lk-footer-v2 .ft-columns{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--ew-space-32)}
+.lk-footer-v2 .ft-col h3{font-size:1rem;color:var(--ew-color-navy);margin-bottom:var(--ew-space-24)}
+.lk-footer-v2 .ft-col nav{display:flex;flex-direction:column;gap:var(--ew-space-16)}
+.lk-footer-v2 .ft-col nav a{margin:0;line-height:1.5}
+@media(max-width:1000px){.lk-footer-v2 .ft-body{grid-template-columns:1fr}.lk-footer-v2 .ft-rail{display:grid;grid-template-columns:1fr 1fr}}
+@media(max-width:700px){.lk-footer-v2 .ft-top-2 .lk-logo{width:195px}.lk-footer-v2 .ft-social-2{gap:4px}.lk-footer-v2 .ft-rail{grid-template-columns:1fr}.lk-footer-v2 .ft-columns{grid-template-columns:1fr 1fr;gap:var(--ew-space-32) var(--ew-space-24)}.lk-footer-v2 .ft-col:first-child{grid-column:1/-1}.lk-footer-v2 .ft-col:first-child nav{display:grid;grid-template-columns:1fr 1fr}.lk-footer-v2 .ft-body{gap:var(--ew-space-40)}.lk-footer-v2 .ft-divider{margin-block:var(--ew-space-32)}}
+
+/* Compact compensation tiers, using the filled brand airplane. */
+.lk-version-2 .lk-compensation .ewo-bento-hero-card-2026-body{gap:var(--ew-space-24)}
+.lk-version-2 .lk-compensation .ewo-bento-hero-card-2026-header{gap:var(--ew-space-12)}
+.lk-version-2 .lk-amount-panel .ewo-bento-hero-card-2026-actions{gap:var(--ew-space-16)}
+.lk-version-2 .lk-amount-tiers{gap:var(--ew-space-12);margin-top:var(--ew-space-24)}
+.lk-version-2 .lk-amount-tier h3{margin-bottom:var(--ew-space-4)}
+.lk-version-2 .lk-amount-tier p{margin-top:var(--ew-space-4)}
+.lk-version-2 .lk-amount-track .ew-icon{fill:currentColor;stroke:none;flex-shrink:0}
+
+.lk-version-2 .lk-amount-track .ew-icon{transform:rotate(68deg)}
+@media(prefers-reduced-motion:no-preference){
+  .lk-version-2 .lk-amount-tiers.is-fill-ready .lk-amount-track>span{transform:scaleX(0);transform-origin:left center}
+  .lk-version-2 .lk-amount-tiers.is-fill-ready .lk-amount-track .ew-icon{opacity:0}
+  .lk-version-2 .lk-amount-tier{--lk-fill-delay:0ms}
+  .lk-version-2 .lk-amount-tier--2{--lk-fill-delay:140ms}
+  .lk-version-2 .lk-amount-tier--3{--lk-fill-delay:280ms}
+  .lk-version-2 .lk-amount-tiers.is-filled .lk-amount-track>span{animation:lk-amount-fill 900ms cubic-bezier(.22,.61,.36,1) var(--lk-fill-delay) both}
+  .lk-version-2 .lk-amount-tiers.is-filled .lk-amount-track .ew-icon{animation:lk-amount-flight 900ms cubic-bezier(.22,.61,.36,1) var(--lk-fill-delay) both}
+  @keyframes lk-amount-fill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+  @keyframes lk-amount-flight{from{opacity:1;transform:translateX(calc(-1 * var(--lk-fill-distance))) rotate(68deg)}to{opacity:1;transform:translateX(0) rotate(68deg)}}
+}
+
+/* Matching content insets for both compensation cards. */
+.lk-version-2 .lk-compensation .ewo-bento-hero-card-2026-content{padding:var(--ew-space-40)}
+@media(max-width:900px){.lk-version-2 .lk-compensation .ewo-bento-hero-card-2026-content{padding:var(--ew-space-24)}}
+
+/* Keep the other-issue example alongside its label. */
+.lk-version-2 .lk-choice-copy:has(small){white-space:nowrap}
+.lk-version-2 .lk-choice-copy small{display:inline;margin-top:0}
+@media(min-width:701px){.lk-version-2 #lk-issue-form fieldset{grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto}}

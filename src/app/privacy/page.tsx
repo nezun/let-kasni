@@ -1,6 +1,8 @@
 import { LegalOperatorContact } from "@/components/legal-operator-contact";
 import Link from "next/link";
 import { PrivacyServiceOverview } from "@/components/privacy-service-overview";
+import { LkLegalLayout, LkLegalSection } from "@/components/lk-v2/lk-legal";
+import { LkFrame } from "@/components/lk-v2/lk-page";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { siteOperator } from "@/lib/site-operator";
@@ -9,30 +11,40 @@ import { legalMetadata } from "@/lib/legal-metadata";
 export const metadata = legalMetadata("privacy", "sr");
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <section className="space-y-4 rounded-3xl border border-[var(--line)] bg-white p-6 shadow-sm md:p-8">
-      <h2 className="text-xl font-bold tracking-[-0.02em] text-[var(--ink)]">{title}</h2>
-      <div className="space-y-4 text-sm leading-7 text-[var(--muted)]">{children}</div>
-    </section>
-  );
+  return <LkLegalSection title={title}>{children}</LkLegalSection>;
 }
 
 const listClassName = "list-disc space-y-2 pl-5";
 const controllerName = "VGA EU CONSULTING DOO";
+
+// Sadržaj strane: naslovi sekcija istim redom kao u dokumentu.
+const legalToc = [
+  "Ukratko",
+  "1. Ko je rukovalac",
+  "2. Koje podatke obrađujemo",
+  "3. Odakle dobijamo podatke",
+  "4. Zašto ih obrađujemo i na kom osnovu",
+  "5. Sa kim delimo podatke",
+  "6. Prenos podataka u druge države",
+  "7. Koliko dugo čuvamo podatke",
+  "8. Bezbednost",
+  "9. Vaša prava",
+  "10. Automatizacija i procena zahteva",
+  "11. Deca i zastupanje drugog lica",
+  "12. Ponude drugih proizvoda, marketing, kolačići i slične tehnologije",
+  "13. Pritužba Povereniku",
+  "14. Izmene ove Politike",
+];
 
 export default function PrivacyPage() {
   const supportEmail = siteOperator.email.sr;
   const supportPhone = siteOperator.phone;
 
   return (
-    <main className="min-h-screen bg-[var(--bg)] pt-32">
-      <SiteHeader locale="sr" />
-      <div className="mx-auto max-w-5xl space-y-8 px-6 pb-16">
-        <div className="space-y-4">
-          <h1 className="text-4xl font-bold tracking-[-0.03em] text-[var(--ink)]">Politika privatnosti</h1>
-          <p className="max-w-3xl text-sm font-semibold leading-7 text-[var(--ink)]">letkasni.rs / {controllerName}</p>
-          <p className="text-xs font-medium uppercase tracking-[0.2em] text-[var(--muted)]/80">PP 1.3 | Važi od 15.09.2026.</p>
-        </div>
+    <LkFrame locale="sr" kind="lk-content-page">
+      <SiteHeader locale="sr" alternateHref="/en/privacy" />
+      <main id="main">
+        <LkLegalLayout locale="sr" title="Politika privatnosti" version={[<>letkasni.rs / {controllerName}</>, <>PP 1.3 | Važi od 15.09.2026.</>]} toc={legalToc}>
 
         <Section title="Ukratko">
           <p>Rukovalac je {controllerName}. Ne prodajemo vaše podatke.</p>
@@ -163,8 +175,9 @@ export default function PrivacyPage() {
           <p>Politiku možemo ažurirati zbog promene zakona, tehnologije ili načina obrade. Na sajtu objavljujemo datum verzije. Ako promena bitno utiče na vaše pravo ili uvodi novu obradu za koju je potreban pristanak, obavestićemo vas i pribaviti novi pristanak kada je to obavezno.</p>
           <p>Objavljivanje nove verzije ne zamenjuje pristanak na novu svrhu, kanal ili drugog rukovaoca. Ranije date saglasnosti ne proširujemo retroaktivno. O materijalnim promenama obaveštavamo lica na koja se odnose, pre nove obrade kada je to potrebno.</p>
         </Section>
-      </div>
-      <SiteFooter locale="sr" supportEmail={supportEmail} />
-    </main>
+        </LkLegalLayout>
+      </main>
+      <SiteFooter locale="sr" />
+    </LkFrame>
   );
 }

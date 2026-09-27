@@ -1,3 +1,5 @@
+import { LkLegalLayout, LkLegalSection } from "@/components/lk-v2/lk-legal";
+import { LkFrame } from "@/components/lk-v2/lk-page";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { legalMetadata } from "@/lib/legal-metadata";
@@ -5,30 +7,44 @@ import { legalMetadata } from "@/lib/legal-metadata";
 export const metadata = legalMetadata("terms", "sr");
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <section className="space-y-4 rounded-3xl border border-[var(--line)] bg-white p-6 shadow-sm md:p-8">
-      <h2 className="text-xl font-bold tracking-[-0.02em] text-[var(--ink)]">{title}</h2>
-      <div className="space-y-4 text-sm leading-7 text-[var(--muted)]">{children}</div>
-    </section>
-  );
+  return <LkLegalSection title={title}>{children}</LkLegalSection>;
 }
 
 const listClassName = "list-disc space-y-2 pl-5";
 const emailClassName = "font-medium text-[var(--ink)]";
 
+// Sadržaj strane: naslovi sekcija istim redom kao u dokumentu.
+const legalToc = [
+  "1. UGOVORNI ODNOS I POJMOVI",
+  "2. CESIJA I MODEL MANDATA/PUNOMOĆJA",
+  "3. OSTVARIVANJE POTRAŽIVANJA",
+  "4. PORAVNANJE I NENOVČANE PONUDE",
+  "5. TROŠKOVI I EKONOMSKI RIZIK",
+  "6. PROVIZIJA I PROMOTIVNI PERIOD",
+  "7. KAMATA I DRUGI PRIHODI VGA",
+  "8. PRIJEM NOVCA I ISPLATA PUTNIKU",
+  "9. PODACI ZA ISPLATU, BANKARSKI TROŠKOVI I NEAKTIVNOST PUTNIKA",
+  "10. DIREKTNA KOMUNIKACIJA I DIREKTNA UPLATA PUTNIKU",
+  "11. SARADNJA PUTNIKA",
+  "12. MALOLETNI PUTNIK",
+  "13. PRAVO NA ODUSTANAK",
+  "14. PRESTANAK POSTUPANJA I AUTOMATSKI POVRAT POTRAŽIVANJA",
+  "15. ZAŠTITA LIČNIH PODATAKA",
+  "16. PROMENE OVIH USLOVA",
+  "17. REKLAMACIJE NA USLUGU letkasni.rs",
+  "18. ODGOVORNOST I VIŠA SILA",
+  "19. MERODAVNO PRAVO I NADLEŽNOST",
+  "20. JEZIČKA VERZIJA",
+];
+
 export default function TermsPage() {
   const supportEmail = "kontakt@letkasni.rs";
 
   return (
-    <main className="min-h-screen bg-[var(--bg)] pt-32">
-      <SiteHeader locale="sr" />
-      <div className="mx-auto max-w-5xl space-y-8 px-6 pb-16">
-        <div className="space-y-4">
-          <h1 className="text-4xl font-bold tracking-[-0.03em] text-[var(--ink)]">Opšti uslovi poslovanja</h1>
-          <p className="max-w-3xl text-sm font-semibold leading-7 text-[var(--ink)]">letkasni.rs</p>
-          <p className="max-w-3xl text-sm font-semibold leading-7 text-[var(--ink)]">VGA EU CONSULTING DOO</p>
-          <p className="text-xs font-medium uppercase tracking-[0.2em] text-[var(--muted)]/80">Verzija 1.4 | Važi od 09.09.2026.</p>
-        </div>
+    <LkFrame locale="sr" kind="lk-content-page">
+      <SiteHeader locale="sr" alternateHref="/en/terms" />
+      <main id="main">
+        <LkLegalLayout locale="sr" title="Opšti uslovi poslovanja" version={[<>letkasni.rs</>, <>VGA EU CONSULTING DOO</>, <>Verzija 1.4 | Važi od 09.09.2026.</>]} toc={legalToc}>
 
         <Section title="1. UGOVORNI ODNOS I POJMOVI">
           <p>Ovi Opšti uslovi poslovanja („Uslovi”) uređuju odnos između VGA EU CONSULTING DOO, Bulevar Nemanjića 1, 18000 Niš, Republika Srbija, PIB 113473442, matični broj 21873446 („VGA”, „Primalac”, „mi”) i fizičkog lica čije se potraživanje ostvaruje putem letkasni.rs („Putnik”).</p>
@@ -208,8 +224,9 @@ export default function TermsPage() {
           <p>Engleska verzija predstavlja prevod srpske verzije radi lakšeg razumevanja i praktične upotrebe.</p>
           <p>U slučaju bilo kakvog neslaganja, nejasnoće ili razlike u tumačenju između srpske i engleske verzije, primenjuje se srpska verzija, osim ako prinudni propis nalaže drugačije.</p>
         </Section>
-      </div>
-      <SiteFooter locale="sr" supportEmail={supportEmail} />
-    </main>
+        </LkLegalLayout>
+      </main>
+      <SiteFooter locale="sr" />
+    </LkFrame>
   );
 }

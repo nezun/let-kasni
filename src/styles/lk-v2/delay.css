@@ -1,0 +1,11 @@
+/* GENERISANO: npm run lk:sync (scripts/lk-v2-sync.mjs) iz transport-local; ne menjati ručno. */
+/* V2 inner-page composition; existing catalog cards, form and accordion. */
+.lk-delay-amount h3{font-size:clamp(3rem,5vw,4.5rem);color:var(--ew-action);margin:var(--ew-space-24) 0!important;line-height:1}
+.lk-delay-amount h3 span{font-size:.65em}
+.lk-delay-note{max-width:800px;margin:var(--ew-space-24) auto 0;text-align:center;color:var(--ew-text-secondary);font-size:var(--ew-text-caption)}
+.lk-delay-note a{color:inherit;text-underline-offset:4px}
+.lk-delay-care{display:grid;grid-template-columns:1fr 1fr;gap:var(--ew-space-32)}
+.lk-delay-care>div{background:var(--ew-surface);border-radius:var(--ew-radius-16);padding:var(--ew-space-32)}
+.lk-delay-care h3{margin:var(--ew-space-20) 0 var(--ew-space-16);font-size:1.75rem}
+.lk-delay-care p{color:var(--ew-text-secondary);line-height:1.65;margin:0}
+@media(max-width:700px){.lk-delay-care{grid-template-columns:1fr}.lk-delay-care>div{padding:var(--ew-space-24)}.lk-delay-page .lk-hero h1{font-size:clamp(1.75rem,7.4vw,2.125rem)}.lk-delay-page .lk-hero .lk-promise{font-size:1.05rem}}
