@@ -112,16 +112,16 @@ export function ConsentBanner({
   // Sažet baner u izgledu nove verzije sajta (v2): kartica preko dna ekrana, tekst levo i mala dugmad desno; na
   // telefonu tekst pa dugmad. Tekst i izbori su isti kao ranije (vezani su za verziju obaveštenja o kolačićima).
   return (
-    <div data-consent-banner className="consent-banner lk-consent ew-scope">
-      <aside role="dialog" aria-modal="true" aria-label={t.dialogLabel} aria-describedby={descriptionId} className="lk-consent-card">
-        <p id={descriptionId} className="lk-consent-text">
+    <div data-consent-banner className="consent-banner lk-cookies ew-scope">
+      <aside role="dialog" aria-modal="true" aria-label={t.dialogLabel} aria-describedby={descriptionId} className="lk-cookies-card">
+        <p id={descriptionId} className="lk-cookies-text">
           {t.body} <Link href={termsHref}>{t.terms}</Link>
           <span aria-hidden="true"> · </span>
           <Link href={privacyHref}>{t.privacy}</Link>
         </p>
 
         {customizing ? (
-          <fieldset id={settingsId} className="lk-consent-options">
+          <fieldset id={settingsId} className="lk-cookies-options">
             <legend>{t.optionsTitle}</legend>
             <label>
               <input
@@ -159,7 +159,7 @@ export function ConsentBanner({
           </fieldset>
         ) : null}
 
-        <div className="lk-consent-actions">
+        <div className="lk-cookies-actions">
           <button
             ref={firstActionRef}
             type="button"
@@ -180,7 +180,7 @@ export function ConsentBanner({
             aria-expanded={customizing}
             aria-controls={settingsId}
             onClick={() => setCustomizing((current) => !current)}
-            className="lk-consent-settings"
+            className="lk-cookies-settings"
           >
             {customizing ? t.settingsClose : t.settings}
           </button>

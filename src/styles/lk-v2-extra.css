@@ -317,7 +317,7 @@
 /* Baner za kolačiće (ConsentBanner u layout.tsx, van omotača strane) u izgledu nove verzije: sažeta kartica preko
    dna ekrana, tekst levo i mala v2 dugmad desno (desktop je jedan red); na telefonu tekst pa dugmad. Niko 27.09:
    „promeni baner da bude baš condensed manji po našem dizajnu“. */
-.lk-consent {
+.lk-cookies {
   position: fixed;
   left: 16px;
   right: 16px;
@@ -328,7 +328,7 @@
   pointer-events: none;
 }
 
-.lk-consent-card {
+.lk-cookies-card {
   pointer-events: auto;
   width: 100%;
   max-width: 1200px;
@@ -343,7 +343,7 @@
   box-shadow: var(--ew-shadow-lg);
 }
 
-.lk-consent-text {
+.lk-cookies-text {
   flex: 1 1 420px;
   margin: 0;
   font-size: 13px;
@@ -351,27 +351,27 @@
   color: var(--ew-text-secondary);
 }
 
-.lk-consent-text a {
+.lk-cookies-text a {
   color: var(--ew-link);
   text-decoration: underline;
   text-underline-offset: 3px;
 }
 
-.lk-consent-actions {
+.lk-cookies-actions {
   display: flex;
   align-items: center;
   gap: 8px;
   flex: 0 0 auto;
 }
 
-.lk-consent .ew-button {
+.lk-cookies .ew-button {
   min-height: 38px;
   padding: 8px 16px;
   font-size: 13px;
   white-space: nowrap;
 }
 
-.lk-consent-settings {
+.lk-cookies-settings {
   padding: 8px 6px;
   border: 0;
   background: none;
@@ -383,7 +383,7 @@
   cursor: pointer;
 }
 
-.lk-consent-options {
+.lk-cookies-options {
   flex: 1 1 100%;
   order: 3;
   display: flex;
@@ -397,7 +397,7 @@
   background: var(--ew-surface-alt);
 }
 
-.lk-consent-options legend {
+.lk-cookies-options legend {
   float: left;
   margin-right: 4px;
   font-size: 12px;
@@ -405,7 +405,7 @@
   color: var(--ew-color-navy-deep);
 }
 
-.lk-consent-options label {
+.lk-cookies-options label {
   display: flex;
   align-items: flex-start;
   gap: 8px;
@@ -416,7 +416,7 @@
   cursor: pointer;
 }
 
-.lk-consent-options input {
+.lk-cookies-options input {
   width: 16px;
   height: 16px;
   margin-top: 1px;
@@ -424,38 +424,38 @@
   accent-color: var(--ew-action);
 }
 
-.lk-consent-options strong {
+.lk-cookies-options strong {
   color: var(--ew-color-navy-deep);
 }
 
 @media (max-width: 700px) {
-  .lk-consent {
+  .lk-cookies {
     left: 8px;
     right: 8px;
     bottom: 8px;
   }
 
-  .lk-consent-card {
+  .lk-cookies-card {
     gap: 10px;
     padding: 12px;
   }
 
-  .lk-consent-text {
+  .lk-cookies-text {
     flex-basis: 100%;
     font-size: 12px;
   }
 
-  .lk-consent-actions {
+  .lk-cookies-actions {
     flex: 1 1 100%;
     flex-wrap: wrap;
   }
 
-  .lk-consent-actions .ew-button {
+  .lk-cookies-actions .ew-button {
     flex: 1 1 0;
     padding-inline: 10px;
   }
 
-  .lk-consent-settings {
+  .lk-cookies-settings {
     flex: 1 1 100%;
     padding: 2px;
   }
