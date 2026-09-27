@@ -45,7 +45,7 @@ Canonical handoff file for future local and Codex Cloud sessions.
   - The flight-delay guide shows its intro text again at the top of the guide text.
   - The layout no longer loads Sora, DM Sans or JetBrains Mono; body text, including the consent banner, uses the v2 Inter.
 - Deliberately not changed:
-  - Sitemap: the new pages are NOT in the sitemap, because `scripts/seo-retirement.test.mjs` asserts exactly 158 URLs (owner-approved retirement invariant). Adding them needs Niko's OK plus updating that test and AGENTS.md.
+  - Sitemap: the new pages are NOT in the sitemap, because `scripts/seo-retirement.test.mjs` asserts exactly 158 URLs (owner-approved retirement invariant). Niko decided on 2026-09-27: "Za sad Kontakt, O nama i Česta pitanja ne mora. Ubacićemo to kasnije". The sitemap stays at 158, and the pages stay reachable through the footer. Adding them later means updating that test and AGENTS.md.
   - The consent banner's `[data-claim-form='embedded']` inset stays unused: the v2 hero form is full width, so the inset would squeeze the banner. At 1280×720 the banner covers only the form's trust notes.
   - Guides keep no "Ažurirano" line, matching the original 1:1.
 - Consent banner, 2026-09-27: Niko asked for "baš condensed manji po našem dizajnu". `ConsentBanner` is now a compact v2 card over the bottom of the screen: one row on desktop (about 52px instead of about 200px), text then buttons on phones. The text, choices, settings, notice version and Consent Mode are unchanged. Classes are `lk-cookies-*` in `src/styles/lk-v2-extra.css`. The same banner is in the prijava app (commit dd2a78b), where `lk-consent` is already taken by the form's review consent.
@@ -63,7 +63,7 @@ Canonical handoff file for future local and Codex Cloud sessions.
   - The browser pane doesn't paint while hidden, so use `scripts/lk-v2-shots.mjs` for visual checks. The sticky bar needs a visible browser.
 - Before production:
   - Real social profile links.
-  - Sitemap entries for the new pages.
+  - Sitemap entries for the new pages, later (Niko 2026-09-27: not for now).
   - Niko's confirmation that the testimonials are real clients who consented.
   - A production release per AGENTS.md (release gate, main).
 
