@@ -4,16 +4,16 @@ import { LkFrame } from "@/components/lk-v2/lk-page";
 import { LkContactContent } from "@/components/lk-v2/lk-pages";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { lkPageMetadata } from "@/lib/lk-page-metadata";
 
 // Strana iz nove verzije sajta (v2 iz transport-local), SR i EN u paru.
-export const metadata: Metadata = {
+export const metadata: Metadata = lkPageMetadata({
+  locale: "sr",
   title: "Kontakt | Letkasni.rs",
   description: "Kontakt Letkasni.rs: e-mail, telefon i podaci o kompaniji. Za proveru konkretnog leta možete odmah započeti prijavu.",
-  alternates: {
-    canonical: "/kontakt",
-    languages: { sr: "/kontakt", en: "/en/contact", "x-default": "/kontakt" },
-  },
-};
+  path: "/kontakt",
+  alternatePath: "/en/contact",
+});
 
 export default function Page() {
   return (

@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     description: enSocial.description,
     type: "website",
     url: "/en",
-    siteName: "letkasni.rs",
+    siteName: "Letkasni.rs",
     locale: "en_US",
     alternateLocale: ["sr_RS"],
     images: [

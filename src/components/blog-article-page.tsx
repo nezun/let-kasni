@@ -153,12 +153,12 @@ export function BlogArticlePageView({
     inLanguage: locale === "sr" ? "sr-RS" : "en",
     isPartOf: {
       "@type": "Blog",
-      name: "letkasni.rs Blog",
+      name: "Letkasni.rs Blog",
       url: locale === "sr" ? "/blog" : "/en/blog",
     },
     publisher: {
       "@type": "Organization",
-      name: "letkasni.rs",
+      name: "Letkasni.rs",
     },
   };
 

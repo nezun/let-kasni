@@ -34,6 +34,22 @@ Canonical handoff file for future local and Codex Cloud sessions.
   - `locales:check`, `copy:rules` and content QA cover `src/components/lk-v2/copy.ts`, and content QA also covers the home shell.
 - Checked 2026-09-27: `npm run verify` passed; every page returns 200 locally (404 page 404). Side-by-side screenshots match the original layout at 1440 and 375 for home, delay guide, guide, article, blog, terms, contact, about, FAQ and email offers.
 - Commits on `home-v2`: 7893e44 (the whole v2 site) and 3e49e32 (v2 social preview images). Deployed as Preview `https://let-kasni-staging-d6rtaypzn-audiblelover2018-1361s-projects.vercel.app` (READY, target preview, no alias).
+- Published 2026-09-27: after Niko's "Možeš ti na staging", `home-v2` was pushed to `staging` (fast-forward a2e4272 → 21f65c6). Vercel's git build for let-kasni-staging (target production, `npm run verify`) is READY, so staging.letkasni.rs serves v2. Later fixes on `home-v2` are pushed to `staging` the same way.
+- Fixes after the CRM session's review (2026-09-27):
+  - The blog topic change resets search, page and count (`key={activeFilter}` on LkBlogFilter).
+  - 12 new CTA event labels are on the allowlist in `src/lib/analytics-privacy.ts`; otherwise GA4 dropped them.
+  - The home FAQ cost answer matches /faq (promotional period).
+  - The new pages have their own Open Graph (`src/lib/lk-page-metadata.ts`).
+  - The "O NAMA"/"BLOG" badges drop the uppercase brand.
+  - Titles, siteName and JSON-LD use "Letkasni.rs"; the Organization gets a logo.
+  - The flight-delay guide shows its intro text again at the top of the guide text.
+  - The layout no longer loads Sora, DM Sans or JetBrains Mono; body text, including the consent banner, uses the v2 Inter.
+- Deliberately not changed:
+  - Sitemap: the new pages are NOT in the sitemap, because `scripts/seo-retirement.test.mjs` asserts exactly 158 URLs (owner-approved retirement invariant). Adding them needs Niko's OK plus updating that test and AGENTS.md.
+  - The consent banner's `[data-claim-form='embedded']` inset stays unused: the v2 hero form is full width, so the inset would squeeze the banner. At 1280×720 the banner covers only the form's trust notes.
+  - Guides keep no "Ažurirano" line, matching the original 1:1.
+- Measurement note for Niko: header CTAs on inner pages now fire `begin_checkout` (`nav_cta`); before, they were plain links. `mobile_nav_cta` no longer exists, because the v2 mobile header uses the same CTA. begin_checkout counts will rise.
+- Superseded (kept as history): the BLOCKER below was resolved by the push above.
 - BLOCKER for staging.letkasni.rs: let-kasni-staging is git-linked (productionBranch `staging`), so publishing means pushing `home-v2` to `staging`. That push is a fast-forward from origin/staging a2e4272, and main is untouched. The agent's `git push origin home-v2:staging` was denied by the session's permission classifier on 2026-09-27. Niko must allow it or run the push himself. If the Vercel git build is BLOCKED by Hobby team access (author marinkovic-design), the fallback is a guarded CLI `--prod` deploy of let-kasni-staging from the git-less export, and only with Niko's explicit OK.
 - The form in steps (letkasni-crm apps/prijava, branch `prijava-v2`) is being built in the separate worktree `~/Documents/letkasni-crm-pravi-forma`. The CRM session reviews it, merges it into `razvoj` and deploys prijava-staging.
 - Dev notes:

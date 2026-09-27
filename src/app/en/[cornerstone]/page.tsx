@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   return {
-    title: `${page.en.title} | letkasni.rs`,
+    title: `${page.en.title} | Letkasni.rs`,
     description: page.en.description,
     alternates: {
       canonical: getCornerstoneHref(page, "en"),

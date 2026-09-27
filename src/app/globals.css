@@ -33,7 +33,7 @@
   --color-brand-primary: var(--accent);
   --color-brand-secondary: var(--accent-hover);
   --color-brand-accent: var(--accent-warm);
-  --font-sans: var(--font-dm-sans);
+  --font-sans: var(--ew-font-body, system-ui, sans-serif);
 }
 
 * {
@@ -47,7 +47,8 @@ html {
 body {
   background: var(--bg);
   color: var(--ink);
-  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  /* Inter iz nove verzije sajta (v2 tokeni); važi i za baner za kolačiće van omotača strane. */
+  font-family: var(--ew-font-body, system-ui, sans-serif);
 }
 
 a {
@@ -70,16 +71,6 @@ summary::-webkit-details-marker {
     color-mix(in srgb, var(--accent-warm) 18%, white) 0%,
     color-mix(in srgb, var(--accent) 6%, white) 100%
   );
-}
-
-.font-display {
-  font-family: var(--font-sora), system-ui, sans-serif;
-  letter-spacing: -0.03em;
-}
-
-.font-mono-ui {
-  font-family: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo,
-    Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
 .bg-mesh {

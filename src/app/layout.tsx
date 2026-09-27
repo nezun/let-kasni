@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
-import { DM_Sans, JetBrains_Mono, Sora } from "next/font/google";
 import { Analytics } from "@/components/analytics";
 import { analyticsPublicPaths } from "@/lib/analytics-public-paths";
 import { ConsentBanner } from "@/components/consent-banner";
@@ -14,24 +13,7 @@ import {
 } from "@/lib/social-preview";
 import "./globals.css";
 
-const sora = Sora({
-  variable: "--font-sora",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const dmSans = DM_Sans({
-  variable: "--font-dm-sans",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const jetBrainsMono = JetBrains_Mono({
-  variable: "--font-jetbrains-mono",
-  subsets: ["latin"],
-  display: "swap",
-  preload: false,
-});
+// Fontovi nove verzije sajta (Gilroy, Inter) dolaze iz v2 CSS-a (src/styles/lk-v2/tokens.css, public/lk/fonts).
 
 export const preferredRegion = "fra1";
 
@@ -47,7 +29,7 @@ export const metadata: Metadata = {
     description: srSocial.description,
     type: "website",
     url: "/",
-    siteName: "letkasni.rs",
+    siteName: "Letkasni.rs",
     locale: "sr_RS",
     alternateLocale: ["en_US"],
     images: [
@@ -79,7 +61,7 @@ export default async function RootLayout({
   return (
     <html
       lang={locale}
-      className={`${sora.variable} ${dmSans.variable} ${jetBrainsMono.variable} h-full antialiased`}
+      className="h-full antialiased"
       // globals.css ima scroll-behavior: smooth (sidra na istoj strani); ovim Next pri prelasku na drugu
       // stranu privremeno gasi glatko skrolovanje, pa nova strana kreće od vrha umesto da klizi odozdo
       data-scroll-behavior="smooth"

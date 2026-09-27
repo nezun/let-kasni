@@ -9,7 +9,7 @@ export function SiteIdentitySchema() {
       {
         "@type": "WebSite",
         "@id": `${url}#website`,
-        name: "letkasni.rs",
+        name: "Letkasni.rs",
         alternateName: "Let Kasni",
         url,
         inLanguage: ["sr", "en"],
@@ -18,7 +18,8 @@ export function SiteIdentitySchema() {
       {
         "@type": "Organization",
         "@id": `${url}#organization`,
-        name: "letkasni.rs",
+        name: "Letkasni.rs",
+        logo: `${url}apple-icon.png`,
         legalName: siteOperator.name,
         url,
         email: siteOperator.email.sr,

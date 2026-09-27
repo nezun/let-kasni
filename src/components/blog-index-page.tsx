@@ -145,6 +145,7 @@ export function BlogIndexPage({ locale, category }: Props) {
         <section className="lk-section">
           <div className="lk-container">
             <LkBlogFilter
+              key={activeFilter}
               t={t}
               blogHref={copy[locale].blogHref}
               topics={categoryList(locale)}

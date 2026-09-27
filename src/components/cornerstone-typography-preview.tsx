@@ -464,6 +464,8 @@ export function CornerstoneTypographyPreview({
               </ClaimInlineCtaButton>
             </ScrollProgressToc>
             <article className="lk-reading" id="sadrzaj">
+              {/* Na vodiču za kašnjenje v2 hero nema uvodni tekst vodiča, pa on otvara tekst ispod. */}
+              {isDelayGuide ? <p>{localized.excerpt}</p> : null}
               <InterlinkingScope currentHref={currentHref}>
                 {localized.sections.map((section, index) => (
                   <section key={section.heading} id={sectionId(section.heading)} className="lk-reading-section">

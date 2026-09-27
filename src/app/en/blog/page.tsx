@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { BlogIndexPage } from "@/components/blog-index-page";
 
 export const metadata: Metadata = {
-  title: "Blog | letkasni.rs",
+  title: "Blog | Letkasni.rs",
   description:
     "Guides on flight compensation, delayed flights, cancelled flights, missed connections, overbooking, and passenger rights.",
   alternates: {
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Blog | letkasni.rs",
+    title: "Blog | Letkasni.rs",
     description:
       "Practical guides on flight compensation and passenger rights for travelers connected with Serbia.",
     type: "website",
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Blog | letkasni.rs",
+    title: "Blog | Letkasni.rs",
     description:
       "Practical guides on flight compensation and passenger rights for travelers connected with Serbia.",
   },

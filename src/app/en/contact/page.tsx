@@ -4,16 +4,16 @@ import { LkFrame } from "@/components/lk-v2/lk-page";
 import { LkContactContent } from "@/components/lk-v2/lk-pages";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { lkPageMetadata } from "@/lib/lk-page-metadata";
 
 // Strana iz nove verzije sajta (v2 iz transport-local), SR i EN u paru.
-export const metadata: Metadata = {
+export const metadata: Metadata = lkPageMetadata({
+  locale: "en",
   title: "Contact | Letkasni.rs",
   description: "Contact Letkasni.rs: email, phone and company details. To check a specific flight, you can start your claim right away.",
-  alternates: {
-    canonical: "/en/contact",
-    languages: { sr: "/kontakt", en: "/en/contact", "x-default": "/kontakt" },
-  },
-};
+  path: "/en/contact",
+  alternatePath: "/kontakt",
+});
 
 export default function Page() {
   return (

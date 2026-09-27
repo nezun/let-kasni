@@ -32,7 +32,7 @@ export const copy = {
       legalBadge: "PRAVNE INFORMACIJE",
     },
     blogIndex: {
-      badge: "LETKASNI BLOG",
+      badge: "BLOG",
       title: "Saveti za mirnije putovanje.",
       lead: "Prava putnika, praktični koraci i odgovori na pitanja o Vašem letu.",
       searchLabel: "Pretražite tekstove",
@@ -66,7 +66,7 @@ export const copy = {
       mb: "Matični broj",
     },
     aboutPage: {
-      badge: "O LETKASNI",
+      badge: "O NAMA",
       title: "Vaš let. Naša briga.",
       lead: "Lokalna podrška za putnike sa letovima do i iz Srbije.",
       imageAlt: "Ilustrativni prikaz kancelarije",
@@ -386,7 +386,7 @@ export const copy = {
         },
         {
           q: "Koliko košta Vaša usluga?",
-          a: "Trenutno ne plaćate proviziju — ceo iznos odštete ostaje Vama. Ukoliko slučaj ode pred sud, advokat koji vodi Vaš predmet naplaćuje se isključivo od avio-kompanije.",
+          a: "Ponuda bez troškova i provizije odnosi se na promotivni period. Uslove koji važe za Vaš predmet potvrđujemo pre pokretanja postupka. Ukoliko slučaj ode pred sud, advokat koji vodi Vaš predmet naplaćuje se isključivo od avio-kompanije.",
         },
         {
           q: "Šta mi je potrebno za proveru?",
@@ -493,7 +493,7 @@ export const copy = {
       legalBadge: "LEGAL INFORMATION",
     },
     blogIndex: {
-      badge: "LETKASNI BLOG",
+      badge: "BLOG",
       title: "Tips for calmer travel.",
       lead: "Passenger rights, practical steps and answers to questions about your flight.",
       searchLabel: "Search articles",
@@ -527,7 +527,7 @@ export const copy = {
       mb: "Registration number",
     },
     aboutPage: {
-      badge: "ABOUT LETKASNI",
+      badge: "ABOUT US",
       title: "Your flight. Our care.",
       lead: "Local support for passengers flying to and from Serbia.",
       imageAlt: "Illustrative photo of an office",
@@ -848,7 +848,7 @@ export const copy = {
         },
         {
           q: "How much does your service cost?",
-          a: "There is currently no commission — you keep the full compensation. If the case goes to court, the lawyer handling your case is paid only by the airline.",
+          a: "The offer with no costs or commission applies during the promotional period. We confirm the terms that apply to your case before the claim starts. If the case goes to court, the lawyer handling your case is paid only by the airline.",
         },
         {
           q: "What do I need for the check?",

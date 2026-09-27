@@ -7,7 +7,7 @@ import { SiteHeader } from "@/components/site-header";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Confirm subscription | letkasni.rs",
+  title: "Confirm subscription | Letkasni.rs",
   robots: { index: false, follow: true },
 };
 

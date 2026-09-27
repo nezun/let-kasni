@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   return {
-    title: `${article.sr.title} | letkasni.rs`,
+    title: `${article.sr.title} | Letkasni.rs`,
     description: article.sr.description,
     alternates: {
       canonical: getArticleCornerstoneHref(article, "sr"),

@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { BlogIndexPage } from "@/components/blog-index-page";
 
 export const metadata: Metadata = {
-  title: "Blog | letkasni.rs",
+  title: "Blog | Letkasni.rs",
   description:
     "Vodiči o pravima putnika, kašnjenju leta, otkazivanju, propuštenim konekcijama i avio-odšteti za putnike iz Srbije.",
   alternates: {
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Blog | letkasni.rs",
+    title: "Blog | Letkasni.rs",
     description:
       "Praktični vodiči o avio-odšteti, pravima putnika i proveri slučaja posle kašnjenja ili otkazivanja leta.",
     type: "website",
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Blog | letkasni.rs",
+    title: "Blog | Letkasni.rs",
     description:
       "Praktični vodiči o avio-odšteti, pravima putnika i proveri slučaja posle kašnjenja ili otkazivanja leta.",
   },

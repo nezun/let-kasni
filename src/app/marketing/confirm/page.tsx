@@ -7,7 +7,7 @@ import { SiteHeader } from "@/components/site-header";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Potvrda prijave za ponude | letkasni.rs",
+  title: "Potvrda prijave za ponude | Letkasni.rs",
   robots: { index: false, follow: true },
 };
 

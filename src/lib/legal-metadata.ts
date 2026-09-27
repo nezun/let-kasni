@@ -15,13 +15,13 @@ export function legalMetadata(page: keyof typeof copy, locale: "sr" | "en"): Met
   const text = copy[page][locale];
   const canonical = `${locale === "en" ? "/en" : ""}/${page}`;
   return {
-    title: `${text.title} | letkasni.rs`,
+    title: `${text.title} | Letkasni.rs`,
     description: text.description,
     alternates: {
       canonical,
       languages: { sr: `/${page}`, en: `/en/${page}`, "x-default": `/${page}` },
     },
-    openGraph: { title: text.title, description: text.description, url: canonical, siteName: "letkasni.rs", type: "website" },
+    openGraph: { title: text.title, description: text.description, url: canonical, siteName: "Letkasni.rs", type: "website" },
     twitter: { title: text.title, description: text.description },
   };
 }

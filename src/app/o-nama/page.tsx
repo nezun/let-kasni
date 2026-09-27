@@ -4,16 +4,16 @@ import { LkFrame } from "@/components/lk-v2/lk-page";
 import { LkAboutContent } from "@/components/lk-v2/lk-pages";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { lkPageMetadata } from "@/lib/lk-page-metadata";
 
 // Strana iz nove verzije sajta (v2 iz transport-local), SR i EN u paru.
-export const metadata: Metadata = {
+export const metadata: Metadata = lkPageMetadata({
+  locale: "sr",
   title: "O nama | Letkasni.rs",
   description: "Letkasni.rs pomaže putnicima sa letovima do i iz Srbije da provere mogućnost naknade i pripreme svoj predmet.",
-  alternates: {
-    canonical: "/o-nama",
-    languages: { sr: "/o-nama", en: "/en/about", "x-default": "/o-nama" },
-  },
-};
+  path: "/o-nama",
+  alternatePath: "/en/about",
+});
 
 export default function Page() {
   return (
