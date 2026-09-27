@@ -313,3 +313,150 @@
   color: var(--ew-success);
   font-weight: 600;
 }
+
+/* Baner za kolačiće (ConsentBanner u layout.tsx, van omotača strane) u izgledu nove verzije: sažeta kartica preko
+   dna ekrana, tekst levo i mala v2 dugmad desno (desktop je jedan red); na telefonu tekst pa dugmad. Niko 27.09:
+   „promeni baner da bude baš condensed manji po našem dizajnu“. */
+.lk-consent {
+  position: fixed;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  z-index: 120;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.lk-consent-card {
+  pointer-events: auto;
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 24px;
+  padding: 12px 14px 12px 20px;
+  background: var(--ew-surface);
+  border: 1px solid var(--ew-border);
+  border-radius: var(--ew-radius-lg);
+  box-shadow: var(--ew-shadow-lg);
+}
+
+.lk-consent-text {
+  flex: 1 1 420px;
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--ew-text-secondary);
+}
+
+.lk-consent-text a {
+  color: var(--ew-link);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.lk-consent-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 0 0 auto;
+}
+
+.lk-consent .ew-button {
+  min-height: 38px;
+  padding: 8px 16px;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.lk-consent-settings {
+  padding: 8px 6px;
+  border: 0;
+  background: none;
+  font: 600 13px/1.2 var(--ew-font-body);
+  color: var(--ew-link);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.lk-consent-options {
+  flex: 1 1 100%;
+  order: 3;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 20px;
+  margin: 0;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: var(--ew-radius-md);
+  background: var(--ew-surface-alt);
+}
+
+.lk-consent-options legend {
+  float: left;
+  margin-right: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ew-color-navy-deep);
+}
+
+.lk-consent-options label {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  flex: 1 1 260px;
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--ew-text-secondary);
+  cursor: pointer;
+}
+
+.lk-consent-options input {
+  width: 16px;
+  height: 16px;
+  margin-top: 1px;
+  flex: none;
+  accent-color: var(--ew-action);
+}
+
+.lk-consent-options strong {
+  color: var(--ew-color-navy-deep);
+}
+
+@media (max-width: 700px) {
+  .lk-consent {
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+  }
+
+  .lk-consent-card {
+    gap: 10px;
+    padding: 12px;
+  }
+
+  .lk-consent-text {
+    flex-basis: 100%;
+    font-size: 12px;
+  }
+
+  .lk-consent-actions {
+    flex: 1 1 100%;
+    flex-wrap: wrap;
+  }
+
+  .lk-consent-actions .ew-button {
+    flex: 1 1 0;
+    padding-inline: 10px;
+  }
+
+  .lk-consent-settings {
+    flex: 1 1 100%;
+    padding: 2px;
+  }
+}

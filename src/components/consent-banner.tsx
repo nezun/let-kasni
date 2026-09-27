@@ -63,7 +63,6 @@ export function ConsentBanner({
   const descriptionId = useId();
   const settingsId = useId();
   const firstActionRef = useRef<HTMLButtonElement>(null);
-  const [rightInset, setRightInset] = useState(18);
   const [customizing, setCustomizing] = useState(false);
   const [selection, setSelection] = useState<ConsentSelection>({
     analytics: false,
@@ -92,28 +91,6 @@ export function ConsentBanner({
     (pathname === "/proveri-let" || pathname === "/en/check-flight");
 
   useEffect(() => {
-    function updateBannerBounds() {
-      if (window.innerWidth < 1280) {
-        setRightInset(18);
-        return;
-      }
-
-      const form = document.querySelector<HTMLElement>("[data-claim-form='embedded']");
-      if (!form) {
-        setRightInset(18);
-        return;
-      }
-
-      const formLeft = form.getBoundingClientRect().left;
-      setRightInset(Math.max(18, window.innerWidth - formLeft + 8));
-    }
-
-    updateBannerBounds();
-    window.addEventListener("resize", updateBannerBounds);
-    return () => window.removeEventListener("resize", updateBannerBounds);
-  }, []);
-
-  useEffect(() => {
     if (!consent) {
       firstActionRef.current?.focus();
     }
@@ -132,119 +109,83 @@ export function ConsentBanner({
     });
   }
 
+  // Sažet baner u izgledu nove verzije sajta (v2): kartica preko dna ekrana, tekst levo i mala dugmad desno; na
+  // telefonu tekst pa dugmad. Tekst i izbori su isti kao ranije (vezani su za verziju obaveštenja o kolačićima).
   return (
-    <div
-      data-consent-banner
-      className="consent-banner fixed bottom-[18px] left-[18px] z-[120] flex justify-start"
-      style={{ right: `${rightInset}px` }}
-    >
-      <aside
-        role="dialog"
-        aria-modal="true"
-        aria-label={t.dialogLabel}
-        aria-describedby={descriptionId}
-        className="w-full max-w-[1920px] rounded-[16px] bg-white px-4 py-4 shadow-[0_18px_50px_rgba(0,0,0,0.18)] sm:px-5 sm:py-5"
-      >
-        <div className="grid items-center gap-4 lg:grid-cols-[minmax(0,1fr)_230px] lg:gap-5">
-          <div className="min-w-0">
-            <p
-              id={descriptionId}
-              className="max-w-[700px] text-sm leading-[1.45] text-[#123575] sm:text-base sm:leading-[1.5]"
-            >
-              {t.body}{" "}
-              <Link
-                href={termsHref}
-                className="text-[#1478F2] underline decoration-2 underline-offset-2"
-              >
-                {t.terms}
-              </Link>
-              <span className="px-2 text-[#1478F2]">|</span>
-              <Link
-                href={privacyHref}
-                className="text-[#1478F2] underline decoration-2 underline-offset-2"
-              >
-                {t.privacy}
-              </Link>
-            </p>
+    <div data-consent-banner className="consent-banner lk-consent ew-scope">
+      <aside role="dialog" aria-modal="true" aria-label={t.dialogLabel} aria-describedby={descriptionId} className="lk-consent-card">
+        <p id={descriptionId} className="lk-consent-text">
+          {t.body} <Link href={termsHref}>{t.terms}</Link>
+          <span aria-hidden="true"> · </span>
+          <Link href={privacyHref}>{t.privacy}</Link>
+        </p>
 
-            {customizing ? (
-              <fieldset id={settingsId} className="mt-4 max-w-[700px] space-y-2 rounded-xl bg-slate-50 p-3">
-                <legend className="px-1 text-xs font-bold text-slate-900">
-                  {t.optionsTitle}
-                </legend>
-                <label className="flex cursor-pointer items-start gap-3">
-                  <input
-                    type="checkbox"
-                    checked={selection.analytics}
-                    onChange={(event) =>
-                      setSelection((current) => ({
-                        ...current,
-                        analytics: event.target.checked,
-                      }))
-                    }
-                    className="mt-0.5 h-4 w-4 shrink-0 accent-blue-600"
-                  />
-                  <span className="text-xs leading-4 text-slate-700">
-                    <span className="block font-semibold text-slate-900">{t.analytics}</span>
-                    {t.analyticsBody}
-                  </span>
-                </label>
-                <label className="flex cursor-pointer items-start gap-3">
-                  <input
-                    type="checkbox"
-                    checked={selection.marketing}
-                    onChange={(event) =>
-                      setSelection((current) => ({
-                        ...current,
-                        marketing: event.target.checked,
-                      }))
-                    }
-                    className="mt-0.5 h-4 w-4 shrink-0 accent-blue-600"
-                  />
-                  <span className="text-xs leading-4 text-slate-700">
-                    <span className="block font-semibold text-slate-900">{t.marketing}</span>
-                    {t.marketingBody}
-                  </span>
-                </label>
-                <button
-                  type="button"
-                  onClick={() => saveChoice(selection)}
-                  className="min-h-10 w-full rounded-lg bg-[#1478F2] px-3 py-2 text-xs font-bold text-white transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                >
-                  {t.save}
-                </button>
-              </fieldset>
-            ) : null}
-          </div>
+        {customizing ? (
+          <fieldset id={settingsId} className="lk-consent-options">
+            <legend>{t.optionsTitle}</legend>
+            <label>
+              <input
+                type="checkbox"
+                checked={selection.analytics}
+                onChange={(event) =>
+                  setSelection((current) => ({
+                    ...current,
+                    analytics: event.target.checked,
+                  }))
+                }
+              />
+              <span>
+                <strong>{t.analytics}</strong> {t.analyticsBody}
+              </span>
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                checked={selection.marketing}
+                onChange={(event) =>
+                  setSelection((current) => ({
+                    ...current,
+                    marketing: event.target.checked,
+                  }))
+                }
+              />
+              <span>
+                <strong>{t.marketing}</strong> {t.marketingBody}
+              </span>
+            </label>
+            <button type="button" onClick={() => saveChoice(selection)} className="ew-button">
+              {t.save}
+            </button>
+          </fieldset>
+        ) : null}
 
-          <div className="flex flex-col gap-2.5">
-            <button
-              ref={firstActionRef}
-              type="button"
-              onClick={() => saveChoice({ analytics: true, marketing: true })}
-              className="min-h-12 rounded-xl bg-[#1478F2] px-4 py-2.5 text-sm font-bold text-white transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500/30 sm:text-base"
-            >
-              {t.accept}
-            </button>
-            <button
-              type="button"
-              onClick={() => saveChoice({ analytics: false, marketing: false })}
-              className="min-h-12 rounded-xl border-2 border-[#1478F2] bg-white px-4 py-2.5 text-sm font-bold text-[#1478F2] transition hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-500/30 sm:text-base"
-            >
-              {t.reject}
-            </button>
-            <button
-              type="button"
-              aria-expanded={customizing}
-              aria-controls={settingsId}
-              onClick={() => setCustomizing((current) => !current)}
-              className="min-h-12 rounded-xl border-2 border-[#1478F2] bg-white px-4 py-2.5 text-sm font-bold text-[#1478F2] transition hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-500/30 sm:text-base"
-            >
-              {customizing ? t.settingsClose : t.settings}
-            </button>
-          </div>
+        <div className="lk-consent-actions">
+          <button
+            ref={firstActionRef}
+            type="button"
+            onClick={() => saveChoice({ analytics: true, marketing: true })}
+            className="ew-button"
+          >
+            {t.accept}
+          </button>
+          <button
+            type="button"
+            onClick={() => saveChoice({ analytics: false, marketing: false })}
+            className="ew-button ew-button--secondary"
+          >
+            {t.reject}
+          </button>
+          <button
+            type="button"
+            aria-expanded={customizing}
+            aria-controls={settingsId}
+            onClick={() => setCustomizing((current) => !current)}
+            className="lk-consent-settings"
+          >
+            {customizing ? t.settingsClose : t.settings}
+          </button>
         </div>
-    </aside>
+      </aside>
     </div>
   );
 }
