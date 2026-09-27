@@ -15,6 +15,7 @@ export function lkPaths(locale: LkLocale) {
         about: "/en/about",
         contact: "/en/contact",
         faq: "/en/faq",
+        delayedFlights: "/en/delayed-flights-belgrade",
       }
     : {
         home: "/",
@@ -25,6 +26,7 @@ export function lkPaths(locale: LkLocale) {
         about: "/o-nama",
         contact: "/kontakt",
         faq: "/faq",
+        delayedFlights: "/letovi-koji-su-kasnili",
       };
 }
 

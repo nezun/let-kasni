@@ -177,3 +177,13 @@ export function isMarketingSubscriptionsEnabled() {
     getEnv("MARKETING_TRANSFER_REVIEW_VERSION") === "2026-09-09"
   );
 }
+
+/**
+ * Osnovna adresa CRM-a za javne, ne-osetljive podatke (npr. /api/javno/letovi-kasnili). Bez pretpostavljene
+ * vrednosti — za staging se postavlja na crm-staging, za produkciju na crm.letkasni.rs; bez promenljive strana
+ * prikazuje prazno stanje umesto da pogađa adresu.
+ */
+export function getCrmUrl() {
+  const value = getEnv("CRM_URL");
+  return value ? value.replace(/\/$/, "") : undefined;
+}

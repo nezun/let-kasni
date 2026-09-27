@@ -46,7 +46,9 @@ export function analyticsEventParams(params?: Record<string, unknown>) {
     event_category: ["claim", "contact"],
     event_label: ["nav_cta", "mobile_nav_cta", "cta_section", "inline_form", "modal_form", "focused_claim_flow", "hero_card_cta", "guide_quick_check_cta", "blog_quick_check_cta",
       // dugmad nove verzije sajta (v2, 27.09.2026)
-      "amounts_cta", "phone_panel_cta", "features_cta", "partners_cta", "quick_check_cta", "footer_cta", "guide_hero_cta", "guide_toc_cta", "blog_toc_cta", "legal_toc_cta", "not_found_cta", "contact_page_cta"],
+      "amounts_cta", "phone_panel_cta", "features_cta", "partners_cta", "quick_check_cta", "footer_cta", "guide_hero_cta", "guide_toc_cta", "blog_toc_cta", "legal_toc_cta", "not_found_cta", "contact_page_cta",
+      // strana „Letovi koji su kasnili" (spec 27.09.2026): cta_location iz opisa je event_label, isti mehanizam kao ostale dugmadi
+      "letovi_koji_su_kasnili"],
     form_locale: ["sr", "en"],
     provider_status: ["live_match", "no_match", "provider_unconfigured", "provider_skipped_budget", "timeout", "error", "outside_provider_window"],
     issue_type: ["delay", "cancelled", "delay_3h_plus", "missed_connection_same_booking", "denied_boarding", "other"],
