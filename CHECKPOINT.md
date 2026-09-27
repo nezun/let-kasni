@@ -26,20 +26,21 @@ Canonical handoff file for future local and Codex Cloud sessions.
   - Copy follows Niko's rules: "Letkasni.rs" spelling, no payout timelines in testimonials, current FAQ cost answer.
   - Social icons have no links, because there are no profiles yet.
   - The footer has "Podešavanja privatnosti".
-- Brand assets: `src/app/icon.svg` (the v2 `logo-mark.svg`), and a new `favicon.ico` and `apple-icon.png` rendered from it with headless Chromium. `manifest.ts` uses "Letkasni.rs" with navy `#011f4c`. The social preview image (`/social-preview`) still has the old design.
+- Brand assets: `src/app/icon.svg` (the v2 `logo-mark.svg`), and a new `favicon.ico` and `apple-icon.png` rendered from it with headless Chromium. `manifest.ts` uses "Letkasni.rs" with navy `#011f4c`. The social preview images are static v2 PNGs made by `npm run lk:og` (`scripts/lk-v2-og.mjs`: HTML template, real Gilroy/Inter fonts, headless Chromium) in `public/lk/og/social-{sr,en}.png`. The dynamic `/social-preview` route is removed, because next/og cannot read woff2. After changing their text in `src/lib/social-preview.ts`, re-run `lk:og` and bump `SOCIAL_PREVIEW_VERSION`.
 - Removed as dead code: the old home `landing-page.tsx`, `claim-entry.tsx`, `brand-logo.tsx`, the `ClaimStartCard` UI (`adresaForme`/`idiNaFormu` stay) and unused legacy `.lk-*` CSS in `globals.css`. Test versions A/B/C are preserved only on the LOCAL branch `arhiva/home-test-abc` (commit 1013228, never pushed).
 - Automation:
   - `npm run lk:sync` imports the design.
   - `node scripts/lk-v2-shots.mjs <folder> [pages…]` screenshots our pages and the original side by side at 1440 and 375 with headless Chromium. It needs the dev server on 3107 and `python3 -m http.server 8880 --bind 127.0.0.1 --directory "<transport-local>/site"`.
   - `locales:check`, `copy:rules` and content QA cover `src/components/lk-v2/copy.ts`, and content QA also covers the home shell.
 - Checked 2026-09-27: `npm run verify` passed; every page returns 200 locally (404 page 404). Side-by-side screenshots match the original layout at 1440 and 375 for home, delay guide, guide, article, blog, terms, contact, about, FAQ and email offers.
+- Commits on `home-v2`: 7893e44 (the whole v2 site) and 3e49e32 (v2 social preview images). Deployed as Preview `https://let-kasni-staging-d6rtaypzn-audiblelover2018-1361s-projects.vercel.app` (READY, target preview, no alias).
+- BLOCKER for staging.letkasni.rs: let-kasni-staging is git-linked (productionBranch `staging`), so publishing means pushing `home-v2` to `staging`. That push is a fast-forward from origin/staging a2e4272, and main is untouched. The agent's `git push origin home-v2:staging` was denied by the session's permission classifier on 2026-09-27. Niko must allow it or run the push himself. If the Vercel git build is BLOCKED by Hobby team access (author marinkovic-design), the fallback is a guarded CLI `--prod` deploy of let-kasni-staging from the git-less export, and only with Niko's explicit OK.
 - The form in steps (letkasni-crm apps/prijava, branch `prijava-v2`) is being built in the separate worktree `~/Documents/letkasni-crm-pravi-forma`. The CRM session reviews it, merges it into `razvoj` and deploys prijava-staging.
 - Dev notes:
   - Turbopack in this worktree once kept serving a stale `globals.css`. Restart `npm run dev -- --port 3107` if CSS changes don't show.
   - The browser pane doesn't paint while hidden, so use `scripts/lk-v2-shots.mjs` for visual checks. The sticky bar needs a visible browser.
 - Before production:
   - Real social profile links.
-  - The social preview image in the new design.
   - Sitemap entries for the new pages.
   - Niko's confirmation that the testimonials are real clients who consented.
   - A production release per AGENTS.md (release gate, main).
