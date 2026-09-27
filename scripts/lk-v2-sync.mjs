@@ -1,4 +1,4 @@
-// Prenosi dizajn sistem nove verzije sajta (v2) iz Documents/LetKasni/sistem/outputs/transport-local u ovaj repo.
+// Prenosi dizajn sistem nove verzije sajta (v2) iz Documents/Letkasni/sistem/outputs/transport-local u ovaj repo.
 // Niko (26.09.2026): v2 postaje staging, uz iste URL-ove; menja se brend i UX. Izvor dizajna je statički projekat
 // transport-local (CSS, fontovi, ikonice, logo, slike). Ovde se ništa ne menja ručno — posle izmene dizajna u
 // transport-local pokrenuti: npm run lk:sync
@@ -9,7 +9,7 @@ import { homedir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 
 const root = resolve(import.meta.dirname, "..");
-const source = process.env.LK_V2_SOURCE ?? join(homedir(), "Documents/LetKasni/sistem/outputs/transport-local/site");
+const source = process.env.LK_V2_SOURCE ?? join(homedir(), "Documents/Letkasni/sistem/outputs/transport-local/site");
 
 export const cssFiles = [
   ["design-system/library/tokens.css", "tokens.css"],
