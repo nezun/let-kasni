@@ -108,7 +108,7 @@ test("main guide child lists contain no retired airline IDs", () => {
 
 test("sitemap excludes retired URLs and keeps every active localized article", () => {
   const entries = sitemap().map(entry => new URL(entry.url).pathname);
-  assert.equal(entries.length, 160);
+  assert.equal(entries.length, 158);
   assert.equal(entries.length, new Set(entries).size);
   entries.forEach(p => assert.ok(!allPaths.has(p), p));
   for (const article of blogArticles) {

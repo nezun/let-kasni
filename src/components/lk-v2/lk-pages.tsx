@@ -6,13 +6,6 @@ import { LkClaimLink } from "@/components/lk-v2/lk-claim-link";
 import { LkYourEuropeNote } from "@/components/lk-v2/lk-delay";
 import { LkFaqSection, LkFinalCta, LkInnerHero } from "@/components/lk-v2/lk-inner";
 import { lkContact, lkPaths, type LkLocale } from "@/components/lk-v2/lk-paths";
-import {
-  formatKasnjenje,
-  kratakDatum,
-  vremeHHmm,
-  type LetStatus,
-  type ZakasneliLetoviOdgovor,
-} from "@/lib/delayed-flights";
 import { siteOperator } from "@/lib/site-operator";
 
 /**
@@ -123,122 +116,6 @@ export function LkFaqContent({ locale }: { locale: LkLocale }) {
         firstOpen
         note={<LkYourEuropeNote locale={locale} centered={false} />}
       />
-      <LkFinalCta locale={locale} />
-    </>
-  );
-}
-
-const delayedFlightsBadgeClass: Record<LetStatus, string> = {
-  kasnio: "lk-ui-badge--warning",
-  otkazan: "lk-ui-badge--danger",
-  preusmeren: "lk-ui-badge--neutral",
-};
-
-/**
- * Strana „Letovi koji su kasnili“ (opis: ~/Documents/Letkasni/marketing/opis-letovi-koji-su-kasnili.md). Podaci
- * dolaze uživo sa CRM-a (getZakasneliLetovi, ISR); strana ne čuva nijedan podatak o letu u repo-u.
- */
-export function LkDelayedFlightsContent({ locale, data }: { locale: LkLocale; data: ZakasneliLetoviOdgovor }) {
-  const t = copy[locale].delayedFlightsPage;
-  const title = `${t.titleA} ${t.titleB}`;
-
-  return (
-    <>
-      <LkInnerHero
-        locale={locale}
-        crumbs={[{ label: title }]}
-        badge={t.badge}
-        title={title}
-        lead={
-          <>
-            {t.leadA} {t.leadB} {t.leadC}
-          </>
-        }
-      />
-      <section className="lk-section">
-        <div className="lk-container">
-          {data.letovi.length > 0 ? (
-            <div className="lk-ui-table-wrap">
-              <table className="lk-ui-table">
-                <thead>
-                  <tr>
-                    <th>{t.columnDate}</th>
-                    <th>{t.columnFlight}</th>
-                    <th>{t.columnAirline}</th>
-                    <th>{t.columnRoute}</th>
-                    <th>{t.columnPlanned}</th>
-                    <th>{t.columnActual}</th>
-                    <th>{t.columnStatus}</th>
-                    <th />
-                  </tr>
-                </thead>
-                <tbody>
-                  {data.letovi.map((l) => (
-                    <tr key={`${l.brojLeta}-${l.planiranoVreme}`}>
-                      <td>{kratakDatum(l.planiranoVreme, locale)}</td>
-                      <td>
-                        {l.brojLeta}
-                        {l.codeshareBrojevi.length > 0 ? ` (${l.codeshareBrojevi.join(", ")})` : ""}
-                      </td>
-                      <td>{l.aviokompanija}</td>
-                      <td>
-                        {l.polazniIata} → {l.odredisniIata}
-                      </td>
-                      <td>{vremeHHmm(l.planiranoVreme)}</td>
-                      <td>{vremeHHmm(l.stvarnoVreme)}</td>
-                      <td>
-                        <span className={`lk-ui-badge ${delayedFlightsBadgeClass[l.status]}`}>
-                          {l.status === "kasnio"
-                            ? `${t.statusDelayed} · ${formatKasnjenje(l.kasnjenjeMinuta, locale)}`
-                            : l.status === "otkazan"
-                              ? t.statusCancelled
-                              : t.statusDiverted}
-                        </span>
-                      </td>
-                      <td>
-                        <LkClaimLink
-                          locale={locale}
-                          eventLabel="letovi_koji_su_kasnili"
-                          className="lk-ui-button lk-ui-button--sm lk-ui-button--secondary"
-                        >
-                          {t.checkButton}
-                        </LkClaimLink>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          ) : (
-            <div className="lk-ui-card lk-content-card">
-              <div className="lk-ui-card-body">
-                <h2>{data.dostupno ? t.emptyTitle : t.unavailableTitle}</h2>
-                {data.dostupno ? (
-                  <>
-                    <p>{t.emptyBodyA}</p>
-                    <p>{t.emptyBodyB}</p>
-                    <p>{t.emptyBodyC}</p>
-                  </>
-                ) : (
-                  <p>{t.unavailableBody}</p>
-                )}
-                <LkClaimLink locale={locale} eventLabel="letovi_koji_su_kasnili" className="lk-ui-link">
-                  {t.emptyButton}
-                </LkClaimLink>
-              </div>
-            </div>
-          )}
-          <p className="lk-faq-note">{t.ruleText}</p>
-          <p className="lk-faq-note">{t.olderFlightNote}</p>
-          {data.dostupno && data.azurirano ? (
-            <p className="lk-faq-note">
-              {t.sourceNotePrefix}
-              {kratakDatum(data.azurirano, locale)} {vremeHHmm(data.azurirano)}
-              {t.sourceNoteSuffix}
-            </p>
-          ) : null}
-        </div>
-      </section>
       <LkFinalCta locale={locale} />
     </>
   );
