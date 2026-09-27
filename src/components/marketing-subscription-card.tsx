@@ -71,7 +71,7 @@ export function MarketingSubscriptionCard({ locale, initialEmail }: { locale: "s
       <h3 className="font-bold text-slate-900">{t.heading}</h3>
       <label className="block space-y-2 text-sm font-semibold text-slate-700">
         <span>{t.email}</span>
-        <input className="w-full rounded-xl border border-slate-300 bg-white px-3 py-3 text-slate-900 outline-none focus:border-blue-500" type="email" value={email} onChange={(event) => { setEmail(event.target.value); setStatus("idle"); }} autoComplete="email" />
+        <input className="w-full rounded-xl border border-slate-300 bg-white px-3 py-3 text-base text-slate-900 outline-none focus:border-blue-500" type="email" value={email} onChange={(event) => { setEmail(event.target.value); setStatus("idle"); }} autoComplete="email" />
       </label>
       <label className="flex items-start gap-3 text-xs leading-5 text-slate-600">
         <input className="mt-1 h-4 w-4 shrink-0 accent-blue-600" type="checkbox" checked={consent} onChange={(event) => setConsent(event.target.checked)} />
