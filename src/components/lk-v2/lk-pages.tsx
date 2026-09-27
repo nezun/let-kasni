@@ -22,32 +22,32 @@ export function LkContactContent({ locale }: { locale: LkLocale }) {
       <LkInnerHero locale={locale} crumbs={[{ label: t.title }]} badge={t.badge} title={t.title} lead={t.lead} />
       <section className="lk-section">
         <div className="lk-container lk-article-grid">
-          <article className="ew-card lk-content-card">
-            <div className="ew-card-body">
-              <span className="ew-badge">{t.emailBadge}</span>
+          <article className="lk-ui-card lk-content-card">
+            <div className="lk-ui-card-body">
+              <span className="lk-ui-badge">{t.emailBadge}</span>
               <h2>{t.emailTitle}</h2>
               <p>{t.emailBody}</p>
-              <a className="ew-link" href={`mailto:${contact.email}`}>
+              <a className="lk-ui-link" href={`mailto:${contact.email}`}>
                 {contact.email}
               </a>
             </div>
           </article>
-          <article className="ew-card lk-content-card">
-            <div className="ew-card-body">
-              <span className="ew-badge">{t.phoneBadge}</span>
+          <article className="lk-ui-card lk-content-card">
+            <div className="lk-ui-card-body">
+              <span className="lk-ui-badge">{t.phoneBadge}</span>
               <h2>{t.phoneTitle}</h2>
               <p>{t.phoneBody}</p>
-              <a className="ew-link" href={`tel:${contact.phone}`}>
+              <a className="lk-ui-link" href={`tel:${contact.phone}`}>
                 {contact.phoneDisplay}
               </a>
             </div>
           </article>
-          <article className="ew-card lk-content-card">
-            <div className="ew-card-body">
-              <span className="ew-badge">{t.claimBadge}</span>
+          <article className="lk-ui-card lk-content-card">
+            <div className="lk-ui-card-body">
+              <span className="lk-ui-badge">{t.claimBadge}</span>
               <h2>{t.claimTitle}</h2>
               <p>{t.claimBody}</p>
-              <LkClaimLink locale={locale} eventLabel="contact_page_cta" className="ew-link">
+              <LkClaimLink locale={locale} eventLabel="contact_page_cta" className="lk-ui-link">
                 {t.claimLink}
               </LkClaimLink>
             </div>
@@ -91,7 +91,7 @@ export function LkAboutContent({ locale }: { locale: LkLocale }) {
             {t.body.map((paragraph) => (
               <p key={paragraph}>{paragraph}</p>
             ))}
-            <Link className="ew-link" href={lkPaths(locale).terms}>
+            <Link className="lk-ui-link" href={lkPaths(locale).terms}>
               {t.termsLink}
             </Link>
           </div>

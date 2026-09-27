@@ -58,7 +58,7 @@ export function LkLegalLayout({
           navLabel={inner.tocAria}
           sections={toc.map((label) => ({ id: legalSectionId(label), label }))}
         >
-          <ClaimInlineCtaButton locale={locale} eventLabel="legal_toc_cta" className="ew-button">
+          <ClaimInlineCtaButton locale={locale} eventLabel="legal_toc_cta" className="lk-ui-button">
             {inner.tocButton}
           </ClaimInlineCtaButton>
         </ScrollProgressToc>

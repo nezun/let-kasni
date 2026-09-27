@@ -58,9 +58,9 @@ export function LkIssueForm({ locale, t }: { locale: LkLocale; t: LkCopy["hero"]
   }
 
   return (
-    <div className="ew-card lk-claim-card" id="proveri-let">
+    <div className="lk-ui-card lk-claim-card" id="proveri-let">
       <div className="lk-form-intro">
-        <span className="ew-badge">{t.formBadge}</span>
+        <span className="lk-ui-badge">{t.formBadge}</span>
         <LkIcon name="shield" />
       </div>
       <section data-lk-step="issue" aria-labelledby="lk-issue-title">
@@ -75,10 +75,10 @@ export function LkIssueForm({ locale, t }: { locale: LkLocale; t: LkCopy["hero"]
           onSubmit={submit}
           onChange={() => setError(false)}
         >
-          <fieldset className="ew-fieldset">
-            <legend className="ew-sr-only">{t.legend}</legend>
+          <fieldset className="lk-ui-fieldset">
+            <legend className="lk-ui-sr-only">{t.legend}</legend>
             {problems.map((problem, index) => (
-              <label key={problem.value} className="ew-choice lk-choice">
+              <label key={problem.value} className="lk-ui-choice lk-choice">
                 <span className="lk-choice-icon">
                   <LkIcon name={problem.icon} />
                 </span>
@@ -102,10 +102,10 @@ export function LkIssueForm({ locale, t }: { locale: LkLocale; t: LkCopy["hero"]
               </label>
             ))}
           </fieldset>
-          <p className="ew-error" id="lk-issue-error" role="alert" hidden={!error}>
+          <p className="lk-ui-error" id="lk-issue-error" role="alert" hidden={!error}>
             {t.error}
           </p>
-          <button className="ew-button lk-form-action" type="submit">
+          <button className="lk-ui-button lk-form-action" type="submit">
             {t.button} <LkArrow />
           </button>
           <input type="hidden" name="step" value="2" />

@@ -1,17 +1,17 @@
 /* GENERISANO: npm run lk:sync (scripts/lk-v2-sync.mjs) iz transport-local; ne menjati ručno. */
 /* Scoped catalogue component: 8a5edab282-07, product-eb03924d21. */
-.lk-compensation .ewo-bento-hero-card-2026{background-color:var(--ew-color-navy);width:100%;height:100%;color:var(--ew-color-white);border-radius:16px;flex-wrap:wrap;grid-column:span 3/span 3;align-content:flex-start;align-items:flex-start;display:flex;position:relative;overflow:visible}
-.lk-compensation .ewo-bento-hero-card-2026:hover{background-color:var(--ew-color-navy-deep);box-shadow:0 1px 2px #00004b80}
+.lk-compensation .ewo-bento-hero-card-2026{background-color:var(--lk-ui-color-navy);width:100%;height:100%;color:var(--lk-ui-color-white);border-radius:16px;flex-wrap:wrap;grid-column:span 3/span 3;align-content:flex-start;align-items:flex-start;display:flex;position:relative;overflow:visible}
+.lk-compensation .ewo-bento-hero-card-2026:hover{background-color:var(--lk-ui-color-navy-deep);box-shadow:0 1px 2px #00004b80}
 .lk-compensation .ewo-bento-hero-card-2026-content{grid-row-gap:16px;flex-direction:column;flex:1 0;align-self:stretch;align-items:flex-start;min-width:340px;padding:24px;display:flex}
 .lk-compensation .ewo-bento-hero-card-2026-badge-row{justify-content:space-between;align-items:flex-start;width:100%;display:flex}
-.lk-compensation .ewo-bento-hero-card-2026-badge{background-color:var(--ew-color-cyan);color:var(--ew-text);letter-spacing:.16px;border-radius:16px;align-items:center;padding:3px 10px;font-size:.8125rem;font-weight:400;line-height:1.38462;display:inline-flex}
+.lk-compensation .ewo-bento-hero-card-2026-badge{background-color:var(--lk-ui-color-cyan);color:var(--lk-ui-text);letter-spacing:.16px;border-radius:16px;align-items:center;padding:3px 10px;font-size:.8125rem;font-weight:400;line-height:1.38462;display:inline-flex}
 .lk-compensation .ewo-bento-hero-card-2026-body{grid-row-gap:8px;flex-direction:column;flex:1;align-items:flex-start;width:100%;min-height:0;display:flex}
 .lk-compensation .ewo-bento-hero-card-2026-header{grid-row-gap:10px;flex-direction:column;align-items:flex-start;width:100%;display:flex}
-.lk-compensation .ewo-bento-hero-card-2026-title{color:var(--ew-color-cyan);margin-top:0;margin-bottom:0;font-family:Gilroy,sans-serif;font-size:1.5rem;font-weight:600;line-height:1.16667}
-.lk-compensation .ewo-bento-hero-card-2026-text{color:var(--ew-color-white);text-align:left;margin-bottom:0;font-size:.875rem;line-height:1.42857}
+.lk-compensation .ewo-bento-hero-card-2026-title{color:var(--lk-ui-color-cyan);margin-top:0;margin-bottom:0;font-family:Gilroy,sans-serif;font-size:1.5rem;font-weight:600;line-height:1.16667}
+.lk-compensation .ewo-bento-hero-card-2026-text{color:var(--lk-ui-color-white);text-align:left;margin-bottom:0;font-size:.875rem;line-height:1.42857}
 .lk-compensation .ewo-bento-hero-card-2026-actions{flex-direction:column;flex:1;justify-content:flex-end;align-items:flex-start;width:100%;min-height:0;padding-top:24px;display:flex}
-.lk-compensation .ewo-bento-hero-card-2026-link{color:var(--ew-color-cyan);font-size:.9375rem;font-weight:600;line-height:1.3;text-decoration:none;transition:color .3s;display:inline-block}
-.lk-compensation .ewo-bento-hero-card-2026-link:hover{color:var(--ew-color-cyan)}
+.lk-compensation .ewo-bento-hero-card-2026-link{color:var(--lk-ui-color-cyan);font-size:.9375rem;font-weight:600;line-height:1.3;text-decoration:none;transition:color .3s;display:inline-block}
+.lk-compensation .ewo-bento-hero-card-2026-link:hover{color:var(--lk-ui-color-cyan)}
 .lk-compensation .ewo-bento-hero-card-2026-visual{flex:none;justify-content:center;align-self:center;align-items:center;min-width:250px;padding-left:24px;padding-right:24px;display:flex}
 .lk-compensation .ewo-bento-hero-card-2026-visual-frame{flex:none;width:222px;height:274px;position:relative;overflow:hidden}
 .lk-compensation .ewo-bento-hero-card-2026-image{object-fit:cover;width:265px;max-width:none;height:246px;position:absolute;top:6.85px;left:-21.5px}

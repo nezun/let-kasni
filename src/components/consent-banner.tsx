@@ -112,7 +112,7 @@ export function ConsentBanner({
   // Sažet baner u izgledu nove verzije sajta (v2): kartica preko dna ekrana, tekst levo i mala dugmad desno; na
   // telefonu tekst pa dugmad. Tekst i izbori su isti kao ranije (vezani su za verziju obaveštenja o kolačićima).
   return (
-    <div data-consent-banner className="consent-banner lk-cookies ew-scope">
+    <div data-consent-banner className="consent-banner lk-cookies lk-ui-scope">
       <aside role="dialog" aria-modal="true" aria-label={t.dialogLabel} aria-describedby={descriptionId} className="lk-cookies-card">
         <p id={descriptionId} className="lk-cookies-text">
           {t.body} <Link href={termsHref}>{t.terms}</Link>
@@ -153,7 +153,7 @@ export function ConsentBanner({
                 <strong>{t.marketing}</strong> {t.marketingBody}
               </span>
             </label>
-            <button type="button" onClick={() => saveChoice(selection)} className="ew-button">
+            <button type="button" onClick={() => saveChoice(selection)} className="lk-ui-button">
               {t.save}
             </button>
           </fieldset>
@@ -164,14 +164,14 @@ export function ConsentBanner({
             ref={firstActionRef}
             type="button"
             onClick={() => saveChoice({ analytics: true, marketing: true })}
-            className="ew-button"
+            className="lk-ui-button"
           >
             {t.accept}
           </button>
           <button
             type="button"
             onClick={() => saveChoice({ analytics: false, marketing: false })}
-            className="ew-button ew-button--secondary"
+            className="lk-ui-button lk-ui-button--secondary"
           >
             {t.reject}
           </button>

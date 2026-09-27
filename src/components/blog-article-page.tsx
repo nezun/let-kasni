@@ -110,7 +110,7 @@ function ArticleQuickCheckBanner({ locale }: { locale: BlogLocale }) {
 
   return (
     <LkModuleCheck badge={t.quickCheckEyebrow} title={t.quickCheckTitle} body={t.quickCheckBody}>
-      <ClaimInlineCtaButton locale={locale} eventLabel="blog_quick_check_cta" className="ew-button">
+      <ClaimInlineCtaButton locale={locale} eventLabel="blog_quick_check_cta" className="lk-ui-button">
         {t.quickCheckButton} <LkArrow />
       </ClaimInlineCtaButton>
     </LkModuleCheck>
@@ -179,7 +179,7 @@ export function BlogArticlePageView({
         />
         <div className="lk-container lk-reading-layout">
           <ScrollProgressToc label={inner.tocTitle} navLabel={inner.tocAria} sections={tocSections}>
-            <ClaimInlineCtaButton locale={locale} eventLabel="blog_toc_cta" className="ew-button">
+            <ClaimInlineCtaButton locale={locale} eventLabel="blog_toc_cta" className="lk-ui-button">
               {inner.tocButton}
             </ClaimInlineCtaButton>
           </ScrollProgressToc>

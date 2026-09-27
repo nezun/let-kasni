@@ -398,7 +398,7 @@ function GuideQuickCheckBanner({ locale }: { locale: BlogLocale }) {
 
   return (
     <LkModuleCheck badge={t.nextStep} title={t.quickCheckTitle} body={t.nextStepBody}>
-      <ClaimInlineCtaButton locale={locale} eventLabel="guide_quick_check_cta" className="ew-button">
+      <ClaimInlineCtaButton locale={locale} eventLabel="guide_quick_check_cta" className="lk-ui-button">
         {t.checkFlight} <LkArrow />
       </ClaimInlineCtaButton>
     </LkModuleCheck>
@@ -446,10 +446,10 @@ export function CornerstoneTypographyPreview({
               lead={localized.excerpt}
             />
             <div className="lk-container lk-guide-cta">
-              <ClaimInlineCtaButton locale={locale} eventLabel="guide_hero_cta" className="ew-button">
+              <ClaimInlineCtaButton locale={locale} eventLabel="guide_hero_cta" className="lk-ui-button">
                 {inner.guideButton}
               </ClaimInlineCtaButton>
-              <a className="ew-link" href="#sadrzaj">
+              <a className="lk-ui-link" href="#sadrzaj">
                 {inner.guideMore}
               </a>
             </div>
@@ -459,7 +459,7 @@ export function CornerstoneTypographyPreview({
         <div className="lk-content-page">
           <div className="lk-container lk-reading-layout">
             <ScrollProgressToc label={t.tocTitle} navLabel={inner.tocAria} sections={tocSections}>
-              <ClaimInlineCtaButton locale={locale} eventLabel="guide_toc_cta" className="ew-button">
+              <ClaimInlineCtaButton locale={locale} eventLabel="guide_toc_cta" className="lk-ui-button">
                 {inner.tocButton}
               </ClaimInlineCtaButton>
             </ScrollProgressToc>

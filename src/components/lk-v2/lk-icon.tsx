@@ -16,7 +16,7 @@ export function LkIcon({
   className?: string;
 }) {
   return (
-    <svg className={className ? `ew-icon ${className}` : "ew-icon"} aria-hidden="true">
+    <svg className={className ? `lk-ui-icon ${className}` : "lk-ui-icon"} aria-hidden="true">
       <use href={`${sprites[set]}#${name}`} />
     </svg>
   );

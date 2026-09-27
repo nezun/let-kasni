@@ -33,7 +33,7 @@
   --color-brand-primary: var(--accent);
   --color-brand-secondary: var(--accent-hover);
   --color-brand-accent: var(--accent-warm);
-  --font-sans: var(--ew-font-body, system-ui, sans-serif);
+  --font-sans: var(--lk-ui-font-body, system-ui, sans-serif);
 }
 
 * {
@@ -48,7 +48,7 @@ body {
   background: var(--bg);
   color: var(--ink);
   /* Inter iz nove verzije sajta (v2 tokeni); važi i za baner za kolačiće van omotača strane. */
-  font-family: var(--ew-font-body, system-ui, sans-serif);
+  font-family: var(--lk-ui-font-body, system-ui, sans-serif);
 }
 
 a {

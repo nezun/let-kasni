@@ -19,10 +19,10 @@ export default async function NotFound() {
       <main id="main">
         <LkInnerHero locale={locale} crumbs={[{ label: t.title }]} badge={t.badge} title={t.title} lead={t.lead} />
         <div className="lk-container lk-guide-cta">
-          <LkClaimLink locale={locale} eventLabel="not_found_cta" className="ew-button">
+          <LkClaimLink locale={locale} eventLabel="not_found_cta" className="lk-ui-button">
             {t.check} →
           </LkClaimLink>
-          <Link className="ew-link" href={locale === "en" ? "/en/air-passenger-rights" : "/prava-putnika-u-aviosaobracaju"}>
+          <Link className="lk-ui-link" href={locale === "en" ? "/en/air-passenger-rights" : "/prava-putnika-u-aviosaobracaju"}>
             {t.rights}
           </Link>
         </div>

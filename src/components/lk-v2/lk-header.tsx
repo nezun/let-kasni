@@ -54,8 +54,8 @@ export function LkHeader({
 
   return (
     <header className="lk-header">
-      <div className="ew-header lk-container">
-        <Link className="ew-wordmark lk-brand" href={paths.home} aria-label={t.homeAria} onClick={close}>
+      <div className="lk-ui-header lk-container">
+        <Link className="lk-ui-wordmark lk-brand" href={paths.home} aria-label={t.homeAria} onClick={close}>
           {/* eslint-disable-next-line @next/next/no-img-element -- SVG logo iz v2 dizajna, bez obrade slike */}
           <img className="lk-logo" src="/lk/assets/logo.svg" width={228} height={56} alt={t.logoAlt} />
         </Link>
@@ -72,13 +72,13 @@ export function LkHeader({
           <a className="lk-language" href={alternateHref} lang={otherLang} aria-label={t.localeAria}>
             {t.localeLabel}
           </a>
-          <ClaimInlineCtaButton locale={locale} eventLabel="nav_cta" className="ew-button lk-header-cta">
+          <ClaimInlineCtaButton locale={locale} eventLabel="nav_cta" className="lk-ui-button lk-header-cta">
             {t.cta} <LkArrow />
           </ClaimInlineCtaButton>
           <button
             ref={toggle}
             type="button"
-            className="ew-button ew-button--ghost ew-icon-button lk-menu-toggle"
+            className="lk-ui-button lk-ui-button--ghost lk-ui-icon-button lk-menu-toggle"
             aria-expanded={open}
             aria-controls="lk-mobile-nav"
             aria-label={open ? t.menuClose : t.menuOpen}

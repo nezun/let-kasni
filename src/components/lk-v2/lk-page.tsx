@@ -15,7 +15,7 @@ import { copy } from "@/components/lk-v2/copy";
 import type { LkLocale } from "@/components/lk-v2/lk-paths";
 
 /**
- * Okvir svake javne strane nove verzije sajta (v2 iz transport-local). Na originalu su klase ew-scope lk-page
+ * Okvir svake javne strane nove verzije sajta (v2 iz transport-local). Na originalu su klase lk-ui-scope lk-page
  * lk-version-2 (+ vrsta strane, npr. lk-content-page) na body; ovde su na omotaču, jer body deli ceo sajt
  * (layout.tsx sa kolačićima i merenjem). Strana sama renderuje SiteHeader, <main id="main"> i SiteFooter.
  */
@@ -30,8 +30,8 @@ export function LkFrame({
   kind?: "lk-content-page" | "lk-delay-page";
 }) {
   return (
-    <div className={kind ? `ew-scope lk-page lk-version-2 ${kind}` : "ew-scope lk-page lk-version-2"}>
-      <a className="lk-skip ew-button" href="#main">
+    <div className={kind ? `lk-ui-scope lk-page lk-version-2 ${kind}` : "lk-ui-scope lk-page lk-version-2"}>
+      <a className="lk-skip lk-ui-button" href="#main">
         {copy[locale].page.skip}
       </a>
       {children}

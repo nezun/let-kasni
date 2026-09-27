@@ -9,7 +9,7 @@ import { getMetaEventId, trackMetaEvent } from "@/lib/meta";
 type Locale = "sr" | "en";
 
 /**
- * Link ka formi u aplikaciji za prijave, za mesta gde v2 dizajn ima <a class="ew-link"> ili <a class="ew-button">.
+ * Link ka formi u aplikaciji za prijave, za mesta gde v2 dizajn ima <a class="lk-ui-link"> ili <a class="lk-ui-button">.
  * Pravi link (radi i bez JavaScripta i u novom tabu); klik šalje ista merenja kao ClaimInlineCtaButton i nosi poreklo
  * posete (atribuciju) u formu.
  */

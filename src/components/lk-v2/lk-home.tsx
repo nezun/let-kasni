@@ -68,9 +68,9 @@ export function LkHome({ locale }: { locale: LkLocale }) {
     <>
       <section className="lk-hero-section lk-v2-hero" aria-labelledby="lk-hero-title">
         <div className="lk-v2-banner">
-          <div className="ew-hero lk-hero lk-container">
+          <div className="lk-ui-hero lk-hero lk-container">
             <div className="lk-hero-copy">
-              <span className="ew-badge ew-badge--cyan">{t.hero.badge}</span>
+              <span className="lk-ui-badge lk-ui-badge--cyan">{t.hero.badge}</span>
               <h1 id="lk-hero-title">
                 {t.hero.titleA}
                 <span>{t.hero.titleB}</span>
@@ -96,7 +96,7 @@ export function LkHome({ locale }: { locale: LkLocale }) {
                   <p className="ewo-bento-hero-card-2026-text">{t.compensation.amountsBody}</p>
                 </div>
                 <div className="ewo-bento-hero-card-2026-actions">
-                  <ClaimInlineCtaButton locale={locale} eventLabel="amounts_cta" className="ew-button ew-button--lg">
+                  <ClaimInlineCtaButton locale={locale} eventLabel="amounts_cta" className="lk-ui-button lk-ui-button--lg">
                     {t.compensation.amountsButton}
                   </ClaimInlineCtaButton>
                 </div>
@@ -131,7 +131,7 @@ export function LkHome({ locale }: { locale: LkLocale }) {
                   <p className="ewo-bento-hero-card-2026-text">{t.compensation.phoneBody}</p>
                 </div>
                 <div className="ewo-bento-hero-card-2026-actions">
-                  <ClaimInlineCtaButton locale={locale} eventLabel="phone_panel_cta" className="ew-button ew-button--lg">
+                  <ClaimInlineCtaButton locale={locale} eventLabel="phone_panel_cta" className="lk-ui-button lk-ui-button--lg">
                     {t.compensation.phoneButton}
                   </ClaimInlineCtaButton>
                 </div>
@@ -143,7 +143,7 @@ export function LkHome({ locale }: { locale: LkLocale }) {
                   <div className="lk-phone-camera" aria-hidden="true" />
                   <div className="lk-phone-screen" aria-hidden="true">
                     <img src="/lk/assets/logo-mark.svg" alt="" width={32} height={32} />
-                    <span className="ew-badge">{t.compensation.phoneBadge}</span>
+                    <span className="lk-ui-badge">{t.compensation.phoneBadge}</span>
                     <h3>{t.compensation.phoneQuestion}</h3>
                     {t.compensation.phoneOptions.map((option, index) => (
                       <div key={option} className={index === 0 ? "lk-phone-option is-selected" : "lk-phone-option"}>
@@ -151,7 +151,7 @@ export function LkHome({ locale }: { locale: LkLocale }) {
                         {index === 0 ? <LkIcon name="check-filled" className="lk-check" /> : <span>○</span>}
                       </div>
                     ))}
-                    <div className="ew-button lk-phone-next">{t.compensation.phoneNext}</div>
+                    <div className="lk-ui-button lk-phone-next">{t.compensation.phoneNext}</div>
                   </div>
                 </div>
               </div>
@@ -166,9 +166,9 @@ export function LkHome({ locale }: { locale: LkLocale }) {
             <h2 id="lk-benefits-title">{t.benefits.title}</h2>
             <p>{t.benefits.body}</p>
           </div>
-          <div className="ew-grid lk-benefits-grid">
+          <div className="lk-ui-grid lk-benefits-grid">
             {t.benefits.items.map((item, index) => (
-              <article key={item.title} className="ew-card lk-benefit-card">
+              <article key={item.title} className="lk-ui-card lk-benefit-card">
                 <LkIcon set={benefitIcons[index].set} name={benefitIcons[index].name} className="lk-benefit-icon" />
                 <h3>{item.title}</h3>
                 <p>{item.body}</p>
@@ -176,10 +176,10 @@ export function LkHome({ locale }: { locale: LkLocale }) {
             ))}
           </div>
           <div className="lk-benefits-actions">
-            <ClaimInlineCtaButton locale={locale} eventLabel="features_cta" className="ew-button ew-button--lg">
+            <ClaimInlineCtaButton locale={locale} eventLabel="features_cta" className="lk-ui-button lk-ui-button--lg">
               {t.benefits.button}
             </ClaimInlineCtaButton>
-            <a className="ew-link" href="#kako-radi">
+            <a className="lk-ui-link" href="#kako-radi">
               {t.benefits.link} <LkArrow />
             </a>
           </div>
@@ -190,7 +190,7 @@ export function LkHome({ locale }: { locale: LkLocale }) {
         <div className="lk-container">
           <div className="image-and-content__wrapper lk-airlines-panel">
             <div className="image-and-content__content">
-              <span className="ew-badge">{t.airlines.badge}</span>
+              <span className="lk-ui-badge">{t.airlines.badge}</span>
               <h2 id="lk-airlines-title">{t.airlines.title}</h2>
               <p>{t.airlines.body}</p>
               <ul className="lk-feature-checks">
@@ -201,7 +201,7 @@ export function LkHome({ locale }: { locale: LkLocale }) {
                   </li>
                 ))}
               </ul>
-              <ClaimInlineCtaButton locale={locale} eventLabel="partners_cta" className="ew-button ew-button--lg">
+              <ClaimInlineCtaButton locale={locale} eventLabel="partners_cta" className="lk-ui-button lk-ui-button--lg">
                 {t.airlines.button} <LkArrow />
               </ClaimInlineCtaButton>
               <p className="lk-feature-note">
@@ -211,7 +211,7 @@ export function LkHome({ locale }: { locale: LkLocale }) {
             <div className="image-and-content__image-container">
               <ul className="lk-airline-tiles" aria-label={t.airlines.listAria}>
                 {airlines.map((airline) => (
-                  <li key={airline.file} className="ew-card lk-airline-tile">
+                  <li key={airline.file} className="lk-ui-card lk-airline-tile">
                     <img src={`/lk/assets/${airline.file}`} alt={airline.name} width={120} height={64} loading="lazy" />
                   </li>
                 ))}
@@ -232,7 +232,7 @@ export function LkHome({ locale }: { locale: LkLocale }) {
           </div>
           <div className="image-and-content__wrapper">
             <div className="image-and-content__content">
-              <span className="ew-badge">{t.quickCheck.badge}</span>
+              <span className="lk-ui-badge">{t.quickCheck.badge}</span>
               <h3>{t.quickCheck.subtitle}</h3>
               <p>{t.quickCheck.body}</p>
               <ul className="lk-feature-checks">
@@ -243,7 +243,7 @@ export function LkHome({ locale }: { locale: LkLocale }) {
                   </li>
                 ))}
               </ul>
-              <ClaimInlineCtaButton locale={locale} eventLabel="quick_check_cta" className="ew-button ew-button--lg">
+              <ClaimInlineCtaButton locale={locale} eventLabel="quick_check_cta" className="lk-ui-button lk-ui-button--lg">
                 {t.quickCheck.button} <LkArrow />
               </ClaimInlineCtaButton>
               <p className="lk-feature-note">
@@ -268,7 +268,7 @@ export function LkHome({ locale }: { locale: LkLocale }) {
         <div className="lk-container">
           <div className="image-and-content__wrapper image-and-content__wrapper--reverse">
             <div className="image-and-content__content">
-              <span className="ew-badge">{t.localSupport.badge}</span>
+              <span className="lk-ui-badge">{t.localSupport.badge}</span>
               <h2 id="lk-support-title">{t.localSupport.title}</h2>
               <p>{t.localSupport.body}</p>
               <ul className="lk-feature-checks">
@@ -281,10 +281,10 @@ export function LkHome({ locale }: { locale: LkLocale }) {
               </ul>
               <p>{t.localSupport.contactLead}</p>
               <div className="lk-feature-contact">
-                <a className="ew-link" href={`tel:${contact.phone}`}>
+                <a className="lk-ui-link" href={`tel:${contact.phone}`}>
                   {contact.phoneDisplay}
                 </a>
-                <a className="ew-link" href={`mailto:${contact.email}`}>
+                <a className="lk-ui-link" href={`mailto:${contact.email}`}>
                   {contact.email}
                 </a>
               </div>
@@ -310,11 +310,11 @@ export function LkHome({ locale }: { locale: LkLocale }) {
           <div className="lk-section-heading">
             <h2 id="lk-faq-title">{t.faq.title}</h2>
           </div>
-          <div className="ew-accordion">
+          <div className="lk-ui-accordion">
             {t.faq.items.map((item, index) => (
               <details key={faqIds[index]} id={faqIds[index]} open={index === 0}>
                 <summary>{item.q}</summary>
-                <div className="ew-accordion-body">
+                <div className="lk-ui-accordion-body">
                   <p>{item.a}</p>
                 </div>
               </details>
@@ -332,18 +332,18 @@ export function LkHome({ locale }: { locale: LkLocale }) {
               <span className="lk-eyebrow">{t.blog.eyebrow}</span>
               <h2 id="lk-blog-title">{t.blog.title}</h2>
             </div>
-            <Link className="ew-link" href={paths.blog}>
+            <Link className="lk-ui-link" href={paths.blog}>
               {t.blog.all} <LkArrow />
             </Link>
           </div>
-          <div className="ew-grid lk-blog-grid">
+          <div className="lk-ui-grid lk-blog-grid">
             {articles.map((article, index) => {
               const image = getBlogArticleImage(article.id);
               const readId = `lk-blog-read-${index + 1}`;
               return (
-                <article key={article.id} className="ew-card lk-blog-card">
+                <article key={article.id} className="lk-ui-card lk-blog-card">
                   <img
-                    className="ew-card-image"
+                    className="lk-ui-card-image"
                     src={cardImageSrc(image.src)}
                     alt=""
                     width={640}
@@ -352,7 +352,7 @@ export function LkHome({ locale }: { locale: LkLocale }) {
                     decoding="async"
                     style={image.position ? { objectPosition: image.position } : undefined}
                   />
-                  <div className="ew-card-body">
+                  <div className="lk-ui-card-body">
                     <div className="lk-blog-meta">
                       <span>{article.localized.category}</span>
                       <time dateTime={article.publishedAt}>{formatDisplayDate(article.publishedAt, locale)}</time>

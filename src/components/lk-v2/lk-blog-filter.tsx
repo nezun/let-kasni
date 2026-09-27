@@ -84,13 +84,13 @@ export function LkBlogFilter({
   return (
     <>
       <div className="lk-blog-tools">
-        <div className="ew-field">
-          <label className="ew-label" htmlFor="blog-search">
+        <div className="lk-ui-field">
+          <label className="lk-ui-label" htmlFor="blog-search">
             {t.searchLabel}
           </label>
           <input
             ref={searchRef}
-            className="ew-input"
+            className="lk-ui-input"
             id="blog-search"
             type="search"
             placeholder={t.searchPlaceholder}
@@ -101,12 +101,12 @@ export function LkBlogFilter({
             }}
           />
         </div>
-        <form className="ew-field" method="get" action={blogHref}>
-          <label className="ew-label" htmlFor="blog-category">
+        <form className="lk-ui-field" method="get" action={blogHref}>
+          <label className="lk-ui-label" htmlFor="blog-category">
             {t.topicLabel}
           </label>
           <select
-            className="ew-select"
+            className="lk-ui-select"
             id="blog-category"
             name="tema"
             value={activeTopic}
@@ -122,7 +122,7 @@ export function LkBlogFilter({
             ))}
           </select>
           <noscript>
-            <button className="ew-button ew-button--secondary" type="submit">
+            <button className="lk-ui-button lk-ui-button--secondary" type="submit">
               {t.topicApply}
             </button>
           </noscript>
@@ -132,16 +132,16 @@ export function LkBlogFilter({
         {t.count} {stats.matches}
       </p>
       <div ref={gridRef}>{children}</div>
-      <div id="blog-empty" className="ew-empty" hidden={stats.matches > 0}>
+      <div id="blog-empty" className="lk-ui-empty" hidden={stats.matches > 0}>
         <h2>{t.emptyTitle}</h2>
         <p>{t.emptyBody}</p>
-        <button className="ew-button ew-button--secondary" id="blog-reset" type="button" onClick={reset}>
+        <button className="lk-ui-button lk-ui-button--secondary" id="blog-reset" type="button" onClick={reset}>
           {t.reset}
         </button>
       </div>
       <div className="lk-pagination" aria-label={t.pagesAria} hidden={!stats.ready || stats.matches === 0}>
         <button
-          className="ew-button ew-button--secondary"
+          className="lk-ui-button lk-ui-button--secondary"
           id="blog-prev"
           type="button"
           disabled={stats.current === 0}
@@ -153,7 +153,7 @@ export function LkBlogFilter({
           {stats.current + 1} / {stats.total}
         </span>
         <button
-          className="ew-button"
+          className="lk-ui-button"
           id="blog-next"
           type="button"
           disabled={stats.current >= stats.total - 1}

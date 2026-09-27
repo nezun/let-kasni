@@ -25,10 +25,10 @@ export function SiteFooter({ locale }: { locale: LkLocale }) {
   const contact = lkContact(locale);
 
   return (
-    <footer id="footer" className="ew-footer lk-footer lk-footer-v2">
+    <footer id="footer" className="lk-ui-footer lk-footer lk-footer-v2">
       <div className="lk-container">
         <div className="ft-top-2">
-          <Link className="ew-wordmark lk-brand" href={paths.home} aria-label={header.homeAria}>
+          <Link className="lk-ui-wordmark lk-brand" href={paths.home} aria-label={header.homeAria}>
             {/* eslint-disable-next-line @next/next/no-img-element -- SVG logo iz v2 dizajna */}
             <img className="lk-logo" src="/lk/assets/logo.svg" width={228} height={56} alt={header.logoAlt} />
           </Link>
@@ -59,7 +59,7 @@ export function SiteFooter({ locale }: { locale: LkLocale }) {
               <LkIcon name="logo-airplane" />
               <h3 className="ft-office-title">{t.officeTitle}</h3>
               <p className="ft-office-body">{t.officeBody}</p>
-              <ClaimInlineCtaButton locale={locale} eventLabel="footer_cta" className="ew-button ft-office-cta-inline">
+              <ClaimInlineCtaButton locale={locale} eventLabel="footer_cta" className="lk-ui-button ft-office-cta-inline">
                 {t.officeButton} <LkArrow />
               </ClaimInlineCtaButton>
             </div>

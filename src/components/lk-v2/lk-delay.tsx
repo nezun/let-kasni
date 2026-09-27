@@ -17,9 +17,9 @@ export function LkDelayTop({ locale }: { locale: LkLocale }) {
     <>
       <section className="lk-hero-section lk-v2-hero" aria-labelledby="lk-hero-title">
         <div className="lk-v2-banner">
-          <div className="ew-hero lk-hero lk-container">
+          <div className="lk-ui-hero lk-hero lk-container">
             <div className="lk-hero-copy">
-              <span className="ew-badge ew-badge--cyan">{t.heroBadge}</span>
+              <span className="lk-ui-badge lk-ui-badge--cyan">{t.heroBadge}</span>
               <h1 id="lk-hero-title">
                 {t.heroTitleA}
                 <span>{t.heroTitleB}</span>
@@ -39,9 +39,9 @@ export function LkDelayTop({ locale }: { locale: LkLocale }) {
             <h2>{t.checksTitle}</h2>
             <p>{t.checksIntro}</p>
           </div>
-          <div className="ew-grid lk-benefits-grid">
+          <div className="lk-ui-grid lk-benefits-grid">
             {t.checks.map((item) => (
-              <article key={item.title} className="ew-card lk-benefit-card">
+              <article key={item.title} className="lk-ui-card lk-benefit-card">
                 <LkIcon name={item.icon} className="lk-benefit-icon" />
                 <h3>{item.title}</h3>
                 <p>{item.body}</p>
@@ -57,10 +57,10 @@ export function LkDelayTop({ locale }: { locale: LkLocale }) {
             <h2>{t.amountsTitle}</h2>
             <p>{t.amountsIntro}</p>
           </div>
-          <div className="ew-grid lk-benefits-grid">
+          <div className="lk-ui-grid lk-benefits-grid">
             {t.amounts.map((item) => (
-              <article key={item.badge} className="ew-card lk-benefit-card lk-delay-amount">
-                <span className="ew-badge">{item.badge}</span>
+              <article key={item.badge} className="lk-ui-card lk-benefit-card lk-delay-amount">
+                <span className="lk-ui-badge">{item.badge}</span>
                 <h3>
                   {item.amount} <span>€</span>
                 </h3>
@@ -70,7 +70,7 @@ export function LkDelayTop({ locale }: { locale: LkLocale }) {
           </div>
           <p className="lk-delay-note">{t.amountsNote}</p>
           <div className="lk-benefits-actions">
-            <ClaimInlineCtaButton locale={locale} eventLabel="amounts_cta" className="ew-button">
+            <ClaimInlineCtaButton locale={locale} eventLabel="amounts_cta" className="lk-ui-button">
               {t.amountsButton} <LkArrow />
             </ClaimInlineCtaButton>
           </div>
@@ -83,9 +83,9 @@ export function LkDelayTop({ locale }: { locale: LkLocale }) {
             <h2>{t.docsTitle}</h2>
             <p>{t.docsIntro}</p>
           </div>
-          <div className="ew-grid lk-benefits-grid">
+          <div className="lk-ui-grid lk-benefits-grid">
             {t.docs.map((item) => (
-              <article key={item.title} className="ew-card lk-benefit-card">
+              <article key={item.title} className="lk-ui-card lk-benefit-card">
                 <LkIcon name={item.icon} className="lk-benefit-icon" />
                 <h3>{item.title}</h3>
                 <p>{item.body}</p>
@@ -104,7 +104,7 @@ export function LkDelayTop({ locale }: { locale: LkLocale }) {
           <div className="lk-delay-care">
             {t.care.map((item) => (
               <div key={item.badge}>
-                <span className="ew-badge">{item.badge}</span>
+                <span className="lk-ui-badge">{item.badge}</span>
                 <h3>{item.title}</h3>
                 <p>{item.body}</p>
               </div>

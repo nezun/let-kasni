@@ -24,9 +24,9 @@ export function LkContentCard({
   data?: Record<`data-${string}`, string>;
 }) {
   return (
-    <article className="ew-card lk-content-card" {...data}>
-      <div className="ew-card-body">
-        <span className="ew-badge">{badge}</span>
+    <article className="lk-ui-card lk-content-card" {...data}>
+      <div className="lk-ui-card-body">
+        <span className="lk-ui-badge">{badge}</span>
         <h2>
           <Link href={href}>{title}</Link>
         </h2>
@@ -37,7 +37,7 @@ export function LkContentCard({
             {readTime ? <span>{readTime}</span> : null}
           </div>
         ) : null}
-        <Link className="ew-link" href={href}>
+        <Link className="lk-ui-link" href={href}>
           {readLabel}
         </Link>
       </div>

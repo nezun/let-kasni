@@ -25,7 +25,7 @@ export function LkModuleCard({
 
   return (
     <div className={classes}>
-      {badge ? <span className={dark ? "ew-badge ew-badge--cyan" : "ew-badge"}>{badge}</span> : null}
+      {badge ? <span className={dark ? "lk-ui-badge lk-ui-badge--cyan" : "lk-ui-badge"}>{badge}</span> : null}
       <h3>{title}</h3>
       {children}
     </div>
@@ -120,7 +120,7 @@ export function LkModuleCheck({
   return (
     <div className="lk-module lk-module-check">
       <div>
-        <span className="ew-badge ew-badge--cyan">{badge}</span>
+        <span className="lk-ui-badge lk-ui-badge--cyan">{badge}</span>
         <h3>{title}</h3>
         <p>{body}</p>
       </div>

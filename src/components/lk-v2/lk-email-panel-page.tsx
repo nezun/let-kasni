@@ -21,11 +21,11 @@ export function LkEmailPanelContent({
     <>
       <LkInnerHero locale={locale} crumbs={[{ label: title }]} badge={t.badge} title={title} lead={t.lead} />
       <section className="lk-section">
-        <div className="lk-container lk-email-panel ew-card">
+        <div className="lk-container lk-email-panel lk-ui-card">
           <h2>{t.heading}</h2>
           {children}
           <p>
-            <Link className="ew-link" href={lkPaths(locale).privacy}>
+            <Link className="lk-ui-link" href={lkPaths(locale).privacy}>
               {t.privacyLink}
             </Link>
           </p>

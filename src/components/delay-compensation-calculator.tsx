@@ -69,21 +69,21 @@ export function DelayCompensationCalculator({ locale }: { locale: Locale }) {
     return delay === "three" ? "300-600 EUR" : "600 EUR";
   }, [delay, distance]);
 
-  // Izgled iz v2 dizajna (ew-field, ew-label, ew-select u kartici modula); logika procene je ista kao ranije.
+  // Izgled iz v2 dizajna (lk-ui-field, lk-ui-label, lk-ui-select u kartici modula); logika procene je ista kao ranije.
   return (
     <div className="lk-module lk-module-card lk-module-calc">
-      <span className="ew-badge">{t.result}</span>
+      <span className="lk-ui-badge">{t.result}</span>
       <h3>{t.title}</h3>
       <p>{t.body}</p>
 
       <div className="lk-module-fields">
-        <div className="ew-field">
-          <label className="ew-label" htmlFor={`${id}-route`}>
+        <div className="lk-ui-field">
+          <label className="lk-ui-label" htmlFor={`${id}-route`}>
             {t.route}
           </label>
           <select
             id={`${id}-route`}
-            className="ew-select"
+            className="lk-ui-select"
             value={distance}
             onChange={(event) => setDistance(event.target.value as typeof distance)}
           >
@@ -93,13 +93,13 @@ export function DelayCompensationCalculator({ locale }: { locale: Locale }) {
           </select>
         </div>
 
-        <div className="ew-field">
-          <label className="ew-label" htmlFor={`${id}-delay`}>
+        <div className="lk-ui-field">
+          <label className="lk-ui-label" htmlFor={`${id}-delay`}>
             {t.delay}
           </label>
           <select
             id={`${id}-delay`}
-            className="ew-select"
+            className="lk-ui-select"
             value={delay}
             onChange={(event) => setDelay(event.target.value as typeof delay)}
           >

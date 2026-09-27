@@ -101,7 +101,7 @@ export function LkStickyCheck({ t }: { t: LkCopy["sticky"] }) {
           <p>{t.title}</p>
           <span>{t.body}</span>
         </div>
-        <a className="ew-button" href="#proveri-let" onClick={backToForm}>
+        <a className="lk-ui-button" href="#proveri-let" onClick={backToForm}>
           {t.button} <LkArrow />
         </a>
       </div>
