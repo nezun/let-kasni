@@ -102,15 +102,24 @@ export function LkHome({ locale }: { locale: LkLocale }) {
           >
             <div className="lk-ui-card-body">
               <span className="lk-ui-badge lk-ui-badge--cyan">{t.promo.badge}</span>
-              <h2 id="lk-promo-title" style={{ fontSize: "var(--lk-ui-text-h4)" }}>
-                {t.promo.titleA} {t.promo.titleB}
+              <h2 id="lk-promo-title" style={{ marginBottom: 0 }}>
+                {t.promo.titleA}
               </h2>
-              <p style={{ fontSize: "var(--lk-ui-text-h3)", opacity: 0.85, margin: 0 }}>
-                {t.promo.compareOtherLabel} <del>{t.promo.compareOtherPct}</del>
-              </p>
-              <p style={{ fontSize: "var(--lk-ui-text-h1)", fontWeight: 700, color: "var(--lk-ui-color-cyan)", margin: 0 }}>
-                {t.promo.compareUsLabel} {t.promo.compareUsPct}
-              </p>
+              <p style={{ fontSize: "var(--lk-ui-text-h4)", opacity: 0.9, margin: 0 }}>{t.promo.titleB}</p>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "var(--lk-ui-space-32)", alignItems: "flex-end" }}>
+                <div style={{ flex: "0 1 180px" }}>
+                  <p style={{ fontSize: "var(--lk-ui-text-label)", opacity: 0.75, margin: 0 }}>{t.promo.compareOtherLabel}</p>
+                  <p style={{ fontSize: "var(--lk-ui-text-h2)", opacity: 0.85, margin: 0 }}>
+                    <del>{t.promo.compareOtherPct}</del>
+                  </p>
+                </div>
+                <div style={{ flex: "0 1 180px" }}>
+                  <p style={{ fontSize: "var(--lk-ui-text-label)", opacity: 0.75, margin: 0 }}>{t.promo.compareUsLabel}</p>
+                  <p style={{ fontSize: "var(--lk-ui-text-h1)", fontWeight: 700, color: "var(--lk-ui-color-cyan)", margin: 0, lineHeight: 1 }}>
+                    {t.promo.compareUsPct}
+                  </p>
+                </div>
+              </div>
               <ClaimInlineCtaButton
                 locale={locale}
                 eventLabel="promo_banner_cta"
