@@ -1,7 +1,7 @@
 // Snimci ekrana nove verzije sajta (v2) i originala iz transport-local, za vizuelno poređenje 1:1.
 // Pokretanje (lokalni sajt i original moraju da rade):
 //   npm run dev -- --port 3107
-//   python3 -m http.server 8880 --bind 127.0.0.1 --directory "<LetKasni/sistem>/outputs/transport-local/site"
+//   python3 -m http.server 8880 --bind 127.0.0.1 --directory "<Documents/LetKasni/sistem>/outputs/transport-local/site"
 //   node scripts/lk-v2-shots.mjs [izlazni-folder] [ime-strane …]
 // Snimci idu u izlazni folder (podrazumevano reports/lk-v2-shots, nije u gitu) kao <strana>-<širina>-{nas,original}.png.
 // Koristi headless Chromium: CHROME_BIN ili Playwright keš (~/Library/Caches/ms-playwright).
