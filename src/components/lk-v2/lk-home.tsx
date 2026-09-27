@@ -23,6 +23,14 @@ const benefitIcons = [
   { set: "lk", name: "clock" },
 ] as const;
 
+// Ikonice kartica „Tu smo za Vas“ istim redom kao tekst (Nikov zadatak 28.09.2026): 24/7, podrška na srpskom,
+// advokat vodi postupak — iste ikonice kao odgovarajuće tvrdnje u benefits/localSupport.
+const supportHighlightIcons = [
+  { set: "lk", name: "clock" },
+  { set: "lk", name: "chat" },
+  { set: "lk", name: "shield" },
+] as const;
+
 const airlines = [
   { name: "Air Serbia", file: "air-serbia-symbol.svg" },
   { name: "Wizz Air", file: "wizz-air.svg" },
@@ -85,6 +93,29 @@ export function LkHome({ locale }: { locale: LkLocale }) {
       </section>
 
       <LkSteps locale={locale} />
+
+      <section className="lk-section lk-promo" id="promocija" aria-labelledby="lk-promo-title">
+        <div className="lk-container">
+          <div className="lk-ui-card lk-ui-card--featured">
+            <div className="lk-ui-card-body">
+              <span className="lk-ui-badge lk-ui-badge--cyan">{t.promo.badge}</span>
+              <h2 id="lk-promo-title">
+                {t.promo.titleA}
+                <br />
+                {t.promo.titleB}
+              </h2>
+              <p>
+                {t.promo.compareOtherLabel} <del>{t.promo.compareOtherPct}</del> · {t.promo.compareUsLabel}{" "}
+                <span className="lk-ui-badge lk-ui-badge--success">{t.promo.compareUsPct}</span>
+              </p>
+              <ClaimInlineCtaButton locale={locale} eventLabel="promo_banner_cta" className="lk-ui-button lk-ui-button--lg">
+                {t.promo.button} <LkArrow />
+              </ClaimInlineCtaButton>
+              <p>{t.promo.note}</p>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <section className="lk-section lk-compensation" id="naknada-i-provera" aria-label={t.compensation.aria}>
         <div className="lk-container lk-compensation-grid">
@@ -319,6 +350,32 @@ export function LkHome({ locale }: { locale: LkLocale }) {
                 </div>
               </details>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="lk-section lk-support-highlights" id="tu-smo-za-vas" aria-labelledby="lk-support-highlights-title">
+        <div className="lk-container">
+          <div className="lk-section-heading">
+            <h2 id="lk-support-highlights-title">{t.supportHighlights.title}</h2>
+            <p>{t.supportHighlights.body}</p>
+          </div>
+          <div className="lk-ui-grid lk-benefits-grid">
+            {t.supportHighlights.items.map((item, index) => (
+              <article key={item.title} className="lk-ui-card lk-benefit-card">
+                <LkIcon set={supportHighlightIcons[index].set} name={supportHighlightIcons[index].name} className="lk-benefit-icon" />
+                <h3>{item.title}</h3>
+                <p>{item.body}</p>
+              </article>
+            ))}
+          </div>
+          <div className="lk-feature-contact">
+            <a className="lk-ui-link" href={`tel:${contact.phone}`}>
+              {contact.phoneDisplay}
+            </a>
+            <a className="lk-ui-link" href={`mailto:${contact.email}`}>
+              {contact.email}
+            </a>
           </div>
         </div>
       </section>

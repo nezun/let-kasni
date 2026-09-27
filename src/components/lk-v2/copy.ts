@@ -265,6 +265,17 @@ export const copy = {
         },
       ],
     },
+    promo: {
+      badge: "TRENUTNA PONUDA",
+      titleA: "Bez troškova i provizije*",
+      titleB: "Ceo iznos naknade ide Vama.",
+      compareOtherLabel: "Druge platforme uzimaju:",
+      compareOtherPct: "30–50%",
+      compareUsLabel: "Letkasni.rs:",
+      compareUsPct: "0%",
+      button: "Proverite let besplatno",
+      note: "* U promotivnom periodu.",
+    },
     compensation: {
       aria: "Iznosi naknade i brza provera",
       amountsTitle: "Koliko možete da dobijete?",
@@ -404,6 +415,15 @@ export const copy = {
           q: "Mogu li da tražim odštetu za stariji let?",
           a: "Moguće je, u zavisnosti od datuma leta i pravila koja se primenjuju na konkretan slučaj. Pošaljite podatke o letu kako bismo proverili da li zahtev još može da se podnese.",
         },
+      ],
+    },
+    supportHighlights: {
+      title: "Tu smo za Vas.",
+      body: "Za sva pitanja o Vašem letu i predmetu, javite nam se — pišemo i razgovaramo na srpskom.",
+      items: [
+        { title: "24/7", body: "Prijavu možete poslati u bilo koje doba." },
+        { title: "Podrška na srpskom", body: "Pišete i razgovarate sa našim timom na srpskom jeziku." },
+        { title: "Advokat vodi postupak", body: "Advokat utvrđuje osnov i vodi komunikaciju sa avio-kompanijom." },
       ],
     },
     cta: {
@@ -726,6 +746,17 @@ export const copy = {
         },
       ],
     },
+    promo: {
+      badge: "CURRENT OFFER",
+      titleA: "No costs or commission*",
+      titleB: "You keep the full compensation amount.",
+      compareOtherLabel: "Other platforms take:",
+      compareOtherPct: "30–50%",
+      compareUsLabel: "Letkasni.rs:",
+      compareUsPct: "0%",
+      button: "Check your flight for free",
+      note: "* During the promotional period.",
+    },
     compensation: {
       aria: "Compensation amounts and quick check",
       amountsTitle: "How much can you get?",
@@ -866,6 +897,15 @@ export const copy = {
           q: "Can I claim compensation for an older flight?",
           a: "It is possible, depending on the flight date and the rules that apply to your case. Send us the flight details so we can check whether the claim can still be submitted.",
         },
+      ],
+    },
+    supportHighlights: {
+      title: "We're here for you.",
+      body: "For any question about your flight or your case, get in touch — we write and talk to you in Serbian.",
+      items: [
+        { title: "24/7", body: "You can submit your claim at any time." },
+        { title: "Support in Serbian", body: "You write and talk to our team in Serbian." },
+        { title: "A lawyer handles your case", body: "A lawyer determines the grounds and handles the airline communication." },
       ],
     },
     cta: {
