@@ -54,3 +54,7 @@ next-env.d.ts
 
 # Private GSC exports, audit snapshots and browser evidence stay local.
 /seo-audit-output/
+
+# Društvene mreže: lokalni radni folder (nacrti objava, vizuali, analiza konkurencije).
+# Repo je javan, pa ovaj folder ne ide u git; rezervu pravi Google Drive.
+/drustvene-mreze/

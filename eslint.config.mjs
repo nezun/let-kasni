@@ -14,6 +14,8 @@ const eslintConfig = defineConfig([
     "next-env.d.ts",
     ".design-import/**",
     ".vercel/**",
+    // Društvene mreže: samostalni alati (Playwright, motion), nisu deo sajta.
+    "drustvene-mreze/**",
   ]),
 ]);
 

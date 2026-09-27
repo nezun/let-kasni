@@ -9,7 +9,7 @@ import { homedir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 
 const root = resolve(import.meta.dirname, "..");
-const source = process.env.LK_V2_SOURCE ?? join(homedir(), "Documents/LetKasni/sistem/outputs/transport-local/site");
+const source = process.env.LK_V2_SOURCE ?? join(homedir(), "LetKasni/sistem/outputs/transport-local/site");
 
 export const cssFiles = [
   ["design-system/library/tokens.css", "tokens.css"],
