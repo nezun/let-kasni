@@ -9,6 +9,7 @@
     "lint": "eslint",
     "locales:check": "node scripts/check-landing-locales.mjs",
     "lk:sync": "node --test scripts/lk-v2-sync.test.mjs && node scripts/lk-v2-sync.mjs",
+    "lk:og": "node scripts/lk-v2-og.mjs",
     "copy:rules": "node scripts/check-home-copy-rules.mjs && node --test scripts/home-copy-rules.test.mjs",
     "airports:generate": "node scripts/generate-airports.mjs",
     "content:qa": "node scripts/content-qa.mjs",
@@ -32,8 +33,7 @@
     "seo:oauth-login": "node scripts/google-search-console.mjs oauth-login",
     "seo:submit-sitemap": "node scripts/google-search-console.mjs submit-sitemap",
     "seo:index-status": "node scripts/google-search-console.mjs index-status --blog-only",
-    "seo:index-status:all": "node scripts/google-search-console.mjs index-status",
-    "email-signature:check": "node scripts/check-email-signature-assets.mjs"
+    "seo:index-status:all": "node scripts/google-search-console.mjs index-status"
   },
   "dependencies": {
     "@supabase/ssr": "^0.10.2",
