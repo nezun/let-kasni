@@ -19,3 +19,31 @@
 .lk-compensation .ewo-bento-hero-card-2026{grid-column:span 1/span 1}
 .lk-compensation .ewo-bento-hero-card-2026-content{min-width:0}
 .lk-compensation .ewo-bento-hero-card-2026-visual{width:100%}
+/* Isti blok (8a5edab282-07, product-eb03924d21), prvi red bez .lk-compensation obmotača — promo sekcija na
+   početnoj (28.09.2026): default (nescoped) ewo-bento-hero-card-2026 je navy iz originala, plus services-card-grid
+   i icon-card-2026 (deo tog reda koji compensation sekcija nije koristila). Boje su prevedene na lk-ui-* tokene
+   po vrednosti (--navy-87→--lk-ui-text, --white-100→--lk-ui-surface, --black-12→--lk-ui-border,
+   --blue-100→--lk-ui-action), isto poreklo kao gornji blok. */
+.ewo-bento-hero-card-2026{background-color:var(--lk-ui-color-navy);width:100%;height:100%;color:var(--lk-ui-color-white);border-radius:16px;flex-wrap:wrap;grid-column:span 3/span 3;align-content:flex-start;align-items:flex-start;display:flex;position:relative;overflow:visible}
+.ewo-bento-hero-card-2026-content{grid-row-gap:16px;flex-direction:column;flex:1 0;align-self:stretch;align-items:flex-start;min-width:340px;padding:24px;display:flex}
+.ewo-bento-hero-card-2026-badge-row{justify-content:space-between;align-items:flex-start;width:100%;display:flex}
+.ewo-bento-hero-card-2026-badge{background-color:var(--lk-ui-color-cyan);color:var(--lk-ui-text);letter-spacing:.16px;border-radius:16px;align-items:center;padding:3px 10px;font-size:.8125rem;font-weight:400;line-height:1.38462;display:inline-flex}
+.ewo-bento-hero-card-2026-body{grid-row-gap:8px;flex-direction:column;flex:1;align-items:flex-start;width:100%;min-height:0;display:flex}
+.ewo-bento-hero-card-2026-header{grid-row-gap:10px;flex-direction:column;align-items:flex-start;width:100%;display:flex}
+.ewo-bento-hero-card-2026-title{color:var(--lk-ui-color-cyan);margin-top:0;margin-bottom:0;font-family:Gilroy,sans-serif;font-size:1.5rem;font-weight:600;line-height:1.16667}
+.ewo-bento-hero-card-2026-text{color:var(--lk-ui-color-white);text-align:left;margin-bottom:0;font-size:.875rem;line-height:1.42857}
+.ewo-bento-hero-card-2026-actions{flex-direction:column;flex:1;justify-content:flex-end;align-items:flex-start;width:100%;min-height:0;padding-top:24px;display:flex}
+.ewo-bento-hero-card-2026-link{color:var(--lk-ui-color-cyan);font-size:.9375rem;font-weight:600;line-height:1.3;text-decoration:none;transition:color .3s;display:inline-block}
+.ewo-bento-hero-card-2026-link:hover{color:var(--lk-ui-color-cyan)}
+.services-card-grid{grid-column-gap:1rem;grid-row-gap:1rem;grid-template-rows:auto;grid-template-columns:1fr 1fr 1fr 1fr;grid-auto-columns:1fr;align-items:stretch;display:grid}
+.services-card-grid-feature{grid-column:span 1/span 1;display:flex}
+.icon-card-2026{grid-column-gap:16px;grid-row-gap:16px;border-style:solid;border-width:1px;border-color:var(--lk-ui-border);background-color:var(--lk-ui-surface);width:100%;height:100%;color:var(--lk-ui-text);border-radius:16px;flex-direction:column;align-items:flex-start;padding:24px;transition:background-color .3s,border-color .3s,box-shadow .3s,color .3s;display:flex;position:relative}
+.icon-card-2026-icon{object-fit:contain;object-position:0% 50%;flex:none;width:32px;max-width:none;height:32px;display:block}
+.icon-card-2026-content{flex-direction:column;flex:1;min-width:0;height:100%;display:flex}
+.icon-card-2026-header{grid-row-gap:var(--lk-ui-space-8);flex-direction:column;display:flex}
+.icon-card-2026-title{color:inherit;margin-top:0;margin-bottom:0;font-family:Gilroy,sans-serif;font-size:1.5rem;font-weight:600;line-height:1.16667}
+.icon-card-2026-text{color:var(--lk-ui-text);text-align:left;margin-bottom:0;font-size:.875rem;line-height:1.42857}
+.icon-card-2026-link-row{align-items:flex-end;margin-top:auto;padding-top:16px;display:flex}
+.icon-card-2026-link{color:var(--lk-ui-action);font-size:.9375rem;font-weight:600;line-height:1.3;text-decoration:none;transition:color .3s;display:inline-block}
+@media screen and (max-width:991px){.ewo-bento-hero-card-2026{grid-column:span 2/span 2}.services-card-grid{grid-template-columns:1fr 1fr}.icon-card-2026{flex-direction:column}}
+@media screen and (max-width:767px){.ewo-bento-hero-card-2026{grid-column:span 1/span 1}.ewo-bento-hero-card-2026-content{min-width:0}.ewo-bento-hero-card-2026-visual{width:100%}.services-card-grid{grid-template-columns:1fr}}

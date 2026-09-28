@@ -88,37 +88,53 @@ export function LkHome({ locale }: { locale: LkLocale }) {
 
       <section className="lk-section lk-promo" id="promocija" aria-labelledby="lk-promo-title">
         <div className="lk-container">
-          <div className="lk-compensation-grid">
-            <div className="lk-ui-card lk-ui-card--featured">
-              <div className="lk-ui-card-body">
-                <span className="lk-ui-badge lk-ui-badge--cyan">{t.promo.badge}</span>
-                <h2 id="lk-promo-title">{t.promo.title}</h2>
-                <p>{t.promo.body}</p>
-                <ClaimInlineCtaButton locale={locale} eventLabel="promo_banner_cta" className="lk-ui-button">
-                  {t.promo.button} <LkArrow />
-                </ClaimInlineCtaButton>
-                <small>{t.promo.note}</small>
+          <div className="services-card-grid">
+            <div className="ewo-bento-hero-card-2026">
+              <div className="ewo-bento-hero-card-2026-content">
+                <div className="ewo-bento-hero-card-2026-badge-row">
+                  <div className="ewo-bento-hero-card-2026-badge">{t.promo.badge}</div>
+                </div>
+                <div className="ewo-bento-hero-card-2026-body">
+                  <div className="ewo-bento-hero-card-2026-header">
+                    <h2 id="lk-promo-title" className="ewo-bento-hero-card-2026-title">
+                      {t.promo.title}
+                    </h2>
+                    <p className="ewo-bento-hero-card-2026-text">{t.promo.body}</p>
+                  </div>
+                  <div className="ewo-bento-hero-card-2026-actions">
+                    <ClaimInlineCtaButton locale={locale} eventLabel="promo_banner_cta" className="lk-ui-button">
+                      {t.promo.button} <LkArrow />
+                    </ClaimInlineCtaButton>
+                    <small>{t.promo.note}</small>
+                  </div>
+                </div>
               </div>
             </div>
-            <div className="lk-ui-card">
-              <div className="lk-ui-card-body">
-                <LkIcon name="shield" className="lk-benefit-icon" />
-                <h3>{t.promo.supportTitle}</h3>
-                <ul className="lk-feature-checks">
-                  {t.promo.supportItems.map((item) => (
-                    <li key={item}>
-                      <LkIcon name="check-filled" className="lk-check" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-                <div className="lk-feature-contact">
-                  <a className="lk-ui-link" href={`tel:${contact.phone}`}>
-                    {contact.phoneDisplay}
-                  </a>
-                  <a className="lk-ui-link" href={`mailto:${contact.email}`}>
-                    {contact.email}
-                  </a>
+            <div className="services-card-grid-feature">
+              <div className="icon-card-2026">
+                <LkIcon name="shield" className="icon-card-2026-icon" />
+                <div className="icon-card-2026-content">
+                  <div className="icon-card-2026-header">
+                    <h3 className="icon-card-2026-title">{t.promo.supportTitle}</h3>
+                    <ul className="lk-feature-checks">
+                      {t.promo.supportItems.map((item) => (
+                        <li key={item}>
+                          <LkIcon name="check-filled" className="lk-check" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="icon-card-2026-link-row">
+                    <div className="lk-feature-contact">
+                      <a className="lk-ui-link" href={`tel:${contact.phone}`}>
+                        {contact.phoneDisplay}
+                      </a>
+                      <a className="lk-ui-link" href={`mailto:${contact.email}`}>
+                        {contact.email}
+                      </a>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
