@@ -9,7 +9,7 @@ async function sha256(tekst: string) {
 }
 
 function zatvoreno() {
-  return new NextResponse("LetKasni staging — pristup samo za tim.", {
+  return new NextResponse("Letkasni staging — pristup samo za tim.", {
     status: 401,
     headers: { "content-type": "text/plain; charset=utf-8", "cache-control": "no-store", "x-robots-tag": "noindex, nofollow, noarchive" },
   });
