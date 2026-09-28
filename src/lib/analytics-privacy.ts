@@ -51,7 +51,7 @@ export function analyticsEventParams(params?: Record<string, unknown>) {
       "promo_banner_cta"],
     form_locale: ["sr", "en"],
     provider_status: ["live_match", "no_match", "provider_unconfigured", "provider_skipped_budget", "timeout", "error", "outside_provider_window"],
-    issue_type: ["delay", "cancelled", "denied", "delay_3h_plus", "missed_connection_same_booking", "denied_boarding", "other"],
+    issue_type: ["delay", "cancelled", "delay_3h_plus", "missed_connection_same_booking", "denied_boarding", "other"],
   };
   const values: Record<string, unknown> = {};
   for (const [key, value] of Object.entries(params ?? {})) {

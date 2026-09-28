@@ -10,12 +10,11 @@ import { lkPaths, type LkLocale } from "@/components/lk-v2/lk-paths";
 import { trackEvent } from "@/lib/analytics";
 import { getMetaEventId, trackMetaEvent } from "@/lib/meta";
 
-type Problem = "delay" | "cancelled" | "denied" | "other";
+type Problem = "delay" | "cancelled" | "other";
 
 const problems: ReadonlyArray<{ value: Problem; icon: string }> = [
   { value: "delay", icon: "clock" },
   { value: "cancelled", icon: "cancel" },
-  { value: "denied", icon: "cancel" },
   { value: "other", icon: "more" },
 ];
 

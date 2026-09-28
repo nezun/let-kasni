@@ -238,7 +238,6 @@ export const copy = {
       issues: [
         { label: "Let je kasnio 3+ sata", note: "" },
         { label: "Let je otkazan", note: "" },
-        { label: "Odbijen ukrcaj", note: "" },
         { label: "Drugi problem", note: "(npr. štrajk, prtljag…)" },
       ],
       error: "Izaberite problem sa letom da biste nastavili.",
@@ -720,7 +719,6 @@ export const copy = {
       issues: [
         { label: "Flight delayed 3+ hours", note: "" },
         { label: "Flight cancelled", note: "" },
-        { label: "Denied boarding", note: "" },
         { label: "Another issue", note: "(e.g. strike, baggage…)" },
       ],
       error: "Choose what happened to your flight to continue.",
