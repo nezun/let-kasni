@@ -460,3 +460,26 @@
     padding: 2px;
   }
 }
+
+/* Proba dve verzije sajta (28.09.2026): nov logo za B ima drugačije proporcije (širi/niži) od originala, pa
+   deljena .lk-logo{width:228px} (letkasni.css) daje previsok rezultat — Niko je to prijavio (28.09, zaglavlje
+   prevelike). Ova klasa ide UZ .lk-logo samo za B i računa se preko visine, ne širine, da ikonica ostane vizuelno
+   iste visine kao stari logo u A (ikonica ~40px visine loga = ~34px na računaru, ~33px = ~28px na telefonu).
+   Selektori namerno ponavljaju .lk-brand/.lk-header/.lk-footer iz letkasni.css da specifičnost bude veća od
+   postojećih pravila (koja ostaju nepromenjena, i dalje važe za A). */
+.lk-brand .lk-logo.lk-logo-b {
+  width: auto;
+  height: 40px;
+}
+
+.lk-footer .lk-brand .lk-logo.lk-logo-b {
+  width: auto;
+  height: 40px;
+}
+
+@media (max-width: 700px) {
+  .lk-header .lk-brand .lk-logo.lk-logo-b {
+    width: auto;
+    height: 33px;
+  }
+}

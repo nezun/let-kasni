@@ -63,10 +63,10 @@ export function LkHeader({
         <Link className="lk-ui-wordmark lk-brand" href={paths.home} aria-label={t.homeAria} onClick={close}>
           {/* eslint-disable-next-line @next/next/no-img-element -- SVG logo iz v2 dizajna, bez obrade slike */}
           <img
-            className="lk-logo"
+            className={verzija === "b" ? "lk-logo lk-logo-b" : "lk-logo"}
             src={logo}
-            width={verzija === "b" ? 185 : 228}
-            height={56}
+            width={verzija === "b" ? 132 : 228}
+            height={verzija === "b" ? 40 : 56}
             alt={t.logoAlt}
           />
         </Link>
