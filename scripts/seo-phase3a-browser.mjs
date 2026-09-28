@@ -49,7 +49,7 @@ for (const width of [1440, 390]) {
       const commands = [
         ["viewport", `${width}x900`], ["goto", base + group[locale].target],
         ["wait", "--networkidle"],
-        ["click", locale === "sr" ? 'button:has-text("Odbij neobavezne")' : 'button:has-text("Reject optional")'],
+        ["click", locale === "sr" ? 'button:has-text("Odbij")' : 'button:has-text("Reject")'],
         ["js", expression],
       ];
       if (["A", "E"].includes(group.group)) {
@@ -71,7 +71,7 @@ for (const width of [1440, 390]) {
     const name = `form-${locale}-${width}`;
     run(name, [
       ["viewport", `${width}x900`], ["goto", base + pair.target], ["wait", "--networkidle"],
-      ["click", locale === "sr" ? 'button:has-text("Odbij neobavezne")' : 'button:has-text("Reject optional")'],
+      ["click", locale === "sr" ? 'button:has-text("Odbij")' : 'button:has-text("Reject")'],
       ["click", `button:has-text("${cta}")`], ["wait", "input[name=flightDate]"],
       ["fill", "input[name=flightNumber]", "JU101"], ["fill", "input[name=flightDate]", "2026-09-01"],
       ["fill", "input[name=route]", "BEG - FRA"], ["click", `button:has-text("${next}")`],

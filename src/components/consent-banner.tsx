@@ -22,12 +22,12 @@ const adminConsent: TrackingConsent = {
 const copy = {
   sr: {
     dialogLabel: "Podešavanja kolačića",
-    body: "Neophodne tehnologije koristimo da sajt radi i zapamti vaš izbor. Uz vaš odvojeni izbor možemo koristiti analitiku i alate za merenje oglašavanja.",
+    lead: "Kolačići za analitiku i oglase, samo uz Vaš pristanak.",
     privacy: "Politika privatnosti",
     terms: "Uslovi korišćenja",
-    accept: "Prihvati sve kolačiće",
-    reject: "Odbij neobavezne",
-    settings: "Podešavanja kolačića",
+    accept: "Prihvati",
+    reject: "Odbij",
+    settings: "Podešavanja",
     settingsClose: "Sakrij podešavanja",
     save: "Sačuvaj izbor",
     optionsTitle: "Opciono",
@@ -38,13 +38,13 @@ const copy = {
   },
   en: {
     dialogLabel: "Cookie consent",
-    body: "We use necessary technologies to operate the website and remember your choice. With your separate selection, we may use analytics and advertising measurement tools.",
+    lead: "Cookies for analytics and ads, only with your consent.",
     privacy: "Privacy Policy",
     terms: "Terms of Use",
-    accept: "Accept All Cookies",
-    reject: "Reject optional",
-    settings: "Cookie Settings",
-    settingsClose: "Hide cookie settings",
+    accept: "Accept",
+    reject: "Reject",
+    settings: "Settings",
+    settingsClose: "Hide settings",
     save: "Save choice",
     optionsTitle: "Optional tools",
     analytics: "Analytics",
@@ -109,16 +109,44 @@ export function ConsentBanner({
     });
   }
 
-  // Sažet baner u izgledu nove verzije sajta (v2): kartica preko dna ekrana, tekst levo i mala dugmad desno; na
-  // telefonu tekst pa dugmad. Tekst i izbori su isti kao ranije (vezani su za verziju obaveštenja o kolačićima).
+  // Sažet baner (Niko 28.09: „najmanje moguće condensed, pogotovu na telefonu“): jedan tanak red — kratka
+  // rečenica sa „Podešavanja“ na kraju istog reda, i dva dugmeta iste veličine. Podešavanja (analitika/oglašavanje
+  // + linkovi na Politiku privatnosti/Uslove) se otvaraju tek na klik, unutar istog banera.
   return (
     <div data-consent-banner className="consent-banner lk-cookies lk-ui-scope">
       <aside role="dialog" aria-modal="true" aria-label={t.dialogLabel} aria-describedby={descriptionId} className="lk-cookies-card">
-        <p id={descriptionId} className="lk-cookies-text">
-          {t.body} <Link href={termsHref}>{t.terms}</Link>
-          <span aria-hidden="true"> · </span>
-          <Link href={privacyHref}>{t.privacy}</Link>
-        </p>
+        <div className="lk-cookies-row">
+          <p id={descriptionId} className="lk-cookies-text">
+            {t.lead}{" "}
+            <button
+              type="button"
+              aria-expanded={customizing}
+              aria-controls={settingsId}
+              onClick={() => setCustomizing((current) => !current)}
+              className="lk-cookies-settings"
+            >
+              {customizing ? t.settingsClose : t.settings}
+            </button>
+          </p>
+
+          <div className="lk-cookies-actions">
+            <button
+              ref={firstActionRef}
+              type="button"
+              onClick={() => saveChoice({ analytics: true, marketing: true })}
+              className="lk-ui-button"
+            >
+              {t.accept}
+            </button>
+            <button
+              type="button"
+              onClick={() => saveChoice({ analytics: false, marketing: false })}
+              className="lk-ui-button lk-ui-button--secondary"
+            >
+              {t.reject}
+            </button>
+          </div>
+        </div>
 
         {customizing ? (
           <fieldset id={settingsId} className="lk-cookies-options">
@@ -153,38 +181,16 @@ export function ConsentBanner({
                 <strong>{t.marketing}</strong> {t.marketingBody}
               </span>
             </label>
+            <p className="lk-cookies-links">
+              <Link href={termsHref}>{t.terms}</Link>
+              <span aria-hidden="true"> · </span>
+              <Link href={privacyHref}>{t.privacy}</Link>
+            </p>
             <button type="button" onClick={() => saveChoice(selection)} className="lk-ui-button">
               {t.save}
             </button>
           </fieldset>
         ) : null}
-
-        <div className="lk-cookies-actions">
-          <button
-            ref={firstActionRef}
-            type="button"
-            onClick={() => saveChoice({ analytics: true, marketing: true })}
-            className="lk-ui-button"
-          >
-            {t.accept}
-          </button>
-          <button
-            type="button"
-            onClick={() => saveChoice({ analytics: false, marketing: false })}
-            className="lk-ui-button lk-ui-button--secondary"
-          >
-            {t.reject}
-          </button>
-          <button
-            type="button"
-            aria-expanded={customizing}
-            aria-controls={settingsId}
-            onClick={() => setCustomizing((current) => !current)}
-            className="lk-cookies-settings"
-          >
-            {customizing ? t.settingsClose : t.settings}
-          </button>
-        </div>
       </aside>
     </div>
   );

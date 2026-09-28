@@ -314,14 +314,14 @@
   font-weight: 600;
 }
 
-/* Baner za kolačiće (ConsentBanner u layout.tsx, van omotača strane) u izgledu nove verzije: sažeta kartica preko
-   dna ekrana, tekst levo i mala v2 dugmad desno (desktop je jedan red); na telefonu tekst pa dugmad. Niko 27.09:
-   „promeni baner da bude baš condensed manji po našem dizajnu“. */
+/* Baner za kolačiće (ConsentBanner u layout.tsx, van omotača strane), maksimalno condensed (Niko 28.09: „najmanje
+   moguće condensed, pogotovu na telefonu“): jedan tanak red — tekst+„Podešavanja“ i dva dugmeta iste veličine;
+   podešavanja (analitika/oglašavanje, linkovi) se otvaraju ispod, tek na klik, unutar iste kartice. */
 .lk-cookies {
   position: fixed;
   left: 16px;
   right: 16px;
-  bottom: 16px;
+  bottom: 12px;
   z-index: 120;
   display: flex;
   justify-content: center;
@@ -331,30 +331,30 @@
 .lk-cookies-card {
   pointer-events: auto;
   width: 100%;
-  max-width: 1200px;
+  max-width: 880px;
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 12px 24px;
-  padding: 12px 14px 12px 20px;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px 16px;
   background: var(--lk-ui-surface);
   border: 1px solid var(--lk-ui-border);
   border-radius: var(--lk-ui-radius-lg);
   box-shadow: var(--lk-ui-shadow-lg);
 }
 
-.lk-cookies-text {
-  flex: 1 1 420px;
-  margin: 0;
-  font-size: 13px;
-  line-height: 1.5;
-  color: var(--lk-ui-text-secondary);
+.lk-cookies-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
 }
 
-.lk-cookies-text a {
-  color: var(--lk-ui-link);
-  text-decoration: underline;
-  text-underline-offset: 3px;
+.lk-cookies-text {
+  flex: 1 1 auto;
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--lk-ui-text-secondary);
 }
 
 .lk-cookies-actions {
@@ -364,18 +364,19 @@
   flex: 0 0 auto;
 }
 
-.lk-cookies .lk-ui-button {
-  min-height: 38px;
-  padding: 8px 16px;
+.lk-cookies-actions .lk-ui-button {
+  min-height: 32px;
+  padding: 6px 14px;
   font-size: 13px;
   white-space: nowrap;
 }
 
 .lk-cookies-settings {
-  padding: 8px 6px;
+  display: inline;
+  padding: 0;
   border: 0;
   background: none;
-  font: 600 13px/1.2 var(--lk-ui-font-body);
+  font: 600 13px/1.4 var(--lk-ui-font-body);
   color: var(--lk-ui-link);
   text-decoration: underline;
   text-underline-offset: 3px;
@@ -384,8 +385,6 @@
 }
 
 .lk-cookies-options {
-  flex: 1 1 100%;
-  order: 3;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -428,36 +427,51 @@
   color: var(--lk-ui-color-navy-deep);
 }
 
+.lk-cookies-links {
+  flex: 1 1 100%;
+  margin: 0;
+  font-size: 12px;
+  color: var(--lk-ui-text-secondary);
+}
+
+.lk-cookies-links a {
+  color: var(--lk-ui-link);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 @media (max-width: 700px) {
   .lk-cookies {
     left: 8px;
     right: 8px;
-    bottom: 8px;
+    bottom: 6px;
   }
 
   .lk-cookies-card {
-    gap: 10px;
-    padding: 12px;
+    gap: 8px;
+    padding: 10px 12px;
+  }
+
+  .lk-cookies-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
   }
 
   .lk-cookies-text {
-    flex-basis: 100%;
     font-size: 12px;
+    line-height: 1.3;
   }
 
   .lk-cookies-actions {
-    flex: 1 1 100%;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
   }
 
   .lk-cookies-actions .lk-ui-button {
-    flex: 1 1 0;
+    min-height: 36px;
     padding-inline: 10px;
-  }
-
-  .lk-cookies-settings {
-    flex: 1 1 100%;
-    padding: 2px;
   }
 }
 

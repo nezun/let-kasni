@@ -20,7 +20,7 @@ for (const width of [1440, 390]) {
     const contact = english ? "Where should we send the results?" : "Gde da pošaljemo rezultate?";
     const commands = [
       ["viewport", `${width}x900`], ["goto", base + retired.articles[0][locale]],
-      ["wait", "h1"], ["click", english ? 'button:has-text("Reject optional")' : 'button:has-text("Odbij neobavezne")'],
+      ["wait", "h1"], ["click", english ? 'button:has-text("Reject")' : 'button:has-text("Odbij")'],
       ["js", `(() => {const d={kind:'404',width:innerWidth,scrollWidth:document.documentElement.scrollWidth,title:document.querySelector('h1')?.textContent,locale:document.documentElement.lang,footer:!!document.querySelector('footer'),navigation:!!document.querySelector('nav'),noindex:document.querySelector('meta[name=robots]')?.content};d.passed=d.width===${width}&&d.scrollWidth<=innerWidth+1&&d.title===${JSON.stringify(title)}&&d.locale===${JSON.stringify(locale)}&&d.footer&&d.navigation&&d.noindex?.includes('noindex');return 'QA_RESULT='+JSON.stringify(d)})()`],
       ["screenshot", "--viewport", path.join(out, `404-${name}.png`)],
       ["goto", base + groups.find(g => g.group === "E")[locale].target], ["wait", "--networkidle"],
