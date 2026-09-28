@@ -6,6 +6,7 @@ import { LkArrow, LkIcon } from "@/components/lk-v2/lk-icon";
 import { lkContact, lkHref, lkPaths, type LkLocale } from "@/components/lk-v2/lk-paths";
 import { PrivacySettingsButton } from "@/components/privacy-settings-button";
 import { cornerstonePages, getCornerstoneHref } from "@/lib/cornerstones";
+import { getSiteVerzija } from "@/lib/site-version";
 
 function guideHref(id: string, locale: LkLocale) {
   const page = cornerstonePages.find((candidate) => candidate.id === id);
@@ -18,11 +19,13 @@ function guideHref(id: string, locale: LkLocale) {
  * linkovima: O nama, sidra na početnoj, Česta pitanja, blog, Kontakt, glavni vodiči i pravne strane, uz „Podešavanja
  * privatnosti“ (ponovni izbor kolačića). Ikonice društvenih mreža su iz dizajna, bez linka dok profili ne budu uneti.
  */
-export function SiteFooter({ locale }: { locale: LkLocale }) {
+export async function SiteFooter({ locale }: { locale: LkLocale }) {
   const t = copy[locale].footer;
   const header = copy[locale].header;
   const paths = lkPaths(locale);
   const contact = lkContact(locale);
+  const verzija = await getSiteVerzija();
+  const logo = verzija === "b" ? "/lk/assets/brand-b/logo-horizontalno-tamna.svg" : "/lk/assets/logo.svg";
 
   return (
     <footer id="footer" className="lk-ui-footer lk-footer lk-footer-v2">
@@ -30,7 +33,13 @@ export function SiteFooter({ locale }: { locale: LkLocale }) {
         <div className="ft-top-2">
           <Link className="lk-ui-wordmark lk-brand" href={paths.home} aria-label={header.homeAria}>
             {/* eslint-disable-next-line @next/next/no-img-element -- SVG logo iz v2 dizajna */}
-            <img className="lk-logo" src="/lk/assets/logo.svg" width={228} height={56} alt={header.logoAlt} />
+            <img
+              className="lk-logo"
+              src={logo}
+              width={verzija === "b" ? 185 : 228}
+              height={56}
+              alt={header.logoAlt}
+            />
           </Link>
           <div className="ft-social-2" aria-label={t.socialAria}>
             <span className="ft-social-link" role="img" aria-label="Facebook" title="Facebook">

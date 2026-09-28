@@ -3,6 +3,7 @@
 import { hasAnalyticsConsent } from "@/lib/consent";
 import { getGoogleAnalyticsId } from "@/lib/env";
 import { analyticsEventParams, analyticsPageContext } from "@/lib/analytics-privacy";
+import { getSiteVerzijaClient } from "@/lib/site-version";
 
 let publicPaths: readonly string[] = [];
 let initialized = false;
@@ -52,6 +53,7 @@ export function trackPageView(url: string) {
   window.gtag("config", getGoogleAnalyticsId(), { ...context, update: true, send_page_view: false });
   window.gtag("event", "page_view", {
     ...context,
+    verzija: getSiteVerzijaClient() === "b" ? "B" : "A",
     send_to: getGoogleAnalyticsId(),
   });
 }
@@ -67,7 +69,9 @@ export function trackEvent(eventName: string, params?: Record<string, unknown>) 
 
   const context = analyticsPageContext(window.location.href, document.referrer, publicPaths);
   if (!context || !initialized) return;
+  // proba dve verzije sajta (28.09.2026): verzija ide u svaki događaj, jedno mesto za sve pozivaoce
+  const verzija = getSiteVerzijaClient() === "b" ? "B" : "A";
   window.gtag("event", eventName, {
-    ...analyticsEventParams(params), ...context, send_to: getGoogleAnalyticsId(),
+    ...analyticsEventParams({ ...params, verzija }), ...context, send_to: getGoogleAnalyticsId(),
   });
 }

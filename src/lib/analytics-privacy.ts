@@ -52,6 +52,8 @@ export function analyticsEventParams(params?: Record<string, unknown>) {
     form_locale: ["sr", "en"],
     provider_status: ["live_match", "no_match", "provider_unconfigured", "provider_skipped_budget", "timeout", "error", "outside_provider_window"],
     issue_type: ["delay", "cancelled", "delay_3h_plus", "missed_connection_same_booking", "denied_boarding", "other"],
+    // proba dve verzije sajta (28.09.2026): A/B ide u svaki događaj, ubacuje ga trackEvent sam
+    verzija: ["A", "B"],
   };
   const values: Record<string, unknown> = {};
   for (const [key, value] of Object.entries(params ?? {})) {

@@ -2,6 +2,9 @@ import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
 const KOLACIC_STAGING = "lk_staging";
+// Ime kolačića mora da se poklopi sa KOLACIC_VERZIJA u src/lib/site-version.ts (ovde je duplirano jer proxy.ts
+// radi u posebnom Edge okruženju i ne sme da uvozi next/headers, koje taj fajl koristi).
+const KOLACIC_VERZIJA = "lk_verzija";
 
 async function sha256(tekst: string) {
   const bajtovi = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(tekst));
@@ -36,9 +39,27 @@ async function stagingKapija(request: NextRequest): Promise<NextResponse | null>
   return request.cookies.get(KOLACIC_STAGING)?.value === ocekivano ? null : zatvoreno();
 }
 
+/**
+ * Proba dve verzije sajta (Niko, preko CTO-a, 28.09.2026): ?verzija=a|b postavlja kolačić lk_verzija (host-only,
+ * path=/, 30 dana) i preusmerava na istu adresu bez tog parametra. Bez kolačića važi A. Isti kolačić čita i forma
+ * (aplikacija za prijave), pa nije httpOnly — kolačić ne nosi ništa osetljivo, samo slovo verzije.
+ */
+function verzijaKolacic(request: NextRequest): NextResponse | null {
+  const izLinka = request.nextUrl.searchParams.get("verzija");
+  if (izLinka !== "a" && izLinka !== "b") return null;
+  const cilj = request.nextUrl.clone();
+  cilj.searchParams.delete("verzija");
+  const odgovor = NextResponse.redirect(cilj);
+  odgovor.cookies.set(KOLACIC_VERZIJA, izLinka, { path: "/", sameSite: "lax", secure: true, maxAge: 30 * 24 * 60 * 60 });
+  return odgovor;
+}
+
 export async function proxy(request: NextRequest) {
   const kapija = await stagingKapija(request);
   if (kapija) return kapija;
+
+  const verzija = verzijaKolacic(request);
+  if (verzija) return verzija;
 
   const requestHeaders = new Headers(request.headers);
   const locale = request.nextUrl.pathname.startsWith("/en") ? "en" : "sr";

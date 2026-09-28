@@ -7,6 +7,7 @@ import { ClaimInlineCtaButton } from "@/components/claim-inline-cta-button";
 import type { LkCopy } from "@/components/lk-v2/copy";
 import { LkArrow, LkIcon } from "@/components/lk-v2/lk-icon";
 import { lkHref, lkPaths, type LkLocale } from "@/components/lk-v2/lk-paths";
+import type { SiteVerzija } from "@/lib/site-version";
 
 /**
  * Header nove verzije (blok letkasni-v2/header). Dugme „Proverite let“ vodi na formu u aplikaciji za prijave, sa istim
@@ -18,13 +19,17 @@ export function LkHeader({
   alternateHref,
   t,
   nav,
+  verzija = "a",
 }: {
   locale: LkLocale;
   alternateHref: string;
   t: LkCopy["header"];
   /** Meni strane umesto zajedničkog (npr. sidra na vodiču za kašnjenje, kao na originalu). */
   nav?: ReadonlyArray<{ href: string; label: string }>;
+  /** Proba dve verzije sajta (28.09.2026): B menja logo u zaglavlju. */
+  verzija?: SiteVerzija;
 }) {
+  const logo = verzija === "b" ? "/lk/assets/brand-b/logo-horizontalno-svetla.svg" : "/lk/assets/logo.svg";
   const paths = lkPaths(locale);
   const items = nav ?? t.nav.map((item) => ({ href: lkHref(locale, item.to), label: item.label }));
   const [open, setOpen] = useState(false);
@@ -57,7 +62,13 @@ export function LkHeader({
       <div className="lk-ui-header lk-container">
         <Link className="lk-ui-wordmark lk-brand" href={paths.home} aria-label={t.homeAria} onClick={close}>
           {/* eslint-disable-next-line @next/next/no-img-element -- SVG logo iz v2 dizajna, bez obrade slike */}
-          <img className="lk-logo" src="/lk/assets/logo.svg" width={228} height={56} alt={t.logoAlt} />
+          <img
+            className="lk-logo"
+            src={logo}
+            width={verzija === "b" ? 185 : 228}
+            height={56}
+            alt={t.logoAlt}
+          />
         </Link>
         <nav className="lk-desktop-nav" aria-label={t.navAria}>
           {items.map((item) => (

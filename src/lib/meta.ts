@@ -1,6 +1,7 @@
 "use client";
 
 import { hasMarketingConsent } from "@/lib/consent";
+import { getSiteVerzijaClient } from "@/lib/site-version";
 
 declare global {
   interface Window {
@@ -31,8 +32,10 @@ export function trackMetaEvent(
     return;
   }
 
+  // proba dve verzije sajta (28.09.2026): verzija ide u svaki događaj, jedno mesto za sve pozivaoce
+  const verzija = getSiteVerzijaClient() === "b" ? "B" : "A";
   const cleanParams = Object.fromEntries(
-    Object.entries(params).filter(([, value]) => value !== undefined),
+    Object.entries({ ...params, verzija }).filter(([, value]) => value !== undefined),
   );
 
   if (eventId) {
