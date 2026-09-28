@@ -3,7 +3,7 @@
 import { withCurrentAttributionParameters } from "@/lib/attribution";
 
 type Locale = "sr" | "en";
-type Problem = "delay" | "cancelled" | "other";
+type Problem = "delay" | "cancelled" | "denied" | "other";
 
 /** Adresa forme. Formu služi aplikacija za klijente na istom domenu (multi-zone), pa se ide punim učitavanjem strane. */
 export function adresaForme(locale: Locale, problem?: Problem) {
