@@ -342,15 +342,19 @@
   box-shadow: var(--lk-ui-shadow-lg);
 }
 
+/* Tri stavke u jednom flex redu (tekst, „Podešavanja“, dugmad): tekst i Podešavanja prianjaju levo (podrazumevana
+   veličina, bez rastezanja), dugmad ide skroz desno preko margin-left:auto (ne justify-content, jer bi to razmaklo
+   sve tri stavke ravnomerno umesto da grupiše tekst+Podešavanja). Na telefonu (media niže) tekst dobija
+   flex-basis:100%, pa Podešavanja i dugmad prelaze u drugi red — isti margin-left:auto ih tamo razmiče, levo/desno. */
 .lk-cookies-row {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
-  gap: 16px;
+  gap: 8px;
 }
 
 .lk-cookies-text {
-  flex: 1 1 auto;
+  flex: 0 1 auto;
   margin: 0;
   font-size: 13px;
   line-height: 1.4;
@@ -361,7 +365,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  flex: 0 0 auto;
+  margin-left: auto;
 }
 
 .lk-cookies-actions .lk-ui-button {
@@ -372,7 +376,6 @@
 }
 
 .lk-cookies-settings {
-  display: inline;
   padding: 0;
   border: 0;
   background: none;
@@ -453,25 +456,13 @@
   }
 
   .lk-cookies-row {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 6px;
-  }
-
-  .lk-cookies-text {
-    font-size: 12px;
-    line-height: 1.3;
-  }
-
-  .lk-cookies-actions {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
     gap: 8px;
   }
 
-  .lk-cookies-actions .lk-ui-button {
-    min-height: 36px;
-    padding-inline: 10px;
+  .lk-cookies-text {
+    flex-basis: 100%;
+    font-size: 12px;
+    line-height: 1.3;
   }
 }
 

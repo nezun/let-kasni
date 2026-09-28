@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useId, useRef, useState, useSyncExternalStore } from "react";
+import { useId, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -62,7 +62,6 @@ export function ConsentBanner({
   const pathname = usePathname();
   const descriptionId = useId();
   const settingsId = useId();
-  const firstActionRef = useRef<HTMLButtonElement>(null);
   const [customizing, setCustomizing] = useState(false);
   const [selection, setSelection] = useState<ConsentSelection>({
     analytics: false,
@@ -90,12 +89,6 @@ export function ConsentBanner({
     process.env.NODE_ENV !== "production" &&
     (pathname === "/proveri-let" || pathname === "/en/check-flight");
 
-  useEffect(() => {
-    if (!consent) {
-      firstActionRef.current?.focus();
-    }
-  }, [consent]);
-
   if (consent || isLocalFocusedFlow) {
     return null;
   }
@@ -112,26 +105,28 @@ export function ConsentBanner({
   // Sažet baner (Niko 28.09: „najmanje moguće condensed, pogotovu na telefonu“): jedan tanak red — kratka
   // rečenica sa „Podešavanja“ na kraju istog reda, i dva dugmeta iste veličine. Podešavanja (analitika/oglašavanje
   // + linkovi na Politiku privatnosti/Uslove) se otvaraju tek na klik, unutar istog banera.
+  // Nemodalan (CMO 28.09): ne blokira stranu i ne krade fokus pri učitavanju — role="region" umesto dialog,
+  // fokus ostaje gde je bio dok korisnik sam ne dođe do dugmadi (tastaturom ili klikom).
   return (
     <div data-consent-banner className="consent-banner lk-cookies lk-ui-scope">
-      <aside role="dialog" aria-modal="true" aria-label={t.dialogLabel} aria-describedby={descriptionId} className="lk-cookies-card">
+      <aside role="region" aria-label={t.dialogLabel} aria-describedby={descriptionId} className="lk-cookies-card">
         <div className="lk-cookies-row">
           <p id={descriptionId} className="lk-cookies-text">
-            {t.lead}{" "}
-            <button
-              type="button"
-              aria-expanded={customizing}
-              aria-controls={settingsId}
-              onClick={() => setCustomizing((current) => !current)}
-              className="lk-cookies-settings"
-            >
-              {customizing ? t.settingsClose : t.settings}
-            </button>
+            {t.lead}
           </p>
+
+          <button
+            type="button"
+            aria-expanded={customizing}
+            aria-controls={settingsId}
+            onClick={() => setCustomizing((current) => !current)}
+            className="lk-cookies-settings"
+          >
+            {customizing ? t.settingsClose : t.settings}
+          </button>
 
           <div className="lk-cookies-actions">
             <button
-              ref={firstActionRef}
               type="button"
               onClick={() => saveChoice({ analytics: true, marketing: true })}
               className="lk-ui-button"
