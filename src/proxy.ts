@@ -51,6 +51,9 @@ function verzijaKolacic(request: NextRequest): NextResponse | null {
   cilj.searchParams.delete("verzija");
   const odgovor = NextResponse.redirect(cilj);
   odgovor.cookies.set(KOLACIC_VERZIJA, izLinka, { path: "/", sameSite: "lax", secure: true, maxAge: 30 * 24 * 60 * 60 });
+  // Bez ovoga Vercel Edge može da keš uje preusmerenje/odredišnu stranu po URL-u (bez obzira na kolačić), pa
+  // drugi posetilac dobija tuđu verziju (Niko, 28.09.2026: A i B su prikazivale istu stranu na stagingu).
+  odgovor.headers.set("cache-control", "private, no-store");
   return odgovor;
 }
 
@@ -76,6 +79,10 @@ export async function proxy(request: NextRequest) {
   if (request.headers.get("host")?.startsWith("staging.")) {
     odgovor.headers.set("X-Robots-Tag", "noindex, nofollow, noarchive");
   }
+
+  // Zaglavlje/footer/ikonice zavise od lk_verzija kolačića (proba A/B, 28.09.2026); bez ovoga CDN keš strane po
+  // URL-u (ne po kolačiću) meša verzije između posetilaca.
+  odgovor.headers.set("cache-control", "private, no-store");
 
   return odgovor;
 }
