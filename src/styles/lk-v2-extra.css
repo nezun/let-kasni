@@ -483,3 +483,16 @@
     height: 33px;
   }
 }
+
+/* Promo kartica (uvezen blok 8a5edab282-07, catalog-bento.css): sitewide .lk-page h2{margin:0 0 20px} pravilo
+   (letkasni.css) je specifičnije od .ewo-bento-hero-card-2026-title{margin-bottom:0} (tag+klasa pobeđuje samu
+   klasu), pa je naslov dobijao dodatnih 20px razmaka ispod sebe. Ovde je namerno specifičnije (tag+klasa
+   unutar -header) da uvek pobedi, bez obzira na redosled učitavanja CSS-a. Niko, 28.09.2026. */
+.ewo-bento-hero-card-2026-header h2.ewo-bento-hero-card-2026-title {
+  margin: 0;
+}
+
+/* Dugme i napomena u -actions nemaju razmak (blok ga izvorno nije imao jer originalno tu stoji samo dugme). */
+.ewo-bento-hero-card-2026-actions {
+  gap: var(--lk-ui-space-12);
+}

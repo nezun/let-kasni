@@ -47,3 +47,25 @@
 .icon-card-2026-link{color:var(--lk-ui-action);font-size:.9375rem;font-weight:600;line-height:1.3;text-decoration:none;transition:color .3s;display:inline-block}
 @media screen and (max-width:991px){.ewo-bento-hero-card-2026{grid-column:span 2/span 2}.services-card-grid{grid-template-columns:1fr 1fr}.icon-card-2026{flex-direction:column}}
 @media screen and (max-width:767px){.ewo-bento-hero-card-2026{grid-column:span 1/span 1}.ewo-bento-hero-card-2026-content{min-width:0}.ewo-bento-hero-card-2026-visual{width:100%}.services-card-grid{grid-template-columns:1fr}}
+/* Isti blok, plava varijanta "vertical-secondary" (icon-card-2026, kao "Fuel card" u uzorku) — "Tu smo za Vas"
+   kartica (28.09.2026, Nikova ispravka). Izvor: design-system/brand-blocks/styles/34abf956b618930a.css,
+   :where(.w-variant-20d28394-39fb-6c3f-76b2-58393099b654) pravila. Pozadina je --lk-ui-action (#006AEC) umesto
+   originalnih #0073ff/#0062e4 — beli tekst na #006AEC ima kontrast 4,9:1 (AA), na #0073ff samo 4,3:1. Hover koji je
+   u originalu na celoj kartici je izbačen (kartica ovde ne vodi nigde, samo linkovi unutra). Kvačice i lk-ui-link
+   (telefon/mejl) dobijaju belu boju — u originalu nisu deo ovog bloka, ali su plavi po podrazumevanoj boji sajta i
+   bez ovoga bi bili neuočljivi na plavoj pozadini. */
+.icon-card-2026--blue{color:var(--lk-ui-color-white);background-color:var(--lk-ui-action);border-color:var(--lk-ui-action)}
+.icon-card-2026--blue .icon-card-2026-icon{filter:brightness(0) invert(1)}
+.icon-card-2026--blue .icon-card-2026-text{color:var(--lk-ui-color-white)}
+.icon-card-2026--blue .icon-card-2026-link{color:var(--lk-ui-color-white)}
+.icon-card-2026--blue .icon-card-2026-link:hover{color:#ffffffde}
+.icon-card-2026--blue .lk-check,.icon-card-2026--blue .lk-feature-checks .lk-ui-icon{color:var(--lk-ui-color-white)}
+.icon-card-2026--blue .lk-ui-link{color:var(--lk-ui-color-white)}
+/* Promo sekcija (28.09.2026, Nikova ispravka): blok 50/50 na desktopu — obe kartice iste širine i
+   visine, u istoj 4-kolonskoj mreži (span 2 + span 2), umesto originalnog 3+1 rasporeda iz uzorka.
+   Samo raspon je nov, ostatak bloka je nepromenjen. Van >=992px se ne primenjuje — na 768-991px i
+   ispod originalne media-query vrednosti iz uzorka (span 2/2 pa span 1/1, jedna kolona) već rade. */
+@media screen and (min-width: 992px) {
+  .lk-promo .ewo-bento-hero-card-2026 { grid-column: span 2 / span 2; }
+  .lk-promo .services-card-grid-feature { grid-column: span 2 / span 2; }
+}
