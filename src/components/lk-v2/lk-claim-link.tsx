@@ -18,11 +18,13 @@ export function LkClaimLink({
   eventLabel,
   className,
   children,
+  tabIndex,
 }: {
   locale: Locale;
   eventLabel: string;
   className: string;
   children: ReactNode;
+  tabIndex?: number;
 }) {
   function open(event: MouseEvent<HTMLAnchorElement>) {
     if (event.metaKey || event.ctrlKey || event.shiftKey || event.button !== 0) return;
@@ -37,7 +39,7 @@ export function LkClaimLink({
   }
 
   return (
-    <a className={className} href={adresaForme(locale)} onClick={open}>
+    <a className={className} href={adresaForme(locale)} onClick={open} tabIndex={tabIndex}>
       {children}
     </a>
   );

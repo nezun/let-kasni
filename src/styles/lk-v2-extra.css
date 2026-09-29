@@ -524,33 +524,83 @@
   }
 }
 
-/* Traka sa trenutnom ponudom iznad zaglavlja (SiteHeader, Niko 29.09): cijan iz tokena, navy tekst (kontrast ~12:1). */
+/* Traka sa trenutnom ponudom iznad zaglavlja (SiteHeader, Niko 29.09): cijan iz tokena, navy tekst (kontrast ~12:1).
+   Tekst teče u krug (8 istih redova, pomeraj -50% = tačno 4 reda, zato razmak ide kao padding, ne flex gap); staje na
+   prelaz mišem/fokus. Bez animacije (prefers-reduced-motion) ostaje jedan red, centriran. */
 .lk-announcement {
+  overflow: hidden;
   background: var(--lk-ui-color-cyan);
   color: var(--lk-ui-color-navy);
 }
 
-.lk-announcement p {
-  margin-block: 0;
-  padding-block: 10px;
-  text-align: center;
+.lk-announcement-track {
+  display: flex;
+  width: max-content;
+  animation: lk-announcement-scroll 40s linear infinite;
+}
+
+.lk-announcement:hover .lk-announcement-track,
+.lk-announcement:focus-within .lk-announcement-track {
+  animation-play-state: paused;
+}
+
+.lk-announcement-item {
+  flex: none;
+  margin: 0;
+  padding: 10px var(--lk-ui-space-48) 10px 0;
+  white-space: nowrap;
   font-size: 14px;
   font-weight: 600;
   line-height: 1.4;
   color: inherit;
 }
 
+.lk-announcement-item::after {
+  content: "•" / "";
+  margin-inline-start: var(--lk-ui-space-48);
+}
+
 .lk-announcement-link {
   color: inherit;
   text-decoration: underline;
   text-underline-offset: 3px;
-  white-space: nowrap;
+}
+
+@keyframes lk-announcement-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 @media (max-width: 700px) {
-  .lk-announcement p {
+  .lk-announcement-item {
     padding-block: 8px;
     font-size: 13px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lk-announcement-track {
+    display: block;
+    width: auto;
+    animation: none;
+  }
+
+  .lk-announcement-item[aria-hidden="true"] {
+    display: none;
+  }
+
+  .lk-announcement-item {
+    padding-inline: var(--lk-ui-space-16);
+    white-space: normal;
+    text-align: center;
+  }
+
+  .lk-announcement-item::after {
+    content: none;
   }
 }
 
