@@ -501,3 +501,25 @@
 .ewo-bento-hero-card-2026-actions {
   gap: var(--lk-ui-space-12);
 }
+
+/* Završni poziv (LkFinalCta) na telefonu (Niko 29.09: „prevelika visina, ako ti smeta skloni grafiku desno“):
+   ilustracija „primer provere“ je apsolutno pozicionirana, a letkasni.css joj na ≤700px rezerviše mesto preko
+   padding-bottom:70% na tekstu — to je davalo veliku praznu navy površinu. Na telefonu grafika ne ide, tekst i dugme
+   određuju visinu, a cijan dijagonala ostaje samo kao mali ugao da ne prekriva dugme. Računar je nepromenjen. */
+@media (max-width: 700px) {
+  .lk-final-cta .banner-diagonal-image {
+    display: none;
+  }
+
+  .lk-final-cta .banner-diagonal-content-wrapper {
+    padding-bottom: var(--lk-ui-space-32);
+  }
+
+  .lk-final-cta .banner-diagonal-content {
+    padding-bottom: 0;
+  }
+
+  .lk-final-cta .hero-diagonal-bg {
+    clip-path: polygon(100% 80%, 100% 100%, 75% 100%);
+  }
+}

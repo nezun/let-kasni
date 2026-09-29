@@ -4,6 +4,7 @@ import Link from "next/link";
 import { copy } from "@/components/lk-v2/copy";
 import { LkClaimLink } from "@/components/lk-v2/lk-claim-link";
 import { LkYourEuropeNote } from "@/components/lk-v2/lk-delay";
+import { LkBenefits, LkSteps, LkTestimonials } from "@/components/lk-v2/lk-home";
 import { LkFaqSection, LkFinalCta, LkInnerHero } from "@/components/lk-v2/lk-inner";
 import { lkContact, lkPaths, type LkLocale } from "@/components/lk-v2/lk-paths";
 import { siteOperator } from "@/lib/site-operator";
@@ -97,6 +98,9 @@ export function LkAboutContent({ locale }: { locale: LkLocale }) {
           </div>
         </div>
       </section>
+      <LkBenefits locale={locale} eventLabel="about_features_cta" />
+      <LkSteps locale={locale} />
+      <LkTestimonials locale={locale} />
       <LkFinalCta locale={locale} />
     </>
   );

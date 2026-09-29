@@ -222,31 +222,7 @@ export async function LkHome({ locale }: { locale: LkLocale }) {
         </div>
       </section>
 
-      <section className="lk-section lk-benefits" id="prednosti" aria-labelledby="lk-benefits-title">
-        <div className="lk-container">
-          <div className="lk-section-heading">
-            <h2 id="lk-benefits-title">{t.benefits.title}</h2>
-            <p>{t.benefits.body}</p>
-          </div>
-          <div className="lk-ui-grid lk-benefits-grid">
-            {t.benefits.items.map((item, index) => (
-              <article key={item.title} className="lk-ui-card lk-benefit-card">
-                <LkIcon set={benefitIcons[index].set} name={benefitIcons[index].name} className="lk-benefit-icon" />
-                <h3>{item.title}</h3>
-                <p>{item.body}</p>
-              </article>
-            ))}
-          </div>
-          <div className="lk-benefits-actions">
-            <ClaimInlineCtaButton locale={locale} eventLabel="features_cta" className="lk-ui-button lk-ui-button--lg">
-              {t.benefits.button}
-            </ClaimInlineCtaButton>
-            <a className="lk-ui-link" href="#kako-radi">
-              {t.benefits.link} <LkArrow />
-            </a>
-          </div>
-        </div>
-      </section>
+      <LkBenefits locale={locale} />
 
       <section className="lk-section lk-feature lk-airlines" id="avio-kompanije" aria-labelledby="lk-airlines-title">
         <div className="lk-container">
@@ -435,6 +411,39 @@ export async function LkHome({ locale }: { locale: LkLocale }) {
         </div>
       </section>
     </>
+  );
+}
+
+/** „Zašto putnici biraju…“ (v2 blok benefits); isti blok je i na strani O nama. */
+export function LkBenefits({ locale, eventLabel = "features_cta" }: { locale: LkLocale; eventLabel?: string }) {
+  const t = copy[locale];
+
+  return (
+    <section className="lk-section lk-benefits" id="prednosti" aria-labelledby="lk-benefits-title">
+      <div className="lk-container">
+        <div className="lk-section-heading">
+          <h2 id="lk-benefits-title">{t.benefits.title}</h2>
+          <p>{t.benefits.body}</p>
+        </div>
+        <div className="lk-ui-grid lk-benefits-grid">
+          {t.benefits.items.map((item, index) => (
+            <article key={item.title} className="lk-ui-card lk-benefit-card">
+              <LkIcon set={benefitIcons[index].set} name={benefitIcons[index].name} className="lk-benefit-icon" />
+              <h3>{item.title}</h3>
+              <p>{item.body}</p>
+            </article>
+          ))}
+        </div>
+        <div className="lk-benefits-actions">
+          <ClaimInlineCtaButton locale={locale} eventLabel={eventLabel} className="lk-ui-button lk-ui-button--lg">
+            {t.benefits.button}
+          </ClaimInlineCtaButton>
+          <a className="lk-ui-link" href="#kako-radi">
+            {t.benefits.link} <LkArrow />
+          </a>
+        </div>
+      </div>
+    </section>
   );
 }
 

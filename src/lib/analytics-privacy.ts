@@ -48,7 +48,9 @@ export function analyticsEventParams(params?: Record<string, unknown>) {
       // dugmad nove verzije sajta (v2, 27.09.2026)
       "amounts_cta", "phone_panel_cta", "features_cta", "partners_cta", "quick_check_cta", "footer_cta", "guide_hero_cta", "guide_toc_cta", "blog_toc_cta", "legal_toc_cta", "not_found_cta", "contact_page_cta",
       // promo traka na početnoj (28.09.2026)
-      "promo_banner_cta"],
+      "promo_banner_cta",
+      // blok „Zašto putnici biraju…“ na strani O nama (29.09.2026)
+      "about_features_cta"],
     form_locale: ["sr", "en"],
     provider_status: ["live_match", "no_match", "provider_unconfigured", "provider_skipped_budget", "timeout", "error", "outside_provider_window"],
     issue_type: ["delay", "cancelled", "delay_3h_plus", "missed_connection_same_booking", "denied_boarding", "other"],
