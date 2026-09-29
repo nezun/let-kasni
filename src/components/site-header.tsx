@@ -1,4 +1,5 @@
 import { copy } from "@/components/lk-v2/copy";
+import { LkClaimLink } from "@/components/lk-v2/lk-claim-link";
 import { LkHeader } from "@/components/lk-v2/lk-header";
 import type { LkLocale } from "@/components/lk-v2/lk-paths";
 import { getSiteVerzija } from "@/lib/site-version";
@@ -19,13 +20,25 @@ export async function SiteHeader({
   nav?: ReadonlyArray<{ href: string; label: string }>;
 }) {
   const verzija = await getSiteVerzija();
+  const t = copy[locale].header;
   return (
-    <LkHeader
-      locale={locale}
-      alternateHref={alternateHref ?? (locale === "sr" ? "/en" : "/")}
-      t={copy[locale].header}
-      nav={nav}
-      verzija={verzija}
-    />
+    <>
+      {/* Traka sa trenutnom ponudom iznad zaglavlja (Niko 29.09); van <header>, pa odlazi skrolom, a zaglavlje ostaje lepljivo. */}
+      <div className="lk-announcement">
+        <p className="lk-container">
+          {t.announcement}{" "}
+          <LkClaimLink locale={locale} eventLabel="announcement_bar_cta" className="lk-announcement-link">
+            {t.announcementLink} →
+          </LkClaimLink>
+        </p>
+      </div>
+      <LkHeader
+        locale={locale}
+        alternateHref={alternateHref ?? (locale === "sr" ? "/en" : "/")}
+        t={t}
+        nav={nav}
+        verzija={verzija}
+      />
+    </>
   );
 }

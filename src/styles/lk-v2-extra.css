@@ -523,3 +523,64 @@
     clip-path: polygon(100% 80%, 100% 100%, 75% 100%);
   }
 }
+
+/* Traka sa trenutnom ponudom iznad zaglavlja (SiteHeader, Niko 29.09): cijan iz tokena, navy tekst (kontrast ~12:1). */
+.lk-announcement {
+  background: var(--lk-ui-color-cyan);
+  color: var(--lk-ui-color-navy);
+}
+
+.lk-announcement p {
+  margin-block: 0;
+  padding-block: 10px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: inherit;
+}
+
+.lk-announcement-link {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  white-space: nowrap;
+}
+
+@media (max-width: 700px) {
+  .lk-announcement p {
+    padding-block: 8px;
+    font-size: 13px;
+  }
+}
+
+/* Lepljivi poziv na dnu (LkStickyCheck, Niko 29.09): odvojen od dna i zaobljen kao ostale kartice, iste širine kao
+   sadržaj strane (prati .lk-container). Skriven se spušta ispod ivice ekrana i za razmak od dna. */
+.lk-sticky-check {
+  bottom: calc(var(--lk-ui-space-16) + env(safe-area-inset-bottom));
+  width: calc(100% - var(--lk-ui-space-96));
+  max-width: calc(var(--lk-ui-container) + var(--lk-ui-space-80) * 2);
+  margin-inline: auto;
+  padding: var(--lk-ui-space-16) var(--lk-ui-space-32);
+  border-radius: var(--lk-ui-radius-lg);
+  transform: translateY(calc(100% + var(--lk-ui-space-32)));
+}
+
+.lk-sticky-check .lk-sticky-check-inner {
+  width: 100%;
+  max-width: none;
+}
+
+@media (max-width: 1100px) {
+  .lk-sticky-check {
+    width: calc(100% - var(--lk-ui-space-64));
+  }
+}
+
+@media (max-width: 700px) {
+  .lk-sticky-check {
+    bottom: calc(var(--lk-ui-space-12) + env(safe-area-inset-bottom));
+    width: calc(100% - var(--lk-ui-space-40));
+    padding: var(--lk-ui-space-12) var(--lk-ui-space-16);
+  }
+}

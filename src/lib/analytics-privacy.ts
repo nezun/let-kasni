@@ -50,7 +50,9 @@ export function analyticsEventParams(params?: Record<string, unknown>) {
       // promo traka na početnoj (28.09.2026)
       "promo_banner_cta",
       // blok „Zašto putnici biraju…“ na strani O nama (29.09.2026)
-      "about_features_cta"],
+      "about_features_cta",
+      // traka sa ponudom iznad zaglavlja (29.09.2026)
+      "announcement_bar_cta"],
     form_locale: ["sr", "en"],
     provider_status: ["live_match", "no_match", "provider_unconfigured", "provider_skipped_budget", "timeout", "error", "outside_provider_window"],
     issue_type: ["delay", "cancelled", "delay_3h_plus", "missed_connection_same_booking", "denied_boarding", "other"],
