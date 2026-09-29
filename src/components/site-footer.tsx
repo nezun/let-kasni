@@ -6,6 +6,7 @@ import { LkArrow, LkIcon } from "@/components/lk-v2/lk-icon";
 import { lkContact, lkHref, lkPaths, type LkLocale } from "@/components/lk-v2/lk-paths";
 import { PrivacySettingsButton } from "@/components/privacy-settings-button";
 import { cornerstonePages, getCornerstoneHref } from "@/lib/cornerstones";
+import { siteOperator } from "@/lib/site-operator";
 import { getSiteVerzija } from "@/lib/site-version";
 
 function guideHref(id: string, locale: LkLocale) {
@@ -17,7 +18,7 @@ function guideHref(id: string, locale: LkLocale) {
 /**
  * Zajednički footer svih javnih strana (nova verzija sajta, v2 iz transport-local; blok letkasni-v2/footer), sa našim
  * linkovima: O nama, sidra na početnoj, Česta pitanja, blog, Kontakt, glavni vodiči i pravne strane, uz „Podešavanja
- * privatnosti“ (ponovni izbor kolačića). Ikonice društvenih mreža su iz dizajna, bez linka dok profili ne budu uneti.
+ * privatnosti“ (ponovni izbor kolačića). Ikonice društvenih mreža vode na naše profile (siteOperator.social).
  */
 export async function SiteFooter({ locale }: { locale: LkLocale }) {
   const t = copy[locale].footer;
@@ -44,7 +45,7 @@ export async function SiteFooter({ locale }: { locale: LkLocale }) {
             />
           </Link>
           <div className="ft-social-2" aria-label={t.socialAria}>
-            <span className="ft-social-link" role="img" aria-label="Facebook" title="Facebook">
+            <a className="ft-social-link" href={siteOperator.social.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook" title="Facebook">
               <svg viewBox="0 0 32 32" aria-hidden="true">
                 <circle cx="16" cy="16" r="16" fill="currentColor" />
                 <path
@@ -52,15 +53,15 @@ export async function SiteFooter({ locale }: { locale: LkLocale }) {
                   fill="white"
                 />
               </svg>
-            </span>
-            <span className="ft-social-link" role="img" aria-label="Instagram" title="Instagram">
+            </a>
+            <a className="ft-social-link" href={siteOperator.social.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram">
               <svg viewBox="0 0 32 32" aria-hidden="true">
                 <circle cx="16" cy="16" r="16" fill="currentColor" />
                 <rect x="8" y="8" width="16" height="16" rx="5" fill="none" stroke="white" strokeWidth="2" />
                 <circle cx="16" cy="16" r="4" fill="none" stroke="white" strokeWidth="2" />
                 <circle cx="21" cy="11" r="1.3" fill="white" />
               </svg>
-            </span>
+            </a>
           </div>
         </div>
         <div className="ft-divider" />

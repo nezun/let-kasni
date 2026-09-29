@@ -24,6 +24,7 @@ export function SiteIdentitySchema() {
         url,
         email: siteOperator.email.sr,
         telephone: siteOperator.phone,
+        sameAs: [siteOperator.social.facebook, siteOperator.social.instagram],
       },
     ],
   };

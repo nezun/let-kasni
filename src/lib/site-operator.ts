@@ -8,4 +8,9 @@ export const siteOperator = {
   mb: "21873446",
   phone: "+381637003779",
   email: { sr: "kontakt@letkasni.rs", en: "office@letkasni.rs" },
+  // Facebook stranica još nema korisničko ime, pa ide adresa po ID-u (ostaje ispravna i kad ga dobije).
+  social: {
+    facebook: "https://www.facebook.com/profile.php?id=61592592661385",
+    instagram: "https://www.instagram.com/letkasni.rs/",
+  },
 } as const;
