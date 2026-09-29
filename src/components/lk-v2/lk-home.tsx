@@ -111,7 +111,7 @@ export function LkHome({ locale }: { locale: LkLocale }) {
               </div>
             </div>
             <div className="services-card-grid-feature">
-              <div className="icon-card-2026 icon-card-2026--blue">
+              <div className="icon-card-2026">
                 <LkIcon name="shield" className="icon-card-2026-icon" />
                 <div className="icon-card-2026-content">
                   <div className="icon-card-2026-header">
