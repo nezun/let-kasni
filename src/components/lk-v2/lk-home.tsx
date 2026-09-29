@@ -12,6 +12,7 @@ import { lkContact, lkPaths, type LkLocale } from "@/components/lk-v2/lk-paths";
 import { getBlogArticleImage, getBlogArticles } from "@/lib/blog";
 import { getArticleCornerstoneHref } from "@/lib/cornerstones";
 import { formatDisplayDate } from "@/lib/date-format";
+import { getSiteVerzija } from "@/lib/site-version";
 
 // Ikonice kartica „Zašto putnici biraju…“ istim redom kao tekst (v2 blok benefits).
 const benefitIcons = [
@@ -58,11 +59,16 @@ function latestArticles(locale: LkLocale, count: number) {
 }
 
 /** Početna strana nove verzije sajta: blokovi iz transport-local (letkasni-v2 i letkasni), naš tekst i linkovi. */
-export function LkHome({ locale }: { locale: LkLocale }) {
+export async function LkHome({ locale }: { locale: LkLocale }) {
   const t = copy[locale];
   const paths = lkPaths(locale);
   const contact = lkContact(locale);
   const articles = latestArticles(locale, 4);
+  const verzija = await getSiteVerzija();
+  // Telefon-mokap u sekciji „Koliko možete da dobijete“ (ispod) je čisto ilustrativan, ne prati stvarnu formu, ali
+  // ikonica u njemu treba da prati verziju sajta — Niko 29.09: stari LK znak ostao u B dok su zaglavlje/podnožje već
+  // na novom.
+  const phoneMarkLogo = verzija === "b" ? "/lk/assets/brand-b/icon.svg" : "/lk/assets/logo-mark.svg";
 
   return (
     <>
@@ -198,7 +204,7 @@ export function LkHome({ locale }: { locale: LkLocale }) {
                 <div className="lk-phone" role="img" aria-label={t.compensation.phoneAria}>
                   <div className="lk-phone-camera" aria-hidden="true" />
                   <div className="lk-phone-screen" aria-hidden="true">
-                    <img src="/lk/assets/logo-mark.svg" alt="" width={32} height={32} />
+                    <img src={phoneMarkLogo} alt="" width={32} height={32} />
                     <span className="lk-ui-badge">{t.compensation.phoneBadge}</span>
                     <h3>{t.compensation.phoneQuestion}</h3>
                     {t.compensation.phoneOptions.map((option, index) => (
