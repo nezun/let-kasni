@@ -634,3 +634,107 @@
     padding: var(--lk-ui-space-12) var(--lk-ui-space-16);
   }
 }
+
+/* Izbor jezika (LkLanguageMenu / LkLanguageRow, Niko 29.09): obrazac nav-lang-selector iz dizajn sistema
+   (zastavica + naziv jezika), boje i razmaci iz tokena, lista kao .lk-ui-menu. Na računaru mali padajući meni na
+   mestu .lk-language (koji ga na ≤900px sakriva); na telefonu oba jezika kao prvi red menija. */
+.lk-lang {
+  position: relative;
+}
+
+.lk-lang-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--lk-ui-space-8);
+  min-height: 40px;
+  padding: 0 var(--lk-ui-space-8);
+  border: 0;
+  border-radius: var(--lk-ui-radius-md);
+  background: none;
+  font: 600 var(--lk-ui-text-label) / 1 var(--lk-ui-font-body);
+  color: var(--lk-ui-color-navy-deep);
+  cursor: pointer;
+}
+
+.lk-lang-toggle:hover,
+.lk-lang-toggle[aria-expanded="true"] {
+  background: var(--lk-ui-info-bg);
+}
+
+.lk-lang-flag {
+  flex: none;
+  width: 28px;
+  height: auto;
+  border-radius: 2px;
+}
+
+.lk-lang-toggle .lk-lang-flag {
+  width: 22px;
+}
+
+.lk-lang-chevron {
+  width: 12px;
+  height: 12px;
+  transition: transform var(--lk-ui-duration-fast, 0.15s) ease;
+}
+
+.lk-lang-toggle[aria-expanded="true"] .lk-lang-chevron {
+  transform: rotate(180deg);
+}
+
+.lk-lang-list {
+  position: absolute;
+  top: calc(100% + var(--lk-ui-space-8));
+  right: 0;
+  z-index: var(--lk-ui-z-dropdown);
+  min-width: 170px;
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  background: var(--lk-ui-surface);
+  border: 1px solid var(--lk-ui-border);
+  border-radius: var(--lk-ui-radius-md);
+  box-shadow: var(--lk-ui-shadow-md);
+}
+
+.lk-lang-option {
+  display: flex;
+  align-items: center;
+  gap: var(--lk-ui-space-12);
+  padding: 8px 12px;
+  border-radius: var(--lk-ui-radius-sm);
+  font-size: 0.875rem;
+  color: var(--lk-ui-text);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.lk-lang-option:hover {
+  background: var(--lk-ui-info-bg);
+}
+
+.lk-lang-option[aria-current="true"] {
+  font-weight: 600;
+}
+
+.lk-lang-row {
+  display: flex;
+  gap: var(--lk-ui-space-8);
+  margin: 0;
+  padding: var(--lk-ui-space-16) 0;
+  list-style: none;
+  border-bottom: 1px solid var(--lk-ui-border);
+}
+
+.lk-mobile-nav .lk-lang-option {
+  display: flex;
+  padding: 10px 14px;
+  border: 1px solid var(--lk-ui-border);
+  border-radius: var(--lk-ui-radius-md);
+  color: var(--lk-ui-color-navy-deep);
+}
+
+.lk-mobile-nav .lk-lang-option[aria-current="true"] {
+  border-color: var(--lk-ui-action);
+  background: var(--lk-ui-info-bg);
+}

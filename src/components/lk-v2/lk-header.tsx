@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { ClaimInlineCtaButton } from "@/components/claim-inline-cta-button";
 import type { LkCopy } from "@/components/lk-v2/copy";
 import { LkArrow, LkIcon } from "@/components/lk-v2/lk-icon";
+import { LkLanguageMenu, LkLanguageRow } from "@/components/lk-v2/lk-language";
 import { lkHref, lkPaths, type LkLocale } from "@/components/lk-v2/lk-paths";
 import type { SiteVerzija } from "@/lib/site-version";
 
@@ -34,7 +35,6 @@ export function LkHeader({
   const items = nav ?? t.nav.map((item) => ({ href: lkHref(locale, item.to), label: item.label }));
   const [open, setOpen] = useState(false);
   const toggle = useRef<HTMLButtonElement>(null);
-  const otherLang = locale === "sr" ? "en" : "sr";
 
   useEffect(() => {
     if (!open) return;
@@ -79,10 +79,7 @@ export function LkHeader({
           <Link href={paths.blog}>{t.blog}</Link>
         </nav>
         <div className="lk-header-actions">
-          {/* Pun prelaz na drugi jezik: layout postavlja jezik strane (html lang) po adresi. */}
-          <a className="lk-language" href={alternateHref} lang={otherLang} aria-label={t.localeAria}>
-            {t.localeLabel}
-          </a>
+          <LkLanguageMenu locale={locale} alternateHref={alternateHref} label={t.languageLabel} />
           <ClaimInlineCtaButton locale={locale} eventLabel="nav_cta" className="lk-ui-button lk-header-cta">
             {t.cta} <LkArrow />
           </ClaimInlineCtaButton>
@@ -100,6 +97,7 @@ export function LkHeader({
         </div>
       </div>
       <nav className="lk-mobile-nav" id="lk-mobile-nav" aria-label={t.mobileNavAria} hidden={!open}>
+        <LkLanguageRow locale={locale} alternateHref={alternateHref} label={t.languageLabel} />
         {items.map((item) => (
           <Link key={item.href} href={item.href} onClick={close}>
             {item.label}
@@ -108,9 +106,6 @@ export function LkHeader({
         <Link href={paths.blog} onClick={close}>
           {t.blog}
         </Link>
-        <a href={alternateHref} lang={otherLang}>
-          {t.mobileLocale}
-        </a>
       </nav>
     </header>
   );

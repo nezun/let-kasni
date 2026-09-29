@@ -29,7 +29,12 @@ export const assetDirs = [
   ["letkasni/assets/features", "assets/features", (name) => /\.(jpe?g|png|webp)$/i.test(name)],
   ["design-system/assets/fonts", "fonts", (name) => /\.woff2$/i.test(name)],
 ];
-export const singleAssets = [["design-system/assets/icons.svg", "ds/icons.svg"]];
+// Zastavice za izbor jezika u zaglavlju (blok nav-lang-selector dizajn sistema, 56×44 za prikaz 28×22).
+export const singleAssets = [
+  ["design-system/assets/icons.svg", "ds/icons.svg"],
+  ["_assets/cdn.prod.website-files.com/640885a438a8cac228718a04/640885a438a8caa71c718aa4_Serbia@2x.png", "assets/flags/rs.png"],
+  ["_assets/cdn.prod.website-files.com/640885a438a8cac228718a04/640885a438a8ca112f718ad8_Great Britain@2x.png", "assets/flags/gb.png"],
+];
 
 // Fontovi u tokens.css se učitavaju sa /lk/fonts/ (public), da CSS ne zavisi od strukture izvornog projekta.
 export function rewriteCss(name, css) {
