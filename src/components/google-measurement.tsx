@@ -6,7 +6,9 @@ import Script from "next/script";
 
 import {
   captureCurrentAttribution,
+  clearSessionAttribution,
   clearStoredAttribution,
+  rememberSessionAttribution,
 } from "@/lib/attribution";
 import {
   getTrackingConsent,
@@ -46,6 +48,8 @@ export function GoogleMeasurement() {
       if (!measurementAllowed) return;
       if (current?.marketing) captureCurrentAttribution();
       else clearStoredAttribution();
+      if (current?.analytics) rememberSessionAttribution();
+      else clearSessionAttribution();
     };
 
     syncConsent();
@@ -55,7 +59,8 @@ export function GoogleMeasurement() {
 
   useEffect(() => {
     if (measurementAllowed && consent?.marketing) captureCurrentAttribution();
-  }, [consent?.marketing, measurementAllowed, pathname, searchParams]);
+    if (measurementAllowed && consent?.analytics) rememberSessionAttribution();
+  }, [consent?.analytics, consent?.marketing, measurementAllowed, pathname, searchParams]);
 
   useEffect(() => {
     const trackContactClick = (event: MouseEvent) => {

@@ -60,10 +60,14 @@ const {
 );
 const {
   appendAttributionParameters,
+  appendForwardAttribution,
   attributionMaxAgeMs,
   attributionStorageKey,
+  cleanForwardValue,
   getAttributionFromPage,
+  getForwardableAttribution,
   hasPaidAttribution,
+  sanitizeForwardableAttribution,
   mergeAttribution,
   sanitizeClaimAttribution,
 } = await import(
@@ -144,6 +148,8 @@ function loadGoogleTracking({
 
 function loadAttributionClient({
   marketing = true,
+  analytics = false,
+  sessionValues = new Map(),
   storedValue,
   pageUrl = "https://letkasni.rs/?gclid=TEST&utm_medium=cpc",
   referrer = "https://www.google.com/search?q=private",
@@ -155,11 +161,11 @@ function loadAttributionClient({
   )
     .replace(
       /import \{[\s\S]*?\} from "@\/lib\/attribution-core";/,
-      "const { appendAttributionParameters, attributionMaxAgeMs, attributionStorageKey, getAttributionFromPage, mergeAttribution, sanitizeClaimAttribution } = globalThis.__attributionCore;",
+      "const { appendForwardAttribution, attributionMaxAgeMs, attributionStorageKey, getAttributionFromPage, getForwardableAttribution, mergeAttribution, sanitizeClaimAttribution, sanitizeForwardableAttribution } = globalThis.__attributionCore;",
     )
     .replace(
-      'import { hasMarketingConsent } from "@/lib/consent";',
-      "const { hasMarketingConsent } = globalThis.__consent;",
+      'import { hasAnalyticsConsent, hasMarketingConsent } from "@/lib/consent";',
+      "const { hasAnalyticsConsent, hasMarketingConsent } = globalThis.__consent;",
     );
   const storageValues = new Map();
   if (storedValue !== undefined) {
@@ -180,7 +186,12 @@ function loadAttributionClient({
     },
   };
   const testModule = { exports: {} };
-  const window = { localStorage, location: { href: pageUrl } };
+  const sessionStorage = {
+    getItem: (key) => sessionValues.get(key) ?? null,
+    setItem: (key, value) => sessionValues.set(key, value),
+    removeItem: (key) => sessionValues.delete(key),
+  };
+  const window = { localStorage, sessionStorage, location: { href: pageUrl, origin: new URL(pageUrl).origin } };
 
   vm.runInNewContext(compileCommonJs(source), {
     module: testModule,
@@ -188,14 +199,16 @@ function loadAttributionClient({
     window,
     document: { referrer },
     __attributionCore: {
-      appendAttributionParameters,
+      appendForwardAttribution,
       attributionMaxAgeMs,
       attributionStorageKey,
       getAttributionFromPage,
+      getForwardableAttribution,
       mergeAttribution,
       sanitizeClaimAttribution,
+      sanitizeForwardableAttribution,
     },
-    __consent: { hasMarketingConsent: () => marketing },
+    __consent: { hasAnalyticsConsent: () => analytics, hasMarketingConsent: () => marketing },
   });
 
   return { exports: testModule.exports, storageValues };
@@ -369,18 +382,81 @@ test("forwards attribution through the focused-flow navigation", () => {
   );
 });
 
-test("does not forward campaign parameters before advertising consent", () => {
-  const denied = loadAttributionClient({ marketing: false });
+// 29.09.2026 (CMO/Niko, Statistika u CRM-u): izvor sa ulazne strane ide do forme uvek, samo kroz adresu (ništa se ne
+// čuva na uređaju, isti princip kao Google URL passthrough). Čuvanje prvog izvora u sesiji je samo uz pristanak za analitiku.
+test("forwards campaign parameters from the current URL without consent, URL only", () => {
+  const denied = loadAttributionClient({ marketing: false, analytics: false });
   assert.equal(
     denied.exports.withCurrentAttributionParameters("/proveri-let"),
-    "/proveri-let",
+    "/proveri-let?gclid=TEST&utm_medium=cpc",
   );
+  assert.equal(denied.storageValues.size, 0);
 
-  const granted = loadAttributionClient({ marketing: true });
+  const granted = loadAttributionClient({ marketing: true, analytics: true });
   assert.equal(
     granted.exports.withCurrentAttributionParameters("/proveri-let"),
     "/proveri-let?gclid=TEST&utm_medium=cpc",
   );
+});
+
+test("forwarding keeps the form's own parameters and all five UTM fields", () => {
+  const client = loadAttributionClient({
+    marketing: false,
+    pageUrl: "https://letkasni.rs/?utm_source=facebook&utm_medium=paid_social&utm_campaign=test&utm_content=01-iznos&utm_term=kasnjenje&issue=cancelled&preporuka=X",
+  });
+  assert.equal(
+    client.exports.withCurrentAttributionParameters("/proveri-let?step=2&issue=delay&forma=kratka"),
+    "/proveri-let?step=2&issue=delay&forma=kratka&utm_source=facebook&utm_medium=paid_social&utm_campaign=test&utm_term=kasnjenje&utm_content=01-iznos",
+  );
+  assert.equal(
+    appendForwardAttribution("/proveri-let?preporuka=MARKO-7Q4K&utm_source=preporuka", { utm_source: "facebook", gclid: "G1" }, "https://letkasni.rs"),
+    "/proveri-let?preporuka=MARKO-7Q4K&utm_source=preporuka&gclid=G1",
+  );
+  assert.equal(appendForwardAttribution("https://evil.example/x", { gclid: "G1" }, "https://letkasni.rs"), "https://evil.example/x");
+});
+
+test("forwarded values are cleaned and bounded", () => {
+  assert.equal(cleanForwardValue('<script>alert("x")</script>'), "scriptalert(x)/script");
+  assert.equal(cleanForwardValue("Kašnjenje leta | jesen 2026"), "Kašnjenje leta | jesen 2026");
+  assert.equal(cleanForwardValue("x".repeat(400)).length, 150);
+  assert.equal(cleanForwardValue("  \u0000;;;  "), undefined);
+  assert.deepEqual(getForwardableAttribution("https://letkasni.rs/?utm_source=a%22b&email=private@example.com&gbraid=GB&wbraid=WB"), {
+    gbraid: "GB",
+    wbraid: "WB",
+    utm_source: "ab",
+  });
+  assert.deepEqual(sanitizeForwardableAttribution({ utm_source: "ok", email: "x@y.z", gclid: 5 }), { utm_source: "ok" });
+});
+
+test("session keeps the first source only with analytics consent and never mixes sources", () => {
+  const sessionValues = new Map();
+  const landing = loadAttributionClient({
+    analytics: true,
+    sessionValues,
+    pageUrl: "https://letkasni.rs/?utm_source=facebook&utm_medium=paid_social",
+  });
+  landing.exports.rememberSessionAttribution();
+  const second = loadAttributionClient({ analytics: true, sessionValues, pageUrl: "https://letkasni.rs/blog?utm_source=google" });
+  second.exports.rememberSessionAttribution();
+
+  const inner = loadAttributionClient({ analytics: true, sessionValues, pageUrl: "https://letkasni.rs/o-nama" });
+  assert.equal(
+    inner.exports.withCurrentAttributionParameters("/proveri-let"),
+    "/proveri-let?utm_source=facebook&utm_medium=paid_social",
+  );
+  assert.equal(
+    second.exports.withCurrentAttributionParameters("/proveri-let"),
+    "/proveri-let?utm_source=google",
+  );
+
+  const withoutConsent = loadAttributionClient({ analytics: false, sessionValues, pageUrl: "https://letkasni.rs/o-nama" });
+  assert.equal(withoutConsent.exports.withCurrentAttributionParameters("/proveri-let"), "/proveri-let");
+  withoutConsent.exports.rememberSessionAttribution();
+  assert.equal(sessionValues.size, 0);
+
+  const noConsentLanding = new Map();
+  loadAttributionClient({ analytics: false, sessionValues: noConsentLanding, pageUrl: "https://letkasni.rs/?utm_source=facebook" }).exports.rememberSessionAttribution();
+  assert.equal(noConsentLanding.size, 0);
 });
 
 test("server sanitizer accepts only bounded structured attribution", () => {

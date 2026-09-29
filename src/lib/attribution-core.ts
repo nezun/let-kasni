@@ -189,3 +189,55 @@ export function appendAttributionParameters(
     return destination;
   }
 }
+
+// Prenos izvora (UTM, gclid, gbraid, wbraid) sa ulazne strane na adresu forme, kroz URL, bez kolačića i skladišta.
+// Vrednosti se čiste strože nego za čuvanje: samo slova, cifre i ._~+-:|,()!@/ i razmak, najviše 150 znakova.
+const forwardMaxLength = 150;
+const forwardDisallowed = /[^\p{L}\p{N} ._~+\-:|,()!@/]/gu;
+
+export type ForwardableAttribution = Partial<Record<AttributionParameterName, string>>;
+
+export function cleanForwardValue(value: string | null | undefined) {
+  const clean = value?.replace(forwardDisallowed, "").trim().slice(0, forwardMaxLength).trim();
+  return clean || undefined;
+}
+
+export function getForwardableAttribution(pageUrl: string): ForwardableAttribution {
+  const result: ForwardableAttribution = {};
+  try {
+    const params = new URL(pageUrl).searchParams;
+    for (const name of attributionParameterNames) {
+      const value = cleanForwardValue(params.get(name));
+      if (value) result[name] = value;
+    }
+  } catch {
+    // Neispravna adresa: nema šta da se prenese.
+  }
+  return result;
+}
+
+export function sanitizeForwardableAttribution(value: unknown): ForwardableAttribution {
+  const result: ForwardableAttribution = {};
+  if (!value || typeof value !== "object") return result;
+  const input = value as Record<string, unknown>;
+  for (const name of attributionParameterNames) {
+    const clean = typeof input[name] === "string" ? cleanForwardValue(input[name]) : undefined;
+    if (clean) result[name] = clean;
+  }
+  return result;
+}
+
+/** Dodaje izvor na adresu forme (isti sajt), bez gaženja parametara koje adresa već ima (issue, step, forma…). */
+export function appendForwardAttribution(destination: string, attribution: ForwardableAttribution, origin: string) {
+  try {
+    const target = new URL(destination, origin);
+    if (target.origin !== new URL(origin).origin) return destination;
+    for (const name of attributionParameterNames) {
+      const value = attribution[name];
+      if (value && !target.searchParams.has(name)) target.searchParams.set(name, value);
+    }
+    return `${target.pathname}${target.search}${target.hash}`;
+  } catch {
+    return destination;
+  }
+}
