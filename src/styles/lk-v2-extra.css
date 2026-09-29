@@ -738,3 +738,47 @@
   border-color: var(--lk-ui-action);
   background: var(--lk-ui-info-bg);
 }
+
+/* Meni na telefonu preko sadržaja (Niko 29.09): lebdi ispod lepljivog zaglavlja umesto da gura stranu, ispod je
+   zatamnjenje (--lk-ui-overlay) koje ga zatvara na dodir. Dok je otvoren, strana se ne skroluje, a zaglavlje je
+   iznad zatamnjenja (i iznad lepljivog poziva na dnu). */
+@media (max-width: 900px) {
+  .lk-mobile-nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    max-height: calc(100dvh - 72px);
+    overflow-y: auto;
+    background: var(--lk-ui-surface);
+    box-shadow: var(--lk-ui-shadow-lg);
+  }
+}
+
+.lk-menu-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--lk-ui-z-overlay);
+  background: var(--lk-ui-overlay);
+  animation: lk-menu-overlay-in 0.2s ease;
+}
+
+html.lk-menu-open {
+  overflow: hidden;
+}
+
+html.lk-menu-open .lk-header {
+  z-index: calc(var(--lk-ui-z-overlay) + 1);
+}
+
+@keyframes lk-menu-overlay-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lk-menu-overlay {
+    animation: none;
+  }
+}
