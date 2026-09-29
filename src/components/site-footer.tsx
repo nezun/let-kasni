@@ -68,7 +68,14 @@ export async function SiteFooter({ locale }: { locale: LkLocale }) {
         <div className="ft-body">
           <div className="ft-rail">
             <div className="ft-office">
-              <LkIcon name="logo-airplane" />
+              {/* B: znak iz novog loga, varijanta za tamnu podlogu (isti beli obod kao u tamnom logu). A zadržava avion,
+                  jer je A znak navy „LK“ i ne vidi se na navy kartici. */}
+              {verzija === "b" ? (
+                // eslint-disable-next-line @next/next/no-img-element -- SVG znak loga, bez obrade slike
+                <img className="ft-office-mark" src="/lk/assets/brand-b/icon-tamna.svg" alt="" width={40} height={40} />
+              ) : (
+                <LkIcon name="logo-airplane" />
+              )}
               <h3 className="ft-office-title">{t.officeTitle}</h3>
               <p className="ft-office-body">{t.officeBody}</p>
               <ClaimInlineCtaButton locale={locale} eventLabel="footer_cta" className="lk-ui-button ft-office-cta-inline">
