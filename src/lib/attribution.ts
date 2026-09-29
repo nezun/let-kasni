@@ -84,6 +84,16 @@ export function getAttributionForSubmission() {
 // Prvi izvor u sesiji, samo uz pristanak za analitiku (sessionStorage, briše se sa karticom ili bez pristanka).
 const sessionAttributionKey = "letkasni-attribution-session-v1";
 
+// UTM je podatak o kampanji i ide uvek; gclid/gbraid/wbraid su identifikatori klika i idu samo uz pristanak za oglase.
+const clickIdNames = ["gclid", "gbraid", "wbraid"] as const;
+
+function withoutClickIdsUnlessMarketing(attribution: ForwardableAttribution): ForwardableAttribution {
+  if (hasMarketingConsent()) return attribution;
+  const result = { ...attribution };
+  for (const name of clickIdNames) delete result[name];
+  return result;
+}
+
 export function clearSessionAttribution() {
   if (typeof window === "undefined") return;
   try {
@@ -99,7 +109,7 @@ export function rememberSessionAttribution() {
     clearSessionAttribution();
     return;
   }
-  const current = getForwardableAttribution(window.location.href);
+  const current = withoutClickIdsUnlessMarketing(getForwardableAttribution(window.location.href));
   if (Object.keys(current).length === 0) return;
   try {
     if (!window.sessionStorage.getItem(sessionAttributionKey)) {
@@ -120,12 +130,13 @@ function readSessionAttribution(): ForwardableAttribution {
 }
 
 /**
- * Adresa forme sa izvorom posete. Parametri sa trenutne strane idu uvek (samo kroz URL, ništa se ne čuva). Ako ih
- * trenutna strana nema, a postoji pristanak za analitiku, ide prvi izvor iz ove sesije. Dva izvora se ne mešaju.
+ * Adresa forme sa izvorom posete. UTM sa trenutne strane ide uvek (samo kroz URL, ništa se ne čuva), identifikatori
+ * klika samo uz pristanak za oglase. Ako trenutna strana nema izvor, a postoji pristanak za analitiku, ide prvi izvor
+ * iz ove sesije. Dva izvora se ne mešaju.
  */
 export function withCurrentAttributionParameters(destination: string) {
   if (typeof window === "undefined") return destination;
   const fromPage = getForwardableAttribution(window.location.href);
   const source = Object.keys(fromPage).length > 0 ? fromPage : readSessionAttribution();
-  return appendForwardAttribution(destination, source, window.location.origin);
+  return appendForwardAttribution(destination, withoutClickIdsUnlessMarketing(source), window.location.origin);
 }

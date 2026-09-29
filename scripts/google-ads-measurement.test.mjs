@@ -382,13 +382,14 @@ test("forwards attribution through the focused-flow navigation", () => {
   );
 });
 
-// 29.09.2026 (CMO/Niko, Statistika u CRM-u): izvor sa ulazne strane ide do forme uvek, samo kroz adresu (ništa se ne
-// čuva na uređaju, isti princip kao Google URL passthrough). Čuvanje prvog izvora u sesiji je samo uz pristanak za analitiku.
-test("forwards campaign parameters from the current URL without consent, URL only", () => {
+// 29.09.2026 (CMO/Niko, Statistika u CRM-u): UTM sa ulazne strane ide do forme uvek, samo kroz adresu (ništa se ne
+// čuva na uređaju). Identifikatori klika (gclid, gbraid, wbraid) idu samo uz pristanak za oglase, kao ranije.
+// Čuvanje prvog izvora u sesiji je samo uz pristanak za analitiku.
+test("forwards UTM always and click IDs only with advertising consent, URL only", () => {
   const denied = loadAttributionClient({ marketing: false, analytics: false });
   assert.equal(
     denied.exports.withCurrentAttributionParameters("/proveri-let"),
-    "/proveri-let?gclid=TEST&utm_medium=cpc",
+    "/proveri-let?utm_medium=cpc",
   );
   assert.equal(denied.storageValues.size, 0);
 
@@ -415,6 +416,21 @@ test("forwarding keeps the form's own parameters and all five UTM fields", () =>
   assert.equal(appendForwardAttribution("https://evil.example/x", { gclid: "G1" }, "https://letkasni.rs"), "https://evil.example/x");
 });
 
+test("click IDs are neither forwarded nor kept in the session without advertising consent", () => {
+  const sessionValues = new Map();
+  const page = "https://letkasni.rs/?gclid=G1&gbraid=GB&wbraid=WB&utm_source=google&utm_medium=cpc";
+  const analyticsOnly = loadAttributionClient({ analytics: true, marketing: false, sessionValues, pageUrl: page });
+  assert.equal(analyticsOnly.exports.withCurrentAttributionParameters("/proveri-let"), "/proveri-let?utm_source=google&utm_medium=cpc");
+  analyticsOnly.exports.rememberSessionAttribution();
+  assert.deepEqual(JSON.parse(sessionValues.get("letkasni-attribution-session-v1")), { utm_source: "google", utm_medium: "cpc" });
+
+  const both = loadAttributionClient({ analytics: true, marketing: true, sessionValues: new Map(), pageUrl: page });
+  assert.equal(
+    both.exports.withCurrentAttributionParameters("/proveri-let"),
+    "/proveri-let?gclid=G1&gbraid=GB&wbraid=WB&utm_source=google&utm_medium=cpc",
+  );
+});
+
 test("forwarded values are cleaned and bounded", () => {
   assert.equal(cleanForwardValue('<script>alert("x")</script>'), "scriptalert(x)/script");
   assert.equal(cleanForwardValue("Kašnjenje leta | jesen 2026"), "Kašnjenje leta | jesen 2026");
@@ -432,6 +448,7 @@ test("session keeps the first source only with analytics consent and never mixes
   const sessionValues = new Map();
   const landing = loadAttributionClient({
     analytics: true,
+    marketing: false,
     sessionValues,
     pageUrl: "https://letkasni.rs/?utm_source=facebook&utm_medium=paid_social",
   });
