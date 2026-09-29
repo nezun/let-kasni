@@ -25,7 +25,9 @@ export async function SiteFooter({ locale }: { locale: LkLocale }) {
   const paths = lkPaths(locale);
   const contact = lkContact(locale);
   const verzija = await getSiteVerzija();
-  const logo = verzija === "b" ? "/lk/assets/brand-b/logo-horizontalno-tamna.svg" : "/lk/assets/logo.svg";
+  // Footer pozadina (.lk-footer, letkasni.css) je var(--lk-ui-surface-alt) — svetla, ne navy — pa ide "svetla"
+  // varijanta (navy+plav tekst), isto kao zaglavlje; "tamna" (beo tekst) je bila nečitljiva na ovoj pozadini.
+  const logo = verzija === "b" ? "/lk/assets/brand-b/logo-horizontalno-svetla.svg" : "/lk/assets/logo.svg";
 
   return (
     <footer id="footer" className="lk-ui-footer lk-footer lk-footer-v2">
