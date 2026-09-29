@@ -280,3 +280,9 @@ html{scroll-behavior:smooth;scroll-padding-top:100px}
 .lk-final-cta{padding-bottom:0}
 .lk-content-page + .lk-steps,.lk-content-page + .lk-final-cta,.lk-reading-layout + .lk-steps,.lk-reading-layout + .lk-final-cta{padding-top:0}
 .lk-section:not(.lk-benefits,.lk-testimonials,.lk-faq) + .lk-final-cta{padding-top:0}
+
+/* Zaglavlje na telefonu (Niko 29.09: „Proverite let je preveliko dugme“): dugme iste visine kao dugme menija
+   (40px), bez strelice, uži razmak — ~104×40 umesto 142×46. Na ≤340px A logo manji, da zaglavlje ostane u jednom
+   redu (na 320px se prelamalo u dva). */
+@media(max-width:700px){.lk-header .lk-header-cta{min-height:40px;padding:0 var(--lk-ui-space-12);gap:0}.lk-header-cta .lk-ui-icon{display:none}}
+@media(max-width:340px){.lk-header .lk-brand .lk-logo{width:110px}}
