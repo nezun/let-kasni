@@ -73,7 +73,7 @@ html{scroll-behavior:smooth;scroll-padding-top:100px}
 .lk-step p{color:var(--lk-ui-text-secondary);margin:0 auto;max-width:300px}
 .lk-benefits{background:var(--lk-ui-surface-alt)}
 .lk-benefits .lk-section-heading{max-width:600px}
-.lk-benefits-grid{gap:var(--lk-ui-space-16)}
+.lk-benefits-grid{gap:var(--lk-ui-space-24)}
 .lk-benefit-card{border:0;border-radius:var(--lk-ui-radius-md);box-shadow:0 0 14px -4px var(--lk-ui-color-gray-400);padding:var(--lk-ui-space-24);gap:var(--lk-ui-space-16);background:var(--lk-ui-surface)}
 .lk-benefit-card .lk-benefit-icon{width:34px;height:34px;color:var(--lk-ui-action)}
 .lk-benefit-card h3{font-size:var(--lk-ui-text-h3);line-height:1.16667;letter-spacing:-.015em;margin:0}
@@ -117,7 +117,7 @@ html{scroll-behavior:smooth;scroll-padding-top:100px}
 .lk-testimonials.bg-navy{background:var(--lk-ui-color-navy);color:var(--lk-ui-color-white)}
 .lk-testimonials .lk-section-heading h2{color:var(--lk-ui-color-white)}
 .lk-testimonials .lk-section-heading h2 span,.lk-testimonials .lk-eyebrow{color:var(--lk-ui-color-cyan)}
-.lk-testimonials .grid-3-col{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--lk-ui-space-16)}
+.lk-testimonials .grid-3-col{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--lk-ui-space-24)}
 .lk-testimonials .persona-card-2026{border:1px solid var(--lk-ui-border);background:var(--lk-ui-surface);border-radius:var(--lk-ui-radius-lg);display:flex;flex-direction:column;align-items:flex-start;width:100%;height:100%;overflow:hidden;color:var(--lk-ui-text)}
 .lk-testimonials .persona-card-2026-avatar{display:flex;align-items:center;width:100%;height:166px;padding-inline:var(--lk-ui-space-24)}
 .lk-testimonials .persona-card-2026-avatar-circle{display:flex;align-items:center;justify-content:center;flex:none;width:108px;height:108px;border-radius:50%;background:var(--lk-ui-info-bg);color:var(--lk-ui-color-navy);font:600 2rem/1 var(--lk-ui-font-heading)}
@@ -197,7 +197,10 @@ html{scroll-behavior:smooth;scroll-padding-top:100px}
 @media(max-width:380px){.lk-header-cta .lk-ui-icon{display:none}.lk-header .lk-header-cta{padding-inline:12px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 /* Vertical pair derived from catalogue product-eb03924d21 / 8a5edab282-07. */
+/* Razmaci (29.09.2026): između kartica u redu uvek --lk-ui-space-24; dve sekcije iste pozadine jedna ispod druge dele
+   jedan razmak sekcije (druga nema gornji), kao .lk-compensation posle promo sekcije. */
 .lk-compensation{padding-top:0}
+.lk-promo{padding-top:0}
 .lk-compensation-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--lk-ui-space-24)}
 .lk-compensation .ewo-bento-hero-card-2026{grid-column:auto;display:flex;flex-direction:column;border-radius:var(--lk-ui-radius-lg);overflow:hidden;background:var(--lk-ui-surface-alt);color:var(--lk-ui-color-navy-deep)}
 .lk-compensation .ewo-bento-hero-card-2026:hover{background:var(--lk-ui-surface-alt);box-shadow:none}
@@ -269,3 +272,11 @@ html{scroll-behavior:smooth;scroll-padding-top:100px}
 
 .lk-review-stars{display:flex;align-items:center;gap:4px;color:var(--lk-ui-color-gold)}
 .lk-review-stars svg{display:block;width:22px;height:22px}
+
+/* Razmaci između sekcija (29.09.2026): dve susedne sekcije iste (bele) pozadine dele jedan razmak sekcije
+   (96px, na telefonu 64px) — donja nema gornji razmak. Stoji na kraju fajla da važi i posle pravila za telefon
+   (.lk-section{padding-block:64px}), koje je ranije poništavalo .lk-local-support i .lk-final-cta. */
+.lk-local-support{padding-top:0}
+.lk-final-cta{padding-bottom:0}
+.lk-content-page + .lk-steps,.lk-content-page + .lk-final-cta,.lk-reading-layout + .lk-steps,.lk-reading-layout + .lk-final-cta{padding-top:0}
+.lk-section:not(.lk-benefits,.lk-testimonials,.lk-faq) + .lk-final-cta{padding-top:0}

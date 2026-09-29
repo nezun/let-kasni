@@ -10,3 +10,10 @@
 @media(max-width:1000px){.lk-article-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.lk-reading-layout{gap:32px;grid-template-columns:220px minmax(0,1fr)}}
 @media(max-width:700px){.lk-inner-hero{padding:24px 0 32px}.lk-inner-hero h1{font-size:2rem;margin:20px 0}.lk-inner-hero p{font-size:1rem}.lk-article-grid,.lk-blog-tools,.lk-about,.lk-reading-layout{grid-template-columns:1fr}.lk-reading-layout{padding-top:24px;gap:32px}.lk-toc{position:static}.lk-toc nav{max-height:180px}.lk-content-card .lk-ui-card-body{padding:24px}.lk-pagination{gap:10px;flex-wrap:wrap}.lk-pagination .lk-ui-button{padding:12px 16px}.lk-guide-cta{flex-wrap:wrap}.lk-breadcrumb{font-size:.75rem}.lk-legal td,.lk-legal th{min-width:130px}}
 .lk-legal div>a+a{margin-left:16px}.lk-legal h3{margin-top:24px}.lk-legal table a{display:inline}
+
+/* Razmaci (29.09.2026): od kraja teksta vodiča/članka do sledeće sekcije je jedan razmak sekcije (96px, na
+   telefonu 64px), kao između ostalih sekcija; poslednji odeljak teksta ne dodaje svoj donji razmak. */
+.lk-reading > :last-child{margin-bottom:0}
+.lk-reading > :last-child > :nth-last-child(1 of :not(style)){margin-bottom:0}
+.lk-reading-layout{padding-bottom:var(--lk-ui-space-96)}
+@media(max-width:700px){.lk-reading-layout{padding-bottom:var(--lk-ui-space-64)}}

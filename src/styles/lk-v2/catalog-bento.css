@@ -69,3 +69,5 @@
   .lk-promo .ewo-bento-hero-card-2026 { grid-column: span 2 / span 2; }
   .lk-promo .services-card-grid-feature { grid-column: span 2 / span 2; }
 }
+/* Razmak između kartica u promo redu kao u ostatku sajta (--lk-ui-space-24), 29.09.2026. */
+.lk-promo .services-card-grid { grid-column-gap: var(--lk-ui-space-24); grid-row-gap: var(--lk-ui-space-24); }
