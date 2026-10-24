@@ -665,7 +665,7 @@ export function CornerstoneTypographyPreview({
                 {localized.title}
               </h1>
               <p className="mt-6 max-w-[680px] text-[20px] leading-[1.65] text-[#475467]">
-                {localized.excerpt}
+                <InlineRichText text={localized.excerpt} locale={locale} />
               </p>
 
               <div className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-2 text-[14px] font-bold text-[#667085]">

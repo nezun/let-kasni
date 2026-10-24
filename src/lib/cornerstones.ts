@@ -82,7 +82,7 @@ export const cornerstonePages: CornerstonePage[] = [
           heading: "Šta ova prava stvarno pokrivaju",
           body: [
             "Prava putnika nisu samo jedno pravilo i nisu samo fiksna odšteta od 250, 400 ili 600 evra. U praksi se uvek razdvajaju tri pitanja: da li imate pravo na novčanu naknadu, da li imate pravo na refundaciju ili preusmeravanje, i da li Vam aviokompanija duguje brigu tokom čekanja.",
-            "Kod kašnjenja je najvažniji dolazak na krajnju destinaciju. Kod otkazivanja je važan rok obaveštenja i ponuđena zamena. Kod propuštene konekcije presudno je da li su letovi bili u jednoj rezervaciji. Kod prtljaga se ne koristi ista logika kao kod EC261 naknade, već se gledaju prijava, rokovi i stvarni troškovi.",
+            "Kod kašnjenja je najvažniji dolazak na krajnju destinaciju. Kod otkazivanja je važan rok obaveštenja i ponuđena zamena. Kod propuštene konekcije presudno je da li su letovi bili u jednoj rezervaciji. Kod prtljaga se ne koristi ista logika kao kod [EC261](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32004R0261) naknade, već se gledaju prijava, rokovi i stvarni troškovi.",
             "Zato je ova strana zamišljena kao mapa. Ako znate šta Vam se dogodilo, odmah idite na odgovarajući glavni vodič. Ako još niste sigurni da li je problem kašnjenje, otkazivanje, konekcija ili prtljag, krenite od ovog pregleda."
           ],
           bullets: [
@@ -97,7 +97,7 @@ export const cornerstonePages: CornerstonePage[] = [
           heading: "Rute iz Srbije i evropska zaštita",
           body: [
             "Putnici iz Srbije često pogrešno misle da državljanstvo odlučuje o pravu na naknadu. U većini slučajeva važniji su aerodrom polaska, aerodrom dolaska, operativni prevoznik i da li je putovanje kupljeno kao jedna rezervacija.",
-            "Let koji polazi iz EU uglavnom ulazi u evropsku zaštitu bez obzira na aviokompaniju. Let iz Srbije ka EU može biti jači kada ga obavlja evropski prevoznik. Let ka Srbiji iz EU takođe često ima dobar osnov. Kod ruta preko evropskih čvorišta, jedna rezervacija može biti presudna jer se gleda dolazak na krajnju destinaciju.",
+            "Let koji polazi iz EU uglavnom ulazi u [evropsku zaštitu](https://europa.eu/youreurope/citizens/travel/passenger-rights/air/index_en.htm) bez obzira na aviokompaniju. Let iz Srbije ka EU može biti jači kada ga obavlja evropski prevoznik. Let ka Srbiji iz EU takođe često ima dobar osnov. Kod ruta preko evropskih čvorišta, jedna rezervacija može biti presudna jer se gleda dolazak na krajnju destinaciju.",
             "Ako niste sigurni, nemojte odmah odustati. Sačuvajte itinerer, booking reference, boarding pass i poruke aviokompanije. Dobra procena počinje od rute i rezervacije, ne od opšteg utiska da je kompanija kriva ili nije kriva."
           ],
         },
@@ -152,7 +152,7 @@ export const cornerstonePages: CornerstonePage[] = [
           heading: "What these rights actually cover",
           body: [
             "Passenger rights are not one single rule and they are not only fixed compensation of 250, 400 or 600 euros. In practice, every case separates three questions: whether fixed compensation is available, whether refund or rerouting is required, and whether the airline owed care during the wait.",
-            "For delays, arrival at the final destination matters most. For cancellations, the timing of notice and the replacement flight matter. For missed connections, one booking is often decisive. For baggage, the same EC261 logic does not apply; reports, deadlines and actual costs become central.",
+            "For delays, arrival at the final destination matters most. For cancellations, the timing of notice and the replacement flight matter. For missed connections, one booking is often decisive. For baggage, the same [EC261](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32004R0261) logic does not apply; reports, deadlines and actual costs become central.",
             "This page is a map. If you know what happened, go straight to the relevant main guide. If you are not yet sure whether the problem is a delay, cancellation, connection or baggage issue, start with this overview."
           ],
           bullets: [
@@ -167,7 +167,7 @@ export const cornerstonePages: CornerstonePage[] = [
           heading: "Routes from Serbia and European protection",
           body: [
             "Travelers from Serbia often think nationality decides whether compensation is possible. In most cases, the more important facts are departure airport, arrival airport, operating carrier and whether the journey was bought as one booking.",
-            "A flight departing from the EU is usually covered more broadly regardless of airline. A flight from Serbia to the EU can be stronger when operated by a European carrier. Flights from the EU to Serbia often have a good basis too. For journeys through European hubs, one booking can be decisive because arrival at the final destination is assessed.",
+            "A flight departing from the EU is usually covered by [European passenger-rights rules](https://europa.eu/youreurope/citizens/travel/passenger-rights/air/index_en.htm) regardless of airline. A flight from Serbia to the EU can be stronger when operated by a European carrier. Flights from the EU to Serbia often have a good basis too. For journeys through European hubs, one booking can be decisive because arrival at the final destination is assessed.",
             "If you are unsure, do not give up immediately. Keep the itinerary, booking reference, boarding pass and airline messages. A good assessment starts with the route and booking, not with a general feeling that the airline is or is not responsible."
           ],
         },
@@ -460,7 +460,7 @@ const guideSummaries: Array<Omit<CornerstonePage, "image" | "sr" | "en" | "updat
       title: "Naknada za propuštenu konekciju",
       description: "Glavni vodič za propuštene konekcije: jedna rezervacija, odvojene karte, dolazak na krajnju destinaciju, preusmeravanje i dokazi.",
       eyebrow: "Glavni vodič",
-      excerpt: "Kod propuštene konekcije najvažnije pitanje je da li su letovi bili pod jednom rezervacijom. Ako jesu, često se gleda kašnjenje na krajnjoj destinaciji, a ne samo prvi segment.",
+      excerpt: "Kod propuštene konekcije najvažnije pitanje je da li su letovi bili pod jednom rezervacijom. Kada je putovanje obuhvaćeno EU pravilima, važan je [dolazak na krajnju destinaciju](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:62011CJ0011), a ne samo kašnjenje prvog segmenta.",
       ctaLabel: "Proveri konekciju",
       languageLabel: "English version",
     },
@@ -469,7 +469,7 @@ const guideSummaries: Array<Omit<CornerstonePage, "image" | "sr" | "en" | "updat
       title: "Missed connection compensation",
       description: "The main guide to missed connections: one booking, separate tickets, final-destination delay, rerouting and evidence.",
       eyebrow: "Main guide",
-      excerpt: "For missed connections, the key question is whether the flights were under one booking. If they were, the delay at the final destination often matters more than the first segment alone.",
+      excerpt: "For missed connections, the key question is whether the flights were under one booking. When the journey is covered by EU rules, [arrival at the final destination](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:62011CJ0011) matters, rather than the delay to the first segment alone.",
       ctaLabel: "Check connection",
       languageLabel: "Srpska verzija",
     },
@@ -568,7 +568,7 @@ const guideSummaries: Array<Omit<CornerstonePage, "image" | "sr" | "en" | "updat
       title: "Naknada za štrajk aviokompanije",
       description: "Glavni vodič za štrajkove: razlika između štrajka aviokompanije, aerodroma i kontrole letenja, naknada, briga i preusmeravanje.",
       eyebrow: "Glavni vodič",
-      excerpt: "Štrajk nije uvek isti pravni problem. Ako štrajkuju zaposleni aviokompanije, zahtev može biti jak. Ako štrajkuje aerodrom, obezbeđenje ili kontrola letenja, fiksna naknada je teža, ali pravo na brigu ostaje.",
+      excerpt: "Štrajk nije uvek isti pravni problem. Štrajk zaposlenih aviokompanije prema [praksi Suda EU](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:62020CJ0028) nije automatski vanredna okolnost. Ako štrajkuje aerodrom, obezbeđenje ili kontrola letenja, fiksna naknada je teža, ali pravo na brigu ostaje.",
       ctaLabel: "Proveri štrajk",
       languageLabel: "English version",
     },
@@ -577,7 +577,7 @@ const guideSummaries: Array<Omit<CornerstonePage, "image" | "sr" | "en" | "updat
       title: "Airline strike compensation",
       description: "The main guide to strikes: airline staff vs airport and air traffic control strikes, compensation, care and rerouting.",
       eyebrow: "Main guide",
-      excerpt: "A strike is not always the same legal problem. If airline employees are striking, the claim may be strong. If the airport, security or air traffic control is striking, fixed compensation is harder, but care rights remain.",
+      excerpt: "A strike is not always the same legal problem. Under [CJEU case law](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:62020CJ0028), a strike by airline employees is not automatically an extraordinary circumstance. If the airport, security or air traffic control is striking, fixed compensation is harder, but care rights remain.",
       ctaLabel: "Check strike",
       languageLabel: "Srpska verzija",
     },
@@ -598,7 +598,9 @@ const generatedGuides: CornerstonePage[] = guideSummaries.map((guide) => {
           heading: "Kada ova situacija može dati pravo na novac",
           body: [
             `${guide.sr.title} treba proveriti kada je poremećaj direktno promenio Vaše putovanje i kada aviokompanija nema jasan, konkretan razlog koji je van njene kontrole. Prvi korak je uvek isti: utvrditi rutu, rezervaciju, planirano vreme, stvarno vreme i tačan razlog koji je kompanija navela.`,
-            "Kod evropskih prava putnika iznos ne zavisi od cene karte, već od vrste događaja, dužine rute i posledice po putnika. Zato skupa karta nije uslov za dobar zahtev, a jeftina karta nije razlog da se zahtev ne pošalje.",
+            guide.id === "flight-cancellation-compensation"
+              ? "Kod [evropskih prava putnika](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32004R0261) iznos ne zavisi od cene karte, već od vrste događaja, dužine rute i posledice po putnika. Zato skupa karta nije uslov za dobar zahtev, a jeftina karta nije razlog da se zahtev ne pošalje."
+              : "Kod evropskih prava putnika iznos ne zavisi od cene karte, već od vrste događaja, dužine rute i posledice po putnika. Zato skupa karta nije uslov za dobar zahtev, a jeftina karta nije razlog da se zahtev ne pošalje.",
             "Ako je kompanija ponudila zamenski let, vaučer ili refundaciju, to ne zatvara automatski pitanje naknade. Potrebno je videti da li ste stigli znatno kasnije, da li ste dobrovoljno prihvatili ponudu i da li je alternativa bila razumna."
           ],
           bullets: [
@@ -619,7 +621,9 @@ const generatedGuides: CornerstonePage[] = guideSummaries.map((guide) => {
         {
           heading: "Pravo na brigu i preusmeravanje",
           body: [
-            "Bez obzira na krajnji odgovor o fiksnoj naknadi, putnik tokom dužeg čekanja ne treba da ostane bez pomoći. Obroci, osveženje, komunikacija, hotel i transfer mogu biti relevantni kada čekanje traje dugo ili se putovanje pomera na naredni dan.",
+            guide.id === "missed-connection-compensation" || guide.id === "airline-strike-compensation"
+              ? "Bez obzira na krajnji odgovor o fiksnoj naknadi, putnik tokom dužeg čekanja ne treba da ostane bez pomoći. [Obroci, osveženje, komunikacija, hotel i transfer](https://europa.eu/youreurope/citizens/travel/passenger-rights/air/index_en.htm) mogu biti relevantni kada čekanje traje dugo ili se putovanje pomera na naredni dan."
+              : "Bez obzira na krajnji odgovor o fiksnoj naknadi, putnik tokom dužeg čekanja ne treba da ostane bez pomoći. Obroci, osveženje, komunikacija, hotel i transfer mogu biti relevantni kada čekanje traje dugo ili se putovanje pomera na naredni dan.",
             "Ako pomoć nije organizovana, troškovi moraju biti razumni i povezani sa poremećajem. Sačuvajte račun, vreme kupovine i kratak razlog zašto je trošak bio nužan. Luksuzne troškove je teže opravdati, ali osnovna hrana, voda, prevoz i smeštaj su druga priča.",
             "Ako Vam kompanija ponudi alternativu koja nema smisla, zatražite bolju opciju pisanim putem. Ako sami kupujete novo rešenje, zabeležite da ste prvo pokušali da dobijete pomoć od aviokompanije."
           ],
@@ -660,7 +664,9 @@ const generatedGuides: CornerstonePage[] = guideSummaries.map((guide) => {
           heading: "When this situation can lead to money",
           body: [
             `${guide.en.title} is worth checking when the disruption directly changed your journey and the airline does not have a clear, specific reason outside its control. The first step is always the same: establish the route, booking, scheduled time, actual time and exact reason given by the airline.`,
-            "Under European passenger-rights rules, the amount does not depend on ticket price, but on the type of event, route distance and consequence for the passenger. An expensive ticket is not required for a good claim, and a cheap ticket is not a reason to avoid filing.",
+            guide.id === "flight-cancellation-compensation"
+              ? "Under [European passenger-rights rules](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32004R0261), the amount does not depend on ticket price, but on the type of event, route distance and consequence for the passenger. An expensive ticket is not required for a good claim, and a cheap ticket is not a reason to avoid filing."
+              : "Under European passenger-rights rules, the amount does not depend on ticket price, but on the type of event, route distance and consequence for the passenger. An expensive ticket is not required for a good claim, and a cheap ticket is not a reason to avoid filing.",
             "If the airline offered a replacement flight, voucher or refund, that does not automatically close the compensation question. You still need to check whether you arrived much later, whether you voluntarily accepted the offer and whether the alternative was reasonable."
           ],
           bullets: [
@@ -681,7 +687,9 @@ const generatedGuides: CornerstonePage[] = guideSummaries.map((guide) => {
         {
           heading: "Care and rerouting rights",
           body: [
-            "Whatever the final answer on fixed compensation, passengers should not be left without assistance during a long wait. Meals, refreshments, communication, hotel and transfer may matter when the delay is long or travel moves to the next day.",
+            guide.id === "missed-connection-compensation" || guide.id === "airline-strike-compensation"
+              ? "Whatever the final answer on fixed compensation, passengers should not be left without assistance during a long wait. [Meals, refreshments, communication, hotel and transfer](https://europa.eu/youreurope/citizens/travel/passenger-rights/air/index_en.htm) may matter when the delay is long or travel moves to the next day."
+              : "Whatever the final answer on fixed compensation, passengers should not be left without assistance during a long wait. Meals, refreshments, communication, hotel and transfer may matter when the delay is long or travel moves to the next day.",
             "If assistance is not arranged, costs should be reasonable and linked to the disruption. Keep the receipt, purchase time and a short reason why the expense was necessary. Luxury costs are harder to justify, but basic food, water, transport and accommodation are different.",
             "If the airline offers an alternative that does not make sense, ask for a better option in writing. If you buy a new solution yourself, record that you first tried to get help from the airline."
           ],
@@ -738,7 +746,9 @@ function addDepthToGeneratedGuide(page: CornerstonePage) {
       heading: "Prvi uzrok i posledica po putovanje",
       body: [
         `Kod teme ${srTopic} prvo se odvaja glavni problem od posledice. Putnik često vidi samo krajnji rezultat: nije poleteo, stigao je kasno, izgubio je konekciju ili je morao da kupi nešto sam. Za dobru procenu treba utvrditi šta je bio prvi uzrok, ko ga je kontrolisao, koliko je putovanje stvarno promenjeno i da li je aviokompanija ponudila razumno rešenje.`,
-        "Zato se uvek kreće od četiri činjenice: ruta, rezervacija, vreme i razlog. Ruta govori koja pravila mogu da se primene. Rezervacija govori da li se segmenti posmatraju zajedno ili odvojeno. Vreme pokazuje da li je prag za naknadu pređen. Razlog odlučuje da li aviokompanija može da se osloni na vanredne okolnosti.",
+        page.id === "missed-connection-compensation"
+          ? "Zato se uvek kreće od četiri činjenice: ruta, rezervacija, vreme i razlog. Ruta govori koja pravila mogu da se primene. Rezervacija govori da li se [segmenti posmatraju zajedno ili odvojeno](https://eur-lex.europa.eu/legal-content/EN/ALL/?uri=CELEX:52024XC05687). Vreme pokazuje da li je prag za naknadu pređen. Razlog odlučuje da li aviokompanija može da se osloni na vanredne okolnosti."
+          : "Zato se uvek kreće od četiri činjenice: ruta, rezervacija, vreme i razlog. Ruta govori koja pravila mogu da se primene. Rezervacija govori da li se segmenti posmatraju zajedno ili odvojeno. Vreme pokazuje da li je prag za naknadu pređen. Razlog odlučuje da li aviokompanija može da se osloni na vanredne okolnosti.",
         "Ako bilo koja od tih činjenica nedostaje, zahtev ne treba automatski odbaciti. Treba ga dopuniti dokazima: potvrdom rezervacije, boarding pass dokumentima, porukama aviokompanije, screenshotovima aplikacije, računima i kratkom hronologijom događaja.",
         ...srDepthBridge,
       ],
@@ -754,7 +764,9 @@ function addDepthToGeneratedGuide(page: CornerstonePage) {
     {
       heading: "Vanredne okolnosti i zašto opšte objašnjenje nije dovoljno",
       body: [
-        "Vanredne okolnosti nisu čarobna reč koja automatski zatvara slučaj. Loše vreme, bezbednosna odluka, štrajk aerodroma, kontrola letenja ili zatvaranje piste mogu biti ozbiljni razlozi, ali moraju biti konkretno povezani sa Vašim letom i vremenskim okvirom u kome je problem nastao.",
+        page.id === "airline-strike-compensation"
+          ? "[Vanredne okolnosti](https://eur-lex.europa.eu/legal-content/EN/ALL/?uri=CELEX:52024XC05687) nisu čarobna reč koja automatski zatvara slučaj. Loše vreme, bezbednosna odluka, štrajk aerodroma, kontrola letenja ili zatvaranje piste mogu biti ozbiljni razlozi, ali moraju biti konkretno povezani sa Vašim letom i vremenskim okvirom u kome je problem nastao."
+          : "Vanredne okolnosti nisu čarobna reč koja automatski zatvara slučaj. Loše vreme, bezbednosna odluka, štrajk aerodroma, kontrola letenja ili zatvaranje piste mogu biti ozbiljni razlozi, ali moraju biti konkretno povezani sa Vašim letom i vremenskim okvirom u kome je problem nastao.",
         "Ako kompanija napiše samo operativni razlozi, rotacija aviona, slot ili odluka aerodroma, tražite preciznije objašnjenje. Dobro pitanje glasi: šta se tačno dogodilo, kada je počelo, kada se završilo, na koji segment se odnosilo i zašto nije postojala razumna alternativa.",
         "Posebno su važni kombinovani slučajevi. Prvi problem može biti van kontrole aviokompanije, ali kasnije čekanje može nastati zbog organizacije posade, aviona ili preusmeravanja. Zato se ne proverava samo naziv razloga, već ceo lanac događaja."
       ],
@@ -851,7 +863,9 @@ function addDepthToGeneratedGuide(page: CornerstonePage) {
       heading: "First cause and impact on the journey",
       body: [
         `For ${enTopic}, separate the main problem from the consequence first. Passengers often see only the result: they did not depart, arrived late, missed a connection or had to pay for something themselves. A good assessment asks what started the problem, who controlled it, how much the journey changed and whether the airline offered a reasonable solution.`,
-        "Always start with four facts: route, booking, time and reason. Route shows which rules may apply. Booking shows whether segments are assessed together or separately. Time shows whether a compensation threshold was crossed. Reason decides whether the airline can rely on extraordinary circumstances.",
+        page.id === "missed-connection-compensation"
+          ? "Always start with four facts: route, booking, time and reason. Route shows which rules may apply. Booking shows whether [segments are assessed together or separately](https://eur-lex.europa.eu/legal-content/EN/ALL/?uri=CELEX:52024XC05687). Time shows whether a compensation threshold was crossed. Reason decides whether the airline can rely on extraordinary circumstances."
+          : "Always start with four facts: route, booking, time and reason. Route shows which rules may apply. Booking shows whether segments are assessed together or separately. Time shows whether a compensation threshold was crossed. Reason decides whether the airline can rely on extraordinary circumstances.",
         "If one of those facts is missing, do not automatically give up. Support it with evidence: booking confirmation, boarding passes, airline messages, app screenshots, receipts and a short timeline of events."
       ],
     },
@@ -866,7 +880,9 @@ function addDepthToGeneratedGuide(page: CornerstonePage) {
     {
       heading: "Extraordinary circumstances and broad explanations",
       body: [
-        "Extraordinary circumstances are not magic words that automatically close a case. Bad weather, safety decisions, airport strike, air traffic control or runway closure can be serious reasons, but they must be specifically connected to your flight and to the relevant time window.",
+        page.id === "airline-strike-compensation"
+          ? "[Extraordinary circumstances](https://eur-lex.europa.eu/legal-content/EN/ALL/?uri=CELEX:52024XC05687) are not magic words that automatically close a case. Bad weather, safety decisions, airport strike, air traffic control or runway closure can be serious reasons, but they must be specifically connected to your flight and to the relevant time window."
+          : "Extraordinary circumstances are not magic words that automatically close a case. Bad weather, safety decisions, airport strike, air traffic control or runway closure can be serious reasons, but they must be specifically connected to your flight and to the relevant time window.",
         "If the airline writes only operational reasons, aircraft rotation, slot or airport decision, ask for more detail. The right question is: what exactly happened, when did it start, when did it end, which segment did it affect and why was no reasonable alternative available.",
         "Mixed cases are especially important. The first problem may be outside the airline's control, while the later wait may come from crew, aircraft or rerouting organization. That is why the whole chain of events matters, not only the label."
       ],
@@ -933,7 +949,9 @@ function addDepthToGeneratedGuide(page: CornerstonePage) {
       body: [
         "When you receive an answer, do not look only at whether it says accepted or rejected. Check whether it refers to the exact flight number, date, route and passengers. Then check whether the reason is described as a concrete event or only as a broad phrase.",
         "A good answer should explain the connection between the event and the consequence. If the airline cites a slot, the answer should show when the slot applied and why it affected your arrival. If it cites weather, it should be clear where the weather problem happened and why the flight could not be operated earlier.",
-        `For ${enTopic}, it is especially important that the answer does not skip the alternative offered by the airline. If the passenger had to wait, pay for a hotel, buy a new ticket or accept a worse solution, that part should be requested separately from the basic explanation.`
+        page.id === "flight-cancellation-compensation"
+          ? "For flight cancellation compensation, it is especially important that the answer does not skip the alternative offered by the airline. If the passenger had to wait, pay for a hotel, buy a new ticket or accept a worse solution, that part should be requested separately from the basic explanation. Before contacting the competent authority in Serbia, check the [Civil Aviation Directorate's complaint requirements](https://cad.gov.rs/strana/25691?lang=en)."
+          : `For ${enTopic}, it is especially important that the answer does not skip the alternative offered by the airline. If the passenger had to wait, pay for a hotel, buy a new ticket or accept a worse solution, that part should be requested separately from the basic explanation.`
       ],
     },
     {
@@ -982,7 +1000,7 @@ function addDepthToAirPassengerRightsGuide(page: CornerstonePage) {
       heading: "Zašto je Srbija poseban praktičan slučaj",
       body: [
         "Putnici iz Srbije često lete preko Beča, Frankfurta, Istanbula, Rima, Pariza, Amsterdama ili drugih čvorišta. Zbog toga slučaj retko može da se proceni samo po prvom letu. Bitno je da li je sve bilo pod jednom rezervacijom, ko je operativni prevoznik i gde je nastao poremećaj.",
-        "Državljanstvo putnika uglavnom nije presudno. Mnogo su važniji aerodrom polaska, aerodrom dolaska, prevoznik i pravni okvir koji pokriva rutu. Zbog toga putnik iz Srbije može imati jak evropski zahtev na jednoj ruti, a slab zahtev na drugoj, iako je subjektivni problem izgledao isto.",
+        "Državljanstvo putnika uglavnom nije presudno. Mnogo su važniji aerodrom polaska, aerodrom dolaska, prevoznik i pravni okvir koji pokriva rutu. Za letove na koje se primenjuje domaće pravo proverava se i [zakon koji uređuje prava putnika u vazdušnom saobraćaju](https://cad.gov.rs/strana/35851/Laws). Zbog toga putnik iz Srbije može imati jak evropski zahtev na jednoj ruti, a slab zahtev na drugoj, iako je subjektivni problem izgledao isto.",
         "U praksi je najbolja navika da se sačuva kompletan itinerer, ne samo boarding pass za prvi segment. Kod konekcija i preusmeravanja upravo kompletan itinerer pokazuje šta je bila krajnja destinacija i koliko je putovanje stvarno kasnilo."
       ],
     },
@@ -1094,7 +1112,7 @@ function addDepthToAirPassengerRightsGuide(page: CornerstonePage) {
       heading: "Why Serbia is a special practical case",
       body: [
         "Serbia-based travelers often fly through Vienna, Frankfurt, Istanbul, Rome, Paris, Amsterdam or other hubs. That means the case can rarely be assessed only by the first flight. One booking, operating carrier and the place where disruption started are often decisive.",
-        "Passenger nationality is usually not decisive. Departure airport, arrival airport, carrier and legal framework matter more. That is why a traveler from Serbia can have a strong European claim on one route and a weak claim on another, even if the practical problem felt similar.",
+        "Passenger nationality is usually not decisive. Departure airport, arrival airport, carrier and legal framework matter more. For flights governed by Serbian law, the [law governing air passenger rights in Serbia](https://cad.gov.rs/strana/35851/Laws) is also checked. That is why a traveler from Serbia can have a strong European claim on one route and a weak claim on another, even if the practical problem felt similar.",
         "In practice, keep the full itinerary, not only the first boarding pass. For connections and rerouting, the full itinerary shows the final destination and how late the journey really ended."
       ],
     },
@@ -1218,7 +1236,7 @@ if (cancellationGuide) {
   if (srMultiRight) {
     srMultiRight.heading = "Zamenski let, refundacija i troškovi posle otkazivanja";
     srMultiRight.body = [
-      "Otkazivanje leta ne završava se samo pitanjem da li postoji fiksna naknada. Aviokompanija mora ponuditi izbor između refundacije i preusmeravanja, a ako putnik čeka duže, odvojeno se proveravaju hrana, hotel, transfer i komunikacija.",
+      "Otkazivanje leta ne završava se samo pitanjem da li postoji fiksna naknada. Aviokompanija mora ponuditi [izbor između refundacije i preusmeravanja](https://europa.eu/youreurope/citizens/travel/passenger-rights/air/index_en.htm), a ako putnik čeka duže, odvojeno se proveravaju hrana, hotel, transfer i komunikacija.",
       "Ako prihvatite zamenski let, sačuvajte vreme kada je ponuđen, vreme polaska, vreme dolaska i eventualni drugi aerodrom. Ti detalji pokazuju da li je alternativa zaista smanjila posledice otkazivanja ili je samo prebacila problem na kasnije čekanje.",
       "Ako birate refundaciju, proverava se šta se vraća: cela karta, neiskorišćen deo puta ili povratak na polaznu tačku kada nastavak putovanja više nema smisla. To je odvojeno od pitanja da li fiksna naknada i dalje može da postoji.",
       "Ako ste sami platili hotel, transfer, obrok ili novu kartu, račun nije sporedan dodatak. On pokazuje da kompanija nije pokrila praktične posledice otkazivanja i da zahtev ne sme ostati samo na jednoj stavci.",
@@ -1232,7 +1250,7 @@ if (cancellationGuide) {
   );
   if (srReply) {
     srReply.body[2] =
-      "Za otkazan let je naročito važno da odgovor ne preskoči alternativu koju je kompanija ponudila. Ako je putnik morao da čeka, plati hotel, kupi novu kartu ili prihvati lošije rešenje, taj deo treba tražiti odvojeno od osnovnog objašnjenja. Ako kompanija ćuti, sledeći korak je uredan trag komunikacije, kao kod slučaja kada [aviokompanija ne odgovara na reklamaciju](/naknada-za-otkazan-let/avio-kompanija-ne-odgovara-na-reklamaciju).";
+      "Za otkazan let je naročito važno da odgovor ne preskoči alternativu koju je kompanija ponudila. Ako je putnik morao da čeka, plati hotel, kupi novu kartu ili prihvati lošije rešenje, taj deo treba tražiti odvojeno od osnovnog objašnjenja. Ako kompanija ćuti, sledeći korak je uredan trag komunikacije, kao kod slučaja kada [aviokompanija ne odgovara na reklamaciju](/naknada-za-otkazan-let/avio-kompanija-ne-odgovara-na-reklamaciju). Za obraćanje nadležnom telu u Srbiji proverite [uslove Direktorata za podnošenje reklamacije](https://cad.gov.rs/strana/25691?lang=sr).";
   }
 
   const enMoney = cancellationGuide.en.sections.find(
@@ -1260,7 +1278,7 @@ if (cancellationGuide) {
   if (enMultiRight) {
     enMultiRight.heading = "Replacement flight, refund and expenses after cancellation";
     enMultiRight.body = [
-      "A cancelled flight is not only a fixed-compensation question. The airline must offer a choice between refund and rerouting, and if the passenger has to wait, food, hotel, transfer and communication are checked separately.",
+      "A cancelled flight is not only a fixed-compensation question. The airline must offer a [choice between refund and rerouting](https://europa.eu/youreurope/citizens/travel/passenger-rights/air/index_en.htm), and if the passenger has to wait, food, hotel, transfer and communication are checked separately.",
       "If you accept a replacement flight, keep the time it was offered, the departure time, arrival time and any alternate airport. Those details show whether the alternative really reduced the impact of cancellation or only moved the problem into a later wait.",
       "If you choose refund, check what is being refunded: the whole ticket, the unused part of the journey or a return to the first departure point when continuing no longer makes sense. That is separate from whether fixed compensation may still apply.",
       "If you paid for hotel, transfer, meals or a new ticket yourself, the receipt is not a side detail. It shows the airline did not cover the practical consequences of cancellation and that the claim should not stay limited to one item.",
@@ -1598,7 +1616,7 @@ if (delayGuide) {
     {
       heading: "Kada kašnjenje leta daje pravo na naknadu",
       body: [
-        "Prema EU261 i praksi Suda EU, dolazak na krajnju destinaciju najmanje tri sata kasnije može dati pravo na fiksnu naknadu od 250, 400 ili 600 evra po putniku, ako su ispunjeni uslovi pokrivenosti i odgovornosti. Cena karte ne određuje iznos. Ako je avion nadoknadio kašnjenje tokom leta, sam kasni polazak nije dovoljan. Ako ste zbog kraćeg kašnjenja propustili zaštićenu konekciju, bitan može biti kasniji dolazak na kraj putovanja.",
+        "Prema [EU261](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32004R0261) i [praksi Suda EU](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:62011CJ0011), dolazak na krajnju destinaciju najmanje tri sata kasnije može dati pravo na fiksnu naknadu od 250, 400 ili 600 evra po putniku, ako su ispunjeni uslovi pokrivenosti i odgovornosti. Cena karte ne određuje iznos. Ako je avion nadoknadio kašnjenje tokom leta, sam kasni polazak nije dovoljan. Ako ste zbog kraćeg kašnjenja propustili zaštićenu konekciju, bitan može biti kasniji dolazak na kraj putovanja.",
         "Prvo proverite rutu i operativnog prevoznika. EU261 pokriva polaske iz EU i, uz propisane uslove, dolaske iz treće zemlje u EU kada let obavlja EU prevoznik. Presedanje u EU ili jedna booking referenca nisu sami po sebi dokaz da je svaka kombinovana ruta pokrivena. Za letove iz Srbije i ECAA posebno se utvrđuje pravni osnov; kasnija praksa Suda EU ne smatra se automatski obavezujućom po srpskom pravu.",
         "Treće pitanje je razlog kašnjenja. Tehnički kvar, kasna rotacija aviona, nedostatak posade i operativna organizacija često mogu biti u zoni odgovornosti aviokompanije. Loše vreme, zatvaranje aerodroma, ograničenja kontrole letenja i bezbednosni događaji mogu biti jača odbrana. Razlika nije u nazivu razloga, već u dokazima. Zato se ozbiljan zahtev ne zasniva na poruci iz aplikacije, već na vezi između rute, vremena, uzroka i posledice.",
       ],
@@ -1679,7 +1697,7 @@ if (delayGuide) {
       heading: "Loše vreme, slotovi kontrole letenja i bezbednosni događaji",
       body: [
         "[Loše vreme](/naknada-za-kasnjenje-leta/kasnjenje-leta-zbog-loseg-vremena) može biti vanredna okolnost, ali nije svaka kiša, vetar ili magla dovoljan odgovor. Mora se videti gde je vreme nastalo, koliko je trajalo i da li je direktno sprečilo baš taj let. Ako je vreme pogodilo neki raniji segment u rotaciji, dodatno se proverava da li je kasnije čekanje zaista posledica vremena ili organizacije aviona.",
-        "[Slotovi kontrole letenja](/naknada-za-kasnjenje-leta/kasnjenje-leta-zbog-slotova-kontrole-letenja) često su jači argument aviokompanije jer prevoznik ne upravlja vazdušnim prostorom. Ipak, slot može objasniti deo kašnjenja, a ne nužno ceo dan čekanja. Zato se ne prihvata samo reč slot, već se proverava period ograničenja, segment koji je pogođen i šta se dogodilo posle prestanka ograničenja.",
+        "[Slotovi kontrole letenja](/naknada-za-kasnjenje-leta/kasnjenje-leta-zbog-slotova-kontrole-letenja) često su jači argument aviokompanije jer prevoznik ne upravlja vazdušnim prostorom. Ipak, slot može objasniti deo kašnjenja, a ne nužno ceo dan čekanja. Zato se ne prihvata samo reč slot, već se proverava period ograničenja, segment koji je pogođen i šta se dogodilo posle prestanka ograničenja. Operativni okvir za ova ograničenja opisuje [EUROCONTROL-ov priručnik za upravljanje protokom saobraćaja](https://www.eurocontrol.int/publication/atfcm-operations-manual).",
         "Bezbednosni događaji, zatvaranje piste, medicinski hitan slučaj, udar groma ili udar ptice mogu realno biti van kontrole aviokompanije. I tada ostaje pitanje brige, alternativnog prevoza i troškova čekanja. Ovo je važan deo framinga: čak i kada fiksna naknada nije sigurna, putnik ne mora ostati bez svih prava, a stručna procena pomaže da se ne mešaju pogrešne stavke.",
       ],
     },
@@ -1731,7 +1749,7 @@ if (delayGuide) {
     {
       heading: "When a flight delay gives a right to compensation",
       body: [
-        "Under EU261 and CJEU case law, arriving at the final destination at least three hours late may give a right to fixed compensation of 250, 400 or 600 euros per passenger, subject to coverage and responsibility conditions. Ticket price does not determine the amount. If the aircraft recovered time in flight, a late departure alone is insufficient. If a shorter delay caused a missed protected connection, arrival at the end of the journey may be what matters.",
+        "Under [EU261](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32004R0261) and [CJEU case law](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:62011CJ0011), arriving at the final destination at least three hours late may give a right to fixed compensation of 250, 400 or 600 euros per passenger, subject to coverage and responsibility conditions. Ticket price does not determine the amount. If the aircraft recovered time in flight, a late departure alone is insufficient. If a shorter delay caused a missed protected connection, arrival at the end of the journey may be what matters.",
         "First check the route and operating carrier. EU261 covers departures from the EU and, subject to its conditions, arrivals from a third country into the EU operated by an EU carrier. Connecting in the EU or having one booking reference does not by itself prove coverage for every combined route. Flights from Serbia and the ECAA framework require a separate legal-basis assessment; later CJEU case law is not assumed automatically binding under Serbian law.",
         "The third question is the cause of the delay. Technical faults, late aircraft rotation, crew shortage and operational organization can often sit within the airline's responsibility. Bad weather, airport closure, air traffic control restrictions and safety events can be stronger defenses. The difference is not the label, but the evidence connecting route, time, cause and consequence.",
       ],
@@ -1812,7 +1830,7 @@ if (delayGuide) {
       heading: "Bad weather, air traffic control slots and safety events",
       body: [
         "[Bad weather](/en/flight-delay-compensation/flight-delay-bad-weather-compensation) can be an extraordinary circumstance, but not every rain, wind or fog event is enough. The question is where it happened, how long it lasted and whether it directly prevented this flight. If weather affected an earlier rotation, later waiting may still need separate review.",
-        "[Air traffic control slots](/en/flight-delay-compensation/air-traffic-control-slot-delay-compensation) are often a stronger airline argument because the carrier does not control airspace. Still, a slot may explain part of the delay without explaining a full day of waiting. The period, affected segment and later airline actions need to be checked.",
+        "[Air traffic control slots](/en/flight-delay-compensation/air-traffic-control-slot-delay-compensation) are often a stronger airline argument because the carrier does not control airspace. Still, a slot may explain part of the delay without explaining a full day of waiting. The period, affected segment and later airline actions need to be checked. The operational framework for these restrictions is described in [EUROCONTROL's air traffic flow management manual](https://www.eurocontrol.int/publication/atfcm-operations-manual).",
         "Safety events, runway closure, medical emergencies, lightning strike or bird strike can genuinely sit outside the airline's control. Even then, care, alternative transport and waiting costs remain separate questions. This matters for framing: even when fixed compensation is uncertain, the passenger may still have rights, and professional review helps avoid mixing the wrong claim parts.",
       ],
     },

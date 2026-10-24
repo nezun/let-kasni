@@ -2,6 +2,13 @@
 
 All notable changes to LetKasni are documented in this file.
 
+## [0.2.1] - 2026-10-24
+
+### Changed
+
+- Added contextual links to official passenger-rights sources in five Serbian and English main guides, including EU legislation, CJEU judgments, the Serbian Civil Aviation Directorate and EUROCONTROL.
+- Guide introductions now render their editorial links with the same inline text component as the body.
+
 ## [0.2.0] - 2026-09-15
 
 ### Added
