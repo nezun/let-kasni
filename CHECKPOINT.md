@@ -4,6 +4,14 @@ Canonical handoff file for future local and Codex Cloud sessions.
 
 ## Start Here
 
+### Official-source links approved for publication, 2026-10-24
+
+- Owner approved direct production publication of the reviewed five core guides in Serbian and English. Homepage/FAQ and the other three main guides are excluded.
+- Branch: `codex/authority-links-bilingual`, clean worktree `/tmp/letkasni-authority-links-20261024`, canonical remote `nezun/let-kasni`, base `a8c746a`. Original desktop logo/footer changes are preserved.
+- Added 15 links per locale as explicit editorial Markdown. Two guide introductions use the existing `InlineRichText` renderer; existing internal links and all non-target guide data are preserved.
+- Content QA, link graph, benchmark (all records >=90) and independent diff review passed. Full release gate and production verification follow before completion.
+- Evidence is stored in the isolated worktree under ignored `.gstack/authority-links/`. No scheduler or automatic blog publishing was enabled.
+
 ### Marketing content parity, 2026-09-23
 
 - User authorized production content -> staging as the first launch step. Source baseline: `origin/main` `5ea961725077c326a5a85b52fb7261ce22886a26`; original staging: `e5caac8f05d640f34dabe6f905cd99d2d3e2918f`.
@@ -706,65 +714,24 @@ Canonical handoff file for future local and Codex Cloud sessions.
 ## Generated Status
 
 <!-- BEGIN:generated-status -->
-Generated at: `2026-09-23T19:11:14.768Z`
+Generated at: `2026-10-24T18:32:30.777Z`
 
-Branch: `codex/staging-content-parity`
-
-Remote: `https://github.com/nezun/let-kasni.git`
-
-Latest local commit: `e5caac8 CSP samo kroz izveštavanje (Report-Only) — tehnički DD 19.09.2026`
-Generated at: `2026-09-23T13:10:52.977Z`
-
-Branch: `codex/email-signature-release-record`
+Branch: `codex/authority-links-bilingual`
 
 Remote: `https://github.com/nezun/let-kasni.git`
 
-Latest local commit: `1254b75 Host versioned email signature assets (#34)`
+Latest local commit: `a8c746a Prelazak na produkciju (24.09.2026): staging → main — forma i potpis u aplikaciji za prijave, GTM/Consent Mode zadržani`
 
 Worktree status:
 
 ```text
-M AGENTS.md
+M CHANGELOG.md
  M CHECKPOINT.md
+ M VERSION
+ M package-lock.json
  M package.json
- M scripts/check-production.mjs
- M scripts/content-qa.mjs
- M scripts/meta-tracking-check.mjs
- M scripts/privacy-policy-check.mjs
- M scripts/production-fetch-mock.mjs
- M src/app/en/privacy/page.tsx
- M src/app/layout.tsx
- M src/app/privacy/page.tsx
- M src/components/site-footer.tsx
- M src/content/blog/daily-2026-05-02.ts
- D src/content/blog/daily-2026-05-05.ts
- M src/content/blog/daily-2026-05-07.ts
- M src/content/blog/daily-2026-05-09.ts
- D src/content/blog/daily-2026-05-15.ts
- D src/content/blog/daily-2026-05-16.ts
- D src/content/blog/daily-2026-05-17.ts
- D src/content/blog/daily-2026-05-18.ts
- D src/content/blog/daily-2026-05-19.ts
- D src/content/blog/daily-2026-05-22.ts
- D src/content/blog/daily-2026-05-23.ts
- D src/content/blog/daily-2026-05-24.ts
- M src/content/blog/index.ts
- M src/lib/blog-content-enhancements.ts
- M src/lib/consent-cookie.ts
+ M src/components/cornerstone-typography-preview.tsx
  M src/lib/cornerstones.ts
-?? docs/SEO-RETIREMENT-RUNBOOK.md
-?? docs/STAGING-CONTENT-PARITY-2026-09-23.md
-?? public/email-signature/
-?? scripts/check-email-signature-assets.mjs
-?? scripts/seo-retirement-audit.py
-?? scripts/seo-retirement-browser.mjs
-?? scripts/seo-retirement-report.py
-?? scripts/seo-retirement.test.mjs
-?? src/app/not-found.tsx
-?? src/content/seo-retired-airlines.json
-?? src/content/seo-retired-programmatic.json
-?? src/content/seo-suggested-removals.json
-M CHECKPOINT.md
 ```
 
 Useful commands:
@@ -773,7 +740,6 @@ Useful commands:
 - `npm run dev`: `next dev`
 - `npm run lint`: `eslint`
 - `npm run build`: `next build`
-- `npm run verify`: `npm run workflow:check && npm run privacy:check && npm run meta:check && npm run email:check && npm run seo:retirement:check && npm run email-signature:check && npm run content:qa && npm run content:links && npm run content:benchmark && npm run locales:check && npm run lint && npm run build`
 - `npm run verify`: `npm run workflow:check && npm run privacy:check && npm run meta:check && npm run google-ads:check && npm run email:check && npm run email-signature:check && npm run seo:retirement:check && npm run content:qa && npm run content:links && npm run content:benchmark && npm run locales:check && npm run lint && npm run build`
 - `npm run release:gate`: `bash scripts/release-gate.sh`
 - `npm run production:check`: `node scripts/check-production.mjs`
