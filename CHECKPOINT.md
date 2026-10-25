@@ -4,6 +4,15 @@ Canonical handoff file for future local and Codex Cloud sessions.
 
 ## Start Here
 
+### Approved SEMrush metadata corrections, 2026-10-25
+
+- Owner approved implementation of the reviewed audit corrections in GitHub with a local page-by-page preview. The Air Serbia guide is a separate task. This change is proposed on a feature branch; merge and production rollout remain pending review.
+- Branch: `codex/semrush-audit-fixes`; canonical base: `1835371` (`nezun/let-kasni` main). The original desktop checkout and its unrelated footer/logo edits are excluded.
+- Scope: ten localized category-filter URLs retain their base canonical and omit hreflang; bare blog indexes retain language alternates. The shared homepage claim question changes H1 to H2 without changing text or classes. Exactly 23 articles have approved shorter SEO titles in both languages (46 URLs), with visible headings, body copy and social titles preserved.
+- `npm run seo:metadata:check` is part of `npm run verify`; its approved title fixture and real metadata/React checks make the corrections repeatable. Existing active-content and retirement baselines remain unchanged.
+- Local preview and exhaustive changed-URL register are prepared in the task workspace. After a separately approved production rollout, rerun SEMrush against the deployed routes; local validation does not mark the production audit resolved.
+
+
 ### Official-source links approved for publication, 2026-10-24
 
 - Owner approved direct production publication of the reviewed five core guides in Serbian and English. Homepage/FAQ and the other three main guides are excluded.
@@ -714,13 +723,13 @@ Canonical handoff file for future local and Codex Cloud sessions.
 ## Generated Status
 
 <!-- BEGIN:generated-status -->
-Generated at: `2026-10-24T18:32:30.777Z`
+Generated at: `2026-10-25T18:45:31.095Z`
 
-Branch: `codex/authority-links-bilingual`
+Branch: `codex/semrush-audit-fixes`
 
 Remote: `https://github.com/nezun/let-kasni.git`
 
-Latest local commit: `a8c746a Prelazak na produkciju (24.09.2026): staging → main — forma i potpis u aplikaciji za prijave, GTM/Consent Mode zadržani`
+Latest local commit: `1835371 content: link official sources in five bilingual guides (#36)`
 
 Worktree status:
 
@@ -730,8 +739,23 @@ M CHANGELOG.md
  M VERSION
  M package-lock.json
  M package.json
- M src/components/cornerstone-typography-preview.tsx
- M src/lib/cornerstones.ts
+ M src/app/[cornerstone]/[slug]/page.tsx
+ M src/app/blog/page.tsx
+ M src/app/en/[cornerstone]/[slug]/page.tsx
+ M src/app/en/blog/page.tsx
+ M src/components/claim-start-card.tsx
+ M src/content/blog/airline-response-no-answer.ts
+ M src/content/blog/claim-template-email.ts
+ M src/content/blog/daily-2026-05-03.ts
+ M src/content/blog/daily-2026-05-04.ts
+ M src/content/blog/daily-2026-05-11.ts
+ M src/content/blog/daily-2026-05-14.ts
+ M src/content/blog/daily-2026-05-25.ts
+ M src/content/blog/how-to-file-airline-claim.ts
+ M src/content/blog/voucher-or-cash-compensation.ts
+ M src/lib/blog.ts
+?? scripts/fixtures/
+?? scripts/seo-metadata.test.mjs
 ```
 
 Useful commands:
@@ -740,7 +764,7 @@ Useful commands:
 - `npm run dev`: `next dev`
 - `npm run lint`: `eslint`
 - `npm run build`: `next build`
-- `npm run verify`: `npm run workflow:check && npm run privacy:check && npm run meta:check && npm run google-ads:check && npm run email:check && npm run email-signature:check && npm run seo:retirement:check && npm run content:qa && npm run content:links && npm run content:benchmark && npm run locales:check && npm run lint && npm run build`
+- `npm run verify`: `npm run workflow:check && npm run privacy:check && npm run meta:check && npm run google-ads:check && npm run email:check && npm run email-signature:check && npm run seo:retirement:check && npm run seo:metadata:check && npm run content:qa && npm run content:links && npm run content:benchmark && npm run locales:check && npm run lint && npm run build`
 - `npm run release:gate`: `bash scripts/release-gate.sh`
 - `npm run production:check`: `node scripts/check-production.mjs`
 - `npm run workflow:check`: `bash scripts/check-workflow-guards.sh`

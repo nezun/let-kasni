@@ -91,7 +91,7 @@ export function ClaimStartCard({ locale }: { locale: Locale }) {
   return (
     <div className="rounded-[20px] bg-white p-7 text-[#0A0F1E] shadow-[0_26px_88px_rgba(0,0,0,0.26)] sm:p-8" data-claim-form="embedded">
       <div className="mb-6">
-        <h1 className="font-display text-[21px] font-bold leading-[1.22]">{t.naslov}</h1>
+        <h2 className="font-display text-[21px] font-bold leading-[1.22]">{t.naslov}</h2>
       </div>
 
       <div className="space-y-2.5" role="radiogroup" aria-label={t.aria}>

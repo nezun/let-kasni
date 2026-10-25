@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import { BlogIndexPage } from "@/components/blog-index-page";
 
-export const metadata: Metadata = {
+const baseMetadata: Metadata = {
   title: "Blog | letkasni.rs",
   description:
     "Guides on flight compensation, delayed flights, cancelled flights, missed connections, overbooking, and passenger rights.",
@@ -31,12 +31,32 @@ export const metadata: Metadata = {
 
 type EnglishBlogPageProps = {
   searchParams?: Promise<{
-    tema?: string;
+    tema?: string | string[];
   }>;
 };
+
+export async function generateMetadata({ searchParams }: EnglishBlogPageProps): Promise<Metadata> {
+  const params = await searchParams;
+
+  if (params?.tema === undefined) {
+    return baseMetadata;
+  }
+
+  // Filtered lists consolidate to the base index and are not language variants.
+  return {
+    ...baseMetadata,
+    alternates: { canonical: baseMetadata.alternates?.canonical },
+  };
+}
 
 export default async function EnglishBlogPage({ searchParams }: EnglishBlogPageProps) {
   const params = await searchParams;
 
-  return <BlogIndexPage locale="en" variant="a" category={params?.tema} />;
+  return (
+    <BlogIndexPage
+      locale="en"
+      variant="a"
+      category={typeof params?.tema === "string" ? params.tema : undefined}
+    />
+  );
 }

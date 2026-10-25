@@ -2,6 +2,18 @@
 
 All notable changes to LetKasni are documented in this file.
 
+## [0.2.2] - 2026-10-25
+
+### Fixed
+
+- Blog category filters in Serbian and English retain the base blog canonical without emitting conflicting language alternates; unfiltered blog indexes retain their reciprocal language links.
+- The homepage claim question uses H2, preserving its text and appearance while leaving one main page heading per locale.
+- Shortened the SEO titles of 23 bilingual articles independently of their visible headings, body copy, URLs and social titles.
+
+### Added
+
+- A repeatable metadata check covering filtered indexes, all active article metadata and the shared claim-card heading now runs in `npm run verify`.
+
 ## [0.2.1] - 2026-10-24
 
 ### Changed
