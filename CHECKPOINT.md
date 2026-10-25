@@ -4,6 +4,18 @@ Canonical handoff file for future local and Codex Cloud sessions.
 
 ## Start Here
 
+### Approved shared text HTML/JavaScript optimization on staging, 2026-10-25
+
+- Owner approved removing repeated link CSS and unnecessary client JavaScript, publishing the scoped change to GitHub `staging`, verifying every sitemap URL and showing a local preview. Base: `origin/staging` `15e2224`; isolated branch `codex/staging-inline-text-opt`.
+- Moved identical `.lk-inline-link` base/hover/focus rules from per-paragraph `<style>` output to the existing manual `src/styles/lk-v2-extra.css`. Removed `"use client"` from the pure shared text renderer; real interactive forms, navigation and consent components keep their own client boundaries. Generated v2 styles and all public copy are unchanged.
+- Seven real React/Next Link SSR tests cover both locales, text/anchors/classes, escaping, default no auto-linking, existing within-paragraph deduplication and zero embedded styles. `npm run inline-text:check` is included in `npm run verify` and therefore the existing staging CI. A post-build `inline-text:bundle:check` rejects reintroducing the renderer into client-reference manifests. Missing builds and Unix/Windows reference probes are also rejected.
+- Fresh full `npm run verify` passes. All 158 local sitemap URLs return 200 with zero structural or comparison failures: visible main text, ordered rendered links, titles, H1, canonical/hreflang, robots and JSON-LD match the prior staging build. The same component works for both languages.
+- Measured across all 158 pages: repeated link-style elements 4,178 -> 0; raw HTML 19,749,827 -> 17,157,285 bytes (-13.13%); actual gzip HTML bodies 3,783,857 -> 3,667,369 bytes (-3.08%). The shared text module is absent from all new client manifests (previously referenced by four article/guide route manifests). These are payload measurements, not claims about rank or real-user Core Web Vitals.
+- Browser QA: all 24 normal/hover/keyboard-focus style comparisons pass across SR/EN guides and articles at desktop/mobile widths, with no horizontal overflow. Cookie rejection, persisted consent choice, local form validation and issue-radio changes work in both locales; no claim was sent.
+- Existing source/route architecture, staging access/noindex controls, customer-app rewrites, tracking/consent behavior, dependencies and VERSION are preserved. User authorization is staging-only; production promotion and a new production SEMrush result remain separate.
+- Canonical `session:start` is oriented to `main`; the explicit staging task uses the verified staging base without merging unrelated production content. Baseline preview 3027 and optimized preview 3029 remain separate for comparison. Complete evidence and the repeatable 158-URL comparison are stored in the task workspace `outputs/inline-text-optimization-2026-10-25/`.
+
+
 ### Approved SEMrush SEO fixes on staging, 2026-10-25
 
 - Owner explicitly authorized publishing the already reviewed SEO fixes to the existing GitHub `staging` branch. The isolated transfer starts from `origin/staging` `1832975`; production `main`, Vercel environments, customer-app rewrites, staging access/noindex controls and the current v2 design stay outside this change.
@@ -814,35 +826,24 @@ Canonical handoff file for future local and Codex Cloud sessions.
 ## Generated Status
 
 <!-- BEGIN:generated-status -->
-Generated at: `2026-10-25T19:04:04.484Z`
+Generated at: `2026-10-25T19:59:01.340Z`
 
-Branch: `codex/staging-seo-audit-fixes`
+Branch: `codex/staging-inline-text-opt`
 
 Remote: `https://github.com/nezun/let-kasni.git`
 
-Latest local commit: `1832975 Next.js 16.3.8 (bezbednosna ispravka GHSA-vcvr-r3jv-pc5j)`
+Latest local commit: `15e2224 ci: run existing quality checks on staging pushes`
 
 Worktree status:
 
 ```text
 M CHECKPOINT.md
+ M README.md
  M package.json
- M src/app/[cornerstone]/[slug]/page.tsx
- M src/app/blog/page.tsx
- M src/app/en/[cornerstone]/[slug]/page.tsx
- M src/app/en/blog/page.tsx
- M src/content/blog/airline-response-no-answer.ts
- M src/content/blog/claim-template-email.ts
- M src/content/blog/daily-2026-05-03.ts
- M src/content/blog/daily-2026-05-04.ts
- M src/content/blog/daily-2026-05-11.ts
- M src/content/blog/daily-2026-05-14.ts
- M src/content/blog/daily-2026-05-25.ts
- M src/content/blog/how-to-file-airline-claim.ts
- M src/content/blog/voucher-or-cash-compensation.ts
- M src/lib/blog.ts
-?? scripts/fixtures/
-?? scripts/seo-metadata.test.mjs
+ M src/components/inline-rich-text.tsx
+ M src/styles/lk-v2-extra.css
+?? scripts/check-inline-text-client-bundle.mjs
+?? scripts/inline-rich-text.test.mjs
 ```
 
 Useful commands:
@@ -851,7 +852,7 @@ Useful commands:
 - `npm run dev`: `next dev`
 - `npm run lint`: `eslint`
 - `npm run build`: `next build`
-- `npm run verify`: `npm run workflow:check && npm run privacy:check && npm run meta:check && npm run google-ads:check && npm run email:check && npm run email-signature:check && npm run seo:retirement:check && npm run seo:metadata:check && npm run content:qa && npm run content:links && npm run content:benchmark && npm run locales:check && npm run copy:rules && npm run lint && npm run build`
+- `npm run verify`: `npm run workflow:check && npm run privacy:check && npm run meta:check && npm run google-ads:check && npm run email:check && npm run email-signature:check && npm run seo:retirement:check && npm run seo:metadata:check && npm run inline-text:check && npm run content:qa && npm run content:links && npm run content:benchmark && npm run locales:check && npm run copy:rules && npm run lint && npm run build && npm run inline-text:bundle:check`
 - `npm run release:gate`: `bash scripts/release-gate.sh`
 - `npm run production:check`: `node scripts/check-production.mjs`
 - `npm run workflow:check`: `bash scripts/check-workflow-guards.sh`

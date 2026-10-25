@@ -75,7 +75,11 @@ npm run production:check
 npm run meta:check
 npm run google-ads:check
 npm run seo:metadata:check
+npm run inline-text:check
+npm run inline-text:bundle:check # after build
 ```
+
+`npm run inline-text:check` renders the shared editorial text component in Serbian and English and verifies preserved text/link behavior without per-paragraph inline CSS. It runs automatically in `npm run verify`. Editorial link styling lives once in `src/styles/lk-v2-extra.css`; `InlineRichText` stays a server component. After the build, `npm run inline-text:bundle:check` also rejects reintroducing this static renderer into the browser client graph.
 
 For a final production release decision, always use `npm run release:gate -- --production`; direct `production:check` is diagnostic-only and requires an explicit commit SHA or opt-out.
 

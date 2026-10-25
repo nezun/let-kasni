@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import { type ReactNode } from "react";
 
@@ -231,24 +229,6 @@ export function InlineRichText({ text, locale = "sr", maxAutoLinks = 0 }: Props)
 
   return (
     <>
-      <style>{`
-        .lk-inline-link {
-          color: #2470eb;
-          font-weight: 900;
-          text-decoration-line: none;
-          text-decoration-color: #2470eb;
-          text-decoration-thickness: 1.5px;
-          text-underline-offset: 3px;
-          transition: color 160ms ease, text-decoration-color 160ms ease, opacity 160ms ease;
-        }
-
-        .lk-inline-link:hover,
-        .lk-inline-link:focus-visible {
-          color: #1a52c8;
-          text-decoration-line: underline;
-          text-decoration-color: #1a52c8;
-        }
-      `}</style>
       {parts}
     </>
   );
