@@ -67,6 +67,7 @@ Ovaj app prati zaključani pravac iz `PLAN.autoplan.md`:
 npm run dev
 npm run lint
 npm run locales:check
+npm run seo:metadata:check
 npm run build
 npm run start
 npm run session:start -- --new task-name
@@ -77,6 +78,8 @@ npm run google-ads:check
 ```
 
 For a final production release decision, always use `npm run release:gate -- --production`; direct `production:check` is diagnostic-only and requires an explicit commit SHA or opt-out.
+
+`npm run seo:metadata:check` runs without a server and checks both locales: blog filters keep the base canonical without language alternates, article metadata keeps the approved SEO titles, and the claim question stays H2. Article `seoTitle` overrides only the HTML title; `title` remains the visible heading and social title. The check also runs in `npm run verify`.
 
 ## Deployment
 

@@ -1,0 +1,301 @@
+[
+  {
+    "id": "security-screening-flight-delay",
+    "sr": {
+      "path": "/naknada-za-kasnjenje-leta/bezbednosna-provera-kasnjenje-leta-naknada",
+      "heading": "Kašnjenje leta zbog bezbednosne provere: kada ima osnova za naknadu",
+      "seoTitle": "Bezbednosna provera: naknada za kašnjenje leta"
+    },
+    "en": {
+      "path": "/en/flight-delay-compensation/security-screening-flight-delay-compensation",
+      "heading": "Flight delay due to security screening: when compensation may apply",
+      "seoTitle": "Security screening: flight delay compensation"
+    }
+  },
+  {
+    "id": "codeshare-operating-carrier-flight-delay",
+    "sr": {
+      "path": "/naknada-za-kasnjenje-leta/codeshare-let-kasnjenje-operativni-prevoznik",
+      "heading": "Codeshare kašnjenje leta: ko je odgovoran operativni prevoznik",
+      "seoTitle": "Codeshare let kasni: ko odgovara za naknadu?"
+    },
+    "en": {
+      "path": "/en/flight-delay-compensation/codeshare-flight-delay-operating-carrier",
+      "heading": "Codeshare flight delay: when the operating carrier is responsible",
+      "seoTitle": "Codeshare flight delays: who pays?"
+    }
+  },
+  {
+    "id": "extra-costs-after-flight-delay",
+    "sr": {
+      "path": "/naknada-za-kasnjenje-leta/dodatni-troskovi-posle-kasnjenja-leta",
+      "heading": "Dodatni troškovi posle kašnjenja leta: šta realno može da se traži",
+      "seoTitle": "Troškovi zbog kašnjenja leta: šta tražiti?"
+    },
+    "en": {
+      "path": "/en/flight-delay-compensation/extra-costs-after-flight-delay",
+      "heading": "Extra costs after a flight delay: what can realistically be claimed",
+      "seoTitle": "Flight delay expenses: what can you claim?"
+    }
+  },
+  {
+    "id": "group-booking-flight-delay-compensation",
+    "sr": {
+      "path": "/naknada-za-kasnjenje-leta/grupna-rezervacija-kasnjenje-leta-naknada",
+      "heading": "Grupna rezervacija i kašnjenje leta: kako se proverava naknada",
+      "seoTitle": "Grupna rezervacija: naknada za kašnjenje leta"
+    },
+    "en": {
+      "path": "/en/flight-delay-compensation/group-booking-flight-delay-compensation",
+      "heading": "Group booking flight delay: how compensation is checked",
+      "seoTitle": "Group bookings: flight delay compensation"
+    }
+  },
+  {
+    "id": "aircraft-fueling-flight-delay",
+    "sr": {
+      "path": "/naknada-za-kasnjenje-leta/kasnjenje-leta-zbog-goriva-naknada",
+      "heading": "Kašnjenje leta zbog goriva: kada je to odgovornost aviokompanije",
+      "seoTitle": "Kašnjenje leta zbog goriva: pravo na naknadu"
+    },
+    "en": {
+      "path": "/en/flight-delay-compensation/aircraft-fueling-flight-delay-compensation",
+      "heading": "Flight delay due to fueling: when the airline may be responsible",
+      "seoTitle": "Fueling delays: flight compensation rights"
+    }
+  },
+  {
+    "id": "runway-congestion-flight-delay",
+    "sr": {
+      "path": "/naknada-za-kasnjenje-leta/kasnjenje-leta-zbog-guzve-na-pisti-naknada",
+      "heading": "Kašnjenje zbog gužve na pisti: slot, red za poletanje i naknada",
+      "seoTitle": "Gužva na pisti i kašnjenje leta: naknada"
+    },
+    "en": {
+      "path": "/en/flight-delay-compensation/runway-congestion-flight-delay-compensation",
+      "heading": "Runway congestion delay: slot, departure queue and compensation",
+      "seoTitle": "Runway congestion delays: compensation?"
+    }
+  },
+  {
+    "id": "air-traffic-control-slot-delay",
+    "sr": {
+      "path": "/naknada-za-kasnjenje-leta/kasnjenje-leta-zbog-slotova-kontrole-letenja",
+      "heading": "Kašnjenje zbog slotova i kontrole letenja: kada ima smisla slati zahtev",
+      "seoTitle": "Slotovi kontrole letenja: naknada za kašnjenje"
+    },
+    "en": {
+      "path": "/en/flight-delay-compensation/air-traffic-control-slot-delay-compensation",
+      "heading": "Delay due to slots and air traffic control: when a claim still makes sense",
+      "seoTitle": "ATC slot delays: can you claim compensation?"
+    }
+  },
+  {
+    "id": "ground-handling-flight-delay",
+    "sr": {
+      "path": "/naknada-za-kasnjenje-leta/kasnjenje-leta-zbog-zemaljskog-opsluzivanja-naknada",
+      "heading": "Kašnjenje zbog zemaljskog opsluživanja: kada putnik može tražiti naknadu",
+      "seoTitle": "Zemaljsko opsluživanje: naknada za kašnjenje"
+    },
+    "en": {
+      "path": "/en/flight-delay-compensation/ground-handling-flight-delay-compensation",
+      "heading": "Ground handling flight delay: when passengers can claim compensation",
+      "seoTitle": "Ground handling: flight delay compensation"
+    }
+  },
+  {
+    "id": "connecting-delay-minimum-connection-time",
+    "sr": {
+      "path": "/naknada-za-kasnjenje-leta/minimalno-vreme-presedanja-kasnjenje-konekcije",
+      "heading": "Minimalno vreme presedanja i kašnjenje: kada konekcija ulazi u zahtev",
+      "seoTitle": "Minimalno vreme presedanja: pravo na naknadu?"
+    },
+    "en": {
+      "path": "/en/flight-delay-compensation/minimum-connection-time-flight-delay",
+      "heading": "Minimum connection time and delay: when the connection enters the claim",
+      "seoTitle": "Minimum connection time: can you claim?"
+    }
+  },
+  {
+    "id": "crew-shortage-flight-delay",
+    "sr": {
+      "path": "/naknada-za-kasnjenje-leta/nedostatak-posade-kasnjenje-leta-odsteta",
+      "heading": "Nedostatak posade i crew time limit: da li aviokompanija odgovara",
+      "seoTitle": "Nedostatak posade: naknada za kašnjenje leta"
+    },
+    "en": {
+      "path": "/en/flight-delay-compensation/crew-shortage-flight-delay-compensation",
+      "heading": "Crew shortage and crew time limits: when the airline may be responsible",
+      "seoTitle": "Crew shortages: flight delay compensation"
+    }
+  },
+  {
+    "id": "night-flight-ban-curfew",
+    "sr": {
+      "path": "/naknada-za-kasnjenje-leta/nocna-zabrana-letova-curfew-prava-putnika",
+      "heading": "Noćna zabrana letova i curfew: šta ako avion više ne sme da poleti",
+      "seoTitle": "Noćna zabrana letova: prava putnika"
+    },
+    "en": {
+      "path": "/en/flight-delay-compensation/night-flight-ban-curfew-passenger-rights",
+      "heading": "Night flight ban and curfew: what if the aircraft can no longer depart",
+      "seoTitle": "Night flight curfews: your passenger rights"
+    }
+  },
+  {
+    "id": "deicing-flight-delay-compensation",
+    "sr": {
+      "path": "/naknada-za-kasnjenje-leta/odledjivanje-aviona-kasnjenje-leta-naknada",
+      "heading": "Odleđivanje aviona i kašnjenje leta: kada postoji osnov za naknadu",
+      "seoTitle": "Odleđivanje aviona: naknada za kašnjenje"
+    },
+    "en": {
+      "path": "/en/flight-delay-compensation/deicing-flight-delay-compensation",
+      "heading": "Aircraft de-icing and flight delay: when compensation may still apply",
+      "seoTitle": "Aircraft de-icing delays: compensation?"
+    }
+  },
+  {
+    "id": "destination-weather-flight-delay",
+    "sr": {
+      "path": "/naknada-za-kasnjenje-leta/vreme-na-destinaciji-kasnjenje-leta-naknada",
+      "heading": "Kašnjenje zbog vremena na destinaciji: kada zahtev ipak vredi proveriti",
+      "seoTitle": "Loše vreme na destinaciji: pravo na naknadu"
+    },
+    "en": {
+      "path": "/en/flight-delay-compensation/destination-weather-flight-delay-compensation",
+      "heading": "Destination weather delay: when the claim is still worth checking",
+      "seoTitle": "Destination weather delays: compensation?"
+    }
+  },
+  {
+    "id": "airport-closure-flight-delay-compensation",
+    "sr": {
+      "path": "/naknada-za-kasnjenje-leta/zatvoren-aerodrom-kasnjenje-leta-naknada",
+      "heading": "Zatvoren aerodrom i kašnjenje leta: kada naknada ipak vredi proveriti",
+      "seoTitle": "Zatvoren aerodrom: naknada za kašnjenje leta"
+    },
+    "en": {
+      "path": "/en/flight-delay-compensation/airport-closure-flight-delay-compensation",
+      "heading": "Airport closure and flight delay: when compensation is still worth checking",
+      "seoTitle": "Airport closure delays: compensation rights"
+    }
+  },
+  {
+    "id": "airline-response-no-answer",
+    "sr": {
+      "path": "/naknada-za-otkazan-let/avio-kompanija-ne-odgovara-na-reklamaciju",
+      "heading": "Aviokompanija ne odgovara na reklamaciju: šta je sledeći korak",
+      "seoTitle": "Aviokompanija ne odgovara na reklamaciju"
+    },
+    "en": {
+      "path": "/en/flight-cancellation-compensation/airline-not-responding-to-compensation-claim",
+      "heading": "The airline does not respond to the complaint: what is the next step",
+      "seoTitle": "No reply to your airline claim: what next?"
+    }
+  },
+  {
+    "id": "airline-bankruptcy-passenger-rights",
+    "sr": {
+      "path": "/naknada-za-otkazan-let/bankrot-aviokompanije-otkazan-let-prava",
+      "heading": "Bankrot aviokompanije: šta ako je let otkazan i nema ko da odgovori",
+      "seoTitle": "Bankrot aviokompanije: prava putnika"
+    },
+    "en": {
+      "path": "/en/flight-cancellation-compensation/airline-bankruptcy-cancelled-flight-rights",
+      "heading": "Airline bankruptcy: what if the flight is cancelled and nobody responds",
+      "seoTitle": "Airline bankruptcy: your passenger rights"
+    }
+  },
+  {
+    "id": "cancellation-under-14-days",
+    "sr": {
+      "path": "/naknada-za-otkazan-let/otkazan-let-manje-od-14-dana-prava",
+      "heading": "Let otkazan manje od 14 dana ranije: kako proveriti odštetu i zamenski let",
+      "seoTitle": "Let otkazan manje od 14 dana ranije: naknada"
+    },
+    "en": {
+      "path": "/en/flight-cancellation-compensation/flight-cancelled-less-than-14-days-rights",
+      "heading": "Flight cancelled less than 14 days before departure: how to check compensation and replacement flights",
+      "seoTitle": "Cancelled flight: under 14 days' notice"
+    }
+  },
+  {
+    "id": "separate-tickets-missed-connection",
+    "sr": {
+      "path": "/naknada-za-propustenu-konekciju/odvojene-karte-propustena-konekcija",
+      "heading": "Odvojene karte i propuštena konekcija: najveći rizik koji putnici potcene",
+      "seoTitle": "Odvojene karte i propuštena konekcija"
+    },
+    "en": {
+      "path": "/en/missed-connection-compensation/separate-tickets-missed-connection-rights",
+      "heading": "Separate tickets and a missed connection: the risk passengers underestimate",
+      "seoTitle": "Separate tickets and missed connections"
+    }
+  },
+  {
+    "id": "missed-flight-security-queue",
+    "sr": {
+      "path": "/naknada-za-uskraceno-ukrcavanje/propusten-let-zbog-reda-na-kontroli",
+      "heading": "Propustili ste let zbog reda na kontroli: šta možete realno da tražite",
+      "seoTitle": "Propušten let zbog reda na kontroli: prava"
+    },
+    "en": {
+      "path": "/en/denied-boarding-compensation/missed-flight-security-queue-rights",
+      "heading": "Missed your flight because of a security queue: what can you realistically claim",
+      "seoTitle": "Missed flight due to security queues: rights"
+    }
+  },
+  {
+    "id": "voluntary-denied-boarding-voucher",
+    "sr": {
+      "path": "/overbooking-naknada/dobrovoljno-odustajanje-od-leta-vaucer",
+      "heading": "Dobrovoljno odustajanje od sedišta: pre nego što prihvatite vaučer",
+      "seoTitle": "Dobrovoljno ustupanje sedišta: šta tražiti?"
+    },
+    "en": {
+      "path": "/en/overbooking-compensation/voluntary-denied-boarding-voucher-rights",
+      "heading": "Volunteering to give up your seat: before you accept the voucher",
+      "seoTitle": "Volunteering your seat: voucher or cash?"
+    }
+  },
+  {
+    "id": "voucher-or-cash-compensation",
+    "sr": {
+      "path": "/overbooking-naknada/vaucer-ili-novac-avio-kompanija",
+      "heading": "Vaučer ili novac: šta proveriti pre nego što prihvatite ponudu",
+      "seoTitle": "Vaučer ili novac: šta proveriti pre pristanka?"
+    },
+    "en": {
+      "path": "/en/overbooking-compensation/airline-voucher-or-cash-compensation",
+      "heading": "Voucher or cash: what to check before accepting an offer",
+      "seoTitle": "Airline voucher or cash: what to check"
+    }
+  },
+  {
+    "id": "how-to-file-airline-claim",
+    "sr": {
+      "path": "/prava-putnika-u-aviosaobracaju/kako-podneti-reklamaciju-avio-kompaniji",
+      "heading": "Kako podneti reklamaciju avio-kompaniji posle kašnjenja ili otkazivanja",
+      "seoTitle": "Kako podneti reklamaciju aviokompaniji?"
+    },
+    "en": {
+      "path": "/en/air-passenger-rights/how-to-file-airline-compensation-claim",
+      "heading": "How to complain to an airline after a delay or cancellation",
+      "seoTitle": "How to file a claim against an airline"
+    }
+  },
+  {
+    "id": "claim-template-email",
+    "sr": {
+      "path": "/prava-putnika-u-aviosaobracaju/primer-emaila-za-reklamaciju-leta",
+      "heading": "Primer emaila za reklamaciju zbog kašnjenja ili otkazivanja leta",
+      "seoTitle": "Primer emaila za reklamaciju leta"
+    },
+    "en": {
+      "path": "/en/air-passenger-rights/flight-compensation-claim-email-template",
+      "heading": "Example of an email for a complaint about flight delays or cancellations",
+      "seoTitle": "Flight compensation claim email template"
+    }
+  }
+]

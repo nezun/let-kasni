@@ -410,6 +410,7 @@ export const articles = [
     sr: {
       slug: "nedostatak-posade-kasnjenje-leta-odsteta",
       title: "Nedostatak posade i crew time limit: da li aviokompanija odgovara",
+      seoTitle: "Nedostatak posade: naknada za kašnjenje leta",
       description: "Kako proceniti kašnjenje zbog bolesne posade, isteka radnog vremena, crew rest pravila ili lošeg rasporeda, posebno kod letova preko EU iz Srbije.",
       excerpt: "Kada let kasni jer nema posade ili je posada izašla iz dozvoljenog radnog vremena, zahtev često vredi proveriti. To je drugačije od oluje, štrajka aerodroma ili kontrole letenja.",
       category: "Operativni razlozi",
@@ -471,6 +472,7 @@ export const articles = [
     en: {
       slug: "crew-shortage-flight-delay-compensation",
       title: "Crew shortage and crew time limits: when the airline may be responsible",
+      seoTitle: "Crew shortages: flight delay compensation",
       description: "How to assess delays caused by sick crew, duty-time limits, crew-rest rules or poor rostering, especially on EU-connected flights from Serbia.",
       excerpt: "When a flight is delayed because crew is unavailable or runs out of duty time, the claim is often worth checking. This is different from storms, airport strikes or air traffic control.",
       category: "Operational reasons",
@@ -537,6 +539,7 @@ export const articles = [
     sr: {
       slug: "nocna-zabrana-letova-curfew-prava-putnika",
       title: "Noćna zabrana letova i curfew: šta ako avion više ne sme da poleti",
+      seoTitle: "Noćna zabrana letova: prava putnika",
       description: "Prava putnika kada let zakasni toliko da aerodromska noćna zabrana spreči poletanje ili avion sleti na drugi aerodrom.",
       excerpt: "Night curfew često dolazi kao posledica ranijeg kašnjenja. Zato je važno otkriti šta je zakasnilo pre zabrane: vreme, slot, posada, tehnički problem ili organizacija aviokompanije.",
       category: "Aerodromska pravila",
@@ -596,6 +599,7 @@ export const articles = [
     en: {
       slug: "night-flight-ban-curfew-passenger-rights",
       title: "Night flight ban and curfew: what if the aircraft can no longer depart",
+      seoTitle: "Night flight curfews: your passenger rights",
       description: "Passenger rights when a flight is delayed so long that an airport night ban prevents departure or the aircraft lands at another airport.",
       excerpt: "A night curfew often appears as the consequence of an earlier delay. The key is what caused the delay before the ban: weather, slot, crew, technical issue or airline organization.",
       category: "Airport rules",
@@ -660,6 +664,7 @@ export const articles = [
     sr: {
       slug: "bankrot-aviokompanije-otkazan-let-prava",
       title: "Bankrot aviokompanije: šta ako je let otkazan i nema ko da odgovori",
+      seoTitle: "Bankrot aviokompanije: prava putnika",
       description: "Šta putnik iz Srbije može da uradi kada aviokompanija prestane da leti, kako razlikovati refundaciju, chargeback, osiguranje i naknadu.",
       excerpt: "Kada aviokompanija bankrotira, klasičan zahtev za odštetu često postaje težak. Najpraktičniji put su refundacija kroz karticu, osiguranje, agenciju ili stečajni postupak, uz brzo čuvanje dokaza.",
       category: "Refundacija i rizik",
@@ -719,6 +724,7 @@ export const articles = [
     en: {
       slug: "airline-bankruptcy-cancelled-flight-rights",
       title: "Airline bankruptcy: what if the flight is cancelled and nobody responds",
+      seoTitle: "Airline bankruptcy: your passenger rights",
       description: "What travelers from Serbia can do when an airline stops operating, and how to separate refund, chargeback, insurance and compensation.",
       excerpt: "When an airline goes bankrupt, a classic compensation claim often becomes difficult. The practical route is refund through card payment, insurance, agency or insolvency process, with evidence saved quickly.",
       category: "Refunds and risk",

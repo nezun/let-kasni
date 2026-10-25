@@ -13,6 +13,7 @@ export const article = {
     "sr": {
       "slug": "vaucer-ili-novac-avio-kompanija",
       "title": "Vaučer ili novac: šta proveriti pre nego što prihvatite ponudu",
+      "seoTitle": "Vaučer ili novac: šta proveriti pre pristanka?",
       "description": "Aviokompanija može ponuditi vaučer, milje, refundaciju ili preusmeravanje. Evo kako da proverite realnu vrednost ponude i da li se odričete prava.",
       "excerpt": "Vaučer nije automatski loš, ali postaje problem ako prihvatate nejasne uslove i time zatvarate veći novčani zahtev.",
       "category": "Nagodba",
@@ -80,6 +81,7 @@ export const article = {
     "en": {
       "slug": "airline-voucher-or-cash-compensation",
       "title": "Voucher or cash: what to check before accepting an offer",
+      "seoTitle": "Airline voucher or cash: what to check",
       "description": "The airline may offer a voucher, miles, refund or rerouting. Here's how to check the fair value of the offer and whether you're waiving your rights.",
       "excerpt": "A voucher is not automatically bad, but it becomes a problem if you accept unclear terms and thereby close a larger monetary claim.",
       "category": "Settlement",

@@ -13,6 +13,7 @@ export const article = {
     "sr": {
       "slug": "avio-kompanija-ne-odgovara-na-reklamaciju",
       "title": "Aviokompanija ne odgovara na reklamaciju: šta je sledeći korak",
+      "seoTitle": "Aviokompanija ne odgovara na reklamaciju",
       "description": "Šta uraditi ako avio-kompanija ćuti, traži iste dokumente, šalje automatske odgovore ili ne daje obrazloženu odluku.",
       "excerpt": "Tišina nije odgovor, ali sledeći korak je jači ako imate dokaz kada ste poslali reklamaciju, šta ste poslali i koliko je vremena prošlo.",
       "category": "Procedura",
@@ -82,6 +83,7 @@ export const article = {
     "en": {
       "slug": "airline-not-responding-to-compensation-claim",
       "title": "The airline does not respond to the complaint: what is the next step",
+      "seoTitle": "No reply to your airline claim: what next?",
       "description": "What to do if the airline is silent, asks for the same documents, sends automatic responses or does not give a reasoned decision.",
       "excerpt": "Silence is not the answer, but the next step is stronger if you have proof of when you sent the complaint, what you sent and how much time has passed.",
       "category": "Claim process",
