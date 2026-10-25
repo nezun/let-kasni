@@ -13,6 +13,7 @@ export const article = {
     "sr": {
       "slug": "kako-podneti-reklamaciju-avio-kompaniji",
       "title": "Kako podneti reklamaciju avio-kompaniji posle kašnjenja ili otkazivanja",
+      "seoTitle": "Kako podneti reklamaciju aviokompaniji?",
       "description": "Korak po korak vodič: koje podatke pripremiti, kako napisati zahtev, šta priložiti i kako pratiti odgovor avio-kompanije.",
       "excerpt": "Dobar zahtev nije dugačak. Dobar zahtev je precizan: let, datum, ruta, šta se desilo, šta tražite i dokazi koji to podržavaju.",
       "category": "Procedura",
@@ -87,6 +88,7 @@ export const article = {
     "en": {
       "slug": "how-to-file-airline-compensation-claim",
       "title": "How to complain to an airline after a delay or cancellation",
+      "seoTitle": "How to file a claim against an airline",
       "description": "Step-by-step guide: what information to prepare, how to write a request, what to attach and how to track the airline's response.",
       "excerpt": "A good request is not long. A good request is specific: flight, date, route, what happened, what you are looking for and evidence to support it.",
       "category": "Claim process",

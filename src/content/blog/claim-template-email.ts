@@ -13,6 +13,7 @@ export const article = {
     "sr": {
       "slug": "primer-emaila-za-reklamaciju-leta",
       "title": "Primer emaila za reklamaciju zbog kašnjenja ili otkazivanja leta",
+      "seoTitle": "Primer emaila za reklamaciju leta",
       "description": "Praktičan obrazac emaila koji putnik može prilagoditi kada traži odštetu, refundaciju troškova ili obrazložen odgovor avio-kompanije.",
       "excerpt": "Najbolji email za reklamaciju je kratak, formalan i pun konkretnih podataka. Bez pretnji, bez Viška emocija i bez mešanja različitih zahteva.",
       "category": "Obrasci",
@@ -82,6 +83,7 @@ export const article = {
     "en": {
       "slug": "flight-compensation-claim-email-template",
       "title": "Example of an email for a complaint about flight delays or cancellations",
+      "seoTitle": "Flight compensation claim email template",
       "description": "A practical email template that a passenger can customize when seeking compensation, reimbursement of expenses or a reasoned response from the airline.",
       "excerpt": "The best complaint email is short, formal and full of specific information. No threats, no excess emotions and no mixing of different demands.",
       "category": "Templates",

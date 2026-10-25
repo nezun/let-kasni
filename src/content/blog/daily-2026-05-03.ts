@@ -147,6 +147,7 @@ export const articles = [
     sr: {
       slug: "kasnjenje-leta-zbog-slotova-kontrole-letenja",
       title: "Kašnjenje zbog slotova i kontrole letenja: kada ima smisla slati zahtev",
+      seoTitle: "Slotovi kontrole letenja: naknada za kašnjenje",
       description: "Šta znače ATC slot, air traffic restrictions i flow control, kako utiču na odštetu i šta putnik iz Srbije treba da pita pre nego što odustane.",
       excerpt: "ATC ograničenje često slabi zahtev za fiksnu odštetu, ali nije dovoljno da aviokompanija napiše samo slot. Važno je da li je ograničenje direktno pogodilo Vaš let i kako je kompanija reagovala.",
       category: "Kontrola letenja",
@@ -198,6 +199,7 @@ export const articles = [
     en: {
       slug: "air-traffic-control-slot-delay-compensation",
       title: "Delay due to slots and air traffic control: when a claim still makes sense",
+      seoTitle: "ATC slot delays: can you claim compensation?",
       description: "What ATC slot, air traffic restrictions and flow control mean, how they affect compensation and what travelers from Serbia should ask before giving up.",
       excerpt: "An ATC restriction often weakens a fixed compensation claim, but the airline should not simply write slot and stop there. The key is whether the restriction directly affected your flight and how the airline reacted.",
       category: "Air traffic control",
@@ -253,6 +255,7 @@ export const articles = [
     sr: {
       slug: "propusten-let-zbog-reda-na-kontroli",
       title: "Propustili ste let zbog reda na kontroli: šta možete realno da tražite",
+      seoTitle: "Propušten let zbog reda na kontroli: prava",
       description: "Vodič za situacije kada putnik stigne na aerodrom, ali propusti let zbog bezbednosne, pasoške ili check-in gužve.",
       excerpt: "Ako ste zakasnili na gate zbog reda na security ili pasoškoj kontroli, fiksna odšteta od aviokompanije obično nije jednostavna. Ali refundacija, nova karta i odgovornost aerodroma zavise od detalja.",
       category: "Aerodromska procedura",
@@ -304,6 +307,7 @@ export const articles = [
     en: {
       slug: "missed-flight-security-queue-rights",
       title: "Missed your flight because of a security queue: what can you realistically claim",
+      seoTitle: "Missed flight due to security queues: rights",
       description: "A guide for situations where a passenger reaches the airport but misses the flight because of security, passport control or check-in queues.",
       excerpt: "If you reached the gate late because of security or passport control queues, fixed airline compensation is usually not straightforward. Refunds, new tickets and airport responsibility depend on the details.",
       category: "Airport procedure",
@@ -359,6 +363,7 @@ export const articles = [
     sr: {
       slug: "odvojene-karte-propustena-konekcija",
       title: "Odvojene karte i propuštena konekcija: najveći rizik koji putnici potcene",
+      seoTitle: "Odvojene karte i propuštena konekcija",
       description: "Zašto put Beograd-Beč-Njujork nije uvek jedna pravna celina ako su karte kupljene odvojeno, i šta putnik može da uradi kada prvi let zakasni.",
       excerpt: "Ako su segmenti pod jednom rezervacijom, kašnjenje se često meri do krajnje destinacije. Ako su karte odvojene, drugi let može biti Vaš sopstveni rizik.",
       category: "Konekcije",
@@ -411,6 +416,7 @@ export const articles = [
     en: {
       slug: "separate-tickets-missed-connection-rights",
       title: "Separate tickets and a missed connection: the risk passengers underestimate",
+      seoTitle: "Separate tickets and missed connections",
       description: "Why Belgrade-Vienna-New York is not always one legal journey if tickets were bought separately, and what a passenger can do when the first flight is delayed.",
       excerpt: "If segments are under one booking, delay is often measured to the final destination. If tickets are separate, the second flight may be your own risk.",
       category: "Connections",
@@ -466,6 +472,7 @@ export const articles = [
     sr: {
       slug: "otkazan-let-manje-od-14-dana-prava",
       title: "Let otkazan manje od 14 dana ranije: kako proveriti odštetu i zamenski let",
+      seoTitle: "Let otkazan manje od 14 dana ranije: naknada",
       description: "Šta znači rok od 14 dana, kada zamenski let smanjuje ili uklanja odštetu, i kako putnik iz Srbije treba da dokumentuje otkazivanje.",
       excerpt: "Kod otkazivanja nije dovoljno znati da je let otkazan. Bitno je kada ste obavešteni, kakav je zamenski let ponuđen i koliko se novo vreme razlikuje od prvobitnog plana.",
       category: "Otkazivanje",
@@ -518,6 +525,7 @@ export const articles = [
     en: {
       slug: "flight-cancelled-less-than-14-days-rights",
       title: "Flight cancelled less than 14 days before departure: how to check compensation and replacement flights",
+      seoTitle: "Cancelled flight: under 14 days' notice",
       description: "What the 14-day notice period means, when a replacement flight reduces or removes compensation, and how travelers from Serbia should document cancellation.",
       excerpt: "For cancellations, it is not enough to know that the flight was cancelled. The key is when you were notified, what replacement flight was offered and how much the new timing differed from the original plan.",
       category: "Cancellation",
@@ -573,6 +581,7 @@ export const articles = [
     sr: {
       slug: "dobrovoljno-odustajanje-od-leta-vaucer",
       title: "Dobrovoljno odustajanje od sedišta: pre nego što prihvatite vaučer",
+      seoTitle: "Dobrovoljno ustupanje sedišta: šta tražiti?",
       description: "Šta znači kada aviokompanija traži volontere zbog overbookinga, koja prava se razlikuju od prisilnog uskraćivanja ukrcavanja i šta treba tražiti napismeno.",
       excerpt: "Ako dobrovoljno prihvatite vaučer i kasniji let, možda se odričete dela prava koja biste imali da ste prisilno odbijeni na ukrcavanju. Uslovi moraju biti jasni pre nego što kažete da.",
       category: "Overbooking",
@@ -625,6 +634,7 @@ export const articles = [
     en: {
       slug: "voluntary-denied-boarding-voucher-rights",
       title: "Volunteering to give up your seat: before you accept the voucher",
+      seoTitle: "Volunteering your seat: voucher or cash?",
       description: "What it means when an airline asks for volunteers because of overbooking, how rights differ from involuntary denied boarding and what to get in writing.",
       excerpt: "If you voluntarily accept a voucher and a later flight, you may give up some rights you would have had if boarding was denied involuntarily. Terms must be clear before you say yes.",
       category: "Overbooking",

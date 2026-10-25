@@ -74,6 +74,7 @@ npm run release:gate
 npm run production:check
 npm run meta:check
 npm run google-ads:check
+npm run seo:metadata:check
 ```
 
 For a final production release decision, always use `npm run release:gate -- --production`; direct `production:check` is diagnostic-only and requires an explicit commit SHA or opt-out.

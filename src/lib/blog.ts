@@ -13,6 +13,7 @@ export type BlogSection = {
 export type LocalizedArticle = {
   slug: string;
   title: string;
+  seoTitle?: string;
   description: string;
   excerpt: string;
   category: string;

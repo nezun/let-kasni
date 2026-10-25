@@ -38,7 +38,9 @@ type DelayReasonTopic = {
   srSlug: string;
   enSlug: string;
   srTitle: string;
+  srSeoTitle?: string;
   enTitle: string;
+  enSeoTitle?: string;
   srDescription: string;
   enDescription: string;
   srExcerpt: string;
@@ -159,6 +161,7 @@ function article(topic: DelayReasonTopic): BlogArticle {
     sr: {
       slug: topic.srSlug,
       title: topic.srTitle,
+      seoTitle: topic.srSeoTitle,
       description: topic.srDescription,
       excerpt: topic.srExcerpt,
       category: topic.categorySr,
@@ -168,6 +171,7 @@ function article(topic: DelayReasonTopic): BlogArticle {
     en: {
       slug: topic.enSlug,
       title: topic.enTitle,
+      seoTitle: topic.enSeoTitle,
       description: topic.enDescription,
       excerpt: topic.enExcerpt,
       category: topic.categoryEn,
@@ -183,7 +187,9 @@ const topics: DelayReasonTopic[] = [
     srSlug: "bezbednosna-provera-kasnjenje-leta-naknada",
     enSlug: "security-screening-flight-delay-compensation",
     srTitle: "Kašnjenje leta zbog bezbednosne provere: kada ima osnova za naknadu",
+    srSeoTitle: "Bezbednosna provera: naknada za kašnjenje leta",
     enTitle: "Flight delay due to security screening: when compensation may apply",
+    enSeoTitle: "Security screening: flight delay compensation",
     srDescription: "Kako proveriti kašnjenje zbog bezbednosne provere: odgovornost, dokaz razloga, krajnji dolazak, briga i računi.",
     enDescription: "How to check a security-screening delay: responsibility, proof of reason, final arrival, care and receipts.",
     srExcerpt: "Bezbednosna provera može biti vanredna okolnost, ali treba proveriti ko je izazvao čekanje i šta je prevoznik uradio.",
@@ -225,7 +231,9 @@ const topics: DelayReasonTopic[] = [
     srSlug: "kasnjenje-leta-zbog-goriva-naknada",
     enSlug: "aircraft-fueling-flight-delay-compensation",
     srTitle: "Kašnjenje leta zbog goriva: kada je to odgovornost aviokompanije",
+    srSeoTitle: "Kašnjenje leta zbog goriva: pravo na naknadu",
     enTitle: "Flight delay due to fueling: when the airline may be responsible",
+    enSeoTitle: "Fueling delays: flight compensation rights",
     srDescription: "Vodič za kašnjenje zbog goriva: dopuna, promena rute, vremenski uslovi, operativna priprema, računi i dokazi.",
     enDescription: "A guide to fueling delays: refuel, route change, weather, operational preparation, receipts and evidence.",
     srExcerpt: "Kašnjenje zbog goriva ne znači automatski vanrednu okolnost; bitno je zašto je dopuna bila potrebna.",
@@ -246,7 +254,9 @@ const topics: DelayReasonTopic[] = [
     srSlug: "kasnjenje-leta-zbog-zemaljskog-opsluzivanja-naknada",
     enSlug: "ground-handling-flight-delay-compensation",
     srTitle: "Kašnjenje zbog zemaljskog opsluživanja: kada putnik može tražiti naknadu",
+    srSeoTitle: "Zemaljsko opsluživanje: naknada za kašnjenje",
     enTitle: "Ground handling flight delay: when passengers can claim compensation",
+    enSeoTitle: "Ground handling: flight delay compensation",
     srDescription: "Kako proveriti kašnjenje zbog zemaljskog opsluživanja: gejt, stepenice, utovar, posada, odgovornost i dokazi.",
     enDescription: "How to check a ground handling delay: gate, stairs, loading, crew, responsibility and evidence.",
     srExcerpt: "Zemaljsko opsluživanje je često operativni razlog koji treba razdvojiti od aerodromskih ograničenja.",
@@ -267,7 +277,9 @@ const topics: DelayReasonTopic[] = [
     srSlug: "kasnjenje-leta-zbog-guzve-na-pisti-naknada",
     enSlug: "runway-congestion-flight-delay-compensation",
     srTitle: "Kašnjenje zbog gužve na pisti: slot, red za poletanje i naknada",
+    srSeoTitle: "Gužva na pisti i kašnjenje leta: naknada",
     enTitle: "Runway congestion delay: slot, departure queue and compensation",
+    enSeoTitle: "Runway congestion delays: compensation?",
     srDescription: "Šta znači gužva na pisti za naknadu: slot, ATC, kasni pushback, krajnji dolazak, care prava i dokaz.",
     enDescription: "What runway congestion means for compensation: slot, ATC, late pushback, final arrival, care rights and proof.",
     srExcerpt: "Gužva na pisti može biti spoljašnje ograničenje ili posledica kasnog pripremanja leta; razlika je ključna.",
@@ -288,7 +300,9 @@ const topics: DelayReasonTopic[] = [
     srSlug: "vreme-na-destinaciji-kasnjenje-leta-naknada",
     enSlug: "destination-weather-flight-delay-compensation",
     srTitle: "Kašnjenje zbog vremena na destinaciji: kada zahtev ipak vredi proveriti",
+    srSeoTitle: "Loše vreme na destinaciji: pravo na naknadu",
     enTitle: "Destination weather delay: when the claim is still worth checking",
+    enSeoTitle: "Destination weather delays: compensation?",
     srDescription: "Vodič za kašnjenje zbog vremena na destinaciji: magla, vetar, zatvaranje aerodroma, rerouting, hotel i dokazi.",
     enDescription: "A guide to destination-weather delays: fog, wind, airport closure, rerouting, hotel and evidence.",
     srExcerpt: "Loše vreme na destinaciji često jeste jak argument, ali zahtev ne treba odbaciti bez provere vremenske linije.",

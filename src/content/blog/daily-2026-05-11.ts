@@ -41,6 +41,7 @@ export const articles = [
     sr:     {
       slug: "codeshare-let-kasnjenje-operativni-prevoznik",
       title: "Codeshare kašnjenje leta: ko je odgovoran operativni prevoznik",
+      seoTitle: "Codeshare let kasni: ko odgovara za naknadu?",
       description: "Kako proveriti codeshare kašnjenje leta: marketing aviokompanija, operativni prevoznik, krajnji dolazak, dokaz i zahtev.",
       excerpt: "Kod codeshare leta ime na karti nije uvek dovoljno. Za naknadu je presudno ko je stvarno obavljao let i kako je kašnjenje pogodilo krajnju destinaciju.",
       category: "Kašnjenje leta",
@@ -100,6 +101,7 @@ export const articles = [
     en:     {
       slug: "codeshare-flight-delay-operating-carrier",
       title: "Codeshare flight delay: when the operating carrier is responsible",
+      seoTitle: "Codeshare flight delays: who pays?",
       description: "How to check a codeshare flight delay: marketing airline, operating carrier, final arrival, evidence and the claim.",
       excerpt: "On a codeshare flight, the name on the ticket is not always enough. Compensation usually turns on who actually operated the flight and how the delay affected final arrival.",
       category: "Flight delays",
@@ -287,6 +289,7 @@ export const articles = [
     sr:     {
       slug: "grupna-rezervacija-kasnjenje-leta-naknada",
       title: "Grupna rezervacija i kašnjenje leta: kako se proverava naknada",
+      seoTitle: "Grupna rezervacija: naknada za kašnjenje leta",
       description: "Kako se vodi zahtev kada više putnika ima isto kašnjenje: grupa, porodica, deca, odvojeni troškovi i dokazni dosije.",
       excerpt: "Kod grupne rezervacije svaki putnik može imati svoje pravo, ali dokazi, troškovi i punomoćja moraju biti uredno razdvojeni.",
       category: "Kašnjenje leta",
@@ -346,6 +349,7 @@ export const articles = [
     en:     {
       slug: "group-booking-flight-delay-compensation",
       title: "Group booking flight delay: how compensation is checked",
+      seoTitle: "Group bookings: flight delay compensation",
       description: "How to handle a claim when several passengers share the same delay: group, family, children, separate costs and evidence file.",
       excerpt: "In a group booking, each passenger may have a separate right, but evidence, costs and authorizations must be kept clear.",
       category: "Flight delays",
@@ -656,6 +660,7 @@ export const articles = [
     sr:     {
       slug: "minimalno-vreme-presedanja-kasnjenje-konekcije",
       title: "Minimalno vreme presedanja i kašnjenje: kada konekcija ulazi u zahtev",
+      seoTitle: "Minimalno vreme presedanja: pravo na naknadu?",
       description: "Kako minimalno vreme presedanja utiče na kašnjenje leta, propuštenu konekciju, jednu rezervaciju i dokaz dolaska.",
       excerpt: "Kratka konekcija nije automatski greška putnika ako je prodata u jednoj rezervaciji. Važno je šta je aviokompanija garantovala i kada ste stigli.",
       category: "Kašnjenje leta",
@@ -715,6 +720,7 @@ export const articles = [
     en:     {
       slug: "minimum-connection-time-flight-delay",
       title: "Minimum connection time and delay: when the connection enters the claim",
+      seoTitle: "Minimum connection time: can you claim?",
       description: "How minimum connection time affects flight delay, missed connection, one booking and proof of arrival.",
       excerpt: "A short connection is not automatically the passenger’s fault if it was sold under one booking. The key facts are what the airline sold and when you arrived.",
       category: "Flight delays",

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import { BlogIndexPage } from "@/components/blog-index-page";
 
-export const metadata: Metadata = {
+const baseMetadata: Metadata = {
   title: "Blog | Letkasni.rs",
   description:
     "Vodiči o pravima putnika, kašnjenju leta, otkazivanju, propuštenim konekcijama i avio-odšteti za putnike iz Srbije.",
@@ -31,12 +31,26 @@ export const metadata: Metadata = {
 
 type BlogPageProps = {
   searchParams?: Promise<{
-    tema?: string;
+    tema?: string | string[];
   }>;
 };
+
+export async function generateMetadata({ searchParams }: BlogPageProps): Promise<Metadata> {
+  const params = await searchParams;
+
+  if (params?.tema === undefined) {
+    return baseMetadata;
+  }
+
+  // Filtered lists consolidate to the base index and are not language variants.
+  return {
+    ...baseMetadata,
+    alternates: { canonical: baseMetadata.alternates?.canonical },
+  };
+}
 
 export default async function BlogPage({ searchParams }: BlogPageProps) {
   const params = await searchParams;
 
-  return <BlogIndexPage locale="sr" variant="a" category={params?.tema} />;
+  return <BlogIndexPage locale="sr" variant="a" category={typeof params?.tema === "string" ? params.tema : undefined} />;
 }

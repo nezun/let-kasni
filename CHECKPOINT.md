@@ -4,6 +4,18 @@ Canonical handoff file for future local and Codex Cloud sessions.
 
 ## Start Here
 
+### Approved SEMrush SEO fixes on staging, 2026-10-25
+
+- Owner explicitly authorized publishing the already reviewed SEO fixes to the existing GitHub `staging` branch. The isolated transfer starts from `origin/staging` `1832975`; production `main`, Vercel environments, customer-app rewrites, staging access/noindex controls and the current v2 design stay outside this change.
+- Transferred 46 approved SEO titles for 23 bilingual articles and query-aware metadata for all ten SR/EN blog filters. Visible article headings/body, canonical article paths, descriptions and social titles stay as on staging. Existing `Letkasni.rs` capitalization is preserved.
+- The original duplicate-H1 fix is already satisfied by staging's v2 homepage: its real `LkIssueForm` question is H2 and its hero supplies the single H1. Do not recreate the obsolete `ClaimStartCard` UI from production.
+- Automation: `npm run seo:metadata:check` is part of `npm run verify`; nine regression tests cover the approved titles, fallbacks, both locale filters, unrelated/empty/array query parameters and real v2 issue-form H2 rendering.
+- Verification: fresh `npm ci` with locked Next 16.3.8; full `npm run verify` PASS (content QA/link graph/benchmark, locale/copy rules, privacy/measurement/email/workflow/retirement, nine metadata tests, lint 0 errors and production build 184 static pages). The two existing unused-variable lint warnings and preferredRegion deprecation are unchanged.
+- Rendered-HTML verification: all 60 local routes PASS (46 articles, ten filters, both base blog controls and both homepages); exact SEO titles and visible/social titles, one H1 per page, preserved staging X-Robots-Tag, reciprocal base alternates and no filter alternates checked. Independent scoped review found no issues.
+- Canonical `session:start -- --resume` checks `origin/main` and reports staging behind by the unrelated authority-links commit `1835371`. The owner's explicit staging-only scope takes precedence; no broad main merge or unrelated content transfer is authorized here.
+- Next: verify the normal GitHub staging build status and, once staging access is available, the authenticated staging pages. Production promotion remains a separate decision. SEMrush rerun against production will not contain these branch changes until they are separately published to production.
+
+
 ### Local folders and social media workspace, 2026-09-27
 
 - Local layout (owner decision, 2026-09-27): code repos live in `~/Letkasni kod/{app, marketing, radno}`, which Google Drive does not sync (GitHub is their backup). Everything that needs a Drive backup lives in `~/Documents/Letkasni/{sistem, materijali, rezerve, marketing/drustvene-mreze}`, because Drive backs up all of `~/Documents` and cannot skip `node_modules`.
@@ -802,32 +814,35 @@ Canonical handoff file for future local and Codex Cloud sessions.
 ## Generated Status
 
 <!-- BEGIN:generated-status -->
-Generated at: `2026-09-25T13:53:28.904Z`
+Generated at: `2026-10-25T19:04:04.484Z`
 
-Branch: `home-v2`
+Branch: `codex/staging-seo-audit-fixes`
 
 Remote: `https://github.com/nezun/let-kasni.git`
 
-Latest local commit: `a8c746a Prelazak na produkciju (24.09.2026): staging → main — forma i potpis u aplikaciji za prijave, GTM/Consent Mode zadržani`
+Latest local commit: `1832975 Next.js 16.3.8 (bezbednosna ispravka GHSA-vcvr-r3jv-pc5j)`
 
 Worktree status:
 
 ```text
 M CHECKPOINT.md
  M package.json
- M scripts/check-landing-locales.mjs
- M scripts/content-qa.mjs
- M src/app/en/page.tsx
- M src/app/globals.css
- M src/app/page.tsx
- M src/components/brand-logo.tsx
- M src/components/claim-entry.tsx
- M src/components/site-footer.tsx
- M src/components/site-header.tsx
-?? .claude/
-?? scripts/check-home-copy-rules.mjs
-?? scripts/home-copy-rules.test.mjs
-?? src/components/home-v2/
+ M src/app/[cornerstone]/[slug]/page.tsx
+ M src/app/blog/page.tsx
+ M src/app/en/[cornerstone]/[slug]/page.tsx
+ M src/app/en/blog/page.tsx
+ M src/content/blog/airline-response-no-answer.ts
+ M src/content/blog/claim-template-email.ts
+ M src/content/blog/daily-2026-05-03.ts
+ M src/content/blog/daily-2026-05-04.ts
+ M src/content/blog/daily-2026-05-11.ts
+ M src/content/blog/daily-2026-05-14.ts
+ M src/content/blog/daily-2026-05-25.ts
+ M src/content/blog/how-to-file-airline-claim.ts
+ M src/content/blog/voucher-or-cash-compensation.ts
+ M src/lib/blog.ts
+?? scripts/fixtures/
+?? scripts/seo-metadata.test.mjs
 ```
 
 Useful commands:
@@ -836,7 +851,7 @@ Useful commands:
 - `npm run dev`: `next dev`
 - `npm run lint`: `eslint`
 - `npm run build`: `next build`
-- `npm run verify`: `npm run workflow:check && npm run privacy:check && npm run meta:check && npm run google-ads:check && npm run email:check && npm run email-signature:check && npm run seo:retirement:check && npm run content:qa && npm run content:links && npm run content:benchmark && npm run locales:check && npm run copy:rules && npm run lint && npm run build`
+- `npm run verify`: `npm run workflow:check && npm run privacy:check && npm run meta:check && npm run google-ads:check && npm run email:check && npm run email-signature:check && npm run seo:retirement:check && npm run seo:metadata:check && npm run content:qa && npm run content:links && npm run content:benchmark && npm run locales:check && npm run copy:rules && npm run lint && npm run build`
 - `npm run release:gate`: `bash scripts/release-gate.sh`
 - `npm run production:check`: `node scripts/check-production.mjs`
 - `npm run workflow:check`: `bash scripts/check-workflow-guards.sh`
